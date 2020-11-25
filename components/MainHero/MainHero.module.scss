@@ -1,0 +1,90 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.heroSection {
+  background-color: #3d80d1;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+
+  .doodleBackground {
+    width: 1600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+
+    .doodleWrapper {
+      width: 1600px;
+      height: 800px;
+    }
+  }
+
+  .heroText {
+    font-size: 2.67rem;
+    line-height: 1.3;
+    font-weight: 200;
+    color: white;
+  }
+
+  .heroContent {
+    padding: 240px;
+  }
+
+  .heroActions {
+    margin-top: 50px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .heroSection {
+    .doodleBackground {
+      width: 1200px;
+
+      .doodleWrapper {
+        width: 1200px;
+        height: 600px;
+      }
+    }
+
+    .heroContent {
+      padding: 160px;
+    }
+
+    .heroText {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .heroSection {
+    .doodleBackground {
+      width: 800px;
+
+      .doodleWrapper {
+        width: 800px;
+        height: 400px;
+      }
+    }
+
+    .heroContent {
+      padding: 120px;
+    }
+
+    .hero-text {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .heroSection {
+    .heroContent {
+      padding: 64px;
+    }
+  }
+}
