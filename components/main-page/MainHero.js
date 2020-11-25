@@ -27,8 +27,8 @@ export default function MainHero() {
           <style>
             {`
               css-doodle#hero-doodle {
-                --color0:#3d80d1;
-                --color1:#2e3d52;
+                --color0:#326dc9;
+                --color1:#263349;
                 --color2:#41d6f4;
                 --color3:#d65ea6;
                 --color4:#41d6f4;
@@ -96,7 +96,7 @@ export default function MainHero() {
 
               <div className={styles.heroActions}>
                 <Link href="/select-artwork/">
-                  <a className="btnGreen">Make your art</a>
+                  <a className={styles.actionBtn}>Make your art</a>
                 </Link>
               </div>
             </div>

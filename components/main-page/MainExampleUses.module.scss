@@ -1,0 +1,24 @@
+@import 'styles/variables';
+
+#section-example-uses {
+  padding-top: 4rem;
+  background-color: $gray-dark;
+
+  h3,
+  .subheading {
+    text-align: center;
+  }
+
+  .subheading {
+    color: $gray;
+  }
+
+  h3 {
+    color: $gray-light;
+    margin-bottom: 3rem;
+  }
+
+  .image-wrapper {
+    line-height: 0;
+  }
+}

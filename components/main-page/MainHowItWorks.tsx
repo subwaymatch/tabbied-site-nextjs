@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Container, Col, Row } from 'react-bootstrap';
-import styles from './HowItWorks.module.scss';
+import styles from './MainHowItWorks.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
