@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import MainHeader from 'components/MainHeader';
+import MainHeader from 'components/main-page/MainHeader';
+import HowItWorks from 'components/main-page/HowItWorks';
 
-import { Container } from 'react-bootstrap';
-
-const MainHero = dynamic(() => import('components/MainHero'), { ssr: false });
+const MainHero = dynamic(() => import('components/main-page/MainHero'), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -17,6 +18,8 @@ export default function Home() {
       <MainHeader />
 
       <MainHero />
+
+      <HowItWorks />
     </>
   );
 }

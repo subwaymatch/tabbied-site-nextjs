@@ -3,22 +3,34 @@
 @import url('https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css');
 @import './bootstrap.custom';
 @import '~bootstrap/scss/bootstrap-grid';
-@import url('https://rsms.me/inter/inter.css');
+
+/* TODO: purchase Avenir Light webfont license */
+@font-face {
+  font-family: 'Avenir Light';
+  src: url('/fonts/avenir-light-webfont.woff2');
+}
 
 html {
   font-family: $font-sans-serif;
 }
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: $font-sans-serif;
-  }
-}
 
 body {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  letter-spacing: -0.03rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 a {
+  text-decoration: none;
+  color: $gray-medium;
+
+  &:hover {
+    color: $gray-dark;
+  }
+}
+
+h3,
+h4 {
+  color: $gray-dark;
+  font-size: 2.33rem;
+  line-height: 1.3;
 }

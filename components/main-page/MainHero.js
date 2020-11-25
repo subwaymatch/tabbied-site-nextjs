@@ -72,7 +72,7 @@ export default function MainHero() {
           <css-doodle ref={doodleRef} id="hero-doodle" use="var(--rule)">
             {`
               :doodle {
-                @grid: 7x14/ 100%;
+                @grid: 14x7/ 100%;
                 text-align:center;
                 box-sizing:border-box;
               }
