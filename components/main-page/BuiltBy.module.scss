@@ -1,0 +1,54 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.builtBySection {
+  padding: 120px 0;
+  background-color: $gray-dark;
+
+  .subheading {
+    color: $gray;
+  }
+
+  h3 {
+    color: $gray-light;
+    margin-top: 1rem;
+  }
+
+  p {
+    color: $gray;
+    margin-top: 2rem;
+  }
+
+  .people {
+    margin-top: 2rem;
+
+    .names {
+      font-weight: bold;
+    }
+  }
+
+  .linkUnderline {
+    display: inline-block;
+    padding-bottom: 2px;
+    border-bottom: 2px solid $lime-medium;
+    color: $gray-ultra-light;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .builtBySection {
+    padding: 40px 0;
+
+    .textContent {
+      margin-top: 40px;
+    }
+
+    .imageWrapper {
+      margin-top: 40px;
+    }
+  }
+}

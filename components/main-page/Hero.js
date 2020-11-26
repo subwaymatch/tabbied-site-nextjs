@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import 'css-doodle';
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './MainHero.module.scss';
+import styles from './Hero.module.scss';
 import Link from 'next/link';
 
 export default function MainHero() {
@@ -96,7 +96,7 @@ export default function MainHero() {
 
               <div className={styles.heroActions}>
                 <Link href="/select-artwork/">
-                  <a className={styles.actionBtn}>Make your art</a>
+                  <a className="btn">Make your art</a>
                 </Link>
               </div>
             </div>

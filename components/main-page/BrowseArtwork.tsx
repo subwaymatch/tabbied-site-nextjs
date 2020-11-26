@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './MainBrowseArtwork.module.scss';
+import styles from './BrowseArtwork.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);

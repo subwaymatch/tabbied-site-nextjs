@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './MainExampleUses.module.scss';
+import styles from './ExampleUses.module.scss';
 
 export default function ExampleUsesSection() {
   return (
