@@ -1,108 +1,141 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { Container, Row, Col } from 'react-bootstrap';
 import styles from './MainBrowseArtwork.module.scss';
-
-// import thumbZario from 'images/thumb_super_zario.png';
-// import thumbOdessa from 'images/thumb_odessa.png';
-// import thumbSymmetry from 'images/thumb_symmetry.png';
-// import thumbRadius from '../../../images/thumb_radius.png';
-// import thumbMixtape from '../../../images/thumb_mixtape.png';
-// import thumbBlossom from '../../../images/thumb_blossom.png';
-// import thumbVeil from '../../../images/thumb_veil.png';
-// import thumbEmpty from '../../../images/thumb_empty.png';
 
 export default function BrowseArtworkSection() {
   return (
     <div id="section-browse-artwork">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
+      <Container>
+        <Row>
+          <Col>
             <span className="subheading">Browse artwork</span>
             <h3>
               Start designing with our curated artwork of
               <br />
               timeless patterns and illustrations.
             </h3>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
 
       <div className="container container-fluid-on-mobile">
-        <div className="row no-gutters">
-          <div className="col-md-3 col-6">
+        <Row noGutters={true}>
+          <Col md={3} sm={6}>
             <Link href={`/artwork/zario/`}>
               <div className="gallery-card">
                 <h4 className="white">Super Zario</h4>
-                <img src="" alt="zario" />
+                <Image
+                  src="/images/thumb_super_zario.png"
+                  alt="Super Zario"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
+          </Col>
 
-          <div className="col-md-3 col-6">
+          <Col md={3} sm={6}>
             <Link href={`/artwork/odessa/`}>
               <div className="gallery-card">
                 <h4 className="white">Odessa</h4>
-                <img src="" alt="odessa" />
+                <Image
+                  src="/images/thumb_odessa.png"
+                  alt="Odessa"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
+          </Col>
 
-          <div className="col-md-3 col-6">
+          <Col md={3} sm={6}>
             <Link href={`/artwork/symmetry/`}>
               <div className="gallery-card">
                 <h4>Symmetry</h4>
-                <img src="" alt="Symmetry" />
+                <Image
+                  src="/images/thumb_symmetry.png"
+                  alt="Symmetry"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
+          </Col>
 
-          <div className="col-md-3 col-6">
+          <Col md={3} sm={6}>
             <Link href={`/artwork/radius/`}>
               <div className="gallery-card">
                 <h4 className="white">Radius</h4>
-                <img src="" alt="Radius" />
+                <Image
+                  src="/images/thumb_radius.png"
+                  alt="Radius"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
-        </div>
+          </Col>
+        </Row>
 
-        <div className="row no-gutters">
-          <div className="col-md-3 col-6">
+        <Row noGutters={true}>
+          <Col md={3} sm={6}>
             <Link href={`/artwork/mixtape/`}>
               <div className="gallery-card">
                 <h4>Mixtape</h4>
-                <img src="" alt="Mixtape" />
+                <Image
+                  src="/images/thumb_mixtape.png"
+                  alt="Mixtape"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
+          </Col>
 
-          <div className="col-md-3 col-6">
+          <Col md={3} sm={6}>
             <Link href={`/artwork/blossom/`}>
               <div className="gallery-card">
                 <h4 className="white">Blossom</h4>
-                <img src="" alt="Blossom" />
+                <Image
+                  src="/images/thumb_blossom.png"
+                  alt="Blossom"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
-          <div className="col-md-3 col-6">
+          </Col>
+          <Col md={3} sm={6}>
             <Link href={`/artwork/veil/`}>
               <div className="gallery-card">
                 <h4>Veil</h4>
-                <img src="" alt="Veil" />
+                <Image
+                  src="/images/thumb_veil.png"
+                  alt="Veil"
+                  width={800}
+                  height={800}
+                />
               </div>
             </Link>
-          </div>
+          </Col>
 
-          <div className="col-md-3 col-6">
+          <Col md={3} sm={6}>
             <Link href={`/select-artwork/`}>
               <div className="gallery-card card-action">
-                <img src="" alt="View All" />
+                <Image
+                  src="/images/thumb_empty.png"
+                  alt="View All"
+                  width={800}
+                  height={800}
+                />
                 <div className="center">
                   <span className="text">View All &#8594;</span>
                 </div>
               </div>
             </Link>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );
