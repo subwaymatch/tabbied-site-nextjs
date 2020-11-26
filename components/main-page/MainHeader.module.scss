@@ -31,6 +31,13 @@
   }
 }
 
+.alignCenter {
+  text-align: center;
+}
+.alignRight {
+  text-align: right;
+}
+
 @include media-breakpoint-down(md) {
   .headerSection {
     ul.pageNavigation {

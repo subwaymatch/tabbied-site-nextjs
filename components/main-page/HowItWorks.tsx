@@ -42,8 +42,8 @@ export default function HowItWorks() {
                 </div>
                 <p>
                   Download your customized design{' '}
-                  <span className="highlight">
-                    <span className="text">for free</span>
+                  <span className={styles.highlight}>
+                    <span className={styles.text}>for free</span>
                   </span>
                 </p>
               </div>

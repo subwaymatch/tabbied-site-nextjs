@@ -18,9 +18,13 @@
 
     li {
       a {
-        color: #888888;
+        color: #888;
         display: block;
         padding: 0.75rem 0;
+
+        &:hover {
+          color: #444;
+        }
       }
     }
   }
@@ -71,8 +75,6 @@
 
       li {
         a {
-          color: #888888;
-          display: block;
           padding: 0.25rem 0;
         }
       }
