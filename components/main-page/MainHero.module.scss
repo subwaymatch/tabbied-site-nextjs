@@ -3,14 +3,14 @@
 @import 'styles/mixins';
 
 .heroSection {
-  background-color: #3d80d1;
+  background-color: #326dc9;
   position: relative;
   text-align: center;
   width: 100%;
   overflow: hidden;
 
   .doodleBackground {
-    width: 1600px;
+    width: 100rem;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,8 +19,8 @@
     justify-content: center;
 
     .doodleWrapper {
-      width: 1600px;
-      height: 800px;
+      width: 100rem;
+      height: 50rem;
     }
   }
 
@@ -32,11 +32,11 @@
   }
 
   .heroContent {
-    padding: 240px;
+    padding: 15rem;
   }
 
   .heroActions {
-    margin-top: 50px;
+    margin-top: 3rem;
 
     .actionBtn {
       display: inline-block;
@@ -56,16 +56,16 @@
 @include media-breakpoint-down(md) {
   .heroSection {
     .doodleBackground {
-      width: 1200px;
+      width: 75rem;
 
       .doodleWrapper {
-        width: 1200px;
-        height: 600px;
+        width: 75rem;
+        height: 37.5rem;
       }
     }
 
     .heroContent {
-      padding: 160px;
+      padding: 10rem;
     }
 
     .heroText {
@@ -77,16 +77,16 @@
 @include media-breakpoint-down(sm) {
   .heroSection {
     .doodleBackground {
-      width: 800px;
+      width: 50rem;
 
       .doodleWrapper {
-        width: 800px;
-        height: 400px;
+        width: 50rem;
+        height: 25rem;
       }
     }
 
     .heroContent {
-      padding: 120px;
+      padding: 7.5rem;
     }
 
     .hero-text {
@@ -98,7 +98,7 @@
 @include media-breakpoint-down(xs) {
   .heroSection {
     .heroContent {
-      padding: 64px;
+      padding: 4rem;
     }
   }
 }

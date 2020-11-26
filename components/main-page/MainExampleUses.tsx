@@ -1,47 +1,51 @@
+import { Container, Row, Col } from 'react-bootstrap';
+import styles from './MainExampleUses.module.scss';
+
 export default function ExampleUsesSection() {
   return (
-    <div id="section-example-uses">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <span className="subheading">Example uses</span>
+    <div className={styles.exampleUsesSection}>
+      <Container>
+        <Row>
+          <Col>
+            <span className={styles.subheading}>Example uses</span>
             <h3>Use your design for just about anything</h3>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
 
-      <div className="container container-fluid-on-mobile">
-        <div className="row no-gutters">
-          <div className="col-md-4 col-6">
-            <div className="image-wrapper">
-              <img src="" alt="Wall Art" />
+      <Container className="container-fluid-on-mobile">
+        <Row noGutters={true}>
+          <Col md={4} sm={6}>
+            <div className={styles.imageWrapper}>
+              <img src="/images/uses_wall_art.jpg" alt="Wall Art" />
             </div>
-          </div>
+          </Col>
 
-          <div className="col-md-4 col-6">
-            <div className="image-wrapper">
-              <img src="" alt="Stationery" />
+          <Col md={4} sm={6}>
+            <div className={styles.imageWrapper}>
+              <img src="/images/uses_notebook.jpg" alt="Stationery" />
             </div>
-          </div>
+          </Col>
 
-          <div className="col-md-4 col-6">
-            <div className="image-wrapper">
-              <img src="" alt="Tshirt" />
+          <Col md={4} sm={6}>
+            <div className={styles.imageWrapper}>
+              <img src="/images/uses_tshirt.jpg" alt="Tshirt" />
             </div>
-          </div>
+          </Col>
 
-          <div className="col-md-4 col-6">
-            <div className="image-wrapper">
-              <img src="" alt="Packaging" />
+          <Col md={4} sm={6}>
+            <div className={styles.imageWrapper}>
+              <img src="/images/uses_packaging.jpg" alt="Packaging" />
             </div>
-          </div>
-          <div className="col-md-8">
-            <div className="image-wrapper">
-              <img src="" alt="Devices" />
+          </Col>
+
+          <Col md={8}>
+            <div className={styles.imageWrapper}>
+              <img src="/images/uses_devices.jpg" alt="Devices" />
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

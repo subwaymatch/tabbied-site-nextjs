@@ -10,11 +10,8 @@
   src: url('/fonts/avenir-light-webfont.woff2');
 }
 
-html {
-  font-family: $font-sans-serif;
-}
-
 body {
+  font-family: $font-sans-serif;
   font-size: 1.1rem;
   line-height: 1.6;
 }
@@ -33,4 +30,17 @@ h4 {
   color: $gray-dark;
   font-size: 2.33rem;
   line-height: 1.3;
+}
+
+@include media-breakpoint-down(sm) {
+  .container.container-fluid-on-mobile {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
 }

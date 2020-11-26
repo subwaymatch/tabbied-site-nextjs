@@ -1,6 +1,6 @@
 @import 'styles/variables';
 
-#section-example-uses {
+.exampleUsesSection {
   padding-top: 4rem;
   background-color: $gray-dark;
 
@@ -10,6 +10,8 @@
   }
 
   .subheading {
+    display: block;
+    margin-bottom: 1rem;
     color: $gray;
   }
 
@@ -18,7 +20,7 @@
     margin-bottom: 3rem;
   }
 
-  .image-wrapper {
+  .imageWrapper {
     line-height: 0;
   }
 }

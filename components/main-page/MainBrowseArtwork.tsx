@@ -22,7 +22,7 @@ export default function BrowseArtworkSection() {
         </Row>
       </Container>
 
-      <div className="container container-fluid-on-mobile">
+      <Container className="container-fluid-on-mobile">
         <Row noGutters={true}>
           <Col md={3} sm={6}>
             <Link href={`/artwork/zario/`}>
@@ -139,7 +139,7 @@ export default function BrowseArtworkSection() {
             </Link>
           </Col>
         </Row>
-      </div>
+      </Container>
     </div>
   );
 }
