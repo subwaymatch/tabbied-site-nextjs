@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MdClose } from 'react-icons/md';
-import styles from './Header.module.scss';
+import styles from './PageHeader.module.scss';
 
-export default function Header() {
+export default function PageHeader({ title }: { title: string }) {
   const router = useRouter();
 
   return (
@@ -28,7 +28,7 @@ export default function Header() {
 
           <Col md={8}>
             <div className={styles.alignCenter}>
-              <h2>Make your art</h2>
+              <h2>{title}</h2>
             </div>
           </Col>
 

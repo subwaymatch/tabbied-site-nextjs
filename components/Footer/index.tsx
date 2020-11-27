@@ -25,7 +25,7 @@ export default function Footer() {
 
             <ul className={styles.footerMenu}>
               <li>
-                <Link href="/">Terms of Service</Link>
+                <Link href="/terms-of-service">Terms of Service</Link>
               </li>
               <li>
                 <Link href="/">Privacy Policy</Link>
