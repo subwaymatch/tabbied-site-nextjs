@@ -1,0 +1,33 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+@import 'styles/gallery-card';
+
+.selectArtworkSection {
+  .grayBackground {
+    background: rgba(248, 249, 250, 0.6);
+    padding: 64px 0;
+  }
+
+  h2 {
+    text-align: left;
+    color: $gray-medium;
+    font-size: 1.2rem;
+    margin-top: 8px;
+    margin-bottom: 64px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .selectArtworkSection {
+    .grayBackground {
+      background: transparent;
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+  }
+}

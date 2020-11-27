@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Header from 'components/select-artwork-page/Header';
+import SelectArtwork from 'components/select-artwork-page/SelectArtwork';
 
 export default function SelectArtworkPage() {
   return (
@@ -7,7 +9,9 @@ export default function SelectArtworkPage() {
         <meta name="viewport" content="width=1600" />
       </Head>
 
-      <div>Make your art</div>
+      <Header />
+
+      <SelectArtwork />
     </>
   );
 }

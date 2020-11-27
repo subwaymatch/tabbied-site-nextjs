@@ -5,12 +5,12 @@ import styles from './MainHeader.module.scss';
 
 export default function MainHeader() {
   return (
-    <div className={styles.headerSection}>
+    <header className={styles.headerSection}>
       <Container>
         <Row className="align-items-center">
           <Col md={3} xs={6}>
             <Link href="/">
-              <div className={styles.logoImageWrapper}>
+              <a className={styles.logoImageWrapper}>
                 <Image
                   src="/images/logo_tabbied.png"
                   alt="Tabbied"
@@ -18,7 +18,7 @@ export default function MainHeader() {
                   width={56}
                   height={56}
                 />
-              </div>
+              </a>
             </Link>
           </Col>
 
@@ -49,6 +49,6 @@ export default function MainHeader() {
           </Col>
         </Row>
       </Container>
-    </div>
+    </header>
   );
 }

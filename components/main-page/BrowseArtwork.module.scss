@@ -1,5 +1,6 @@
 @import 'styles/variables';
 @import 'styles/mixins';
+@import 'styles/gallery-card';
 
 .browseArtworkSection {
   text-align: center;
@@ -8,46 +9,6 @@
   h3 {
     margin-top: 1rem;
     margin-bottom: 4rem;
-  }
-
-  .galleryCard {
-    position: relative;
-    line-height: 0;
-    cursor: pointer;
-
-    &:hover {
-      color: $lime-medium;
-    }
-
-    .text {
-      line-height: 1.4;
-    }
-
-    .center {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    h4 {
-      color: $gray-dark;
-      position: absolute;
-      top: 1.5rem;
-      left: 2rem;
-      font-size: 1.1rem;
-      line-height: 1.4;
-      z-index: 10;
-
-      &.white {
-        color: white;
-      }
-    }
   }
 }
 

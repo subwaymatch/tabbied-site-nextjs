@@ -15,10 +15,7 @@ export default function Footer() {
                 <Link href="/">Home</Link>
               </li>
               <li>
-                <Link href="/">About</Link>
-              </li>
-              <li>
-                <Link href="/">Browse Designs</Link>
+                <Link href="/select-artwork">Browse Designs</Link>
               </li>
             </ul>
           </Col>
@@ -32,9 +29,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link href="/">Contact</Link>
               </li>
             </ul>
           </Col>
