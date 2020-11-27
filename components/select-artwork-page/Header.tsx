@@ -1,10 +1,13 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MdClose } from 'react-icons/md';
 import styles from './Header.module.scss';
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <header className={styles.headerSection}>
       <Container>
@@ -31,7 +34,15 @@ export default function Header() {
 
           <Col md={2}>
             <div className={styles.alignRight}>
-              <MdClose className={styles.icon} />
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  router.back();
+                }}
+              >
+                <MdClose className={styles.icon} />
+              </a>
             </div>
           </Col>
         </Row>
