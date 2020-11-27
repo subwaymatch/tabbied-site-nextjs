@@ -1,19 +1,18 @@
 @use 'sass:color';
 @import './variables';
 @import url('https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css');
+@import url('https://use.typekit.net/nws2bge.css');
 @import './bootstrap.custom';
 @import '~bootstrap/scss/bootstrap-grid';
 
-/* TODO: purchase Avenir Light webfont license */
-@font-face {
-  font-family: 'Avenir Light';
-  src: url('/fonts/avenir-light-webfont.woff2');
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: $gray-medium;
   font-family: $font-sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.7;
 }
 
