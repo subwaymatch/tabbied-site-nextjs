@@ -20,7 +20,7 @@
     "**/*.ts",
     "**/*.tsx",
     "components/MainHero/MainHero.js",
-    "pages/artwork/[id].js"
+    "components/ColorPicker/index.js"
   ],
   "exclude": ["node_modules"]
 }

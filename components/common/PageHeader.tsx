@@ -27,13 +27,13 @@ export default function PageHeader({ title }: { title: string }) {
           </Col>
 
           <Col md={8}>
-            <div className={styles.alignCenter}>
+            <div className="align-center">
               <h2>{title}</h2>
             </div>
           </Col>
 
           <Col md={2}>
-            <div className={styles.alignRight}>
+            <div className="align-right">
               <a
                 onClick={(e) => {
                   e.preventDefault();

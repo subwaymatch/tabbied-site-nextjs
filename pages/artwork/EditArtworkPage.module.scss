@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  padding: 1.5rem 0;
+}
+
+.editArtworkSection {
+  background-color: #efb;
+  flex-grow: 1;
+  display: flex;
+
+  .previewWrapper {
+    flex: 1;
+    background-color: greenyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .optionsWrapper {
+    flex: 1;
+    background-color: $gray-ultra-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .options {
+      width: 100%;
+      padding: 4rem;
+    }
+  }
+}
+
+.doodleFrame {
+  display: inline-block;
+  box-shadow: 16px 16px 32px 0 rgba(0, 0, 0, 0.1);
+}

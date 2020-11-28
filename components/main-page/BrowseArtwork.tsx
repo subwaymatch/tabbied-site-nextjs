@@ -11,12 +11,20 @@ export default function BrowseArtworkSection() {
     <div className={styles.browseArtworkSection}>
       <Container>
         <Row>
-          <Col>
-            <span className="subheading">Browse artwork</span>
-            <h3>
-              Start designing with our curated artwork of
-              <br />
-              timeless patterns and illustrations.
+          <Col
+            md={{
+              span: 8,
+              offset: 2,
+            }}
+            sm={{
+              span: 12,
+              offset: 0,
+            }}
+          >
+            <span className={styles.subheading}>Browse artwork</span>
+            <h3 className="section-title">
+              Start designing with our curated artwork of timeless patterns and
+              illustrations.
             </h3>
           </Col>
         </Row>

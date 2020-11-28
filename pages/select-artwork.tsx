@@ -1,10 +1,11 @@
 import Head from 'next/head';
+import Layout from 'components/common/Layout';
 import PageHeader from 'components/common/PageHeader';
 import SelectArtwork from 'components/select-artwork-page/SelectArtwork';
 
 export default function SelectArtworkPage() {
   return (
-    <>
+    <Layout>
       <Head>
         <meta name="viewport" content="width=1600" />
       </Head>
@@ -12,6 +13,6 @@ export default function SelectArtworkPage() {
       <PageHeader title="Make your art" />
 
       <SelectArtwork />
-    </>
+    </Layout>
   );
 }

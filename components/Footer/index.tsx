@@ -4,76 +4,48 @@ import styles from './Footer.module.scss';
 
 export default function Footer() {
   return (
-    <div className={styles.footerSection}>
+    <footer className={styles.footerSection}>
       <Container>
         <Row>
-          <Col md={2}>
+          <Col
+            md={{
+              span: 5,
+            }}
+          >
             <h5>Tabbied</h5>
 
-            <ul className={styles.footerMenu}>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/select-artwork">Browse Designs</Link>
-              </li>
-            </ul>
-          </Col>
-
-          <Col md={2}>
-            <h5>Company</h5>
-
-            <ul className={styles.footerMenu}>
-              <li>
-                <Link href="/terms-of-service">Terms of Service</Link>
-              </li>
-              <li>
-                <Link href="/">Privacy Policy</Link>
-              </li>
-            </ul>
-          </Col>
-
-          <Col md={2}>
-            <h5>CSS Developers</h5>
-
-            <ul className={styles.footerMenu}>
-              <li>
-                <Link href="/">Submit an artwork</Link>
-              </li>
-            </ul>
+            <p>
+              Copyright 2020.{' '}
+              <Link href="/terms-of-service">
+                <a>Terms of Service</a>
+              </Link>{' '}
+              <Link href="/privacy-policy">
+                <a>Privacy Policy</a>
+              </Link>
+            </p>
           </Col>
 
           <Col
-            lg={{
-              span: 4,
-              offset: 2,
-            }}
             md={{
               span: 5,
-              offset: 1,
+              offset: 2,
             }}
           >
-            <h5>Subscribe</h5>
+            <h5>About Us</h5>
 
             <p>
-              Sign up to our email list to be notified of updates and news from
-              Tabbied.
+              Tabbied lets you easily create timeless and beautifully generated
+              patterns or artwork to use for wall art, websites, print materials
+              and more.
             </p>
-
-            <div className={styles.emailInputWrapper}>
-              <input type="email" placeholder="Type your email" />
-              <button>Subscribe</button>
-            </div>
-
             <p>
-              © {new Date().getFullYear()} Tabbied.
-              <br />
-              Built with <span className={styles.heart}>❤</span> from Dallas and
-              Seoul.
+              This free tool was built with{' '}
+              <span className={styles.heart}>❤</span> by Sy Hong and Ye Joo
+              Park.
             </p>
           </Col>
         </Row>
       </Container>
-    </div>
+    </footer>
   );
 }

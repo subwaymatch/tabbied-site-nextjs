@@ -2,7 +2,7 @@
   "name": "Symmetry",
   "slug": "symmetry",
   "grid": {
-    "default": "13x1"
+    "default": "1x13"
   },
   "palette": ["#97F4FF", "#97F4FF", "#00FFF3", "#00A1FF", "#FF8DFF", "#FF007E"],
   "circularity": {

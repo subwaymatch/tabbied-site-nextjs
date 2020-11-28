@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Layout from 'components/common/Layout';
 import dynamic from 'next/dynamic';
 import MainHeader from 'components/main-page/MainHeader';
 import HowItWorks from 'components/main-page/HowItWorks';
@@ -14,12 +14,7 @@ const Hero = dynamic(() => import('components/main-page/Hero'), {
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Tabbied</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <Layout>
       <MainHeader />
 
       <Hero />
@@ -35,6 +30,6 @@ export default function Home() {
       <MakeYourArt />
 
       <Footer />
-    </>
+    </Layout>
   );
 }

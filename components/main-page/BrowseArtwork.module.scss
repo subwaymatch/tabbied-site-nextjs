@@ -10,6 +10,11 @@
     margin-top: 1rem;
     margin-bottom: 4rem;
   }
+
+  .subheading {
+    display: block;
+    margin-bottom: 1rem;
+  }
 }
 
 @include media-breakpoint-down(sm) {

@@ -87,11 +87,20 @@ export default function MainHero() {
 
       <Container>
         <Row className="align-items-center">
-          <Col>
+          <Col
+            lg={{
+              span: 6,
+              offset: 3,
+            }}
+            md={{
+              span: 8,
+              offset: 2,
+            }}
+            sm={{ span: 12, offset: 0 }}
+          >
             <div className={styles.heroContent}>
               <p className={styles.heroText}>
-                Customizable, CSS generated
-                <br /> artwork for designers
+                Customizable, CSS generated artwork for designers
               </p>
 
               <div className={styles.heroActions}>

@@ -17,6 +17,7 @@
   p {
     color: $gray;
     margin-top: 2rem;
+    line-height: 1.8;
   }
 
   .people {
@@ -28,13 +29,31 @@
   }
 
   .linkUnderline {
+    position: relative;
     display: inline-block;
-    padding-bottom: 2px;
-    border-bottom: 2px solid $lime-medium;
+    white-space: nowrap;
     color: $gray-ultra-light;
+    position: relative;
+    z-index: 1;
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      z-index: 0;
+      background-color: $lime-light;
+      border-radius: 4px;
+    }
 
     &:hover {
-      color: white;
+      color: $lime;
+
+      &:before {
+        background-color: $lime;
+      }
     }
   }
 }

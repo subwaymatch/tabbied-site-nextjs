@@ -12,6 +12,7 @@
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
     "css-doodle": "^0.9.1",
+    "immer": "^8.0.0",
     "lodash": "^4.17.20",
     "next": "10.0.2",
     "react": "17.0.1",

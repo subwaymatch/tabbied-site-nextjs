@@ -17,13 +17,27 @@ export default function SelectArtwork() {
 
         <div className="container container-fluid-on-mobile">
           <Row noGutters={true}>
-            <Col md={3} sm={6}>
+            {/* <Col md={3} sm={6}>
               <Link href="/artwork/zario/">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Super Zario</h4>
                   <Image
                     src="/images/thumb_super_zario.png"
                     alt="Zario"
+                    width={800}
+                    height={800}
+                  />
+                </div>
+              </Link>
+            </Col> */}
+
+            <Col md={3} sm={6}>
+              <Link href="/artwork/trigram/">
+                <div className={styles.galleryCard}>
+                  <h4 className={styles.white}>Trigram</h4>
+                  <Image
+                    src="/images/thumb_trigram.png"
+                    alt="Trigram"
                     width={800}
                     height={800}
                   />
@@ -159,19 +173,6 @@ export default function SelectArtwork() {
                 </div>
               </Link>
             </Col>
-            <Col md={3} sm={6}>
-              <Link href="/artwork/trigram/">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Trigram</h4>
-                  <Image
-                    src="/images/thumb_trigram.png"
-                    alt="Trigram"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
 
             <Col md={3} sm={6}>
               <Link href="/artwork/bloks/">
@@ -186,9 +187,7 @@ export default function SelectArtwork() {
                 </div>
               </Link>
             </Col>
-          </Row>
 
-          <Row noGutters={true}>
             <Col md={3} sm={6}>
               <Link href="/artwork/terrain/">
                 <div className={styles.galleryCard}>

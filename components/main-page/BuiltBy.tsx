@@ -36,9 +36,7 @@ export default function BuiltBy() {
           >
             <div className={styles.textHeader}>
               <span className={styles.subheading}>Creators of Tabbied</span>
-              <h3>
-                Built by design and <span className="nowrap">dev geeks</span>
-              </h3>
+              <h3 className="section-title">Built by design and dev geeks</h3>
             </div>
             <div className={styles.textContent}>
               <p>
@@ -51,11 +49,22 @@ export default function BuiltBy() {
 
               <p>
                 We also like to give a special thanks to{' '}
-                <a className={styles.linkUnderline}>Chuan Yuan</a> from China.
-                Chuan is the developer of{' '}
-                <a className={styles.linkUnderline}>CSS-Doodle</a>, which made
-                Tabbied possible. Thanks to all the supporters of both
-                CSS-Doodle and Tabbied. You are inspiring us to keep on making.
+                <a
+                  href="http://yuanchuan.dev/"
+                  className={styles.linkUnderline}
+                >
+                  Chuan Yuan
+                </a>{' '}
+                from China. Chuan is the developer of{' '}
+                <a
+                  href="https://css-doodle.com/"
+                  className={styles.linkUnderline}
+                >
+                  CSS-Doodle
+                </a>
+                , which made Tabbied possible. Thanks to all the supporters of
+                both CSS-Doodle and Tabbied. You are inspiring us to keep on
+                making.
               </p>
 
               <div className={styles.people}>

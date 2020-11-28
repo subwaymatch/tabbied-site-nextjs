@@ -11,7 +11,7 @@ export default function HowItWorks() {
       <Container>
         <Row>
           <Col>
-            <h3>How it works</h3>
+            <h3 className="section-title">How it works</h3>
           </Col>
         </Row>
 
