@@ -4,8 +4,8 @@
   "description": "A top view of randomly generated lines and squares paints a simplistic view of cities.",
   "palette": ["#FFFFFF", "#3FFFB2", "#D89FFF", "#D89FFF", "#FF3D8B"],
   "grid": {
-    "default": "6x4",
-    "options": ["3x2", "6x4", "9x6", "12x8", "15x10"]
+    "default": "4x6",
+    "options": ["2x3", "4x6", "6x9", "8x12", "10x15"]
   },
   "frequency": {
     "default": 0.4,

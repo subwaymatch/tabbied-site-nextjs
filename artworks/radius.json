@@ -4,8 +4,8 @@
   "description": "Semi circle geometric pattern with striped accents.",
   "palette": ["#FFFFFF", "#3B3F45", "#3FFFB2", "#3EECFF", "#97F4FF", "#FF3D8B"],
   "grid": {
-    "default": "6x4",
-    "options": ["3x2", "6x4", "9x6", "12x8", "15x10"]
+    "default": "4x6",
+    "options": ["2x3", "4x6", "6x9", "8x12", "10x15"]
   },
   "frequency": {
     "default": 1.0,

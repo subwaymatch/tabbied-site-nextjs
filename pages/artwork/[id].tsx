@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import produce from 'immer';
 import Layout from 'components/common/Layout';
+import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import { v4 as uuidv4 } from 'uuid';
 import { getAllArtworkIds, getArtwork } from 'lib/artwork';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './EditArtworkPage.module.scss';
 import dynamic from 'next/dynamic';
 import _ from 'lodash';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 const Doodle = dynamic(() => import('components/Doodle'), {
   ssr: false,
@@ -30,7 +33,9 @@ export default function EditArtworkPage({ artwork }) {
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
   const [grid, setGrid] = useState(artwork.grid.default);
-  const [frequency, setFrequency] = useState(getDefaultValue('frequency', 1));
+  const [frequency, setFrequency] = useState(
+    getDefaultValue('frequency', null)
+  );
   const [circularity, setCircularity] = useState(
     getDefaultValue('circularity', null)
   );
@@ -44,7 +49,15 @@ export default function EditArtworkPage({ artwork }) {
   console.log(`circularity: ${circularity}`);
 
   useEffect(() => {
-    if (artwork.circularity !== null) {
+    if (frequency !== null) {
+      setStyleCode(styleCode.split(artwork.frequency.replace).join(frequency));
+
+      setDoodleCode(
+        doodleCode.split(artwork.frequency.replace).join(frequency)
+      );
+    }
+
+    if (circularity !== null) {
       setStyleCode(
         styleCode.split(artwork.circularity.replace).join(circularity)
       );
@@ -130,6 +143,19 @@ export default function EditArtworkPage({ artwork }) {
                   </div>
                 </div>
               )}
+
+              {artwork.hasOwnProperty('grid') !== null &&
+                artwork.grid.hasOwnProperty('options') && (
+                  <div className={styles.optionBox}>
+                    <h3>Columns and Rows</h3>
+
+                    <ButtonSelectGroup
+                      options={artwork.grid.options}
+                      selectedOption={grid}
+                      handleSelect={setGrid}
+                    />
+                  </div>
+                )}
             </div>
           </div>
         </main>
