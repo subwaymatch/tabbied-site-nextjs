@@ -131,12 +131,12 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/fiesta/">
+              <Link href="/artwork/terrain/">
                 <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Fiesta</h4>
+                  <h4 className={styles.white}>Terrain</h4>
                   <Image
-                    src="/images/thumb_fiesta.png"
-                    alt="Fiesta"
+                    src="/images/thumb_terrain.png"
+                    alt="Terrain"
                     width={800}
                     height={800}
                   />
@@ -181,20 +181,6 @@ export default function SelectArtwork() {
                   <Image
                     src="/images/thumb_bloks.png"
                     alt="Bloks"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col>
-
-            <Col md={3} sm={6}>
-              <Link href="/artwork/terrain/">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Terrain</h4>
-                  <Image
-                    src="/images/thumb_terrain.png"
-                    alt="Terrain"
                     width={800}
                     height={800}
                   />

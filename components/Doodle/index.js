@@ -10,9 +10,7 @@ class Doodle extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.seed !== this.props.seed) {
-      this.redraw();
-    }
+    this.redraw();
   }
 
   getColorsString(colors) {

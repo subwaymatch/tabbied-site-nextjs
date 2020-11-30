@@ -117,10 +117,12 @@ export default function EditArtworkPage({ artwork }) {
                         key={'color' + index}
                         index={index}
                         handleColorChange={(color) => {
-                          let newPalette = _.cloneDeep(palette);
-                          newPalette[index] = color;
+                          setPalette((prevPalette) => {
+                            const newPalette = prevPalette.slice();
+                            newPalette[index] = color;
 
-                          setPalette(newPalette);
+                            return newPalette;
+                          });
                         }}
                         color={hex}
                       />

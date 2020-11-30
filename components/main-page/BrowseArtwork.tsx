@@ -33,12 +33,12 @@ export default function BrowseArtworkSection() {
       <Container className="container-fluid-on-mobile">
         <Row noGutters={true}>
           <Col md={3} sm={6}>
-            <Link href={`/artwork/zario/`}>
+            <Link href={`/artwork/trigram/`}>
               <div className={styles.galleryCard}>
-                <h4 className={styles.white}>Super Zario</h4>
+                <h4 className={styles.white}>Trigram</h4>
                 <Image
-                  src="/images/thumb_super_zario.png"
-                  alt="Super Zario"
+                  src="/images/thumb_trigram.png"
+                  alt="Trigram"
                   width={800}
                   height={800}
                 />

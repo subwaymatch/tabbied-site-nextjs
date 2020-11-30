@@ -5,6 +5,12 @@ import '@simonwep/pickr/dist/themes/monolith.min.css';
 export default function ColorPicker({ index, color, handleColorChange }) {
   const pickerClassName = `color-picker-${index}`;
 
+  const colorChangeCallback = (color, instance) => {
+    const hex = color.toHEXA().toString();
+
+    handleColorChange(hex);
+  };
+
   useEffect(() => {
     // Simple example, see optional options for more configuration.
     const pickr = Pickr.create({
@@ -31,19 +37,16 @@ export default function ColorPicker({ index, color, handleColorChange }) {
       },
     });
 
-    pickr.on('save', (color, instance) => {
-      const hex = color.toHEXA().toString();
+    pickr.on('save', colorChangeCallback);
 
-      handleColorChange(hex);
-    });
+    return () => {
+      pickr.off('save', colorChangeCallback);
+    };
   }, []);
 
   return (
     <>
-      <div
-        className={`${pickerClassName} color-picker`}
-        style={{ backgroundColor: color }}
-      />
+      <div className={`${pickerClassName} color-picker`} />
     </>
   );
 }
