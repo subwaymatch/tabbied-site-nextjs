@@ -5,14 +5,14 @@ const cx = classNames.bind(styles);
 
 type ButtonSelectGroupPropTypes = {
   options: Array<string>;
-  selectedOption: string;
-  handleSelect: (option: string) => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 export default function ButtonSelectGroup({
   options,
-  selectedOption,
-  handleSelect,
+  value,
+  onChange: handleSelect,
 }: ButtonSelectGroupPropTypes) {
   return (
     <div className={styles.buttonSelectGroup}>
@@ -20,7 +20,7 @@ export default function ButtonSelectGroup({
         <div
           key={option}
           className={cx('option', {
-            selected: selectedOption === option,
+            selected: value === option,
           })}
           onClick={() => {
             handleSelect(option);

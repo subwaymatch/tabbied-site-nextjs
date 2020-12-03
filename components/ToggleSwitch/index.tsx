@@ -1,30 +1,33 @@
-import { useState } from 'react';
 import styles from './ToggleSwitch.module.scss';
-import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 type ToggleSwitchPropTypes = {
   isChecked: boolean;
-  handleChange: (e) => void;
+  onChange: (checked) => void;
 };
 
 export default function ToggleSwitch({
   isChecked,
-  handleChange,
+  onChange,
 }: ToggleSwitchPropTypes) {
-  const [checkboxId] = useState(uuidv4());
-
   return (
     <div>
-      <input
-        id={checkboxId}
-        type="checkbox"
-        checked={isChecked}
-        onChange={(e) => {
-          handleChange(e.target.checked);
-        }}
-        className={styles.toggleCheckbox}
-      />
-      <label htmlFor={checkboxId} className={styles.toggleSwitch} />
+      <label
+        className={cx('toggleSwitch', {
+          isChecked,
+        })}
+      >
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={(e) => {
+            onChange(e.target.checked);
+          }}
+          className={styles.toggleCheckbox}
+        />
+      </label>
     </div>
   );
 }

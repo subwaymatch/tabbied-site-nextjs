@@ -1,12 +1,13 @@
 import Head from 'next/head';
-import PageHeader from 'components/common/PageHeader';
+import Layout from 'components/Layout';
+import PageHeader from 'components/PageHeader';
 import Footer from 'components/Footer';
 import { Col, Container, Row } from 'react-bootstrap';
 import styles from './text-page.module.scss';
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>Tabbied - Privacy Policy</title>
       </Head>
@@ -929,6 +930,6 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <Footer />
-    </>
+    </Layout>
   );
 }

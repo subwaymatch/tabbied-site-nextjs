@@ -1,4 +1,4 @@
-import Layout from 'components/common/Layout';
+import Layout from 'components/Layout';
 import dynamic from 'next/dynamic';
 import MainHeader from 'components/main-page/MainHeader';
 import HowItWorks from 'components/main-page/HowItWorks';

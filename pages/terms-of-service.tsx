@@ -1,12 +1,13 @@
 import Head from 'next/head';
-import PageHeader from 'components/common/PageHeader';
+import Layout from 'components/Layout';
+import PageHeader from 'components/PageHeader';
 import Footer from 'components/Footer';
 import { Col, Container, Row } from 'react-bootstrap';
 import styles from './text-page.module.scss';
 
 export default function TermsOfServicePage() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>Tabbied - Terms of Service</title>
       </Head>
@@ -722,6 +723,6 @@ export default function TermsOfServicePage() {
       </section>
 
       <Footer />
-    </>
+    </Layout>
   );
 }

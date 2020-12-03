@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from 'components/common/Layout';
+import Layout from 'components/Layout';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
+import ValueSlider from 'components/ValueSlider';
 import { v4 as uuidv4 } from 'uuid';
 import { getAllArtworkIds, getArtwork } from 'lib/artwork';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -121,29 +121,6 @@ export default function EditArtworkPage({ artwork }) {
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {palette && (
-                <div className={styles.optionBox}>
-                  <h3>Palette</h3>
-                  <div className="colors">
-                    {palette.map((hex, index) => (
-                      <ColorPicker
-                        key={'color' + index}
-                        index={index}
-                        handleColorChange={(color) => {
-                          setPalette((prevPalette) => {
-                            const newPalette = prevPalette.slice();
-                            newPalette[index] = color;
-
-                            return newPalette;
-                          });
-                        }}
-                        color={hex}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {artwork.hasOwnProperty('grid') !== null &&
                 artwork.grid.hasOwnProperty('options') && (
                   <div className={styles.optionBox}>
@@ -151,11 +128,13 @@ export default function EditArtworkPage({ artwork }) {
 
                     <ButtonSelectGroup
                       options={artwork.grid.options}
-                      selectedOption={grid}
-                      handleSelect={setGrid}
+                      value={grid}
+                      onChange={setGrid}
                     />
                   </div>
                 )}
+
+              {/* <Slider /> */}
             </div>
           </div>
         </main>

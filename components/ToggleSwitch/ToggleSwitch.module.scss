@@ -1,9 +1,5 @@
 @import 'styles/variables';
 
-.toggleCheckbox {
-  display: none;
-}
-
 .toggleSwitch {
   cursor: pointer;
   position: relative;
@@ -29,14 +25,18 @@
     left: 2px;
     transition: all 0.3s;
   }
+
+  &.isChecked {
+    background-color: $gray-medium;
+
+    &::after {
+      color: $gray-medium;
+      content: '\2713';
+      left: 26px;
+    }
+  }
 }
 
-.toggleCheckbox:checked + .toggleSwitch {
-  background-color: $gray-medium;
-}
-
-.toggleCheckbox:checked + .toggleSwitch::after {
-  color: $gray-medium;
-  content: '\2713';
-  left: 26px;
+.toggleCheckbox {
+  display: none;
 }

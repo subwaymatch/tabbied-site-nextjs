@@ -46,7 +46,7 @@ class Doodle extends React.Component {
     console.log(colorsString);
 
     return (
-      <div className={`doodle-${name}-wrapper`}>
+      <div>
         <style>
           {`
           css-doodle#${name} {
@@ -65,9 +65,10 @@ class Doodle extends React.Component {
           seed={seed}
           use="var(--rule)"
           ref={this.doodleRef}
-          grid={grid}
+          // grid={grid}
         >
           {`
+            @grid: ${grid};
             ${doodleCode}
           `}
         </css-doodle>
