@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import randomstring from 'randomstring';
 import Layout from 'components/Layout';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
@@ -32,12 +33,13 @@ export default function EditArtworkPage({ artwork }) {
   const [optionValues, setOptionValues] = useState(
     _.cloneDeep(artwork.options.map((o) => o.default))
   );
-
-  console.log(`optionValues=${optionValues}`);
+  const [styleCode, setStyleCode] = useState('');
+  const [doodleCode, setDoodleCode] = useState('');
+  const [seed, setSeed] = useState('0000');
 
   useEffect(() => {
-    console.log(`optionValues have changed`);
-  }, [optionValues]);
+    updateDoodleCode();
+  }, [palette, optionValues]);
 
   const setOptionByIndex = (index: number, value: any) => {
     setOptionValues((prev) => {
@@ -46,6 +48,50 @@ export default function EditArtworkPage({ artwork }) {
 
       return newValues;
     });
+  };
+
+  const randomizeSeed = () => {
+    setSeed(randomstring.generate({ length: 4 }));
+  };
+
+  const getColorsStyleCode = (colors) => {
+    let colorStyleVariables = '';
+
+    colors.forEach((color, idx) => {
+      colorStyleVariables += `--color${idx}: ${color};\n`;
+    });
+
+    return colorStyleVariables;
+  };
+
+  const updateDoodleCode = () => {
+    let newStyleCode = artwork.code.style;
+    let newDoodleCode = artwork.code.doodle;
+
+    artwork.options.forEach((option, index) => {
+      switch (option.type) {
+        case 'ButtonSelectGroup':
+        case 'Slider':
+          newStyleCode = newStyleCode
+            .split(option.replace)
+            .join(optionValues[index]);
+
+          newDoodleCode = newDoodleCode
+            .split(option.replace)
+            .join(optionValues[index]);
+
+          break;
+        case 'ToggleSwitch':
+          break;
+        default:
+          break;
+      }
+    });
+
+    newStyleCode = getColorsStyleCode(palette) + newStyleCode;
+
+    setStyleCode(newStyleCode);
+    setDoodleCode(newDoodleCode);
   };
 
   const getOptionControlComponent = (
@@ -77,7 +123,7 @@ export default function EditArtworkPage({ artwork }) {
       case 'ToggleSwitch':
         return <ToggleSwitch isChecked={controlValue} onChange={onChange} />;
       default:
-        return <div>Unknown {option.id}</div>;
+        return <div>Unknown Control Type: {option.type}</div>;
     }
   };
 
@@ -98,22 +144,22 @@ export default function EditArtworkPage({ artwork }) {
             }}
           >
             <div className={styles.doodleFrame}>
-              {/* <Doodle
+              <Doodle
                 name={artwork.slug}
-                grid={grid}
+                grid={'4x6'}
                 colors={palette}
                 width={360}
                 widthHeightRatio={1.5}
                 seed={seed}
                 styleCode={styleCode}
                 doodleCode={doodleCode}
-              /> */}
+              />
             </div>
           </div>
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {/* {palette && (
+              {palette && (
                 <div className={styles.optionBox}>
                   <h3>Palette</h3>
                   <div className="colors">
@@ -134,12 +180,14 @@ export default function EditArtworkPage({ artwork }) {
                     ))}
                   </div>
                 </div>
-              )} */}
+              )}
+
               {artwork.options.map((option, optionIndex) => {
                 return (
-                  <React.Fragment key={option.id}>
+                  <div key={option.id} className={styles.optionBox}>
+                    <h3>{option.displayName}</h3>
                     {getOptionControlComponent(option, optionIndex)}
-                  </React.Fragment>
+                  </div>
                 );
               })}
             </div>

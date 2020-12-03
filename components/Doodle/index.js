@@ -9,18 +9,9 @@ class Doodle extends React.Component {
     this.doodleRef = React.createRef();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
+    console.log(`Doodle.componentDidUpdate(), redraw`);
     this.redraw();
-  }
-
-  getColorsString(colors) {
-    let colorStyleVariables = '';
-
-    colors.forEach((color, idx) => {
-      colorStyleVariables += `--color${idx}: ${color};\n`;
-    });
-
-    return colorStyleVariables;
   }
 
   redraw() {
@@ -28,33 +19,13 @@ class Doodle extends React.Component {
   }
 
   render() {
-    const {
-      seed,
-      name,
-      colors,
-      grid,
-      width,
-      widthHeightRatio,
-      styleCode,
-      doodleCode,
-    } = this.props;
-
-    const colorsString = this.getColorsString(colors);
-    const height = parseInt(width * widthHeightRatio);
-
-    console.log(`Doodle colors=${colors}`);
-    console.log(colorsString);
+    const { seed, name, styleCode, doodleCode } = this.props;
 
     return (
       <div>
         <style>
           {`
           css-doodle#${name} {
-            ${colorsString}
-
-            width: ${width}px;
-            height: ${height}px; 
-
             ${styleCode}
           }
         `}
@@ -65,10 +36,8 @@ class Doodle extends React.Component {
           seed={seed}
           use="var(--rule)"
           ref={this.doodleRef}
-          // grid={grid}
         >
           {`
-            @grid: ${grid};
             ${doodleCode}
           `}
         </css-doodle>
@@ -78,20 +47,12 @@ class Doodle extends React.Component {
 }
 
 Doodle.defaultProps = {
-  colors: ['#ffffff', '#dddddd', '#cccccc', '#aaaaaa', '#999999', '#777777'],
-  grid: '6x4',
-  width: 320,
-  height: 480,
-  widthHeightRatio: 1.5,
+  seed: '0000',
 };
 
 Doodle.propTypes = {
   seed: PropTypes.string,
-  colors: PropTypes.array,
-  grid: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  widthHeightRatio: PropTypes.number,
+  name: PropTypes.string,
   styleCode: PropTypes.string,
   doodleCode: PropTypes.string,
 };

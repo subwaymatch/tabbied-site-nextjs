@@ -33,6 +33,6 @@
   ],
   "code": {
     "style": "/* set custom colors and inject z-index for the specific color to use for association */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( -webkit-transform:rotate(@pick(90deg, 180deg, 270deg, 360deg)); transform:rotate(@pick(90deg, 180deg, 270deg, 360deg)); /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: @pick(circle(50% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(0 0, 100% 0, 100% 100%, 0% 100%)); clip-path: @pick(circle(50% at 50% 50%), polygon(0 0, 0% 100%, 100% 100%), polygon(0 0, 100% 0, 100% 100%, 0% 100%)); -webkit-transition: ease @rand(200ms, 600ms); transition: ease @rand(200ms, 600ms); } /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { background: var(--randomColor); border-radius: 200px 200px 0px 0px; -webkit-clip-path:none; clip-path:none; /* On or off option for displaying box shadows */ ${shadow} -webkit-transition: ease @rand(200ms, 600ms); transition: ease @rand(200ms, 600ms); } );",
-    "doodle": ":doodle { overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+    "doodle": ":doodle { @grid: ${grid}; @size: 360px 540px; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
