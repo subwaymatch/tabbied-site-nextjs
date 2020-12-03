@@ -22,9 +22,8 @@ export default function ValueSlider({
       aria-labelledby="discrete-slider"
       valueLabelDisplay="auto"
       value={value}
-      onChangeCommitted={(ev, val) => {
-        console.log(`Slider value change`);
-        console.log(val);
+      onChange={(ev, val) => {
+        onChange(val);
       }}
       step={step}
       marks={false}
