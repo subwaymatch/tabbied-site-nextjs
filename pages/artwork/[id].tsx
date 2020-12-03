@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import randomstring from 'randomstring';
 import Layout from 'components/Layout';
+import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
-import { v4 as uuidv4 } from 'uuid';
 import { getAllArtworkIds, getArtwork } from 'lib/artwork';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './EditArtworkPage.module.scss';
 import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import classNames from 'classnames/bind';
+import ToggleSwitch from 'components/ToggleSwitch';
 
 const cx = classNames.bind(styles);
 
@@ -25,48 +27,113 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 export default function EditArtworkPage({ artwork }) {
   console.log(artwork);
 
-  const getDefaultValue = (key, defaultValue) =>
-    artwork.hasOwnProperty(key) ? artwork[key].default : defaultValue;
-
-  const [seed, setSeed] = useState(uuidv4());
   const [palette, setPalette] = useState(
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
-  const [grid, setGrid] = useState(artwork.grid.default);
-  const [frequency, setFrequency] = useState(
-    getDefaultValue('frequency', null)
+  const [optionValues, setOptionValues] = useState(
+    _.cloneDeep(artwork.options.map((o) => o.default))
   );
-  const [circularity, setCircularity] = useState(
-    getDefaultValue('circularity', null)
-  );
-  const [styleCode, setStyleCode] = useState(artwork.code.style);
-  const [doodleCode, setDoodleCode] = useState(artwork.code.doodle);
-
-  console.log(`seed: ${seed}`);
-  console.log(`palette: ${palette}`);
-  console.log(`grid: ${grid}`);
-  console.log(`frequency: ${frequency}`);
-  console.log(`circularity: ${circularity}`);
+  const [styleCode, setStyleCode] = useState('');
+  const [doodleCode, setDoodleCode] = useState('');
+  const [seed, setSeed] = useState('0000');
 
   useEffect(() => {
-    if (frequency !== null) {
-      setStyleCode(styleCode.split(artwork.frequency.replace).join(frequency));
+    updateDoodleCode();
+  }, [palette, optionValues]);
 
-      setDoodleCode(
-        doodleCode.split(artwork.frequency.replace).join(frequency)
-      );
+  const setOptionByIndex = (index: number, value: any) => {
+    setOptionValues((prev) => {
+      const newValues = _.clone(prev);
+      newValues[index] = value;
+
+      return newValues;
+    });
+  };
+
+  const randomizeSeed = () => {
+    setSeed(randomstring.generate({ length: 4 }));
+  };
+
+  const getColorsStyleCode = (colors) => {
+    let colorStyleVariables = '';
+
+    colors.forEach((color, idx) => {
+      colorStyleVariables += `--color${idx}: ${color};\n`;
+    });
+
+    return colorStyleVariables;
+  };
+
+  const updateDoodleCode = () => {
+    let newStyleCode = artwork.code.style;
+    let newDoodleCode = artwork.code.doodle;
+
+    artwork.options.forEach((option, index) => {
+      switch (option.type) {
+        case 'ButtonSelectGroup':
+        case 'Slider':
+          newStyleCode = newStyleCode
+            .split(option.replace)
+            .join(optionValues[index]);
+
+          newDoodleCode = newDoodleCode
+            .split(option.replace)
+            .join(optionValues[index]);
+
+          break;
+        case 'ToggleSwitch':
+          if (optionValues[index]) {
+            newStyleCode = newStyleCode.split(option.replace).join(option.code);
+
+            newDoodleCode = newDoodleCode.split(option.replace).join('');
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
+    newDoodleCode = newDoodleCode.split('${width}').join('360px');
+    newDoodleCode = newDoodleCode.split('${height}').join('540px');
+
+    newStyleCode = getColorsStyleCode(palette) + newStyleCode;
+
+    setStyleCode(newStyleCode);
+    setDoodleCode(newDoodleCode);
+  };
+
+  const getOptionControlComponent = (
+    option: any,
+    optionIndex: number
+  ): React.ReactNode => {
+    const controlValue = optionValues[optionIndex];
+    const onChange = (value) => setOptionByIndex(optionIndex, value);
+
+    switch (option.type) {
+      case 'ButtonSelectGroup':
+        return (
+          <ButtonSelectGroup
+            options={option.options}
+            value={controlValue}
+            onChange={onChange}
+          />
+        );
+      case 'Slider':
+        return (
+          <ValueSlider
+            min={option.min}
+            max={option.max}
+            step={option.step}
+            value={controlValue}
+            onChange={onChange}
+          />
+        );
+      case 'ToggleSwitch':
+        return <ToggleSwitch isChecked={controlValue} onChange={onChange} />;
+      default:
+        return <div>Unknown Control Type: {option.type}</div>;
     }
-
-    if (circularity !== null) {
-      setStyleCode(
-        styleCode.split(artwork.circularity.replace).join(circularity)
-      );
-
-      setDoodleCode(
-        doodleCode.split(artwork.circularity.replace).join(circularity)
-      );
-    }
-  }, []);
+  };
 
   return (
     <Layout>
@@ -75,43 +142,18 @@ export default function EditArtworkPage({ artwork }) {
       </Head>
 
       <div className={styles.pageWrapper}>
-        <header className={styles.header}>
-          <Container>
-            <Row className="align-items-center">
-              <Col md={4}>
-                <Link href="/select-artwork">
-                  <a className={styles.backLink}>← Go back to gallery</a>
-                </Link>
-              </Col>
-
-              <Col md={4}>
-                <h1 className="align-center">Make your art</h1>
-              </Col>
-
-              <Col md={4}>
-                <div className="align-right">
-                  <button>Redraw</button>
-                  <button>Export</button>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </header>
+        <EditArtworkHeader />
 
         <main className={styles.editArtworkSection}>
           <div
             className={styles.previewWrapper}
             style={{
-              backgroundColor: palette[0],
+              backgroundColor: palette.length > 0 ? palette[0] : 'transparent',
             }}
           >
             <div className={styles.doodleFrame}>
               <Doodle
                 name={artwork.slug}
-                grid={grid}
-                colors={palette}
-                width={360}
-                widthHeightRatio={1.5}
                 seed={seed}
                 styleCode={styleCode}
                 doodleCode={doodleCode}
@@ -121,20 +163,37 @@ export default function EditArtworkPage({ artwork }) {
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {artwork.hasOwnProperty('grid') !== null &&
-                artwork.grid.hasOwnProperty('options') && (
-                  <div className={styles.optionBox}>
-                    <h3>Columns and Rows</h3>
+              {palette && (
+                <div className={styles.optionBox}>
+                  <h3>Palette</h3>
+                  <div className="colors">
+                    {palette.map((hex, index) => (
+                      <ColorPicker
+                        key={'color' + index}
+                        index={index}
+                        handleColorChange={(color) => {
+                          setPalette((prevPalette) => {
+                            const newPalette = _.clone(prevPalette);
+                            newPalette[index] = color;
 
-                    <ButtonSelectGroup
-                      options={artwork.grid.options}
-                      value={grid}
-                      onChange={setGrid}
-                    />
+                            return newPalette;
+                          });
+                        }}
+                        color={hex}
+                      />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-              {/* <Slider /> */}
+              {artwork.options.map((option, optionIndex) => {
+                return (
+                  <div key={option.id} className={styles.optionBox}>
+                    <h3>{option.displayName}</h3>
+                    {getOptionControlComponent(option, optionIndex)}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </main>
