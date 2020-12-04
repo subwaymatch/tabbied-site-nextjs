@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import queryString from 'query-string';
 import randomstring from 'randomstring';
 import Layout from 'components/Layout';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
@@ -25,8 +27,6 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 });
 
 export default function EditArtworkPage({ artwork }) {
-  console.log(artwork);
-
   const [palette, setPalette] = useState(
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
@@ -36,6 +36,9 @@ export default function EditArtworkPage({ artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
+
+  const router = useRouter();
+  console.log(router.query);
 
   useEffect(() => {
     updateDoodleCode();
@@ -120,13 +123,15 @@ export default function EditArtworkPage({ artwork }) {
         );
       case 'Slider':
         return (
-          <ValueSlider
-            min={option.min}
-            max={option.max}
-            step={option.step}
-            value={controlValue}
-            onChange={onChange}
-          />
+          <div className={styles.valueSliderWrapper}>
+            <ValueSlider
+              min={option.min}
+              max={option.max}
+              step={option.step}
+              value={controlValue}
+              onChange={onChange}
+            />
+          </div>
         );
       case 'ToggleSwitch':
         return <ToggleSwitch isChecked={controlValue} onChange={onChange} />;
