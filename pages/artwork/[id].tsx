@@ -40,8 +40,6 @@ export default function EditArtworkPage({ artwork }) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router.query);
-
     if (
       router.query.hasOwnProperty('palette') &&
       router.query.palette.length === artwork.palette.length &&
@@ -59,7 +57,9 @@ export default function EditArtworkPage({ artwork }) {
         } else if (typeof option.default === 'number') {
           setOptionByIndex(optionIndex, Number(queryVal));
         } else if (typeof option.default === 'boolean') {
-          setOptionByIndex(optionIndex, Boolean(queryVal));
+          console.log(`BOOLEAN!!`);
+          console.log(`Boolean(${Boolean(queryVal)})`);
+          setOptionByIndex(optionIndex, queryVal === 'true');
         }
       }
     });
@@ -75,22 +75,36 @@ export default function EditArtworkPage({ artwork }) {
 
   // Update URL query parameters if necessary
   useEffect(() => {
-    // console.log(`useEffect seed, palette, optionValues`);
-    // console.log(router.query);
-    // const newQuery = Object.assign({}, router.query, {
-    //   palette,
-    //   seed,
-    // });
-    // artwork.options.forEach((o, idx) => {
-    //   newQuery[o.id] = optionValues[idx];
-    // });
-    // // console.log(newQuery);
-    // if (!_.isEqual(router.query, newQuery)) {
-    //   router.replace({
-    //     pathname: router.pathname,
-    //     query: newQuery,
-    //   });
-    // }
+    if (_.isEqual(router.query, { id: router.query.id })) {
+      console.log('DO NOTHING');
+      return;
+    }
+
+    const newQuery = Object.assign({}, router.query, {
+      palette,
+      seed,
+    });
+
+    artwork.options.forEach((o, idx) => {
+      newQuery[o.id] = String(optionValues[idx]);
+    });
+
+    console.log('======================');
+    console.log(`useEffect seed, palette, optionValues`);
+    console.log(router.query);
+    console.log(newQuery);
+    console.log('======================');
+
+    if (!_.isEqual(router.query, newQuery)) {
+      console.log(`query NOT EQUAL`);
+
+      router.replace({
+        pathname: router.pathname,
+        query: newQuery,
+      });
+    } else {
+      console.log(`query EQUAL!`);
+    }
   }, [seed, palette, optionValues]);
 
   const setOptionByIndex = (index: number, value: any) => {
@@ -222,7 +236,7 @@ export default function EditArtworkPage({ artwork }) {
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {/* {palette && (
+              {palette && (
                 <div className={styles.optionBox}>
                   <h3>Palette</h3>
                   <div className="colors">
@@ -243,7 +257,7 @@ export default function EditArtworkPage({ artwork }) {
                     ))}
                   </div>
                 </div>
-              )} */}
+              )}
 
               {artwork.options.map((option, optionIndex) => {
                 return (
