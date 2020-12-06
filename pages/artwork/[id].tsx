@@ -27,6 +27,7 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 });
 
 export default function EditArtworkPage({ artwork }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [palette, setPalette] = useState(
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
@@ -38,11 +39,48 @@ export default function EditArtworkPage({ artwork }) {
   const [seed, setSeed] = useState('0000');
 
   const router = useRouter();
-  console.log(router.query);
+
+  useEffect(() => {
+    console.log(router.query);
+
+    if (
+      router.query.hasOwnProperty('palette') &&
+      router.query.palette.length == artwork.palette.length
+    ) {
+      setPalette(router.query.palette);
+    }
+
+    if (router.query.hasOwnProperty('seed')) {
+      console.log(`Setting seed to ${seed}`);
+      setSeed(router.query.seed as string);
+    }
+  }, []);
 
   useEffect(() => {
     updateDoodleCode();
   }, [palette, optionValues]);
+
+  // Update URL query parameters if necessary
+  useEffect(() => {
+    console.log(`+++`);
+    console.log(router.query);
+    // console.log(`useEffect seed, palette, optionValues`);
+    // console.log(router.query);
+    // const newQuery = Object.assign({}, router.query, {
+    //   palette,
+    //   seed,
+    // });
+    // artwork.options.forEach((o, idx) => {
+    //   newQuery[o.id] = optionValues[idx];
+    // });
+    // // console.log(newQuery);
+    // if (!_.isEqual(router.query, newQuery)) {
+    //   router.replace({
+    //     pathname: router.pathname,
+    //     query: newQuery,
+    //   });
+    // }
+  }, [seed, palette, optionValues]);
 
   const setOptionByIndex = (index: number, value: any) => {
     setOptionValues((prev) => {
@@ -147,7 +185,12 @@ export default function EditArtworkPage({ artwork }) {
       </Head>
 
       <div className={styles.pageWrapper}>
-        <EditArtworkHeader />
+        <EditArtworkHeader
+          onRedraw={randomizeSeed}
+          onExport={() => {
+            console.log(`export artwork`);
+          }}
+        />
 
         <main className={styles.editArtworkSection}>
           <div
@@ -168,7 +211,7 @@ export default function EditArtworkPage({ artwork }) {
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {palette && (
+              {/* {palette && (
                 <div className={styles.optionBox}>
                   <h3>Palette</h3>
                   <div className="colors">
@@ -189,7 +232,7 @@ export default function EditArtworkPage({ artwork }) {
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {artwork.options.map((option, optionIndex) => {
                 return (

@@ -10,7 +10,6 @@ class Doodle extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(`Doodle.componentDidUpdate(), redraw`);
     this.redraw();
   }
 

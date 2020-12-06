@@ -2,7 +2,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import styles from './EditArtworkHeader.module.scss';
 
-export default function EditArtworkHeader() {
+type EditArtworkHeaderPropTypes = {
+  onRedraw: () => void;
+  onExport: () => void;
+};
+
+export default function EditArtworkHeader({
+  onRedraw,
+  onExport,
+}: EditArtworkHeaderPropTypes) {
   return (
     <header className={styles.header}>
       <Container>
@@ -19,8 +27,8 @@ export default function EditArtworkHeader() {
 
           <Col md={4}>
             <div className="align-right">
-              <button>Redraw</button>
-              <button>Export</button>
+              <button onClick={onRedraw}>Redraw</button>
+              <button onClick={onExport}>Export</button>
             </div>
           </Col>
         </Row>
