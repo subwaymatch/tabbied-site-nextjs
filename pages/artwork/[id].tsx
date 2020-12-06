@@ -27,7 +27,6 @@ const ColorPicker = dynamic(() => import('components/ColorPicker'), {
 });
 
 export default function EditArtworkPage({ artwork }) {
-  const [isLoading, setIsLoading] = useState(true);
   const [palette, setPalette] = useState(
     artwork.hasOwnProperty('palette') ? artwork.palette : []
   );
@@ -45,16 +44,30 @@ export default function EditArtworkPage({ artwork }) {
 
     if (
       router.query.hasOwnProperty('palette') &&
-      router.query.palette.length == artwork.palette.length
+      router.query.palette.length === artwork.palette.length &&
+      !_.isEqual(palette, router.query.palette)
     ) {
       setPalette(router.query.palette);
     }
 
-    if (router.query.hasOwnProperty('seed')) {
-      console.log(`Setting seed to ${seed}`);
+    artwork.options.forEach((option, optionIndex) => {
+      if (router.query.hasOwnProperty(option.id)) {
+        const queryVal = router.query[option.id];
+
+        if (typeof option.default === 'string') {
+          setOptionByIndex(optionIndex, queryVal);
+        } else if (typeof option.default === 'number') {
+          setOptionByIndex(optionIndex, Number(queryVal));
+        } else if (typeof option.default === 'boolean') {
+          setOptionByIndex(optionIndex, Boolean(queryVal));
+        }
+      }
+    });
+
+    if (router.query.hasOwnProperty('seed') && seed !== router.query.seed) {
       setSeed(router.query.seed as string);
     }
-  }, []);
+  }, [router.query]);
 
   useEffect(() => {
     updateDoodleCode();
@@ -62,8 +75,6 @@ export default function EditArtworkPage({ artwork }) {
 
   // Update URL query parameters if necessary
   useEffect(() => {
-    console.log(`+++`);
-    console.log(router.query);
     // console.log(`useEffect seed, palette, optionValues`);
     // console.log(router.query);
     // const newQuery = Object.assign({}, router.query, {
