@@ -20,6 +20,7 @@
   padding: 0.5rem 0.7rem;
   border-radius: 0.15rem;
   cursor: pointer;
+  outline: none;
 
   &:hover {
     background-color: color.scale($gray-medium, $lightness: -10%);

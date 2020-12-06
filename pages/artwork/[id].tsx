@@ -116,6 +116,11 @@ export default function EditArtworkPage({ artwork }) {
     setSeed(randomstring.generate({ length: 4 }));
   };
 
+  const exportArtwork = () => {
+    console.log(`exportArtwork`);
+    console.log(router);
+  };
+
   const getColorsStyleCode = (colors) => {
     let colorStyleVariables = '';
 
@@ -206,12 +211,7 @@ export default function EditArtworkPage({ artwork }) {
       </Head>
 
       <div className={styles.pageWrapper}>
-        <EditArtworkHeader
-          onRedraw={randomizeSeed}
-          onExport={() => {
-            console.log(`export artwork`);
-          }}
-        />
+        <EditArtworkHeader onRedraw={randomizeSeed} onExport={exportArtwork} />
 
         <main className={styles.editArtworkSection}>
           <div
