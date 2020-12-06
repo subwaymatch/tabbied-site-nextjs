@@ -1,3 +1,43 @@
+@use 'sass:color';
+@import 'styles/variables';
+
 .header {
   padding: 1.5rem 0;
+  font-size: 1rem;
+
+  h1 {
+    color: $gray-dark;
+  }
+}
+
+.btn {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: white;
+  background-color: $gray-medium;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.15rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: color.scale($gray-medium, $lightness: -10%);
+    box-shadow: 0 0 0.75rem rgba($gray-medium, 20%);
+  }
+
+  &.btnExport {
+    color: $gray-dark;
+    background-color: $lime;
+    margin-left: 0.6rem;
+
+    &:hover {
+      background-color: color.scale($lime, $lightness: -10%);
+      box-shadow: 0 0 0.75rem rgba($lime, 30%);
+    }
+  }
+
+  .reactIcon {
+    margin-right: 0.4rem;
+  }
 }

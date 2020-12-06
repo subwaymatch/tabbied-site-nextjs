@@ -1,6 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import styles from './EditArtworkHeader.module.scss';
+import classNames from 'classnames/bind';
+import { IoMdRefresh } from 'react-icons/io';
+import { RiDownloadLine } from 'react-icons/ri';
+
+const cx = classNames.bind(styles);
 
 type EditArtworkHeaderPropTypes = {
   onRedraw: () => void;
@@ -27,8 +32,14 @@ export default function EditArtworkHeader({
 
           <Col md={4}>
             <div className="align-right">
-              <button onClick={onRedraw}>Redraw</button>
-              <button onClick={onExport}>Export</button>
+              <button className={cx('btn', 'btnRedraw')} onClick={onRedraw}>
+                <IoMdRefresh className={styles.reactIcon} />
+                <span>Redraw</span>
+              </button>
+              <button className={cx('btn', 'btnExport')} onClick={onExport}>
+                <RiDownloadLine className={styles.reactIcon} />
+                <span>Export</span>
+              </button>
             </div>
           </Col>
         </Row>

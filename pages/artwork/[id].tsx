@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import queryString from 'query-string';
 import randomstring from 'randomstring';
 import Layout from 'components/Layout';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
@@ -57,8 +55,6 @@ export default function EditArtworkPage({ artwork }) {
         } else if (typeof option.default === 'number') {
           setOptionByIndex(optionIndex, Number(queryVal));
         } else if (typeof option.default === 'boolean') {
-          console.log(`BOOLEAN!!`);
-          console.log(`Boolean(${Boolean(queryVal)})`);
           setOptionByIndex(optionIndex, queryVal === 'true');
         }
       }

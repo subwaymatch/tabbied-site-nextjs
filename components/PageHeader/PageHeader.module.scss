@@ -1,3 +1,10 @@
+@import 'styles/variables';
+
 .headerSection {
   padding: 1rem 0;
+  font-size: 1rem;
+
+  h1 {
+    color: $gray-dark;
+  }
 }

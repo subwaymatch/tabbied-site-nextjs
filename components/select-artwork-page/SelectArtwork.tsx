@@ -17,22 +17,8 @@ export default function SelectArtwork() {
 
         <div className="container container-fluid-on-mobile">
           <Row noGutters={true}>
-            {/* <Col md={3} sm={6}>
-              <Link href="/artwork/zario/">
-                <div className={styles.galleryCard}>
-                  <h4 className={styles.white}>Super Zario</h4>
-                  <Image
-                    src="/images/thumb_super_zario.png"
-                    alt="Zario"
-                    width={800}
-                    height={800}
-                  />
-                </div>
-              </Link>
-            </Col> */}
-
             <Col md={3} sm={6}>
-              <Link href="/artwork/trigram/">
+              <Link href="/artwork/trigram?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Trigram</h4>
                   <Image
@@ -46,7 +32,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/odessa/">
+              <Link href="/artwork/odessa?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Odessa</h4>
                   <Image
@@ -60,7 +46,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/symmetry/">
+              <Link href="/artwork/symmetry?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4>Symmetry</h4>
                   <Image
@@ -74,7 +60,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/radius/">
+              <Link href="/artwork/radius?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Radius</h4>
                   <Image
@@ -90,7 +76,7 @@ export default function SelectArtwork() {
 
           <Row noGutters={true}>
             <Col md={3} sm={6}>
-              <Link href="/artwork/mixtape/">
+              <Link href="/artwork/mixtape?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4>Mixtape</h4>
                   <Image
@@ -104,7 +90,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/blossom/">
+              <Link href="/artwork/blossom?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Blossom</h4>
                   <Image
@@ -117,7 +103,7 @@ export default function SelectArtwork() {
               </Link>
             </Col>
             <Col md={3} sm={6}>
-              <Link href="/artwork/veil/">
+              <Link href="/artwork/veil?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4>Veil</h4>
                   <Image
@@ -131,7 +117,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/terrain/">
+              <Link href="/artwork/terrain?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Terrain</h4>
                   <Image
@@ -147,7 +133,7 @@ export default function SelectArtwork() {
 
           <Row noGutters={true}>
             <Col md={3} sm={6}>
-              <Link href="/artwork/disque/">
+              <Link href="/artwork/disque?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4>Disque</h4>
                   <Image
@@ -161,7 +147,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/ring/">
+              <Link href="/artwork/ring?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4 className={styles.white}>Ring</h4>
                   <Image
@@ -175,7 +161,7 @@ export default function SelectArtwork() {
             </Col>
 
             <Col md={3} sm={6}>
-              <Link href="/artwork/bloks/">
+              <Link href="/artwork/bloks?seed=0000">
                 <div className={styles.galleryCard}>
                   <h4>Bloks</h4>
                   <Image
