@@ -5,7 +5,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const browser = await playwright.launchChromium();
 
   const page = await browser.newPage({
-    deviceScaleFactor: 10,
+    deviceScaleFactor: 5,
   });
 
   await page.goto(
