@@ -40,7 +40,8 @@ export default function ColorPicker({ index, color, handleColorChange }) {
     pickr.on('save', colorChangeCallback);
 
     return () => {
-      pickr.off('save', colorChangeCallback);
+      // pickr.off('save', colorChangeCallback);
+      pickr.destroyAndRemove();
     };
   }, []);
 
