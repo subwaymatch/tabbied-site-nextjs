@@ -9,26 +9,32 @@ export default function Footer() {
         <Row>
           <Col
             md={{
-              span: 5,
+              span: 7,
             }}
           >
             <h5>Tabbied</h5>
 
-            <p>
-              Copyright 2020.{' '}
-              <Link href="/terms-of-service">
-                <a>Terms of Service</a>
-              </Link>{' '}
-              <Link href="/privacy-policy">
-                <a>Privacy Policy</a>
-              </Link>
-            </p>
+            <Row>
+              <Col md={6}>
+                <p>© 2020 Tabbied.com. All rights reserved.</p>
+              </Col>
+
+              <Col md={6}>
+                <p>
+                  <Link href="/terms-of-service">
+                    <a>Terms of Service</a>
+                  </Link>{' '}
+                  <Link href="/privacy-policy">
+                    <a>Privacy Policy</a>
+                  </Link>
+                </p>
+              </Col>
+            </Row>
           </Col>
 
           <Col
             md={{
               span: 5,
-              offset: 2,
             }}
           >
             <h5>About Us</h5>

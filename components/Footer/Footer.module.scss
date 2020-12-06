@@ -13,43 +13,11 @@
     margin-top: 1.5rem;
   }
 
-  ul.footerMenu {
-    margin-top: 0.75rem;
+  a {
+    color: $gray-dark;
 
-    li {
-      a {
-        color: #888;
-        display: block;
-        padding: 0.75rem 0;
-
-        &:hover {
-          color: #444;
-        }
-      }
-    }
-  }
-
-  .emailInputWrapper {
-    display: flex;
-    margin-top: 1.5rem;
-
-    input[type='email'],
-    button {
-      font-size: 0.95rem;
-      padding: 0.95rem;
-      border: 1px solid $gray-light;
-      border-right: none;
-    }
-
-    input[type='email'] {
-      flex-grow: 1;
-    }
-
-    button {
-      display: block;
-      color: white;
-      background-color: black;
-      border: none;
+    &:hover {
+      color: $gray-medium;
     }
   }
 
@@ -68,21 +36,6 @@
 
     p {
       margin-top: 0.5rem;
-    }
-
-    ul.footerMenu {
-      margin-top: 0.2rem;
-
-      li {
-        a {
-          padding: 0.25rem 0;
-        }
-      }
-    }
-
-    .emailInputWrapper {
-      display: flex;
-      margin: 1.5rem 0;
     }
   }
 }
