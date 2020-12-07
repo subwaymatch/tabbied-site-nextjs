@@ -7,14 +7,10 @@ import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
 import ValueSlider from 'components/ValueSlider';
 import { getAllArtworkIds, getArtwork } from 'lib/artwork';
-import { Container, Row, Col } from 'react-bootstrap';
 import styles from './EditArtworkPage.module.scss';
 import dynamic from 'next/dynamic';
 import _ from 'lodash';
-import classNames from 'classnames/bind';
 import ToggleSwitch from 'components/ToggleSwitch';
-
-const cx = classNames.bind(styles);
 
 const Doodle = dynamic(() => import('components/Doodle'), {
   ssr: false,
@@ -72,7 +68,6 @@ export default function EditArtworkPage({ artwork }) {
   // Update URL query parameters if necessary
   useEffect(() => {
     if (_.isEqual(router.query, { id: router.query.id })) {
-      console.log('DO NOTHING');
       return;
     }
 
@@ -85,21 +80,11 @@ export default function EditArtworkPage({ artwork }) {
       newQuery[o.id] = String(optionValues[idx]);
     });
 
-    console.log('======================');
-    console.log(`useEffect seed, palette, optionValues`);
-    console.log(router.query);
-    console.log(newQuery);
-    console.log('======================');
-
     if (!_.isEqual(router.query, newQuery)) {
-      console.log(`query NOT EQUAL`);
-
       router.replace({
         pathname: router.pathname,
         query: newQuery,
       });
-    } else {
-      console.log(`query EQUAL!`);
     }
   }, [seed, palette, optionValues]);
 
@@ -232,7 +217,7 @@ export default function EditArtworkPage({ artwork }) {
 
           <div className={styles.optionsWrapper}>
             <div className={styles.options}>
-              {palette && (
+              {palette.length > 0 && (
                 <div className={styles.optionBox}>
                   <h3>Palette</h3>
                   <div className="colors">
