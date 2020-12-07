@@ -9,8 +9,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   await page.goto(
-    'https://tabbied.vercel.app/artwork-screenshot/mixtape?seed=0000&id=mixtape&palette=%23C7C7C7&palette=%23232529&palette=%233E8BFF&palette=%233FFFB2&palette=%233EECFF&palette=%233FFFB2&grid=8x12&frequency=0.8&shadow=true'
+    'http://localhost:3000/artwork-screenshot/mixtape?seed=1bac&palette=%23FFFFFF&palette=%23232529&palette=%233E8BFF&palette=%233FFFB2&palette=%233EECFF&palette=%233FFFB2&grid=8x12&frequency=1&shadow=false',
+    {
+      waitUntil: 'load',
+    }
   );
+
+  await page.waitForTimeout(500);
 
   const imageData = await page.screenshot({
     type: 'png',
