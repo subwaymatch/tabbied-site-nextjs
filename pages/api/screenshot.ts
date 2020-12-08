@@ -10,13 +10,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const screenshotUrl = req.query.url as string;
 
-  const browser = await playwright.launchChromium();
-
-  const page = await browser.newPage({
+  const browser = await playwright.launchChromium({
+    headless: true,
+  });
+  const context = await browser.newContext({
     deviceScaleFactor: req.query.hasOwnProperty('deviceScaleFactor')
       ? Number(req.query.deviceScaleFactor)
       : 5,
   });
+
+  const page = await context.newPage();
 
   await page.goto(screenshotUrl, {
     waitUntil: 'load',
