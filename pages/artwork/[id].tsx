@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import randomstring from 'randomstring';
+import queryString from 'query-string';
 import Layout from 'components/Layout';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
@@ -30,6 +31,8 @@ export default function EditArtworkPage({ artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
+  const [width, setWidth] = useState(360);
+  const [height, setHeight] = useState(540);
 
   const router = useRouter();
 
@@ -102,8 +105,21 @@ export default function EditArtworkPage({ artwork }) {
   };
 
   const exportArtwork = () => {
-    console.log(`exportArtwork`);
-    console.log(router);
+    const screenshotUrl = window.location.href.replace(
+      '/artwork/',
+      '/artwork-screenshot/'
+    );
+
+    const queryParams = {
+      url: screenshotUrl,
+      width,
+      height,
+      deviceScaleFactor: 5,
+    };
+
+    const qs = queryString.stringify(queryParams);
+
+    window.location = ('/api/screenshot?' + qs) as any;
   };
 
   const getColorsStyleCode = (colors) => {
@@ -145,8 +161,10 @@ export default function EditArtworkPage({ artwork }) {
       }
     });
 
-    newDoodleCode = newDoodleCode.split('${width}').join('360px');
-    newDoodleCode = newDoodleCode.split('${height}').join('540px');
+    newDoodleCode = newDoodleCode.split('${width}').join(String(width) + 'px');
+    newDoodleCode = newDoodleCode
+      .split('${height}')
+      .join(String(height) + 'px');
 
     newStyleCode = getColorsStyleCode(palette) + newStyleCode;
 
