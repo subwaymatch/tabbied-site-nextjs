@@ -101,8 +101,19 @@ export default function EditArtworkPage({ artwork }) {
       }
     });
 
-    newDoodleCode = newDoodleCode.split('${width}').join('360px');
-    newDoodleCode = newDoodleCode.split('${height}').join('540px');
+    // Regex to match and remove transitions
+    // Unnecessary transitions (e.g., 500ms) may cause Playwright
+    // to take a screenshot while the artwork is still being animated
+    const transitionRegex = /(-webkit-)?transition:[^;]+;/gi;
+
+    newDoodleCode = newDoodleCode
+      .split('${width}')
+      .join('360px')
+      .replace(transitionRegex, '');
+    newDoodleCode = newDoodleCode
+      .split('${height}')
+      .join('540px')
+      .replace(transitionRegex, '');
 
     newStyleCode = getColorsStyleCode(palette) + newStyleCode;
 

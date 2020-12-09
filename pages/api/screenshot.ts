@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     waitUntil: 'load',
   });
 
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(300);
 
   const imageData = await page.screenshot({
     type: 'png',
