@@ -152,7 +152,11 @@ export default function EditArtworkPage({ artwork }) {
         case 'ToggleSwitch':
           if (optionValues[index]) {
             newStyleCode = newStyleCode.split(option.replace).join(option.code);
-
+            newDoodleCode = newDoodleCode
+              .split(option.replace)
+              .join(optionValues[index]);
+          } else {
+            newStyleCode = newStyleCode.split(option.replace).join('');
             newDoodleCode = newDoodleCode.split(option.replace).join('');
           }
           break;

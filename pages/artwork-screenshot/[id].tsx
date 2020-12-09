@@ -18,6 +18,8 @@ export default function EditArtworkPage({ artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
+  const [width, setWidth] = useState(360);
+  const [height, setHeight] = useState(540);
 
   const router = useRouter();
 
@@ -92,7 +94,11 @@ export default function EditArtworkPage({ artwork }) {
         case 'ToggleSwitch':
           if (optionValues[index]) {
             newStyleCode = newStyleCode.split(option.replace).join(option.code);
-
+            newDoodleCode = newDoodleCode
+              .split(option.replace)
+              .join(optionValues[index]);
+          } else {
+            newStyleCode = newStyleCode.split(option.replace).join('');
             newDoodleCode = newDoodleCode.split(option.replace).join('');
           }
           break;
@@ -101,19 +107,10 @@ export default function EditArtworkPage({ artwork }) {
       }
     });
 
-    // Regex to match and remove transitions
-    // Unnecessary transitions (e.g., 500ms) may cause Playwright
-    // to take a screenshot while the artwork is still being animated
-    const transitionRegex = /(-webkit-)?transition:[^;]+;/gi;
-
-    newDoodleCode = newDoodleCode
-      .split('${width}')
-      .join('360px')
-      .replace(transitionRegex, '');
+    newDoodleCode = newDoodleCode.split('${width}').join(String(width) + 'px');
     newDoodleCode = newDoodleCode
       .split('${height}')
-      .join('540px')
-      .replace(transitionRegex, '');
+      .join(String(height) + 'px');
 
     newStyleCode = getColorsStyleCode(palette) + newStyleCode;
 
@@ -147,6 +144,14 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const artwork = await getArtwork(params.id);
+
+  // Regex to match and remove transitions
+  // Unnecessary transitions (e.g., 500ms) may cause Playwright
+  // to take a screenshot while the artwork is still being animated
+  const transitionRegex = /(-webkit-)?transition:[^;]+;/gi;
+
+  artwork.code.style = artwork.code.style.replace(transitionRegex, '');
+  artwork.code.doodle = artwork.code.doodle.replace(transitionRegex, '');
 
   return {
     props: {
