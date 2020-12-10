@@ -3,7 +3,7 @@
 
 .header {
   padding: 1.5rem 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
 
   h1 {
     color: $gray-dark;
@@ -14,17 +14,24 @@
   border: none;
   display: inline-flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 300;
   color: white;
-  background-color: $gray-medium;
-  padding: 0.5rem 0.7rem;
+  background-color: $gray-dark;
+  padding: 0.9rem 1.25rem;
   border-radius: 0.15rem;
   cursor: pointer;
   outline: none;
 
   &:hover {
-    background-color: color.scale($gray-medium, $lightness: -10%);
-    box-shadow: 0 0 0.75rem rgba($gray-medium, 20%);
+    background-color: color.scale($gray-dark, $lightness: 6%);
+    box-shadow: 0 0 0.75rem rgba($gray-dark, 20%);
+  }
+
+  &.btnRedraw {
+    .reactIcon {
+      font-size: 1.1rem;
+    }
   }
 
   &.btnExport {
@@ -33,8 +40,8 @@
     margin-left: 0.6rem;
 
     &:hover {
-      background-color: color.scale($lime, $lightness: -10%);
-      box-shadow: 0 0 0.75rem rgba($lime, 30%);
+      background-color: color.scale($lime, $lightness: 10%);
+      box-shadow: 0 0 1rem rgba($lime, 30%);
     }
   }
 

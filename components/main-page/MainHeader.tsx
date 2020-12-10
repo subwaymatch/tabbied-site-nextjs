@@ -15,8 +15,8 @@ export default function MainHeader() {
                   src="/images/logo_tabbied.png"
                   alt="Tabbied"
                   layout="fixed"
-                  width={56}
-                  height={56}
+                  width={52}
+                  height={52}
                 />
               </a>
             </Link>

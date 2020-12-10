@@ -3,7 +3,7 @@
 
 .footerSection {
   font-size: 0.95rem;
-  padding: 5rem 0 7.5rem 0;
+  padding: 5rem 0 10rem 0;
 
   h5 {
     color: $gray-dark;
@@ -19,10 +19,6 @@
     &:hover {
       color: $gray-medium;
     }
-  }
-
-  .heart {
-    color: $pink;
   }
 }
 

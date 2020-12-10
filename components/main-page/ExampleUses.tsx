@@ -8,9 +8,7 @@ export default function ExampleUsesSection() {
         <Row>
           <Col>
             <span className={styles.subheading}>Example uses</span>
-            <h3 className="section-title">
-              Use your design for just about anything
-            </h3>
+            <h3 className="section-title">Use it for just about anything</h3>
           </Col>
         </Row>
       </Container>

@@ -4,12 +4,12 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 56px;
-  height: 32px;
-  font-size: 0.7rem;
+  width: 60px;
+  height: 36px;
+  font-size: 0.95rem;
   color: $gray-light;
   background-color: $gray-light;
-  border-radius: 32px;
+  border-radius: 60px;
 
   &::after {
     content: '\2715';
@@ -17,8 +17,8 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background-color: white;
     top: 2px;
@@ -27,7 +27,7 @@
   }
 
   &.isChecked {
-    background-color: $gray-medium;
+    background-color: $gray-dark;
 
     &::after {
       color: $gray-medium;

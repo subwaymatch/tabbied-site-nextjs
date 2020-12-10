@@ -1,27 +1,29 @@
+@use 'sass:color';
 @import 'styles/variables';
 
 .buttonSelectGroup {
   .option {
     cursor: pointer;
     display: inline-block;
+    color: color.scale($gray-medium, $lightness: 20%);
     background-color: #ffffff;
     padding: 0.75rem 1rem;
-    box-shadow: 0 1px 0 0 #d4d8de;
+    border: 2px solid transparent;
     border-radius: 2px;
     margin-right: 1rem;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 
     &:last-child {
       margin-right: 0;
     }
 
     &:hover {
-      box-shadow: 0 1px 0 0 $gray-medium;
+      box-shadow: 0 0 1rem rgba($gray-dark, 6%);
     }
 
     &.selected {
-      color: white;
-      background-color: $gray-medium;
+      color: $gray-dark;
+      border-color: $gray-dark;
     }
   }
 }

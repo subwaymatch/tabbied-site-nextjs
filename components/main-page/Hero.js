@@ -93,14 +93,15 @@ export default function MainHero() {
               offset: 3,
             }}
             md={{
-              span: 8,
-              offset: 2,
+              span: 6,
+              offset: 3,
             }}
             sm={{ span: 12, offset: 0 }}
           >
             <div className={styles.heroContent}>
               <p className={styles.heroText}>
-                Customizable, CSS generated artwork for designers
+                Doodle with <br className="d-md-inline d-sm-none" />
+                generated patterns
               </p>
 
               <div className={styles.heroActions}>

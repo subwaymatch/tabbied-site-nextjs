@@ -19,8 +19,8 @@ export default function PageHeader({ title }: { title: string }) {
                   src="/images/logo_tabbied.png"
                   alt="Tabbied"
                   layout="fixed"
-                  width={48}
-                  height={48}
+                  width={52}
+                  height={52}
                 />
               </a>
             </Link>

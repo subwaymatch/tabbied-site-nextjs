@@ -8,33 +8,35 @@ export default function Footer() {
       <Container>
         <Row>
           <Col
+            lg={{
+              span: 4,
+              offset: 1,
+            }}
             md={{
-              span: 7,
+              span: 5,
             }}
           >
             <h5>Tabbied</h5>
 
-            <Row>
-              <Col md={6}>
-                <p>© 2020 Tabbied.com. All rights reserved.</p>
-              </Col>
-
-              <Col md={6}>
-                <p>
-                  <Link href="/terms-of-service">
-                    <a>Terms of Service</a>
-                  </Link>{' '}
-                  <Link href="/privacy-policy">
-                    <a>Privacy Policy</a>
-                  </Link>
-                </p>
-              </Col>
-            </Row>
+            <p>
+              Copyright 2020.{' '}
+              <Link href="/terms-of-service">
+                <a>Terms of Service</a>
+              </Link>{' '}
+              <Link href="/privacy-policy">
+                <a>Privacy Policy</a>
+              </Link>
+            </p>
           </Col>
 
           <Col
+            lg={{
+              span: 4,
+              offset: 2,
+            }}
             md={{
               span: 5,
+              offset: 2,
             }}
           >
             <h5>About Us</h5>
@@ -44,11 +46,7 @@ export default function Footer() {
               patterns or artwork to use for wall art, websites, print materials
               and more.
             </p>
-            <p>
-              This free tool was built with{' '}
-              <span className={styles.heart}>❤</span> by Sy Hong and Ye Joo
-              Park.
-            </p>
+            <p>This free tool was built by Sy Hong and Ye Joo Park.</p>
           </Col>
         </Row>
       </Container>

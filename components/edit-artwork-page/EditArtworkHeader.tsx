@@ -2,6 +2,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import styles from './EditArtworkHeader.module.scss';
 import classNames from 'classnames/bind';
+import { BiShuffle } from 'react-icons/bi';
+import { TiArrowShuffle } from 'react-icons/ti';
+import { BsShuffle } from 'react-icons/bs';
 import { IoMdRefresh } from 'react-icons/io';
 import { RiDownloadLine } from 'react-icons/ri';
 
@@ -33,7 +36,7 @@ export default function EditArtworkHeader({
           <Col md={4}>
             <div className="align-right">
               <button className={cx('btn', 'btnRedraw')} onClick={onRedraw}>
-                <IoMdRefresh className={styles.reactIcon} />
+                <BiShuffle className={styles.reactIcon} />
                 <span>Redraw</span>
               </button>
               <button className={cx('btn', 'btnExport')} onClick={onExport}>
