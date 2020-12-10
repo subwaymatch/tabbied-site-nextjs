@@ -5,8 +5,6 @@ import 'css-doodle';
 class Doodle extends React.Component {
   constructor(props) {
     super(props);
-
-    this.doodleRef = React.createRef();
   }
 
   componentDidUpdate() {
@@ -14,11 +12,11 @@ class Doodle extends React.Component {
   }
 
   redraw() {
-    this.doodleRef.current.update();
+    this.props.doodleRef.current.update();
   }
 
   render() {
-    const { seed, name, styleCode, doodleCode } = this.props;
+    const { seed, name, styleCode, doodleCode, doodleRef } = this.props;
 
     return (
       <div>
@@ -30,12 +28,7 @@ class Doodle extends React.Component {
         `}
         </style>
 
-        <css-doodle
-          id={name}
-          seed={seed}
-          use="var(--rule)"
-          ref={this.doodleRef}
-        >
+        <css-doodle id={name} seed={seed} use="var(--rule)" ref={doodleRef}>
           {`
             ${doodleCode}
           `}

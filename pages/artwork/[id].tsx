@@ -33,6 +33,7 @@ export default function EditArtworkPage({ artwork }) {
   const [seed, setSeed] = useState('0000');
   const [width, setWidth] = useState(360);
   const [height, setHeight] = useState(540);
+  const doodleRef = React.createRef();
 
   const router = useRouter();
 
@@ -104,22 +105,31 @@ export default function EditArtworkPage({ artwork }) {
     setSeed(randomstring.generate({ length: 4 }));
   };
 
-  const exportArtwork = () => {
-    const screenshotUrl = window.location.href.replace(
-      '/artwork/',
-      '/artwork-screenshot/'
-    );
+  const exportArtwork = async () => {
+    console.log(`exportArtwork`);
 
-    const queryParams = {
-      url: screenshotUrl,
-      width,
-      height,
-      deviceScaleFactor: 5,
-    };
+    let result = await (doodleRef.current as any).export({
+      scale: 10,
+      download: true,
+    });
 
-    const qs = queryString.stringify(queryParams);
+    console.log(result);
 
-    window.location = ('/api/screenshot?' + qs) as any;
+    // const screenshotUrl = window.location.href.replace(
+    //   '/artwork/',
+    //   '/artwork-screenshot/'
+    // );
+
+    // const queryParams = {
+    //   url: screenshotUrl,
+    //   width,
+    //   height,
+    //   deviceScaleFactor: 5,
+    // };
+
+    // const qs = queryString.stringify(queryParams);
+
+    // window.location = ('/api/screenshot?' + qs) as any;
   };
 
   const getColorsStyleCode = (colors) => {
@@ -233,6 +243,7 @@ export default function EditArtworkPage({ artwork }) {
                 seed={seed}
                 styleCode={styleCode}
                 doodleCode={doodleCode}
+                doodleRef={doodleRef}
               />
             </div>
           </div>
