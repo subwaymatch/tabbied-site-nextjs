@@ -31,7 +31,7 @@
     }
   ],
   "code": {
-    "style": "/* set custom colors and inject z-index for the specific color to use for association */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%)); clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%)); /* On or off option for displaying box shadows */ ${shadow} -webkit-transition: ease @rand(200ms, 600ms); transition: ease @rand(200ms, 600ms); } );",
+    "style": "/* set custom colors and inject z-index for the specific color to use for association */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random(${shapeFrequency}) { background: var(--randomColor); -webkit-clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%)); clip-path: @pick(circle(100% at 0 0), circle(100% at 100% 0), circle(100% at 100% 100%), circle(100% at 0 100%), circle(50% at 50% 50%)); /* On or off option for displaying box shadows */ ${shadow} -webkit-transition: ease 400ms; transition: ease 400ms; } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

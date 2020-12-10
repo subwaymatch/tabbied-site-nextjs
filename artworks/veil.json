@@ -23,7 +23,7 @@
     }
   ],
   "code": {
-    "style": "/* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random (${shapeFrequency}) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease @rand(200ms); transition: .2s ease @rand(200ms); -webkit-transform: clip-path; transform: clip-path; } );",
+    "style": "/* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random (${shapeFrequency}) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }"
   }
 }
