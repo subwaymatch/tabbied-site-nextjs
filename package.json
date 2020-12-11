@@ -12,7 +12,7 @@
     "@simonwep/pickr": "^1.7.4",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
-    "css-doodle": "^0.11.1",
+    "css-doodle": "^0.11.2",
     "lodash": "^4.17.20",
     "next": "10.0.3",
     "playwright-aws-lambda": "^0.6.0",
