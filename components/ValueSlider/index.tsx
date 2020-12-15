@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
 
 const TabbiedSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#232529',
     height: 8,
   },
   thumb: {
-    height: 24,
-    width: 24,
+    height: 16,
+    width: 16,
     backgroundColor: '#fff',
     border: '2px solid currentColor',
-    marginTop: -8,
+    marginTop: -4,
     marginLeft: -12,
     '&:focus, &:hover, &$active': {
       boxShadow: 'inherit',
