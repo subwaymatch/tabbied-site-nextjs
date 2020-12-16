@@ -24,6 +24,20 @@
     }
   }
 
+  .actionBtn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 2px solid white;
+    border-radius: 0.2rem;
+    color: white;
+    background-color: $gray-dark;
+
+    &:hover {
+      box-shadow: 0 0 1rem rgba($gray-dark, 0.25);
+      background-color: color.scale($gray-dark, $lightness: -40%);
+    }
+  }
+
   .heroText {
     font-size: 3.2rem;
     line-height: 1.5;

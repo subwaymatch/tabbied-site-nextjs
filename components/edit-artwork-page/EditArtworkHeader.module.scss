@@ -1,4 +1,5 @@
 @use 'sass:color';
+@import 'styles/mixins';
 @import 'styles/variables';
 
 .header {
@@ -7,6 +8,11 @@
 
   h1 {
     color: $gray-dark;
+  }
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 }
 
@@ -23,6 +29,10 @@
   cursor: pointer;
   outline: none;
 
+  @include media-breakpoint-down(sm) {
+    padding: 0.7rem 1rem;
+  }
+
   &:hover {
     background-color: color.scale($gray-dark, $lightness: 6%);
     box-shadow: 0 0 0.75rem rgba($gray-dark, 20%);
@@ -35,13 +45,13 @@
   }
 
   &.btnExport {
-    color: $gray-dark;
-    background-color: $lime;
+    color: white;
+    background-color: #0a6cff;
     margin-left: 0.6rem;
 
     &:hover {
-      background-color: color.scale($lime, $lightness: 10%);
-      box-shadow: 0 0 1rem rgba($lime, 30%);
+      background-color: color.scale(#0a6cff, $lightness: 10%);
+      box-shadow: 0 0 0.75rem rgba(#0a6cff, 20%);
     }
   }
 

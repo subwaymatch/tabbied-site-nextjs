@@ -106,7 +106,7 @@ export default function MainHero() {
 
               <div className={styles.heroActions}>
                 <Link href="/select-artwork/">
-                  <a className="btn">Make your art</a>
+                  <a className={styles.actionBtn}>Make your art</a>
                 </Link>
               </div>
             </div>

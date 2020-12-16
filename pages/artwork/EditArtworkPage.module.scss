@@ -1,3 +1,4 @@
+@import 'styles/mixins';
 @import 'styles/variables';
 
 .pageWrapper {
@@ -6,17 +7,30 @@
   height: 100vw;
   height: 100vh;
   overflow: hidden;
+
+  @include media-breakpoint-down(sm) {
+    height: auto;
+  }
 }
 
 .editArtworkSection {
   flex-grow: 1;
   display: flex;
 
+  @include media-breakpoint-down(sm) {
+    display: block;
+  }
+
   .previewWrapper {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
   }
 
   .optionsWrapper {

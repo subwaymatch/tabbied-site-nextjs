@@ -114,22 +114,6 @@ export default function EditArtworkPage({ artwork }) {
     });
 
     console.log(result);
-
-    // const screenshotUrl = window.location.href.replace(
-    //   '/artwork/',
-    //   '/artwork-screenshot/'
-    // );
-
-    // const queryParams = {
-    //   url: screenshotUrl,
-    //   width,
-    //   height,
-    //   deviceScaleFactor: 5,
-    // };
-
-    // const qs = queryString.stringify(queryParams);
-
-    // window.location = ('/api/screenshot?' + qs) as any;
   };
 
   const getColorsStyleCode = (colors) => {
@@ -224,7 +208,7 @@ export default function EditArtworkPage({ artwork }) {
   return (
     <Layout>
       <Head>
-        <meta name="viewport" content="width=1600" />
+        <title>Customize {artwork.name}</title>
       </Head>
 
       <div className={styles.pageWrapper}>
