@@ -16,7 +16,7 @@ export default function PageHeader({ title }: { title: string }) {
             <Link href="/">
               <a className={styles.logoImageWrapper}>
                 <Image
-                  src="/images/logo_tabbied.png"
+                  src="/images/logo_tabbied_v2.svg"
                   alt="Tabbied"
                   layout="fixed"
                   width={52}

@@ -28,8 +28,8 @@
     align-items: center;
 
     @include media-breakpoint-down(sm) {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
     }
   }
 
@@ -43,6 +43,10 @@
     .options {
       width: 100%;
       padding: 4rem;
+
+      @include media-breakpoint-down(sm) {
+        padding: 1rem 1.5rem;
+      }
     }
 
     .optionBox {

@@ -23,10 +23,10 @@ export default function EditArtworkHeader({
     <header className={styles.header}>
       <Container>
         <Row className="align-items-center">
-          <Col md={4} xs={3}>
+          <Col md={4} xs={6}>
             <Link href="/select-artwork">
               <a className={styles.backLink}>
-                ←<span className="d-none d-md-inline"> Go back to gallery</span>
+                ← Go back<span className="d-none d-md-inline"> to gallery</span>
               </a>
             </Link>
           </Col>
@@ -35,15 +35,15 @@ export default function EditArtworkHeader({
             <h1 className="align-center">Make your art</h1>
           </Col>
 
-          <Col md={4} xs={9}>
+          <Col md={4} xs={6}>
             <div className="align-right">
               <button className={cx('btn', 'btnRedraw')} onClick={onRedraw}>
                 <BiShuffle className={styles.reactIcon} />
-                <span>Redraw</span>
+                <span className={styles.label}>Redraw</span>
               </button>
               <button className={cx('btn', 'btnExport')} onClick={onExport}>
                 <RiDownloadLine className={styles.reactIcon} />
-                <span>Export</span>
+                <span className={styles.label}>Export</span>
               </button>
             </div>
           </Col>

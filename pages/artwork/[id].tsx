@@ -32,14 +32,10 @@ export default function EditArtworkPage({ artwork }) {
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
   const doodleRef = React.createRef();
-
   const router = useRouter();
-
   const isScreenXS = useMediaQuery('(max-width: 747.99px)');
   const width = isScreenXS ? 240 : 360;
   const height = width * 1.5;
-
-  console.log(`isScreenXS=${isScreenXS}, ${width}, ${height}`);
 
   useEffect(() => {
     if (
@@ -113,7 +109,7 @@ export default function EditArtworkPage({ artwork }) {
     console.log(`exportArtwork`);
 
     let result = await (doodleRef.current as any).export({
-      scale: 10,
+      scale: 3600 / width,
       download: true,
     });
 
