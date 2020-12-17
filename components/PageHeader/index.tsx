@@ -12,7 +12,7 @@ export default function PageHeader({ title }: { title: string }) {
     <header className={styles.headerSection}>
       <Container>
         <Row className="align-items-center">
-          <Col md={2}>
+          <Col xs={3}>
             <Link href="/">
               <a className={styles.logoImageWrapper}>
                 <Image
@@ -26,13 +26,13 @@ export default function PageHeader({ title }: { title: string }) {
             </Link>
           </Col>
 
-          <Col md={8}>
+          <Col xs={6}>
             <div className="align-center">
               <h2>{title}</h2>
             </div>
           </Col>
 
-          <Col md={2}>
+          <Col xs={3}>
             <div className="align-right">
               <a
                 onClick={(e) => {

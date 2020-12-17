@@ -21,12 +21,26 @@ export default function BrowseArtworkSection() {
       <Container className="container-fluid-on-mobile">
         <Row noGutters={true}>
           <Col md={3} sm={6}>
-            <Link href={`/artwork/trigram/`}>
+            <Link href={`/artwork/radius/`}>
               <div className={styles.galleryCard}>
-                <h4 className={styles.white}>Trigram</h4>
+                <h4 className={styles.white}>Radius</h4>
                 <Image
-                  src="/images/thumb_trigram.png"
-                  alt="Trigram"
+                  src="/images/thumb_radius.png"
+                  alt="Radius"
+                  width={800}
+                  height={800}
+                />
+              </div>
+            </Link>
+          </Col>
+
+          <Col md={3} sm={6}>
+            <Link href={`/artwork/mixtape/`}>
+              <div className={styles.galleryCard}>
+                <h4>Mixtape</h4>
+                <Image
+                  src="/images/thumb_mixtape.png"
+                  alt="Mixtape"
                   width={800}
                   height={800}
                 />
@@ -61,30 +75,16 @@ export default function BrowseArtworkSection() {
               </div>
             </Link>
           </Col>
-
-          <Col md={3} sm={6}>
-            <Link href={`/artwork/radius/`}>
-              <div className={styles.galleryCard}>
-                <h4 className={styles.white}>Radius</h4>
-                <Image
-                  src="/images/thumb_radius.png"
-                  alt="Radius"
-                  width={800}
-                  height={800}
-                />
-              </div>
-            </Link>
-          </Col>
         </Row>
 
         <Row noGutters={true}>
           <Col md={3} sm={6}>
-            <Link href={`/artwork/mixtape/`}>
+            <Link href={`/artwork/veil/`}>
               <div className={styles.galleryCard}>
-                <h4>Mixtape</h4>
+                <h4>Veil</h4>
                 <Image
-                  src="/images/thumb_mixtape.png"
-                  alt="Mixtape"
+                  src="/images/thumb_veil.png"
+                  alt="Veil"
                   width={800}
                   height={800}
                 />
@@ -105,13 +105,14 @@ export default function BrowseArtworkSection() {
               </div>
             </Link>
           </Col>
+
           <Col md={3} sm={6}>
-            <Link href={`/artwork/veil/`}>
+            <Link href={`/artwork/disque/`}>
               <div className={styles.galleryCard}>
-                <h4>Veil</h4>
+                <h4>Disque</h4>
                 <Image
-                  src="/images/thumb_veil.png"
-                  alt="Veil"
+                  src="/images/thumb_disque.png"
+                  alt="Disque"
                   width={800}
                   height={800}
                 />
