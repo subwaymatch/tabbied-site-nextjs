@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import randomstring from 'randomstring';
-import queryString from 'query-string';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Layout from 'components/Layout';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
 import ButtonSelectGroup from 'components/ButtonSelectGroup';
@@ -31,11 +31,15 @@ export default function EditArtworkPage({ artwork }) {
   const [styleCode, setStyleCode] = useState('');
   const [doodleCode, setDoodleCode] = useState('');
   const [seed, setSeed] = useState('0000');
-  const [width, setWidth] = useState(360);
-  const [height, setHeight] = useState(540);
   const doodleRef = React.createRef();
 
   const router = useRouter();
+
+  const isScreenXS = useMediaQuery('(max-width: 747.99px)');
+  const width = isScreenXS ? 240 : 360;
+  const height = width * 1.5;
+
+  console.log(`isScreenXS=${isScreenXS}, ${width}, ${height}`);
 
   useEffect(() => {
     if (
@@ -67,7 +71,7 @@ export default function EditArtworkPage({ artwork }) {
 
   useEffect(() => {
     updateDoodleCode();
-  }, [palette, optionValues]);
+  }, [isScreenXS, palette, optionValues]);
 
   // Update URL query parameters if necessary
   useEffect(() => {

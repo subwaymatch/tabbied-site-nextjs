@@ -16,7 +16,7 @@ export default function MakeYourArt() {
               </div>
 
               <Link href="/select-artwork">
-                <a className="btn">Make your art</a>
+                <a className={styles.actionBtn}>Make your art</a>
               </Link>
             </div>
           </Col>

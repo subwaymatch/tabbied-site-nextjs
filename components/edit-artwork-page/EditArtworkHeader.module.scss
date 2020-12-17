@@ -30,6 +30,7 @@
   outline: none;
 
   @include media-breakpoint-down(sm) {
+    font-size: 0.95rem;
     padding: 0.7rem 1rem;
   }
 
@@ -46,12 +47,12 @@
 
   &.btnExport {
     color: white;
-    background-color: #0a6cff;
+    background-color: $blue-high-contrast;
     margin-left: 0.6rem;
 
     &:hover {
-      background-color: color.scale(#0a6cff, $lightness: 10%);
-      box-shadow: 0 0 0.75rem rgba(#0a6cff, 20%);
+      background-color: color.scale($blue-high-contrast, $lightness: 10%);
+      box-shadow: 0 0 0.75rem rgba($blue-high-contrast, 20%);
     }
   }
 

@@ -66,4 +66,8 @@
 .doodleFrame {
   display: inline-block;
   box-shadow: 16px 16px 32px 0 rgba(0, 0, 0, 0.1);
+
+  @include media-breakpoint-down(sm) {
+    box-shadow: none;
+  }
 }

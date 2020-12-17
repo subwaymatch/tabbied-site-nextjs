@@ -1,4 +1,5 @@
 @import 'styles/variables';
+@import 'styles/mixins';
 
 .headerSection {
   padding: 1rem 0;
@@ -6,5 +7,13 @@
 
   h1 {
     color: $gray-dark;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .logoImageWrapper {
+      img {
+        width: 2.5rem;
+      }
+    }
   }
 }
