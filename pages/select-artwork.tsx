@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Layout from 'components/Layout';
 import PageHeader from 'components/PageHeader';
 import SelectArtwork from 'components/select-artwork-page/SelectArtwork';

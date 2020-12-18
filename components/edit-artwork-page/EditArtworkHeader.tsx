@@ -3,9 +3,6 @@ import Link from 'next/link';
 import styles from './EditArtworkHeader.module.scss';
 import classNames from 'classnames/bind';
 import { BiShuffle } from 'react-icons/bi';
-import { TiArrowShuffle } from 'react-icons/ti';
-import { BsShuffle } from 'react-icons/bs';
-import { IoMdRefresh } from 'react-icons/io';
 import { RiDownloadLine } from 'react-icons/ri';
 
 const cx = classNames.bind(styles);
