@@ -23,7 +23,8 @@ export default function ColorPicker({ index, color, handleColorChange }) {
         // Main components
         preview: true,
         hue: true,
-        lockOpacity: true,
+        opacity: true,
+        // lockOpacity: true,
 
         // Input / output Options
         interaction: {
