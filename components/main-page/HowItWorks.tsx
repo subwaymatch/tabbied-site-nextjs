@@ -52,21 +52,7 @@ export default function HowItWorks() {
         </div>
       </Container>
 
-      <Container className="container-fluid-on-mobile">
-        <Row>
-          <Col>
-            <div style={{ marginTop: '40px' }}>
-              <Image
-                src="/images/demo_video_placeholder.jpg"
-                alt="Demo Video Placeholder"
-                layout="responsive"
-                width={1200}
-                height={683}
-              />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      <div className={styles.imageBackground} />
     </div>
   );
 }

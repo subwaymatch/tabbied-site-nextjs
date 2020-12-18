@@ -2,7 +2,7 @@
 @import 'styles/mixins';
 
 .howItWorksSection {
-  padding: 7rem 0 5rem 0;
+  padding: 7rem 0 3rem 0;
 
   h3 {
     text-align: center;
@@ -77,10 +77,8 @@
       }
     }
   }
-}
 
-@include media-breakpoint-down(sm) {
-  .howItWorksSection {
+  @include media-breakpoint-down(sm) {
     padding: 3rem 0;
 
     .steps {
@@ -91,5 +89,31 @@
       text-align: center;
       padding: 1.25rem 2.5rem;
     }
+  }
+}
+
+.imageBackground {
+  margin: 4rem auto 0 auto;
+  background-image: url('/images/tabbied_screens.jpg');
+  background-repeat: no-repeat;
+  background-size: 1320px auto;
+  height: 640px;
+  background-position: center;
+
+  @include media-breakpoint-down(md) {
+    background-size: 1100px auto;
+    height: 534px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    background-size: 1600px auto;
+    background-position: 80% 0;
+    height: 534px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    background-size: 600px auto;
+    background-position: 80% 0;
+    height: 300px;
   }
 }

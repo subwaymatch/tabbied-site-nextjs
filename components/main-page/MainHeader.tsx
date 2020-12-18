@@ -12,7 +12,7 @@ export default function MainHeader() {
             <Link href="/">
               <a className={styles.logoImageWrapper}>
                 <Image
-                  src="/images/logo_tabbied_v2.svg"
+                  src="/images/logo_tabbied_v3.svg"
                   alt="Tabbied"
                   layout="fixed"
                   width={52}
@@ -40,11 +40,9 @@ export default function MainHeader() {
 
           <Col md={3} xs={6}>
             <div className="align-right">
-              <div className="d-none d-md-block">
-                <Link href="/select-artwork/">
-                  <a className={styles.actionBtn}>Make your art</a>
-                </Link>
-              </div>
+              <Link href="/select-artwork/">
+                <a className={styles.actionBtn}>Make your art</a>
+              </Link>
             </div>
           </Col>
         </Row>

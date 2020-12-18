@@ -25,12 +25,12 @@
   .actionBtn {
     color: $gray-dark;
     padding: 0.2rem 0 0.4rem 0;
-    border-bottom: 3px solid $gray-dark;
+    border-bottom: 3px solid $pink;
     font-size: 1.15rem;
 
     &:hover {
-      color: $blue-high-contrast;
-      border-color: $blue-high-contrast;
+      color: $pink;
+      border-color: $pink;
     }
   }
 }
