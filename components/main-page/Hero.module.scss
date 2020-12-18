@@ -3,7 +3,7 @@
 @import 'styles/mixins';
 
 .heroSection {
-  background-color: #326dc9;
+  background-color: $blue-medium;
   position: relative;
   text-align: center;
   width: 100%;
@@ -49,6 +49,28 @@
 
   .heroActions {
     margin-top: 3rem;
+  }
+}
+
+.contentBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/hero_text_background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px auto;
+
+  @include media-breakpoint-down(md) {
+    background-size: 760px auto;
+  }
+
+  @include media-breakpoint-down(sm) {
+    background-size: 720px auto;
+  }
+
+  @include media-breakpoint-down(xs) {
+    background-size: 540px auto;
   }
 }
 

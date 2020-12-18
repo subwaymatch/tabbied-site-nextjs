@@ -85,6 +85,8 @@ export default function MainHero() {
         </div>
       </div>
 
+      <div className={styles.contentBackground} />
+
       <Container>
         <Row className="align-items-center">
           <Col
@@ -96,7 +98,8 @@ export default function MainHero() {
               span: 6,
               offset: 3,
             }}
-            sm={{ span: 12, offset: 0 }}
+            sm={{ span: 8, offset: 2 }}
+            xs={{ span: 12, offset: 0 }}
           >
             <div className={styles.heroContent}>
               <p className={styles.heroText}>
