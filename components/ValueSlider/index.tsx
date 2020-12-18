@@ -1,41 +1,33 @@
 import Slider from '@material-ui/core/Slider';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 300 + theme.spacing(3) * 2,
-  },
-  margin: {
-    height: theme.spacing(3),
-  },
-}));
-
 const TabbiedSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#232529',
     height: 8,
   },
   thumb: {
-    height: 24,
-    width: 24,
+    height: 20,
+    width: 20,
     backgroundColor: '#fff',
-    border: '2px solid currentColor',
+    border: '3px solid currentColor',
     marginTop: -8,
-    marginLeft: -12,
+    marginLeft: -10,
     '&:focus, &:hover, &$active': {
       boxShadow: 'inherit',
     },
   },
   active: {},
   valueLabel: {
-    left: 'calc(-50% + 4px)',
+    left: 'calc(-50% - 2px)',
   },
   track: {
-    height: 8,
+    height: 4,
     borderRadius: 4,
   },
   rail: {
-    height: 8,
+    color: '#98a0af',
+    height: 4,
     borderRadius: 4,
   },
 })(Slider);
