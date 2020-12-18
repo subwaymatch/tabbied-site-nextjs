@@ -55,12 +55,12 @@
 
   &.btnExport {
     color: white;
-    background-color: $blue-high-contrast;
+    background-color: $pink;
     margin-left: 0.6rem;
 
     &:hover {
-      background-color: color.scale($blue-high-contrast, $lightness: 10%);
-      box-shadow: 0 0 0.75rem rgba($blue-high-contrast, 20%);
+      background-color: color.scale($pink, $lightness: 6%);
+      box-shadow: 0 0 0.75rem rgba($pink, 20%);
     }
   }
 }
