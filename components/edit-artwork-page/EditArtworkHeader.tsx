@@ -22,9 +22,7 @@ export default function EditArtworkHeader({
         <Row className="align-items-center">
           <Col md={4} xs={6}>
             <Link href="/select-artwork">
-              <a className={styles.backLink}>
-                ← Go back<span className="d-none d-md-inline"> to gallery</span>
-              </a>
+              <a className={styles.backLink}>← Back to gallery</a>
             </Link>
           </Col>
 

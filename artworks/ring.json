@@ -5,7 +5,7 @@
   "options": [
     {
       "id": "grid",
-      "displayName": "Columns and Rows",
+      "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "2x3",
       "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],

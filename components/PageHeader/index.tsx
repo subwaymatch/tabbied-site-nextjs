@@ -31,20 +31,6 @@ export default function PageHeader({ title }: { title: string }) {
               <h2>{title}</h2>
             </div>
           </Col>
-
-          <Col xs={3}>
-            <div className="align-right">
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  router.back();
-                }}
-              >
-                <MdClose className={styles.icon} />
-              </a>
-            </div>
-          </Col>
         </Row>
       </Container>
     </header>
