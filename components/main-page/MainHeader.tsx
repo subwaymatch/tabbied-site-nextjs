@@ -7,7 +7,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
 
-const MainPageNavigation = () => {
+const MainPageNavigation = ({ howItWorksRef }) => {
   return (
     <ul className={styles.pageNavigation}>
       <li>

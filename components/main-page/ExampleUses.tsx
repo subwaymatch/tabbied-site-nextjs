@@ -3,7 +3,7 @@ import styles from './ExampleUses.module.scss';
 
 export default function ExampleUsesSection() {
   return (
-    <div className={styles.exampleUsesSection}>
+    <div id="section-example-uses" className={styles.exampleUsesSection}>
       <Container>
         <Row>
           <Col>

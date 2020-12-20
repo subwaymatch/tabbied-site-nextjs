@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 export default function HowItWorks() {
   return (
-    <div className={styles.howItWorksSection}>
+    <div id="section-how-it-works" className={styles.howItWorksSection}>
       <Container>
         <Row>
           <Col>

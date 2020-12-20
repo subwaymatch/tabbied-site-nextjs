@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 export default function BrowseArtworkSection() {
   return (
-    <div className={styles.browseArtworkSection}>
+    <div id="section-browse-artwork" className={styles.browseArtworkSection}>
       <Container>
         <Row>
           <Col md={12}>
