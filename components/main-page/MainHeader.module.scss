@@ -33,6 +33,12 @@
       border-color: $pink;
     }
   }
+
+  .menuBtnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
 
 @include media-breakpoint-down(md) {
