@@ -6,9 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
-import classNames from 'classnames/bind';
-
-const cx = classNames.bind(styles);
 
 const MainPageNavigation = () => {
   return (
@@ -102,9 +99,9 @@ export default function MainHeader() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className={cx('mobileMenu')}
+              className={styles.mobileMenu}
               initial="closed"
-              animate={isMenuOpen ? 'open' : 'closed'}
+              animate="open"
               exit={{
                 height: 0,
                 opacity: 0,
