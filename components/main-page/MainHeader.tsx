@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
@@ -99,27 +99,32 @@ export default function MainHeader() {
           </Row>
         </Container>
 
-        <motion.div
-          className={cx('mobileMenu')}
-          initial={false}
-          animate={isMenuOpen ? 'open' : 'closed'}
-          variants={{
-            open: {
-              opacity: 1,
-              x: 0,
-              transition: {
-                ease: 'easeOut',
-              },
-            },
-            closed: { opacity: 0, x: '100%' },
-          }}
-        >
-          <MainPageNavigation />
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className={cx('mobileMenu')}
+              initial="closed"
+              animate={isMenuOpen ? 'open' : 'closed'}
+              exit={{
+                height: 0,
+                opacity: 0,
+              }}
+              variants={{
+                open: {
+                  height: 'auto',
+                  opacity: 1,
+                },
+                closed: { height: 0, opacity: 0 },
+              }}
+            >
+              <MainPageNavigation />
 
-          <div className={styles.actionBtnWrapper}>
-            <SelectArtworkLinkButton />
-          </div>
-        </motion.div>
+              <div className={styles.actionBtnWrapper}>
+                <SelectArtworkLinkButton />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );
