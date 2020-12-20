@@ -177,17 +177,21 @@ export default function EditArtworkPage({ artwork }) {
     const controlValue = optionValues[optionIndex];
     const onChange = (value) => setOptionByIndex(optionIndex, value);
 
+    let componentJsx = null;
+
     switch (option.type) {
       case 'ButtonSelectGroup':
-        return (
-          <ButtonSelectGroup
-            options={option.options}
-            value={controlValue}
-            onChange={onChange}
-          />
-        );
+        componentJsx =
+          option.options && option.options.length > 0 ? (
+            <ButtonSelectGroup
+              options={option.options}
+              value={controlValue}
+              onChange={onChange}
+            />
+          ) : null;
+        break;
       case 'Slider':
-        return (
+        componentJsx = (
           <div className={styles.valueSliderWrapper}>
             <ValueSlider
               min={option.min}
@@ -198,11 +202,22 @@ export default function EditArtworkPage({ artwork }) {
             />
           </div>
         );
+        break;
       case 'ToggleSwitch':
-        return <ToggleSwitch isChecked={controlValue} onChange={onChange} />;
+        componentJsx = (
+          <ToggleSwitch isChecked={controlValue} onChange={onChange} />
+        );
+        break;
       default:
-        return <div>Unknown Control Type: {option.type}</div>;
+        break;
     }
+
+    return componentJsx ? (
+      <div key={option.id} className={styles.optionBox}>
+        <h3>{option.displayName}</h3>
+        {componentJsx}
+      </div>
+    ) : null;
   };
 
   return (
@@ -257,14 +272,9 @@ export default function EditArtworkPage({ artwork }) {
                 </div>
               )}
 
-              {artwork.options.map((option, optionIndex) => {
-                return (
-                  <div key={option.id} className={styles.optionBox}>
-                    <h3>{option.displayName}</h3>
-                    {getOptionControlComponent(option, optionIndex)}
-                  </div>
-                );
-              })}
+              {artwork.options.map((option, optionIndex) =>
+                getOptionControlComponent(option, optionIndex)
+              )}
             </div>
           </div>
         </main>

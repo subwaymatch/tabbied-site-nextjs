@@ -8,7 +8,7 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "6x9",
-      "options": ["6x9"],
+      "options": [],
       "replace": "${grid}"
     },
     {

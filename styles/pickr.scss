@@ -1,13 +1,21 @@
+@import './variables';
+@import './mixins';
+
 .colors .pickr {
   display: inline-block;
   margin-right: 24px;
   margin-bottom: 10px;
+  @include media-breakpoint-down(sm) {
+    margin-right: 20px;
+  }
   padding: 2px;
 }
+
 .pcr-picker {
   /* fix to make the picker show up on safari */
   z-index: 99999;
 }
+
 .colors > div:last-child .pickr {
   margin-right: 0;
 }
@@ -15,28 +23,29 @@
   display: none;
 }
 .colors .pickr .pcr-button:after {
-  border-radius: 1px;
+  border-radius: 2px;
   box-shadow: none;
 }
 .colors .pickr .pcr-button {
-  border-radius: 1px;
+  border-radius: 2px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
+
 .colors .pickr .pcr-button:hover,
 .colors .pickr .pcr-button:focus {
-  border-radius: 1px;
+  border-radius: 2px;
   transform: scale(1.1, 1.1);
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 .pcr-app[data-theme='monolith'] {
-  border-radius: 1px;
+  border-radius: 2px;
   position: fixed;
 }
 .pcr-app[data-theme='monolith'] .pcr-interaction input,
 .pcr-app[data-theme='monolith'] .pcr-interaction .pcr-result {
-  border-radius: 1px;
+  border-radius: 2px;
 }
 .pcr-app[data-theme='monolith']
   .pcr-selection
