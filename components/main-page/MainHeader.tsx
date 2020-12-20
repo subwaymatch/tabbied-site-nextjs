@@ -24,7 +24,7 @@ export default function MainHeader() {
             </Link>
           </Col>
 
-          <Col md={6} className="d-md-block d-sm-none">
+          <Col md={6} className="d-none d-md-block">
             <div className="align-center">
               <ul className={styles.pageNavigation}>
                 <li>
@@ -40,7 +40,7 @@ export default function MainHeader() {
             </div>
           </Col>
 
-          <Col md={3} xs={6} className="d-md-none">
+          <Col md={3} xs={6} className="d-none d-md-block">
             <div className="align-right">
               <Link href="/select-artwork/">
                 <a className={styles.actionBtn}>Make your art</a>
