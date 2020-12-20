@@ -6,6 +6,8 @@ import styles from './MainHeader.module.scss';
 export default function MainHeader() {
   return (
     <header className={styles.headerSection}>
+      <div className={styles.backdrop} />
+
       <Container>
         <Row className="align-items-center">
           <Col md={3} xs={6}>
@@ -38,13 +40,17 @@ export default function MainHeader() {
             </div>
           </Col>
 
-          <Col md={3} xs={6}>
+          <Col md={3} xs={6} className="d-md-none">
             <div className="align-right">
               <Link href="/select-artwork/">
                 <a className={styles.actionBtn}>Make your art</a>
               </Link>
             </div>
           </Col>
+        </Row>
+
+        <Row>
+          <Col></Col>
         </Row>
       </Container>
     </header>
