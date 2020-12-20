@@ -1,69 +1,126 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { motion } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
+
+const MainPageNavigation = () => {
+  return (
+    <ul className={styles.pageNavigation}>
+      <li>
+        <a href="#section-how-it-works">How it works</a>
+      </li>
+      <li>
+        <a href="#section-browse-artwork">Browse artwork</a>
+      </li>
+      <li>
+        <a href="#section-example-uses">Example uses</a>
+      </li>
+    </ul>
+  );
+};
+
+const SelectArtworkLinkButton = () => {
+  return (
+    <Link href="/select-artwork/">
+      <a className={styles.actionBtn}>Make your art</a>
+    </Link>
+  );
+};
 
 export default function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isScreenDesktop = useMediaQuery('(min-width: 992px)');
+
+  useEffect(() => {
+    if (isScreenDesktop && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isScreenDesktop]);
 
   return (
-    <header className={styles.headerSection}>
-      <div className={styles.backdrop} />
+    <>
+      {isMenuOpen && (
+        <div
+          className={styles.backdrop}
+          onClick={(e) => {
+            e.preventDefault();
 
-      <Container>
-        <Row className="align-items-center">
-          <Col md={3} xs={6}>
-            <Link href="/">
-              <a className={styles.logoImageWrapper}>
-                <Image
-                  src="/images/logo_tabbied_v3.svg"
-                  alt="Tabbied"
-                  layout="fixed"
-                  width={52}
-                  height={52}
-                />
-              </a>
-            </Link>
-          </Col>
+            setIsMenuOpen(false);
+          }}
+        />
+      )}
 
-          <Col md={6} className="d-none d-md-block">
-            <div className="align-center">
-              <ul className={styles.pageNavigation}>
-                <li>
-                  <a href="#section-how-it-works">How it works</a>
-                </li>
-                <li>
-                  <a href="#section-browse-artwork">Browse artwork</a>
-                </li>
-                <li>
-                  <a href="#section-example-uses">Example uses</a>
-                </li>
-              </ul>
-            </div>
-          </Col>
-
-          <Col md={3} className="d-none d-md-block">
-            <div className="align-right">
-              <Link href="/select-artwork/">
-                <a className={styles.actionBtn}>Make your art</a>
+      <header className={styles.headerSection}>
+        <Container>
+          <Row className="align-items-center">
+            <Col md={3} xs={6}>
+              <Link href="/">
+                <a className={styles.logoImageWrapper}>
+                  <Image
+                    src="/images/logo_tabbied_v3.svg"
+                    alt="Tabbied"
+                    layout="fixed"
+                    width={52}
+                    height={52}
+                  />
+                </a>
               </Link>
-            </div>
-          </Col>
+            </Col>
 
-          <Col xs={6} className="d-md-none">
-            <div className={styles.menuBtnWrapper}>
-              <MenuButton
-                isOpen={isMenuOpen}
-                onClick={() => {
-                  setIsMenuOpen((v) => !v);
-                }}
-              />
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </header>
+            <Col md={6} className="d-none d-md-block">
+              <div className="align-center">
+                <MainPageNavigation />
+              </div>
+            </Col>
+
+            <Col md={3} className="d-none d-md-block">
+              <div className="align-right">
+                <SelectArtworkLinkButton />
+              </div>
+            </Col>
+
+            <Col xs={6} className="d-md-none">
+              <div className={styles.menuBtnWrapper}>
+                <MenuButton
+                  isOpen={isMenuOpen}
+                  onClick={() => {
+                    setIsMenuOpen((v) => !v);
+                  }}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+        <motion.div
+          className={cx('mobileMenu')}
+          initial={false}
+          animate={isMenuOpen ? 'open' : 'closed'}
+          variants={{
+            open: {
+              opacity: 1,
+              x: 0,
+              transition: {
+                ease: 'easeOut',
+              },
+            },
+            closed: { opacity: 0, x: '100%' },
+          }}
+        >
+          <MainPageNavigation />
+
+          <div className={styles.actionBtnWrapper}>
+            <SelectArtworkLinkButton />
+          </div>
+        </motion.div>
+      </header>
+    </>
   );
 }
