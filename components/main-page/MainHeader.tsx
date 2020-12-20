@@ -7,18 +7,21 @@ import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
 
-const MainPageNavigation = ({ howItWorksRef }) => {
+const MainPageNavigation = ({ items }) => {
   return (
     <ul className={styles.pageNavigation}>
-      <li>
-        <a href="#section-how-it-works">How it works</a>
-      </li>
-      <li>
-        <a href="#section-browse-artwork">Browse artwork</a>
-      </li>
-      <li>
-        <a href="#section-example-uses">Example uses</a>
-      </li>
+      {items.map((item, index) => (
+        <li key={index}>
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              item.onClick();
+            }}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
     </ul>
   );
 };
@@ -31,7 +34,11 @@ const SelectArtworkLinkButton = () => {
   );
 };
 
-export default function MainHeader() {
+export default function MainHeader({
+  howItWorksRef,
+  browseArtworkRef,
+  exampleUsesRef,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isScreenDesktop = useMediaQuery('(min-width: 992px)');
 
@@ -40,6 +47,29 @@ export default function MainHeader() {
       setIsMenuOpen(false);
     }
   }, [isScreenDesktop]);
+
+  const inPageLinkItems = [
+    {
+      label: 'How it works',
+      onClick: () => {
+        howItWorksRef.current.scrollIntoView();
+      },
+    },
+    {
+      label: 'Browse artwork',
+      onClick: () => {
+        console.log('Browse artwork link clicked');
+        browseArtworkRef.current.scrollIntoView();
+      },
+    },
+    {
+      label: 'Example uses',
+      onClick: () => {
+        console.log('Example uses link clicked');
+        exampleUsesRef.current.scrollIntoView();
+      },
+    },
+  ];
 
   return (
     <>
@@ -73,7 +103,7 @@ export default function MainHeader() {
 
             <Col md={6} className="d-none d-md-block">
               <div className="align-center">
-                <MainPageNavigation />
+                <MainPageNavigation items={inPageLinkItems} />
               </div>
             </Col>
 
@@ -114,7 +144,7 @@ export default function MainHeader() {
                 closed: { height: 0, opacity: 0 },
               }}
             >
-              <MainPageNavigation />
+              <MainPageNavigation items={inPageLinkItems} />
 
               <div className={styles.actionBtnWrapper}>
                 <SelectArtworkLinkButton />

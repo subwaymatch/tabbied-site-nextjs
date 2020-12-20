@@ -1,12 +1,13 @@
+import { forwardRef } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import styles from './HowItWorks.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function HowItWorks() {
+const HowItWorksSection = forwardRef((props, ref) => {
   return (
-    <div id="section-how-it-works" className={styles.howItWorksSection}>
+    <div ref={ref as any} className={styles.howItWorksSection}>
       <Container>
         <Row>
           <Col>
@@ -54,4 +55,6 @@ export default function HowItWorks() {
       <div className={styles.imageBackground} />
     </div>
   );
-}
+});
+
+export default HowItWorksSection;

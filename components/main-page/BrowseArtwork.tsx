@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -6,9 +7,9 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function BrowseArtworkSection() {
+const BrowseArtworkSection = forwardRef((props, ref) => {
   return (
-    <div id="section-browse-artwork" className={styles.browseArtworkSection}>
+    <div ref={ref as any} className={styles.browseArtworkSection}>
       <Container>
         <Row>
           <Col md={12}>
@@ -139,4 +140,6 @@ export default function BrowseArtworkSection() {
       </Container>
     </div>
   );
-}
+});
+
+export default BrowseArtworkSection;

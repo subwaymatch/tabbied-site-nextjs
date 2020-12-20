@@ -1,9 +1,10 @@
+import { forwardRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './ExampleUses.module.scss';
 
-export default function ExampleUsesSection() {
+const ExampleUsesSection = forwardRef((props, ref) => {
   return (
-    <div id="section-example-uses" className={styles.exampleUsesSection}>
+    <div ref={ref as any} className={styles.exampleUsesSection}>
       <Container>
         <Row>
           <Col>
@@ -48,4 +49,6 @@ export default function ExampleUsesSection() {
       </Container>
     </div>
   );
-}
+});
+
+export default ExampleUsesSection;

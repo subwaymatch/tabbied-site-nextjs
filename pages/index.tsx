@@ -1,7 +1,8 @@
+import { useRef, createRef } from 'react';
 import Layout from 'components/Layout';
 import dynamic from 'next/dynamic';
 import MainHeader from 'components/main-page/MainHeader';
-import HowItWorks from 'components/main-page/HowItWorks';
+import HowItWorksSection from 'components/main-page/HowItWorks';
 import BrowseArtwork from 'components/main-page/BrowseArtwork';
 import ExampleUses from 'components/main-page/ExampleUses';
 import BuiltBy from 'components/main-page/BuiltBy';
@@ -13,17 +14,25 @@ const Hero = dynamic(() => import('components/main-page/Hero'), {
 });
 
 export default function Home() {
+  const howItWorksRef = createRef<HTMLDivElement>();
+  const browseArtworkRef = createRef<HTMLDivElement>();
+  const exampleUsesRef = createRef<HTMLDivElement>();
+
   return (
     <Layout>
-      <MainHeader />
+      <MainHeader
+        howItWorksRef={howItWorksRef}
+        browseArtworkRef={browseArtworkRef}
+        exampleUsesRef={exampleUsesRef}
+      />
 
       <Hero />
 
-      <HowItWorks />
+      <HowItWorksSection ref={howItWorksRef} />
 
-      <BrowseArtwork />
+      <BrowseArtwork ref={browseArtworkRef} />
 
-      <ExampleUses />
+      <ExampleUses ref={exampleUsesRef} />
 
       <BuiltBy />
 
