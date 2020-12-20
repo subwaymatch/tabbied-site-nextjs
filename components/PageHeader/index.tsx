@@ -1,13 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MdClose } from 'react-icons/md';
 import styles from './PageHeader.module.scss';
 
 export default function PageHeader({ title }: { title: string }) {
-  const router = useRouter();
-
   return (
     <header className={styles.headerSection}>
       <Container>

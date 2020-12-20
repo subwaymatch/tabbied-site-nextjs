@@ -106,14 +106,10 @@ export default function EditArtworkPage({ artwork }) {
   };
 
   const exportArtwork = async () => {
-    console.log(`exportArtwork`);
-
     let result = await (doodleRef.current as any).export({
       scale: 3600 / width,
       download: true,
     });
-
-    console.log(result);
   };
 
   const getColorsStyleCode = (colors) => {

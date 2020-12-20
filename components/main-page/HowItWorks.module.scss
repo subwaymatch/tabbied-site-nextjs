@@ -31,7 +31,7 @@
         overflow: hidden;
         z-index: 0;
 
-        &:before {
+        &::before {
           content: '';
           width: 5rem;
           height: 5rem;
