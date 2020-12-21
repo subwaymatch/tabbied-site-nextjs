@@ -10,7 +10,7 @@ export default function SelectArtwork() {
         <Container>
           <Row>
             <Col>
-              <h2>First, pick a design from our artwork gallery.</h2>
+              <h2>First, pick a pre-made design from our gallery.</h2>
             </Col>
           </Row>
         </Container>

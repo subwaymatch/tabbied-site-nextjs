@@ -59,7 +59,10 @@ export default function BuiltBy() {
               </p>
 
               <div className={styles.people}>
-                <span className={styles.names}>Sy &amp; Park</span>
+                <span className={styles.names}>
+                  <a href="https://www.syunghong.com/">Sy</a> &amp;{' '}
+                  <a href="https://www.behance.net/yejoopark">Park</a>
+                </span>
               </div>
             </div>
           </Col>

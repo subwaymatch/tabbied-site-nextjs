@@ -16,7 +16,7 @@
     margin-bottom: 64px;
 
     @include media-breakpoint-down(sm) {
-      text-align: center;
+      padding-left: 1rem;
     }
   }
 }

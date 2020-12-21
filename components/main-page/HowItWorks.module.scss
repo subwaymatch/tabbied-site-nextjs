@@ -112,6 +112,7 @@
   }
 
   @include media-breakpoint-down(xs) {
-    height: 400px;
+    margin-top: 0;
+    height: 360px;
   }
 }
