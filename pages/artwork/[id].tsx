@@ -254,9 +254,11 @@ export default function EditArtworkPage({ artwork }) {
                         key={'color' + index}
                         index={index}
                         handleColorChange={(color) => {
+                          const colorHEXAString = color.toHEXA().toString();
+
                           setPalette((prevPalette) => {
                             const newPalette = _.clone(prevPalette);
-                            newPalette[index] = color;
+                            newPalette[index] = colorHEXAString;
 
                             return newPalette;
                           });

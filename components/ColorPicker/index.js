@@ -6,9 +6,7 @@ export default function ColorPicker({ index, color, handleColorChange }) {
   const pickerClassName = `color-picker-${index}`;
 
   const colorChangeCallback = (color, instance) => {
-    const hex = color.toHEXA().toString();
-
-    handleColorChange(hex);
+    handleColorChange(color);
   };
 
   useEffect(() => {
