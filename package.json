@@ -16,8 +16,6 @@
     "framer-motion": "^3.1.1",
     "lodash": "^4.17.20",
     "next": "10.0.3",
-    "playwright-aws-lambda": "^0.6.0",
-    "playwright-core": "^1.6.2",
     "query-string": "^6.13.7",
     "randomstring": "^1.1.5",
     "react": "17.0.1",
