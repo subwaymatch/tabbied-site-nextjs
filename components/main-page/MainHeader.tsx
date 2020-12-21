@@ -52,21 +52,25 @@ export default function MainHeader({
     {
       label: 'How it works',
       onClick: () => {
-        howItWorksRef.current.scrollIntoView();
+        howItWorksRef.current.scrollIntoView({
+          behavior: 'smooth',
+        });
       },
     },
     {
       label: 'Browse artwork',
       onClick: () => {
-        console.log('Browse artwork link clicked');
-        browseArtworkRef.current.scrollIntoView();
+        browseArtworkRef.current.scrollIntoView({
+          behavior: 'smooth',
+        });
       },
     },
     {
       label: 'Example uses',
       onClick: () => {
-        console.log('Example uses link clicked');
-        exampleUsesRef.current.scrollIntoView();
+        exampleUsesRef.current.scrollIntoView({
+          behavior: 'smooth',
+        });
       },
     },
   ];
