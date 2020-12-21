@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Link as ScrollLink } from 'react-scroll';
+import { Link as ScrollLink, Events as ScrollEvents } from 'react-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -11,24 +11,19 @@ import styles from './MainHeader.module.scss';
 const MainPageNavigation = () => (
   <ul className={styles.pageNavigation}>
     <li>
-      <ScrollLink
-        to="section-how-it-works"
-        smooth={true}
-        offset={50}
-        duration={500}
-      >
+      <ScrollLink to="section-how-it-works" smooth={true} duration={500}>
         How it works
       </ScrollLink>
     </li>
 
     <li>
-      <ScrollLink to="section-browse-artwork" smooth={true} duration={500}>
+      <ScrollLink to="section-browse-artwork" smooth={true} duration={600}>
         Browse artwork
       </ScrollLink>
     </li>
 
     <li>
-      <ScrollLink to="section-example-uses" smooth={true} duration={500}>
+      <ScrollLink to="section-example-uses" smooth={true} duration={700}>
         Example uses
       </ScrollLink>
     </li>
@@ -52,6 +47,16 @@ export default function MainHeader() {
       setIsMenuOpen(false);
     }
   }, [isScreenDesktop]);
+
+  useEffect(() => {
+    ScrollEvents.scrollEvent.register('begin', (to, element) => {
+      setIsMenuOpen(false);
+    });
+
+    return () => {
+      ScrollEvents.scrollEvent.remove('begin');
+    };
+  }, []);
 
   return (
     <>
