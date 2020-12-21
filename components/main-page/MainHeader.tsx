@@ -1,30 +1,39 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Link as ScrollLink } from 'react-scroll';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 import MenuButton from 'components/main-page/MenuButton';
 import styles from './MainHeader.module.scss';
 
-const MainPageNavigation = ({ items }) => {
-  return (
-    <ul className={styles.pageNavigation}>
-      {items.map((item, index) => (
-        <li key={index}>
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              item.onClick();
-            }}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-};
+const MainPageNavigation = () => (
+  <ul className={styles.pageNavigation}>
+    <li>
+      <ScrollLink
+        to="section-how-it-works"
+        smooth={true}
+        offset={50}
+        duration={500}
+      >
+        How it works
+      </ScrollLink>
+    </li>
+
+    <li>
+      <ScrollLink to="section-browse-artwork" smooth={true} duration={500}>
+        Browse artwork
+      </ScrollLink>
+    </li>
+
+    <li>
+      <ScrollLink to="section-example-uses" smooth={true} duration={500}>
+        Example uses
+      </ScrollLink>
+    </li>
+  </ul>
+);
 
 const SelectArtworkLinkButton = () => {
   return (
@@ -34,11 +43,7 @@ const SelectArtworkLinkButton = () => {
   );
 };
 
-export default function MainHeader({
-  howItWorksRef,
-  browseArtworkRef,
-  exampleUsesRef,
-}) {
+export default function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isScreenDesktop = useMediaQuery('(min-width: 992px)');
 
@@ -47,33 +52,6 @@ export default function MainHeader({
       setIsMenuOpen(false);
     }
   }, [isScreenDesktop]);
-
-  const inPageLinkItems = [
-    {
-      label: 'How it works',
-      onClick: () => {
-        howItWorksRef.current.scrollIntoView({
-          behavior: 'smooth',
-        });
-      },
-    },
-    {
-      label: 'Browse artwork',
-      onClick: () => {
-        browseArtworkRef.current.scrollIntoView({
-          behavior: 'smooth',
-        });
-      },
-    },
-    {
-      label: 'Example uses',
-      onClick: () => {
-        exampleUsesRef.current.scrollIntoView({
-          behavior: 'smooth',
-        });
-      },
-    },
-  ];
 
   return (
     <>
@@ -107,7 +85,7 @@ export default function MainHeader({
 
             <Col md={6} className="d-none d-md-block">
               <div className="align-center">
-                <MainPageNavigation items={inPageLinkItems} />
+                <MainPageNavigation />
               </div>
             </Col>
 
@@ -148,7 +126,7 @@ export default function MainHeader({
                 closed: { height: 0, opacity: 0 },
               }}
             >
-              <MainPageNavigation items={inPageLinkItems} />
+              <MainPageNavigation />
 
               <div className={styles.actionBtnWrapper}>
                 <SelectArtworkLinkButton />

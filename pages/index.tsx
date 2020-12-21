@@ -1,4 +1,3 @@
-import { createRef } from 'react';
 import Layout from 'components/Layout';
 import dynamic from 'next/dynamic';
 import MainHeader from 'components/main-page/MainHeader';
@@ -14,25 +13,17 @@ const Hero = dynamic(() => import('components/main-page/Hero'), {
 });
 
 export default function Home() {
-  const howItWorksRef = createRef<HTMLDivElement>();
-  const browseArtworkRef = createRef<HTMLDivElement>();
-  const exampleUsesRef = createRef<HTMLDivElement>();
-
   return (
     <Layout>
-      <MainHeader
-        howItWorksRef={howItWorksRef}
-        browseArtworkRef={browseArtworkRef}
-        exampleUsesRef={exampleUsesRef}
-      />
+      <MainHeader />
 
       <Hero />
 
-      <HowItWorksSection ref={howItWorksRef} />
+      <HowItWorksSection />
 
-      <BrowseArtwork ref={browseArtworkRef} />
+      <BrowseArtwork />
 
-      <ExampleUses ref={exampleUsesRef} />
+      <ExampleUses />
 
       <BuiltBy />
 
