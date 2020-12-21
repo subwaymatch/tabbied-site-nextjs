@@ -1,4 +1,4 @@
-import { useRef, createRef } from 'react';
+import { createRef } from 'react';
 import Layout from 'components/Layout';
 import dynamic from 'next/dynamic';
 import MainHeader from 'components/main-page/MainHeader';
