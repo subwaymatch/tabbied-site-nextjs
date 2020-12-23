@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/MainHero/MainHero.js",
-    "components/ColorPicker/index.js"
+    "components/ColorPicker/index.js",
+    "pages/export-test.js"
   ],
   "exclude": ["node_modules"]
 }
