@@ -14,27 +14,22 @@ export default function ExportTest() {
   return (
     <div>
       <h1>iOS Export Test</h1>
-      <css-doodle ref={doodleRef}>
+      <style>
         {`
-        @grid: 7 / 8em;
-        background: @p(#FFF4E0, #F8B501, #06ACB5, #17191D, #FC3D3C);
-        :after {
-          content: '';
-          @size: 100%;
-          position: absolute;
-          background:
-            @m(4, radial-gradient(
-              circle at @p(-40% -40%, 140% 140%, 140%  -40%, -40% 140%),
-              @p(#FFF4E0, #F8B501, #06ACB5, #17191D, #FC3D3C) 50%,
-              transparent 50%
-            )),
-            radial-gradient(
-              @p(#FFF4E0, #F8B501, #06ACB5, #17191D, #FC3D3C) @r(10%, 40%),
-              transparent 0
-            )
-        }
-      `}
-      </css-doodle>
+          css-doodle {
+            --rule: (
+              @grid: 5 / 8em;
+              --d: @p(45deg, -45deg, 135deg, -135deg);
+              --lg: linear-gradient(@var(--d),#60569e 50%,transparent 0);
+              background:
+                @var(--lg) 0 0 / 100% 100%,
+                @var(--lg) 0 0 / 50% 50%;
+            );
+          }
+        `}
+      </style>
+      <css-doodle use="var(--rule)" ref={doodleRef} />
+
       <button onClick={exportArtwork}>Export</button>
     </div>
   );
