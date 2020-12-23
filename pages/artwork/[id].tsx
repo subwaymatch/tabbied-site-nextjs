@@ -107,7 +107,7 @@ export default function EditArtworkPage({ artwork }) {
 
   const exportArtwork = async () => {
     let result = await (doodleRef.current as any).export({
-      scale: 3600 / width,
+      scale: Math.ceil(3600 / width),
       download: true,
     });
   };
