@@ -58,12 +58,12 @@ export default function BuiltBy() {
                 to keep on making.
               </p>
 
-              <div className={styles.people}>
+              <p className={styles.people}>
                 <span className={styles.names}>
                   <a href="https://www.syunghong.com/">Sy</a> &amp;{' '}
                   <a href="https://www.behance.net/yejoopark">Park</a>
                 </span>
-              </div>
+              </p>
             </div>
           </Col>
         </Row>

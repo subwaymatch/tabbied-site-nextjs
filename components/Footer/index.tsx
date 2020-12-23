@@ -46,7 +46,11 @@ export default function Footer() {
               patterns or artwork to use for wall art, websites, print materials
               and more.
             </p>
-            <p>This free tool was built by Sy Hong and Ye Joo Park.</p>
+            <p>
+              This free tool was built by{' '}
+              <a href="https://www.syunghong.com/">Sy Hong</a> and{' '}
+              <a href="https://www.behance.net/yejoopark">Ye Joo Park</a>.
+            </p>
           </Col>
         </Row>
       </Container>

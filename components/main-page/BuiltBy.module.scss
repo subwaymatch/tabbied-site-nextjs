@@ -12,6 +12,7 @@
 
   h3 {
     color: $gray-light;
+    font-weight: 300;
     margin-top: 1rem;
   }
 
@@ -20,10 +21,10 @@
     line-height: 1.8;
 
     a {
-      color: $gray-ultra-light;
+      color: white;
 
       &:hover {
-        color: white;
+        color: $pink;
       }
     }
   }
