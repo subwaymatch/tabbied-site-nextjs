@@ -16,19 +16,32 @@ export default function ExportTest() {
       <h1>iOS Export Test</h1>
       <style>
         {`
-          css-doodle {
+          css-doodle#export-test {
+            --color0: #000000;
+
             --rule: (
-              @grid: 5 / 8em;
-              --d: @p(45deg, -45deg, 135deg, -135deg);
-              --lg: linear-gradient(@var(--d),#60569e 50%,transparent 0);
-              background:
-                @var(--lg) 0 0 / 100% 100%,
-                @var(--lg) 0 0 / 50% 50%;
-            );
+              :doodle {
+                grid-gap: 1px;
+                @grid: 1x13;
+                @size: 10em 15em;
+              }
+
+              background: #fff;
+
+              :container {
+                background: var(--color0);
+              }
+              
+            )
           }
         `}
       </style>
-      <css-doodle use="var(--rule)" ref={doodleRef} />
+      <css-doodle
+        id="export-test"
+        seed="0000"
+        use="var(--rule)"
+        ref={doodleRef}
+      />
 
       <button onClick={exportArtwork}>Export</button>
     </div>
