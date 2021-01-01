@@ -37,12 +37,6 @@ export default function EditArtworkPage({ artwork }) {
   const width = isScreenXS ? 240 : 360;
   const height = width * 1.5;
 
-  console.log(`styleCode`);
-  console.log(styleCode);
-
-  console.log(`doodleCode`);
-  console.log(doodleCode);
-
   useEffect(() => {
     if (
       router.query.hasOwnProperty('palette') &&
