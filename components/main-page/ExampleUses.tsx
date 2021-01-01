@@ -1,4 +1,5 @@
 import { Element } from 'react-scroll';
+import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './ExampleUses.module.scss';
 
@@ -19,31 +20,56 @@ export default function ExampleUsesSection() {
           <Row noGutters={true}>
             <Col md={4} sm={6}>
               <div className={styles.imageWrapper}>
-                <img src="/images/uses_wall_art.jpg" alt="Wall Art" />
+                <Image
+                  src="/images/uses_wall_art.jpg"
+                  alt="Wall Art"
+                  width={748}
+                  height={808}
+                />
               </div>
             </Col>
 
             <Col md={4} sm={6}>
               <div className={styles.imageWrapper}>
-                <img src="/images/uses_notebook.jpg" alt="Stationery" />
+                <Image
+                  src="/images/uses_notebook.jpg"
+                  alt="Stationery"
+                  width={748}
+                  height={808}
+                />
               </div>
             </Col>
 
             <Col md={4} sm={6}>
               <div className={styles.imageWrapper}>
-                <img src="/images/uses_tshirt.jpg" alt="Tshirt" />
+                <Image
+                  src="/images/uses_tshirt.jpg"
+                  alt="Tshirt"
+                  width={748}
+                  height={808}
+                />
               </div>
             </Col>
 
             <Col md={4} sm={6}>
               <div className={styles.imageWrapper}>
-                <img src="/images/uses_packaging.jpg" alt="Packaging" />
+                <Image
+                  src="/images/uses_packaging.jpg"
+                  alt="Packaging"
+                  width={748}
+                  height={808}
+                />
               </div>
             </Col>
 
             <Col md={8}>
               <div className={styles.imageWrapper}>
-                <img src="/images/uses_devices.jpg" alt="Devices" />
+                <Image
+                  src="/images/uses_devices.jpg"
+                  alt="Devices"
+                  width={779}
+                  height={421}
+                />
               </div>
             </Col>
           </Row>

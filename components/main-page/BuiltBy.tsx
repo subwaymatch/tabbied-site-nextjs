@@ -1,4 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import Image from 'next/image';
 import styles from './BuiltBy.module.scss';
 
 export default function BuiltBy() {
@@ -17,9 +18,11 @@ export default function BuiltBy() {
             }}
           >
             <div className={styles.imageWrapper}>
-              <img
+              <Image
                 src="/images/built_by_people.png"
                 alt="Built by Sy Hong and Ye Joo Park"
+                width={688}
+                height={661}
               />
             </div>
           </Col>
