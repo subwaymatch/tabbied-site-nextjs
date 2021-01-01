@@ -74,7 +74,7 @@ export default function MainHeader() {
       <header className={styles.headerSection}>
         <Container>
           <Row className="align-items-center">
-            <Col md={3} xs={6}>
+            <Col md={3} xs={4}>
               <Link href="/">
                 <a className={styles.logoImageWrapper}>
                   <Image
@@ -94,7 +94,28 @@ export default function MainHeader() {
               </div>
             </Col>
 
-            <Col md={3} className="d-none d-md-block">
+            <Col md={3} xs={8}>
+              <div className="align-right">
+                <a
+                  href="https://www.producthunt.com/posts/tabbied-com?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tabbied-com"
+                  target="_blank"
+                  style={{
+                    display: 'inline-block',
+                    lineHeight: 0,
+                    marginTop: '10px',
+                  }}
+                >
+                  <img
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=279660&theme=light"
+                    alt="Tabbied.com - Doodle with generated patterns | Product Hunt"
+                    width={250}
+                    height={54}
+                  />
+                </a>
+              </div>
+            </Col>
+
+            {/* <Col md={3} className="d-none d-md-block">
               <div className="align-right">
                 <SelectArtworkLinkButton />
               </div>
@@ -109,10 +130,10 @@ export default function MainHeader() {
                   }}
                 />
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
-
+        {/* 
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -138,7 +159,7 @@ export default function MainHeader() {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </header>
     </>
   );
