@@ -97,21 +97,18 @@ export default function MainHeader() {
             <Col md={3} xs={8}>
               <div className="align-right">
                 <a
-                  href="https://www.producthunt.com/posts/tabbied-com?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tabbied-com"
-                  target="_blank"
+                  href="https://www.producthunt.com/posts/tabbied?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-tabbied"
                   style={{
+                    background:
+                      'url("https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=279660&theme=light&period=daily") no-repeat center center',
                     display: 'inline-block',
+                    width: '238px',
+                    height: '49px',
                     lineHeight: 0,
                     marginTop: '10px',
                   }}
-                >
-                  <img
-                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=279660&theme=light"
-                    alt="Tabbied.com - Doodle with generated patterns | Product Hunt"
-                    width={250}
-                    height={54}
-                  />
-                </a>
+                  target="_blank"
+                />
               </div>
             </Col>
 
