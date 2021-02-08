@@ -13,6 +13,8 @@ Tabbied lets you easily create timeless and beautifully generated patterns or ar
 
 ## 🚀 Developing locally
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2dd49a9c3dfa4ae9bc4fa5a2b84ae6f3)](https://app.codacy.com/gh/subwaymatch/tabbied-site-nextjs?utm_source=github.com&utm_medium=referral&utm_content=subwaymatch/tabbied-site-nextjs&utm_campaign=Badge_Grade)
+
 Tabbied is built with the <a href="https://nextjs.org/">Next.js</a>. To develop locally, clone the repository, run `yarn install`, and run the development server using `yarn dev`:
 
 ```bash
