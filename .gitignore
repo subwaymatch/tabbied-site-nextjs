@@ -45,3 +45,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# generated image-batch working files (manifest, JSONL, batch state)
+/scripts/images/.batch/

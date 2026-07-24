@@ -1,0 +1,94 @@
+// Shared helpers for the GPT Image 2 batch pipeline (extract -> build -> submit
+// -> import). Dependency-free apart from sharp, which the import step uses and
+// which already ships as a devDependency for scripts/optimize-images.mjs.
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+
+// Working files: the prompt manifest, the JSONL request file and the batch
+// state pointer. Git-ignored; nothing here is a build input.
+export const WORK_DIR = path.join(ROOT, 'scripts/images/.batch');
+export const MANIFEST = path.join(WORK_DIR, 'prompts.json');
+export const INPUT_JSONL = path.join(WORK_DIR, 'batch-input.jsonl');
+export const STATE = path.join(WORK_DIR, 'state.json');
+
+// Where finished images land. With `output: 'export'` these are served as-is,
+// so the import step pre-sizes them instead of shipping 1024px+ originals.
+export const IMAGE_DIR = path.join(ROOT, 'public/images/showcase');
+export const imagePath = (id) => path.join(IMAGE_DIR, `${id}.webp`);
+export const imageSrc = (id) => `/images/showcase/${id}.webp`;
+
+export const MODEL = 'gpt-image-2';
+// OPENAI_API_BASE lets these scripts point at a compatible gateway (or a local
+// stub) instead of the public endpoint.
+export const API = process.env.OPENAI_API_BASE ?? 'https://api.openai.com/v1';
+
+// GPT Image only renders a fixed set of sizes, so each placeholder aspect maps
+// to the nearest one and the layout crops with object-fit: cover. Nothing is
+// ever stretched to fit, same rule the artworks follow.
+export const SIZE_FOR_ASPECT = {
+  '4/3': '1536x1024',
+  '16/10': '1536x1024',
+  '1/1': '1024x1024',
+  '4/5': '1024x1536',
+};
+
+// Slot = which layout hole the image fills. maxWidth is roughly 2x the widest
+// rendered slot, matching the convention in scripts/optimize-images.mjs.
+export const SLOTS = {
+  card: { aspect: () => '4/3', maxWidth: 800 },
+  alt: { aspect: () => '4/3', maxWidth: 1200 },
+  // .galleryCell:nth-child(4n + 1) is the tall one; the rest are square.
+  gallery: { aspect: (i) => (i % 4 === 0 ? '4/5' : '1/1'), maxWidth: 700 },
+};
+
+export function readJson(file, fallback = null) {
+  if (!fs.existsSync(file)) return fallback;
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+export function writeJson(file, value) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+export function apiKey() {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) {
+    console.error('OPENAI_API_KEY is not set. Export it (or put it in .env.local and source it) and re-run.');
+    process.exit(1);
+  }
+  return key;
+}
+
+export async function api(pathname, { method = 'GET', body, key, raw = false } = {}) {
+  const res = await fetch(`${API}${pathname}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${key}`,
+      ...(body instanceof FormData ? {} : body ? { 'Content-Type': 'application/json' } : {}),
+    },
+    body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`${method} ${pathname} failed (${res.status}): ${detail.slice(0, 500)}`);
+  }
+  return raw ? res.text() : res.json();
+}
+
+// Tiny flag parser: --key=value, --key value and bare --flag.
+export function argv(args = process.argv.slice(2)) {
+  const out = {};
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    if (!arg.startsWith('--')) continue;
+    const [key, inline] = arg.slice(2).split('=');
+    if (inline !== undefined) out[key] = inline;
+    else if (args[i + 1] && !args[i + 1].startsWith('--')) out[key] = args[(i += 1)];
+    else out[key] = true;
+  }
+  return out;
+}
