@@ -10,7 +10,31 @@ const IMG =
 export const STATIC_SECTIONS = {
   '01-aurora-sound': {
     kit: 'brutal',
-    sections: ['logos', 'iconFeatures', 'items', 'gallery', 'altRows', 'bigQuote', 'faq', 'band', 'newsletter'],
+    sections: ['logos', 'iconFeatures', 'items', 'specs', 'gallery', 'altRows', 'bigQuote', 'process', 'faq', 'band', 'newsletter'],
+    specs: {
+      kicker: 'The pressing',
+      title: 'How the records are made',
+      sub: 'Everything we cut, and everything we will not.',
+      rows: [
+        { k: 'Cut', v: 'Half-speed lacquers in London, then plated and pressed in the Czech Republic.' },
+        { k: 'Weight', v: '180 gram black vinyl as standard. Colour variants only when the artist asks for one.' },
+        { k: 'Run size', v: 'Between 300 and 1,000 copies. We would rather sell out than pulp a warehouse.' },
+        { k: 'Mastering', v: 'Separate masters for vinyl and digital. The loud one is not the good one.' },
+        { k: 'Sleeves', v: 'Uncoated board, vegetable inks, and no shrink wrap on anything we make.' },
+        { k: 'Splits', v: 'Fifty-fifty after costs, paid quarterly, with the spreadsheet attached.' },
+      ],
+    },
+    process: {
+      kicker: 'Signing',
+      title: 'From demo to shelf',
+      sub: 'Roughly nine months, and we tell you at every stage where it actually is.',
+      steps: [
+        { title: 'Send it', body: 'Two tracks and no biography. We listen to everything that lands, in the order it arrives.' },
+        { title: 'A room', body: 'If it moves us, you get studio time and a month with no deadline attached to it.' },
+        { title: 'Cut it', body: 'Mastered for vinyl, test pressings to you, and nothing proceeds until you sign off.' },
+        { title: 'Out', body: 'Six weeks of press, one launch night, and the catalogue keeps it in print.' },
+      ],
+    },
     logos: ['RESIDENT ADVISOR', 'PITCHFORK', 'BOILER ROOM', 'MIXMAG', 'BANDCAMP', 'NTS'],
     iconFeatures: [
       { icon: 'Radio', title: 'Weekly radio', body: 'A two-hour show mining the catalogue and the crates.' },
@@ -39,7 +63,28 @@ export const STATIC_SECTIONS = {
 
   '02-terra-ceramics': {
     kit: 'soft',
-    sections: ['stats', 'about', 'altRows', 'items', 'iconFeatures', 'gallery', 'testimonials', 'faq', 'band', 'newsletter'],
+    sections: ['stats', 'about', 'altRows', 'items', 'process', 'iconFeatures', 'gallery', 'pricing', 'testimonials', 'faq', 'band', 'newsletter'],
+    process: {
+      kicker: 'In the studio',
+      title: 'How a pot happens',
+      sub: 'Five weeks from wet clay to your table, and most of that is spent waiting.',
+      steps: [
+        { title: 'Throw', body: 'Stoneware from a quarry in Devon, thrown wet, one at a time, on a kick wheel.' },
+        { title: 'Dry slow', body: 'Two weeks under plastic. Rush this and it cracks, so we do not rush it.' },
+        { title: 'Bisque', body: 'A first firing to 1,000 degrees, which is where about a tenth of them fail.' },
+        { title: 'Glaze and fire', body: 'Dipped by hand, then a long firing to 1,280 with a slow cool for the colour.' },
+      ],
+    },
+    pricing: {
+      kicker: 'Classes',
+      title: 'Come and make something',
+      sub: 'Six wheels, so six people, which is why they book out in a morning.',
+      tiers: [
+        { name: 'One evening', price: '75 GBP', unit: 'per person', body: 'Three hours, one wheel, everything fired and posted to you afterwards.', includes: ['All clay and glazes', 'Two pieces fired', 'Wine, obviously'], cta: 'Book an evening' },
+        { name: 'Six weeks', price: '390 GBP', unit: 'per course', body: 'The proper introduction, from centring to a glazed set you actually use.', includes: ['Six sessions of three hours', 'Ten kilos of clay', 'Open studio on Sundays'], cta: 'Book a course', featured: true },
+        { name: 'Studio member', price: '180 GBP', unit: 'per month', body: 'A shelf, a key, and the run of the place outside class hours.', includes: ['Access around the clock', 'Firing at cost', 'Your own shelf and locker'], cta: 'Ask about space' },
+      ],
+    },
     altRows: [
       { eyebrow: 'On the wheel', title: 'Thrown, trimmed, and glazed by hand', body: 'Every piece is thrown one day and trimmed the next, then dipped by hand in glaze we mix ourselves. The little marks are the maker saying hello.', image: `A potter's hands shaping wet clay on a spinning wheel, warm studio light. ${IMG}` },
       { eyebrow: 'In the kiln', title: 'A slow fire sets the colour', body: 'A long stoneware firing pulls the glaze into its final tone, so the batch shifts gently with the season and the kiln.', image: `Glazed ceramic pieces glowing inside a hot kiln, warm amber light. ${IMG}` },
@@ -65,7 +110,30 @@ export const STATIC_SECTIONS = {
 
   '03-meridian': {
     kit: 'bordered',
-    sections: ['logos', 'stats', 'about', 'iconFeatures', 'items', 'altRows', 'bigQuote', 'faq', 'band', 'newsletter'],
+    sections: ['logos', 'stats', 'about', 'iconFeatures', 'items', 'specs', 'altRows', 'bigQuote', 'pricing', 'faq', 'band', 'newsletter'],
+    specs: {
+      kicker: 'The platform',
+      title: 'What you are building on',
+      sub: 'Figures from the last four quarters, republished on the status page every month.',
+      rows: [
+        { k: 'Uptime', v: '99.995 percent across twelve months, measured from outside our own network.' },
+        { k: 'Latency', v: 'p50 of 41ms and p99 of 210ms, authorisation to response, in every region.' },
+        { k: 'Regions', v: 'Nine, active-active. A region can go dark without your traffic noticing.' },
+        { k: 'Settlement', v: 'Next business day as standard, same day on request above a threshold.' },
+        { k: 'Compliance', v: 'PCI DSS Level 1 and SOC 2 Type II, audited annually by someone we do not pick.' },
+        { k: 'Support', v: 'Engineers on the other end, not a script. Median first reply is eleven minutes.' },
+      ],
+    },
+    pricing: {
+      kicker: 'Pricing',
+      title: 'One rate, on the page',
+      sub: 'No enterprise tier hidden behind a sales call. This is the price.',
+      tiers: [
+        { name: 'Standard', price: '2.4%', unit: 'plus 20p', body: 'Everything switched on from the first transaction.', includes: ['All payment methods', 'Full API and dashboard', 'Next day settlement'], cta: 'Start building' },
+        { name: 'Scale', price: '1.9%', unit: 'plus 15p', body: 'From one million a month, applied automatically, no renegotiation.', includes: ['Everything in Standard', 'Same day settlement', 'A named engineer'], cta: 'Talk to us', featured: true },
+        { name: 'Platform', price: 'Custom', unit: 'interchange plus', body: 'For marketplaces moving money on behalf of other people.', includes: ['Split payments and payouts', 'Onboarding APIs', 'Dedicated infrastructure'], cta: 'Contact sales' },
+      ],
+    },
     logos: ['NORTHWIND', 'LUMEN', 'CASCADE', 'OBERON', 'FLEETLY', 'HARBOR'],
     iconFeatures: [
       { icon: 'Code', title: 'One API', body: 'Cards, transfers, and payouts behind a single key.' },
@@ -88,7 +156,31 @@ export const STATIC_SECTIONS = {
 
   '04-verdant': {
     kit: 'soft',
-    sections: ['stats', 'about', 'altRows', 'items', 'iconFeatures', 'gallery', 'testimonials', 'band', 'newsletter'],
+    sections: ['stats', 'about', 'altRows', 'items', 'specs', 'iconFeatures', 'gallery', 'process', 'testimonials', 'band', 'newsletter'],
+    specs: {
+      kicker: 'Care',
+      title: 'What each plant actually needs',
+      sub: 'The honest version, rather than a tag that says easy care on everything.',
+      rows: [
+        { k: 'Light', v: 'Bright indirect means within two metres of a window it can see sky from.' },
+        { k: 'Water', v: 'When the top five centimetres are dry. Not Sundays. Plants cannot read a calendar.' },
+        { k: 'Humidity', v: 'Most of these want about 50 percent. A grouped shelf beats any amount of misting.' },
+        { k: 'Repotting', v: 'Every second spring, one size up. Bigger is not kinder, it just holds water.' },
+        { k: 'Feeding', v: 'Half strength, fortnightly, March to September. Nothing at all over winter.' },
+        { k: 'If it dies', v: 'Send us a photo within thirty days and we replace it, with no argument.' },
+      ],
+    },
+    process: {
+      kicker: 'Delivery',
+      title: 'How it reaches you alive',
+      sub: 'The part most plant shops would rather not talk about.',
+      steps: [
+        { title: 'Picked wet', body: 'Watered the night before, so it travels damp rather than soaked, and never dry.' },
+        { title: 'Braced', body: 'Root ball bagged, stem cradled in moulded pulp, nothing loose rattling around.' },
+        { title: 'Sent Monday', body: 'Only at the start of the week, so nothing sits in a depot over a weekend.' },
+        { title: 'Two weeks off', body: 'Leave it somewhere bright and do nothing. Repotting on day one is what kills them.' },
+      ],
+    },
     altRows: [
       { eyebrow: 'Matched to you', title: 'The right plant for your light', body: 'Tell us which way your windows face and how much sun you get, and we point you to plants that will actually be happy there.', image: `A sunlit windowsill lined with healthy green houseplants, bright and airy. ${IMG}` },
       { eyebrow: 'Delivered thriving', title: 'Potted, watered, ready', body: 'Every plant arrives in peat-free soil, watered and boxed to stand up straight, with a care card in the leaves.', image: `A hand unboxing a potted plant delivered in a cardboard box, fresh green. ${IMG}` },
@@ -115,7 +207,28 @@ export const STATIC_SECTIONS = {
 
   '05-sunday-press': {
     kit: 'editorial',
-    sections: ['logos', 'about', 'items', 'altRows', 'testimonials', 'gallery', 'faq', 'band', 'newsletter'],
+    sections: ['logos', 'about', 'items', 'altRows', 'testimonials', 'team', 'gallery', 'pricing', 'faq', 'band', 'newsletter'],
+    team: {
+      kicker: 'Masthead',
+      title: 'Who makes it',
+      sub: 'Four of us full time, and about thirty contributors across a year.',
+      people: [
+        { name: 'Ines Baptista', role: 'Editor', bio: 'Commissions the whole issue and then argues with every word of it.' },
+        { name: 'Owen Clarke', role: 'Art director', bio: 'Responsible for the grid, the covers, and the typeface nobody else uses.' },
+        { name: 'Halima Sesay', role: 'Features', bio: 'Writes the long one in the middle, usually after three months of reporting.' },
+        { name: 'Piet Vos', role: 'Production', bio: 'Gets it to the printer on a Tuesday and to your door on a Sunday.' },
+      ],
+    },
+    pricing: {
+      kicker: 'Subscribe',
+      title: 'Four issues a year',
+      sub: 'No advertising in any of them, which is exactly why it costs what it costs.',
+      tiers: [
+        { name: 'Digital', price: '24 GBP', unit: 'per year', body: 'The full archive, and each issue the day it goes to press.', includes: ['Every issue since 2019', 'Reader app with no tracking', 'Cancel any time'], cta: 'Subscribe' },
+        { name: 'Print', price: '68 GBP', unit: 'per year', body: 'Four issues, posted flat, on paper worth keeping on a shelf.', includes: ['Four printed issues', 'Digital archive included', 'Free postage worldwide'], cta: 'Subscribe', featured: true },
+        { name: 'Patron', price: '180 GBP', unit: 'per year', body: 'Funds one commission a year from a writer nobody has published yet.', includes: ['Everything in Print', 'Your name in the back', 'An invitation to the launch'], cta: 'Become a patron' },
+      ],
+    },
     logos: ['THE VERGE', 'KOTTKE', 'DESIGN MILK', 'IT’S NICE THAT', 'AIGA', 'DENSE DISCOVERY'],
     altRows: [
       { eyebrow: 'The craft', title: 'Long reads, clean type', body: 'We publish one considered issue a month, set in type we actually care about, with nothing between you and the writing.', image: `An elegant editorial magazine spread with bold modernist typography, primary colors. ${IMG}` },
@@ -137,7 +250,28 @@ export const STATIC_SECTIONS = {
 
   '06-zest': {
     kit: 'soft',
-    sections: ['stats', 'manifesto', 'iconFeatures', 'items', 'altRows', 'gallery', 'testimonials', 'faq', 'band', 'newsletter'],
+    sections: ['stats', 'manifesto', 'iconFeatures', 'items', 'process', 'altRows', 'gallery', 'pricing', 'testimonials', 'faq', 'band', 'newsletter'],
+    process: {
+      kicker: 'The method',
+      title: 'Every recipe, the same shape',
+      sub: 'Because the thing that stops you cooking is not skill, it is the deciding.',
+      steps: [
+        { title: 'Read it once', body: 'One page, no story about a holiday, nothing to scroll past to reach the list.' },
+        { title: 'Ten minutes prep', body: 'Everything chopped before anything is hot. It is the only rule that really matters.' },
+        { title: 'One pan, high heat', body: 'Most of these are twelve minutes on the hob, and none of them need a thermometer.' },
+        { title: 'Acid at the end', body: 'Lemon, vinegar, or pickle liquid. That is the whole trick, and it costs nothing.' },
+      ],
+    },
+    pricing: {
+      kicker: 'Membership',
+      title: 'Or just cook for free',
+      sub: 'Half of everything we publish stays open, permanently, with no wall on it.',
+      tiers: [
+        { name: 'Free', price: '0 GBP', unit: 'forever', body: 'Two new recipes a week and the whole basics section.', includes: ['Two recipes weekly', 'Every technique guide', 'No account needed'], cta: 'Start cooking' },
+        { name: 'Member', price: '5 GBP', unit: 'per month', body: 'Everything, plus the shopping list that actually adds up.', includes: ['The full archive', 'Shopping lists built for you', 'Seasonal meal plans'], cta: 'Join', featured: true },
+        { name: 'Household', price: '40 GBP', unit: 'per year', body: 'Up to five people, one bill, lists shared across everyone phones.', includes: ['Everything in Member', 'Five accounts', 'One shared weekly plan'], cta: 'Join' },
+      ],
+    },
     manifesto: { kicker: 'The Zest rule', text: 'If a tired person cannot cook it on a Tuesday, it does not go in the box. Short lists, big flavour, every time.' },
     iconFeatures: [
       { icon: 'Timer', title: '30 minutes', body: 'Most recipes, start to plate, in half an hour.' },
@@ -164,7 +298,31 @@ export const STATIC_SECTIONS = {
 
   '07-nocturne': {
     kit: 'minimal',
-    sections: ['manifesto', 'about', 'items', 'altRows', 'bigQuote', 'iconFeatures', 'gallery', 'faq', 'band', 'newsletter'],
+    sections: ['manifesto', 'about', 'items', 'specs', 'altRows', 'bigQuote', 'iconFeatures', 'process', 'gallery', 'faq', 'band', 'newsletter'],
+    specs: {
+      kicker: 'Composition',
+      title: 'What is in the bottle',
+      sub: 'The full pyramid and the concentration, printed on every carton.',
+      rows: [
+        { k: 'Concentration', v: 'Extrait at 24 percent. It lasts because of the oil load, not because of a fixative.' },
+        { k: 'Top', v: 'Bergamot, pink pepper, and a green note lifted from crushed fig leaf.' },
+        { k: 'Heart', v: 'Orris butter, jasmine absolute, and a small amount of leather underneath.' },
+        { k: 'Base', v: 'Sandalwood, ambrette seed, and vetiver from a single farm in Haiti.' },
+        { k: 'Naturals', v: 'Eighty-two percent by weight. The rest is there because nature cannot do it safely.' },
+        { k: 'Maceration', v: 'Six weeks in steel before bottling. Nothing ships the week it was mixed.' },
+      ],
+    },
+    process: {
+      kicker: 'The making',
+      title: 'One perfumer, four years',
+      sub: 'Not a brief sent out to a fragrance house. It was made in the room next door.',
+      steps: [
+        { title: 'The idea', body: 'A city at two in the morning, and the specific kind of quiet that comes with it.' },
+        { title: 'Four hundred trials', body: 'Numbered, dated, and kept. Trial 61 and trial 388 are both in the final.' },
+        { title: 'Live with it', body: 'Six months of wearing the shortlist before anything was called finished.' },
+        { title: 'Bottle small', body: 'Batches of nine hundred, poured and labelled by hand, every one numbered.' },
+      ],
+    },
     manifesto: { kicker: 'The house', text: 'A perfume should change as the night does. We compose in a few notes, held in balance, that unfold for hours.' },
     altRows: [
       { eyebrow: 'The composition', title: 'Built around one accord', body: 'Each scent begins with a single idea and a few materials, layered so it opens, turns, and settles like a piece of music.', image: `A dark still life of a faceted perfume bottle among night flowers, deep violet. ${IMG}` },
@@ -192,7 +350,29 @@ export const STATIC_SECTIONS = {
 
   '08-shoreline': {
     kit: 'minimal',
-    sections: ['stats', 'about', 'items', 'altRows', 'iconFeatures', 'bigQuote', 'gallery', 'faq', 'band', 'newsletter'],
+    sections: ['stats', 'about', 'items', 'process', 'altRows', 'iconFeatures', 'bigQuote', 'gallery', 'team', 'faq', 'band', 'newsletter'],
+    process: {
+      kicker: 'Working together',
+      title: 'How a house gets built',
+      sub: 'Two to three years, and we are there for the whole of it.',
+      steps: [
+        { title: 'The site', body: 'A day on the land in every weather we can catch, before a single line is drawn.' },
+        { title: 'Sketch', body: 'Card models at 1:100. Cheap to change now, extremely expensive to change later.' },
+        { title: 'Consent', body: 'We take the planning fight so you do not have to. Coastal sites are never simple.' },
+        { title: 'On site', body: 'Weekly visits through the build, and we snag it ourselves before you ever see it.' },
+      ],
+    },
+    team: {
+      kicker: 'The practice',
+      title: 'Who you will work with',
+      sub: 'Nine people, and the person who draws it is the person you meet.',
+      people: [
+        { name: 'Elin Vasser', role: 'Founding partner', bio: 'Twenty years of coastal work and a stubborn dislike of the word seamless.' },
+        { name: 'Rhys Ostrander', role: 'Partner', bio: 'Runs the technical side and knows what salt air does to every fixing we specify.' },
+        { name: 'Aoife Brennan', role: 'Associate', bio: 'Leads the housing work and the practice research into coastal erosion.' },
+        { name: 'Sam Iwu', role: 'Project architect', bio: 'On site more than in the studio, which is how the details survive the build.' },
+      ],
+    },
     altRows: [
       { eyebrow: 'The site', title: 'We walk the land first', body: 'Every project starts on the ground at different tides and times of day. The building follows the light and the weather, not the other way round.', image: `An architect walking a windswept coastal site at golden hour, wide and calm. ${IMG}` },
       { eyebrow: 'The materials', title: 'Chosen to grey gracefully', body: 'Timber, stone, and lime that weather into the coast instead of fighting it, and ask little of the years.', image: `A close-up of weathered timber cladding on a coastal house, soft grey light. ${IMG}` },
@@ -220,7 +400,31 @@ export const STATIC_SECTIONS = {
 
   '09-pixel-playhouse': {
     kit: 'brutal',
-    sections: ['stats', 'iconFeatures', 'items', 'gallery', 'altRows', 'bigQuote', 'faq', 'band', 'newsletter'],
+    sections: ['stats', 'iconFeatures', 'items', 'specs', 'gallery', 'altRows', 'bigQuote', 'team', 'faq', 'band', 'newsletter'],
+    specs: {
+      kicker: 'The game',
+      title: 'What you are buying',
+      sub: 'Everything on this page is what ships. No roadmap, no season pass, no later.',
+      rows: [
+        { k: 'Length', v: 'Twelve to fifteen hours, plus a post-game that is genuinely optional.' },
+        { k: 'Platforms', v: 'PC, Mac, Linux, and Switch, all on the same day, with cross save across them.' },
+        { k: 'Price', v: 'Twenty dollars, once. No microtransactions, and we will not be adding any.' },
+        { k: 'Offline', v: 'The whole game runs with no connection, and no account is required to play it.' },
+        { k: 'Accessibility', v: 'Full remapping, colourblind palettes, and a mode with no fail state at all.' },
+        { k: 'Mod tools', v: 'The level editor we built it in ships with the game, free, on day one.' },
+      ],
+    },
+    team: {
+      kicker: 'The studio',
+      title: 'All six of us',
+      sub: 'No publisher, nothing outsourced, and everyone here shipped this thing.',
+      people: [
+        { name: 'Bex Nowak', role: 'Director', bio: 'Designed the levels and wrote most of the dialogue, then rewrote all of it.' },
+        { name: 'Tunde Alabi', role: 'Engine', bio: 'Built the renderer that makes 32 by 32 sprites look the way they do.' },
+        { name: 'Ivy Chen', role: 'Art', bio: 'Every sprite, every tile, and every frame of the animation.' },
+        { name: 'Marek Dolny', role: 'Audio', bio: 'Composed the score on hardware older than most of the team.' },
+      ],
+    },
     stats: [{ n: '3', l: 'Friends' }, { n: '4', l: 'Games shipped' }, { n: '0', l: 'Crunch weeks' }],
     iconFeatures: [
       { icon: 'Gamepad2', title: 'Cozy by design', body: 'Short sessions that respect your evening.' },
@@ -249,7 +453,30 @@ export const STATIC_SECTIONS = {
 
   '10-roast-and-co': {
     kit: 'bordered',
-    sections: ['stats', 'about', 'altRows', 'items', 'iconFeatures', 'gallery', 'testimonials', 'faq', 'band', 'newsletter'],
+    sections: ['stats', 'about', 'altRows', 'items', 'specs', 'iconFeatures', 'gallery', 'pricing', 'testimonials', 'faq', 'band', 'newsletter'],
+    specs: {
+      kicker: 'The roast',
+      title: 'What is on the bag',
+      sub: 'If a roaster will not print this, there is usually a reason for it.',
+      rows: [
+        { k: 'Roast date', v: 'Printed, not a best before. Everything ships within four days of roasting.' },
+        { k: 'Price paid', v: 'The farmgate price per kilo, on every bag. It averages 2.7 times the fair trade floor.' },
+        { k: 'Producer', v: 'Named farm or co-op, altitude, and varietal. No blends sold as single origins.' },
+        { k: 'Roast level', v: 'A measured number rather than the word medium. Most of ours sit between 58 and 72.' },
+        { k: 'Process', v: 'Washed, natural, or honey, stated plainly, with fermentation time where we know it.' },
+        { k: 'Packaging', v: 'Home compostable, with a valve that composts too, which was the hard part.' },
+      ],
+    },
+    pricing: {
+      kicker: 'Subscriptions',
+      title: 'Coffee that turns up',
+      sub: 'Change the grind, skip a week, or stop entirely from the email itself.',
+      tiers: [
+        { name: 'One bag', price: '13 GBP', unit: 'every two weeks', body: 'A 250 gram bag of whatever we are most excited about that week.', includes: ['Roasted to order', 'Free postage', 'Skip or pause any time'], cta: 'Start a subscription' },
+        { name: 'Two bags', price: '24 GBP', unit: 'every two weeks', body: 'One for filter and one for espresso, or two of the same.', includes: ['Two 250 gram bags', 'Choose your grind', 'First pick of the micro lots'], cta: 'Start a subscription', featured: true },
+        { name: 'Office', price: '90 GBP', unit: 'per week', body: 'Two kilos a week, and we come and dial in your grinder.', includes: ['Two kilos weekly', 'Grinder setup and servicing', 'Barista training for the team'], cta: 'Talk to us' },
+      ],
+    },
     altRows: [
       { eyebrow: 'At the source', title: 'Bought from farms we visit', body: 'We buy small lots direct from growers we know by name, and pay above the fair-trade floor because a good coffee starts long before the roast.', image: `A coffee farmer holding fresh red coffee cherries on a highland farm, warm light. ${IMG}` },
       { eyebrow: 'At the roastery', title: 'Roasted the day before it ships', body: 'Small batches, dialled in for each lot, roasted the day before dispatch so it reaches your kitchen at its peak.', image: `Coffee beans tumbling in a drum roaster with warm glow, cozy roastery. ${IMG}` },

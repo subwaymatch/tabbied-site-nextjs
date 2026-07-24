@@ -133,6 +133,10 @@ function Section({ k, site, artworks, content, sec }: Ctx & { k: SectionKey }) {
     case 'altRows': return sec?.altRows ? <AltRows site={site} rows={sec.altRows} /> : null;
     case 'iconFeatures': return sec?.iconFeatures ? <IconFeatures data={sec.iconFeatures} /> : null;
     case 'items': return <Items site={site} content={content} />;
+    case 'process': return sec?.process ? <Process data={sec.process} /> : null;
+    case 'pricing': return sec?.pricing ? <Pricing data={sec.pricing} /> : null;
+    case 'specs': return sec?.specs ? <Specs data={sec.specs} /> : null;
+    case 'team': return sec?.team ? <Team site={site} artworks={artworks} data={sec.team} /> : null;
     case 'gallery': return sec?.gallery ? <Gallery site={site} prompts={sec.gallery} /> : null;
     case 'features': return content ? <Features data={content.features} /> : null;
     case 'testimonials': return content ? <Testimonials data={content.testimonials} /> : null;
@@ -301,15 +305,107 @@ function Features({ data }: { data: NonNullable<Ctx['content']>['features'] }) {
   );
 }
 
+// One header treatment for every section: kicker, title, and a supporting line
+// sitting on a hairline. Consistency here is what stops the page reading as a
+// pile of unrelated blocks.
+function SectionHead({ kicker, title, sub }: { kicker?: string; title: string; sub?: string }) {
+  return (
+    <div className={s.sectionHead}>
+      <div>
+        {kicker ? <span className={s.sectionIndex}>{kicker}</span> : null}
+        <h2>{title}</h2>
+      </div>
+      {sub ? <p>{sub}</p> : <span />}
+    </div>
+  );
+}
+
 function Testimonials({ data }: { data: NonNullable<Ctx['content']>['testimonials'] }) {
   return (
     <section className={s.section}>
+      <SectionHead kicker="Word of mouth" title="What people say" />
       <div className={s.quoteGrid}>
         {data.map((t) => (
           <figure className={s.quote} key={t.name}>
             <blockquote>“{t.quote}”</blockquote>
             <figcaption><span className={s.qName}>{t.name}</span><span className={s.qRole}>{t.role}</span></figcaption>
           </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Process({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['process']> }) {
+  return (
+    <section className={s.panel}>
+      <div className={s.process}>
+      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <div className={s.processGrid}>
+        {data.steps.map((st, i) => (
+          <div className={s.step} key={st.title}>
+            <div className={s.stepNum}>{String(i + 1).padStart(2, '0')}</div>
+            <h3>{st.title}</h3>
+            <p>{st.body}</p>
+          </div>
+        ))}
+      </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['pricing']> }) {
+  return (
+    <section className={s.pricing}>
+      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <div className={s.tierGrid}>
+        {data.tiers.map((t) => (
+          <div className={`${s.tier}${t.featured ? ` ${s.tierFeatured}` : ''}`} key={t.name}>
+            <div className={s.tierName}>{t.name}</div>
+            <div className={s.tierPrice}>{t.price} <span>{t.unit}</span></div>
+            <p className={s.tierBody}>{t.body}</p>
+            <ul className={s.tierList}>{t.includes.map((f) => <li key={f}>{f}</li>)}</ul>
+            <a className={s.tierCta} href="#">{t.cta}</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Specs({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['specs']> }) {
+  return (
+    <section className={s.panel}>
+      <div className={s.specs}>
+      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <div>
+        {data.rows.map((r) => (
+          <div className={s.specRow} key={r.k}>
+            <div className={s.specK}>{r.k}</div>
+            <p className={s.specV}>{r.v}</p>
+          </div>
+        ))}
+      </div>
+      </div>
+    </section>
+  );
+}
+
+// Portraits are the site's own artwork, re-seeded per person, which is the
+// point of the showcase: the generative system carries the brand everywhere.
+function Team({ site, artworks, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['team']> }) {
+  return (
+    <section className={s.team}>
+      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <div className={s.teamGrid}>
+        {data.people.map((p, i) => (
+          <div key={p.name}>
+            <div className={s.teamArt}><Decor def={artAt(site, artworks, i + 1)} palette={site.colors} density={2} /></div>
+            <h3 className={s.teamName}>{p.name}</h3>
+            <div className={s.teamRole}>{p.role}</div>
+            <p className={s.teamBio}>{p.bio}</p>
+          </div>
         ))}
       </div>
     </section>
@@ -332,7 +428,7 @@ function BigQuote({ site, artworks, data }: Ctx & { data: NonNullable<NonNullabl
 function Faq({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['faq']> }) {
   return (
     <section className={s.section}>
-      <div className={s.faqHead}><h2>Questions</h2></div>
+      <SectionHead kicker="Before you ask" title="Questions" />
       <div className={s.faqList}>
         {data.map((f) => (
           <details className={s.faqItem} key={f.q}>

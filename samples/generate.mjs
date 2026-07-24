@@ -157,7 +157,7 @@ const aboutHTML = (site) => `
 
 const itemsHTML = (site) => `
 <section class="section" id="items">
-  <div class="section-head"><h2>${site.sectionTitle}</h2><p>${site.sectionSub}</p></div>
+  ${sectionHead(site.sectionKicker, site.sectionTitle, site.sectionSub)}
   <div class="grid">${site.items
     .map(
       (it, i) => `
@@ -182,7 +182,7 @@ const featuresHTML = (site) => `
     .join('')}</div></section>`;
 
 const testiHTML = (site) => `
-<section class="section"><div class="testi-grid">${site.testimonials
+<section class="section">${sectionHead('Word of mouth', 'What people say')}<div class="testi-grid">${site.testimonials
     .map(
       (t) => `
     <figure class="testi"><blockquote>“${t.quote}”</blockquote><figcaption><span class="q-name">${t.name}</span><span class="q-role">${t.role}</span></figcaption></figure>`
@@ -241,9 +241,68 @@ const bigQuoteHTML = (site) =>
   <figure class="big-quote-in"><blockquote>“${site.bigQuote.quote}”</blockquote><figcaption>${site.bigQuote.name}, <span>${site.bigQuote.role}</span></figcaption></figure>
 </section>`;
 
+// One header treatment for every section: kicker, title, and a supporting line
+// sitting on a hairline. Mirrors SectionHead in components/showcase/ShowcaseSite.tsx.
+const sectionHead = (kicker, title, sub) => `
+  <div class="section-head">
+    <div>${kicker ? `<span class="section-index">${kicker}</span>` : ''}<h2>${title}</h2></div>
+    ${sub ? `<p>${sub}</p>` : '<span></span>'}
+  </div>`;
+
+const processHTML = (site) =>
+  !site.process ? '' : `
+<section class="panel"><div class="process">${sectionHead(site.process.kicker, site.process.title, site.process.sub)}
+  <div class="process-grid">${site.process.steps
+    .map(
+      (st, i) => `
+    <div class="step"><div class="step-num">${String(i + 1).padStart(2, '0')}</div><h3>${st.title}</h3><p>${st.body}</p></div>`
+    )
+    .join('')}</div></div></section>`;
+
+const pricingHTML = (site) =>
+  !site.pricing ? '' : `
+<section class="pricing">${sectionHead(site.pricing.kicker, site.pricing.title, site.pricing.sub)}
+  <div class="tier-grid">${site.pricing.tiers
+    .map(
+      (t) => `
+    <div class="tier${t.featured ? ' featured' : ''}">
+      <div class="tier-name">${t.name}</div>
+      <div class="tier-price">${t.price} <span>${t.unit}</span></div>
+      <p class="tier-body">${t.body}</p>
+      <ul class="tier-list">${t.includes.map((f) => `<li>${f}</li>`).join('')}</ul>
+      <a class="tier-cta" href="#">${t.cta}</a>
+    </div>`
+    )
+    .join('')}</div></section>`;
+
+const specsHTML = (site) =>
+  !site.specs ? '' : `
+<section class="panel"><div class="specs">${sectionHead(site.specs.kicker, site.specs.title, site.specs.sub)}
+  <div>${site.specs.rows
+    .map((r) => `
+    <div class="spec-row"><div class="spec-k">${r.k}</div><p class="spec-v">${r.v}</p></div>`)
+    .join('')}</div></div></section>`;
+
+// Portraits are the site's own artwork, re-seeded per person: the generative
+// system carries the brand all the way down to the team page.
+const teamHTML = (site) =>
+  !site.team ? '' : `
+<section class="team">${sectionHead(site.team.kicker, site.team.title, site.team.sub)}
+  <div class="team-grid">${site.team.people
+    .map(
+      (p, i) => `
+    <div>
+      <div class="team-art">${decor(site, i + 1, 34)}</div>
+      <h3 class="team-name">${p.name}</h3>
+      <div class="team-role">${p.role}</div>
+      <p class="team-bio">${p.bio}</p>
+    </div>`
+    )
+    .join('')}</div></section>`;
+
 const faqHTML = (site) =>
   !site.faq ? '' : `
-<section class="section"><div class="faq-head"><h2>Questions</h2></div><div class="faq-list">${site.faq
+<section class="section">${sectionHead('Before you ask', 'Questions')}<div class="faq-list">${site.faq
     .map((f) => `<details class="faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`)
     .join('')}</div></section>`;
 
@@ -290,6 +349,10 @@ function renderSection(site, key) {
     case 'altRows': return altRowsHTML(site);
     case 'iconFeatures': return iconFeaturesHTML(site);
     case 'items': return itemsHTML(site);
+    case 'process': return processHTML(site);
+    case 'pricing': return pricingHTML(site);
+    case 'specs': return specsHTML(site);
+    case 'team': return teamHTML(site);
     case 'gallery': return galleryHTML(site);
     case 'features': return featuresHTML(site);
     case 'testimonials': return testiHTML(site);

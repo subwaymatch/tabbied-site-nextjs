@@ -58,9 +58,9 @@ export default function ImageCard({
     setTimeout(() => setCopied(false), 1600);
   };
 
-  const button = (className: string) => (
-    <button type="button" className={className} onClick={copy} aria-label="Copy prompt">
-      {copied ? '✓ Copied' : '⧉ Copy prompt'}
+  const button = (
+    <button type="button" className={s.imgphCopy} onClick={copy} aria-label="Copy image prompt">
+      {copied ? '✓ Copied' : '⧉ Copy'}
     </button>
   );
 
@@ -71,7 +71,7 @@ export default function ImageCard({
             optimizer at runtime and import-batch already sized the file. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={s.imgphImg} src={`/images/showcase/${id}.webp`} alt={altFrom(prompt)} loading="lazy" />
-        {button(`${s.imgphCopy} ${s.imgphCopyOver}`)}
+        {button}
       </figure>
     );
   }
@@ -79,10 +79,10 @@ export default function ImageCard({
   return (
     <figure className={s.imgph} data-image-id={id} data-image-prompt={full}>
       <div className={s.imgphInner}>
-        <span className={s.imgphBadge}>◳ GPT Image 2 prompt</span>
+        <span className={s.imgphBadge}>Image prompt</span>
         <p className={s.imgphText}>{full}</p>
-        {button(s.imgphCopy)}
       </div>
+      {button}
     </figure>
   );
 }

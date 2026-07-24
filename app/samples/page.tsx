@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { CSSProperties, ReactNode } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import {
@@ -33,9 +34,16 @@ type CardData = {
   seed: string;
 };
 
+/**
+ * A card in the mosaic. The artwork is the content, so it takes the whole top of
+ * the card and the metadata sits underneath in one quiet line. Each card carries
+ * its palette as a custom property, which tints its hover state: mousing across
+ * the grid previews each site's accent before you open it.
+ */
 function Card({ c }: { c: CardData }) {
+  const vars = { '--accent': c.colors[1] ?? c.colors[0] } as CSSProperties;
   return (
-    <a className={s.card} href={c.href}>
+    <a className={s.card} href={c.href} style={vars}>
       <div className={s.thumb}>
         <TabbiedArtwork
           artwork={ART[c.artwork]}
@@ -44,25 +52,60 @@ function Card({ c }: { c: CardData }) {
           fit="cover"
           density={2}
         />
+        <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
       </div>
       <div className={s.cbody}>
-        <div className={s.ci}>
-          <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
+        <div className={s.cmain}>
           <h3>{c.name}</h3>
+          <p>{c.topic}</p>
         </div>
-        <p>{c.topic}</p>
         <div className={s.foot}>
-          <div className={s.sw}>
+          <div className={s.sw} aria-hidden="true">
             {c.colors.map((col, i) => (
               <span key={i} style={{ background: col }} />
             ))}
           </div>
           <div className={s.pn}>
-            {c.paletteName} · {c.artwork}
+            {c.paletteName} <i>/</i> {c.artwork}
           </div>
         </div>
       </div>
     </a>
+  );
+}
+
+// The hero backdrop is a contact sheet rather than one enlarged pattern: four
+// different artworks on four different palettes, which states the premise of the
+// page before a word is read.
+const HERO_TILES: { art: ArtworkDefinition; palette: string[]; seed: string }[] = [
+  { art: plasma, palette: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'], seed: 'H1' },
+  { art: bauhaus, palette: ['#0d0d12', '#ff3d8b', '#ffd23e', '#3eecff'], seed: 'H2' },
+  { art: tetro, palette: ['#0d0d12', '#7048e8', '#3eecff', '#3fffb2'], seed: 'H3' },
+  { art: prisma, palette: ['#0d0d12', '#ffd23e', '#3fffb2', '#7048e8'], seed: 'H4' },
+];
+
+function GroupHead({
+  kicker,
+  title,
+  body,
+  count,
+}: {
+  kicker: string;
+  title: string;
+  body: ReactNode;
+  count: number;
+}) {
+  return (
+    <header className={s.group}>
+      <div>
+        <span className={s.kicker}>{kicker}</span>
+        <h2>{title}</h2>
+      </div>
+      <div className={s.groupMeta}>
+        <p>{body}</p>
+        <span className={s.count}>{count} sites</span>
+      </div>
+    </header>
   );
 }
 
@@ -100,62 +143,79 @@ export default function SamplesGallery() {
       />
 
       <header className={s.hero}>
-        <div className={s.heroArt}>
-          <TabbiedArtwork
-            artwork={spectrum}
-            palette={['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b']}
-            seed="GAL01"
-            fit="cover"
-            density={1}
-          />
+        <div className={s.heroArt} aria-hidden="true">
+          {HERO_TILES.map((t) => (
+            <div key={t.seed}>
+              <TabbiedArtwork
+                artwork={t.art}
+                palette={t.palette}
+                seed={t.seed}
+                fit="cover"
+                density={1}
+              />
+            </div>
+          ))}
         </div>
         <div className={s.heroScrim} />
         <div className={s.heroInner}>
           <div className={s.pre}>Made with Tabbied</div>
           <h1>
-            Twenty sites,
-            <br />
-            <span>one pattern engine.</span>
+            Twenty sites,<br />
+            <span>one pattern engine</span>
           </h1>
           <p>
-            Each of these sample websites uses a <strong>Tabbied</strong> generative
-            artwork as its main design accent, themed end-to-end with a single palette
-            from the library. Ten are self-contained HTML; ten are built with the{' '}
-            <code>TabbiedArtwork</code> React component. Same engine, twenty completely
-            different moods.
+            Every site below uses a <strong>Tabbied</strong> generative artwork as its
+            main design accent, themed end to end with a single palette from the library.
+            Same engine, twenty completely different moods.
           </p>
+          <dl className={s.facts}>
+            <div><dt>20</dt><dd>sample sites</dd></div>
+            <div><dt>20</dt><dd>palettes</dd></div>
+            <div><dt>20</dt><dd>artworks</dd></div>
+            <div><dt>2</dt><dd>ways to build</dd></div>
+          </dl>
         </div>
       </header>
 
       <div className={s.wrap}>
-        <div className={s.group}>
-          <h2>Static HTML builds</h2>
-          <span className={s.tag}>HTML</span>
-          <p>Self-contained pages that embed the css-doodle engine directly.</p>
-        </div>
-        <div className={s.grid}>
-          {staticCards.map((c) => (
-            <Card key={c.href} c={c} />
-          ))}
-        </div>
+        <section>
+          <GroupHead
+            kicker="01"
+            title="Static HTML builds"
+            body="Self-contained pages that embed the css-doodle engine directly, with no framework in sight."
+            count={staticCards.length}
+          />
+          <div className={s.mosaic}>
+            {staticCards.map((c) => (
+              <Card key={c.href} c={c} />
+            ))}
+          </div>
+        </section>
 
-        <div className={`${s.group} ${s.two}`}>
-          <h2>React component builds</h2>
-          <span className={s.tag}>React</span>
-          <p>
-            Live Next.js pages rendered with the <code>TabbiedArtwork</code> component.
-          </p>
-        </div>
-        <div className={s.grid}>
-          {reactCards.map((c) => (
-            <Card key={c.href} c={c} />
-          ))}
-        </div>
+        <section>
+          <GroupHead
+            kicker="02"
+            title="React component builds"
+            body={
+              <>
+                Live Next.js pages rendered with the <code>TabbiedArtwork</code> component.
+              </>
+            }
+            count={reactCards.length}
+          />
+          <div className={s.mosaic}>
+            {reactCards.map((c) => (
+              <Card key={c.href} c={c} />
+            ))}
+          </div>
+        </section>
       </div>
 
       <footer className={s.footer}>
-        Built with <a href="https://tabbied.com">Tabbied</a> · generative artworks
-        powered by css-doodle. Open any card to view the full site.
+        <p>
+          Built with <a href="https://tabbied.com">Tabbied</a>, generative artworks
+          powered by css-doodle. Open any card to view the full site.
+        </p>
       </footer>
     </main>
   );

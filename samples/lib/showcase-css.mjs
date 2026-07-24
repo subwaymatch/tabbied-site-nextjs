@@ -4,7 +4,7 @@
 // generate.mjs sets per site, so one stylesheet dresses all ten brands.
 export const SHOWCASE_CSS = `
 *,*::before,*::after{box-sizing:border-box}
-.site{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
+.site{--radius:18px;--pad-x:clamp(20px,5vw,64px);--sp-sm:clamp(40px,5vw,68px);--sp:clamp(52px,6.5vw,92px);--sp-lg:clamp(84px,10vw,148px);--max:1200px;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden}
 .site a{color:inherit}
 css-doodle{display:block;width:100%;height:100%}
 .doodle-box{position:relative;overflow:hidden}
@@ -24,12 +24,14 @@ css-doodle{display:block;width:100%;height:100%}
 .cta-center{justify-content:center}
 .eyebrow{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--c1);margin-bottom:22px;font-weight:600}
 
-.section{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px)}
-.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
-.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;margin:0}
-.section-head p{margin:0;max-width:340px;opacity:.7;font-size:15px}
+.section{max-width:var(--max);margin:0 auto;padding:var(--sp) var(--pad-x)}
+.section-head{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:end;gap:20px clamp(24px,5vw,72px);margin-bottom:clamp(34px,4vw,54px);padding-bottom:22px;border-bottom:1px solid var(--line)}
+@media(max-width:760px){.section-head{grid-template-columns:1fr}}
+.section-index{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--c1);margin-bottom:14px;display:block}
+.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.2vw,58px);line-height:1.02;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.section-head p{margin:0 0 6px;opacity:.68;font-size:15.5px;line-height:1.6;max-width:42ch}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(18px,2vw,28px)}
 .card{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .3s ease}
 .card:hover{transform:translateY(-6px)}
 .card-media{aspect-ratio:4/3;position:relative;overflow:hidden}
@@ -38,14 +40,19 @@ css-doodle{display:block;width:100%;height:100%}
 .card-body h3{font-family:var(--display);font-weight:600;font-size:21px;margin:8px 0 6px}
 .card-meta{opacity:.65;font-size:14px}
 
-.imgph{position:absolute;inset:0;margin:0;display:flex;border-bottom:1px solid var(--line);
-  background:radial-gradient(120% 120% at 100% 0,color-mix(in srgb,var(--c1) 22%,transparent),transparent 60%),var(--soft)}
+.imgph{position:absolute;inset:0;margin:0;display:flex;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent);
+  background:radial-gradient(130% 130% at 100% 0,color-mix(in srgb,var(--c1) 9%,transparent),transparent 62%),var(--soft)}
 .imgph-in{margin:auto;padding:16px 18px;text-align:center;max-width:92%}
+.imgph-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:10px;font-weight:600}
+.imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;line-height:1.55;opacity:.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .imgph-badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);
   border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);border-radius:100px;padding:4px 10px;margin-bottom:12px}
 .imgph-text{margin:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;line-height:1.5;opacity:.75;
   display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.imgph-copy{margin-top:14px;font:inherit;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--onC1);background:var(--c1);border:none;border-radius:100px;padding:7px 16px;cursor:pointer;transition:opacity .2s}
+.imgph-copy{position:absolute;right:8px;bottom:8px;margin:0;font:inherit;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink);background:color-mix(in srgb,var(--bg) 82%,transparent);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;opacity:0;transform:translateY(3px);transition:opacity .2s,transform .2s,border-color .2s}
+.imgph:hover .imgph-copy,.imgph-copy:focus-visible{opacity:1;transform:none}
+.imgph-copy:hover{border-color:var(--c1);color:var(--c1)}
+@media(hover:none){.imgph-copy{opacity:1;transform:none}}
 .imgph-copy:hover{opacity:.88}
 
 .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -54,7 +61,7 @@ css-doodle{display:block;width:100%;height:100%}
 .stat-n{font-family:var(--display);font-size:32px;font-weight:600}
 .stat-l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:6px}
 
-.about{max-width:1200px;margin:0 auto;padding:clamp(84px,11vw,172px) clamp(20px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about{max-width:var(--max);margin:0 auto;padding:var(--sp) var(--pad-x);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
 .about.rev .about-copy{order:2}
 .about-copy h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,48px);letter-spacing:-.02em;margin:0 0 20px}
 .about-copy p{font-size:17px;line-height:1.7;opacity:.8;margin:0 0 16px;max-width:52ch}
@@ -65,7 +72,7 @@ css-doodle{display:block;width:100%;height:100%}
 @media(max-width:820px){.about{grid-template-columns:1fr}.about.rev .about-copy{order:0}.about-art{aspect-ratio:16/10}}
 
 .features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
-.feat-grid{max-width:1200px;margin:0 auto;padding:clamp(60px,8vw,108px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
+.feat-grid{max-width:var(--max);margin:0 auto;padding:var(--sp) var(--pad-x);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,48px)}
 .feat-num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--c1);letter-spacing:.08em}
 .feat h3{font-family:var(--display);font-weight:600;font-size:21px;margin:10px 0 8px}
 .feat p{margin:0;opacity:.72;font-size:15px;line-height:1.6}
@@ -81,7 +88,7 @@ css-doodle{display:block;width:100%;height:100%}
 .band-in{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:640px}
 .band-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.6vw,50px);letter-spacing:-.02em;margin:0 0 24px;line-height:1.08}
 
-.newsletter{padding:clamp(76px,10vw,140px) clamp(20px,5vw,64px)}
+.newsletter{padding:var(--sp-lg) var(--pad-x)}
 .news-in{max-width:620px;margin:0 auto;text-align:center}
 .news-in h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;margin:0 0 12px}
 .news-in p{opacity:.75;font-size:17px;margin:0 0 26px}
@@ -89,11 +96,11 @@ css-doodle{display:block;width:100%;height:100%}
 .news-form input{flex:1 1 220px;padding:14px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--body);font-size:15px}
 
 .footer{padding:48px 0 40px;font-size:14px;border-top:1px solid var(--line)}
-.foot-top{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px) 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.foot-top{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x) 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
 .foot-top .logo{opacity:1}
 .foot-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}
 .foot-nav a{text-decoration:none;opacity:.75}
-.foot-bottom{max-width:1200px;margin:0 auto;padding:22px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;opacity:.6}
+.foot-bottom{max-width:var(--max);margin:0 auto;padding:22px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;opacity:.6}
 .em{color:var(--c1);font-style:inherit}
 
 /* Split hero */
@@ -107,8 +114,10 @@ css-doodle{display:block;width:100%;height:100%}
 
 /* Spotlight hero */
 .spot-hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;text-align:center}
-.spot-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,color-mix(in srgb,var(--bg) 34%,transparent) 0,color-mix(in srgb,var(--bg) 78%,transparent) 55%,var(--bg) 100%)}
+.spot-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 42%,color-mix(in srgb,var(--bg) 62%,transparent) 0,color-mix(in srgb,var(--bg) 78%,transparent) 55%,var(--bg) 100%)}
 .spot-in{position:relative;z-index:5;padding:0 24px;max-width:900px}
+.spot-in h1,.bout-in h1{text-shadow:0 2px 30px color-mix(in srgb,var(--bg) 82%,transparent)}
+.spot-in .em,.bout-in .em,.spot-in .eyebrow,.bout-in .eyebrow{color:color-mix(in srgb,var(--c1) 55%,var(--ink))}
 .spot-in h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,10vw,128px);line-height:.94;letter-spacing:-.03em;margin:0}
 .spot-in .lede{max-width:560px;margin:28px auto 0;font-size:clamp(16px,2vw,19px);line-height:1.6;opacity:.82}
 .marquee{overflow:hidden;white-space:nowrap;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
@@ -129,7 +138,7 @@ css-doodle{display:block;width:100%;height:100%}
 
 /* Boutique */
 .bout-hero{position:relative;min-height:96vh;display:grid;place-items:center;overflow:hidden;text-align:center}
-.bout-scrim{position:absolute;inset:0;background:radial-gradient(92% 82% at 50% 44%,color-mix(in srgb,var(--bg) 30%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 68%,var(--bg))}
+.bout-scrim{position:absolute;inset:0;background:radial-gradient(92% 82% at 50% 44%,color-mix(in srgb,var(--bg) 60%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 68%,var(--bg))}
 .bout-in{position:relative;z-index:4;padding:0 24px;max-width:820px}
 .bout-in h1{font-family:var(--display);font-weight:500;font-size:clamp(52px,12vw,170px);line-height:.9;letter-spacing:.01em;margin:0}
 .bout-in .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,26px);opacity:.82;max-width:520px;margin:24px auto 0}
