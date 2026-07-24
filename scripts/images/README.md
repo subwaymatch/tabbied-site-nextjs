@@ -87,17 +87,32 @@ Individual requests can fail without failing the batch, usually a content filter
 trip. Those ids are listed on stdout and in `.batch/imported.json`; rerunning
 `images:build` picks up exactly the missing ones.
 
-## Swapping placeholders for images
+## How slots pick up their image
 
-Not wired up yet. Two touch points when you want it:
+Both renderers check whether an image exists for a slot id and swap themselves:
 
-- `components/showcase/ImageCard.tsx`: take an optional `src` and render an
-  `<img>` with `object-fit: cover`, keeping the copy button as an overlay.
-- `imgCard()` in `samples/generate.mjs`: the generator runs in Node, so
-  `fs.existsSync()` against `public/images/showcase/<id>.webp` can pick between
-  the image and today's prompt card at build time.
+- `components/showcase/ImageCard.tsx` reads `components/showcase/generatedImages.ts`,
+  the generated list of ids. React cannot stat the filesystem at render time, so
+  `import-batch` (and `npm run images:index`) rewrites that module.
+- `imgCard()` in `samples/generate.mjs` runs in Node, so it stats
+  `public/images/showcase/<id>.webp` directly on every `node samples/generate.mjs`.
 
-Both need the same id the extractor derives, so keep the slot ordering stable.
+A filled slot renders `<img>` cropped with `object-fit: cover` and moves the copy
+button to a hover overlay; an unfilled one keeps the prompt card. A half finished
+batch therefore leaves a page that still reads as complete.
+
+Ids are authored by the renderers (`imageId()` in both files) and emitted as
+`data-image-id`, which is what `extract-prompts.mjs` reads back. There is one
+definition of a slot id per stack, so the pipeline and the pages cannot disagree.
+Adding, removing or reordering items inside a section renumbers its slots, so
+rerun `images:extract` after content edits and expect to regenerate the shifted
+ones.
+
+After an import, refresh both stacks so the new images appear:
+
+```bash
+node samples/generate.mjs && npm run build
+```
 
 ## Environment
 

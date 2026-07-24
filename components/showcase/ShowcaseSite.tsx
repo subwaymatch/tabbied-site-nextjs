@@ -12,6 +12,13 @@ import { SHOWCASE_SECTIONS, type Kit, type SectionKey } from './showcaseSections
 import ImageCard from './ImageCard';
 import s from './ShowcaseSite.module.css';
 
+// Stable id for one image slot, shared with the batch pipeline: it is the
+// custom_id sent to the API and the filename that comes back, so a finished
+// image finds its way home without a lookup table. Keep it in step with
+// scripts/images/extract-prompts.mjs if the slot naming ever changes.
+const imageId = (site: Site, slot: 'card' | 'alt' | 'gallery', i: number) =>
+  `react__${site.slug}__${slot}-${i}`;
+
 // ---- color helpers --------------------------------------------------------
 function toRgb(hex: string): [number, number, number] {
   let h = hex.replace('#', '').trim();
@@ -214,7 +221,9 @@ function AltRows({ site, rows }: { site: Site; rows: NonNullable<NonNullable<Ctx
             <h3>{r.title}</h3>
             <p>{r.body}</p>
           </div>
-          <div className={s.altMedia}><ImageCard prompt={r.image} colors={site.colors} /></div>
+          <div className={s.altMedia}>
+            <ImageCard id={imageId(site, 'alt', i)} prompt={r.image} colors={site.colors} />
+          </div>
         </div>
       ))}
     </section>
@@ -246,9 +255,11 @@ function Items({ site, content }: { site: Site; content?: Ctx['content'] }) {
     <section className={s.section} id="items">
       <div className={s.sectionHead}><h2>{site.sectionTitle}</h2><p>{site.sectionSub}</p></div>
       <div className={s.grid}>
-        {site.items.map((it) => (
+        {site.items.map((it, i) => (
           <article className={s.card} key={it.seed}>
-            <div className={s.cardMedia}><ImageCard prompt={promptFor(it.seed)} colors={site.colors} /></div>
+            <div className={s.cardMedia}>
+              <ImageCard id={imageId(site, 'card', i)} prompt={promptFor(it.seed)} colors={site.colors} />
+            </div>
             <div className={s.cardBody}>
               <div className={s.cardEyebrow}>{it.eyebrow}</div>
               <h3>{it.title}</h3>
@@ -266,7 +277,9 @@ function Gallery({ site, prompts }: { site: Site; prompts: string[] }) {
     <section className={s.gallery}>
       <div className={s.galleryGrid}>
         {prompts.map((p, i) => (
-          <div className={s.galleryCell} key={i}><ImageCard prompt={p} colors={site.colors} /></div>
+          <div className={s.galleryCell} key={i}>
+            <ImageCard id={imageId(site, 'gallery', i)} prompt={p} colors={site.colors} />
+          </div>
         ))}
       </div>
     </section>

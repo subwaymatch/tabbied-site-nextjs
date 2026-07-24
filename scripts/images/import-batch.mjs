@@ -12,7 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
-import { IMAGE_DIR, MANIFEST, ROOT, STATE, api, apiKey, argv, imagePath, readJson, writeJson } from './common.mjs';
+import { IMAGE_DIR, IMAGE_INDEX, MANIFEST, ROOT, STATE, api, apiKey, argv, imagePath, readJson, writeImageIndex, writeJson } from './common.mjs';
 
 const args = argv();
 const key = apiKey();
@@ -96,6 +96,10 @@ if (batch.error_file_id) {
   }
 }
 
+// The React tree reads this module to know which slots have an image; the static
+// generator stats the directory itself, so it only needs a rerun.
+const indexed = writeImageIndex();
+
 const totalBytes = written.reduce((n, w) => n + w.bytes, 0);
 const aliasCount = written.reduce((n, w) => n + w.aliases, 0);
 console.log(`${written.length} image(s) -> ${path.relative(ROOT, IMAGE_DIR)} (${(totalBytes / 1024 / 1024).toFixed(1)} MB)`);
@@ -106,6 +110,9 @@ if (failed.length) {
   for (const f of failed) console.log(`  ${f.id}: ${f.reason}`);
   console.log('\nRetry them with: node scripts/images/build-batch.mjs && node scripts/images/submit-batch.mjs --watch');
 }
+
+console.log(`\n${indexed.length} image(s) listed in ${path.relative(ROOT, IMAGE_INDEX)}`);
+console.log('Next: node samples/generate.mjs && npm run build');
 
 writeJson(path.join(path.dirname(STATE), 'imported.json'), {
   batchId,

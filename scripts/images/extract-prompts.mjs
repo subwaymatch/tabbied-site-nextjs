@@ -2,10 +2,15 @@
 //
 // The prompts live in three source modules (components/showcase/showcaseContent.ts,
 // components/showcase/showcaseSections.ts, samples/lib/static-sections.mjs), but
-// both stacks converge on one thing in the rendered HTML: every placeholder is a
-// <figure class="imgph" data-image-prompt="..."> holding the final composed
-// string, palette clause and all. So the built pages are the single source read
-// here instead of three parsers that could drift.
+// both stacks converge on one thing in the rendered HTML: every slot is a
+// <figure class="imgph" data-image-id="..." data-image-prompt="..."> holding the
+// final composed string, palette clause and all. So the built pages are the
+// single source read here instead of three parsers that could drift.
+//
+// The id is authored by the renderers (imageId() in ShowcaseSite.tsx and in
+// samples/generate.mjs), which is also what they check against
+// public/images/showcase to decide whether to show the image or the prompt. It
+// is read straight off the tag so the two sides cannot disagree.
 //
 //   npm run build            # writes out/showcase/<slug>/index.html
 //   node samples/generate.mjs  # writes public/samples/<dir>/index.html
@@ -29,26 +34,7 @@ const unescapeHtml = (s) =>
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&');
 
-// Both stacks wrap the figure in a slot container. Static uses plain class names
-// and React uses hashed CSS-module names, so match the camel and kebab spelling
-// of each and take whichever opened last before the figure.
-const SLOT_TOKENS = [
-  [/card-media|cardMedia/, 'card'],
-  [/alt-media|altMedia/, 'alt'],
-  [/gallery-cell|galleryCell/, 'gallery'],
-];
-
-function slotFor(before) {
-  let best = null;
-  for (const [re, slot] of SLOT_TOKENS) {
-    const global = new RegExp(re.source, 'g');
-    let match;
-    let last = -1;
-    while ((match = global.exec(before)) !== null) last = match.index;
-    if (last > (best?.at ?? -1)) best = { at: last, slot };
-  }
-  return best?.slot ?? null;
-}
+const attr = (tag, name) => tag.match(new RegExp(`${name}="([^"]*)"`))?.[1] ?? null;
 
 const prompts = [];
 const byPrompt = new Map();
@@ -64,21 +50,21 @@ for (const { stack, dir, hint } of SOURCES) {
     const file = path.join(dir, entry.name, 'index.html');
     if (!fs.existsSync(file)) continue;
     const html = fs.readFileSync(file, 'utf8');
-    const counters = { card: 0, alt: 0, gallery: 0 };
 
-    for (const match of html.matchAll(/data-image-prompt="([^"]*)"/g)) {
-      const slot = slotFor(html.slice(Math.max(0, match.index - 400), match.index));
-      if (!slot) {
+    for (const match of html.matchAll(/<figure[^>]*data-image-prompt="[^"]*"[^>]*>/g)) {
+      const tag = match[0];
+      const id = attr(tag, 'data-image-id');
+      const slotted = id?.match(/__([a-z]+)-(\d+)$/);
+      if (!slotted || !SLOTS[slotted[1]]) {
         skipped += 1;
         continue;
       }
-      const index = counters[slot];
-      counters[slot] += 1;
+      const [, slot, rawIndex] = slotted;
+      const index = Number(rawIndex);
 
-      const prompt = unescapeHtml(match[1]);
+      const prompt = unescapeHtml(attr(tag, 'data-image-prompt') ?? '');
       const aspect = SLOTS[slot].aspect(index);
       const size = SIZE_FOR_ASPECT[aspect];
-      const id = `${stack}__${entry.name}__${slot}-${index}`;
 
       // Identical prompt + size means one generation shared by several slots.
       const dedupeKey = `${size}::${prompt}`;
@@ -119,5 +105,5 @@ const perStack = prompts.reduce((acc, p) => ({ ...acc, [p.stack]: (acc[p.stack] 
 console.log(`${prompts.length} unique prompts -> ${path.relative(ROOT, MANIFEST)}`);
 console.log(`  by stack: ${Object.entries(perStack).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}`);
 if (manifest.aliased) console.log(`  ${manifest.aliased} duplicate prompt(s) will reuse another image`);
-if (skipped) console.log(`  ${skipped} placeholder(s) had no recognized slot wrapper and were skipped`);
+if (skipped) console.log(`  ${skipped} slot(s) carried no usable data-image-id and were skipped`);
 if (args.print) for (const p of prompts) console.log(`\n[${p.id}] ${p.size}\n${p.prompt}`);

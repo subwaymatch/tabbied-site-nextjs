@@ -16,6 +16,7 @@
     "images:build": "node scripts/images/build-batch.mjs",
     "images:submit": "node scripts/images/submit-batch.mjs",
     "images:import": "node scripts/images/import-batch.mjs",
+    "images:index": "node scripts/images/index-images.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish"

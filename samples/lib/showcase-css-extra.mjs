@@ -53,6 +53,14 @@ export const SHOWCASE_CSS_EXTRA = `
 .logos-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
 .logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,4vw,52px);margin-top:18px;font-family:var(--display);font-weight:700;font-size:clamp(15px,2vw,20px);letter-spacing:.04em;opacity:.55}
 
+/* Filled image slots: the generated image is in, so the prompt card steps aside
+   and the copy button becomes a hover overlay. */
+.imgph.filled{background:none;border-bottom:none}
+.imgph-img{width:100%;height:100%;object-fit:cover;display:block}
+.imgph-copy.over{position:absolute;right:10px;bottom:10px;margin-top:0;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+.imgph.filled:hover .imgph-copy.over,.imgph-copy.over:focus-visible{opacity:1;transform:none}
+@media(hover:none){.imgph-copy.over{opacity:1;transform:none}}
+
 /* Kits */
 .kit-soft .card{border:none;border-radius:22px;box-shadow:0 18px 40px -26px rgba(0,0,0,.55)}
 .kit-soft .btn{border-radius:100px}

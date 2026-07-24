@@ -91,12 +91,34 @@ function decor(site, i, cell = 54) {
   return `<style>${d.style}</style>${d.element}`;
 }
 
-// A raster-image placeholder carrying a GPT Image 2 prompt, with the site
-// palette (and background color) appended so a generated image blends in.
-function imgCard(prompt, colors) {
+// Stable id for one image slot, shared with the batch pipeline: it is the
+// custom_id sent to the API and the filename that comes back. Keep it in step
+// with scripts/images/extract-prompts.mjs if the slot naming ever changes.
+const imageId = (site, slot, i) => `static__${site.dir}__${slot}-${i}`;
+
+const IMAGE_DIR = path.resolve(__dirname, '../public/images/showcase');
+const hasImage = (id) => fs.existsSync(path.join(IMAGE_DIR, `${id}.webp`));
+
+// The leading sentence names the subject, which is what alt text wants; the
+// palette and lighting notes that follow are noise to a screen reader.
+const altFrom = (prompt) => String(prompt).split(/\.\s/)[0].replace(/\.$/, '');
+
+// A card image in one of two states. Once scripts/images/import-batch.mjs has
+// written public/images/showcase/<id>.webp the slot renders that image, cropped
+// with object-fit so it is never stretched. Until then it stays a placeholder
+// carrying the GPT Image 2 prompt, with the site palette (and background color)
+// appended so a generated image blends in. Either way the full prompt hangs off
+// data-image-prompt for the copy button in samples/assets/tabbied-runtime.js.
+function imgCard(prompt, colors, id) {
   const bg = colors[0];
   const full = `${prompt} Color palette: ${colors.join(', ')}. Use ${bg} as the background so the image blends into the page.`;
-  return `<figure class="imgph" data-image-prompt="${esc(full)}"><div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">${esc(full)}</p><button type="button" class="imgph-copy" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button></div></figure>`;
+  const open = `<figure class="imgph${hasImage(id) ? ' filled' : ''}" data-image-id="${esc(id)}" data-image-prompt="${esc(full)}">`;
+  const copy = (cls) =>
+    `<button type="button" class="${cls}" data-copy-prompt aria-label="Copy prompt">⧉ Copy prompt</button>`;
+  if (hasImage(id)) {
+    return `${open}<img class="imgph-img" src="/images/showcase/${esc(id)}.webp" alt="${esc(altFrom(prompt))}" loading="lazy">${copy('imgph-copy over')}</figure>`;
+  }
+  return `${open}<div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">${esc(full)}</p>${copy('imgph-copy')}</div></figure>`;
 }
 
 const renderTitle = (t) =>
@@ -138,9 +160,9 @@ const itemsHTML = (site) => `
   <div class="section-head"><h2>${site.sectionTitle}</h2><p>${site.sectionSub}</p></div>
   <div class="grid">${site.items
     .map(
-      (it) => `
+      (it, i) => `
     <article class="card">
-      <div class="card-media">${imgCard(site.images[it.seed], site.colors)}</div>
+      <div class="card-media">${imgCard(site.images[it.seed], site.colors, imageId(site, 'card', i))}</div>
       <div class="card-body">
         <div class="card-eyebrow">${it.eyebrow}</div>
         <h3>${it.title}</h3>
@@ -191,7 +213,7 @@ const altRowsHTML = (site) =>
       (r, i) => `
   <div class="alt-row${i % 2 ? ' rev' : ''}">
     <div class="alt-copy"><div class="eyebrow">${r.eyebrow}</div><h3>${r.title}</h3><p>${r.body}</p></div>
-    <div class="alt-media">${imgCard(r.image, site.colors)}</div>
+    <div class="alt-media">${imgCard(r.image, site.colors, imageId(site, 'alt', i))}</div>
   </div>`
     )
     .join('')}</section>`;
@@ -208,7 +230,7 @@ const iconFeaturesHTML = (site) =>
 const galleryHTML = (site) =>
   !site.gallery ? '' : `
 <section class="gallery"><div class="gallery-grid">${site.gallery
-    .map((p) => `<div class="gallery-cell">${imgCard(p, site.colors)}</div>`)
+    .map((p, i) => `<div class="gallery-cell">${imgCard(p, site.colors, imageId(site, 'gallery', i))}</div>`)
     .join('')}</div></section>`;
 
 const bigQuoteHTML = (site) =>
