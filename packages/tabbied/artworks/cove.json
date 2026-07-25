@@ -1,0 +1,49 @@
+{
+  "name": "Cove",
+  "slug": "cove",
+  "galleryOrder": 630,
+  "description": "A deep circular scoop cut out of every block, the cove swapping to the opposite corner on alternate rows.",
+  "palette": [
+    "#FFF4E6",
+    "#3D348B",
+    "#7678ED",
+    "#F7B801",
+    "#F18701",
+    "#F35B04"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 66.0%, 0.0% 66.0%, 7.4% 65.6%, 14.7% 64.3%, 21.8% 62.3%, 28.6% 59.5%, 35.1% 55.9%, 41.2% 51.6%, 46.7% 46.7%, 51.6% 41.2%, 55.9% 35.1%, 59.5% 28.6%, 62.3% 21.8%, 64.3% 14.7%, 65.6% 7.4%, 66.0% 0.0%); clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 66.0%, 0.0% 66.0%, 7.4% 65.6%, 14.7% 64.3%, 21.8% 62.3%, 28.6% 59.5%, 35.1% 55.9%, 41.2% 51.6%, 46.7% 46.7%, 51.6% 41.2%, 55.9% 35.1%, 59.5% 28.6%, 62.3% 21.8%, 64.3% 14.7%, 65.6% 7.4%, 66.0% 0.0%); @match(@y % 2 == 1) { -webkit-clip-path: polygon(0.0% 100.0%, 0.0% 0.0%, 100.0% 0.0%, 100.0% 34.0%, 100.0% 34.0%, 92.6% 34.4%, 85.3% 35.7%, 78.2% 37.7%, 71.4% 40.5%, 64.9% 44.1%, 58.8% 48.4%, 53.3% 53.3%, 48.4% 58.8%, 44.1% 64.9%, 40.5% 71.4%, 37.7% 78.2%, 35.7% 85.3%, 34.4% 92.6%, 34.0% 100.0%); clip-path: polygon(0.0% 100.0%, 0.0% 0.0%, 100.0% 0.0%, 100.0% 34.0%, 100.0% 34.0%, 92.6% 34.4%, 85.3% 35.7%, 78.2% 37.7%, 71.4% 40.5%, 64.9% 44.1%, 58.8% 48.4%, 53.3% 53.3%, 48.4% 58.8%, 44.1% 64.9%, 40.5% 71.4%, 37.7% 78.2%, 35.7% 85.3%, 34.4% 92.6%, 34.0% 100.0%); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
