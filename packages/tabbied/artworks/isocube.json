@@ -1,7 +1,7 @@
 {
   "name": "Isocube",
   "slug": "isocube",
-  "galleryOrder": 642,
+  "galleryOrder": 625,
   "description": "Tumbling blocks: one hexagon per cell shaded as a lit top and two falling sides, stacking into an isometric wall.",
   "palette": [
     "#FDFCFB",

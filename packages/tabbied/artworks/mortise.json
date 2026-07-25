@@ -1,16 +1,15 @@
 {
   "name": "Mortise",
   "slug": "mortise",
-  "galleryOrder": 672,
-  "galleryWhite": true,
+  "galleryOrder": 631,
   "description": "A mortise cut square through each block, standing upright in one column and lying flat in the next.",
   "palette": [
-    "#0B2540",
-    "#1B4075",
-    "#3E8BFF",
-    "#3EECFF",
-    "#9EFFD8",
-    "#ECFFEC"
+    "#FDF6E3",
+    "#073642",
+    "#268BD2",
+    "#D33682",
+    "#859900",
+    "#CB4B16"
   ],
   "colors": {
     "min": 2,
@@ -44,7 +43,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; left: 34%; top: 18%; width: 32%; height: 64%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } @match(@x % 2 == 1) { :after { left: 18%; top: 34%; width: 64%; height: 32%; } } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 34.0% 18.0%, 34.0% 82.0%, 66.0% 82.0%, 66.0% 18.0%, 34.0% 18.0%); clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 34.0% 18.0%, 34.0% 82.0%, 66.0% 82.0%, 66.0% 18.0%, 34.0% 18.0%); @match(@x % 2 == 1) { -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 18.0% 34.0%, 18.0% 66.0%, 82.0% 66.0%, 82.0% 34.0%, 18.0% 34.0%); clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 18.0% 34.0%, 18.0% 66.0%, 82.0% 66.0%, 82.0% 34.0%, 18.0% 34.0%); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

@@ -1,16 +1,15 @@
 {
   "name": "Taper",
   "slug": "taper",
-  "galleryOrder": 713,
-  "galleryWhite": true,
+  "galleryOrder": 637,
   "description": "Squares growing steadily from left to right, each column exactly one step larger than the last.",
   "palette": [
-    "#0D1B2A",
-    "#1B98E0",
-    "#E0FBFC",
-    "#FF7B00",
-    "#FFD23F",
-    "#EAEAEA"
+    "#F4EFE4",
+    "#7A1F3D",
+    "#2F4156",
+    "#C9A86A",
+    "#88A872",
+    "#D98E5A"
   ],
   "colors": {
     "min": 2,

@@ -1,13 +1,19 @@
-// Emits packages/tabbied/artworks/<slug>.json for every batch-6 definition and
-// prints the galleryThumbnails entries to insert. Scoped to batch 6 only so it
-// never touches artworks shipped in earlier commits.
-import { writeFileSync, readdirSync, readFileSync } from 'node:fs';
+// Syncs packages/tabbied/artworks/ with the batch-6 definitions: writes one
+// JSON per definition, deletes any batch-6 artwork (and its gallery thumbnail
+// entry) that the definitions no longer describe, and prints the thumbnail
+// entries to insert. Scoped to gallery orders 620+ so it never touches
+// artworks shipped in earlier batches.
+import { writeFileSync, readdirSync, readFileSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { batch6 } from './artwork-defs-6.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const ARTWORKS_DIR = path.join(ROOT, 'packages/tabbied/artworks');
+const THUMBNAILS_FILE = path.join(
+  ROOT,
+  'components/select-artwork-page/galleryThumbnails.ts'
+);
 
 const SHELL =
   ':doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }';
@@ -52,14 +58,37 @@ const existing = new Set(
     .filter((f) => f.endsWith('.json'))
     .map((f) => f.replace(/\.json$/, ''))
 );
+const orderOf = (slug) =>
+  JSON.parse(readFileSync(path.join(ARTWORKS_DIR, `${slug}.json`), 'utf-8'))
+    .galleryOrder;
+
 for (const def of defs) {
   if (!existing.has(def.slug)) continue;
-  const onDisk = JSON.parse(
-    readFileSync(path.join(ARTWORKS_DIR, `${def.slug}.json`), 'utf-8')
-  );
-  if (!(onDisk.galleryOrder >= FIRST_ORDER)) {
+  if (!(orderOf(def.slug) >= FIRST_ORDER)) {
     throw new Error(`batch-6 slug ${def.slug} collides with an existing artwork`);
   }
+}
+
+// Drop artworks this batch used to own but no longer defines, so the
+// definitions stay the single source of truth for what ships.
+const dropped = [...existing].filter(
+  (slug) => !batchSlugs.has(slug) && orderOf(slug) >= FIRST_ORDER
+);
+for (const slug of dropped) {
+  unlinkSync(path.join(ARTWORKS_DIR, `${slug}.json`));
+}
+if (dropped.length) {
+  let thumbs = readFileSync(THUMBNAILS_FILE, 'utf-8');
+  for (const slug of dropped) {
+    thumbs = thumbs.replace(
+      new RegExp(`\\n  ${slug}: \\{[\\s\\S]*?\\n  \\},`, 'g'),
+      ''
+    );
+  }
+  writeFileSync(THUMBNAILS_FILE, thumbs);
+  console.log(
+    `removed ${dropped.length} artwork files + thumbnail entries: ${dropped.join(', ')}`
+  );
 }
 
 const thumbEntries = [];
@@ -105,8 +134,18 @@ for (const def of defs) {
   }
   // Batch 6 is the *ordered* batch: shapes are placed by the grid, never by a
   // dice roll, so @rand() (position/size/angle jitter) is banned outright.
-  if (/@r\b|@rand\b/i.test(style)) {
+  if (/@rand\s*\(|@r\s*\(/.test(style)) {
     throw new Error(`${def.slug}: @rand() is not allowed in the ordered batch`);
+  }
+  // Batch 6 also has to survive a transparent background. Painting
+  // var(--color0) only *looks* like a knockout while the background is
+  // opaque — with the background slot set to #rrggbb00 the "hole" paints
+  // nothing and the shape underneath stays solid. Cut the shape instead
+  // (clip-path hole, mask, or a gap between elements).
+  if (/var\(\s*--color0\s*\)/.test(style)) {
+    throw new Error(
+      `${def.slug}: style paints var(--color0) — that knockout disappears on a transparent background`
+    );
   }
   // Every painted branch must sit inside the frequency gate, otherwise the
   // slider stops thinning the field.
@@ -137,7 +176,6 @@ for (const def of defs) {
     description: def.description,
     palette: def.palette,
     colors: def.colors,
-    ...(def.sizing ? { sizing: def.sizing } : {}),
     options,
     code: { style, doodle },
   };

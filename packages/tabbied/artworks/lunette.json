@@ -1,16 +1,15 @@
 {
   "name": "Lunette",
   "slug": "lunette",
-  "galleryOrder": 659,
-  "galleryWhite": true,
-  "description": "Half-round lunette windows, each split down the middle by a single upright glazing bar.",
+  "galleryOrder": 627,
+  "description": "Half-round lunette windows, each pair of panes parted by an open glazing bar rather than a painted one.",
   "palette": [
-    "#0F2A1E",
-    "#2F6B3C",
-    "#4F9D5D",
-    "#8CC084",
-    "#C8E6C0",
-    "#ECFFEC"
+    "#FEFAE0",
+    "#606C38",
+    "#283618",
+    "#DDA15E",
+    "#BC6C25",
+    "#A3B18A"
   ],
   "colors": {
     "min": 2,
@@ -44,7 +43,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 6%; top: 20%; width: 88%; height: 76%; border-radius: 999px 999px 0 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 46%; top: 30%; width: 8%; height: 66%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 5%; top: 18%; width: 43%; height: 78%; border-radius: 999px 0 0 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 52%; top: 18%; width: 43%; height: 78%; border-radius: 0 999px 0 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

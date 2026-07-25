@@ -1,16 +1,15 @@
 {
   "name": "Annulus",
   "slug": "annulus",
-  "galleryOrder": 661,
-  "galleryWhite": true,
-  "description": "Rings that thicken row by row down the canvas — the same circle, walked through its whole range.",
+  "galleryOrder": 628,
+  "description": "Rings that thicken row by row down the canvas — the same circle, walked through its whole range, bored right through.",
   "palette": [
-    "#161616",
-    "#F5F5F0",
-    "#9A9A9A",
-    "#5A5A5A",
-    "#C8C8C8",
-    "#3A3A3A"
+    "#FFF4E6",
+    "#3D348B",
+    "#7678ED",
+    "#F7B801",
+    "#F18701",
+    "#F35B04"
   ],
   "colors": {
     "min": 2,
@@ -44,7 +43,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @random(${shapeFrequency}) { width: 90%; height: 90%; margin: 5%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; inset: @calc(10 + 30 * @y / @Y)%; border-radius: 50%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { width: 92%; height: 92%; margin: 4%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent @calc(66 - 46 * @y / @Y)%, #000 @calc(66 - 46 * @y / @Y)%); mask: radial-gradient(circle closest-side at 50% 50%, transparent @calc(66 - 46 * @y / @Y)%, #000 @calc(66 - 46 * @y / @Y)%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

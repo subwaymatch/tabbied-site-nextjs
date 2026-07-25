@@ -2,13 +2,20 @@
 // settings and verifies it paints, keeps its cells across reseed (so
 // transitions animate) and logs no console errors.
 //
-// Batch 6 is the *ordered* batch, so it gets one extra check the earlier
-// batches can't make: with the frequency gate forced fully open, a reseed must
-// leave every geometric property (position, size, angle, clip, radius) exactly
-// as it was and change only the inks. That is the machine-checkable form of
-// "the pattern is predictable — only the colorway is redrawn".
+// Batch 6 gets two checks the earlier batches can't make:
 //
-// Also writes contact-sheet screenshots to /tmp/sheet-b6-*.png for review.
+//   * it is the *ordered* batch, so with the frequency gate forced fully open
+//     a reseed must leave every geometric property (position, size, angle,
+//     clip, radius) exactly as it was and change only the inks — the
+//     machine-checkable form of "the pattern is predictable, only the
+//     colorway is redrawn";
+//   * it is *background-independent*, so re-rendering with the background
+//     slot set to a zero-alpha color must produce byte-identical cells. A
+//     design that knocked its holes out with var(--color0) would quietly
+//     fill them in here.
+//
+// Contact sheets land in /tmp/sheet-b6-*.png — the transparent pass is shot
+// over a checkerboard so real holes are visible as see-through.
 // Set CHROMIUM_PATH to use a browser other than Playwright's own download.
 import { chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
@@ -25,8 +32,10 @@ const cssDoodle = readFileSync(
 // `@random(n)` with n >= the cell count paints every cell, which takes the
 // frequency gate's own dice roll out of the geometry comparison below.
 const ALL_CELLS = 9999;
+// What the editor writes when the background slot is switched to transparent.
+const TRANSPARENT = '#00000000';
 
-function buildSource(artwork, { width, height, optionOverrides = {} }) {
+function buildSource(artwork, { width, height, optionOverrides = {}, transparentBg = false }) {
   let style = artwork.code.style;
   let doodle = artwork.code.doodle;
   for (const option of artwork.options) {
@@ -38,7 +47,10 @@ function buildSource(artwork, { width, height, optionOverrides = {} }) {
   style = style.split('${height}').join(height);
   doodle = doodle.split('${width}').join(width);
   doodle = doodle.split('${height}').join(height);
-  const colors = artwork.palette
+  const palette = transparentBg
+    ? [TRANSPARENT, ...artwork.palette.slice(1)]
+    : artwork.palette;
+  const colors = palette
     .map((color, idx) => `--color${idx}: ${color};`)
     .join(' ');
   return { style: colors + ' ' + style, doodle };
@@ -46,7 +58,7 @@ function buildSource(artwork, { width, height, optionOverrides = {} }) {
 
 // Split into what must stay put across a reseed and what is allowed (and
 // expected) to change.
-const GEOM_PROPS = ['transform', 'clipPath', 'borderRadius', 'width', 'height', 'left', 'top', 'margin', 'inset', 'opacity', 'zIndex', 'borderTopWidth', 'borderLeftWidth'];
+const GEOM_PROPS = ['transform', 'clipPath', 'borderRadius', 'width', 'height', 'left', 'top', 'margin', 'inset', 'opacity', 'zIndex', 'borderTopWidth', 'borderLeftWidth', 'webkitMaskImage'];
 const COLOR_PROPS = ['backgroundColor', 'borderTopColor', 'borderRightColor', 'boxShadow'];
 
 async function inspect(page) {
@@ -64,9 +76,7 @@ async function inspect(page) {
           getComputedStyle(c, '::before'),
           getComputedStyle(c, '::after'),
         ];
-        const before = styles[1];
-        const after = styles[2];
-        const s = styles[0];
+        const [s, before, after] = styles;
         const hasFeature =
           s.backgroundColor !== 'rgba(0, 0, 0, 0)' ||
           s.backgroundImage !== 'none' ||
@@ -94,6 +104,33 @@ async function inspect(page) {
   }, [GEOM_PROPS, COLOR_PROPS]);
 }
 
+const CHECKERBOARD = `
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #b8b8b8 25%, transparent 25%),
+    linear-gradient(-45deg, #b8b8b8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #b8b8b8 75%),
+    linear-gradient(-45deg, transparent 75%, #b8b8b8 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+`;
+
+function buildPage(blocks, { checkerboard = false } = {}) {
+  return `<!DOCTYPE html><html><head><style>
+    body { margin: 0; ${checkerboard ? CHECKERBOARD : 'background: #777;'} display: grid; grid-template-columns: repeat(5, 320px); gap: 14px; padding: 14px; font-family: sans-serif; }
+    figure { margin: 0; }
+    figcaption { color: ${checkerboard ? '#222' : '#fff'}; font-size: 13px; padding: 3px 1px; }
+    ${blocks.map((b) => `css-doodle[data-slug="${b.slug}"] { ${b.style} }`).join('\n')}
+  </style></head><body>
+    ${blocks
+      .map(
+        (b) =>
+          `<figure><figcaption>${b.name}</figcaption><css-doodle data-slug="${b.slug}" data-seed="t1Ab" use="var(--rule)">${b.doodle}</css-doodle></figure>`
+      )
+      .join('\n')}
+  <script>${cssDoodle}</script></body></html>`;
+}
+
 const CHUNK = 20;
 const chunks = [];
 for (let i = 0; i < batch6.length; i += CHUNK) chunks.push(batch6.slice(i, i + CHUNK));
@@ -106,40 +143,34 @@ let shot = 0;
 
 for (const chunk of chunks) {
   shot++;
-  const blocks = chunk.map((def) => {
-    const artwork = JSON.parse(
-      readFileSync(path.join(ROOT, `packages/tabbied/artworks/${def.slug}.json`), 'utf-8')
-    );
-    const { style, doodle } = buildSource(artwork, {
-      width: '300px',
-      height: '300px',
-      optionOverrides: { grid: def.thumb.grid, frequency: ALL_CELLS },
+  const sourceFor = (transparentBg) =>
+    chunk.map((def) => {
+      const artwork = JSON.parse(
+        readFileSync(path.join(ROOT, `packages/tabbied/artworks/${def.slug}.json`), 'utf-8')
+      );
+      const { style, doodle } = buildSource(artwork, {
+        width: '300px',
+        height: '300px',
+        optionOverrides: { grid: def.thumb.grid, frequency: ALL_CELLS },
+        transparentBg,
+      });
+      return { slug: def.slug, style, doodle, name: artwork.name };
     });
-    return { slug: def.slug, style, doodle, name: artwork.name };
-  });
 
-  const html = `<!DOCTYPE html><html><head><style>
-    body { margin: 0; background: #777; display: grid; grid-template-columns: repeat(5, 320px); gap: 14px; padding: 14px; font-family: sans-serif; }
-    figure { margin: 0; }
-    figcaption { color: #fff; font-size: 13px; padding: 3px 1px; }
-    ${blocks.map((b) => `css-doodle[data-slug="${b.slug}"] { ${b.style} }`).join('\n')}
-  </style></head><body>
-    ${blocks
-      .map(
-        (b) =>
-          `<figure><figcaption>${b.name}</figcaption><css-doodle data-slug="${b.slug}" data-seed="t1Ab" use="var(--rule)">${b.doodle}</css-doodle></figure>`
-      )
-      .join('\n')}
-  <script>${cssDoodle}</script></body></html>`;
+  const openPage = async (html) => {
+    const page = await browser.newPage({ viewport: { width: 1700, height: 1450 } });
+    const errors = [];
+    page.on('console', (m) => {
+      if (m.type() === 'error') errors.push(m.text());
+    });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await page.setContent(html, { waitUntil: 'load' });
+    await page.waitForTimeout(1200);
+    return { page, errors };
+  };
 
-  const page = await browser.newPage({ viewport: { width: 1700, height: 1450 } });
-  const errors = [];
-  page.on('console', (m) => {
-    if (m.type() === 'error') errors.push(m.text());
-  });
-  page.on('pageerror', (e) => errors.push(String(e)));
-  await page.setContent(html, { waitUntil: 'load' });
-  await page.waitForTimeout(1200);
+  // Pass 1 — the artwork's own palette, before and after a reseed.
+  const { page, errors } = await openPage(buildPage(sourceFor(false)));
 
   await page.evaluate(() => {
     for (const el of document.querySelectorAll('css-doodle')) {
@@ -160,11 +191,21 @@ for (const chunk of chunks) {
   await page.waitForTimeout(2800);
   const after = await inspect(page);
   await page.screenshot({ path: `/tmp/sheet-b6-${shot}-seed2.png`, fullPage: true });
+  await page.close();
+
+  // Pass 2 — same seed, background slot switched to transparent.
+  const { page: clearPage, errors: clearErrors } = await openPage(
+    buildPage(sourceFor(true), { checkerboard: true })
+  );
+  const clear = await inspect(clearPage);
+  await clearPage.screenshot({ path: `/tmp/sheet-b6-${shot}-clear.png`, fullPage: true });
+  await clearPage.close();
 
   for (const def of chunk) {
     const slug = def.slug;
     const b = before[slug];
     const a = after[slug];
+    const t = clear[slug];
     const artwork = JSON.parse(
       readFileSync(path.join(ROOT, `packages/tabbied/artworks/${slug}.json`), 'utf-8')
     );
@@ -176,12 +217,16 @@ for (const chunk of chunks) {
       if (a.color === b.color) problems.push('reseed produced identical inks');
       if (a.geom !== b.geom) problems.push('reseed moved the pattern (batch 6 must be positionally stable)');
       if (!a.firstCellMarked) problems.push('cells were rebuilt on reseed (transitions broken)');
+      if (!t || t.geom !== b.geom || t.color !== b.color) {
+        problems.push('a transparent background changed the cells (the design paints with color0)');
+      }
     }
     if (!artwork.code.style.includes('transition')) problems.push('no transition in style');
+    if (artwork.code.style.includes('var(--color0)')) problems.push('style paints var(--color0)');
     if (problems.length) failures.push({ slug, problems });
   }
-  if (errors.length) failures.push({ slug: `(page ${shot})`, problems: [...new Set(errors)].slice(0, 5) });
-  await page.close();
+  const allErrors = [...new Set([...errors, ...clearErrors])];
+  if (allErrors.length) failures.push({ slug: `(page ${shot})`, problems: allErrors.slice(0, 5) });
 }
 
 await browser.close();
@@ -192,5 +237,5 @@ if (failures.length) {
   process.exit(1);
 }
 console.log(
-  `all ${batch6.length} batch-6 artworks render, re-ink on reseed and hold their geometry ✓`
+  `all ${batch6.length} batch-6 artworks render, re-ink on reseed, hold their geometry and render identically on a transparent background ✓`
 );

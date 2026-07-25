@@ -1,16 +1,15 @@
 {
   "name": "Hurdle",
   "slug": "hurdle",
-  "galleryOrder": 636,
-  "galleryWhite": true,
+  "galleryOrder": 624,
   "description": "Woven hurdle fencing: flat laths lying across the grain on one square and along it on the next.",
   "palette": [
-    "#10002B",
-    "#5A189A",
-    "#9D4EDD",
-    "#C77DFF",
-    "#E0AAFF",
-    "#FFD6FF"
+    "#FFF9F5",
+    "#FF8FB8",
+    "#FFC2D4",
+    "#FF8A5C",
+    "#D89FFF",
+    "#F5C542"
   ],
   "colors": {
     "min": 2,

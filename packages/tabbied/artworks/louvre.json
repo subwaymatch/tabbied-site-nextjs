@@ -1,16 +1,16 @@
 {
   "name": "Louvre",
   "slug": "louvre",
-  "galleryOrder": 624,
+  "galleryOrder": 620,
   "galleryWhite": true,
-  "description": "Angled shutter slats set at one constant tilt, so the whole canvas rakes the same way and only the finish changes.",
+  "description": "Angled shutter slats set at one constant tilt, so the whole canvas rakes the same way and only the finish changes. The gaps between slats are open, not painted.",
   "palette": [
-    "#0B2540",
-    "#1B4075",
-    "#3E8BFF",
-    "#3EECFF",
-    "#9EFFD8",
-    "#ECFFEC"
+    "#001219",
+    "#005F73",
+    "#0A9396",
+    "#94D2BD",
+    "#EE9B00",
+    "#CA6702"
   ],
   "colors": {
     "min": 2,

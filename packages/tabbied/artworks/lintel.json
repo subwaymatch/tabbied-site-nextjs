@@ -1,16 +1,15 @@
 {
   "name": "Lintel",
   "slug": "lintel",
-  "galleryOrder": 648,
-  "galleryWhite": true,
+  "galleryOrder": 626,
   "description": "A post-and-lintel opening cut from every block, the doorways lining up into a colonnaded wall.",
   "palette": [
-    "#10303A",
-    "#2BB3A3",
-    "#3EECFF",
-    "#FF6B6B",
-    "#FFD93D",
-    "#F3EBDB"
+    "#F0EAD6",
+    "#264653",
+    "#2A9D8F",
+    "#E9C46A",
+    "#F4A261",
+    "#E76F51"
   ],
   "colors": {
     "min": 2,

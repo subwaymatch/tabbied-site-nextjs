@@ -1,16 +1,16 @@
 {
   "name": "Torsion",
   "slug": "torsion",
-  "galleryOrder": 714,
+  "galleryOrder": 638,
   "galleryWhite": true,
   "description": "One square per cell, each turned a fixed fraction further than its neighbour, so the grid twists a full quarter-turn corner to corner.",
   "palette": [
-    "#231942",
-    "#5E548E",
-    "#9F86C0",
-    "#BE95C4",
-    "#E0B1CB",
-    "#F7ECFF"
+    "#141233",
+    "#6C4AB6",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2"
   ],
   "colors": {
     "min": 2,

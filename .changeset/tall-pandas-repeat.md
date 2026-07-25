@@ -2,20 +2,26 @@
 'tabbied': minor
 ---
 
-Add 100 ordered artwork presets (batch 6).
+Add 19 ordered, background-independent artwork presets (batch 6).
 
-Where the earlier batches lean on scatter — Confetti, Shard and Sprinkles roll
-a fresh position, size and angle for every cell — this batch is deliberately
-predictable. Every shape sits on the cell grid, and what varies from cell to
-cell varies by rule: `@match` on the cell's column/row/index, `@pn()` cycling a
-value in order, or `@calc()` ramping a size, angle or opacity across the
+Two properties set this batch apart.
+
+**Ordered.** Where the earlier batches lean on scatter — Confetti, Shard and
+Sprinkles roll a fresh position, size and angle for every cell — nothing here
+is placed at random. Every shape sits on the cell grid, and what varies from
+cell to cell varies by rule: `@match` on the cell's column/row/index, `@pn()`
+cycling a value in order, or `@calc()` ramping a size, angle or bore across the
 canvas. No `@rand()` anywhere. Reseeding re-inks a design without rearranging
 it, so a redraw reads as a new colorway of the same pattern.
 
-The designs cover ribs and rules (Corduroy, Pinstripe, Louvre, Palisade),
-tilings and bonds (Damier, Stretcher, Cobble, Isocube, Waffle), architecture
-(Coffer, Casement, Lancet, Colonnade, Archway), arcs and radials (Rosette,
-Cartwheel, Annulus, Voussoir, Ovolo), joinery (Dovetail, Mortise, Tenon, Truss,
-Ratchet), cloth (Sateen, Ogee, Purl, Cable, Tartan), print marks (Register,
-Overprint, Emdash, Timecode, Gauge), ordered planting (Cypress, Imbricate,
-Wheatear, Espalier) and systematic ramps (Taper, Torsion, Diminuendo, Cascade).
+**Background-independent.** A design that knocks holes out of its shapes by
+painting `var(--color0)` only looks right while the background is opaque —
+set the background slot to transparent and those "holes" stop erasing
+anything. So every gap in this batch is real geometry (a clip-path hole, a
+mask, or a gap between shapes) and no rule paints the background color. Each
+design renders identically over any background, including none, which makes
+them usable as overlays and transparent PNG exports.
+
+The designs: Louvre, Kerf, Damier, Bias, Hurdle, Isocube, Lintel, Lunette,
+Annulus, Ovolo, Cove, Mortise, Rafter, Ogee, Buttonhole, Gutter, Diminuendo,
+Taper and Torsion.

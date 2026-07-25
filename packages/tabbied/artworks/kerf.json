@@ -1,16 +1,15 @@
 {
   "name": "Kerf",
   "slug": "kerf",
-  "galleryOrder": 630,
-  "galleryWhite": true,
-  "description": "Saw slots cut into solid blocks, the kerf biting from the top on one row and the bottom on the next.",
+  "galleryOrder": 621,
+  "description": "Saw slots cut clean through solid blocks, the kerf biting from the top on one row and the bottom on the next.",
   "palette": [
-    "#15171C",
-    "#E8E6E1",
+    "#FBF7EE",
+    "#FF4D6D",
+    "#2E86AB",
     "#F5B82E",
-    "#3EECFF",
-    "#FF3D8B",
-    "#9EFFD8"
+    "#7E4A8C",
+    "#2BB3A3"
   ],
   "colors": {
     "min": 2,

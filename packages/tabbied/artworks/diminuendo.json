@@ -1,7 +1,7 @@
 {
   "name": "Diminuendo",
   "slug": "diminuendo",
-  "galleryOrder": 712,
+  "galleryOrder": 636,
   "description": "A field of squares fading out row by row on a straight ramp, top to bottom, without a single step out of place.",
   "palette": [
     "#FCFBFF",

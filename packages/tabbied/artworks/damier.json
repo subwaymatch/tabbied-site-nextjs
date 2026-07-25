@@ -1,8 +1,8 @@
 {
   "name": "Damier",
   "slug": "damier",
-  "galleryOrder": 632,
-  "description": "A strict checkerboard — dark squares and light ones keyed to their neighbours, re-dyed on each redraw.",
+  "galleryOrder": 622,
+  "description": "A strict checkerboard — filled squares keyed to their neighbours, the open squares holding a single pip so the field still reads when the ground drops away.",
   "palette": [
     "#FAF7F0",
     "#232529",
@@ -43,7 +43,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @even { background: var(--color0); :after { content: ''; position: absolute; inset: 30%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @even { background: transparent; :after { content: ''; position: absolute; inset: 30%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

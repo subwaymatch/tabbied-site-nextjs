@@ -1,16 +1,15 @@
 {
   "name": "Ovolo",
   "slug": "ovolo",
-  "galleryOrder": 663,
-  "galleryWhite": true,
+  "galleryOrder": 629,
   "description": "Quarter-round mouldings turning one corner clockwise per cell, so the field marches through all four faces.",
   "palette": [
-    "#1B2A4A",
-    "#F7C548",
-    "#F25F5C",
-    "#247BA0",
-    "#70C1B3",
-    "#FFFFFF"
+    "#FFFFFF",
+    "#3E8BFF",
+    "#1B4075",
+    "#3EECFF",
+    "#FF3D8B",
+    "#3FFFB2"
   ],
   "colors": {
     "min": 2,
