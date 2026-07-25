@@ -8,6 +8,7 @@ import {
   // react-showcase primaries
   lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 } from 'tabbied/artworks';
+import LazyArtwork from './LazyArtwork';
 import { STATIC_SAMPLES } from 'components/showcase/galleryData';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
 import s from './samples.module.css';
@@ -45,13 +46,7 @@ function Card({ c }: { c: CardData }) {
   return (
     <a className={s.card} href={c.href} style={vars}>
       <div className={s.thumb}>
-        <TabbiedArtwork
-          artwork={ART[c.artwork]}
-          palette={c.colors}
-          seed={c.seed}
-          fit="cover"
-          density={2}
-        />
+        <LazyArtwork artwork={ART[c.artwork]} palette={c.colors} seed={c.seed} />
         <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
       </div>
       <div className={s.cbody}>

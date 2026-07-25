@@ -6,10 +6,15 @@
 // shuffles over time.
 //
 // Markup contract (emitted by samples/lib/tabbied-embed.mjs):
-//   <css-doodle data-tabbied use="var(--rule)" grid="8x8"
-//               data-cell="48" data-reseed="4200"> ... </css-doodle>
+//   <script type="text/tabbied" data-tabbied="art0"
+//           data-cell="48" data-reseed="4200"> ...source... </script>
 // where data-cell is the target cell size in px and data-reseed (optional) is
-// the shuffle interval in ms. The doodle's parent element is the sized box.
+// the shuffle interval in ms. The script's parent element is the sized box, and
+// this file swaps the script for a <css-doodle> once that box has been measured.
+// The source ships inert rather than as a live element on purpose: css-doodle
+// renders the moment it connects, so shipping one with a placeholder grid would
+// paint a coarse version of the pattern and then immediately repaint it at the
+// measured grid, which reads as a blink and doubles the work on load.
 (function () {
   var reduceMotion =
     window.matchMedia &&
@@ -31,26 +36,72 @@
     return cols + 'x' + rows;
   }
 
-  function setup(el) {
-    if (el.__tabbiedReady) return;
-    el.__tabbiedReady = true;
+  // Artwork rules carry their own `transition`, which is what makes a reseed
+  // morph from one arrangement into the next. On the very first paint there is
+  // nothing to morph from, so every cell animates in from its unstyled state:
+  // the drawing visibly assembles itself, and a page full of artworks pays for
+  // thousands of simultaneous transitions while it loads. Mute them inside the
+  // shadow root for the first two frames, then drop the override so later
+  // reseeds animate exactly as authored.
+  function muteFirstDraw(el) {
+    var root = el.shadowRoot;
+    if (!root) return;
+    var mute = document.createElement('style');
+    mute.textContent =
+      'cssd-cell,cssd-cell *,cssd-cell::before,cssd-cell::after{transition:none !important}';
+    root.appendChild(mute);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        mute.remove();
+      });
+    });
+  }
 
-    var box = el.parentElement || el;
-    var cell = parseInt(el.getAttribute('data-cell') || '48', 10);
-    var reseed = parseInt(el.getAttribute('data-reseed') || '0', 10);
+  // Each source script is replaced by a <css-doodle> built at the grid its box
+  // actually wants. The element is only created once a usable measurement
+  // exists, so it renders exactly once instead of painting a placeholder grid
+  // first and correcting it a frame later.
+  function setup(script) {
+    if (script.__tabbiedReady) return;
+    script.__tabbiedReady = true;
 
-    // Fresh random arrangement on every page load for decorative doodles.
-    if (reseed > 0) el.setAttribute('seed', randomSeed());
+    var box = script.parentElement;
+    if (!box) return;
 
+    var uid = script.getAttribute('data-tabbied');
+    var cell = parseInt(script.getAttribute('data-cell') || '48', 10);
+    var reseed = parseInt(script.getAttribute('data-reseed') || '0', 10);
+    var seed = script.getAttribute('data-seed');
+    var source = script.textContent;
+
+    var el = null;
     var current = '';
+
     function fit() {
       var rect = box.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
+
       var g = gridFor(rect.width, rect.height, cell);
-      if (g !== current) {
-        current = g;
+      if (g === current) return;
+      current = g;
+
+      if (el) {
         el.setAttribute('grid', g);
+        return;
       }
+
+      // First usable measurement: build the element at the right grid, so its
+      // one and only initial render is already correct.
+      el = document.createElement('css-doodle');
+      el.setAttribute('data-tabbied', uid);
+      el.setAttribute('use', 'var(--rule)');
+      el.setAttribute('grid', g);
+      // A decorative doodle gets a fresh arrangement on every page load; a
+      // pinned seed stays reproducible.
+      el.setAttribute('seed', reseed > 0 ? randomSeed() : seed || randomSeed());
+      el.textContent = source;
+      box.appendChild(el);
+      muteFirstDraw(el);
     }
 
     fit();
@@ -70,13 +121,13 @@
         io.observe(box);
       }
       setInterval(function () {
-        if (visible && !document.hidden) el.setAttribute('seed', randomSeed());
+        if (el && visible && !document.hidden) el.setAttribute('seed', randomSeed());
       }, reseed);
     }
   }
 
   function run() {
-    var nodes = document.querySelectorAll('css-doodle[data-tabbied]');
+    var nodes = document.querySelectorAll('script[type="text/tabbied"]');
     for (var i = 0; i < nodes.length; i++) setup(nodes[i]);
   }
 

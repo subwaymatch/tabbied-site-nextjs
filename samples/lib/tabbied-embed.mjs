@@ -118,11 +118,23 @@ export function doodle({ slug, palette, options = {}, seed, cell = 48, reseed = 
   styleCode = styleCode.replace(/\u2014/g, '-');
   doodleCode = doodleCode.replace(/\u2014/g, '-');
 
-  const seedAttr = seed != null ? ` seed="${seed}"` : '';
+  const seedAttr = seed != null ? ` data-seed="${seed}"` : '';
   const reseedAttr = reseed > 0 ? ` data-reseed="${reseed}"` : '';
   const style = `css-doodle[data-tabbied="${uid}"]{${styleCode}}`;
+
+  // The source ships in an inert <script> rather than a live <css-doodle>, and
+  // samples/assets/tabbied-runtime.js creates the element once it has measured
+  // the box. Emitting a real element here would mean rendering twice: css-doodle
+  // paints whatever grid it is given the moment it connects, so a placeholder
+  // grid shows a coarse version of the pattern for a frame or two before the
+  // measured grid replaces it. That visible "blink" is also wasted work, which
+  // is what made pages full of artworks slow to settle. css-doodle is itself a
+  // script-registered custom element, so nothing renders without JS either way.
+  // No artwork source contains "<", but guard the one sequence that would end
+  // the script element early.
+  const inert = doodleCode.replace(/<\/(script)/gi, '<\\/$1');
   const element =
-    `<css-doodle data-tabbied="${uid}" use="var(--rule)" grid="8x8" data-cell="${cell}"${reseedAttr}${seedAttr}>${doodleCode}</css-doodle>`;
+    `<script type="text/tabbied" data-tabbied="${uid}" data-cell="${cell}"${reseedAttr}${seedAttr}>${inert}</script>`;
 
   return { style, element, uid };
 }

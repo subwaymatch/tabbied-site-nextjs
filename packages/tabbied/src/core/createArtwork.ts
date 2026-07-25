@@ -96,6 +96,36 @@ const GRID_RESIZE_DEBOUNCE_MS = 180;
 // artwork mounts twice and id-escaping issues.
 let instanceCounter = 0;
 
+// Artwork rules carry their own `transition`, which is what makes redraw()
+// morph one arrangement into the next. On the very first paint there is nothing
+// to morph from, so every cell animates in from its unstyled state: the drawing
+// visibly assembles itself, and a page full of artworks pays for thousands of
+// simultaneous transitions while it is still loading. Mute them inside the
+// shadow root for the first two frames, then drop the override so redraws
+// animate exactly as authored.
+//
+// The override lives in the shadow root because that is where css-doodle puts
+// the generated cell styles; a rule in the light DOM cannot reach them.
+const MUTE_FIRST_DRAW =
+  'cssd-cell,cssd-cell *,cssd-cell::before,cssd-cell::after{transition:none !important}';
+
+const muteFirstDraw = (element: CssDoodleElement): void => {
+  const root = element.shadowRoot;
+
+  if (!root || typeof requestAnimationFrame !== 'function') {
+    return;
+  }
+
+  const mute = document.createElement('style');
+  mute.textContent = MUTE_FIRST_DRAW;
+  root.appendChild(mute);
+
+  // Two frames: one for the cells to get their styles, one to paint them.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => mute.remove());
+  });
+};
+
 type ResolvedConfig = {
   definition: ArtworkDefinition;
   palette: string[];
@@ -358,6 +388,7 @@ export function createArtwork(
 
     host.appendChild(styleEl);
     host.appendChild(element);
+    muteFirstDraw(element);
 
     fireReady();
   };
