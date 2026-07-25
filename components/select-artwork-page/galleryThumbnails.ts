@@ -634,4 +634,61 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   bobbin: {
     options: { grid: '5x5', frequency: 0.95 },
   },
+  louvre: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  kerf: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  damier: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  bias: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hurdle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  isocube: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lintel: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lunette: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  annulus: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  ovolo: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cove: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mortise: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rafter: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ogee: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  buttonhole: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gutter: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  diminuendo: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  taper: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  torsion: {
+    options: { grid: '6x6', frequency: 1 },
+  },
 };
