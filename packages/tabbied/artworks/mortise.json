@@ -1,0 +1,50 @@
+{
+  "name": "Mortise",
+  "slug": "mortise",
+  "galleryOrder": 672,
+  "galleryWhite": true,
+  "description": "A mortise cut square through each block, standing upright in one column and lying flat in the next.",
+  "palette": [
+    "#0B2540",
+    "#1B4075",
+    "#3E8BFF",
+    "#3EECFF",
+    "#9EFFD8",
+    "#ECFFEC"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; left: 34%; top: 18%; width: 32%; height: 64%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } @match(@x % 2 == 1) { :after { left: 18%; top: 34%; width: 64%; height: 32%; } } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

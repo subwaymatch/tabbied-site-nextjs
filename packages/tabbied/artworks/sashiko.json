@@ -1,0 +1,49 @@
+{
+  "name": "Sashiko",
+  "slug": "sashiko",
+  "galleryOrder": 641,
+  "description": "Sashiko running stitch: even dashes lying flat along one row and upright on the next, quilting a grid.",
+  "palette": [
+    "#E9F1FF",
+    "#1B4075",
+    "#3E8BFF",
+    "#3EECFF",
+    "#FF3D8B",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 8%; top: 46%; width: 36%; height: 8%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 56%; top: 46%; width: 36%; height: 8%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } @match(@y % 2 == 1) { :before { left: 46%; top: 8%; width: 8%; height: 36%; } :after { left: 46%; top: 56%; width: 8%; height: 36%; } } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

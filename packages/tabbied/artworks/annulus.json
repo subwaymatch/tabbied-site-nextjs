@@ -1,0 +1,50 @@
+{
+  "name": "Annulus",
+  "slug": "annulus",
+  "galleryOrder": 661,
+  "galleryWhite": true,
+  "description": "Rings that thicken row by row down the canvas — the same circle, walked through its whole range.",
+  "palette": [
+    "#161616",
+    "#F5F5F0",
+    "#9A9A9A",
+    "#5A5A5A",
+    "#C8C8C8",
+    "#3A3A3A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { width: 90%; height: 90%; margin: 5%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :after { content: ''; position: absolute; inset: @calc(10 + 30 * @y / @Y)%; border-radius: 50%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

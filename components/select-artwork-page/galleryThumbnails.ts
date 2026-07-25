@@ -634,4 +634,304 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   bobbin: {
     options: { grid: '5x5', frequency: 0.95 },
   },
+  corduroy: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pinstripe: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  fascia: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reeded: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  louvre: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  sleeper: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  furrow: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gridiron: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ticker: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  palisade: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  kerf: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  baseline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  damier: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  stretcher: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  marquetry: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bias: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hurdle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  waffle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pinboard: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cobble: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ashlar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sashiko: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  isocube: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grout: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coffer: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  casement: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  transom: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lancet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lintel: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  plinth: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dentil: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  frieze: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quoin: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  corbel: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  colonnade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  archway: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rosette: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cartwheel: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  grommet: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  lunette: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  voussoir: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  annulus: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  chaplet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ovolo: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cove: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halfround: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  porthole: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trefoil: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  foldout: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  miter: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  dovetail: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halflap: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mortise: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tenon: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gusset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rafter: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  truss: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  splice: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ratchet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  keyway: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sateen: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  seersucker: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grosgrain: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ogee: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  brocade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chambray: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  purl: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cable: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  piping: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  buttonhole: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tartan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  madras: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gutter: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  folio: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  colophon: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bullet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  emdash: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  register: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  overprint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gauge: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  timecode: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  punchcard: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  docket: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stub: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wheatear: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cypress: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hedgerow: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  imbricate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  papyrus: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sheaf: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tulip: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  espalier: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  diminuendo: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  taper: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  torsion: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cascade: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  interlace: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shadowbox: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  relief: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  moire: {
+    options: { grid: '6x6', frequency: 1 },
+  },
 };

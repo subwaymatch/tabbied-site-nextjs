@@ -1,0 +1,49 @@
+{
+  "name": "Folio",
+  "slug": "folio",
+  "galleryOrder": 693,
+  "description": "A page block ruled at the head with the folio number blocked in at the foot — the same furniture on every leaf.",
+  "palette": [
+    "#FFFCF2",
+    "#252422",
+    "#403D39",
+    "#CCC5B9",
+    "#EB5E28",
+    "#A8763E"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); :before { content: ''; position: absolute; left: 12%; top: 12%; width: 76%; height: 8%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 72%; top: 76%; width: 16%; height: 12%; background: var(--color0); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

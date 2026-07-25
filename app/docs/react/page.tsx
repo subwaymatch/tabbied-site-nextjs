@@ -267,7 +267,7 @@ export default function ReactDocsPage() {
                         <Code>&lt;img&gt;</Code>.
                       </li>
                       <li>
-                        <Code>tabbied/artworks</Code> — 100+ preset designs as
+                        <Code>tabbied/artworks</Code> — 200+ preset designs as
                         tree-shakeable <Code>ArtworkDefinition</Code> exports.
                       </li>
                       <li>
