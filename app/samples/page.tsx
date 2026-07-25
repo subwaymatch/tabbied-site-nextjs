@@ -4,9 +4,9 @@ import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import {
   // static-sample primaries
-  plasma, pebble, circuit, foliage, bauhaus, confetti, veil, awning, tetro, halftone,
+  neon, pebble, circuit, foliage, bauhaus, quoit, veil, awning, tetro, halftone,
   // react-showcase primaries
-  petal, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
+  lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 } from 'tabbied/artworks';
 import { STATIC_SAMPLES } from 'components/showcase/galleryData';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 };
 
 const ART: Record<string, ArtworkDefinition> = {
-  plasma, pebble, circuit, foliage, bauhaus, confetti, veil, awning, tetro, halftone,
-  petal, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
+  neon, pebble, circuit, foliage, bauhaus, quoit, veil, awning, tetro, halftone,
+  lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 };
 
 type CardData = {
@@ -78,7 +78,7 @@ function Card({ c }: { c: CardData }) {
 // different artworks on four different palettes, which states the premise of the
 // page before a word is read.
 const HERO_TILES: { art: ArtworkDefinition; palette: string[]; seed: string }[] = [
-  { art: plasma, palette: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'], seed: 'H1' },
+  { art: neon, palette: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'], seed: 'H1' },
   { art: bauhaus, palette: ['#0d0d12', '#ff3d8b', '#ffd23e', '#3eecff'], seed: 'H2' },
   { art: tetro, palette: ['#0d0d12', '#7048e8', '#3eecff', '#3fffb2'], seed: 'H3' },
   { art: prisma, palette: ['#0d0d12', '#ffd23e', '#3fffb2', '#7048e8'], seed: 'H4' },

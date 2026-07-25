@@ -310,7 +310,7 @@ css-doodle{display:block;width:100%;height:100%}
   <a class="navcta" href="#">Latest releases</a>
 </nav>
 <header class="spot-hero">
-  <div class="abs"><style>css-doodle[data-tabbied="art0"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --color5: #3eecff; --blob: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --rule: ( @random(0.999) { :before { content: ''; position: absolute; inset: 7%; background: var(--blob); border-radius: @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) / @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%) @rand(30%, 70%); opacity: 0.85; transition: ease 700ms; } } );}</style><css-doodle data-tabbied="art0" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
+  <div class="abs"><style>css-doodle[data-tabbied="art0"]{--color0: #0d0d12; --color1: #3fffb2; --color2: #3eecff; --color3: #ff3d8b; --color4: #3fffb2; --ang: @p(0deg, 45deg, 90deg, 135deg); --rule: ( /* tube and both halos share one emitted color */ --tube: @p(var(--color1), var(--color2), var(--color3), var(--color4)); @random(0.8) { transform: rotate(var(--ang)); :after { content: ''; position: absolute; left: 14%; top: 47%; width: 72%; height: 6%; border-radius: 99px; background: @var(--tube); box-shadow: 0 0 calc(80px / @Y) @var(--tube), 0 0 calc(200px / @Y) @var(--tube); transition: ease 500ms; } } transition: ease 500ms; );}</style><css-doodle data-tabbied="art0" use="var(--rule)" grid="8x8" data-cell="58" data-reseed="4200">:doodle { @size: 100% 100%; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }</css-doodle></div>
   <div class="spot-scrim"></div>
   <div class="spot-in">
     <div class="eyebrow">Independent · Est. 2019</div>
@@ -422,7 +422,7 @@ css-doodle{display:block;width:100%;height:100%}
   </div>
   <div class="foot-bottom">
     <span>© 2026 Aurora Sound. All rights reserved.</span>
-    <span>4 Tabbied artworks (plasma · spectrum · prisma · bokeh) via css-doodle, Neon palette.</span>
+    <span>4 Tabbied artworks (neon · spectrum · prisma · bokeh) via css-doodle, Neon palette.</span>
   </div>
 </footer>
 </div>

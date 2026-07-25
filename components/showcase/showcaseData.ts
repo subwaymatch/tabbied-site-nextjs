@@ -68,13 +68,13 @@ const gf = (families: string) =>
   `https://fonts.googleapis.com/css2?${families}&display=swap`;
 
 export const SHOWCASE_SITES: ShowcaseSite[] = [
-  // 11, Solstice · wellness / yoga retreat · Sunset · petal
+  // 11, Solstice · wellness / yoga retreat · Sunset · lobe
   {
     slug: 'solstice',
     brand: 'Solstice',
     topic: 'Yoga & wellness retreat',
-    artwork: 'petal',
-    artworks: ['petal', 'blossom', 'spark', 'confetti'],
+    artwork: 'lobe',
+    artworks: ['lobe', 'blossom', 'spark', 'aster'],
     paletteId: 'lib-sunset',
     paletteName: 'Sunset',
     colors: ['#2b1d3a', '#ff6b6b', '#ffd23e', '#ff3d8b', '#7048e8'],
@@ -278,7 +278,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Petal & Post',
     topic: 'Florist & stationery studio',
     artwork: 'frond',
-    artworks: ['frond', 'foliage', 'blossom', 'petal'],
+    artworks: ['frond', 'foliage', 'blossom', 'ivy'],
     paletteId: 'lib-blush',
     paletteName: 'Blush',
     colors: ['#fff0f3', '#ff8fab', '#c9184a', '#590d22'],
@@ -361,7 +361,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Honeycomb',
     topic: "Kids' learning app",
     artwork: 'bokeh',
-    artworks: ['bokeh', 'polka', 'sprinkles', 'confetti'],
+    artworks: ['bokeh', 'pinwheel', 'northstar', 'carousel'],
     paletteId: 'lib-honey',
     paletteName: 'Honey',
     colors: ['#fff9e6', '#f6c343', '#b8860b', '#3a2f0b'],
@@ -405,7 +405,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     brand: 'Facet',
     topic: 'Fine jewelry brand',
     artwork: 'prisma',
-    artworks: ['prisma', 'shard', 'chamfer', 'vitrail'],
+    artworks: ['prisma', 'diadem', 'chamfer', 'vitrail'],
     paletteId: 'lib-jewel',
     paletteName: 'Jewel',
     colors: ['#0b1021', '#5b2a86', '#2176ae', '#57b8ff', '#fbb13c'],

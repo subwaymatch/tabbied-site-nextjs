@@ -484,7 +484,7 @@ const SITES = [
   {
     dir: '01-aurora-sound', brand: 'Aurora Sound', topic: 'Electronic music label', favicon: '🎧',
     paletteName: 'Neon', colors: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'], layout: 'spotlight', fonts: FONT.sora,
-    artworks: ['plasma', 'spectrum', 'prisma', 'bokeh'],
+    artworks: ['neon', 'spectrum', 'prisma', 'bokeh'],
     nav: ['Releases', 'Artists', 'Events', 'About'], primaryCta: 'Latest releases', secondaryCta: 'Listen live',
     eyebrow: 'Independent · Est. 2019',
     title: 'Sound for the {em}small hours{/em}.',
@@ -693,7 +693,7 @@ const SITES = [
   {
     dir: '06-zest', brand: 'Zest', topic: 'Bright, fast weeknight cooking', favicon: '🍋',
     paletteName: 'Citrus', colors: ['#fffbe6', '#ff9f1c', '#2ec4b6', '#e71d36'], layout: 'split', fonts: FONT.baloo,
-    artworks: ['confetti', 'polka', 'sprinkles', 'spark'],
+    artworks: ['quoit', 'lens', 'sliver', 'spark'],
     nav: ['Recipes', 'Quick', 'Vegetarian', 'Baking'], primaryCta: "Tonight's recipe", secondaryCta: 'Browse all',
     eyebrow: '30 minutes or less',
     title: 'Dinner that {em}actually{/em} gets made.',

@@ -83,18 +83,12 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#232529', '#3E8BFF', '#3EECFF', '#FF3D8B', '#3FFFB2', '#F5DD32'],
     options: { grid: '3x3', frequency: 0.9 },
   },
-  confetti: {
-    options: { grid: '4x4', frequency: 0.95 },
-  },
   foliage: {
     palette: ['#ECFFEC', '#3FFFB2', '#3E8BFF', '#9EFFD8', '#FF3D8B', '#F5DD32'],
     options: { grid: '4x4', frequency: 0.9 },
   },
   metro: {
     options: { grid: '6x6', frequency: 0.95 },
-  },
-  polka: {
-    options: { grid: '4x4', frequency: 0.85 },
   },
   stitch: {
     palette: ['#9EFFD8', '#FF3D8B', '#3E8BFF', '#1B4075', '#232529', '#F5DD32'],
@@ -121,9 +115,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   tesserae: {
     options: { grid: '6x6', frequency: 0.92 },
   },
-  sprinkles: {
-    options: { grid: '5x5', frequency: 0.95 },
-  },
   glyph: {
     options: { grid: '5x5', frequency: 0.92 },
   },
@@ -148,29 +139,17 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   crescendo: {
     options: { grid: '6x6' },
   },
-  echo: {
-    options: { rings: 6 },
-  },
   circuit: {
     options: { grid: '8x8', frequency: 0.6 },
   },
   daybreak: {
     options: { rays: 48 },
   },
-  shard: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
   quilt: {
     options: { grid: '5x5', frequency: 0.95 },
   },
-  petal: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
   lantern: {
     options: { grid: '4x4', frequency: 0.85 },
-  },
-  plasma: {
-    options: { grid: '4x4', frequency: 0.9 },
   },
   domino: {
     options: { grid: '5x5', frequency: 0.95 },
@@ -204,9 +183,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   elbow: {
     options: { grid: '5x5', frequency: 0.92 },
-  },
-  bento: {
-    options: { grid: '4x4', frequency: 0.95 },
   },
   grain: {
     options: { grid: '8x8', frequency: 0.95 },
