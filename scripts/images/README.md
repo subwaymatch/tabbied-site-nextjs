@@ -5,8 +5,15 @@ labelled placeholder holding a ready made image prompt. These four scripts take
 those prompts through [KIE AI](https://kie.ai)'s job API and drop finished
 images into `public/images/showcase/`.
 
-Default model is **`z-image`** ([Z-Image Turbo](https://kie.ai/z-image), Alibaba
-Tongyi Lab). Override per run with `--model`, or globally with `KIE_MODEL`.
+Default model is **`z-image`** ([product page](https://kie.ai/z-image)), from
+Alibaba Tongyi Lab. Override per run with `--model`, or globally with
+`KIE_MODEL`.
+
+`z-image` is the only slug KIE exposes for this family. Its API docs call the
+model plain "Z-Image" and never say Turbo, while the product page describes
+Z-Image-Turbo, the distilled 8-step variant Tongyi actually shipped. So the
+underlying checkpoint is almost certainly Turbo, but KIE does not state it, and
+the slug is what matters here either way.
 
 ## Setting the API key
 
