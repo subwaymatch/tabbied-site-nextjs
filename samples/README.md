@@ -113,6 +113,13 @@ Palettes and artworks © the Tabbied project. Generative rendering by
 [css-doodle](https://css-doodle.com/). Web fonts via Google Fonts. All brands
 are fictional, used only to frame the artwork in a realistic layout.
 
+## Regenerating
+
+`npm run build` (and `npm run dev`) runs this generator via `prebuild`/`predev`,
+so the pages always reflect the current content and whatever is in
+`public/images/showcase`. Run `node samples/generate.mjs` directly if you only
+want to refresh the HTML.
+
 ## Viewing these locally
 
 `npm run dev` serves `public/` as exact paths and does not resolve a directory

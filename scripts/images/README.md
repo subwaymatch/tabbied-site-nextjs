@@ -183,8 +183,14 @@ copy button to a hover overlay; an unfilled one keeps the prompt card. A half
 finished run therefore leaves a page that still reads as complete.
 
 Adding, removing or reordering items inside a section renumbers its slots, so
-rerun `images:extract` after content edits. After an import, refresh both stacks:
+rerun `images:extract` after content edits. After an import, rebuild:
 
 ```bash
-node samples/generate.mjs && npm run build
+npm run build
 ```
+
+`prebuild` runs `samples/generate.mjs`, so the static pages pick up new images on
+any build. They used to need a separate manual run, which made them lag behind
+the React pages after an import: React reads the generated
+`generatedImages.ts` that `import-batch` writes, so it refreshed on its own,
+while the static HTML kept showing prompt cards until the generator was run.

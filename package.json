@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "npm run build --workspace tabbied",
+    "predev": "npm run build --workspace tabbied && node samples/generate.mjs",
     "dev": "next dev",
-    "prebuild": "npm run build --workspace tabbied",
+    "prebuild": "npm run build --workspace tabbied && node samples/generate.mjs",
     "build": "next build",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",
