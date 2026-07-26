@@ -1,31 +1,27 @@
-// Step 2 of 4. Turn the prompt manifest into a Batch API request file.
+// Step 2 of 4. Turn the prompt manifest into the list of tasks to submit.
 //
 //   node scripts/images/build-batch.mjs                 # only what is still missing
 //   node scripts/images/build-batch.mjs --all           # regenerate everything
 //   node scripts/images/build-batch.mjs --only static   # one stack, or a site name
-//   node scripts/images/build-batch.mjs --endpoint responses
+//   node scripts/images/build-batch.mjs --model z-image
 //
-// custom_id is the manifest id, which is also the output filename, so the import
-// step needs no lookup table to route results back to slots.
-import fs from 'node:fs';
+// KIE has no bulk-submit endpoint: each image is its own job, created and polled
+// individually (see submit-batch.mjs). So this step writes a plain plan rather
+// than an upload file. Each entry keeps the manifest id, which is the filename
+// the finished image lands under, so results route themselves back to slots.
 import path from 'node:path';
-import { INPUT_JSONL, MANIFEST, MODEL, ROOT, argv, imagePath, readJson } from './common.mjs';
+import fs from 'node:fs';
+import { MANIFEST, MODEL, PROMPT_MAX, ROOT, TASKS, argv, imagePath, readJson, writeJson } from './common.mjs';
 
 const args = argv();
 const manifest = readJson(MANIFEST);
+
 if (!manifest) {
   console.error('No manifest. Run: node scripts/images/extract-prompts.mjs');
   process.exit(1);
 }
 
-// /v1/images/generations is the direct route. If the Batch endpoint allowlist
-// does not cover it, --endpoint responses sends the same prompt through
-// /v1/responses with the image_generation tool, which is batchable and returns
-// the same base64 payload one level deeper.
-const endpoint = args.endpoint === 'responses' ? '/v1/responses' : '/v1/images/generations';
-const quality = typeof args.quality === 'string' ? args.quality : 'high';
-const textModel = typeof args.textModel === 'string' ? args.textModel : 'gpt-5';
-
+const model = typeof args.model === 'string' ? args.model : MODEL;
 const only = typeof args.only === 'string' ? args.only : null;
 const matches = (p) => !only || p.stack === only || p.site === only || p.id.includes(only);
 
@@ -37,28 +33,35 @@ if (!pending.length) {
   process.exit(0);
 }
 
-const bodyFor = (p) =>
-  endpoint === '/v1/responses'
-    ? {
-        model: textModel,
-        input: p.prompt,
-        // The prompt already names the page background, so leave the default
-        // opaque background in place rather than asking for transparency.
-        tools: [{ type: 'image_generation', model: MODEL, size: p.size, quality }],
-        tool_choice: { type: 'image_generation' },
-      }
-    : { model: MODEL, prompt: p.prompt, size: p.size, quality, n: 1 };
+const overlong = pending.filter((p) => p.prompt.length > PROMPT_MAX);
 
-const lines = pending.map((p) =>
-  JSON.stringify({ custom_id: p.id, method: 'POST', url: endpoint, body: bodyFor(p) })
-);
+if (overlong.length) {
+  console.error(`${overlong.length} prompt(s) exceed the ${PROMPT_MAX}-character limit; shorten them first:`);
+  for (const p of overlong) console.error(`  ${p.id} (${p.prompt.length})`);
+  process.exit(1);
+}
 
-fs.mkdirSync(path.dirname(INPUT_JSONL), { recursive: true });
-fs.writeFileSync(INPUT_JSONL, `${lines.join('\n')}\n`);
+const tasks = pending.map((p) => ({
+  id: p.id,
+  maxWidth: p.maxWidth,
+  aliases: p.aliases,
+  // The request body KIE expects, ready to POST as-is.
+  body: {
+    model,
+    input: {
+      prompt: p.prompt,
+      aspect_ratio: p.aspectRatio,
+    },
+  },
+}));
 
-const bytes = fs.statSync(INPUT_JSONL).size;
-console.log(`${pending.length} request(s) -> ${path.relative(ROOT, INPUT_JSONL)} (${(bytes / 1024).toFixed(1)} KB)`);
-console.log(`  endpoint ${endpoint}, size mix: ${[...new Set(pending.map((p) => p.size))].join(', ')}`);
-if (pending.length > 50_000) console.error('! Over the 50,000-request cap for one batch file; split it.');
-if (bytes > 200 * 1024 * 1024) console.error('! Over the 200 MB cap for one batch file; split it.');
+writeJson(TASKS, { model, createdAt: new Date().toISOString(), tasks });
+
+const ratios = tasks.reduce((acc, t) => {
+  const r = t.body.input.aspect_ratio;
+  return { ...acc, [r]: (acc[r] ?? 0) + 1 };
+}, {});
+
+console.log(`${tasks.length} task(s) -> ${path.relative(ROOT, TASKS)}`);
+console.log(`  model ${model}, aspect ratios: ${Object.entries(ratios).map(([k, v]) => `${k} x${v}`).join(', ')}`);
 console.log('Next: node scripts/images/submit-batch.mjs --watch');

@@ -34,7 +34,7 @@ export type SectionContent = {
   kit: Kit;
   sections: SectionKey[];
   manifesto?: { kicker: string; text: string };
-  /** Alternating illustrated rows. `image` is a GPT Image 2 prompt. */
+  /** Alternating illustrated rows. `image` is a text-to-image prompt. */
   altRows?: { eyebrow: string; title: string; body: string; image: string }[];
   /** Icon grid. `icon` is a lucide-react icon name. */
   iconFeatures?: { icon: string; title: string; body: string }[];
@@ -52,7 +52,7 @@ export type SectionContent = {
   specs?: { kicker: string; title: string; sub?: string; rows: { k: string; v: string }[] };
   /** People, with the site's own artwork standing in for each portrait. */
   team?: { kicker: string; title: string; sub?: string; people: { name: string; role: string; bio: string }[] };
-  /** Lookbook of GPT Image 2 prompts. */
+  /** Lookbook of text-to-image prompts. */
   gallery?: string[];
 };
 

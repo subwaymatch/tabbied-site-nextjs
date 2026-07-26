@@ -20,7 +20,7 @@ const altFrom = (prompt: string) => prompt.split(/\.\s/)[0].replace(/\.$/, '');
  *
  * Once scripts/images/import-batch.mjs has written public/images/showcase/<id>.webp
  * the slot renders that image, cropped with object-fit so it is never stretched.
- * Until then it stays a labelled placeholder showing the ready-to-use GPT Image 2
+ * Until then it stays a labelled placeholder showing the ready-to-use image
  * prompt. Either way the full prompt hangs off data-image-prompt and a copy
  * button lifts it to the clipboard, since the display text is clamped.
  */

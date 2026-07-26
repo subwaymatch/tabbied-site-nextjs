@@ -3,6 +3,6 @@
 //
 // Ids of the files sitting in public/images/showcase. A showcase slot whose id
 // appears here renders the generated image; every other slot keeps showing its
-// GPT Image 2 prompt card, so the pages stay complete while a batch is only
+// image prompt card, so the pages stay complete while a run is only
 // partly filled in.
 export const GENERATED_IMAGES: readonly string[] = [];

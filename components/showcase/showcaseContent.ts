@@ -1,7 +1,7 @@
 // Extra content for the React showcase sites, so each reads as a full,
 // well-structured single-page website rather than a single hero. Kept in its
 // own module (keyed by slug) so showcaseData.ts stays focused on identity and
-// theming. `images` maps each item's seed to a GPT Image 2 prompt: the cards
+// theming. `images` maps each item's seed to a text-to-image prompt: the cards
 // render an image placeholder that shows the prompt, ready to generate a raster
 // image to drop in (see https://developers.openai.com/api/docs/models/gpt-image-2).
 
@@ -15,7 +15,7 @@ export type ShowcaseContent = {
   features: { title: string; body: string }[];
   testimonials: { quote: string; name: string; role: string }[];
   newsletter: { title: string; body: string; cta: string; placeholder: string };
-  /** item.seed -> GPT Image 2 prompt for that card's placeholder image. */
+  /** item.seed -> text-to-image prompt for that card's placeholder image. */
   images: Record<string, string>;
 };
 

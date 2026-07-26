@@ -3,7 +3,7 @@
 // about panel, and a closing band), rendered by the vendored css-doodle build
 // and sized/shuffled by samples/assets/tabbied-runtime.js so cells stay square
 // (no stretching) and the drawings re-seed over time. Product/card imagery is
-// left as image placeholders that carry a GPT Image 2 prompt (palette included)
+// left as image placeholders that carry a text-to-image prompt (palette included)
 // ready to generate a raster image and drop in. Run: node samples/generate.mjs
 import fs from 'node:fs';
 import path from 'node:path';
@@ -106,7 +106,7 @@ const altFrom = (prompt) => String(prompt).split(/\.\s/)[0].replace(/\.$/, '');
 // A card image in one of two states. Once scripts/images/import-batch.mjs has
 // written public/images/showcase/<id>.webp the slot renders that image, cropped
 // with object-fit so it is never stretched. Until then it stays a placeholder
-// carrying the GPT Image 2 prompt, with the site palette (and background color)
+// carrying the image prompt, with the site palette (and background color)
 // appended so a generated image blends in. Either way the full prompt hangs off
 // data-image-prompt for the copy button in samples/assets/tabbied-runtime.js.
 function imgCard(prompt, colors, id) {
@@ -118,7 +118,7 @@ function imgCard(prompt, colors, id) {
   if (hasImage(id)) {
     return `${open}<img class="imgph-img" src="/images/showcase/${esc(id)}.webp" alt="${esc(altFrom(prompt))}" loading="lazy">${copy('imgph-copy over')}</figure>`;
   }
-  return `${open}<div class="imgph-in"><span class="imgph-badge">◳ GPT Image 2 prompt</span><p class="imgph-text">${esc(full)}</p>${copy('imgph-copy')}</div></figure>`;
+  return `${open}<div class="imgph-in"><span class="imgph-badge">Image prompt</span><p class="imgph-text">${esc(full)}</p>${copy('imgph-copy')}</div></figure>`;
 }
 
 const renderTitle = (t) =>

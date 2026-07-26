@@ -1,4 +1,4 @@
-// Step 1 of 4. Harvest every GPT Image 2 prompt in the showcase into a manifest.
+// Step 1 of 4. Harvest every image prompt in the showcase into a manifest.
 //
 // The prompts live in three source modules (components/showcase/showcaseContent.ts,
 // components/showcase/showcaseSections.ts, samples/lib/static-sections.mjs), but
@@ -17,7 +17,7 @@
 //   node scripts/images/extract-prompts.mjs
 import fs from 'node:fs';
 import path from 'node:path';
-import { MANIFEST, ROOT, SIZE_FOR_ASPECT, SLOTS, argv, imagePath, writeJson } from './common.mjs';
+import { ASPECT_RATIO, MANIFEST, PROMPT_MAX, ROOT, SLOTS, argv, imagePath, writeJson } from './common.mjs';
 
 const args = argv();
 
@@ -38,6 +38,7 @@ const attr = (tag, name) => tag.match(new RegExp(`${name}="([^"]*)"`))?.[1] ?? n
 
 const prompts = [];
 const byPrompt = new Map();
+const overlong = [];
 let skipped = 0;
 
 for (const { stack, dir, hint } of SOURCES) {
@@ -64,10 +65,14 @@ for (const { stack, dir, hint } of SOURCES) {
 
       const prompt = unescapeHtml(attr(tag, 'data-image-prompt') ?? '');
       const aspect = SLOTS[slot].aspect(index);
-      const size = SIZE_FOR_ASPECT[aspect];
+      const aspectRatio = ASPECT_RATIO[aspect];
 
-      // Identical prompt + size means one generation shared by several slots.
-      const dedupeKey = `${size}::${prompt}`;
+      if (prompt.length > PROMPT_MAX) {
+        overlong.push(`${id} (${prompt.length} chars)`);
+      }
+
+      // Identical prompt + ratio means one generation shared by several slots.
+      const dedupeKey = `${aspectRatio}::${prompt}`;
       const original = byPrompt.get(dedupeKey);
       if (original) {
         original.aliases.push(id);
@@ -81,7 +86,7 @@ for (const { stack, dir, hint } of SOURCES) {
         slot,
         index,
         aspect,
-        size,
+        aspectRatio,
         maxWidth: SLOTS[slot].maxWidth,
         prompt,
         out: path.relative(ROOT, imagePath(id)),
@@ -106,4 +111,8 @@ console.log(`${prompts.length} unique prompts -> ${path.relative(ROOT, MANIFEST)
 console.log(`  by stack: ${Object.entries(perStack).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}`);
 if (manifest.aliased) console.log(`  ${manifest.aliased} duplicate prompt(s) will reuse another image`);
 if (skipped) console.log(`  ${skipped} slot(s) carried no usable data-image-id and were skipped`);
-if (args.print) for (const p of prompts) console.log(`\n[${p.id}] ${p.size}\n${p.prompt}`);
+if (overlong.length) {
+  console.warn(`! ${overlong.length} prompt(s) exceed the model's ${PROMPT_MAX}-character limit and will be rejected:`);
+  for (const line of overlong) console.warn(`    ${line}`);
+}
+if (args.print) for (const p of prompts) console.log(`\n[${p.id}] ${p.aspectRatio}\n${p.prompt}`);
