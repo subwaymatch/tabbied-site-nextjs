@@ -112,3 +112,15 @@ ten brands. They build with the rest of the site (`npm run build`).
 Palettes and artworks © the Tabbied project. Generative rendering by
 [css-doodle](https://css-doodle.com/). Web fonts via Google Fonts. All brands
 are fictional, used only to frame the artwork in a realistic layout.
+
+## Viewing these locally
+
+`npm run dev` serves `public/` as exact paths and does not resolve a directory
+URL to its `index.html`, so `/samples/01-aurora-sound/` would 404 in development
+while working in production, where a static host does resolve it. next.config.mjs
+adds a development-only rewrite to close that gap, so the gallery links work in
+both. To preview exactly what ships instead, build and serve the export:
+
+```bash
+npm run build && npm start   # serve out -l 3000
+```
