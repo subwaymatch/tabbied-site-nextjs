@@ -1,0 +1,49 @@
+{
+  "name": "Undulate",
+  "slug": "undulate",
+  "galleryOrder": 1167,
+  "description": "A row of marks riding up and down on a wave that runs the width of the sheet.",
+  "palette": [
+    "#FDFCFB",
+    "#E2D1F9",
+    "#C9B6E4",
+    "#A06CD5",
+    "#6247AA",
+    "#102B3F"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; left: 18%; top: @calc(38 + 34 * @sin(0.9 * @x))%; width: 64%; height: 30%; border-radius: 999px; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

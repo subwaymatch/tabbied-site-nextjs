@@ -1,7 +1,7 @@
 {
   "name": "Matryoshka",
   "slug": "matryoshka",
-  "galleryOrder": 1062,
+  "galleryOrder": 907,
   "description": "A doodle inside a doodle: each cell holds a whole second grid, and only some of its cells are open.",
   "palette": [
     "#FCFBFF",

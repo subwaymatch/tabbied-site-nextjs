@@ -38,17 +38,6 @@ const FREQ_OPTION = (def) => ({
   replace: '${shapeFrequency}',
 });
 
-// The Shadow switch the hand-drawn originals ship (Radius, Mixtape and Bloks
-// all carry one); batch-8 designs opt in by putting the token in their rule.
-const SHADOW_OPTION = (def) => ({
-  id: 'shadow',
-  displayName: 'Shadow',
-  type: 'ToggleSwitch',
-  default: def,
-  code: '-webkit-box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2); box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2);',
-  replace: '${shadow}',
-});
-
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
 
 const defs = batch8;
@@ -60,12 +49,13 @@ for (const def of defs) {
   if (batchSlugs.has(def.slug)) throw new Error(`duplicate slug: ${def.slug}`);
   batchSlugs.add(def.slug);
 }
-// Batch 8 owns gallery orders 900+, so a file already on disk is either this
-// batch's own output (safe to rewrite) or an earlier batch's artwork (never
-// clobber it). Batch 8 is the last batch, so its range is open-ended — a
-// batch 9 would need to bound this the way generate-batch8.mjs bounds its own.
+// Batch 8 owns gallery orders 900-999, so a file already on disk is either
+// this batch's own output (safe to rewrite) or another batch's artwork (never
+// clobber it). The range is bounded at both ends so batch 9, which lives above
+// it, survives a batch-8 regeneration.
 const FIRST_ORDER = 900;
-const ownedByBatch8 = (order) => order >= FIRST_ORDER;
+const LAST_ORDER = 999;
+const ownedByBatch8 = (order) => order >= FIRST_ORDER && order <= LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))
@@ -108,7 +98,6 @@ const thumbEntries = [];
 
 for (const def of defs) {
   const options = [GRID_OPTION(def.gridDefault), FREQ_OPTION(def.freqDefault)];
-  if (def.shadow !== undefined) options.push(SHADOW_OPTION(def.shadow));
 
   const style = collapse(`${def.vars} --rule: ( ${def.rule} );`);
   const doodle = collapse(def.doodle ?? SHELL);
@@ -199,11 +188,8 @@ for (const def of defs) {
     JSON.stringify(artwork, null, 2) + '\n'
   );
 
-  const extra = [
-    def.shadow !== undefined ? `, shadow: ${def.shadow}` : '',
-  ].join('');
   thumbEntries.push(
-    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency}${extra} },\n  },`
+    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency} },\n  },`
   );
 }
 

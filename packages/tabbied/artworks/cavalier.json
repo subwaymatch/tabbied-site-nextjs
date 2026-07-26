@@ -1,0 +1,50 @@
+{
+  "name": "Cavalier",
+  "slug": "cavalier",
+  "galleryOrder": 1143,
+  "galleryWhite": true,
+  "description": "Cavalier projection: forty-five degrees, and the depth drawn at full length.",
+  "palette": [
+    "#2B1B3D",
+    "#FF8A5C",
+    "#FFC15E",
+    "#FF5E78",
+    "#FFD27D",
+    "#FFF1D6"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 4%; top: 26%; width: 62%; height: 62%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 4%; top: 26%; width: 62%; height: 62%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: translate(32%, -32%); transform: translate(32%, -32%); opacity: 0.7; -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

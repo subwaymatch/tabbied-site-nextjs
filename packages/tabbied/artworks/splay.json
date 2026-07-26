@@ -1,0 +1,50 @@
+{
+  "name": "Splay",
+  "slug": "splay",
+  "galleryOrder": 1053,
+  "galleryWhite": true,
+  "description": "A fan opening across the sheet: the pair of blades spreading column by column.",
+  "palette": [
+    "#0F2027",
+    "#3FFFB2",
+    "#3EECFF",
+    "#2BB3A3",
+    "#D89FFF",
+    "#E9FFF9"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 42%; top: 6%; width: 16%; height: 88%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); transform-origin: 50% 100%; -webkit-transform: rotate(@calc(-4 - 40 * @x / @X)deg); transform: rotate(@calc(-4 - 40 * @x / @X)deg); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 42%; top: 6%; width: 16%; height: 88%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); transform-origin: 50% 100%; -webkit-transform: rotate(@calc(4 + 40 * @x / @X)deg); transform: rotate(@calc(4 + 40 * @x / @X)deg); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

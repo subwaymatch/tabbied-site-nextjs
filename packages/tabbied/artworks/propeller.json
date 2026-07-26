@@ -1,0 +1,50 @@
+{
+  "name": "Propeller",
+  "slug": "propeller",
+  "galleryOrder": 1080,
+  "galleryWhite": true,
+  "description": "Three blades, evenly spaced, spun to a new angle in every cell.",
+  "palette": [
+    "#1D1F24",
+    "#E8E6E1",
+    "#F5B82E",
+    "#3EECFF",
+    "#FF4D6D",
+    "#2E86AB"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --from: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 3%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-conic-gradient(from @var(--from) at 50% 50%, #000 0 40deg, transparent 40deg 120deg); mask: repeating-conic-gradient(from @var(--from) at 50% 50%, #000 0 40deg, transparent 40deg 120deg); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

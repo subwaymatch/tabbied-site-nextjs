@@ -1,0 +1,49 @@
+{
+  "name": "Swirl",
+  "slug": "swirl",
+  "galleryOrder": 1031,
+  "description": "Three-lobed figures all turned by their bearing, so the field rolls round the middle.",
+  "palette": [
+    "#FFFFFF",
+    "#06AED5",
+    "#086788",
+    "#F0C808",
+    "#FFF1D0",
+    "#DD1C1A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); @shape: clover 3; -webkit-transform: rotate(@calc@atan2(2 * @y / @Y - 1 - 1 / @Y, 2 * @x / @X - 1 - 1 / @X) * 57.2958deg); transform: rotate(@calc@atan2(2 * @y / @Y - 1 - 1 / @Y, 2 * @x / @X - 1 - 1 / @X) * 57.2958deg); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

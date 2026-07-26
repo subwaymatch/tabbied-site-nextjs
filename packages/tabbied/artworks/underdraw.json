@@ -1,0 +1,50 @@
+{
+  "name": "Underdraw",
+  "slug": "underdraw",
+  "galleryOrder": 1095,
+  "galleryWhite": true,
+  "description": "The construction lines left in: a dashed box under a solid corner.",
+  "palette": [
+    "#08141E",
+    "#0F8B8D",
+    "#143642",
+    "#EC9A29",
+    "#A8201A",
+    "#EFE6DD"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @svg(viewBox: 0 0 100 100; path { d: M10 10 H90 V90 H10 Z; fill: none; stroke: #000; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 9 7; }); mask: @svg(viewBox: 0 0 100 100; path { d: M10 10 H90 V90 H10 Z; fill: none; stroke: #000; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 9 7; }); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @svg(viewBox: 0 0 100 100; path { d: M10 40 V10 H40; fill: none; stroke: #000; stroke-width: 9; stroke-linecap: round; }); mask: @svg(viewBox: 0 0 100 100; path { d: M10 40 V10 H40; fill: none; stroke: #000; stroke-width: 9; stroke-linecap: round; }); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

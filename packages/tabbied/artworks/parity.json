@@ -1,7 +1,7 @@
 {
   "name": "Parity",
   "slug": "parity",
-  "galleryOrder": 1025,
+  "galleryOrder": 904,
   "description": "A checker that keeps changing its mind: the parity of the column decides the shape, the parity of the row decides the turn.",
   "palette": [
     "#F4EFE4",

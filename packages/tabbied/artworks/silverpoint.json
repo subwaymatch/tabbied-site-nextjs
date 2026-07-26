@@ -1,0 +1,49 @@
+{
+  "name": "Silverpoint",
+  "slug": "silverpoint",
+  "galleryOrder": 1097,
+  "description": "Silverpoint: a line so fine it barely marks the ground, laid in parallel.",
+  "palette": [
+    "#FDFCFB",
+    "#E2D1F9",
+    "#C9B6E4",
+    "#A06CD5",
+    "#6247AA",
+    "#102B3F"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @svg(viewBox: 0 0 100 100; path*4 { d: M0 130 L130 0; fill: none; stroke: #000; stroke-width: 3; transform: translate(calc(@n(-1) * 34 - 68) 0) }); mask: @svg(viewBox: 0 0 100 100; path*4 { d: M0 130 L130 0; fill: none; stroke: #000; stroke-width: 3; transform: translate(calc(@n(-1) * 34 - 68) 0) }); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

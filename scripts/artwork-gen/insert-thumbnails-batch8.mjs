@@ -17,12 +17,8 @@ let src = readFileSync(FILE, 'utf-8');
 const blocks = [];
 for (const def of batch8) {
   if (new RegExp(`\\n  ${def.slug}: \\{`).test(src)) continue; // already present
-  const extra = [
-    def.shadow !== undefined ? `, shadow: ${def.shadow}` : '',
-    def.round !== undefined ? `, roundedCorners: ${def.round}` : '',
-  ].join('');
   blocks.push(
-    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency}${extra} },\n  },`
+    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency} },\n  },`
   );
 }
 

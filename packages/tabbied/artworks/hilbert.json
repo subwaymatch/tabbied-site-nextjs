@@ -1,7 +1,7 @@
 {
   "name": "Hilbert",
   "slug": "hilbert",
-  "galleryOrder": 1037,
+  "galleryOrder": 905,
   "description": "The Hilbert curve's four orientations, cycling by cell index so the path always joins up.",
   "palette": [
     "#F7F7FF",
