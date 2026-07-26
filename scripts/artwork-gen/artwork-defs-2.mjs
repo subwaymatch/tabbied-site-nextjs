@@ -73,21 +73,6 @@ export const batch2 = [
     rule: `@random(\${shapeFrequency}) { :after { content: ''; position: absolute; inset: 0; border: solid var(--pipe); border-width: calc(170px / @Y) calc(170px / @Y) 0 0; border-radius: 0 100% 0 0; transform: rotate(var(--bend)); box-sizing: border-box; transition: ease 600ms; } }`,
   },
   {
-    name: 'Bento',
-    slug: 'bento',
-    order: 124,
-    description:
-      'Lacquered lunch boxes whose partitions slide from seed to seed — compartments widen, shrink and trade their fillings.',
-    palette: ['#2B1E1A', '#E2543E', '#88A872', '#F5DD8A', '#F3EBDB'],
-    colors: { min: 2, max: 5, default: 5 },
-    white: true,
-    gridDefault: '6x9',
-    freqDefault: 1,
-    thumb: { grid: '4x4', frequency: 0.95 },
-    vars: `--dishA: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --dishB: @p(var(--color1), var(--color2), var(--color3), var(--color4)); --sub: @rand(40%, 92%);`,
-    rule: `/* both compartments share one emitted divider position, so the wall slides as a unit */ --cut: @r(28, 64); @random(\${shapeFrequency}) { :before { content: ''; position: absolute; left: 6%; top: 6%; width: calc(@var(--cut) * 1% - 9%); height: 88%; border-radius: 7%; background: var(--dishA); transition: ease 600ms; } :after { content: ''; position: absolute; left: calc(@var(--cut) * 1% + 3%); bottom: 6%; width: calc(91% - @var(--cut) * 1%); height: var(--sub); border-radius: 7%; background: var(--dishB); transition: ease 600ms; } }`,
-  },
-  {
     name: 'Grain',
     slug: 'grain',
     order: 127,

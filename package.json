@@ -6,12 +6,17 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "npm run build --workspace tabbied",
+    "predev": "npm run build --workspace tabbied && node samples/generate.mjs",
     "dev": "next dev",
-    "prebuild": "npm run build --workspace tabbied",
+    "prebuild": "npm run build --workspace tabbied && node samples/generate.mjs",
     "build": "next build",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",
+    "images:extract": "node scripts/images/extract-prompts.mjs",
+    "images:build": "node scripts/images/build-batch.mjs",
+    "images:submit": "node scripts/images/submit-batch.mjs",
+    "images:import": "node scripts/images/import-batch.mjs",
+    "images:index": "node scripts/images/index-images.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish"
