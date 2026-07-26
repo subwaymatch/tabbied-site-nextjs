@@ -1,0 +1,50 @@
+{
+  "name": "Agate",
+  "slug": "agate",
+  "galleryOrder": 845,
+  "galleryWhite": true,
+  "description": "Agate banding: concentric layers that follow the shape of the cavity they filled.",
+  "palette": [
+    "#141233",
+    "#6C4AB6",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: @pick(20%, 40%, 50%) @pick(40%, 50%, 20%); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, #000 0.00% 12.50%, transparent 12.50% 25.00%, #000 25.00% 37.50%, transparent 37.50% 50.00%, #000 50.00% 62.50%, transparent 62.50% 75.00%, #000 75.00% 87.50%, transparent 87.50% 100.00%); mask: radial-gradient(circle closest-side at 50% 50%, #000 0.00% 12.50%, transparent 12.50% 25.00%, #000 25.00% 37.50%, transparent 37.50% 50.00%, #000 50.00% 62.50%, transparent 62.50% 75.00%, #000 75.00% 87.50%, transparent 87.50% 100.00%); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

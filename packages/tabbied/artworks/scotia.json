@@ -1,0 +1,50 @@
+{
+  "name": "Scotia",
+  "slug": "scotia",
+  "galleryOrder": 773,
+  "galleryWhite": true,
+  "description": "The scotia — a deep concave hollow scooped out of the face of the moulding.",
+  "palette": [
+    "#2B1E1A",
+    "#E2543E",
+    "#E3A92E",
+    "#88A872",
+    "#F3EBDB",
+    "#7FA886"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 96.0%, 0.0% 96.0%, 10.7% 95.4%, 21.4% 93.6%, 31.7% 90.6%, 41.7% 86.5%, 51.1% 81.3%, 59.9% 75.1%, 67.9% 67.9%, 75.1% 59.9%, 81.3% 51.1%, 86.5% 41.7%, 90.6% 31.7%, 93.6% 21.4%, 95.4% 10.7%, 96.0% 0.0%); clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 96.0%, 0.0% 96.0%, 10.7% 95.4%, 21.4% 93.6%, 31.7% 90.6%, 41.7% 86.5%, 51.1% 81.3%, 59.9% 75.1%, 67.9% 67.9%, 75.1% 59.9%, 81.3% 51.1%, 86.5% 41.7%, 90.6% 31.7%, 93.6% 21.4%, 95.4% 10.7%, 96.0% 0.0%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

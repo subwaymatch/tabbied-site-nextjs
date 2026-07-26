@@ -1,0 +1,50 @@
+{
+  "name": "Asanoha",
+  "slug": "asanoha",
+  "galleryOrder": 892,
+  "galleryWhite": true,
+  "description": "Asanoha, the hemp leaf: six spokes from a point, repeated until the whole cloth is stars.",
+  "palette": [
+    "#11151A",
+    "#FF5252",
+    "#FFB300",
+    "#26C6DA",
+    "#66BB6A",
+    "#EEEEEE"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 53.5% 43.9%, 93.3% 25.0%, 57.0% 50.0%, 93.3% 75.0%, 53.5% 56.1%, 50.0% 100.0%, 46.5% 56.1%, 6.7% 75.0%, 43.0% 50.0%, 6.7% 25.0%, 46.5% 43.9%); clip-path: polygon(50.0% 0.0%, 53.5% 43.9%, 93.3% 25.0%, 57.0% 50.0%, 93.3% 75.0%, 53.5% 56.1%, 50.0% 100.0%, 46.5% 56.1%, 6.7% 75.0%, 43.0% 50.0%, 6.7% 25.0%, 46.5% 43.9%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 0; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 93.3% 25.0%, 93.3% 75.0%, 50.0% 100.0%, 6.7% 75.0%, 6.7% 25.0%); clip-path: polygon(50.0% 0.0%, 93.3% 25.0%, 93.3% 75.0%, 50.0% 100.0%, 6.7% 75.0%, 6.7% 25.0%); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 88%, #000 88%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 88%, #000 88%); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

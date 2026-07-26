@@ -1,0 +1,50 @@
+{
+  "name": "Khatam",
+  "slug": "khatam",
+  "galleryOrder": 888,
+  "galleryWhite": true,
+  "description": "Khatam inlay: an eight-pointed star built from two squares, with a smaller one at its centre.",
+  "palette": [
+    "#181818",
+    "#EC4E20",
+    "#FF9505",
+    "#016FB9",
+    "#FFFFFF",
+    "#C2E7DA"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 2%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 61.1% 23.2%, 85.4% 14.6%, 76.8% 38.9%, 100.0% 50.0%, 76.8% 61.1%, 85.4% 85.4%, 61.1% 76.8%, 50.0% 100.0%, 38.9% 76.8%, 14.6% 85.4%, 23.2% 61.1%, 0.0% 50.0%, 23.2% 38.9%, 14.6% 14.6%, 38.9% 23.2%); clip-path: polygon(50.0% 0.0%, 61.1% 23.2%, 85.4% 14.6%, 76.8% 38.9%, 100.0% 50.0%, 76.8% 61.1%, 85.4% 85.4%, 61.1% 76.8%, 50.0% 100.0%, 38.9% 76.8%, 14.6% 85.4%, 23.2% 61.1%, 0.0% 50.0%, 23.2% 38.9%, 14.6% 14.6%, 38.9% 23.2%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 30%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(69.1% 3.8%, 70.5% 29.5%, 96.2% 30.9%, 79.0% 50.0%, 96.2% 69.1%, 70.5% 70.5%, 69.1% 96.2%, 50.0% 79.0%, 30.9% 96.2%, 29.5% 70.5%, 3.8% 69.1%, 21.0% 50.0%, 3.8% 30.9%, 29.5% 29.5%, 30.9% 3.8%, 50.0% 21.0%); clip-path: polygon(69.1% 3.8%, 70.5% 29.5%, 96.2% 30.9%, 79.0% 50.0%, 96.2% 69.1%, 70.5% 70.5%, 69.1% 96.2%, 50.0% 79.0%, 30.9% 96.2%, 29.5% 70.5%, 3.8% 69.1%, 21.0% 50.0%, 3.8% 30.9%, 29.5% 29.5%, 30.9% 3.8%, 50.0% 21.0%); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

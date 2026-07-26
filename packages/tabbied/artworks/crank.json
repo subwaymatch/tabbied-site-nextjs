@@ -1,0 +1,50 @@
+{
+  "name": "Crank",
+  "slug": "crank",
+  "galleryOrder": 868,
+  "galleryWhite": true,
+  "description": "A crank throw: two journals joined by a web, set over at whatever angle the engine wants.",
+  "palette": [
+    "#001219",
+    "#005F73",
+    "#0A9396",
+    "#94D2BD",
+    "#EE9B00",
+    "#CA6702"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 22%; top: 30%; width: 56%; height: 40%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); border-radius: 999px; -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 62%; top: 34%; width: 32%; height: 32%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 46%, #000 46%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 46%, #000 46%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

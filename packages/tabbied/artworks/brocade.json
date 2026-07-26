@@ -1,0 +1,58 @@
+{
+  "name": "Brocade",
+  "slug": "brocade",
+  "galleryOrder": 792,
+  "galleryWhite": true,
+  "description": "Raised metal thread: a small figure lifted off the ground, catching a shadow on one side.",
+  "palette": [
+    "#1E1B18",
+    "#C99E10",
+    "#7D6608",
+    "#E8C547",
+    "#F5EFD6",
+    "#9C7A2B"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    },
+    {
+      "id": "shadow",
+      "displayName": "Shadow",
+      "type": "ToggleSwitch",
+      "default": true,
+      "code": "-webkit-box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2); box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2);",
+      "replace": "${shadow}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 20%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 62.0% 38.0%, 100.0% 50.0%, 62.0% 62.0%, 50.0% 100.0%, 38.0% 62.0%, 0.0% 50.0%, 38.0% 38.0%); clip-path: polygon(50.0% 0.0%, 62.0% 38.0%, 100.0% 50.0%, 62.0% 62.0%, 50.0% 100.0%, 38.0% 62.0%, 0.0% 50.0%, 38.0% 38.0%); ${shadow} -webkit-transition: ease 450ms; transition: ease 450ms; } :before { content: ''; position: absolute; inset: 6%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 100.0% 50.0%, 50.0% 100.0%, 0.0% 50.0%, 50.0% 0.0%, 50.0% 12.0%, 12.0% 50.0%, 50.0% 88.0%, 88.0% 50.0%, 50.0% 12.0%); clip-path: polygon(50.0% 0.0%, 100.0% 50.0%, 50.0% 100.0%, 0.0% 50.0%, 50.0% 0.0%, 50.0% 12.0%, 12.0% 50.0%, 50.0% 88.0%, 88.0% 50.0%, 50.0% 12.0%); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

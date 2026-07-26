@@ -1,0 +1,50 @@
+{
+  "name": "Analemma",
+  "slug": "analemma",
+  "galleryOrder": 832,
+  "galleryWhite": true,
+  "description": "The figure the sun traces over a year, drawn as a lopsided eight.",
+  "palette": [
+    "#141233",
+    "#6C4AB6",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32",
+    "#3FFFB2"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 22%; top: 4%; width: 52%; height: 52%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 62%, #000 62%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 62%, #000 62%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 30%; top: 46%; width: 40%; height: 50%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 58%, #000 58%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 58%, #000 58%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: scaleX(@pick(1, -1)); transform: scaleX(@pick(1, -1)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

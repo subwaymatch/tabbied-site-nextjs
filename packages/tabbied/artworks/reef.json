@@ -1,0 +1,53 @@
+{
+  "name": "Reef",
+  "slug": "reef",
+  "galleryOrder": 743,
+  "galleryWhite": true,
+  "description": "Two marks to a cell — a bar and a disc — building up like coral against a ruled ground.",
+  "palette": [
+    "#0F2A1E",
+    "#2F6B3C",
+    "#4F9D5D",
+    "#8CC084",
+    "#C8E6C0",
+    "#ECFFEC"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "sizing": {
+    "minCellPx": 36
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 12%; top: @pick(10%, 54%); width: 76%; height: 18%; border-radius: 999px; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: @pick(14%, 52%); top: @pick(50%, 12%); @size: 34%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } @random(0.35) { -webkit-box-shadow: -1px -1px 0 @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); box-shadow: -1px -1px 0 @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Ratchet",
+  "slug": "ratchet",
+  "galleryOrder": 864,
+  "description": "A ratchet wheel: saw teeth that will only turn one way.",
+  "palette": [
+    "#FDF0D5",
+    "#003049",
+    "#C1121F",
+    "#780000",
+    "#669BBC",
+    "#8D99AE"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; inset: 4%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 59.6% 20.5%, 79.4% 9.5%, 75.1% 31.8%, 97.6% 34.5%, 81.0% 50.0%, 97.6% 65.5%, 75.1% 68.2%, 79.4% 90.5%, 59.6% 79.5%, 50.0% 100.0%, 40.4% 79.5%, 20.6% 90.5%, 24.9% 68.2%, 2.4% 65.5%, 19.0% 50.0%, 2.4% 34.5%, 24.9% 31.8%, 20.6% 9.5%, 40.4% 20.5%); clip-path: polygon(50.0% 0.0%, 59.6% 20.5%, 79.4% 9.5%, 75.1% 31.8%, 97.6% 34.5%, 81.0% 50.0%, 97.6% 65.5%, 75.1% 68.2%, 79.4% 90.5%, 59.6% 79.5%, 50.0% 100.0%, 40.4% 79.5%, 20.6% 90.5%, 24.9% 68.2%, 2.4% 65.5%, 19.0% 50.0%, 2.4% 34.5%, 24.9% 31.8%, 20.6% 9.5%, 40.4% 20.5%); border-radius: 50%; -webkit-transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

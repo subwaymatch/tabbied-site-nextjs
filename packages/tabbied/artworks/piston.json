@@ -1,0 +1,49 @@
+{
+  "name": "Piston",
+  "slug": "piston",
+  "galleryOrder": 867,
+  "description": "A piston in section: the crown, two ring grooves cut into the skirt, and the pin boss.",
+  "palette": [
+    "#EAE0CC",
+    "#1B1B1E",
+    "#C6AC8F",
+    "#5E503F",
+    "#A9927D",
+    "#EB5E28"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 16%; top: 6%; width: 68%; height: 60%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-linear-gradient(0deg, #000 0 22%, transparent 22% 30%); mask: repeating-linear-gradient(0deg, #000 0 22%, transparent 22% 30%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 30%; top: 68%; width: 40%; height: 26%; border-radius: 50%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 52%, #000 52%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 52%, #000 52%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
