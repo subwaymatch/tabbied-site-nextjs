@@ -2,7 +2,8 @@
 //
 //   node scripts/images/submit-batch.mjs --watch          # submit, then poll
 //   node scripts/images/submit-batch.mjs --check          # poll what is on file
-//   node scripts/images/submit-batch.mjs --concurrency 8
+//   node scripts/images/submit-batch.mjs --retry          # requeue whatever did not succeed
+//   node scripts/images/submit-batch.mjs --stall-after 15 # give up waiting after N minutes
 //
 // The API key comes from .env.local / .env at the repo root, or from the
 // environment (see scripts/images/README.md). Every generation is asynchronous:
@@ -22,6 +23,9 @@ const args = argv();
 const key = apiKey();
 const pollMs = Math.max(2, Number(args.interval) || 5) * 1000;
 const concurrency = Math.max(1, Number(args.concurrency) || 4);
+// A job that never reaches a terminal state would otherwise keep --watch
+// looping forever. Stop once nothing has changed for this long.
+const stallMs = Math.max(1, Number(args['stall-after']) || 10) * 60_000;
 
 const loadState = () => readJson(STATE, { model: MODEL, tasks: {} });
 const save = (state) => writeJson(STATE, state);
@@ -86,6 +90,15 @@ const state = loadState();
 state.model = plan.model;
 state.submittedAt = state.submittedAt ?? new Date().toISOString();
 
+// --retry drops everything that did not succeed, so those ids look unsubmitted
+// again and get fresh jobs. Without it a task wedged in `generating` is skipped
+// forever: it stays in the plan (no image on disk) but already carries a taskId.
+if (args.retry) {
+  const stale = Object.entries(state.tasks).filter(([, t]) => t.state !== 'success');
+  for (const [id] of stale) delete state.tasks[id];
+  console.log(`--retry: requeued ${stale.length} task(s) that had not succeeded`);
+}
+
 // Anything already carrying a taskId is left alone, so re-running after an
 // interruption only submits the gaps.
 const fresh = plan.tasks.filter((t) => !state.tasks[t.id]?.taskId);
@@ -125,16 +138,38 @@ if (!args.watch) {
   process.exit(0);
 }
 
+let lastSignature = '';
+let lastChange = Date.now();
+let stalled = false;
+
 for (;;) {
   await refresh(state);
 
-  const rows = Object.values(state.tasks);
-  const open = rows.filter((t) => !TERMINAL.has(t.state)).length;
-  console.log(`  ${new Date().toISOString().slice(11, 19)}  ${summarize(state)}`);
+  const open = Object.values(state.tasks).filter((t) => !TERMINAL.has(t.state)).length;
+  const signature = summarize(state);
+  console.log(`  ${new Date().toISOString().slice(11, 19)}  ${signature}`);
 
   if (!open) break;
 
+  if (signature !== lastSignature) {
+    lastSignature = signature;
+    lastChange = Date.now();
+  } else if (Date.now() - lastChange > stallMs) {
+    stalled = true;
+    break;
+  }
+
   await new Promise((r) => setTimeout(r, pollMs));
+}
+
+if (stalled) {
+  const stuck = Object.entries(state.tasks).filter(([, t]) => !TERMINAL.has(t.state));
+  console.log(`\nNo change for ${stallMs / 60_000} minute(s); ${stuck.length} task(s) still open:`);
+  for (const [id, t] of stuck) console.log(`  ${id}: ${t.state} (${t.taskId})`);
+  console.log('\nEverything that finished is safe to import now:');
+  console.log('  npm run images:import');
+  console.log('Then requeue the stragglers with:');
+  console.log('  npm run images:submit -- --retry --watch');
 }
 
 const failed = Object.entries(state.tasks).filter(([, t]) => t.state === 'fail');

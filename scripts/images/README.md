@@ -134,10 +134,25 @@ closing the shell mid-run loses nothing. Rerunning only submits the gaps.
 ```bash
 node scripts/images/submit-batch.mjs --watch --interval 10
 node scripts/images/submit-batch.mjs --check
+node scripts/images/submit-batch.mjs --retry --watch     # requeue what did not succeed
+node scripts/images/submit-batch.mjs --watch --stall-after 15
 ```
 
 Every generation is asynchronous: a 200 from `createTask` means the job was
 accepted, not finished. Jobs are polled until each reaches `success` or `fail`.
+
+Ctrl-C is safe at any point after the task ids are written: the jobs keep
+running on KIE, and rerunning with `--watch` resumes polling without
+resubmitting anything. Polling shares the pacer, so a pass over N open jobs
+takes about N x 0.55s; watch the interval between log lines shrink as jobs
+finish.
+
+Occasionally a job never reaches a terminal state. `--watch` gives up once
+nothing has changed for `--stall-after` minutes (default 10) and prints which
+ids are stuck, rather than looping forever. Import what finished, then requeue
+the rest with `--retry`, which drops every non-successful task from the state so
+it gets a fresh job. Without `--retry` a stuck task is skipped on later runs: it
+is back in the plan (no image on disk) but still carries its old task id.
 
 ## 4. import-batch.mjs
 
