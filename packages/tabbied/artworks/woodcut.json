@@ -1,0 +1,49 @@
+{
+  "name": "Woodcut",
+  "slug": "woodcut",
+  "galleryOrder": 982,
+  "description": "Woodcut: the block cut away in wedges, so the marks widen as they run down.",
+  "palette": [
+    "#F4EFE4",
+    "#7A1F3D",
+    "#2F4156",
+    "#C9A86A",
+    "#88A872",
+    "#D98E5A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @svg(viewBox: 0 0 100 100; polygon { points: 2 0 14 0 8 100 5 100; fill: #000 } polygon { points: 26 0 40 0 32 100 28 100; fill: #000 } polygon { points: 52 0 68 0 58 100 53 100; fill: #000 } polygon { points: 78 0 96 0 84 100 78 100; fill: #000 }); mask: @svg(viewBox: 0 0 100 100; polygon { points: 2 0 14 0 8 100 5 100; fill: #000 } polygon { points: 26 0 40 0 32 100 28 100; fill: #000 } polygon { points: 52 0 68 0 58 100 53 100; fill: #000 } polygon { points: 78 0 96 0 84 100 78 100; fill: #000 }); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

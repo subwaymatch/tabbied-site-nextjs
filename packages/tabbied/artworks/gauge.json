@@ -1,0 +1,49 @@
+{
+  "name": "Gauge",
+  "slug": "gauge",
+  "galleryOrder": 1085,
+  "description": "A gauge face: a scale of ticks with one needle laid across it.",
+  "palette": [
+    "#FFF8E7",
+    "#D62828",
+    "#F77F00",
+    "#FCBF49",
+    "#003049",
+    "#3E8FB0"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 6%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-conic-gradient(from 0deg at 50% 50%, #000 0 4deg, transparent 4deg 30deg); mask: repeating-conic-gradient(from 0deg at 50% 50%, #000 0 4deg, transparent 4deg 30deg); border-radius: 50%; -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 48%; top: 12%; width: 4%; height: 40%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); transform-origin: 50% 100%; -webkit-transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); transform: rotate(@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)); -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

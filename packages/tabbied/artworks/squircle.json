@@ -1,0 +1,49 @@
+{
+  "name": "Squircle",
+  "slug": "squircle",
+  "galleryOrder": 918,
+  "description": "The squircle — the same superellipse taken to n = 5, where the square has almost won.",
+  "palette": [
+    "#FAEFE0",
+    "#E56399",
+    "#7F96FF",
+    "#5FA8B5",
+    "#320A28",
+    "#DE6B48"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: @shape(points: 200; r: 1 / ((abs(cos(t))^5 + abs(sin(t))^5)^0.2); scale: 0.94); clip-path: @shape(points: 200; r: 1 / ((abs(cos(t))^5 + abs(sin(t))^5)^0.2); scale: 0.94); -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,8 +1,8 @@
 // Syncs packages/tabbied/artworks/ with the batch-7 definitions: writes one
 // JSON per definition, deletes any batch-7 artwork (and its gallery thumbnail
 // entry) that the definitions no longer describe, and prints the thumbnail
-// entries to insert. Scoped to gallery orders 700+ so it never touches
-// artworks shipped in earlier batches.
+// entries to insert. Scoped to gallery orders 700-799 so it never touches
+// artworks shipped in another batch.
 import { writeFileSync, readdirSync, readFileSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -38,9 +38,8 @@ const FREQ_OPTION = (def) => ({
   replace: '${shapeFrequency}',
 });
 
-// The two switches the hand-drawn originals ship. Radius/Mixtape/Bloks carry
-// the Shadow one, Trigram the Rounded Corners one; batch-7 designs opt in by
-// putting the token in their rule.
+// The Shadow switch the hand-drawn originals ship (Radius, Mixtape and Bloks
+// all carry one); batch-7 designs opt in by putting the token in their rule.
 const SHADOW_OPTION = (def) => ({
   id: 'shadow',
   displayName: 'Shadow',
@@ -48,15 +47,6 @@ const SHADOW_OPTION = (def) => ({
   default: def,
   code: '-webkit-box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2); box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2);',
   replace: '${shadow}',
-});
-
-const ROUND_OPTION = (def) => ({
-  id: 'roundedCorners',
-  displayName: 'Rounded Corners',
-  type: 'ToggleSwitch',
-  default: def,
-  code: 'border-radius: 320px;',
-  replace: '${round}',
 });
 
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
@@ -70,10 +60,13 @@ for (const def of defs) {
   if (batchSlugs.has(def.slug)) throw new Error(`duplicate slug: ${def.slug}`);
   batchSlugs.add(def.slug);
 }
-// Batch 7 owns gallery orders 700+, so a file already on disk is either this
-// batch's own output (safe to rewrite) or an earlier batch's artwork (never
-// clobber it).
+// Batch 7 owns gallery orders 700-799, so a file already on disk is either this
+// batch's own output (safe to rewrite) or another batch's artwork (never
+// clobber it). The range is bounded at both ends so later batches, which live
+// above it, survive a batch-7 regeneration.
 const FIRST_ORDER = 700;
+const LAST_ORDER = 799;
+const ownedByBatch7 = (order) => order >= FIRST_ORDER && order <= LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))
@@ -85,7 +78,7 @@ const orderOf = (slug) =>
 
 for (const def of defs) {
   if (!existing.has(def.slug)) continue;
-  if (!(orderOf(def.slug) >= FIRST_ORDER)) {
+  if (!ownedByBatch7(orderOf(def.slug))) {
     throw new Error(`batch-7 slug ${def.slug} collides with an existing artwork`);
   }
 }
@@ -93,7 +86,7 @@ for (const def of defs) {
 // Drop artworks this batch used to own but no longer defines, so the
 // definitions stay the single source of truth for what ships.
 const dropped = [...existing].filter(
-  (slug) => !batchSlugs.has(slug) && orderOf(slug) >= FIRST_ORDER
+  (slug) => !batchSlugs.has(slug) && ownedByBatch7(orderOf(slug))
 );
 for (const slug of dropped) {
   unlinkSync(path.join(ARTWORKS_DIR, `${slug}.json`));
@@ -117,7 +110,6 @@ const thumbEntries = [];
 for (const def of defs) {
   const options = [GRID_OPTION(def.gridDefault), FREQ_OPTION(def.freqDefault)];
   if (def.shadow !== undefined) options.push(SHADOW_OPTION(def.shadow));
-  if (def.round !== undefined) options.push(ROUND_OPTION(def.round));
 
   const style = collapse(`${def.vars} --rule: ( ${def.rule} );`);
   const doodle = collapse(def.doodle ?? SHELL);
@@ -210,7 +202,6 @@ for (const def of defs) {
 
   const extra = [
     def.shadow !== undefined ? `, shadow: ${def.shadow}` : '',
-    def.round !== undefined ? `, roundedCorners: ${def.round}` : '',
   ].join('');
   thumbEntries.push(
     `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency}${extra} },\n  },`

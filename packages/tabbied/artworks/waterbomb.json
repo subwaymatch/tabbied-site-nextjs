@@ -1,7 +1,7 @@
 {
   "name": "Waterbomb",
   "slug": "waterbomb",
-  "galleryOrder": 879,
+  "galleryOrder": 720,
   "galleryWhite": true,
   "description": "The waterbomb base: a square creased on both diagonals and collapsed to a triangle.",
   "palette": [

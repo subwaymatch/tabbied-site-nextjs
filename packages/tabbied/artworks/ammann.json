@@ -1,0 +1,49 @@
+{
+  "name": "Ammann",
+  "slug": "ammann",
+  "galleryOrder": 1041,
+  "description": "Ammann bars: a line whose width steps through a short, non-repeating run.",
+  "palette": [
+    "#ECFFEC",
+    "#3FFFB2",
+    "#3E8BFF",
+    "#9EFFD8",
+    "#FF3D8B",
+    "#F5DD32"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :after { content: ''; position: absolute; left: @calc(10 + @i % 3 * 8)%; top: 0; width: @pn(9%, 15%, 24%, 15%, 9%); height: 100%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@pick(0deg, 90deg)); transform: rotate(@pick(0deg, 90deg)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

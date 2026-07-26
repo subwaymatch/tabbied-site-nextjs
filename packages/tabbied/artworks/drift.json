@@ -1,7 +1,7 @@
 {
   "name": "Drift",
   "slug": "drift",
-  "galleryOrder": 717,
+  "galleryOrder": 707,
   "galleryWhite": true,
   "description": "Triangles all leaning the same way within a row and flipping on the next, with the odd contrary tile drifting through.",
   "palette": [

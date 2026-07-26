@@ -1,7 +1,7 @@
 {
   "name": "Scramble",
   "slug": "scramble",
-  "galleryOrder": 711,
+  "galleryOrder": 704,
   "description": "Each square gives up one of its four quadrants, so the field reads as a wall of L-shapes turning every which way.",
   "palette": [
     "#FAF7F0",

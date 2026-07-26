@@ -49,10 +49,13 @@ for (const def of defs) {
   if (batchSlugs.has(def.slug)) throw new Error(`duplicate slug: ${def.slug}`);
   batchSlugs.add(def.slug);
 }
-// Batch 6 owns gallery orders 620+, so a file already on disk is either this
-// batch's own output (safe to rewrite) or an earlier batch's artwork (never
-// clobber it).
+// Batch 6 owns gallery orders 620-699, so a file already on disk is either
+// this batch's own output (safe to rewrite) or another batch's artwork (never
+// clobber it). The range is bounded at both ends: batches 7 and 8 live above
+// it, and an open-ended check here would delete them on a batch-6 rerun.
 const FIRST_ORDER = 620;
+const LAST_ORDER = 699;
+const ownedByBatch6 = (order) => order >= FIRST_ORDER && order <= LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))
@@ -64,7 +67,7 @@ const orderOf = (slug) =>
 
 for (const def of defs) {
   if (!existing.has(def.slug)) continue;
-  if (!(orderOf(def.slug) >= FIRST_ORDER)) {
+  if (!ownedByBatch6(orderOf(def.slug))) {
     throw new Error(`batch-6 slug ${def.slug} collides with an existing artwork`);
   }
 }
@@ -72,7 +75,7 @@ for (const def of defs) {
 // Drop artworks this batch used to own but no longer defines, so the
 // definitions stay the single source of truth for what ships.
 const dropped = [...existing].filter(
-  (slug) => !batchSlugs.has(slug) && orderOf(slug) >= FIRST_ORDER
+  (slug) => !batchSlugs.has(slug) && ownedByBatch6(orderOf(slug))
 );
 for (const slug of dropped) {
   unlinkSync(path.join(ARTWORKS_DIR, `${slug}.json`));

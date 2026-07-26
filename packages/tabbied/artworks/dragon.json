@@ -1,0 +1,50 @@
+{
+  "name": "Dragon",
+  "slug": "dragon",
+  "galleryOrder": 1033,
+  "galleryWhite": true,
+  "description": "The dragon curve's fold rule, read off the bits of the cell index.",
+  "palette": [
+    "#1A0E12",
+    "#FF6B6B",
+    "#FFD93D",
+    "#4ECDC4",
+    "#FF8A5C",
+    "#FFF1D6"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%); clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%); @match(@i & 1 == 1) { -webkit-transform: rotate(90deg); transform: rotate(90deg); } @match(@i & 2 == 2) { -webkit-transform: rotate(180deg); transform: rotate(180deg); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "Venetian",
+  "slug": "venetian",
+  "galleryOrder": 996,
+  "galleryWhite": true,
+  "description": "Venetian blind: broad horizontal slats, tilted a few degrees off flat.",
+  "palette": [
+    "#0F2A1E",
+    "#2F6B3C",
+    "#4F9D5D",
+    "#8CC084",
+    "#C8E6C0",
+    "#ECFFEC"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @svg(viewBox: 0 0 100 100; rect*5 { x: -1; y: calc(@n(-1) * 20 + 1); width: 102; height: 14; rx: 4; fill: #000 }); mask: @svg(viewBox: 0 0 100 100; rect*5 { x: -1; y: calc(@n(-1) * 20 + 1); width: 102; height: 14; rx: 4; fill: #000 }); -webkit-transform: rotate(@pick(-7deg, 0deg, 7deg)); transform: rotate(@pick(-7deg, 0deg, 7deg)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

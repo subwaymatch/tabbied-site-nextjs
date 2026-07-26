@@ -1,9 +1,9 @@
 {
   "name": "Scotia",
   "slug": "scotia",
-  "galleryOrder": 773,
+  "galleryOrder": 710,
   "galleryWhite": true,
-  "description": "The scotia — a deep concave hollow scooped out of the face of the moulding.",
+  "description": "The scotia — a quarter-round hollow scooped out of the block, its arc springing from one corner of the cell and landing on the next.",
   "palette": [
     "#2B1E1A",
     "#E2543E",
@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 96.0%, 0.0% 96.0%, 10.7% 95.4%, 21.4% 93.6%, 31.7% 90.6%, 41.7% 86.5%, 51.1% 81.3%, 59.9% 75.1%, 67.9% 67.9%, 75.1% 59.9%, 81.3% 51.1%, 86.5% 41.7%, 90.6% 31.7%, 93.6% 21.4%, 95.4% 10.7%, 96.0% 0.0%); clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 96.0%, 0.0% 96.0%, 10.7% 95.4%, 21.4% 93.6%, 31.7% 90.6%, 41.7% 86.5%, 51.1% 81.3%, 59.9% 75.1%, 67.9% 67.9%, 75.1% 59.9%, 81.3% 51.1%, 86.5% 41.7%, 90.6% 31.7%, 93.6% 21.4%, 95.4% 10.7%, 96.0% 0.0%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 100.0%, 0.0% 100.0%, 9.8% 99.5%, 19.5% 98.1%, 29.0% 95.7%, 38.3% 92.4%, 47.1% 88.2%, 55.6% 83.1%, 63.4% 77.3%, 70.7% 70.7%, 77.3% 63.4%, 83.1% 55.6%, 88.2% 47.1%, 92.4% 38.3%, 95.7% 29.0%, 98.1% 19.5%, 99.5% 9.8%, 100.0% 0.0%); clip-path: polygon(100.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%, 0.0% 100.0%, 0.0% 100.0%, 9.8% 99.5%, 19.5% 98.1%, 29.0% 95.7%, 38.3% 92.4%, 47.1% 88.2%, 55.6% 83.1%, 63.4% 77.3%, 70.7% 70.7%, 77.3% 63.4%, 83.1% 55.6%, 88.2% 47.1%, 92.4% 38.3%, 95.7% 29.0%, 98.1% 19.5%, 99.5% 9.8%, 100.0% 0.0%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
