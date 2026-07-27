@@ -93,6 +93,7 @@ export default function ShowcaseSite({ site, artworks }: Props) {
     '--line': dark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.12)',
     '--display': site.fonts.display,
     '--body': site.fonts.body,
+    ...(site.tracking ? { '--tracking': site.tracking } : {}),
   };
 
   const content = SHOWCASE_CONTENT[site.slug];
@@ -257,7 +258,7 @@ function Items({ site, content }: { site: Site; content?: Ctx['content'] }) {
   const promptFor = (seed: string) => content?.images[seed] ?? '';
   return (
     <section className={s.section} id="items">
-      <div className={s.sectionHead}><h2>{site.sectionTitle}</h2><p>{site.sectionSub}</p></div>
+      <SectionHead kicker={site.sectionKicker} title={site.sectionTitle} sub={site.sectionSub} />
       <div className={s.grid}>
         {site.items.map((it, i) => (
           <article className={s.card} key={it.seed}>

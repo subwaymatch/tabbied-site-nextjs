@@ -54,8 +54,7 @@ a bare URL is kept.
 ## Run it
 
 ```bash
-npm run build              # refreshes out/showcase/<slug>/index.html
-node samples/generate.mjs  # refreshes public/samples/<dir>/index.html
+npm run build                        # refreshes out/showcase/<slug>/index.html
 
 npm run images:extract               # 1. prompts -> .batch/prompts.json
 npm run images:build                 # 2. manifest -> .batch/tasks.json
@@ -73,7 +72,7 @@ step spells that `--force`:
 
 ```bash
 # One image. The id is the filename in public/images/showcase, minus .webp.
-node scripts/images/build-batch.mjs --force --only react__03-meridian__gallery-2
+node scripts/images/build-batch.mjs --force --only react__meridian__gallery-2
 npm run images:submit -- --force --watch
 npm run images:import -- --force
 ```
@@ -88,8 +87,7 @@ npm run images:import -- --force
 you: `--retry` only requeues tasks that *failed* or stalled, so a successful
 generation stays put no matter how often it is replanned.
 
-Scope with `--only`, which matches a stack (`static`, `react`), a site name
-(`03-meridian`), or any substring of an id — including an alias, so an id read
+Scope with `--only`, which matches a site name (`meridian`) or any substring of an id — including an alias, so an id read
 straight off a page finds the prompt that generates it. Without `--only`,
 `--force` regenerates **every** slot, which is a full paid run.
 
@@ -98,12 +96,11 @@ seed on KIE's side. To go back to the prompt card instead, delete the file and
 reindex:
 
 ```bash
-rm public/images/showcase/react__03-meridian__gallery-2.webp
+rm public/images/showcase/react__meridian__gallery-2.webp
 npm run images:index
 ```
 
-Rebuild afterwards either way (`npm run build`) so the static pages pick the
-change up.
+Rebuild afterwards either way (`npm run build`) so the pages pick the change up.
 
 ## Rate limiting
 
@@ -131,16 +128,17 @@ If KIE support raises your account limit, raise `KIE_RATE_LIMIT` to match.
 
 ## 1. extract-prompts.mjs
 
-Prompts are authored in three places (`components/showcase/showcaseContent.ts`,
-`components/showcase/showcaseSections.ts`, `samples/lib/static-sections.mjs`),
-but both stacks converge in the rendered HTML: every placeholder is a
-`<figure class="imgph" data-image-prompt="...">` carrying the final composed
-string, palette clause included. This reads the built pages so there is only one
-parser to keep honest.
+Prompts are authored in two places (`components/showcase/showcaseContent.ts` and
+`components/showcase/showcaseSections.ts`), but they converge in the rendered
+HTML: every placeholder is a `<figure class="imgph" data-image-prompt="...">`
+carrying the final composed string, palette clause included. This reads the built
+pages so there is only one parser to keep honest.
 
-Each record gets an id of `<stack>__<site>__<slot>-<index>`, for example
-`static__03-meridian__gallery-2`. That id is the output filename, so results
-route themselves back to slots. Identical prompts collapse to one generation,
+Each record gets an id of `react__<site>__<slot>-<index>`, for example
+`react__meridian__gallery-2`. (The `react__` segment is vestigial — there was
+once a second, static-HTML stack — but it is baked into 174 filenames, so it
+stays.) That id is the output filename, so results route themselves back to
+slots. Identical prompts collapse to one generation,
 with the extra ids recorded as `aliases`.
 
 Slot aspect comes from the layout and maps onto what the model offers. `z-image`
@@ -159,13 +157,12 @@ image on disk yet, so reruns are cheap and additive.
 
 ```bash
 node scripts/images/build-batch.mjs --all              # include what is already on disk
-node scripts/images/build-batch.mjs --only 05-sunday-press
+node scripts/images/build-batch.mjs --only sunday-press
 node scripts/images/build-batch.mjs --model z-image
 ```
 
 `--force` is an alias of `--all`, so the regenerate chain above reads the same
-at every step. `--only` matches a stack, a site, or any substring of an id or
-one of its aliases.
+at every step. `--only` matches a site, or any substring of an id or one of its aliases.
 
 KIE has no bulk-submit endpoint, so this is a plain plan rather than an upload
 file: one job per image, created and polled individually.
@@ -219,13 +216,10 @@ Those ids are listed on stdout and in `.batch/imported.json`; rerunning
 
 ## How slots pick up their image
 
-Both renderers check whether an image exists for a slot id and swap themselves:
-
-- `components/showcase/ImageCard.tsx` reads `components/showcase/generatedImages.ts`,
-  the generated list of ids. React cannot stat the filesystem at render time, so
-  `import-batch` (and `npm run images:index`) rewrites that module.
-- `imgCard()` in `samples/generate.mjs` runs in Node, so it stats
-  `public/images/showcase/<id>.webp` directly on every `node samples/generate.mjs`.
+`components/showcase/ImageCard.tsx` checks whether an image exists for a slot id
+and swaps itself. React cannot stat the filesystem at render time, so the set of
+finished ids is mirrored into `components/showcase/generatedImages.ts`, which
+`import-batch` (and `npm run images:index`) rewrites.
 
 A filled slot renders `<img>` cropped with `object-fit: cover` and moves the
 copy button to a hover overlay; an unfilled one keeps the prompt card. A half
@@ -237,9 +231,3 @@ rerun `images:extract` after content edits. After an import, rebuild:
 ```bash
 npm run build
 ```
-
-`prebuild` runs `samples/generate.mjs`, so the static pages pick up new images on
-any build. They used to need a separate manual run, which made them lag behind
-the React pages after an import: React reads the generated
-`generatedImages.ts` that `import-batch` writes, so it refreshed on its own,
-while the static HTML kept showing prompt cards until the generator was run.

@@ -1,10 +1,14 @@
-// Content + theming for the ten React-component showcase sites. Each site is a
-// fictional brand whose primary design accent is a Tabbied artwork rendered by
-// the `TabbiedArtwork` React component (see ShowcaseSite.tsx). Every site is
-// themed with one palette from the Tabbied library (lib/paletteLibrary.ts) and
-// built around one preset artwork, a set deliberately distinct from the ten
-// static-HTML samples under public/samples/, so the full showcase spans twenty
+// Content + theming for the twenty showcase sites. Each site is a fictional
+// brand whose primary design accent is a Tabbied artwork rendered by the
+// `TabbiedArtwork` React component (see ShowcaseSite.tsx). Every site is themed
+// with one palette from the Tabbied library (lib/paletteLibrary.ts) and built
+// around one preset artwork, so the showcase spans twenty distinct
 // palette/artwork pairings.
+//
+// Sites 11-20 were authored here; sites 1-10 began life as self-contained
+// static-HTML builds under public/samples/ and were ported into this stack once
+// it was clear both were rendering the same four layouts and the same nineteen
+// section types from two separate codebases.
 //
 // The artwork definition itself is imported by each route's page.tsx (so the
 // bundler ships only the presets in use) and passed to ShowcaseSite; this file
@@ -16,8 +20,7 @@ export type ShowcaseItem = {
   eyebrow: string;
   title: string;
   meta: string;
-  /** css-doodle grid for this item's accent, e.g. '6x8'. */
-  grid: string;
+  /** Key into ShowcaseContent.images for this card's prompt. */
   seed: string;
 };
 
@@ -36,6 +39,11 @@ export type ShowcaseSite = {
   layout: ShowcaseLayout;
   /** Google Fonts family names: [display, body]. Loaded via <link> in the page. */
   fonts: { href: string; display: string; body: string };
+  /**
+   * Optional per-site letter-spacing, added on top of every tracked rule in
+   * ShowcaseSite.module.css (and inherited by the rest). Negative tightens.
+   */
+  tracking?: string;
   favicon: string;
   nav: string[];
   eyebrow: string;
@@ -48,18 +56,14 @@ export type ShowcaseSite = {
   ticker?: string[];
   /** Stat strip (split/spotlight). */
   stats?: { n: string; l: string }[];
+  /** Optional index label above the section title. */
+  sectionKicker?: string;
   sectionTitle: string;
   sectionSub: string;
   items: ShowcaseItem[];
   /** Closing band copy. */
   bandTitle: string;
   bandCta: string;
-  /** Hero accent grid + seed. */
-  heroGrid: string;
-  heroSeed: string;
-  /** Band accent grid + seed. */
-  bandGrid: string;
-  bandSeed: string;
   /** split only, put the doodle panel on the left. */
   reverse?: boolean;
 };
@@ -99,16 +103,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'Upcoming retreats',
     sectionSub: 'Seasons on the coast, each with its own rhythm.',
     items: [
-      { eyebrow: 'Spring', title: 'Tidewater Reset', meta: 'Big Sur · Apr 12–19', grid: '5x6', seed: 'sol1' },
-      { eyebrow: 'Summer', title: 'Long Light', meta: 'Mendocino · Jun 20–27', grid: '6x7', seed: 'sol2' },
-      { eyebrow: 'Autumn', title: 'Amber Hours', meta: 'Sonoma · Sep 14–21', grid: '5x6', seed: 'sol3' },
+      { eyebrow: 'Spring', title: 'Tidewater Reset', meta: 'Big Sur · Apr 12–19', seed: 'sol1' },
+      { eyebrow: 'Summer', title: 'Long Light', meta: 'Mendocino · Jun 20–27', seed: 'sol2' },
+      { eyebrow: 'Autumn', title: 'Amber Hours', meta: 'Sonoma · Sep 14–21', seed: 'sol3' },
     ],
     bandTitle: 'Your quietest week of the year is waiting.',
     bandCta: 'Reserve your mat',
-    heroGrid: '6x9',
-    heroSeed: 'SOLST',
-    bandGrid: '10x6',
-    bandSeed: 'SOLBAND',
   },
 
   // 12, Harbor & Vine · natural wine bar · Cranberry · quilt
@@ -138,16 +138,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'On the list this week',
     sectionSub: 'Rotating pours from growers we love.',
     items: [
-      { eyebrow: 'Orange', title: 'Ribolla Gialla', meta: 'Friuli, IT · glass 14', grid: '6x8', seed: 'hv1' },
-      { eyebrow: 'Sparkling', title: 'Pét-Nat Rosé', meta: 'Loire, FR · glass 12', grid: '7x9', seed: 'hv2' },
-      { eyebrow: 'Red', title: 'Gamay Nouveau', meta: 'Beaujolais · glass 13', grid: '6x8', seed: 'hv3' },
+      { eyebrow: 'Orange', title: 'Ribolla Gialla', meta: 'Friuli, IT · glass 14', seed: 'hv1' },
+      { eyebrow: 'Sparkling', title: 'Pét-Nat Rosé', meta: 'Loire, FR · glass 12', seed: 'hv2' },
+      { eyebrow: 'Red', title: 'Gamay Nouveau', meta: 'Beaujolais · glass 13', seed: 'hv3' },
     ],
     bandTitle: 'Pull up a stool. We’ll pour you something new.',
     bandCta: 'Reserve a seat',
-    heroGrid: '8x12',
-    heroSeed: 'HARBOR',
-    bandGrid: '12x7',
-    bandSeed: 'HVBAND',
   },
 
   // 13, Lumen · design conference · Arcade · spectrum
@@ -178,16 +174,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'Featured speakers',
     sectionSub: 'A first look at the 2026 lineup.',
     items: [
-      { eyebrow: 'Keynote', title: 'Generative Systems', meta: 'Ana Reis · Stage A', grid: '6x6', seed: 'lum1' },
-      { eyebrow: 'Talk', title: 'Designing for Doubt', meta: 'Kwame Bell · Stage B', grid: '8x8', seed: 'lum2' },
-      { eyebrow: 'Workshop', title: 'Color at Scale', meta: 'Mei Tan · Lab 2', grid: '7x7', seed: 'lum3' },
+      { eyebrow: 'Keynote', title: 'Generative Systems', meta: 'Ana Reis · Stage A', seed: 'lum1' },
+      { eyebrow: 'Talk', title: 'Designing for Doubt', meta: 'Kwame Bell · Stage B', seed: 'lum2' },
+      { eyebrow: 'Workshop', title: 'Color at Scale', meta: 'Mei Tan · Lab 2', seed: 'lum3' },
     ],
     bandTitle: 'Early-bird tickets are nearly gone.',
     bandCta: 'Claim your pass',
-    heroGrid: '7x11',
-    heroSeed: 'LUMEN',
-    bandGrid: '10x6',
-    bandSeed: 'LUMBAND',
   },
 
   // 14, Fathom · ocean research nonprofit · Lagoon · lattice
@@ -221,16 +213,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'Current expeditions',
     sectionSub: 'Live science, from surface to seabed.',
     items: [
-      { eyebrow: 'Pacific', title: 'Twilight Zone Survey', meta: '200–1000m · ongoing', grid: '8x10', seed: 'fat1' },
-      { eyebrow: 'Atlantic', title: 'Coral Census', meta: 'Reef health · Q2', grid: '9x12', seed: 'fat2' },
-      { eyebrow: 'Arctic', title: 'Ice-Edge Drift', meta: 'Cold currents · Q3', grid: '8x10', seed: 'fat3' },
+      { eyebrow: 'Pacific', title: 'Twilight Zone Survey', meta: '200–1000m · ongoing', seed: 'fat1' },
+      { eyebrow: 'Atlantic', title: 'Coral Census', meta: 'Reef health · Q2', seed: 'fat2' },
+      { eyebrow: 'Arctic', title: 'Ice-Edge Drift', meta: 'Cold currents · Q3', seed: 'fat3' },
     ],
     bandTitle: 'Open science needs open funding.',
     bandCta: 'Become a member',
-    heroGrid: '9x13',
-    heroSeed: 'FATHOM',
-    bandGrid: '14x8',
-    bandSeed: 'FATBAND',
     reverse: true,
   },
 
@@ -260,16 +248,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'From the hearth',
     sectionSub: 'Tonight’s fire, plated three ways.',
     items: [
-      { eyebrow: 'To start', title: 'Charred Leek', meta: 'ember cream · hazelnut', grid: '6x9', seed: 'emb1' },
-      { eyebrow: 'The main', title: 'Oak-Fired Rib', meta: '45-day · bone marrow', grid: '7x10', seed: 'emb2' },
-      { eyebrow: 'To finish', title: 'Smoked Pear', meta: 'honey · burnt cream', grid: '6x9', seed: 'emb3' },
+      { eyebrow: 'To start', title: 'Charred Leek', meta: 'ember cream · hazelnut', seed: 'emb1' },
+      { eyebrow: 'The main', title: 'Oak-Fired Rib', meta: '45-day · bone marrow', seed: 'emb2' },
+      { eyebrow: 'To finish', title: 'Smoked Pear', meta: 'honey · burnt cream', seed: 'emb3' },
     ],
     bandTitle: 'The best seat in the house faces the fire.',
     bandCta: 'Book your evening',
-    heroGrid: '8x12',
-    heroSeed: 'EMBER',
-    bandGrid: '12x8',
-    bandSeed: 'EMBBAND',
   },
 
   // 16, Petal & Post · florist + stationery · Blush · frond
@@ -303,16 +287,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'This week’s blooms',
     sectionSub: 'Cut this morning, arranged to order.',
     items: [
-      { eyebrow: 'Signature', title: 'Blush Garden', meta: 'ranunculus · sweet pea', grid: '5x7', seed: 'pet1' },
-      { eyebrow: 'Bright', title: 'Coral Market', meta: 'dahlia · cosmos', grid: '6x8', seed: 'pet2' },
-      { eyebrow: 'Soft', title: 'First Light', meta: 'peony · astilbe', grid: '5x7', seed: 'pet3' },
+      { eyebrow: 'Signature', title: 'Blush Garden', meta: 'ranunculus · sweet pea', seed: 'pet1' },
+      { eyebrow: 'Bright', title: 'Coral Market', meta: 'dahlia · cosmos', seed: 'pet2' },
+      { eyebrow: 'Soft', title: 'First Light', meta: 'peony · astilbe', seed: 'pet3' },
     ],
     bandTitle: 'Fresh flowers on the table, every other week.',
     bandCta: 'Start a subscription',
-    heroGrid: '6x9',
-    heroSeed: 'PETAL',
-    bandGrid: '11x6',
-    bandSeed: 'PETBAND',
   },
 
   // 17, Northwind · outdoor apparel · Forest · maze
@@ -343,16 +323,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'New in the range',
     sectionSub: 'Layers that earn their place in the pack.',
     items: [
-      { eyebrow: 'Shell', title: 'Ridgeline Jacket', meta: '3-layer · $340', grid: '7x10', seed: 'nor1' },
-      { eyebrow: 'Insulation', title: 'Cirrus Down', meta: '800-fill · $260', grid: '8x11', seed: 'nor2' },
-      { eyebrow: 'Base', title: 'Merino Crew', meta: '190gsm · $95', grid: '7x10', seed: 'nor3' },
+      { eyebrow: 'Shell', title: 'Ridgeline Jacket', meta: '3-layer · $340', seed: 'nor1' },
+      { eyebrow: 'Insulation', title: 'Cirrus Down', meta: '800-fill · $260', seed: 'nor2' },
+      { eyebrow: 'Base', title: 'Merino Crew', meta: '190gsm · $95', seed: 'nor3' },
     ],
     bandTitle: 'Wherever the trail ends, we’ll repair it for free.',
     bandCta: 'Read the guarantee',
-    heroGrid: '8x12',
-    heroSeed: 'NORTH',
-    bandGrid: '12x7',
-    bandSeed: 'NORBAND',
   },
 
   // 18, Honeycomb · kids learning app · Honey · bokeh
@@ -386,16 +362,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'What kids play',
     sectionSub: 'Worlds that grow with every right answer.',
     items: [
-      { eyebrow: 'Reading', title: 'Word Meadow', meta: 'phonics · ages 4–6', grid: '5x5', seed: 'hon1' },
-      { eyebrow: 'Numbers', title: 'Count Hive', meta: 'early math · ages 5–7', grid: '6x6', seed: 'hon2' },
-      { eyebrow: 'Logic', title: 'Puzzle Grove', meta: 'patterns · ages 6–9', grid: '5x5', seed: 'hon3' },
+      { eyebrow: 'Reading', title: 'Word Meadow', meta: 'phonics · ages 4–6', seed: 'hon1' },
+      { eyebrow: 'Numbers', title: 'Count Hive', meta: 'early math · ages 5–7', seed: 'hon2' },
+      { eyebrow: 'Logic', title: 'Puzzle Grove', meta: 'patterns · ages 6–9', seed: 'hon3' },
     ],
     bandTitle: 'Two weeks free. Cancel in one tap.',
     bandCta: 'Try Honeycomb',
-    heroGrid: '6x9',
-    heroSeed: 'HONEY',
-    bandGrid: '10x6',
-    bandSeed: 'HONBAND',
     reverse: true,
   },
 
@@ -425,16 +397,12 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'The Prism collection',
     sectionSub: 'Colour, held to the light.',
     items: [
-      { eyebrow: 'N° 01', title: 'Aurora Ring', meta: 'sapphire · 18k', grid: '6x8', seed: 'fac1' },
-      { eyebrow: 'N° 02', title: 'Spectra Drop', meta: 'tourmaline · platinum', grid: '7x9', seed: 'fac2' },
-      { eyebrow: 'N° 03', title: 'Facet Band', meta: 'diamond · rose gold', grid: '6x8', seed: 'fac3' },
+      { eyebrow: 'N° 01', title: 'Aurora Ring', meta: 'sapphire · 18k', seed: 'fac1' },
+      { eyebrow: 'N° 02', title: 'Spectra Drop', meta: 'tourmaline · platinum', seed: 'fac2' },
+      { eyebrow: 'N° 03', title: 'Facet Band', meta: 'diamond · rose gold', seed: 'fac3' },
     ],
     bandTitle: 'Bring us a stone, or start with a spark.',
     bandCta: 'Design something bespoke',
-    heroGrid: '8x12',
-    heroSeed: 'FACET',
-    bandGrid: '12x8',
-    bandSeed: 'FACBAND',
   },
 
   // 20, Seabright · coastal skincare · Seaglass · metro
@@ -468,16 +436,355 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     sectionTitle: 'The daily ritual',
     sectionSub: 'Three steps, morning and night.',
     items: [
-      { eyebrow: 'Cleanse', title: 'Tide Gel', meta: 'sea kelp · 150ml', grid: '6x8', seed: 'sea1' },
-      { eyebrow: 'Treat', title: 'Mineral Serum', meta: 'zinc · magnesium', grid: '7x9', seed: 'sea2' },
-      { eyebrow: 'Protect', title: 'Day Fluid SPF30', meta: 'non-nano · 50ml', grid: '6x8', seed: 'sea3' },
+      { eyebrow: 'Cleanse', title: 'Tide Gel', meta: 'sea kelp · 150ml', seed: 'sea1' },
+      { eyebrow: 'Treat', title: 'Mineral Serum', meta: 'zinc · magnesium', seed: 'sea2' },
+      { eyebrow: 'Protect', title: 'Day Fluid SPF30', meta: 'non-nano · 50ml', seed: 'sea3' },
     ],
     bandTitle: 'Your skin, and the sea, will thank you.',
     bandCta: 'Build your ritual',
-    heroGrid: '7x11',
-    heroSeed: 'SEABR',
-    bandGrid: '12x7',
-    bandSeed: 'SEABAND',
+    reverse: true,
+  },
+
+  // ---- Ported from the static-HTML samples (sites 1-10) ----
+  {
+    slug: 'aurora-sound',
+    brand: 'Aurora Sound',
+    topic: 'Electronic music label',
+    artwork: 'neon',
+    artworks: ['neon', 'spectrum', 'prisma', 'bokeh'],
+    paletteId: 'lib-neon',
+    paletteName: 'Neon',
+    colors: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'],
+    layout: 'spotlight',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap',
+      display: "'Sora', system-ui, sans-serif",
+      body: "'Space Grotesk', system-ui, sans-serif",
+    },
+    favicon: '🎧',
+    nav: ['Releases', 'Artists', 'Events', 'About'],
+    eyebrow: 'Independent · Est. 2019',
+    title: 'Sound for the {em}small hours{/em}.',
+    lede: 'An independent label for forward-looking club, ambient, and everything that glows in between. Pressed with love, mixed for midnight.',
+    primaryCta: 'Latest releases',
+    secondaryCta: 'Listen live',
+    ticker: ['NEW SIGNINGS', 'WAX & DIGITAL', 'DEEP CUTS', 'AFTER HOURS'],
+    sectionTitle: 'Recent releases',
+    sectionSub: 'Twelve inches and twelve bits, mastered for the floor and the headphones.',
+    items: [
+      { eyebrow: 'LP', title: 'Neon Tides', meta: 'KAORU · 2026', seed: 'r1' },
+      { eyebrow: 'EP', title: 'Halcyon', meta: 'Vela & Mor · 2026', seed: 'r2' },
+      { eyebrow: 'Single', title: 'Afterglow', meta: 'S U N J A · 2025', seed: 'r3' },
+    ],
+    bandTitle: 'Turn it up. The next one lands Friday.',
+    bandCta: 'Pre-save the release',
+  },
+
+  {
+    slug: 'terra-ceramics',
+    brand: 'Terra Ceramics',
+    topic: 'Pottery & ceramics studio',
+    artwork: 'pebble',
+    artworks: ['pebble', 'bowl', 'lobe', 'quilt'],
+    paletteId: 'lib-terracotta',
+    paletteName: 'Terracotta',
+    colors: ['#f7ede2', '#c1502e', '#84582c', '#2f3e46'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&display=swap',
+      display: "'Fraunces', Georgia, serif",
+      body: "'Inter', system-ui, sans-serif",
+    },
+    favicon: '🏺',
+    nav: ['Shop', 'Studio', 'Classes', 'Journal'],
+    eyebrow: 'Small-batch · Thrown by hand',
+    title: 'Quiet objects for {em}everyday{/em} rituals.',
+    lede: 'Each piece is wheel-thrown, glazed, and fired in our riverside studio. No two exactly alike, all made to be used.',
+    primaryCta: 'Shop the collection',
+    secondaryCta: 'Book a class',
+    stats: [{ n: '1,400°', l: 'Stoneware firing' }, { n: '6 wks', l: 'Kiln to table' }, { n: '100%', l: 'Lead-free glaze' }],
+    sectionTitle: 'The Riverstone collection',
+    sectionSub: 'Tableware toned after wet clay and dusk.',
+    items: [
+      { eyebrow: 'Bowls', title: 'Ripple Bowl', meta: '$48', seed: 'p1' },
+      { eyebrow: 'Mugs', title: 'Ember Mug', meta: '$34', seed: 'p2' },
+      { eyebrow: 'Vases', title: 'Dune Vase', meta: '$92', seed: 'p3' },
+    ],
+    bandTitle: 'We make things that ask to be picked up.',
+    bandCta: 'Visit the studio',
+  },
+
+  {
+    slug: 'meridian',
+    brand: 'Meridian',
+    topic: 'Payments infrastructure',
+    artwork: 'circuit',
+    artworks: ['circuit', 'lattice', 'metro', 'windowpane'],
+    paletteId: 'lib-cobalt',
+    paletteName: 'Cobalt',
+    colors: ['#0a1a3f', '#1e4fd6', '#3eecff', '#eef4ff'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap',
+      display: "'Manrope', system-ui, sans-serif",
+      body: "'Manrope', system-ui, sans-serif",
+    },
+    favicon: '⬡',
+    nav: ['Products', 'Developers', 'Pricing', 'Docs'],
+    eyebrow: 'Money movement · API-first',
+    title: 'Payments {em}infrastructure{/em} for software that moves money.',
+    lede: 'One API for cards, transfers, and ledgers. Ship compliant money movement in days, not quarters.',
+    primaryCta: 'Start building',
+    secondaryCta: 'Book a demo',
+    stats: [{ n: '40+', l: 'Currencies' }, { n: '99.99%', l: 'Uptime' }, { n: '3 lines', l: 'To first charge' }],
+    sectionTitle: 'Built for the whole lifecycle',
+    sectionSub: 'From the first authorization to reconciliation.',
+    items: [
+      { eyebrow: 'Ledger', title: 'Unified Ledger', meta: 'Real-time, double-entry', seed: 'm1' },
+      { eyebrow: 'Routing', title: 'Adaptive Routing', meta: 'Highest-converting path', seed: 'm2' },
+      { eyebrow: 'Risk', title: 'Fraud Signals', meta: 'Scoring on every event', seed: 'm3' },
+    ],
+    bandTitle: 'Go live this quarter.',
+    bandCta: 'Create an account',
+  },
+
+  {
+    slug: 'verdant',
+    brand: 'Verdant',
+    topic: 'Indoor plant shop',
+    artwork: 'foliage',
+    artworks: ['foliage', 'frond', 'ivy', 'blossom'],
+    paletteId: 'lib-fern',
+    paletteName: 'Fern',
+    colors: ['#f4faf0', '#2d6a4f', '#95d5b2', '#1b4332'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap',
+      display: "'DM Serif Display', Georgia, serif",
+      body: "'DM Sans', system-ui, sans-serif",
+    },
+    favicon: '🌿',
+    nav: ['Shop', 'Care Guides', 'Gifts', 'Studio'],
+    eyebrow: 'Hand-picked · Delivered potted',
+    title: 'Green, made {em}easy{/em}.',
+    lede: 'Hand-picked houseplants matched to your light, delivered to your door with everything they need to thrive.',
+    primaryCta: 'Find your plant',
+    secondaryCta: 'Care quiz',
+    stats: [{ n: 'Next-day', l: 'Local delivery' }, { n: '30-day', l: 'Thrive promise' }, { n: '120+', l: 'Varieties' }],
+    sectionTitle: 'Easy-care favourites',
+    sectionSub: 'Cut this morning, potted and ready to go.',
+    items: [
+      { eyebrow: 'Low light', title: 'ZZ Plant', meta: '$32', seed: 'v1' },
+      { eyebrow: 'Bright indirect', title: 'Fiddle Fig', meta: '$68', seed: 'v2' },
+      { eyebrow: 'Statement', title: 'Bird of Paradise', meta: '$95', seed: 'v3' },
+    ],
+    bandTitle: 'Your greenest room is one box away.',
+    bandCta: 'Start the quiz',
+    reverse: true,
+  },
+
+  {
+    slug: 'sunday-press',
+    brand: 'The Sunday Press',
+    topic: 'Ideas, design & culture',
+    artwork: 'bauhaus',
+    artworks: ['bauhaus', 'windowpane', 'damier', 'tetro'],
+    paletteId: 'lib-bauhaus',
+    paletteName: 'Bauhaus',
+    colors: ['#f4f1ea', '#d7263d', '#1b6ca8', '#f7b32b', '#232529'],
+    layout: 'editorial',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap',
+      display: "'Archivo', system-ui, sans-serif",
+      body: "'Newsreader', Georgia, serif",
+    },
+    favicon: '📰',
+    nav: ['Design', 'Technology', 'Essays', 'Archive'],
+    eyebrow: 'Vol. XII',
+    title: 'Ideas, design, and the culture around them.',
+    lede: 'An independent magazine on design, technology, and the culture around them.',
+    primaryCta: 'Subscribe',
+    secondaryCta: 'Read the issue',
+    sectionTitle: 'In this issue',
+    sectionSub: 'Long reads from the current edition.',
+    items: [
+      { eyebrow: 'The Feature', title: 'The Return of the Grid', meta: 'By Mara Lindqvist · 14 min', seed: 's1' },
+      { eyebrow: 'Technology', title: 'Small Software', meta: 'By Idris Bell · 9 min', seed: 's2' },
+      { eyebrow: 'Essays', title: 'In Praise of the Ugly Draft', meta: 'By Nora Vance · 7 min', seed: 's3' },
+    ],
+    bandTitle: 'Six dollars a month keeps us independent.',
+    bandCta: 'Become a member',
+  },
+
+  {
+    slug: 'zest',
+    brand: 'Zest',
+    topic: 'Bright, fast weeknight cooking',
+    artwork: 'quoit',
+    artworks: ['quoit', 'annulus', 'sliver', 'spark'],
+    paletteId: 'lib-citrus',
+    paletteName: 'Citrus',
+    colors: ['#fffbe6', '#ff9f1c', '#2ec4b6', '#e71d36'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+      display: "'Inter', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
+    },
+    tracking: '-0.012em',
+    favicon: '🍋',
+    nav: ['Recipes', 'Quick', 'Vegetarian', 'Baking'],
+    eyebrow: '30 minutes or less',
+    title: 'Dinner that {em}actually{/em} gets made.',
+    lede: 'Bright, punchy recipes with short lists and shorter cook times, the kind you cook on a Tuesday and brag about on Friday.',
+    primaryCta: "Tonight's recipe",
+    secondaryCta: 'Browse all',
+    stats: [{ n: '15 min', l: 'Fastest meals' }, { n: '1 pan', l: 'Less washing up' }, { n: '4.9★', l: 'Reader rating' }],
+    sectionTitle: "This week's brightest",
+    sectionSub: 'Fresh from the test kitchen, sorted by speed.',
+    items: [
+      { eyebrow: '20 min', title: 'Chili-Lime Corn Bowls', meta: '4 servings', seed: 'z1' },
+      { eyebrow: '15 min', title: 'Blistered Tomato Orzo', meta: '2 servings', seed: 'z2' },
+      { eyebrow: '30 min', title: 'Sesame Crunch Noodles', meta: '4 servings', seed: 'z3' },
+    ],
+    bandTitle: "What's for dinner? We already answered that.",
+    bandCta: 'See tonight’s recipe',
+  },
+
+  {
+    slug: 'nocturne',
+    brand: 'Nocturne',
+    topic: 'Fragrance for the small hours',
+    artwork: 'veil',
+    artworks: ['veil', 'bokeh', 'lunette', 'prisma'],
+    paletteId: 'lib-amethyst',
+    paletteName: 'Amethyst',
+    colors: ['#12071f', '#5a189a', '#9d4edd', '#e0aaff'],
+    layout: 'boutique',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap',
+      display: "'Cormorant Garamond', Georgia, serif",
+      body: "'Jost', system-ui, sans-serif",
+    },
+    favicon: '🌙',
+    nav: ['Collection', 'The House', 'Discovery Set'],
+    eyebrow: 'Eau de Parfum · Extrait',
+    title: 'After{em}dark{/em}',
+    lede: 'Fragrance composed for the small hours, when the city quiets and scent speaks loudest.',
+    primaryCta: 'Discover the collection',
+    secondaryCta: 'Book a consultation',
+    sectionTitle: 'The Maison collection',
+    sectionSub: 'Seven hours of night, bottled.',
+    items: [
+      { eyebrow: 'N° 01', title: 'Velvet Hour', meta: 'iris · suede · black plum', seed: 'n1' },
+      { eyebrow: 'N° 02', title: 'Midnight Bloom', meta: 'tuberose · incense · amber', seed: 'n2' },
+      { eyebrow: 'N° 03', title: 'Last Train', meta: 'vetiver · smoke · bergamot', seed: 'n3' },
+    ],
+    bandTitle: 'A perfume is a memory you can wear before it happens.',
+    bandCta: 'Order a discovery set',
+  },
+
+  {
+    slug: 'shoreline',
+    brand: 'Shoreline',
+    topic: 'Coastal architecture studio',
+    artwork: 'awning',
+    artworks: ['awning', 'picket', 'sail', 'lattice'],
+    paletteId: 'lib-ocean',
+    paletteName: 'Ocean',
+    colors: ['#0b2545', '#8da9c4', '#eef4ed', '#13a8a8'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap',
+      display: "'Spectral', Georgia, serif",
+      body: "'Outfit', system-ui, sans-serif",
+    },
+    favicon: '⛵',
+    nav: ['Work', 'Studio', 'Approach', 'Contact'],
+    eyebrow: 'Architecture · Est. 2008',
+    title: 'Houses that hold the weather and {em}let in the light{/em}.',
+    lede: 'We design durable, low-slung homes for the coast. Buildings that weather beautifully and sit lightly on the land.',
+    primaryCta: 'Start a project',
+    secondaryCta: 'See our work',
+    stats: [{ n: '60+', l: 'Completed homes' }, { n: '3', l: 'RIBA awards' }, { n: '18 yrs', l: 'On the coast' }],
+    sectionTitle: 'Selected work',
+    sectionSub: 'A decade of coastline, from cabins to civic rooms.',
+    items: [
+      { eyebrow: 'Whitstable, UK', title: 'Salt House', meta: '2024', seed: 'w1' },
+      { eyebrow: 'Cape Cod, US', title: 'Dune Pavilion', meta: '2023', seed: 'w2' },
+      { eyebrow: 'Sagres, PT', title: 'Harbour Rooms', meta: '2022', seed: 'w3' },
+    ],
+    bandTitle: 'Building something by the water?',
+    bandCta: 'Start a conversation',
+  },
+
+  {
+    slug: 'pixel-playhouse',
+    brand: 'Pixel Playhouse',
+    topic: 'Indie game studio',
+    artwork: 'tetro',
+    artworks: ['tetro', 'maze', 'bloks', 'notchblock'],
+    paletteId: 'lib-vaporwave',
+    paletteName: 'Vaporwave',
+    colors: ['#2d0a45', '#ff6ad5', '#c774e8', '#94d0ff', '#ad8cff'],
+    layout: 'spotlight',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&display=swap',
+      display: "'Chivo', system-ui, sans-serif",
+      body: "'Space Grotesk', system-ui, sans-serif",
+    },
+    favicon: '🕹️',
+    nav: ['Games', 'Studio', 'Devlog'],
+    eyebrow: '▶ Now in early access',
+    title: 'Cozy games about {em}small worlds{/em}.',
+    lede: 'A tiny studio making colourful, low-stress games you can lose an evening to. No crunch, just vibes.',
+    primaryCta: 'Play the demo',
+    secondaryCta: 'See our games',
+    ticker: ['MADE BY 3 FRIENDS', 'NO CRUNCH', 'SOUNDTRACK ON BANDCAMP', 'PLAYHOUSE ARCADE'],
+    stats: [{ n: '3', l: 'Friends' }, { n: '4', l: 'Games shipped' }, { n: '0', l: 'Crunch weeks' }],
+    sectionTitle: 'Our games',
+    sectionSub: 'Little worlds, made with care.',
+    items: [
+      { eyebrow: 'Out now', title: 'Sunset Suburbia', meta: 'Dusk-only life sim', seed: 'g1' },
+      { eyebrow: 'Demo', title: 'Neon Courier', meta: 'Rooftop delivery roguelite', seed: 'g2' },
+      { eyebrow: '2027', title: 'Tidepool', meta: 'Build a reef, one creature at a time', seed: 'g3' },
+    ],
+    bandTitle: 'Come lose an evening in a small world.',
+    bandCta: 'Play the demo',
+  },
+
+  {
+    slug: 'roast-and-co',
+    brand: 'Roast & Co',
+    topic: 'Specialty coffee roasters',
+    artwork: 'halftone',
+    artworks: ['halftone', 'grain', 'dogtooth', 'pebble'],
+    paletteId: 'lib-espresso',
+    paletteName: 'Espresso',
+    colors: ['#efebe4', '#6f4e37', '#3b2417', '#c9a66b'],
+    layout: 'split',
+    fonts: {
+      href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;800&family=Work+Sans:wght@400;500;600&display=swap',
+      display: "'Playfair Display', Georgia, serif",
+      body: "'Work Sans', system-ui, sans-serif",
+    },
+    favicon: '☕',
+    nav: ['Shop', 'Subscriptions', 'Wholesale', 'Roastery'],
+    eyebrow: 'Small-lot · Roasted to order',
+    title: 'Coffee with a {em}sense of place{/em}.',
+    lede: 'We source single-origin lots from growers we know by name and roast them in small batches the day before they ship.',
+    primaryCta: 'Shop the beans',
+    secondaryCta: 'Start a subscription',
+    stats: [{ n: '24 hr', l: 'Roast to ship' }, { n: 'Direct', l: 'Trade sourcing' }, { n: 'Traceable', l: 'Every lot' }],
+    sectionTitle: "This month's roasts",
+    sectionSub: 'The current lineup, roasted to order.',
+    items: [
+      { eyebrow: 'Ethiopia', title: 'Guji Highlands', meta: 'blueberry · jasmine · honey', seed: 'c1' },
+      { eyebrow: 'Colombia', title: 'Huila Reserve', meta: 'cocoa · red apple · caramel', seed: 'c2' },
+      { eyebrow: 'Kenya', title: 'Nyeri AA', meta: 'blackcurrant · tomato · sugar', seed: 'c3' },
+    ],
+    bandTitle: 'Fresh beans on your counter every other Friday.',
+    bandCta: 'Start a subscription',
     reverse: true,
   },
 ];

@@ -1,19 +1,18 @@
 // Step 1 of 4. Harvest every image prompt in the showcase into a manifest.
 //
-// The prompts live in three source modules (components/showcase/showcaseContent.ts,
-// components/showcase/showcaseSections.ts, samples/lib/static-sections.mjs), but
-// both stacks converge on one thing in the rendered HTML: every slot is a
+// The prompts are authored across two modules (components/showcase/showcaseContent.ts
+// and components/showcase/showcaseSections.ts), but they converge on one thing in
+// the rendered HTML: every slot is a
 // <figure class="imgph" data-image-id="..." data-image-prompt="..."> holding the
 // final composed string, palette clause and all. So the built pages are the
-// single source read here instead of three parsers that could drift.
+// single source read here instead of two parsers that could drift.
 //
-// The id is authored by the renderers (imageId() in ShowcaseSite.tsx and in
-// samples/generate.mjs), which is also what they check against
-// public/images/showcase to decide whether to show the image or the prompt. It
-// is read straight off the tag so the two sides cannot disagree.
+// The id is authored by the renderer (imageId() in ShowcaseSite.tsx), which is
+// also what it checks against public/images/showcase to decide whether to show
+// the image or the prompt. It is read straight off the tag so the two sides
+// cannot disagree.
 //
 //   npm run build            # writes out/showcase/<slug>/index.html
-//   node samples/generate.mjs  # writes public/samples/<dir>/index.html
 //   node scripts/images/extract-prompts.mjs
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,8 +20,10 @@ import { ASPECT_RATIO, MANIFEST, PROMPT_MAX, ROOT, SLOTS, argv, imagePath, write
 
 const args = argv();
 
+// One stack now, but the id keeps its `react__` prefix: it is the filename of
+// every image already generated, and renaming 174 files to drop a redundant
+// segment would be churn for its own sake.
 const SOURCES = [
-  { stack: 'static', dir: path.join(ROOT, 'public/samples'), hint: 'node samples/generate.mjs' },
   { stack: 'react', dir: path.join(ROOT, 'out/showcase'), hint: 'npm run build' },
 ];
 

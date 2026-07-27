@@ -23,10 +23,11 @@ function GithubIcon({ size = 24 }: { size?: number }) {
   );
 }
 
-// `external` items point at static files outside the Next app (e.g. the
-// /samples/ showcase, a plain-HTML export in public/). They render as a real
-// <a> so the browser does a full navigation instead of client-side routing,
-// which has no route to resolve for them.
+// `external` items point at static files outside the Next app. They render as a
+// real <a> so the browser does a full navigation instead of client-side routing,
+// which has no route to resolve for them. Nothing uses it today — the showcase
+// sites became Next routes under /showcase/ — but the escape hatch is cheap to
+// keep for the next thing dropped into public/.
 type NavItem = { href: string; label: string; external?: boolean };
 
 const navItems: NavItem[] = [

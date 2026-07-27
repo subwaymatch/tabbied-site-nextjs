@@ -3,20 +3,17 @@ import type { CSSProperties, ReactNode } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import {
-  // static-sample primaries
   neon, pebble, circuit, foliage, bauhaus, quoit, veil, awning, tetro, halftone,
-  // react-showcase primaries
   lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 } from 'tabbied/artworks';
 import LazyArtwork from './LazyArtwork';
-import { STATIC_SAMPLES } from 'components/showcase/galleryData';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
 import s from './samples.module.css';
 
 export const metadata: Metadata = {
   title: 'Made with Tabbied, 20 Sample Websites',
   description:
-    'Twenty sample websites using Tabbied generative artworks as design accents, ten static HTML builds and ten built with the TabbiedArtwork React component.',
+    'Twenty sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
@@ -105,20 +102,9 @@ function GroupHead({
 }
 
 export default function SamplesGallery() {
-  const staticCards: CardData[] = STATIC_SAMPLES.map((x, i) => ({
-    href: `/samples/${x.dir}/`,
-    n: i + 1,
-    name: x.name,
-    topic: x.topic,
-    artwork: x.artwork,
-    paletteName: x.paletteName,
-    colors: x.colors,
-    seed: `IDX${i}`,
-  }));
-
-  const reactCards: CardData[] = SHOWCASE_SITES.map((x, i) => ({
+  const cards: CardData[] = SHOWCASE_SITES.map((x, i) => ({
     href: `/showcase/${x.slug}/`,
-    n: i + 11,
+    n: i + 1,
     name: x.brand,
     topic: x.topic,
     artwork: x.artwork,
@@ -161,13 +147,13 @@ export default function SamplesGallery() {
           <p>
             Every site below uses a <strong>Tabbied</strong> generative artwork as its
             main design accent, themed end to end with a single palette from the library.
-            Same engine, twenty completely different moods.
+            Same component, twenty completely different moods.
           </p>
           <dl className={s.facts}>
             <div><dt>20</dt><dd>sample sites</dd></div>
             <div><dt>20</dt><dd>palettes</dd></div>
             <div><dt>20</dt><dd>artworks</dd></div>
-            <div><dt>2</dt><dd>ways to build</dd></div>
+            <div><dt>1</dt><dd>component</dd></div>
           </dl>
         </div>
       </header>
@@ -176,30 +162,17 @@ export default function SamplesGallery() {
         <section>
           <GroupHead
             kicker="01"
-            title="Static HTML builds"
-            body="Self-contained pages that embed the css-doodle engine directly, with no framework in sight."
-            count={staticCards.length}
-          />
-          <div className={s.mosaic}>
-            {staticCards.map((c) => (
-              <Card key={c.href} c={c} />
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <GroupHead
-            kicker="02"
-            title="React component builds"
+            title="Twenty sites, one component"
             body={
               <>
-                Live Next.js pages rendered with the <code>TabbiedArtwork</code> component.
+                Live Next.js pages, each rendered by the same{' '}
+                <code>TabbiedArtwork</code> component on its own palette and preset.
               </>
             }
-            count={reactCards.length}
+            count={cards.length}
           />
           <div className={s.mosaic}>
-            {reactCards.map((c) => (
+            {cards.map((c) => (
               <Card key={c.href} c={c} />
             ))}
           </div>
