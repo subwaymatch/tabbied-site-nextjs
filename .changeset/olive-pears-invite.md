@@ -2,7 +2,7 @@
 'tabbied': minor
 ---
 
-Add 257 new generative designs and retire 15, bringing the preset catalog to 356.
+Add 70 new generative designs and retire 15, bringing the preset catalog to 169.
 
 **Batch 7 (orders 700+, 24 designs)** works in the idiom of the eleven artworks
 Syung Hong drew by hand: one shape per cell, its outline rolled out of a short,
@@ -22,16 +22,14 @@ maths on the cell coordinates (`@sqrt`, `@atan2`), conic gradients — the only
 way to sweep a value round an angle — and SVG *stroke*, for line art rather than
 filled shapes.
 
-**Batch 10 (orders 1100+, 200 designs)** sits between the two: most of these
-motifs are bigger than a cell and smaller than the sheet, so the grid stops
-being a frame around each drawing and becomes the thing the drawing is assembled
-from. It opens with thirty-six variations on the spread — one sector of a
-circle, opening from a point, cut by a conic-gradient mask — moving the apex to
-a corner or an edge, boring out the hub, pairing sectors up, opening them into
-whole fans, and driving the angle from where the cell sits on the sheet. Then
-super-tiles spanning four cells, interlocking figure and ground, counterforms
-where the drawing is the hole, layered stacks, chains that run from cell to
-cell, corner-built motifs, and banding run across the sheet.
+**Batch 10 (orders 1100+, 13 designs)** sits between the two: these motifs are
+bigger than a cell and smaller than the sheet, so the grid stops being a frame
+around each drawing and becomes what the drawing is assembled from. `Sunray` and
+`Spray` cut a conic sector out of the cell so the shape opens from a point;
+`Plait`, `Chain` and `Staple` run a motif from one cell into the next;
+`Fenestrate` and `Perforate` make the drawing the hole; `Arris`, `Haunch` and
+`Abutment` build off the corner rather than the middle; `Frieze`, `Reeding` and
+`Fluting` band across the sheet.
 
 Fifteen earlier designs are retired (Morse, Daybreak, Shuffle, Domino, Aster,
 Aperture, Zipper, Polaroid, Carousel, Matte, Lens, Ibeam, Tictac, Crosshatch,

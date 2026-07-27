@@ -1,7 +1,7 @@
 {
   "name": "Abutment",
   "slug": "abutment",
-  "galleryOrder": 1260,
+  "galleryOrder": 1110,
   "galleryWhite": true,
   "description": "An abutment: the mass at the end of the arch that takes the thrust.",
   "palette": [
