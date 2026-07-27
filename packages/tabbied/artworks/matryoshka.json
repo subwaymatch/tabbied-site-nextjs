@@ -1,0 +1,49 @@
+{
+  "name": "Matryoshka",
+  "slug": "matryoshka",
+  "galleryOrder": 907,
+  "description": "A doodle inside a doodle: each cell holds a whole second grid, and only some of its cells are open.",
+  "palette": [
+    "#FCFBFF",
+    "#60569E",
+    "#9B8FD4",
+    "#C9BFF2",
+    "#3E8BFF",
+    "#E6437D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @doodle(@grid: 4 / 100%; background: @p(#000, #000, #0000);); mask: @doodle(@grid: 4 / 100%; background: @p(#000, #000, #0000);); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

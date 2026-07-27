@@ -652,7 +652,7 @@ const SITES = [
   {
     dir: '05-sunday-press', brand: 'The Sunday Press', topic: 'Ideas, design & culture', favicon: '📰',
     paletteName: 'Bauhaus', colors: ['#f4f1ea', '#d7263d', '#1b6ca8', '#f7b32b', '#232529'], layout: 'editorial', fonts: FONT.archivo,
-    artworks: ['bauhaus', 'windowpane', 'domino', 'tetro'],
+    artworks: ['bauhaus', 'windowpane', 'damier', 'tetro'],
     nav: ['Design', 'Technology', 'Essays', 'Archive'], primaryCta: 'Subscribe', secondaryCta: 'Read the issue',
     eyebrow: 'Vol. XII',
     title: 'Ideas, design, and the culture around them.',
@@ -693,7 +693,7 @@ const SITES = [
   {
     dir: '06-zest', brand: 'Zest', topic: 'Bright, fast weeknight cooking', favicon: '🍋',
     paletteName: 'Citrus', colors: ['#fffbe6', '#ff9f1c', '#2ec4b6', '#e71d36'], layout: 'split', fonts: FONT.baloo,
-    artworks: ['quoit', 'lens', 'sliver', 'spark'],
+    artworks: ['quoit', 'annulus', 'sliver', 'spark'],
     nav: ['Recipes', 'Quick', 'Vegetarian', 'Baking'], primaryCta: "Tonight's recipe", secondaryCta: 'Browse all',
     eyebrow: '30 minutes or less',
     title: 'Dinner that {em}actually{/em} gets made.',
@@ -735,7 +735,7 @@ const SITES = [
   {
     dir: '07-nocturne', brand: 'Nocturne', topic: 'Fragrance for the small hours', favicon: '🌙',
     paletteName: 'Amethyst', colors: ['#12071f', '#5a189a', '#9d4edd', '#e0aaff'], layout: 'boutique', fonts: FONT.cormorant,
-    artworks: ['veil', 'bokeh', 'lens', 'prisma'],
+    artworks: ['veil', 'bokeh', 'lunette', 'prisma'],
     nav: ['Collection', 'The House', 'Discovery Set'], primaryCta: 'Discover the collection', secondaryCta: 'Book a consultation',
     eyebrow: 'Eau de Parfum · Extrait',
     title: 'After{em}dark{/em}',
@@ -818,7 +818,7 @@ const SITES = [
   {
     dir: '09-pixel-playhouse', brand: 'Pixel Playhouse', topic: 'Indie game studio', favicon: '🕹️',
     paletteName: 'Vaporwave', colors: ['#2d0a45', '#ff6ad5', '#c774e8', '#94d0ff', '#ad8cff'], layout: 'spotlight', fonts: FONT.chivo,
-    artworks: ['tetro', 'maze', 'bloks', 'domino'],
+    artworks: ['tetro', 'maze', 'bloks', 'notchblock'],
     nav: ['Games', 'Studio', 'Devlog'], primaryCta: 'Play the demo', secondaryCta: 'See our games',
     eyebrow: '▶ Now in early access',
     title: 'Cozy games about {em}small worlds{/em}.',

@@ -1,0 +1,50 @@
+{
+  "name": "Subdivide",
+  "slug": "subdivide",
+  "galleryOrder": 909,
+  "galleryWhite": true,
+  "description": "Quartered, then quartered again: a mask that keeps three of every four squares.",
+  "palette": [
+    "#2B1B3D",
+    "#FF8A5C",
+    "#FFC15E",
+    "#FF5E78",
+    "#FFD27D",
+    "#FFF1D6"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @doodle(@grid: 2 / 100%; background: @p(#000, #000, #000, #0000);); mask: @doodle(@grid: 2 / 100%; background: @p(#000, #000, #000, #0000);); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); transform: rotate(@pick(0deg, 90deg, 180deg, 270deg)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

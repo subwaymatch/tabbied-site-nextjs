@@ -83,12 +83,18 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     palette: ['#232529', '#3E8BFF', '#3EECFF', '#FF3D8B', '#3FFFB2', '#F5DD32'],
     options: { grid: '3x3', frequency: 0.9 },
   },
+  confetti: {
+    options: { grid: '4x4', frequency: 0.95 },
+  },
   foliage: {
     palette: ['#ECFFEC', '#3FFFB2', '#3E8BFF', '#9EFFD8', '#FF3D8B', '#F5DD32'],
     options: { grid: '4x4', frequency: 0.9 },
   },
   metro: {
     options: { grid: '6x6', frequency: 0.95 },
+  },
+  polka: {
+    options: { grid: '4x4', frequency: 0.85 },
   },
   stitch: {
     palette: ['#9EFFD8', '#FF3D8B', '#3E8BFF', '#1B4075', '#232529', '#F5DD32'],
@@ -103,9 +109,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   pebble: {
     options: { grid: '4x4', frequency: 0.9 },
   },
-  morse: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
   sparkle: {
     options: { grid: '5x5', frequency: 0.92 },
   },
@@ -114,6 +117,9 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   tesserae: {
     options: { grid: '6x6', frequency: 0.92 },
+  },
+  sprinkles: {
+    options: { grid: '5x5', frequency: 0.95 },
   },
   glyph: {
     options: { grid: '5x5', frequency: 0.92 },
@@ -139,20 +145,26 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   crescendo: {
     options: { grid: '6x6' },
   },
+  echo: {
+    options: { rings: 6 },
+  },
   circuit: {
     options: { grid: '8x8', frequency: 0.6 },
   },
-  daybreak: {
-    options: { rays: 48 },
+  shard: {
+    options: { grid: '5x5', frequency: 0.9 },
   },
   quilt: {
     options: { grid: '5x5', frequency: 0.95 },
   },
+  petal: {
+    options: { grid: '4x4', frequency: 0.9 },
+  },
   lantern: {
     options: { grid: '4x4', frequency: 0.85 },
   },
-  domino: {
-    options: { grid: '5x5', frequency: 0.95 },
+  plasma: {
+    options: { grid: '4x4', frequency: 0.9 },
   },
   ivy: {
     options: { grid: '6x6', frequency: 0.95 },
@@ -162,15 +174,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   bokeh: {
     options: { grid: '4x4', frequency: 0.85 },
-  },
-  shuffle: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  aster: {
-    options: { grid: '5x5', frequency: 0.9 },
-  },
-  aperture: {
-    options: { grid: '5x5', frequency: 0.92 },
   },
   argyle: {
     options: { grid: '5x5', frequency: 0.95 },
@@ -184,14 +187,14 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   elbow: {
     options: { grid: '5x5', frequency: 0.92 },
   },
+  bento: {
+    options: { grid: '4x4', frequency: 0.95 },
+  },
   grain: {
     options: { grid: '8x8', frequency: 0.95 },
   },
   misprint: {
     options: { grid: '4x4', frequency: 0.92 },
-  },
-  zipper: {
-    options: { grid: '6x6', frequency: 0.95 },
   },
   origami: {
     options: { grid: '5x5', frequency: 0.95 },
@@ -373,9 +376,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   shibori: {
     options: { grid: '4x4', frequency: 0.85 },
   },
-  polaroid: {
-    options: { grid: '4x4', frequency: 0.85 },
-  },
   button: {
     options: { grid: '5x5', frequency: 0.85 },
   },
@@ -481,22 +481,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   pompom: {
     options: { grid: '5x5', frequency: 0.85 },
   },
-  carousel: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
   windowpane: {
     options: { grid: '6x6', frequency: 0.9 },
-  },
-  matte: {
-    options: { grid: '5x5', frequency: 0.92 },
   },
   spectrum: {
     options: { grid: '4x4', frequency: 0.9 },
   },
   coil: {
-    options: { grid: '4x4', frequency: 0.9 },
-  },
-  lens: {
     options: { grid: '4x4', frequency: 0.9 },
   },
   hourglass: {
@@ -511,19 +502,10 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   merlon: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  ibeam: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   spiralblock: {
     options: { grid: '5x5', frequency: 0.92 },
   },
-  tictac: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
   pennantbox: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  crosshatch: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   rungs: {
@@ -536,9 +518,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '5x5', frequency: 0.92 },
   },
   caltrop: {
-    options: { grid: '5x5', frequency: 0.92 },
-  },
-  sawedge: {
     options: { grid: '5x5', frequency: 0.92 },
   },
   switchback: {
@@ -610,61 +589,745 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   bobbin: {
     options: { grid: '5x5', frequency: 0.95 },
   },
-  louvre: {
-    options: { grid: '6x6', frequency: 1 },
+  quarterfall: {
+    options: { grid: '4x4', frequency: 1, shadow: false },
   },
-  kerf: {
-    options: { grid: '6x6', frequency: 1 },
-  },
-  damier: {
-    options: { grid: '6x6', frequency: 1 },
-  },
-  bias: {
-    options: { grid: '6x6', frequency: 1 },
-  },
-  hurdle: {
+  cornerbite: {
     options: { grid: '5x5', frequency: 1 },
   },
-  isocube: {
+  chip: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  shatter: {
     options: { grid: '5x5', frequency: 1 },
   },
-  lintel: {
+  scramble: {
     options: { grid: '5x5', frequency: 1 },
   },
-  lunette: {
+  cascade: {
     options: { grid: '5x5', frequency: 1 },
   },
-  annulus: {
+  skewblock: {
+    options: { grid: '8x8', frequency: 1 },
+  },
+  drift: {
+    options: { grid: '8x8', frequency: 1 },
+  },
+  cupola: {
+    options: { grid: '5x5', frequency: 1, shadow: true },
+  },
+  lagoon: {
     options: { grid: '4x4', frequency: 1 },
   },
-  ovolo: {
-    options: { grid: '6x6', frequency: 1 },
-  },
-  cove: {
+  scotia: {
     options: { grid: '5x5', frequency: 1 },
   },
-  mortise: {
+  spandrel: {
     options: { grid: '5x5', frequency: 1 },
   },
-  rafter: {
-    options: { grid: '6x6', frequency: 1 },
-  },
-  ogee: {
+  mullion: {
     options: { grid: '5x5', frequency: 1 },
   },
-  buttonhole: {
+  cavetto: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  moire: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  schist: {
     options: { grid: '5x5', frequency: 1 },
   },
-  gutter: {
+  kern: {
     options: { grid: '5x5', frequency: 1 },
   },
-  diminuendo: {
+  quire: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  karst: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  miura: {
     options: { grid: '6x6', frequency: 1 },
   },
-  taper: {
+  waterbomb: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  crease: {
     options: { grid: '6x6', frequency: 1 },
   },
-  torsion: {
+  keyway: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  gasket: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  evolute: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  linocut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  drypoint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gravure: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  parity: {
     options: { grid: '6x6', frequency: 1 },
+  },
+  hilbert: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hairpin: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  matryoshka: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fractal: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  subdivide: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  epicentre: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  locus: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pole: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  vertex: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  apex: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hub: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  axle: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pivot: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  fulcrum: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  centroid: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  barycentre: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  nucleus: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  kernel: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hearth: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  caldera: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  sinkhole: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  wellhead: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  wellspring: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  radiant: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  bullseye: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cynosure: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  omphalos: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  navel: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  axis: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  vector: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  flux: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  divergent: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  streamline: {
+    options: { grid: '8x8', frequency: 1 },
+  },
+  gyre: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  maelstrom: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cyclone: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  swirl: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  torque: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  moment: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  spin: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  precession: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  nutation: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  gimbal: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lodestone: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  dipole: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  solenoid: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  curlicue: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  spindrift: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  windrose: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  gradation: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  attenuate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ramp: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  slope: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  incline: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  grade: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cant: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  camber: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  batter: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  splay: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  flare: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  diminish: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  augment: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  lapse: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  decline: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ascendant: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  descent: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  graduate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  progress: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  sequence: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  interval: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  octave: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  tessitura: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ambit: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  wedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gore: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  gusset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  segment: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slice: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  parasol: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  umbrella: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  canopy: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  marquee: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pavilion: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  turbine: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  impeller: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  propeller: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  vane: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  blade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rotor: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stator: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nozzle: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  escapement: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sundial: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  chrono: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  flabellum: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  whirligig: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  radial: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  outline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sketch: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cartoon: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  underdraw: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pounce: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  silverpoint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  graphite: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  charcoal: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sanguine: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scribe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stylus: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nib: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quill: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reedpen: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wireframe: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  armature: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  skeleton: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  catenary: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  parabola: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hyperbola: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  serpentine: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sinuous: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  filament: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  whisker: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bilateral: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  chiral: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  enantiomer: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  reflect: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  specular: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pierglass: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  diptych: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  triptych: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  polyptych: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hinge: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  butterfly: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  rorschach: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  kaleido: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  palindrome: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  axial: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  dihedral: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  glide: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  symmetral: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  foldback: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  counterpart: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  vanish: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  horizon: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  foreshorten: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  ortho: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  isometry: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  axonometry: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  oblique: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cavalier: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cabinet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dimetric: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trimetric: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  anamorph: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  stereo: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  recession: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  station: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pictureplane: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  groundline: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  frustum: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  converge: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  raking: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  beat: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  fringe: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  nodal: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  antinode: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  standing: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  superpose: {
+    options: { grid: '4x4', frequency: 1 },
+  },
+  phaseshift: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  alias: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  dither: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  bayer: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  swell: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  undulate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  oscillate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  pulsate: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  throb: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  shimmer: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  chatter: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  judder: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  warble: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  tremble: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hairline: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  thickset: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  boldface: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  lightface: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  demibold: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  condensed: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  extended: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  expanded: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  roman: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  linework: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  mount: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  edging: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  piping: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  binding: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  hem: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  welt: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  cord: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  soutache: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  galloon: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  passement: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  kerb: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  skirting: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  architrave: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  dado: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  sunray: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spray: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  frieze: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  plait: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  fenestrate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  perforate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chain: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  staple: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  haunch: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  arris: {
+    options: { grid: '6x6', frequency: 1 },
+  },
+  abutment: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reeding: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fluting: {
+    options: { grid: '5x5', frequency: 1 },
   },
 };

@@ -1,0 +1,49 @@
+{
+  "name": "Frieze",
+  "slug": "frieze",
+  "galleryOrder": 1102,
+  "description": "A running frieze two cells deep: the upper half of the motif in one row, the lower in the next.",
+  "palette": [
+    "#F4EFE4",
+    "#7A1F3D",
+    "#2F4156",
+    "#C9A86A",
+    "#88A872",
+    "#D98E5A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 22%, 100% 0, 100% 78%, 0 100%); clip-path: polygon(0 22%, 100% 0, 100% 78%, 0 100%); -webkit-transform: scale(1, 1); transform: scale(1, 1); @match(@x % 2 == 0) { -webkit-transform: scale(-1, 1); transform: scale(-1, 1); } @match(@y % 2 == 0) { -webkit-transform: scale(1, -1); transform: scale(1, -1); } @match(@x % 2 + @y % 2 == 0) { -webkit-transform: scale(-1, -1); transform: scale(-1, -1); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
