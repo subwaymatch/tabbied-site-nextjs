@@ -305,6 +305,17 @@
   background: var(--c1);
   min-height: 320px;
 }
+/* The artwork layer of a photographic hero. `overlay` keeps the photograph's
+   own contrast — a plain alpha blend flattens it into haze, and soft-light
+   bleaches the sky it is usually shot against — while this opacity leaves the
+   pattern legible as a deliberate graphic layer rather than a texture. */
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
 .statStrip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -45,7 +45,12 @@ export const ASPECT_RATIO = {
 // z-image exposes no resolution control, so whatever it returns is downscaled
 // to fit (never enlarged) at import.
 export const SLOTS = {
+  // The split hero's art panel: about half a wide viewport by 82vh, so square
+  // is the closest supported ratio and object-fit crops the difference.
+  hero: { aspect: () => '1/1', maxWidth: 1600 },
   card: { aspect: () => '4/3', maxWidth: 800 },
+  // Team portraits, square to match .teamArt.
+  team: { aspect: () => '1/1', maxWidth: 500 },
   alt: { aspect: () => '4/3', maxWidth: 1200 },
   // .galleryCell:nth-child(4n + 1) is the tall one; the rest are square.
   gallery: { aspect: (i) => (i % 4 === 0 ? '4/5' : '1/1'), maxWidth: 700 },

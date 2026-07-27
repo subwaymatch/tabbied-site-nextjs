@@ -50,10 +50,30 @@ export type SectionContent = {
   };
   /** A plain detail table: materials, logistics, specifications. */
   specs?: { kicker: string; title: string; sub?: string; rows: { k: string; v: string }[] };
-  /** People, with the site's own artwork standing in for each portrait. */
-  team?: { kicker: string; title: string; sub?: string; people: { name: string; role: string; bio: string }[] };
+  /**
+   * People, each with a generated portrait (see Team in ShowcaseSite.tsx).
+   *
+   * `portraitScene` is the half of the prompt the whole team shares — where
+   * they are and how it is lit — and each person's `role` completes it. One
+   * line per team instead of one prompt per person, and it keeps a site's
+   * people looking like colleagues rather than a stock-photo grab bag.
+   */
+  team?: {
+    kicker: string;
+    title: string;
+    sub?: string;
+    portraitScene: string;
+    /** `look` is the authored appearance for this person's generated portrait. */
+    people: { name: string; role: string; bio: string; look: string }[];
+  };
   /** Lookbook of text-to-image prompts. */
   gallery?: string[];
+  /**
+   * A generated photograph behind the split hero's art panel, with the site's
+   * own artwork drawn over it (see SplitHero). Without it the panel is the
+   * artwork alone, which is what the other nineteen sites do.
+   */
+  heroImage?: string;
 };
 
 const IMG =
@@ -114,6 +134,11 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
   },
 
   'harbor-and-vine': {
+    heroImage:
+      'A warm harbourside natural wine bar at golden hour, low evening sun across a zinc counter, ' +
+      'open bottles and stemmed glasses, weathered timber and water visible through tall windows. ' +
+      'The room is empty, with no people or body parts in the frame. ' +
+      'Soft natural light, shallow depth of field, high detail, no text or logos.',
     kit: 'editorial',
     sections: ['logos', 'about', 'altRows', 'items', 'specs', 'testimonials', 'team', 'gallery', 'faq', 'band', 'newsletter'],
     specs: {
@@ -133,11 +158,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'Behind the bar',
       title: 'Who is pouring',
       sub: 'Four people, one room, no sommelier theatre.',
+      portraitScene:
+        'behind the zinc counter of a harbourside natural wine bar at golden hour, open bottles and stemmed glasses around them',
       people: [
-        { name: 'Mara Ellis', role: 'Owner', bio: 'Spent nine years importing from the Loire before deciding she would rather pour it herself.' },
-        { name: 'Tomas Vidal', role: 'Wine director', bio: 'Rewrites the glass list every Tuesday and will happily talk you out of your usual.' },
-        { name: 'June Park', role: 'Kitchen', bio: 'Cooks six things a night, all of them meant to be eaten with your hands.' },
-        { name: 'Wes Abara', role: 'Floor', bio: 'Remembers what you drank last time and whether you actually liked it.' },
+        { name: 'Mara Ellis', role: 'Owner', bio: 'Spent nine years importing from the Loire before deciding she would rather pour it herself.', look: 'a woman in her late forties, silver-streaked dark hair tied back, denim shirt' },
+        { name: 'Tomas Vidal', role: 'Wine director', bio: 'Rewrites the glass list every Tuesday and will happily talk you out of your usual.', look: 'a man in his thirties with a close beard and rolled shirtsleeves' },
+        { name: 'June Park', role: 'Kitchen', bio: 'Cooks six things a night, all of them meant to be eaten with your hands.', look: 'a woman in her twenties with a short black bob, chef whites' },
+        { name: 'Wes Abara', role: 'Floor', bio: 'Remembers what you drank last time and whether you actually liked it.', look: 'a Black man in his thirties with cropped hair and a linen apron' },
       ],
     },
     logos: ['DECANTER', 'PUNCH', 'EATER', 'THE INFATUATION', 'PELLICLE', 'SEVENFIFTY'],
@@ -228,11 +255,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'The crew',
       title: 'Who goes out',
       sub: 'Small teams, long rotations, and everybody stands a watch.',
+      portraitScene:
+        'on the working deck of an ocean research vessel under bright overcast light, instrument cases and coiled line behind them',
       people: [
-        { name: 'Dr. Ana Reyes', role: 'Chief scientist', bio: 'Physical oceanographer, twenty-two seasons at sea and still counting them.' },
-        { name: 'Nils Haugen', role: 'Fleet engineer', bio: 'Keeps two boats and fourteen moorings alive on a nonprofit budget.' },
-        { name: 'Priya Raman', role: 'Data lead', bio: 'Built the pipeline that gets raw sensor data public in under a month.' },
-        { name: 'Kai Toledo', role: 'Field ecologist', bio: 'Runs the acoustic survey and can name a whale from its call alone.' },
+        { name: 'Dr. Ana Reyes', role: 'Chief scientist', bio: 'Physical oceanographer, twenty-two seasons at sea and still counting them.', look: 'a Latina woman in her fifties, weathered face, grey hair under a cap, waterproof jacket' },
+        { name: 'Nils Haugen', role: 'Fleet engineer', bio: 'Keeps two boats and fourteen moorings alive on a nonprofit budget.', look: 'a broad, fair-haired man in his forties in a worn boiler suit' },
+        { name: 'Priya Raman', role: 'Data lead', bio: 'Built the pipeline that gets raw sensor data public in under a month.', look: 'a South Asian woman in her thirties with glasses and a long dark plait, fleece over a shirt' },
+        { name: 'Kai Toledo', role: 'Field ecologist', bio: 'Runs the acoustic survey and can name a whale from its call alone.', look: 'a young Filipino man in his twenties with a wetsuit half-unzipped' },
       ],
     },
     manifesto: {
@@ -282,11 +311,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'The kitchen',
       title: 'Who is cooking',
       sub: 'A short line, all of it within arm reach of the fire.',
+      portraitScene:
+        'in the open kitchen of a wood-fired restaurant, warm firelight from the hearth behind them',
       people: [
-        { name: 'Sofia Marchetti', role: 'Chef, owner', bio: 'Learned fire cooking in Piedmont, then spent a decade getting it wrong before this room.' },
-        { name: 'Daniel Osei', role: 'Head of hearth', bio: 'Runs the coals, and has opinions about oak he will share unprompted.' },
-        { name: 'Reiko Tanaka', role: 'Pastry', bio: 'Bakes in the falling heat after service, which is why the bread tastes like that.' },
-        { name: 'Marco Silva', role: 'General manager', bio: 'Front of house, the wine list, and the person who finds you a table.' },
+        { name: 'Sofia Marchetti', role: 'Chef, owner', bio: 'Learned fire cooking in Piedmont, then spent a decade getting it wrong before this room.', look: 'a woman in her fifties with grey curls pinned up, sleeves pushed back, chef whites' },
+        { name: 'Daniel Osei', role: 'Head of hearth', bio: 'Runs the coals, and has opinions about oak he will share unprompted.', look: 'a Black man in his forties with a shaved head and a heavy canvas apron' },
+        { name: 'Reiko Tanaka', role: 'Pastry', bio: 'Bakes in the falling heat after service, which is why the bread tastes like that.', look: 'a Japanese woman in her thirties with straight hair under a bandana, pastry whites' },
+        { name: 'Marco Silva', role: 'General manager', bio: 'Front of house, the wine list, and the person who finds you a table.', look: 'a man in his forties in a dark shirt, warm and unhurried' },
       ],
     },
     altRows: [
@@ -868,19 +899,23 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'Masthead',
       title: 'Who makes it',
       sub: 'Four of us full time, and about thirty contributors across a year.',
+      portraitScene:
+        'in the newsroom of an independent magazine, proofs pinned to the wall behind them under cool daylight',
       people: [
-        { name: 'Ines Baptista', role: 'Editor', bio: 'Commissions the whole issue and then argues with every word of it.' },
+        { name: 'Ines Baptista', role: 'Editor', bio: 'Commissions the whole issue and then argues with every word of it.', look: 'a woman in her sixties with short white hair and round glasses, cardigan' },
         {
           name: 'Owen Clarke',
           role: 'Art director',
           bio: 'Responsible for the grid, the covers, and the typeface nobody else uses.',
+          look: 'a man in his thirties with tousled hair and a paint-flecked jumper',
         },
         {
           name: 'Halima Sesay',
           role: 'Features',
           bio: 'Writes the long one in the middle, usually after three months of reporting.',
+          look: 'a Black woman in her twenties wearing a patterned headwrap and a denim jacket',
         },
-        { name: 'Piet Vos', role: 'Production', bio: 'Gets it to the printer on a Tuesday and to your door on a Sunday.' },
+        { name: 'Piet Vos', role: 'Production', bio: 'Gets it to the printer on a Tuesday and to your door on a Sunday.', look: 'an older man with a grey beard and ink-stained hands, workshop overalls' },
       ],
     },
     pricing: {
@@ -1136,22 +1171,27 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'The practice',
       title: 'Who you will work with',
       sub: 'Nine people, and the person who draws it is the person you meet.',
+      portraitScene:
+        'in a sunlit coastal architecture studio, drawings and balsa massing models on the table behind them',
       people: [
         {
           name: 'Elin Vasser',
           role: 'Founding partner',
           bio: 'Twenty years of coastal work and a stubborn dislike of the word seamless.',
+          look: 'a woman in her fifties with a sharp grey bob and architect blacks',
         },
         {
           name: 'Rhys Ostrander',
           role: 'Partner',
           bio: 'Runs the technical side and knows what salt air does to every fixing we specify.',
+          look: 'a man in his fifties with weathered skin and a rumpled linen shirt',
         },
-        { name: 'Aoife Brennan', role: 'Associate', bio: 'Leads the housing work and the practice research into coastal erosion.' },
+        { name: 'Aoife Brennan', role: 'Associate', bio: 'Leads the housing work and the practice research into coastal erosion.', look: 'a red-haired woman in her twenties with freckles, wool jumper' },
         {
           name: 'Sam Iwu',
           role: 'Project architect',
           bio: 'On site more than in the studio, which is how the details survive the build.',
+          look: 'a Black man in his thirties with round glasses and a rolled sketch under one arm',
         },
       ],
     },
@@ -1210,11 +1250,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       kicker: 'The studio',
       title: 'All six of us',
       sub: 'No publisher, nothing outsourced, and everyone here shipped this thing.',
+      portraitScene:
+        'at a desk in a small indie game studio, monitors glowing behind them in a warm, cluttered room',
       people: [
-        { name: 'Bex Nowak', role: 'Director', bio: 'Designed the levels and wrote most of the dialogue, then rewrote all of it.' },
-        { name: 'Tunde Alabi', role: 'Engine', bio: 'Built the renderer that makes 32 by 32 sprites look the way they do.' },
-        { name: 'Ivy Chen', role: 'Art', bio: 'Every sprite, every tile, and every frame of the animation.' },
-        { name: 'Marek Dolny', role: 'Audio', bio: 'Composed the score on hardware older than most of the team.' },
+        { name: 'Bex Nowak', role: 'Director', bio: 'Designed the levels and wrote most of the dialogue, then rewrote all of it.', look: 'a woman in her thirties with an undercut and tattooed forearms, band t-shirt' },
+        { name: 'Tunde Alabi', role: 'Engine', bio: 'Built the renderer that makes 32 by 32 sprites look the way they do.', look: 'a Black man in his twenties with short locs and headphones round his neck' },
+        { name: 'Ivy Chen', role: 'Art', bio: 'Every sprite, every tile, and every frame of the animation.', look: 'a Chinese woman in her twenties with dyed pastel hair and a hoodie' },
+        { name: 'Marek Dolny', role: 'Audio', bio: 'Composed the score on hardware older than most of the team.', look: 'a man in his forties with a greying ponytail and a knitted cardigan' },
       ],
     },
     iconFeatures: [
