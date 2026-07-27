@@ -1,0 +1,50 @@
+{
+  "name": "Oriflamme",
+  "slug": "oriflamme",
+  "galleryOrder": 1147,
+  "galleryWhite": true,
+  "description": "A flame-shaped pennon four cells long, its points meeting at the block centre.",
+  "palette": [
+    "#1A1A2E",
+    "#16213E",
+    "#0F3460",
+    "#E94560",
+    "#F5F5F5",
+    "#53BF9D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "8x12",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0 0, 100% 0, 62% 46%, 100% 84%, 0 100%); clip-path: polygon(0 0, 100% 0, 62% 46%, 100% 84%, 0 100%); -webkit-transform: scale(1, 1); transform: scale(1, 1); @match(@x % 2 == 0) { -webkit-transform: scale(-1, 1); transform: scale(-1, 1); } @match(@y % 2 == 0) { -webkit-transform: scale(1, -1); transform: scale(1, -1); } @match(@x % 2 + @y % 2 == 0) { -webkit-transform: scale(-1, -1); transform: scale(-1, -1); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

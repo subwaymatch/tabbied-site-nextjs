@@ -49,12 +49,13 @@ for (const def of defs) {
   if (batchSlugs.has(def.slug)) throw new Error(`duplicate slug: ${def.slug}`);
   batchSlugs.add(def.slug);
 }
-// Batch 9 owns gallery orders 1000+, so a file already on disk is either this
-// batch's own output (safe to rewrite) or an earlier batch's artwork (never
-// clobber it). Batch 9 is the last batch, so its range is open-ended; a batch
-// 10 would need to bound this the way the earlier generators bound theirs.
+// Batch 9 owns gallery orders 1000-1099, so a file already on disk is either
+// this batch's own output (safe to rewrite) or another batch's artwork (never
+// clobber it). The range is bounded at both ends so batch 10, which lives above
+// it, survives a batch-9 regeneration.
 const FIRST_ORDER = 1000;
-const ownedByBatch9 = (order) => order >= FIRST_ORDER;
+const LAST_ORDER = 1099;
+const ownedByBatch9 = (order) => order >= FIRST_ORDER && order <= LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))

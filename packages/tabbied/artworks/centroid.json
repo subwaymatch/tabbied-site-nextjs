@@ -1,7 +1,7 @@
 {
   "name": "Centroid",
   "slug": "centroid",
-  "galleryOrder": 1009,
+  "galleryOrder": 1003,
   "galleryWhite": true,
   "description": "A plain grid of squares, lit from the middle: only the opacity carries the field.",
   "palette": [

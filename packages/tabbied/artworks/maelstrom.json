@@ -1,7 +1,7 @@
 {
   "name": "Maelstrom",
   "slug": "maelstrom",
-  "galleryOrder": 1029,
+  "galleryOrder": 1006,
   "galleryWhite": true,
   "description": "A spiral: the bearing plus a turn that grows with the radius, so the arms wind in.",
   "palette": [

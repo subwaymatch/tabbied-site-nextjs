@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { bokeh, pinwheel, northstar, carousel } from 'tabbied/artworks';
+import { bokeh, pinwheel, northstar, maelstrom } from 'tabbied/artworks';
 import ShowcaseSite from 'components/showcase/ShowcaseSite';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
 
@@ -7,7 +7,7 @@ const site = SHOWCASE_SITES.find((entry) => entry.slug === 'honeycomb')!;
 
 // Every artwork the site renders, keyed by slug so ShowcaseSite can look each
 // one up by name (see site.artworks for the order used across the layout).
-const artworks = { bokeh, pinwheel, northstar, carousel };
+const artworks = { bokeh, pinwheel, northstar, maelstrom };
 
 export const metadata: Metadata = {
   title: "Honeycomb, Kids' learning app",

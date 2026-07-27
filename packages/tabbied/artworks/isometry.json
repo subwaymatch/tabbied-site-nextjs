@@ -1,7 +1,7 @@
 {
   "name": "Isometry",
   "slug": "isometry",
-  "galleryOrder": 1140,
+  "galleryOrder": 1018,
   "description": "The isometric grid: everything skewed thirty degrees, one way or the other.",
   "palette": [
     "#F4EFE4",

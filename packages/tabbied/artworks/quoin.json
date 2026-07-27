@@ -1,0 +1,50 @@
+{
+  "name": "Quoin",
+  "slug": "quoin",
+  "galleryOrder": 1248,
+  "galleryWhite": true,
+  "description": "Quoins: the dressed stones that turn the corner of a building, alternating long and short.",
+  "palette": [
+    "#1A1A2E",
+    "#16213E",
+    "#0F3460",
+    "#E94560",
+    "#F5F5F5",
+    "#53BF9D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 0; top: 0; width: 62%; height: 30%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 0; top: 30%; width: 34%; height: 30%; background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
