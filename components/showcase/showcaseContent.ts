@@ -17,10 +17,16 @@ export type ShowcaseContent = {
   newsletter: { title: string; body: string; cta: string; placeholder: string };
   /** item.seed -> text-to-image prompt for that card's placeholder image. */
   images: Record<string, string>;
+  /**
+   * The about section's art panel. Without it the panel falls back to the
+   * site's artwork, which reads as decoration next to copy that is making a
+   * specific claim — an image that answers the copy does more work.
+   */
+  aboutImage?: string;
 };
 
 const IMG =
-  'Square product photograph, soft natural studio light, shallow depth of field, high detail, no text.';
+  'Square product photograph, soft natural studio light, shallow depth of field, high detail, no text. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.';
 
 export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   solstice: {
@@ -60,6 +66,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'harbor-and-vine': {
+    aboutImage:
+      'A tall shelf of natural wine bottles in a warm harbourside bar, low evening light raking across the labels, a few open bottles on the counter below. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our cellar',
       title: 'Bottles with nothing to hide',
@@ -127,7 +135,7 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     images: {
       lum1: `A designer on a dark conference stage lit by vivid magenta and cyan light, bold and cinematic. ${IMG}`,
       lum2: `An attentive audience in a modern auditorium bathed in electric blue stage light. ${IMG}`,
-      lum3: `A hands-on design workshop table with laptops and color swatches under bright neon accent lighting. ${IMG}`,
+      lum3: `A design workshop table with open laptops, colour swatch fans and sticky notes under bright neon accent lighting. ${IMG}`,
     },
   },
 
@@ -168,6 +176,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'ember-and-oak': {
+    aboutImage:
+      'A wood-fired hearth burning low in a restaurant kitchen, split oak stacked beside it, glowing coals and warm firelight on stone. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'The hearth',
       title: 'One fire, and a menu that follows it',
@@ -204,6 +214,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'petal-and-post': {
+    aboutImage:
+      'A florist and letterpress workbench from above, fresh cut stems, brown paper and a stack of pressed cards in soft pinks. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'In the studio',
       title: 'Flowers and paper, made by hand',
@@ -240,6 +252,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   northwind: {
+    aboutImage:
+      'A tall rack of technical outdoor jackets in a workshop, taped seams and spare hardware laid out on the bench beside it. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Built to last',
       title: 'Overbuilt on purpose',
@@ -305,13 +319,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      hon1: `A cheerful cartoon meadow reading game scene with friendly letters, warm honey-gold palette. ${IMG}`,
+      hon1: `A cheerful cartoon meadow scene with friendly bees among rounded honeycomb tiles, warm honey-gold palette. Absolutely no text, letters, words, numbers or logos appear anywhere in the image — no lettering on any object, sign, page or screen. ${IMG}`,
       hon2: `A playful counting game with a honeycomb and cartoon bees, bright sunny yellows. ${IMG}`,
       hon3: `A colorful pattern-matching puzzle grove for kids, rounded shapes, warm gold tones. ${IMG}`,
     },
   },
 
   facet: {
+    aboutImage:
+      'A jeweller\'s bench in low warm light, loupe, gravers and a single gold ring on a leather pad. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'The house',
       title: 'One remarkable stone at a time',
@@ -348,6 +364,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   seabright: {
+    aboutImage:
+      'A row of pale skincare bottles on wet coastal stone, sea mist and soft grey daylight behind them. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our promise',
       title: 'Kind to your skin and the water',
@@ -410,13 +428,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      r1: 'A moody album cover render of glowing liquid light waves in vivid neon, abstract and futuristic. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      r2: 'An abstract electronic album cover of soft glowing gradients and grain, calm and dreamy. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      r3: 'A neon-lit album cover of a single glowing orb over dark water, cinematic and atmospheric. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      r1: 'A moody album cover render of glowing liquid light waves in vivid neon, abstract and futuristic. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      r2: 'An abstract electronic album cover of soft glowing gradients and grain, calm and dreamy. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      r3: 'A neon-lit album cover of a single glowing orb over dark water, cinematic and atmospheric. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   'terra-ceramics': {
+    aboutImage:
+      'A pottery studio shelf of unglazed vessels drying in daylight, a wheel and tools in the foreground, dust in the air. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'In the studio',
       title: 'Made slowly, by two pairs of hands',
@@ -442,13 +462,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      p1: 'A handmade stoneware ripple bowl in warm terracotta glaze on a linen surface, artisanal ceramics. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      p2: 'A rustic hand-thrown ceramic mug in earthy rust glaze on a wooden table, cozy and tactile. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      p3: 'A tall matte ceramic vase in dune tones with a single dried stem, minimal studio still life. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      p1: 'A handmade stoneware ripple bowl in warm terracotta glaze on a linen surface, artisanal ceramics. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      p2: 'A rustic hand-thrown ceramic mug in earthy rust glaze on a wooden table, cozy and tactile. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      p3: 'A tall matte ceramic vase in dune tones with a single dried stem, minimal studio still life. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   meridian: {
+    aboutImage:
+      'An abstract 3D render of layered translucent panels and fine connecting lines over deep navy, cool and technical, no interface or screen anywhere. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Why Meridian',
       title: 'A real ledger under every primitive',
@@ -474,13 +496,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@company.com',
     },
     images: {
-      m1: 'A clean isometric render of a glowing ledger and account graph, cobalt blue fintech data visualization. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      m2: 'An abstract network routing diagram with bright cyan nodes on deep navy, sleek technical render. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      m1: 'A clean isometric render of a glowing ledger and account graph, cobalt blue fintech data visualization. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      m2: 'An abstract network routing diagram with bright cyan nodes on deep navy, sleek technical render. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       m3: 'An abstract 3D render of concentric glowing rings and scattered signal points over deep navy, suggesting a risk score without depicting any interface. Absolutely no text, letters, numbers, words, labels, logos or user interface of any kind anywhere in the image. Soft natural studio light, shallow depth of field, high detail.',
     },
   },
 
   verdant: {
+    aboutImage:
+      'A bright plant shop corner, tiered shelves of leafy houseplants in terracotta and pale pots, sunlight through a tall window. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our promise',
       title: 'Plants that actually make it',
@@ -506,13 +530,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      v1: 'A potted ZZ plant with glossy dark-green leaves in a matte ceramic pot, bright airy interior. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      v2: 'A tall fiddle-leaf fig in a woven basket by a sunlit window, fresh green houseplant photography. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      v3: 'A dramatic bird-of-paradise plant with broad leaves against a pale wall, lush and vibrant. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      v1: 'A potted ZZ plant with glossy dark-green leaves in a matte ceramic pot, bright airy interior. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      v2: 'A tall fiddle-leaf fig in a woven basket by a sunlit window, fresh green houseplant photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      v3: 'A tall fiddle-leaf fig in a woven basket against a pale wall, broad glossy leaves, lush and vibrant. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   'sunday-press': {
+    aboutImage:
+      'A stack of thick independent magazines on a pale paper desk beside proof sheets, the pages shown only as soft grey texture with no readable words. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'About the Press',
       title: 'Slow journalism about fast tools',
@@ -538,9 +564,9 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      s1: 'A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      s2: 'A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      s3: 'A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      s1: 'A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      s2: 'A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      s3: 'A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
@@ -570,13 +596,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      z1: 'A vibrant chili-lime corn bowl in a colorful bowl, fresh and appetizing overhead food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      z2: 'A skillet of blistered cherry tomato orzo with basil, bright and saucy weeknight dinner. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      z3: 'A tangle of sesame crunch noodles with scallions in a bowl, glossy and colorful food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      z1: 'A vibrant chili-lime corn bowl in a colorful bowl, fresh and appetizing overhead food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      z2: 'A skillet of blistered cherry tomato orzo with basil, bright and saucy weeknight dinner. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      z3: 'A tangle of sesame crunch noodles with scallions in a bowl, glossy and colorful food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   nocturne: {
+    aboutImage:
+      'A dark perfumer\'s organ of amber sample bottles on a lacquered surface, one glass flacon lit in a single pool of light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'The house',
       title: 'Composed like music, worn like memory',
@@ -602,13 +630,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      n1: 'A faceted perfume bottle glowing amethyst on black velvet, luxurious moody product photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      n2: 'A dark still life of a perfume flacon among night-blooming flowers, deep purple and violet. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      n3: 'A minimalist perfume bottle backlit in soft violet haze, elegant and cinematic. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      n1: 'A faceted perfume bottle glowing amethyst on black velvet, luxurious moody product photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      n2: 'A dark still life of a perfume flacon among night-blooming flowers, deep purple and violet. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      n3: 'A minimalist perfume bottle backlit in soft violet haze, elegant and cinematic. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   shoreline: {
+    aboutImage:
+      'A coastal architecture studio table with balsa massing models, rolled drawings and a wide window onto grey sea light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our approach',
       title: 'Build for the wind, plan for the light',
@@ -634,9 +664,9 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      w1: 'A low-slung coastal house in weathered timber against a grey sky, calm architectural photography. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      w2: 'A minimalist dune pavilion with large glass facing the sea, soft coastal daylight, architecture photo. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      w3: 'A stone harbourside building with deep window reveals at dusk, serene architectural photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      w1: 'A low-slung coastal house in weathered timber against a grey sky, calm architectural photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      w2: 'A minimalist dune pavilion with large glass facing the sea, soft coastal daylight, architecture photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      w3: 'A stone harbourside building with deep window reveals at dusk, serene architectural photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
@@ -666,13 +696,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      g1: 'A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks and purples, game screenshot. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      g2: 'A neon rooftop delivery scene in pixel art, night city with pink and blue glow, indie game art. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      g3: 'A colorful pixel-art coral reef aquarium builder scene, playful pastel vaporwave palette. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      g1: 'A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks and purples, game screenshot. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      g2: 'A neon rooftop delivery scene in pixel art, night city with pink and blue glow, indie game art. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      g3: 'A colorful pixel-art coral reef aquarium builder scene, playful pastel vaporwave palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 
   'roast-and-co': {
+    aboutImage:
+      'A drum coffee roaster in a workshop, freshly roasted beans cooling in the tray, warm morning light and sacks stacked behind. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'From crop to cup',
       title: 'Roasted the day before it ships',
@@ -698,9 +730,9 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      c1: 'A bag of single-origin coffee beans spilling onto burlap, warm espresso-brown tones, product photo. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      c2: 'A pour-over coffee setup with rich crema in soft window light, cozy cafe still life, brown palette. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
-      c3: 'Glossy roasted coffee beans piled close-up with warm highlights, rich brown coffee photography. Soft natural studio light, shallow depth of field, high detail, no text or logos.',
+      c1: 'A bag of single-origin coffee beans spilling onto burlap, warm espresso-brown tones, product photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      c2: 'A still life of a pour-over brewer on a wooden counter: a cone dripper seated on a glass carafe half full of coffee, a gooseneck kettle standing to one side, soft window light, brown palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      c3: 'Glossy roasted coffee beans piled close-up with warm highlights, rich brown coffee photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 };

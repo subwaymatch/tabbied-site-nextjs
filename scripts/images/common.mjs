@@ -49,6 +49,8 @@ export const SLOTS = {
   // is the closest supported ratio and object-fit crops the difference.
   hero: { aspect: () => '1/1', maxWidth: 1600 },
   card: { aspect: () => '4/3', maxWidth: 800 },
+  // The about section's art panel, portrait to match .aboutArt's 4/5.
+  about: { aspect: () => '4/5', maxWidth: 900 },
   // Team portraits, square to match .teamArt.
   team: { aspect: () => '1/1', maxWidth: 500 },
   alt: { aspect: () => '4/3', maxWidth: 1200 },

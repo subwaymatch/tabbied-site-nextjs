@@ -69,15 +69,23 @@ export type SectionContent = {
   /** Lookbook of text-to-image prompts. */
   gallery?: string[];
   /**
-   * A generated photograph behind the split hero's art panel, with the site's
-   * own artwork drawn over it (see SplitHero). Without it the panel is the
-   * artwork alone, which is what the other nineteen sites do.
+   * A generated photograph behind the hero's art panel, with an artwork drawn
+   * over it (see HeroArt). Without it the panel is the artwork alone, which is
+   * what the other nineteen sites do.
    */
   heroImage?: string;
+  /**
+   * Artwork slug drawn over `heroImage`, defaulting to the site's last. It is
+   * named rather than inferred because the choice is load-bearing: the overlay
+   * is opaque, so the design has to be a sparse one whose gaps are real
+   * negative space (lines, frames, scattered marks) rather than a dense field
+   * that would simply cover the photograph.
+   */
+  heroOverlayArtwork?: string;
 };
 
 const IMG =
-  'Soft natural light, shallow depth of field, high detail, no text or logos.';
+  'Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.';
 
 export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
   solstice: {
@@ -138,7 +146,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       'A warm harbourside natural wine bar at golden hour, low evening sun across a zinc counter, ' +
       'open bottles and stemmed glasses, weathered timber and water visible through tall windows. ' +
       'The room is empty, with no people or body parts in the frame. ' +
-      'Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'Soft natural light, shallow depth of field, high detail, no text or logos. ' +
+      'Any person in the frame is shown whole and uncropped — no disembodied hands, ' +
+      'no limbs cut off by the edge, and no bodies without heads.',
+    heroOverlayArtwork: 'comet',
     kit: 'editorial',
     sections: ['logos', 'about', 'altRows', 'items', 'specs', 'testimonials', 'team', 'gallery', 'faq', 'band', 'newsletter'],
     specs: {
@@ -174,7 +185,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
     ],
     gallery: [
       `A candlelit natural wine bar interior at night, warm and intimate. ${IMG}`,
-      `A close-up of a hand pouring cloudy pet-nat into a glass. ${IMG}`,
+      `A glass of cloudy pet-nat on a zinc counter beside its open bottle, condensation beading on the glass, low evening light. ${IMG}`,
       `A shelf of hand-labeled low-intervention wine bottles. ${IMG}`,
       `A small marble table with two wine glasses and a cheese plate. ${IMG}`,
     ],
@@ -276,7 +287,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
     ],
     altRows: [
       { eyebrow: 'The expedition', title: 'Real ships, real readings', body: 'We buy ship time on working research vessels and instrument them to a shared standard, so the data lines up.', image: `A marine research vessel at sea deploying instruments, cool teal water, overcast. ${IMG}` },
-      { eyebrow: 'The data', title: 'Clean, documented, reusable', body: 'Every release ships with methods, calibration, and code, so another lab can build on it the same day.', image: `A scientist reviewing ocean data charts on a laptop in a ship cabin, teal tones. ${IMG}` },
+      { eyebrow: 'The data', title: 'Clean, documented, reusable', body: 'Every release ships with methods, calibration, and code, so another lab can build on it the same day.', image: `A laptop on a chart table in a ship cabin showing an abstract ocean data plot, notebooks and a mug beside it, teal tones, nobody at the desk. ${IMG}` },
     ],
     gallery: [
       `Bioluminescent creatures in the deep ocean twilight zone, teal and gold on black. ${IMG}`,
@@ -322,7 +333,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
     },
     altRows: [
       { eyebrow: 'The fire', title: 'One hearth, all night', body: 'Oak for heat, fruitwood for the finish. The fire is the pilot light of the whole kitchen and the center of the room.', image: `A glowing wood-fired restaurant hearth with flames and embers, deep amber light. ${IMG}` },
-      { eyebrow: 'The counter', title: 'The best seat faces the flame', body: 'Eight stools at the pass, close enough to feel the heat and watch every plate leave the fire.', image: `A chef plating at a fire-lit restaurant counter, dark and moody, warm glow. ${IMG}` },
+      { eyebrow: 'The counter', title: 'The best seat faces the flame', body: 'Eight stools at the pass, close enough to feel the heat and watch every plate leave the fire.', image: `A chef plating a dish on the pass of a fire-lit restaurant kitchen, dark and moody, warm glow. The person at work is shown whole with their head and upper body in frame. ${IMG}` },
     ],
     bigQuote: { quote: 'You taste the smoke in everything, and you never want it to stop.', name: 'Sofia D.', role: 'Diner' },
     iconFeatures: [
@@ -381,7 +392,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       `A soft blush bouquet of ranunculus and sweet pea in kraft paper, airy studio. ${IMG}`,
       `A bright coral arrangement of dahlias in a ceramic vase, cheerful daylight. ${IMG}`,
       `A stack of pastel letterpress cards tied with ribbon. ${IMG}`,
-      `A florist wrapping a bouquet at a sunlit counter. ${IMG}`,
+      `A florist wrapping a bouquet in brown paper at a sunlit counter, twine and scissors beside them. The person at work is shown whole with their head and upper body in frame. ${IMG}`,
     ],
   },
 
@@ -415,7 +426,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
     logos: ['OUTSIDE', 'GEAR PATROL', 'ALPINIST', 'BACKPACKER', 'FIELD MAG', 'THE DIRTBAG'],
     altRows: [
       { eyebrow: 'The build', title: 'Heavier than it needs to be', body: 'We spec heavier fabric, bigger zips, and double the stitching. The best gear is the gear you never think about.', image: `A close-up of rugged technical jacket fabric with reinforced seams, moody green light. ${IMG}` },
-      { eyebrow: 'The guarantee', title: 'We fix it, for life', body: 'Send in a worn-out piece and we patch it and send it back. No receipt, no expiry, no fine print.', image: `A repair workshop hand-patching a green outdoor jacket, warm workshop light. ${IMG}` },
+      { eyebrow: 'The guarantee', title: 'We fix it, for life', body: 'Send in a worn-out piece and we patch it and send it back. No receipt, no expiry, no fine print.', image: `A repair technician patching a green outdoor jacket at a workshop bench, patch kit and seam tape beside them, warm workshop light. The person at work is shown whole with their head and upper body in frame. ${IMG}` },
     ],
     iconFeatures: [
       { icon: 'ShieldCheck', title: 'Lifetime guarantee', body: 'Repairs included, for as long as you own it.' },
@@ -477,7 +488,7 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { eyebrow: 'For parents', title: 'A weekly note, not a dashboard', body: 'A short, plain summary of what your child worked on and what clicked, no metrics to decode.', image: `A parent and child smiling at a tablet together on a cozy couch, warm light. ${IMG}` },
     ],
     gallery: [
-      `A cartoon meadow reading game with friendly letters, warm honey-gold palette. ${IMG}`,
+      `A cartoon meadow scene with friendly bees and rounded honeycomb shapes, warm honey-gold palette. Absolutely no text, letters, words, numbers or logos appear anywhere in the image — no lettering on any object, sign, page or screen. ${IMG}`,
       `A playful counting game with a honeycomb and cartoon bees, sunny yellows. ${IMG}`,
       `A colorful pattern-matching puzzle grove for kids, rounded shapes. ${IMG}`,
       `A happy cartoon mascot bee waving, bright gold background. ${IMG}`,
@@ -633,23 +644,23 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'CalendarDays', title: 'Label nights', body: 'Residencies in three cities and counting.' },
     ],
     gallery: [
-      'A glowing liquid light-wave album cover in vivid neon, abstract and futuristic. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A dark club dancefloor lit by teal and pink lasers, atmospheric. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A close-up of a colored vinyl record catching neon light. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A neon-lit DJ booth at night, glowing knobs and faders. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A glowing liquid light-wave album cover in vivid neon, abstract and futuristic. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A dark club dancefloor lit by teal and pink lasers, atmospheric. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A close-up of a colored vinyl record catching neon light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A neon-lit DJ booth at night, glowing knobs and faders. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     altRows: [
       {
         eyebrow: 'The label',
         title: 'We press what we would play',
         body: 'Every release is a record we would drop ourselves at 2am. If it does not move the floor, it does not get a catalogue number.',
-        image: 'A DJ playing a glowing neon-lit set in a dark club, cinematic. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A DJ playing a glowing neon-lit set in a dark club, cinematic. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The artists',
         title: 'First on every split',
         body: 'Artists keep the lion’s share and the masters. We are here to press it, push it, and get out of the way.',
-        image: 'A music producer at a glowing studio console at night, neon accents. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A glowing studio mixing console photographed head-on at night, faders and knobs lit by neon accents, the studio empty behind it. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     bigQuote: { quote: 'The only label whose whole catalogue I buy on sight.', name: 'DJ Verre', role: 'Resident, Basement FM' },
@@ -725,13 +736,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'On the wheel',
         title: 'Thrown, trimmed, and glazed by hand',
         body: 'Every piece is thrown one day and trimmed the next, then dipped by hand in glaze we mix ourselves. The little marks are the maker saying hello.',
-        image: "A potter's hands shaping wet clay on a spinning wheel, warm studio light. Soft natural light, shallow depth of field, high detail, no text or logos.",
+        image: "A half-thrown clay vessel standing on a potter's wheel, water bowl and ribs on the splash pan, warm studio light, the wheel at rest. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.",
       },
       {
         eyebrow: 'In the kiln',
         title: 'A slow fire sets the colour',
         body: 'A long stoneware firing pulls the glaze into its final tone, so the batch shifts gently with the season and the kiln.',
-        image: 'Glazed ceramic pieces glowing inside a hot kiln, warm amber light. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'Glazed ceramic pieces glowing inside a hot kiln, warm amber light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     iconFeatures: [
@@ -740,10 +751,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'ShieldCheck', title: 'Food-safe', body: 'Lead-free, dishwasher-friendly glazes.' },
     ],
     gallery: [
-      'A ripple bowl in warm terracotta glaze on linen, artisanal ceramics. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A row of hand-thrown mugs drying on a studio shelf. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A potter trimming a bowl on the wheel, close-up, warm light. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A matte dune-toned vase with a single dried stem. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A ripple bowl in warm terracotta glaze on linen, artisanal ceramics. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A row of hand-thrown mugs drying on a studio shelf. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A potter trimming a leather-hard bowl on the wheel, curls of clay around the wheel head, warm light. The person at work is shown whole with their head and upper body in frame. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A matte dune-toned vase with a single dried stem. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'Are the pieces dishwasher safe?', a: 'Yes, though hand-washing keeps the glaze its best.' },
@@ -813,13 +824,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'The ledger',
         title: 'Correct by construction',
         body: 'We start with a double-entry ledger and expose payments on top, so your balances reconcile in real time and an audit is a query.',
-        image: 'A clean isometric render of a glowing financial ledger graph, cobalt blue fintech. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A clean isometric render of a glowing financial ledger graph, cobalt blue fintech. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The routing',
         title: 'Every cent takes the best path',
         body: 'Adaptive routing sends each transaction down the rail most likely to succeed, and retries the smart way when it does not.',
-        image: 'An abstract network routing diagram with cyan nodes on deep navy. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'An abstract network routing diagram with cyan nodes on deep navy. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     bigQuote: { quote: 'We replaced three vendors and a spreadsheet with one API.', name: 'Priya S.', role: 'CTO, Cascade' },
@@ -863,13 +874,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'Matched to you',
         title: 'The right plant for your light',
         body: 'Tell us which way your windows face and how much sun you get, and we point you to plants that will actually be happy there.',
-        image: 'A sunlit windowsill lined with healthy green houseplants, bright and airy. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A sunlit windowsill lined with healthy green houseplants, bright and airy. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'Delivered thriving',
         title: 'Potted, watered, ready',
         body: 'Every plant arrives in peat-free soil, watered and boxed to stand up straight, with a care card in the leaves.',
-        image: 'A hand unboxing a potted plant delivered in a cardboard box, fresh green. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A potted plant standing in an open cardboard delivery box on a pale floor, packing paper folded back around it, fresh green. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     iconFeatures: [
@@ -879,10 +890,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'Recycle', title: 'Peat-free', body: 'Kinder soil, sturdier roots.' },
     ],
     gallery: [
-      'A ZZ plant with glossy leaves in a matte pot, bright airy interior. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A tall fiddle-leaf fig in a woven basket by a window. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A cluster of small potted succulents on a shelf. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A large monstera deliciosa in a simple ceramic pot against a pale wall, broad glossy split leaves. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A ZZ plant with glossy leaves in a matte pot, bright airy interior. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A tall fiddle-leaf fig in a woven basket by a window. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A cluster of small potted succulents on a shelf. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A large monstera deliciosa in a simple ceramic pot against a pale wall, broad glossy split leaves. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'What if my plant struggles?', a: 'Our 30-day thrive promise replaces it, no receipt needed.' },
@@ -956,20 +967,20 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'The craft',
         title: 'Long reads, clean type',
         body: 'We publish one considered issue a month, set in type we actually care about, with nothing between you and the writing.',
-        image: 'An elegant editorial magazine spread with bold modernist typography, primary colors. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'An elegant editorial magazine spread laid out as bold modernist colour blocks and rules, primary colors, with the body copy shown only as soft grey texture. Absolutely no text, letters, words, numbers or logos appear anywhere in the image — no lettering on any object, sign, page or screen.  Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The model',
         title: 'Readers, not advertisers',
         body: 'No ads, no chum, no tracking. Subscriptions keep us independent and the whole archive open forever.',
-        image: 'A stack of printed independent magazines on a warm paper desk. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A stack of printed independent magazines on a warm paper desk. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     gallery: [
-      'A bold Bauhaus-style poster in red, blue, and yellow geometric shapes. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A clean flat-lay of a laptop and notebook on a warm desk. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A geometric paper collage in primary colors. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'An open magazine showing a striking editorial layout. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A bold Bauhaus-style poster in red, blue, and yellow geometric shapes. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A clean flat-lay of a laptop and notebook on a warm desk. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A geometric paper collage in primary colors. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'An open magazine showing a striking editorial layout. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How often do you publish?', a: 'One full issue a month, plus a short weekly note.' },
@@ -1052,20 +1063,20 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'Tested',
         title: 'Cooked until a beginner can nail it',
         body: 'Every recipe gets made again and again until the steps are foolproof and the timing is honest.',
-        image: 'A bright overhead shot of a colorful fresh weeknight dinner in a bowl. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A bright overhead shot of a colorful fresh weeknight dinner in a bowl. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'Fast',
         title: 'Built for a real weeknight',
         body: 'Short ingredient lists, short cook times, and a timer baked into every step so nothing burns.',
-        image: 'A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A skillet of vibrant vegetables sizzling on a stovetop, bright and fresh. The food itself is warm and natural — reds, oranges, yellows, greens and browns only. No blue or teal anywhere on the food; the teal in the palette belongs to props and linens in the background, never to anything edible. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     gallery: [
-      'A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A vibrant chili-lime corn bowl, appetizing overhead food photo. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A skillet of blistered tomato orzo with basil. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A bowl of glossy sesame crunch noodles with scallions. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'Charred broccoli tacos on a bright plate. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How does the box work?', a: 'A recipe lands in your inbox every weekday afternoon.' },
@@ -1124,13 +1135,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'The composition',
         title: 'Built around one accord',
         body: 'Each scent begins with a single idea and a few materials, layered so it opens, turns, and settles like a piece of music.',
-        image: 'A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A dark still life of a faceted perfume bottle among night flowers, deep violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The maturation',
         title: 'Rested before it is bottled',
         body: 'Every batch sits for weeks so the materials marry, then it is decanted into refillable glass by hand.',
-        image: "A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos.",
+        image: "A perfumer's dim atelier with amber bottles and a single lamp, moody violet. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.",
       },
     ],
     bigQuote: { quote: 'It smells like a memory I have not made yet.', name: 'Iris N.', role: 'Client' },
@@ -1140,10 +1151,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'Recycle', title: 'Refillable glass', body: 'Bring the bottle back, we fill it again.' },
     ],
     gallery: [
-      'A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A faceted perfume bottle glowing amethyst on black velvet, luxurious. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A dark arrangement of night-blooming flowers, deep purple. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A minimalist flacon backlit in soft violet haze. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A close-up of perfume being sprayed, a fine violet mist. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How long does it last?', a: 'Our extraits sit close to the skin for eight hours or more.' },
@@ -1200,13 +1211,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'The site',
         title: 'We walk the land first',
         body: 'Every project starts on the ground at different tides and times of day. The building follows the light and the weather, not the other way round.',
-        image: 'An architect walking a windswept coastal site at golden hour, wide and calm. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'An architect walking a windswept coastal site at golden hour, wide and calm. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The materials',
         title: 'Chosen to grey gracefully',
         body: 'Timber, stone, and lime that weather into the coast instead of fighting it, and ask little of the years.',
-        image: 'A close-up of weathered timber cladding on a coastal house, soft grey light. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A close-up of weathered timber cladding on a coastal house, soft grey light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     iconFeatures: [
@@ -1217,10 +1228,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
     ],
     bigQuote: { quote: 'They gave us a house that feels like the coast itself.', name: 'The Aldous family', role: 'Salt House' },
     gallery: [
-      'A low-slung timber coastal house against a grey sky, calm architecture. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A minimalist dune pavilion with glass facing the sea. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A stone harbourside building at dusk with deep window reveals. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'An interior with a large window framing the ocean, soft light. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A low-slung timber coastal house against a grey sky, calm architecture. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A minimalist dune pavilion with glass facing the sea. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A stone harbourside building at dusk with deep window reveals. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'An interior with a large window framing the ocean, soft light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'Where do you work?', a: 'Coastlines, mostly. We travel for the right project.' },
@@ -1266,23 +1277,23 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'Sparkles', title: 'Built in the open', body: 'Devlogs every Friday, no exceptions.' },
     ],
     gallery: [
-      'A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A neon rooftop delivery scene in pixel art, night city with pink and blue glow. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A colorful pixel-art coral reef aquarium scene, pastel vaporwave. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A retro falling-blocks arcade game screen in vivid neon. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A neon rooftop delivery scene in pixel art, night city with pink and blue glow. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A colorful pixel-art coral reef aquarium scene, pastel vaporwave. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A retro falling-blocks arcade game screen in vivid neon. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     altRows: [
       {
         eyebrow: 'The studio',
         title: 'Three friends, no publisher',
         body: 'We make the games we want to come home to. Warm, weird, and never in a hurry, funded by the players who love them.',
-        image: 'A cozy indie game studio room with pixel-art posters and warm lamps, night. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A cozy indie game studio room with pixel-art posters and warm lamps, night. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'The vibe',
         title: 'No crunch, just vibes',
         body: 'We ship when it is ready and rest when it is not. Turns out you can make good games and sleep too.',
-        image: 'A relaxed desk with a handheld console and a warm mug at night, cozy glow. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A relaxed desk at night: a handheld games console propped on a stand, a warm mug and a small lamp beside it, cozy glow. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     bigQuote: { quote: 'The comfort food of video games. I adore it.', name: 'pixelfox', role: 'Player' },
@@ -1360,13 +1371,13 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
         eyebrow: 'At the source',
         title: 'Bought from farms we visit',
         body: 'We buy small lots direct from growers we know by name, and pay above the fair-trade floor because a good coffee starts long before the roast.',
-        image: 'A coffee farmer holding fresh red coffee cherries on a highland farm, warm light. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'A woven basket heaped with fresh red coffee cherries set down on a highland farm, terraced green slopes behind it, warm light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
       {
         eyebrow: 'At the roastery',
         title: 'Roasted the day before it ships',
         body: 'Small batches, dialled in for each lot, roasted the day before dispatch so it reaches your kitchen at its peak.',
-        image: 'Coffee beans tumbling in a drum roaster with warm glow, cozy roastery. Soft natural light, shallow depth of field, high detail, no text or logos.',
+        image: 'Coffee beans tumbling in a drum roaster with warm glow, cozy roastery. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
       },
     ],
     iconFeatures: [
@@ -1375,10 +1386,10 @@ export const SHOWCASE_SECTIONS: Record<string, SectionContent> = {
       { icon: 'Truck', title: 'Direct trade', body: 'Long relationships, prices above the floor.' },
     ],
     gallery: [
-      'A bag of single-origin beans spilling onto burlap, warm espresso tones. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A pour-over setup with rich crema in soft window light. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'Glossy roasted coffee beans piled close-up with warm highlights. Soft natural light, shallow depth of field, high detail, no text or logos.',
-      'A barista weighing beans on a scale at a wooden counter. Soft natural light, shallow depth of field, high detail, no text or logos.',
+      'A bag of single-origin beans spilling onto burlap, warm espresso tones. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A glass carafe of filter coffee beside a cone dripper and a scattering of beans on a cafe counter, soft window light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'Glossy roasted coffee beans piled close-up with warm highlights. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      'A barista weighing coffee beans on a scale at a wooden counter, warm morning light. The person at work is shown whole with their head and upper body in frame. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     ],
     faq: [
       { q: 'How fresh is it?', a: 'Roasted to order and shipped within a day of roasting.' },

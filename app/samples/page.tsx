@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import {
-  neon, pebble, circuit, foliage, bauhaus, quoit, veil, awning, tetro, halftone,
+  neon, pebble, circuit, foliage, bauhaus, quoit, veil, louvre, tetro, halftone,
   lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 } from 'tabbied/artworks';
 import LazyArtwork from './LazyArtwork';
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const ART: Record<string, ArtworkDefinition> = {
-  neon, pebble, circuit, foliage, bauhaus, quoit, veil, awning, tetro, halftone,
+  neon, pebble, circuit, foliage, bauhaus, quoit, veil, louvre, tetro, halftone,
   lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
 };
 

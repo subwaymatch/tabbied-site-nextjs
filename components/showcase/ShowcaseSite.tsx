@@ -16,7 +16,11 @@ import s from './ShowcaseSite.module.css';
 // custom_id sent to the API and the filename that comes back, so a finished
 // image finds its way home without a lookup table. Keep it in step with
 // scripts/images/extract-prompts.mjs if the slot naming ever changes.
-const imageId = (site: Site, slot: 'hero' | 'card' | 'alt' | 'gallery' | 'team', i: number) =>
+const imageId = (
+  site: Site,
+  slot: 'hero' | 'about' | 'card' | 'alt' | 'gallery' | 'team',
+  i: number
+) =>
   `react__${site.slug}__${slot}-${i}`;
 
 // ---- color helpers --------------------------------------------------------
@@ -63,6 +67,7 @@ const KIT_CLASS: Record<Kit, string> = {
 
 type ArtMap = Record<string, ArtworkDefinition>;
 type Props = { site: Site; artworks: ArtMap };
+type HeroProps = Props & { heroImage?: string; overlay?: string };
 
 function artAt(site: Site, artworks: ArtMap, i: number): ArtworkDefinition {
   const slugs = site.artworks;
@@ -101,7 +106,12 @@ export default function ShowcaseSite({ site, artworks }: Props) {
   const kitClass = sec ? KIT_CLASS[sec.kit] : s.kitSoft;
 
   const ctx = { site, artworks, content, sec };
-  const heroProps = { site, artworks, heroImage: sec?.heroImage };
+  const heroProps: HeroProps = {
+    site,
+    artworks,
+    heroImage: sec?.heroImage,
+    overlay: sec?.heroOverlayArtwork,
+  };
   const order: SectionKey[] = sec?.sections ?? ['about', 'items', 'features', 'testimonials', 'band', 'newsletter'];
 
   return (
@@ -200,7 +210,13 @@ function About({ site, artworks, content }: Ctx & { content: NonNullable<Ctx['co
         {content.about.body.map((p, i) => <p key={i}>{p}</p>)}
         <ul className={s.points}>{content.about.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
       </div>
-      <div className={s.aboutArt}><Decor def={artAt(site, artworks, 2)} palette={site.colors} density={1} /></div>
+      <div className={s.aboutArt}>
+        {content.aboutImage ? (
+          <ImageCard id={imageId(site, 'about', 0)} prompt={content.aboutImage} colors={site.colors} />
+        ) : (
+          <Decor def={artAt(site, artworks, 2)} palette={site.colors} density={1} />
+        )}
+      </div>
     </section>
   );
 }
@@ -522,7 +538,7 @@ function Footer({ site }: { site: Site }) {
 }
 
 // ---- heroes ---------------------------------------------------------------
-function SplitHero({ site, artworks, heroImage }: Props & { heroImage?: string }) {
+function SplitHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
@@ -534,7 +550,7 @@ function SplitHero({ site, artworks, heroImage }: Props & { heroImage?: string }
           <CtaRow site={site} />
         </div>
         <div className={s.splitArt}>
-          <HeroArt site={site} artworks={artworks} heroImage={heroImage} />
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
         </div>
       </header>
     </>
@@ -543,44 +559,42 @@ function SplitHero({ site, artworks, heroImage }: Props & { heroImage?: string }
 
 /**
  * Whatever fills a hero's art panel: the site's artwork on its own, or — when
- * the site supplies a `heroImage` prompt — a generated photograph with that
+ * the site supplies a `heroImage` prompt — a generated photograph with an
  * artwork drawn across it. Every layout renders this, so the photograph is a
  * per-site choice rather than something only one hero shape supports.
  *
- * Two things make the pattern read as an overlay rather than a texture or a
- * curtain. The density is the coarsest authored level, so a handful of large
- * shapes cross the picture instead of a fine repeat. And color0 — the artwork's
- * background slot — is `transparent`, which is why the photograph shows through
- * the gaps at all; the artwork picked is the site's last, which across these
- * sites is a background-independent design whose gaps are real geometry rather
- * than shapes painted in color0.
+ * The overlay is drawn at full opacity with no blend mode. What makes the
+ * photograph readable underneath is `transparent` in color0, the artwork's
+ * background slot: the design's own marks land opaquely and everything it would
+ * otherwise fill is left as real negative space. That only works for a sparse
+ * design, which is why the site names its overlay (`heroOverlayArtwork`) rather
+ * than taking whatever is to hand. Density is the coarsest authored level, so
+ * what crosses the picture is a few large shapes rather than a texture.
  */
-function HeroArt({ site, artworks, heroImage }: Props & { heroImage?: string }) {
+function HeroArt({ site, artworks, heroImage, overlay }: HeroProps) {
   if (!heroImage) {
     return <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />;
   }
+
+  const def = (overlay && artworks[overlay]) ?? artAt(site, artworks, site.artworks.length - 1);
 
   return (
     <>
       <ImageCard id={imageId(site, 'hero', 0)} prompt={heroImage} colors={site.colors} />
       <div className={s.heroPattern} aria-hidden="true">
-        <Decor
-          def={artAt(site, artworks, site.artworks.length - 1)}
-          palette={['transparent', ...site.colors.slice(1)]}
-          density={0}
-        />
+        <Decor def={def} palette={['transparent', ...site.colors.slice(1)]} density={0} />
       </div>
     </>
   );
 }
 
-function SpotlightHero({ site, artworks, heroImage }: Props & { heroImage?: string }) {
+function SpotlightHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
       <header className={s.spotHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <HeroArt site={site} artworks={artworks} heroImage={heroImage} />
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
         </div>
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
@@ -599,7 +613,7 @@ function SpotlightHero({ site, artworks, heroImage }: Props & { heroImage?: stri
   );
 }
 
-function EditorialHero({ site, artworks, heroImage }: Props & { heroImage?: string }) {
+function EditorialHero({ site, artworks, heroImage, overlay }: HeroProps) {
   const lead = site.items[0];
   return (
     <>
@@ -607,20 +621,20 @@ function EditorialHero({ site, artworks, heroImage }: Props & { heroImage?: stri
       <div className={s.edTitleRow}><h1>{site.brand}</h1><p className={s.lede}>{site.lede}</p></div>
       <nav className={s.edNav}>{site.nav.map((n) => <a key={n} href="#">{n}</a>)}</nav>
       <div className={s.edCover}>
-        <HeroArt site={site} artworks={artworks} heroImage={heroImage} />
+        <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
         <div className={s.edCoverCaption}><div className={s.k}>{lead.eyebrow}</div><h2>{lead.title}</h2></div>
       </div>
     </>
   );
 }
 
-function BoutiqueHero({ site, artworks, heroImage }: Props & { heroImage?: string }) {
+function BoutiqueHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
       <header className={s.boutHero}>
         <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
-          <HeroArt site={site} artworks={artworks} heroImage={heroImage} />
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
         </div>
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
