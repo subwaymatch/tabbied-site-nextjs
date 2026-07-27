@@ -1,8 +1,23 @@
 name: Release
 
 on:
+  # Every merge to main: open or refresh the "Version Packages" PR, and publish
+  # when that PR is what just landed. Merge it whenever you want to ship early.
   push:
     branches: [main]
+  # Otherwise main ships itself once a week: if anything is waiting, this
+  # versions and publishes it without a human merging the version PR.
+  # Mondays, 17:23 UTC (a few minutes off the hour — GitHub delays crons
+  # scheduled on it).
+  schedule:
+    - cron: '23 17 * * 1'
+  # The same path as the weekly run, on demand.
+  workflow_dispatch:
+    inputs:
+      auto_patch:
+        description: 'Bump patch when the package changed but nobody wrote a changeset'
+        type: boolean
+        default: true
 
 # Never run two releases concurrently against the same ref.
 concurrency:
@@ -10,7 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write # push the version PR branch, create git tags + GitHub Releases
+  contents: write # push the version commit / PR branch, create git tags + GitHub Releases
   pull-requests: write # open/update the "Version Packages" PR
   id-token: write # npm Trusted Publishing (OIDC) + provenance attestations
 
@@ -23,6 +38,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Changesets needs full history to detect changes
+          fetch-tags: true # the weekly run reads the last release tag
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -42,9 +58,103 @@ jobs:
       - name: Build the package
         run: npm run build --workspace tabbied
 
-      # When changesets are pending, this opens/updates the "Version Packages"
-      # PR. When that PR is merged (no changesets left), it publishes to npm.
+      # Scheduled/manual runs decide for themselves what (if anything) to ship.
+      # Push runs skip this and hand straight to changesets/action, which knows
+      # whether to open the version PR or publish.
+      - name: Decide what to release
+        id: plan
+        if: github.event_name != 'push'
+        env:
+          # workflow_dispatch sends a string; schedule sends nothing at all.
+          AUTO_PATCH: ${{ github.event_name != 'workflow_dispatch' && 'true' || inputs.auto_patch }}
+        run: |
+          set -euo pipefail
+
+          # .changeset/README.md is documentation, not a pending changeset.
+          pending=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l)
+          local_version=$(node -p "require('./packages/tabbied/package.json').version")
+          published=$(npm view tabbied version 2>/dev/null || echo '')
+
+          echo "pending changesets: $pending"
+          echo "local: $local_version, npm: ${published:-<none>}"
+
+          if [ "$pending" -gt 0 ]; then
+            echo 'mode=version' >> "$GITHUB_OUTPUT"
+            echo "-> version + publish ($pending changeset(s) waiting)"
+            exit 0
+          fi
+
+          # A version commit that landed but never published (a failed publish,
+          # or a version PR merged while the schedule was idle) still needs
+          # shipping — `changeset publish` is a no-op when it doesn't.
+          if [ -n "$published" ] && [ "$local_version" != "$published" ]; then
+            echo 'mode=publish' >> "$GITHUB_OUTPUT"
+            echo "-> publish ($local_version is not on npm yet)"
+            exit 0
+          fi
+
+          if [ "$AUTO_PATCH" != 'true' ]; then
+            echo 'mode=skip' >> "$GITHUB_OUTPUT"
+            echo '-> nothing to do (auto-patch off)'
+            exit 0
+          fi
+
+          # Nothing declared a bump, so fall back to "did the package change at
+          # all since the last release?" and cut a patch if it did. Anything
+          # bigger than a patch should carry its own changeset.
+          last_tag=$(git describe --tags --match 'tabbied@*' --abbrev=0 2>/dev/null || true)
+
+          if [ -z "$last_tag" ]; then
+            echo 'mode=skip' >> "$GITHUB_OUTPUT"
+            echo '-> nothing to do (no tabbied@* tag to diff against yet)'
+            exit 0
+          fi
+
+          if git diff --quiet "$last_tag"..HEAD -- packages/tabbied; then
+            echo 'mode=skip' >> "$GITHUB_OUTPUT"
+            echo "-> nothing to do (no package changes since $last_tag)"
+            exit 0
+          fi
+
+          {
+            echo '---'
+            echo "'tabbied': patch"
+            echo '---'
+            echo
+            echo "Package changes since ${last_tag} that landed without a changeset:"
+            echo
+            git log --format='- %s' "$last_tag"..HEAD -- packages/tabbied
+          } > .changeset/auto-weekly-release.md
+
+          echo 'mode=version' >> "$GITHUB_OUTPUT"
+          echo "-> version + publish (auto patch: package changed since $last_tag)"
+
+      # The weekly release does its own versioning and lands it on main, so it
+      # can publish in this same run. Pushing with GITHUB_TOKEN deliberately
+      # does not retrigger this workflow, so there is no second release.
+      - name: Version and commit to main
+        if: steps.plan.outputs.mode == 'version'
+        env:
+          # @changesets/changelog-github calls the API to credit PRs/authors.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          npm run version-packages
+          git add -A
+          git commit -m 'chore(release): version packages'
+          git push origin HEAD:main
+
+      # Push runs: opens/updates the "Version Packages" PR when changesets are
+      # pending, publishes when that PR is what just merged.
+      # Scheduled/manual runs: there are no changesets left by now, so this is
+      # the publish (npm + git tag + GitHub Release).
       - name: Create release PR or publish to npm
+        if: >-
+          github.event_name == 'push' ||
+          steps.plan.outputs.mode == 'version' ||
+          steps.plan.outputs.mode == 'publish'
         uses: changesets/action@v1
         with:
           version: npm run version-packages
@@ -53,3 +163,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No NPM_TOKEN: auth + provenance come from OIDC trusted publishing.
           # See RELEASING.md for the one-time npmjs.com configuration.
+
+      # The weekly release consumed the changesets the open "Version Packages"
+      # PR was built from, so that PR now describes a release that already
+      # shipped. Deleting its branch closes it; the next merge to main carrying
+      # a changeset opens a fresh one.
+      - name: Retire the superseded version PR
+        if: steps.plan.outputs.mode == 'version'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api -X DELETE \
+            "repos/${{ github.repository }}/git/refs/heads/changeset-release/main" \
+            --silent || echo 'No version PR branch to retire.'

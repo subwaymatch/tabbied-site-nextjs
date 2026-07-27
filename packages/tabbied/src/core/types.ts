@@ -32,8 +32,16 @@ export type ArtworkColors = {
   default: number;
 };
 
-/** How an artwork is fitted into its container. See createArtwork(). */
-export type FitMode = 'grid' | 'stretch' | 'cover' | 'contain' | 'fixed';
+/**
+ * How an artwork is fitted into its container. See createArtwork().
+ *
+ * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
+ * near-square at any box shape, `cover`/`contain` scale a render uniformly,
+ * and `fixed` draws at an explicit canvas size. (A `stretch` mode that kept
+ * the authored grid and let cells deform with the box existed through 0.1.x
+ * and was removed — see resolveFitMode.)
+ */
+export type FitMode = 'grid' | 'cover' | 'contain' | 'fixed';
 
 /**
  * Per-artwork sizing metadata. Everything is optional: artworks with a

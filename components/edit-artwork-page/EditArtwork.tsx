@@ -676,6 +676,7 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       `import { TabbiedArtwork } from 'tabbied/react';`,
       `import { ${artwork.slug} } from 'tabbied/artworks';`,
       ``,
+      `// Fills its parent by default — add height, maxWidth or aspectRatio to bound it.`,
       `<TabbiedArtwork`,
       `  artwork={${artwork.slug}}`,
       `  seed="${seed}"`,

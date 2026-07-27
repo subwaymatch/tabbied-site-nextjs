@@ -39,14 +39,109 @@ export const DEFAULT_FIXED_SIZE = { width: 360, height: 540 };
 
 export const FIT_MODES: readonly FitMode[] = [
   'grid',
-  'stretch',
   'cover',
   'contain',
   'fixed',
 ];
 
+// Fits that existed in an earlier version, mapped to why they went away. Kept
+// so a stale `fit` prop gets a message that explains the migration instead of
+// the generic "not supported by this artwork" fallback warning.
+const REMOVED_FIT_MODES: Record<string, string> = {
+  stretch:
+    'artworks are no longer scaled by a different factor per axis. Use "grid" ' +
+    '(re-derives the cell grid for the box, so cells stay near-square) or ' +
+    '"cover"/"contain" (scale a render uniformly).',
+};
+
 export function hasGridOption(definition: ArtworkDefinition): boolean {
   return definition.options.some((option) => option.id === GRID_OPTION_ID);
+}
+
+// ---- box sizing -----------------------------------------------------------
+// An artwork has no intrinsic size: `fit` says how the drawing relates to its
+// box, and these say how big the box is. They're deliberately the CSS
+// properties they map to — the element an artwork renders into is a normal
+// block box, so anything expressible in CSS stays expressible here.
+
+/** How big the element an artwork renders into should be. */
+export type ArtworkBoxSize = {
+  /**
+   * Fill the containing block (`width: 100%; height: 100%`). Default, so an
+   * artwork dropped into a sized parent shows up without extra CSS. An
+   * explicit `width`/`height` takes over that axis; `fill: false` opts out of
+   * both, leaving the box to a class name or the surrounding layout.
+   *
+   * `height: 100%` only resolves against a parent with a definite height. In a
+   * parent that sizes to its content, give the artwork a `height` or an
+   * `aspectRatio` instead.
+   */
+  fill?: boolean;
+  /** Box width/height. Numbers are px; strings are used as written. */
+  width?: number | string;
+  height?: number | string;
+  /** Upper bounds on the box. Numbers are px; strings are used as written. */
+  maxWidth?: number | string;
+  maxHeight?: number | string;
+  /**
+   * CSS `aspect-ratio` (e.g. `3 / 2` or `1.5`). Derives the height from the
+   * width, so it pairs with `maxWidth` in a parent that has no fixed height.
+   */
+  aspectRatio?: number | string;
+};
+
+/** The CSS the box props resolve to (assignable to a style object). */
+export type ArtworkBoxStyle = {
+  width?: string;
+  height?: string;
+  maxWidth?: string;
+  maxHeight?: string;
+  aspectRatio?: string;
+};
+
+const cssLength = (value: number | string): string =>
+  typeof value === 'number' ? `${value}px` : value;
+
+/**
+ * Turn the box props into CSS. `tabbied/react` spreads the result into the
+ * wrapper's `style` (so the box is right on the server render too); with the
+ * core API, assign it to the host yourself:
+ *
+ * ```js
+ * Object.assign(host.style, resolveBoxStyle({ maxWidth: 720, aspectRatio: 3 / 2 }));
+ * ```
+ */
+export function resolveBoxStyle(size: ArtworkBoxSize = {}): ArtworkBoxStyle {
+  const { fill = true, width, height, maxWidth, maxHeight, aspectRatio } = size;
+  const style: ArtworkBoxStyle = {};
+
+  if (width != null) {
+    style.width = cssLength(width);
+  } else if (fill) {
+    style.width = '100%';
+  }
+
+  if (height != null) {
+    style.height = cssLength(height);
+  } else if (fill && aspectRatio == null) {
+    // With an aspect ratio the height is derived from the width — pinning it
+    // to 100% would override the ratio rather than honour it.
+    style.height = '100%';
+  }
+
+  if (maxWidth != null) {
+    style.maxWidth = cssLength(maxWidth);
+  }
+
+  if (maxHeight != null) {
+    style.maxHeight = cssLength(maxHeight);
+  }
+
+  if (aspectRatio != null) {
+    style.aspectRatio = String(aspectRatio);
+  }
+
+  return style;
 }
 
 // The fits an artwork supports. Declared sizing.allowed wins; otherwise every
@@ -94,8 +189,12 @@ export function resolveFitMode(
 
   if (typeof console !== 'undefined' && !warnedFits.has(warnKey)) {
     warnedFits.add(warnKey);
+    const removed = REMOVED_FIT_MODES[requested];
+
     console.warn(
-      `[tabbied] fit "${requested}" is not supported by "${definition.slug}" — using "${fallback}" instead`
+      removed
+        ? `[tabbied] fit "${requested}" was removed: ${removed} Using "${fallback}" instead.`
+        : `[tabbied] fit "${requested}" is not supported by "${definition.slug}" — using "${fallback}" instead`
     );
   }
 

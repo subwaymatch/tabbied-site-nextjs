@@ -337,29 +337,81 @@
   overflow: hidden;
 }
 
-/* Fit-mode comparison: responsive row of labeled previews. */
+/* Fit-mode comparison. Every mode draws the same artwork at the same seed into
+   the same two boxes — one landscape, one portrait — because what separates the
+   modes is only visible when the box stops matching the drawing. */
+/* Sized so all four modes sit on one row inside the docs column (~590px of
+   preview): a mode that wraps onto a row of its own stops reading as part of
+   the comparison. The portrait box is 116px, so the track can go this narrow. */
 .fitGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+  gap: 1.75rem 0.9rem;
 }
 
 .fitItem {
   margin: 0;
 }
 
-.fitBox {
-  height: 180px;
+.fitShapes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Both boxes clip: fit="fixed" draws a canvas of its own size and lets the
+   box crop it, which is exactly the difference being shown. */
+.fitWide,
+.fitTall {
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background-color: var(--gray-light);
+}
+
+.fitWide {
+  width: 100%;
+  height: 88px;
+}
+
+/* Symmetry is a portrait composition, so cover-vs-contain only reads in a box
+   with some height to letterbox against. */
+.fitCompare {
+  width: 100%;
+  height: 168px;
   border-radius: 0.35rem;
   overflow: hidden;
 }
 
+.fitTall {
+  width: 116px;
+  height: 190px;
+}
+
 .fitCaption {
-  margin-top: 0.6rem;
+  margin-top: 0.7rem;
   text-align: center;
-  font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--gray-medium);
+}
+
+.fitCaption code {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  color: var(--gray-dark);
+}
+
+/* Box-prop comparison: what `fill` and the bounded form each resolve to. */
+.boxDemo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.boxDemoFill {
+  height: 120px;
+  border-radius: 0.35rem;
+  overflow: hidden;
 }
 
 /* Imperative-handle demo buttons. */

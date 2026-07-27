@@ -9,8 +9,10 @@ import {
 } from 'react';
 import {
   createArtwork,
+  resolveBoxStyle,
   resolveFitMode,
   DEFAULT_FIXED_SIZE,
+  type ArtworkBoxSize,
   type ArtworkConfig,
   type ArtworkController,
   type ArtworkDefinition,
@@ -30,7 +32,7 @@ export type TabbiedArtworkHandle = {
   readonly element: CssDoodleElement | null;
 };
 
-export type TabbiedArtworkProps = {
+export type TabbiedArtworkProps = ArtworkBoxSize & {
   /**
    * The artwork to render, as an `ArtworkDefinition`. Import only the presets
    * you use from `tabbied/artworks` (e.g. `import { radius } from
@@ -45,11 +47,14 @@ export type TabbiedArtworkProps = {
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
   /**
-   * Fit strategy — how the artwork relates to this component's box:
-   * `grid` (default) adapts the cell grid to the measured container,
-   * `stretch` keeps the authored grid and stretches, `cover`/`contain` scale
-   * a fixed-resolution render (preserving fixed-px effects), `fixed` renders
-   * at explicit width/height props. Defaults per artwork (sizing metadata).
+   * Fit strategy — how the drawing relates to this component's box (the box
+   * itself is sized by `fill`/`width`/`height`/`maxWidth`/`maxHeight`):
+   * `grid` (default) re-derives the cell grid from the measured box,
+   * `cover`/`contain` scale a fixed-resolution render uniformly (preserving
+   * fixed-px effects), `fixed` renders at an explicit canvas size. Defaults
+   * per artwork (sizing metadata). No fit deforms the artwork — nothing is
+   * scaled by a different factor horizontally than vertically.
+   *
    * For grid-driven artworks, `cover` adapts its render to the box's aspect
    * ratio (whole cells, nothing cropped mid-cell); special layouts without a
    * grid — like Symmetry — scale-and-crop instead.
@@ -59,9 +64,6 @@ export type TabbiedArtworkProps = {
   cellSize?: number;
   /** fit:"grid" — authored density level 0..4, alternative to cellSize. */
   density?: 0 | 1 | 2 | 3 | 4;
-  /** fit:"fixed" — canvas size in px. */
-  width?: number;
-  height?: number;
   /** cover/contain — render resolution override. */
   coverRender?: CoverRender;
   /**
@@ -94,6 +96,19 @@ export type TabbiedArtworkProps = {
 /**
  * Renders a Tabbied artwork into a normal, CSS-sizeable box (like an <img>).
  *
+ * By default the box fills its containing block, so dropping one into a sized
+ * parent is all it takes:
+ *
+ * ```tsx
+ * <div style={{ width: '100%', height: 400 }}>
+ *   <TabbiedArtwork artwork={radius} />
+ * </div>
+ * ```
+ *
+ * `width`/`height`/`maxWidth`/`maxHeight`/`aspectRatio` bound it instead, and
+ * `fill={false}` hands sizing back to a class name. Whatever the box turns out
+ * to be, the artwork is fitted into it without distortion — see `fit`.
+ *
  * The wrapper <div> is all that React renders — on the server and the first
  * client paint it shows the artwork's background color (correct size, zero
  * CLS, no hydration mismatch, no raw-source flash). After mount, the
@@ -111,8 +126,12 @@ export const TabbiedArtwork = forwardRef<
     fit,
     cellSize,
     density,
+    fill,
     width,
     height,
+    maxWidth,
+    maxHeight,
+    aspectRatio,
     coverRender,
     redrawInterval,
     paused = false,
@@ -133,6 +152,9 @@ export const TabbiedArtwork = forwardRef<
   const pausedRef = useRef(paused);
   pausedRef.current = paused;
 
+  // fit:"fixed" draws its canvas at an explicit pixel size, so it only takes
+  // the numeric form of width/height; a CSS length still sizes the box, and
+  // the canvas falls back to DEFAULT_FIXED_SIZE.
   const config: ArtworkConfig = {
     artwork: definition,
     seed,
@@ -141,8 +163,8 @@ export const TabbiedArtwork = forwardRef<
     fit,
     cellSize,
     density,
-    width,
-    height,
+    width: typeof width === 'number' ? width : undefined,
+    height: typeof height === 'number' ? height : undefined,
     coverRender,
     onReady,
   };
@@ -254,20 +276,27 @@ export const TabbiedArtwork = forwardRef<
   // the letterbox color for fit:"contain".
   const background = (palette ?? definition.palette)?.[0];
   const resolvedFit = resolveFitMode(definition, fit);
-  const fixedSize: CSSProperties | undefined =
+  // fit:"fixed" is the one strategy with an inherent size, so its box defaults
+  // to the canvas rather than to filling the parent.
+  const boxStyle: CSSProperties = resolveBoxStyle(
     resolvedFit === 'fixed'
       ? {
+          fill: false,
           width: width ?? DEFAULT_FIXED_SIZE.width,
           height: height ?? DEFAULT_FIXED_SIZE.height,
+          maxWidth,
+          maxHeight,
+          aspectRatio,
         }
-      : undefined;
+      : { fill, width, height, maxWidth, maxHeight, aspectRatio }
+  );
 
   return (
     <div
       ref={hostRef}
       data-artwork={definition.slug}
       className={className}
-      style={{ backgroundColor: background, ...fixedSize, ...style }}
+      style={{ backgroundColor: background, ...boxStyle, ...style }}
       {...(decorative
         ? { 'aria-hidden': true }
         : { role: 'img', 'aria-label': ariaLabel ?? definition.name })}

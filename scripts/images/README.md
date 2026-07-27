@@ -65,6 +65,46 @@ npm run images:import                # 4. download, recompress, write public/
 
 Working files live in the git-ignored `scripts/images/.batch/`.
 
+## Regenerating an image you already have
+
+The pipeline is built to be additive — every step skips work it has already
+done — so redoing a finished image means opting out of all three skips. Each
+step spells that `--force`:
+
+```bash
+# One image. The id is the filename in public/images/showcase, minus .webp.
+node scripts/images/build-batch.mjs --force --only react__03-meridian__gallery-2
+npm run images:submit -- --force --watch
+npm run images:import -- --force
+```
+
+| Step   | What it skips by default              | What `--force` does                          |
+| ------ | ------------------------------------- | -------------------------------------------- |
+| build  | prompts whose `.webp` already exists  | plans them anyway (same as `--all`)          |
+| submit | ids that already carry a `taskId`     | drops their state so they get a fresh job    |
+| import | destinations that already exist       | overwrites the file                          |
+
+`--force` on submit is the one that matters, and the one `--retry` won't do for
+you: `--retry` only requeues tasks that *failed* or stalled, so a successful
+generation stays put no matter how often it is replanned.
+
+Scope with `--only`, which matches a stack (`static`, `react`), a site name
+(`03-meridian`), or any substring of an id — including an alias, so an id read
+straight off a page finds the prompt that generates it. Without `--only`,
+`--force` regenerates **every** slot, which is a full paid run.
+
+Don't like the result? Just run the three commands again — each one rerolls the
+seed on KIE's side. To go back to the prompt card instead, delete the file and
+reindex:
+
+```bash
+rm public/images/showcase/react__03-meridian__gallery-2.webp
+npm run images:index
+```
+
+Rebuild afterwards either way (`npm run build`) so the static pages pick the
+change up.
+
 ## Rate limiting
 
 KIE accepts **20 new requests per 10 seconds per account**, and anything over
@@ -118,10 +158,14 @@ Writes the list of jobs to create. By default it only includes prompts with no
 image on disk yet, so reruns are cheap and additive.
 
 ```bash
-node scripts/images/build-batch.mjs --all              # regenerate everything
+node scripts/images/build-batch.mjs --all              # include what is already on disk
 node scripts/images/build-batch.mjs --only 05-sunday-press
 node scripts/images/build-batch.mjs --model z-image
 ```
+
+`--force` is an alias of `--all`, so the regenerate chain above reads the same
+at every step. `--only` matches a stack, a site, or any substring of an id or
+one of its aliases.
 
 KIE has no bulk-submit endpoint, so this is a plain plan rather than an upload
 file: one job per image, created and polled individually.
@@ -146,6 +190,11 @@ running on KIE, and rerunning with `--watch` resumes polling without
 resubmitting anything. Polling shares the pacer, so a pass over N open jobs
 takes about N x 0.55s; watch the interval between log lines shrink as jobs
 finish.
+
+`--retry` requeues what failed or stalled; `--force` requeues everything in the
+current plan, successful generations included, which is what makes a finished
+image regenerable (see [Regenerating an image you already
+have](#regenerating-an-image-you-already-have)).
 
 Occasionally a job never reaches a terminal state. `--watch` gives up once
 nothing has changed for `--stall-after` minutes (default 10) and prints which
