@@ -17,10 +17,16 @@ export type ShowcaseContent = {
   newsletter: { title: string; body: string; cta: string; placeholder: string };
   /** item.seed -> text-to-image prompt for that card's placeholder image. */
   images: Record<string, string>;
+  /**
+   * The about section's art panel. Without it the panel falls back to the
+   * site's artwork, which reads as decoration next to copy that is making a
+   * specific claim — an image that answers the copy does more work.
+   */
+  aboutImage?: string;
 };
 
 const IMG =
-  'Square product photograph, soft natural studio light, shallow depth of field, high detail, no text.';
+  'Square product photograph, soft natural studio light, shallow depth of field, high detail, no text. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.';
 
 export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   solstice: {
@@ -60,6 +66,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'harbor-and-vine': {
+    aboutImage:
+      'A tall shelf of natural wine bottles in a warm harbourside bar, low evening light raking across the labels, a few open bottles on the counter below. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our cellar',
       title: 'Bottles with nothing to hide',
@@ -127,7 +135,7 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     images: {
       lum1: `A designer on a dark conference stage lit by vivid magenta and cyan light, bold and cinematic. ${IMG}`,
       lum2: `An attentive audience in a modern auditorium bathed in electric blue stage light. ${IMG}`,
-      lum3: `A hands-on design workshop table with laptops and color swatches under bright neon accent lighting. ${IMG}`,
+      lum3: `A design workshop table with open laptops, colour swatch fans and sticky notes under bright neon accent lighting. ${IMG}`,
     },
   },
 
@@ -168,6 +176,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'ember-and-oak': {
+    aboutImage:
+      'A wood-fired hearth burning low in a restaurant kitchen, split oak stacked beside it, glowing coals and warm firelight on stone. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'The hearth',
       title: 'One fire, and a menu that follows it',
@@ -204,6 +214,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   'petal-and-post': {
+    aboutImage:
+      'A florist and letterpress workbench from above, fresh cut stems, brown paper and a stack of pressed cards in soft pinks. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'In the studio',
       title: 'Flowers and paper, made by hand',
@@ -240,6 +252,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   northwind: {
+    aboutImage:
+      'A tall rack of technical outdoor jackets in a workshop, taped seams and spare hardware laid out on the bench beside it. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Built to last',
       title: 'Overbuilt on purpose',
@@ -305,13 +319,15 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       placeholder: 'you@email.com',
     },
     images: {
-      hon1: `A cheerful cartoon meadow reading game scene with friendly letters, warm honey-gold palette. ${IMG}`,
+      hon1: `A cheerful cartoon meadow scene with friendly bees among rounded honeycomb tiles, warm honey-gold palette. Absolutely no text, letters, words, numbers or logos appear anywhere in the image — no lettering on any object, sign, page or screen. ${IMG}`,
       hon2: `A playful counting game with a honeycomb and cartoon bees, bright sunny yellows. ${IMG}`,
       hon3: `A colorful pattern-matching puzzle grove for kids, rounded shapes, warm gold tones. ${IMG}`,
     },
   },
 
   facet: {
+    aboutImage:
+      'A jeweller\'s bench in low warm light, loupe, gravers and a single gold ring on a leather pad. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'The house',
       title: 'One remarkable stone at a time',
@@ -348,6 +364,8 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
   },
 
   seabright: {
+    aboutImage:
+      'A row of pale skincare bottles on wet coastal stone, sea mist and soft grey daylight behind them. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {
       eyebrow: 'Our promise',
       title: 'Kind to your skin and the water',
@@ -380,6 +398,341 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
       sea1: `A frosted glass bottle of sea-kelp cleansing gel on wet stone, pale seaglass green, coastal light. ${IMG}`,
       sea2: `A dropper of mineral serum over a tide pool background, cool teal and slate tones. ${IMG}`,
       sea3: `A tube of mineral SPF on smooth beach pebbles, soft overcast coastal daylight, muted greens. ${IMG}`,
+    },
+  },
+
+  // ---- Ported from the static-HTML samples (sites 1-10) ----
+  'aurora-sound': {
+    about: {
+      eyebrow: 'The label',
+      title: 'Records made to glow in the dark',
+      body: [
+        'Aurora Sound is a small crew of producers, cutters, and DJs who care as much about the sleeve as the mix. Every release is mastered twice, once for the club and once for the couch.',
+        'We press short runs on coloured wax, ship worldwide, and put the artist first on every split.',
+      ],
+      points: ['Vinyl and lossless digital', 'Artist-first splits', 'Mastered for club and headphones'],
+    },
+    features: [
+      { title: 'Sign', body: 'We chase sounds, not follower counts, and give new artists room to grow.' },
+      { title: 'Press', body: 'Short-run coloured vinyl, cut and sleeved by people who love it.' },
+      { title: 'Play', body: 'Label nights and a weekly radio show that keeps the catalogue alive.' },
+    ],
+    testimonials: [
+      { quote: 'The only label whose whole catalogue I buy on sight.', name: 'DJ Verre', role: 'Resident, Basement FM' },
+      { quote: 'They treated my first EP like it mattered. It did.', name: 'S U N J A', role: 'Artist' },
+    ],
+    newsletter: {
+      title: 'Never miss a drop',
+      body: 'New releases, label nights, and the odd unreleased edit, straight to your inbox.',
+      cta: 'Join the list',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      r1: 'A moody album cover render of glowing liquid light waves in vivid neon, abstract and futuristic. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      r2: 'An abstract electronic album cover of soft glowing gradients and grain, calm and dreamy. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      r3: 'A neon-lit album cover of a single glowing orb over dark water, cinematic and atmospheric. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  'terra-ceramics': {
+    aboutImage:
+      'A pottery studio shelf of unglazed vessels drying in daylight, a wheel and tools in the foreground, dust in the air. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'In the studio',
+      title: 'Made slowly, by two pairs of hands',
+      body: [
+        'We throw every piece on the wheel, trim it the next day, and glaze it by hand before a long firing. The little marks left behind are the point, not a flaw.',
+        'Our glazes are mixed in-house from local minerals, so the colours shift with the season and the kiln.',
+      ],
+      points: ['Wheel-thrown, never moulded', 'Food-safe, lead-free glazes', 'Fired in small batches'],
+    },
+    features: [
+      { title: 'Throw', body: 'Each vessel starts as a ball of local stoneware on the wheel.' },
+      { title: 'Glaze', body: 'Hand-dipped in small-batch glazes mixed from mineral oxides.' },
+      { title: 'Fire', body: 'A slow stoneware firing sets the colour and makes it last.' },
+    ],
+    testimonials: [
+      { quote: 'My morning coffee has never felt so considered.', name: 'Hana W.', role: 'Customer' },
+      { quote: 'You can feel the hand that made it. That is rare now.', name: 'Robin C.', role: 'Regular' },
+    ],
+    newsletter: {
+      title: 'New drops and open studio',
+      body: 'A gentle note when a fresh batch lands and when class spots open up.',
+      cta: 'Keep in touch',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      p1: 'A handmade stoneware ripple bowl in warm terracotta glaze on a linen surface, artisanal ceramics. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      p2: 'A rustic hand-thrown ceramic mug in earthy rust glaze on a wooden table, cozy and tactile. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      p3: 'A tall matte ceramic vase in dune tones with a single dried stem, minimal studio still life. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  meridian: {
+    aboutImage:
+      'An abstract 3D render of layered translucent panels and fine connecting lines over deep navy, cool and technical, no interface or screen anywhere. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'Why Meridian',
+      title: 'A real ledger under every primitive',
+      body: [
+        'Most stacks bolt accounting on at the end. Meridian starts with a correct, double-entry ledger and exposes cards, transfers, and payouts on top of it.',
+        'That means your balances reconcile in real time, and an audit is a query, not a project.',
+      ],
+      points: ['Double-entry by default', 'Programmable payouts', 'SOC 2 and PCI ready'],
+    },
+    features: [
+      { title: 'Integrate', body: 'Sandbox keys in a minute, production access after one review call.' },
+      { title: 'Route', body: 'Send each transaction down the path most likely to succeed.' },
+      { title: 'Reconcile', body: 'Every movement lands in a ledger you can actually query.' },
+    ],
+    testimonials: [
+      { quote: 'We replaced three vendors and a spreadsheet with one API.', name: 'Priya S.', role: 'CTO, Cascade' },
+      { quote: 'The ledger alone is worth the switch.', name: 'Owen D.', role: 'Eng lead, Harbor' },
+    ],
+    newsletter: {
+      title: 'Ship this quarter',
+      body: 'Product updates and the occasional deep dive from the engineering team.',
+      cta: 'Get updates',
+      placeholder: 'you@company.com',
+    },
+    images: {
+      m1: 'A clean isometric render of a glowing ledger and account graph, cobalt blue fintech data visualization. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      m2: 'An abstract network routing diagram with bright cyan nodes on deep navy, sleek technical render. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      m3: 'An abstract 3D render of concentric glowing rings and scattered signal points over deep navy, suggesting a risk score without depicting any interface. Absolutely no text, letters, numbers, words, labels, logos or user interface of any kind anywhere in the image. Soft natural studio light, shallow depth of field, high detail.',
+    },
+  },
+
+  verdant: {
+    aboutImage:
+      'A bright plant shop corner, tiered shelves of leafy houseplants in terracotta and pale pots, sunlight through a tall window. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'Our promise',
+      title: 'Plants that actually make it',
+      body: [
+        'We match every plant to your light before it ships, pot it in peat-free soil, and text you a care plan so nothing gets guessed at.',
+        'If it struggles in the first month, we replace it. No receipts, no questions.',
+      ],
+      points: ['Matched to your light', 'Peat-free potting', '30-day thrive guarantee'],
+    },
+    features: [
+      { title: 'Match', body: 'A two-minute quiz points you to plants that suit your space.' },
+      { title: 'Deliver', body: 'Potted, watered, and boxed to arrive standing up and happy.' },
+      { title: 'Support', body: 'Text a botanist any time your leaves look unsure.' },
+    ],
+    testimonials: [
+      { quote: 'First plants I have ever managed to keep alive.', name: 'Mei L.', role: 'Customer' },
+      { quote: 'The care texts are weirdly delightful.', name: 'Sam P.', role: 'Plant parent' },
+    ],
+    newsletter: {
+      title: 'Grow with us',
+      body: 'Seasonal care tips and first dibs on rare drops, about twice a month.',
+      cta: 'Sign up',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      v1: 'A potted ZZ plant with glossy dark-green leaves in a matte ceramic pot, bright airy interior. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      v2: 'A tall fiddle-leaf fig in a woven basket by a sunlit window, fresh green houseplant photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      v3: 'A tall fiddle-leaf fig in a woven basket against a pale wall, broad glossy leaves, lush and vibrant. This is a houseplant, not an animal, and no birds or creatures appear. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  'sunday-press': {
+    aboutImage:
+      'A stack of thick independent magazines on a pale paper desk beside proof sheets, the pages shown only as soft grey texture with no readable words. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'About the Press',
+      title: 'Slow journalism about fast tools',
+      body: [
+        'The Sunday Press is a reader-funded magazine that takes design and technology seriously without taking itself too seriously. No ads, no chum, just long reads and clean typography.',
+        'We publish one considered issue a month and keep the whole archive open.',
+      ],
+      points: ['Reader-funded, no ads', 'One issue a month', 'Open archive, forever'],
+    },
+    features: [
+      { title: 'Read', body: 'A monthly issue of essays, interviews, and criticism worth your Sunday.' },
+      { title: 'Support', body: 'Subscriptions keep it independent and the archive free.' },
+      { title: 'Contribute', body: 'We pay writers fairly and edit them generously.' },
+    ],
+    testimonials: [
+      { quote: 'The only newsletter I read start to finish.', name: 'Dana R.', role: 'Subscriber' },
+      { quote: 'Design writing with a spine. Rare and welcome.', name: 'Theo M.', role: 'Reader' },
+    ],
+    newsletter: {
+      title: 'The Sunday note',
+      body: 'A short dispatch each week with what we are reading and publishing.',
+      cta: 'Subscribe free',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      s1: 'A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      s2: 'A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      s3: 'A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  zest: {
+    about: {
+      eyebrow: 'How Zest works',
+      title: 'Short lists, big flavour',
+      body: [
+        'Every recipe is built around a handful of ingredients you can actually find and a cook time that fits a weeknight. We test each one until a tired person can nail it.',
+        'No ten-step reductions, no shopping for one obscure thing. Just fast food that tastes like you tried.',
+      ],
+      points: ['Ten ingredients or fewer', 'One pan where we can', 'Tested by real weeknight cooks'],
+    },
+    features: [
+      { title: 'Pick', body: 'Filter by time, mood, or what is wilting in the fridge.' },
+      { title: 'Cook', body: 'Clear steps, big photos, and a timer built into every recipe.' },
+      { title: 'Brag', body: 'Snap it, share it, and pretend it took longer than it did.' },
+    ],
+    testimonials: [
+      { quote: 'I cook from Zest four nights a week now.', name: 'Aya T.', role: 'Subscriber' },
+      { quote: 'Finally recipes that respect a Tuesday.', name: 'Marco B.', role: 'Home cook' },
+    ],
+    newsletter: {
+      title: 'Dinner, sorted',
+      body: 'One quick recipe in your inbox every weekday afternoon.',
+      cta: 'Get the box',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      z1: 'A vibrant chili-lime corn bowl in a colorful bowl, fresh and appetizing overhead food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      z2: 'A skillet of blistered cherry tomato orzo with basil, bright and saucy weeknight dinner. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      z3: 'A tangle of sesame crunch noodles with scallions in a bowl, glossy and colorful food photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  nocturne: {
+    aboutImage:
+      'A dark perfumer\'s organ of amber sample bottles on a lacquered surface, one glass flacon lit in a single pool of light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'The house',
+      title: 'Composed like music, worn like memory',
+      body: [
+        'Nocturne is a small perfume house that works the way a composer does: a few notes, held in balance, that unfold over hours. Each scent is built to change as the night goes on.',
+        'We bottle in refillable glass and never test on animals.',
+      ],
+      points: ['Extrait concentrations', 'Refillable glass', 'Never tested on animals'],
+    },
+    features: [
+      { title: 'Compose', body: 'Our perfumer builds each scent around a single central accord.' },
+      { title: 'Age', body: 'Every batch rests for weeks before it is ever bottled.' },
+      { title: 'Wear', body: 'A discovery set lets you live with three before you commit.' },
+    ],
+    testimonials: [
+      { quote: 'Strangers stop me to ask what I am wearing.', name: 'Camille D.', role: 'Client' },
+      { quote: 'It smells like a memory I have not made yet.', name: 'Iris N.', role: 'Client' },
+    ],
+    newsletter: {
+      title: 'Private previews',
+      body: 'Occasional notes on new compositions and members-only releases.',
+      cta: 'Request an invitation',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      n1: 'A faceted perfume bottle glowing amethyst on black velvet, luxurious moody product photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      n2: 'A dark still life of a perfume flacon among night-blooming flowers, deep purple and violet. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      n3: 'A minimalist perfume bottle backlit in soft violet haze, elegant and cinematic. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  shoreline: {
+    aboutImage:
+      'A coastal architecture studio table with balsa massing models, rolled drawings and a wide window onto grey sea light. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'Our approach',
+      title: 'Build for the wind, plan for the light',
+      body: [
+        'We start every project by walking the site at different tides and times of day. The building follows from where the light lands and where the weather comes from.',
+        'We favour durable, low-maintenance materials that grey gracefully and belong to their coast.',
+      ],
+      points: ['Site-led, weather-first', 'Materials that age well', 'Low-energy by design'],
+    },
+    features: [
+      { title: 'Listen', body: 'We spend time on the land before we draw a single line.' },
+      { title: 'Design', body: 'Low-slung forms that shelter, frame a view, and last.' },
+      { title: 'Build', body: 'We stay close through construction so the details survive.' },
+    ],
+    testimonials: [
+      { quote: 'They gave us a house that feels like the coast itself.', name: 'The Aldous family', role: 'Salt House' },
+      { quote: 'Calm, rigorous, and a joy to build with.', name: 'J. Reis', role: 'Contractor' },
+    ],
+    newsletter: {
+      title: 'From the studio',
+      body: 'Occasional notes on new work, talks, and the odd open house.',
+      cta: 'Follow along',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      w1: 'A low-slung coastal house in weathered timber against a grey sky, calm architectural photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      w2: 'A minimalist dune pavilion with large glass facing the sea, soft coastal daylight, architecture photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      w3: 'A stone harbourside building with deep window reveals at dusk, serene architectural photograph. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  'pixel-playhouse': {
+    about: {
+      eyebrow: 'The studio',
+      title: 'Three friends and a shared drive',
+      body: [
+        'Pixel Playhouse is a three-person studio that makes the kind of games we want to come home to. Warm, weird, and never in a hurry.',
+        'We build in the open, post devlogs every Friday, and put the soundtrack up for free.',
+      ],
+      points: ['Wishlist-friendly demos', 'Free soundtracks', 'Devlogs every Friday'],
+    },
+    features: [
+      { title: 'Play', body: 'Short, cozy sessions that respect your evening.' },
+      { title: 'Wishlist', body: 'Every game ships a demo before it asks for a cent.' },
+      { title: 'Follow', body: 'Weekly devlogs, wallpapers, and the odd prototype.' },
+    ],
+    testimonials: [
+      { quote: 'The comfort food of video games. I adore it.', name: 'pixelfox', role: 'Player' },
+      { quote: 'Wishlisted on sight, refunded never.', name: 'mossy', role: 'Player' },
+    ],
+    newsletter: {
+      title: 'Join the Playhouse',
+      body: 'Devlogs, wallpapers, and the odd free prototype, about one email a month.',
+      cta: 'Sign up',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      g1: 'A cozy pixel-art town at dusk with glowing streetlights, warm vaporwave pinks and purples, game screenshot. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      g2: 'A neon rooftop delivery scene in pixel art, night city with pink and blue glow, indie game art. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      g3: 'A colorful pixel-art coral reef aquarium builder scene, playful pastel vaporwave palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    },
+  },
+
+  'roast-and-co': {
+    aboutImage:
+      'A drum coffee roaster in a workshop, freshly roasted beans cooling in the tray, warm morning light and sacks stacked behind. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+    about: {
+      eyebrow: 'From crop to cup',
+      title: 'Roasted the day before it ships',
+      body: [
+        'We buy small lots direct from farms we visit, roast them in batches you can count, and send them out within a day so they reach you at their peak.',
+        'Every bag lists the farm, altitude, and process, because where a coffee comes from is half the flavour.',
+      ],
+      points: ['Direct-trade sourcing', 'Roasted to order', 'Farm and process on every bag'],
+    },
+    features: [
+      { title: 'Source', body: 'Long relationships with growers, and prices above the fair-trade floor.' },
+      { title: 'Roast', body: 'Small batches dialled in for each lot, the day before dispatch.' },
+      { title: 'Brew', body: 'A card in every bag with the recipe we brew it by.' },
+    ],
+    testimonials: [
+      { quote: 'The freshest coffee that has ever reached my kitchen.', name: 'Lena K.', role: 'Subscriber' },
+      { quote: 'You can taste the care in the cup.', name: 'Sam R.', role: 'Cafe owner' },
+    ],
+    newsletter: {
+      title: 'Fresh beans, fortnightly',
+      body: 'New lots and brewing notes, plus the occasional roastery invite.',
+      cta: 'Build a subscription',
+      placeholder: 'you@email.com',
+    },
+    images: {
+      c1: 'A bag of single-origin coffee beans spilling onto burlap, warm espresso-brown tones, product photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      c2: 'A still life of a pour-over brewer on a wooden counter: a cone dripper seated on a glass carafe half full of coffee, a gooseneck kettle standing to one side, soft window light, brown palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
+      c3: 'Glossy roasted coffee beans piled close-up with warm highlights, rich brown coffee photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     },
   },
 };

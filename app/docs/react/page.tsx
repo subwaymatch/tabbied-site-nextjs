@@ -41,14 +41,8 @@ const basicCode = `import { TabbiedArtwork } from 'tabbied/react';
 import { radius } from 'tabbied/artworks';
 
 export function Banner() {
-  return (
-    <TabbiedArtwork
-      artwork={radius}
-      seed="k9Pz"
-      fit="cover"
-      style={{ width: '100%', height: 320 }}
-    />
-  );
+  // The box fills its parent by default; height={320} pins one axis.
+  return <TabbiedArtwork artwork={radius} seed="k9Pz" height={320} />;
 }`;
 
 const treeShakeCode = `// Import only what you render — bundlers ship just those presets.
@@ -57,19 +51,40 @@ import { radius, symmetry } from 'tabbied/artworks';
 // Building a gallery? The full record pulls in every design.
 import { artworks } from 'tabbied/artworks';`;
 
+const boxCode = `// Default: fill the containing block. .panel is 100% wide, 400px tall.
+<div className="panel">
+  <TabbiedArtwork artwork={radius} />
+</div>
+
+// Fill the width, cap it, and let the ratio set the height.
+<TabbiedArtwork artwork={radius} maxWidth={960} aspectRatio={3 / 2} />
+
+// Pin one axis; numbers are px, strings are CSS.
+<TabbiedArtwork artwork={radius} height={320} />
+<TabbiedArtwork artwork={radius} height="40vh" maxHeight={520} />
+
+// Hand sizing back to a class name.
+<TabbiedArtwork artwork={radius} fill={false} className="hero-art" />`;
+
 const fitCode = `// grid (default): the cell grid adapts to the container size
 <TabbiedArtwork artwork={radius} fit="grid" />
 
-// cover: a fixed-resolution render scaled to fill the box; grid-driven
-// artworks adapt the render to the box's shape (whole cells, no mid-cell
-// crop), special layouts like Symmetry scale-and-crop
+// cover: a fixed-resolution render scaled uniformly to fill the box;
+// grid-driven artworks adapt the render to the box's shape (whole cells,
+// no mid-cell crop), special layouts like Symmetry scale-and-crop
 <TabbiedArtwork artwork={radius} fit="cover" />
 
 // contain: letterboxed at the artwork's authored ratio
 <TabbiedArtwork artwork={symmetry} fit="contain" />
 
-// stretch keeps the authored grid and distorts cells with the box;
-// fixed renders at explicit width/height props`;
+// fixed: an explicit canvas size in px (what the Tabbied editor uses)
+<TabbiedArtwork artwork={radius} fit="fixed" width={360} height={540} />`;
+
+const symmetryFitCode = `// Symmetry is one composition rather than a repeating grid, so it
+// declares sizing.allowed = ['cover', 'contain', 'fixed'] and defaults
+// to cover. Asking for "grid" falls back to that default with a warning.
+<TabbiedArtwork artwork={symmetry} fit="cover" />
+<TabbiedArtwork artwork={symmetry} fit="contain" />`;
 
 const paletteCode = `<TabbiedArtwork
   artwork={radius}
@@ -77,7 +92,7 @@ const paletteCode = `<TabbiedArtwork
   // color0 (the background) comes first
   palette={['#0b132b', '#5bc0be', '#6fffe9', '#ff6b6b']}
   fit="cover"
-  style={{ width: '100%', height: 280 }}
+  height={280}
 />`;
 
 const transparentCode = `// Any CSS color works for a slot — including 'transparent',
@@ -94,7 +109,7 @@ const optionsCode = `// Option ids come from the preset (the same controls the e
   seed="k9Pz"
   options={{ grid: '4x6', shadow: true }}
   fit="cover"
-  style={{ width: '100%', height: 280 }}
+  height={280}
 />`;
 
 const reseedCode = `import { useRef } from 'react';
@@ -120,7 +135,7 @@ const animatedCode = `// Reseed on a timer (the gallery's shimmer). Ticks are sk
   artwork={quilt}
   fit="cover"
   redrawInterval={2000}
-  style={{ width: '100%', height: 280 }}
+  height={280}
 />`;
 
 const a11yCode = `// Decorative (default): hidden from assistive tech.
@@ -139,7 +154,7 @@ import { TabbiedArtwork } from 'tabbied/react';
 import { radius } from 'tabbied/artworks';
 
 export default function Page() {
-  return <TabbiedArtwork artwork={radius} style={{ height: 320 }} />;
+  return <TabbiedArtwork artwork={radius} height={320} />;
 }`;
 
 const coreCode = `import { createArtwork } from 'tabbied';
@@ -183,8 +198,71 @@ const myArtwork: ArtworkDefinition = {
   },
 };`;
 
+// The fit-mode gallery below. Every entry draws `radius` at the same seed into
+// the same landscape and portrait boxes, so the only variable on show is `fit`
+// — describing the modes in prose never makes clear how differently they treat
+// a box that doesn't match the drawing.
+const FIT_DEMOS = [
+  {
+    fit: 'grid',
+    label: 'fit="grid"',
+    note: 'The cell grid is re-derived per box, so cells stay square in both.',
+  },
+  {
+    fit: 'cover',
+    label: 'fit="cover"',
+    note: 'One render, scaled uniformly to fill. Fixed-px strokes keep their proportions.',
+  },
+  {
+    fit: 'contain',
+    label: 'fit="contain"',
+    note: 'The whole render, letterboxed. The bars are the artwork background.',
+  },
+  {
+    fit: 'fixed',
+    label: 'fit="fixed"',
+    note: 'A canvas of its own size — here 150 × 225, which each box crops.',
+  },
+] as const;
+
 function Code({ children }: { children: ReactNode }) {
   return <code className={styles.inlineCode}>{children}</code>;
+}
+
+// One fit mode, drawn into both box shapes. Density 1 (90px cells) keeps the
+// cells big enough to read as shapes at preview size — and to make it obvious
+// when they stay square.
+function FitDemo({
+  fit,
+  label,
+  note,
+}: {
+  fit: (typeof FIT_DEMOS)[number]['fit'];
+  label: string;
+  note: string;
+}) {
+  const artwork = (
+    <TabbiedArtwork
+      artwork={radius}
+      seed="k9Pz"
+      fit={fit}
+      density={1}
+      {...(fit === 'fixed' ? { width: 150, height: 225 } : {})}
+    />
+  );
+
+  return (
+    <figure className={styles.fitItem}>
+      <div className={styles.fitShapes}>
+        <div className={styles.fitWide}>{artwork}</div>
+        <div className={styles.fitTall}>{artwork}</div>
+      </div>
+      <figcaption className={styles.fitCaption}>
+        <code>{label}</code>
+        {note}
+      </figcaption>
+    </figure>
+  );
 }
 
 // A docs section with an anchored, hover-linkable heading.
@@ -338,10 +416,85 @@ export default function ReactDocsPage() {
 
                   <Section id="fit-modes" title="Sizing & fit modes">
                     <p>
-                      Size the component like any block element — CSS width
-                      and height, grid/flex tracks, aspect ratios. The{' '}
-                      <Code>fit</Code> prop decides how the artwork relates to
-                      that box:
+                      Sizing splits in two: the <strong>box props</strong> say
+                      how big the element is, and <Code>fit</Code> says how the
+                      drawing meets that box. An artwork has no intrinsic size,
+                      so by default the box simply{' '}
+                      <strong>fills its containing block</strong> — drop one
+                      into a sized parent and you are done.
+                    </p>
+                    <Example code={boxCode}>
+                      <div className={styles.boxDemo}>
+                        <figure className={styles.fitItem}>
+                          <div className={styles.boxDemoFill}>
+                            <TabbiedArtwork
+                              artwork={radius}
+                              seed="k9Pz"
+                              density={1}
+                            />
+                          </div>
+                          <figcaption className={styles.fitCaption}>
+                            <code>
+                              &lt;TabbiedArtwork artwork={'{radius}'} /&gt;
+                            </code>
+                            No sizing props — it fills the 120px-tall box it was
+                            dropped into.
+                          </figcaption>
+                        </figure>
+                        <figure className={styles.fitItem}>
+                          <TabbiedArtwork
+                            artwork={radius}
+                            seed="k9Pz"
+                            density={1}
+                            maxWidth={320}
+                            aspectRatio={3 / 2}
+                            className={styles.demoArt}
+                          />
+                          <figcaption className={styles.fitCaption}>
+                            <code>maxWidth={'{320}'} aspectRatio={'{3 / 2}'}</code>
+                            Fills the width up to 320px; the ratio sets the
+                            height, with no sized parent involved.
+                          </figcaption>
+                        </figure>
+                      </div>
+                    </Example>
+                    <p>
+                      The box props are the CSS properties they are named
+                      after, resolved onto the wrapper element (on the server
+                      render too, so there is no layout shift on mount).
+                      Numbers are px; strings are used as written.
+                    </p>
+                    <ul className={styles.list}>
+                      <li>
+                        <Code>fill</Code> (default <Code>true</Code>) —{' '}
+                        <Code>width: 100%; height: 100%</Code>. An explicit{' '}
+                        <Code>width</Code>/<Code>height</Code> takes over that
+                        axis; <Code>fill={'{false}'}</Code> leaves the box to a
+                        class name or the surrounding layout.
+                      </li>
+                      <li>
+                        <Code>maxWidth</Code> / <Code>maxHeight</Code> — upper
+                        bounds on the box.
+                      </li>
+                      <li>
+                        <Code>aspectRatio</Code> — derives the height from the
+                        width, so it pairs with <Code>maxWidth</Code> in a
+                        parent that has no fixed height.
+                      </li>
+                    </ul>
+                    <p>
+                      One caveat comes with the territory:{' '}
+                      <Code>height: 100%</Code> only resolves against a parent
+                      with a definite height. In a parent that sizes to its
+                      content, reach for <Code>height</Code> or{' '}
+                      <Code>aspectRatio</Code> instead of <Code>fill</Code>.
+                    </p>
+                    <p>
+                      Whatever the box turns out to be, the artwork is fitted
+                      into it <strong>without distortion</strong> — nothing is
+                      ever scaled by a different factor horizontally than
+                      vertically. <Code>fit</Code> picks which
+                      non-distorting strategy is used:
                     </p>
                     <ul className={styles.list}>
                       <li>
@@ -353,7 +506,7 @@ export default function ReactDocsPage() {
                       </li>
                       <li>
                         <Code>cover</Code> — draws a fixed-resolution render
-                        and scales it into the box, preserving the authored
+                        and scales it uniformly into the box, preserving the authored
                         proportions of fixed-px strokes and shadows. For
                         grid-driven artworks the render follows the box&apos;s
                         aspect ratio and re-derives its grid, so the pattern
@@ -367,15 +520,10 @@ export default function ReactDocsPage() {
                         fills the bars).
                       </li>
                       <li>
-                        <Code>stretch</Code> — keeps the authored grid and
-                        stretches it to fill. Cells distort with the box, so
-                        prefer <Code>grid</Code> unless you specifically want
-                        that.
-                      </li>
-                      <li>
-                        <Code>fixed</Code> — renders at explicit{' '}
-                        <Code>width</Code>/<Code>height</Code> props (what the
-                        Tabbied editor uses).
+                        <Code>fixed</Code> — renders at an explicit canvas
+                        size, <Code>width</Code>/<Code>height</Code> in px
+                        (default 360 × 540). This is what the Tabbied editor
+                        uses.
                       </li>
                     </ul>
                     <p>
@@ -384,45 +532,59 @@ export default function ReactDocsPage() {
                       artwork can&apos;t support falls back to its default
                       with a console warning.
                     </p>
+                    <p>
+                      <strong>Removed in 0.2.0:</strong>{' '}
+                      <Code>fit=&quot;stretch&quot;</Code>, which kept the
+                      authored grid and let cells deform with the box. Use{' '}
+                      <Code>grid</Code> (the default) for a box-shaped grid, or{' '}
+                      <Code>cover</Code> to scale a render uniformly.
+                    </p>
+                    <p>
+                      Each column below is one mode, drawing the same artwork at
+                      the same seed into a landscape box and a portrait one. The
+                      differences only show up when the box stops matching the
+                      drawing — which is most of the time.
+                    </p>
                     <Example code={fitCode}>
                       <div className={styles.fitGrid}>
+                        {FIT_DEMOS.map((demo) => (
+                          <FitDemo key={demo.fit} {...demo} />
+                        ))}
+                      </div>
+                    </Example>
+                    <p>
+                      Artworks whose layout isn&apos;t a repeating grid opt out
+                      of <Code>grid</Code> entirely — Symmetry draws one
+                      centered composition, so it only offers{' '}
+                      <Code>cover</Code>, <Code>contain</Code> and{' '}
+                      <Code>fixed</Code>:
+                    </p>
+                    <Example code={symmetryFitCode}>
+                      <div className={styles.fitGrid}>
                         <figure className={styles.fitItem}>
-                          <div className={styles.fitBox}>
+                          <div className={styles.fitCompare}>
                             <TabbiedArtwork
-                              artwork={radius}
-                              seed="k9Pz"
-                              fit="grid"
-                              style={{ width: '100%', height: '100%' }}
-                            />
-                          </div>
-                          <figcaption className={styles.fitCaption}>
-                            fit=&quot;grid&quot;
-                          </figcaption>
-                        </figure>
-                        <figure className={styles.fitItem}>
-                          <div className={styles.fitBox}>
-                            <TabbiedArtwork
-                              artwork={radius}
+                              artwork={symmetry}
                               seed="k9Pz"
                               fit="cover"
-                              style={{ width: '100%', height: '100%' }}
                             />
                           </div>
                           <figcaption className={styles.fitCaption}>
-                            fit=&quot;cover&quot;
+                            <code>fit=&quot;cover&quot;</code>
+                            Scaled up until it fills, cropping the overflow.
                           </figcaption>
                         </figure>
                         <figure className={styles.fitItem}>
-                          <div className={styles.fitBox}>
+                          <div className={styles.fitCompare}>
                             <TabbiedArtwork
                               artwork={symmetry}
                               seed="k9Pz"
                               fit="contain"
-                              style={{ width: '100%', height: '100%' }}
                             />
                           </div>
                           <figcaption className={styles.fitCaption}>
-                            fit=&quot;contain&quot;
+                            <code>fit=&quot;contain&quot;</code>
+                            Scaled down until it fits, letterboxing the rest.
                           </figcaption>
                         </figure>
                       </div>
@@ -657,15 +819,49 @@ export default function ReactDocsPage() {
                             <td className={styles.propName}>fit</td>
                             <td>
                               <code>
-                                &apos;grid&apos; | &apos;stretch&apos; |
-                                &apos;cover&apos; | &apos;contain&apos; |
-                                &apos;fixed&apos;
+                                &apos;grid&apos; | &apos;cover&apos; |
+                                &apos;contain&apos; | &apos;fixed&apos;
                               </code>
                             </td>
                             <td className={styles.defaultCol}>per artwork</td>
                             <td>
-                              How the artwork fills its box (see{' '}
+                              How the drawing meets its box — never by
+                              distorting it (see{' '}
                               <a href="#fit-modes">Sizing &amp; fit modes</a>).
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className={styles.propName}>fill</td>
+                            <td>
+                              <code>boolean</code>
+                            </td>
+                            <td className={styles.defaultCol}>true</td>
+                            <td>
+                              Fill the containing block (
+                              <code>width: 100%; height: 100%</code>).
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className={styles.propName}>
+                              maxWidth / maxHeight
+                            </td>
+                            <td>
+                              <code>number | string</code>
+                            </td>
+                            <td className={styles.defaultCol}>—</td>
+                            <td>
+                              Upper bounds on the box. Numbers are px.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className={styles.propName}>aspectRatio</td>
+                            <td>
+                              <code>number | string</code>
+                            </td>
+                            <td className={styles.defaultCol}>—</td>
+                            <td>
+                              CSS <code>aspect-ratio</code> — derives the
+                              height from the width.
                             </td>
                           </tr>
                           <tr>
@@ -694,12 +890,13 @@ export default function ReactDocsPage() {
                           <tr>
                             <td className={styles.propName}>width / height</td>
                             <td>
-                              <code>number</code>
+                              <code>number | string</code>
                             </td>
-                            <td className={styles.defaultCol}>360 × 540</td>
+                            <td className={styles.defaultCol}>fill</td>
                             <td>
-                              <Code>fit=&quot;fixed&quot;</Code> — canvas size
-                              in px.
+                              Box size; numbers are px. Under{' '}
+                              <Code>fit=&quot;fixed&quot;</Code> the numeric
+                              form is also the canvas size (default 360 × 540).
                             </td>
                           </tr>
                           <tr>

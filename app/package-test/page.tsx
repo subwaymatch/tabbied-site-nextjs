@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 // importing only the presets it renders from `tabbied/artworks` so the bundle
 // holds those two definitions rather than all 84.
 // Used by e2e/package.spec.ts to cover the fit strategies the main site
-// doesn't reach (the gallery uses cover, the editor fixed).
+// doesn't reach (the gallery uses cover, the editor fixed) and the box props
+// that size the element the artwork renders into.
 export default function PackageTestPage() {
   return (
     <main style={{ padding: 24, display: 'grid', gap: 24 }}>
@@ -23,15 +24,11 @@ export default function PackageTestPage() {
           Radius paints cell backgrounds directly, which is what the e2e's
           painted-cell probe asserts on (stroke-based designs like maze draw
           via pseudo-elements instead). */}
+      {/* No sizing props: the box fills the 100% × 320 parent by itself. */}
       <section id="fit-grid">
         <h2>fit=&quot;grid&quot;</h2>
         <div style={{ height: 320 }}>
-          <TabbiedArtwork
-            artwork={radius}
-            seed="k9Pz"
-            fit="grid"
-            style={{ width: '100%', height: '100%' }}
-          />
+          <TabbiedArtwork artwork={radius} seed="k9Pz" fit="grid" />
         </div>
       </section>
 
@@ -41,26 +38,21 @@ export default function PackageTestPage() {
       <section id="fit-cover">
         <h2>fit=&quot;cover&quot;</h2>
         <div style={{ height: 320 }}>
-          <TabbiedArtwork
-            artwork={radius}
-            seed="k9Pz"
-            fit="cover"
-            style={{ width: '100%', height: '100%' }}
-          />
+          <TabbiedArtwork artwork={radius} seed="k9Pz" fit="cover" />
         </div>
       </section>
 
-      {/* Authored grid stretched to the box. */}
-      <section id="fit-stretch">
-        <h2>fit=&quot;stretch&quot;</h2>
-        <div style={{ height: 240 }}>
-          <TabbiedArtwork
-            artwork={radius}
-            seed="k9Pz"
-            fit="stretch"
-            style={{ width: '100%', height: '100%' }}
-          />
-        </div>
+      {/* Box props instead of a sized parent: the width is capped and the
+          aspect ratio derives the height, so this works in a parent that has
+          no height of its own. */}
+      <section id="box-bounded">
+        <h2>maxWidth + aspectRatio</h2>
+        <TabbiedArtwork
+          artwork={radius}
+          seed="k9Pz"
+          maxWidth={480}
+          aspectRatio={3 / 2}
+        />
       </section>
 
       {/* Grid-less composition letterboxed at its authored 2:3 ratio. */}
@@ -72,7 +64,6 @@ export default function PackageTestPage() {
             seed="k9Pz"
             fit="contain"
             decorative={false}
-            style={{ width: '100%', height: '100%' }}
           />
         </div>
       </section>

@@ -20,13 +20,59 @@ automatically.
    sees the pending changeset and opens (or updates) a **"Version Packages"** PR
    that bumps the version, updates `packages/tabbied/CHANGELOG.md`, and removes
    the consumed changeset files.
-4. **Merge the "Version Packages" PR** when you're ready to ship. That merge
-   triggers the workflow again, which this time **publishes to npm**, creates the
-   git tag, and cuts a GitHub Release with the changelog.
+4. **Either merge the "Version Packages" PR** to ship immediately, **or do
+   nothing** — the weekly release below picks it up. Merging it triggers the
+   workflow again, which **publishes to npm**, creates the git tag, and cuts a
+   GitHub Release with the changelog.
 
-Nothing is published until you merge the version PR, so you control release
-timing. A PR with no changeset simply doesn't trigger a release — which is fine
-for docs, CI, or chore-only changes.
+So step 4 is a fast path, not a gate: shipping happens on its own, and merging
+the version PR only makes it happen sooner.
+
+## The weekly release
+
+Every **Monday at 17:23 UTC** the same workflow runs on a schedule and releases
+`main` by itself. It never opens a version PR — it versions, commits to `main`,
+and publishes in one run. What it does depends on what it finds:
+
+| State of `main`                                          | What happens                                       |
+| -------------------------------------------------------- | -------------------------------------------------- |
+| Changesets are pending                                    | Version + publish (the same bump the version PR would have made) |
+| `package.json` is ahead of npm                            | Publish only (recovers a version commit whose publish failed) |
+| `packages/tabbied` changed since the last release tag     | Writes a **patch** changeset, then versions + publishes |
+| None of the above                                         | Nothing — the run exits quietly                    |
+
+That third row is why a release doesn't depend on anyone remembering to write a
+changeset: any package change ships as a patch within the week. Write a
+changeset when the change deserves more than a patch, or deserves a changelog
+entry in your own words — a hand-written changeset always wins over the
+generated one.
+
+Changes outside `packages/tabbied` (the site, docs, CI, the showcase) don't
+release anything, which is what you want — they aren't part of the npm package.
+
+**Ship right now instead of waiting for Monday:** merge the "Version Packages"
+PR, or run the workflow by hand — Actions → *Release* → **Run workflow**. The
+manual run takes the same path as the weekly one, with a toggle to turn off the
+automatic patch bump.
+
+> **Branch protection:** the weekly release pushes its version commit straight
+> to `main`. If you protect `main`, allow `github-actions[bot]` to bypass the
+> restriction (Settings → Branches → *Allow specified actors to bypass required
+> pull requests*), or the run fails at the push step.
+>
+> **Pushes by `GITHUB_TOKEN` don't trigger workflows** — that's deliberate here.
+> It's why the weekly run has to publish in the same job rather than letting the
+> version commit start a second run, and it means there's no risk of a release
+> loop.
+
+## Turning the automation off
+
+The weekly release is the `schedule:` trigger in
+[`.github/workflows/release.yml`](.github/workflows/release.yml). Delete it and
+you're back to "nothing publishes until a human merges the version PR". Keep the
+schedule but want changesets to stay mandatory? Set `AUTO_PATCH` to `false` in
+the *Decide what to release* step — pending changesets still ship weekly, but
+nothing is bumped on its own.
 
 ## One-time setup (required before the first automated publish)
 

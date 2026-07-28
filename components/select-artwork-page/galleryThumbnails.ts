@@ -274,9 +274,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   notch: {
     options: { grid: '5x5', frequency: 0.9 },
   },
-  awning: {
-    options: { grid: '6x6', frequency: 0.95 },
-  },
   strata: {
     options: { grid: '6x6', frequency: 0.95 },
   },

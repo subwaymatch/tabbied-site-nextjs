@@ -57,7 +57,11 @@ export type ArtworkConfig = {
   palette?: string[];
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
-  /** Fit strategy. Defaults to the artwork's sizing.default. */
+  /**
+   * Fit strategy — how the drawing relates to the host box. Defaults to the
+   * artwork's sizing.default. How *big* the host box is stays a CSS question:
+   * size it yourself, or apply resolveBoxStyle() to it.
+   */
   fit?: FitMode;
   /** fit:"grid" — target cell size in px (default 36). */
   cellSize?: number;
@@ -250,8 +254,8 @@ export function createArtwork(
       width = `${renderBox.width}px`;
       height = `${renderBox.height}px`;
     } else {
-      // grid + stretch fill the host; the pattern only depends on seed + grid,
-      // so percentage sizing renders identically at any container size.
+      // grid fills the host; the pattern only depends on seed + grid, so
+      // percentage sizing renders identically at any container size.
       width = '100%';
       height = '100%';
     }

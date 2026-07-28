@@ -3,6 +3,7 @@
 //   node scripts/images/submit-batch.mjs --watch          # submit, then poll
 //   node scripts/images/submit-batch.mjs --check          # poll what is on file
 //   node scripts/images/submit-batch.mjs --retry          # requeue whatever did not succeed
+//   node scripts/images/submit-batch.mjs --force          # requeue the plan, successes included
 //   node scripts/images/submit-batch.mjs --stall-after 15 # give up waiting after N minutes
 //
 // The API key comes from .env.local / .env at the repo root, or from the
@@ -97,6 +98,17 @@ if (args.retry) {
   const stale = Object.entries(state.tasks).filter(([, t]) => t.state !== 'success');
   for (const [id] of stale) delete state.tasks[id];
   console.log(`--retry: requeued ${stale.length} task(s) that had not succeeded`);
+}
+
+// --force drops the state for everything in the current plan, successes
+// included, which is what makes an already-generated image regenerable: --retry
+// deliberately leaves a good result alone, and a task that still carries a
+// taskId is skipped below however many times it is replanned. Scope it with
+// build-batch's --only so this rerolls the one image you meant.
+if (args.force) {
+  const planned = plan.tasks.filter((task) => state.tasks[task.id]);
+  for (const task of planned) delete state.tasks[task.id];
+  console.log(`--force: requeued ${planned.length} task(s) already on file`);
 }
 
 // Anything already carrying a taskId is left alone, so re-running after an

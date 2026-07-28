@@ -3,7 +3,8 @@ import { test, expect, type Page } from '@playwright/test';
 // Coverage for the `tabbied` package itself (via the built dist the site
 // consumes), driven through app/package-test/page.tsx. The gallery and editor
 // already dogfood the cover and fixed fits; this spec covers the adaptive
-// grid fit — the package default — plus stretch and contain.
+// grid fit — the package default — plus contain, and the box props that size
+// the element the artwork renders into.
 
 const paintedCells = (page: Page, hostSelector: string) =>
   page.evaluate((selector) => {
@@ -93,12 +94,13 @@ test.describe('tabbied package (component test page)', () => {
     expect(cellRatio).toBeLessThan(1.25);
   });
 
-  test('fit="stretch" keeps the authored grid and fills the box', async ({
+  test('maxWidth + aspectRatio size the box without a sized parent', async ({
     page,
   }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const selector = '#fit-stretch [data-artwork="radius"]';
+    const selector = '#box-bounded [data-artwork="radius"]';
     await expect(page.locator(`${selector} css-doodle`)).toBeAttached({
       timeout: 15000,
     });
@@ -107,12 +109,23 @@ test.describe('tabbied package (component test page)', () => {
       .poll(() => paintedCells(page, selector), { timeout: 10000 })
       .toBeGreaterThan(1);
 
-    const host = page.locator(selector);
-    const hostBox = (await host.boundingBox())!;
-    const doodleBox = (await page
-      .locator(`${selector} css-doodle`)
-      .boundingBox())!;
-    expect(Math.abs(doodleBox.width - hostBox.width)).toBeLessThan(2);
+    // The section is far wider than 480px, so maxWidth is what's binding, and
+    // the height comes from aspect-ratio rather than from any parent.
+    const hostBox = (await page.locator(selector).boundingBox())!;
+    expect(hostBox.width).toBeCloseTo(480, 0);
+    expect(hostBox.height).toBeCloseTo(320, 0);
+
+    // Narrower than the cap: the box tracks the container again, and the
+    // ratio still sets the height.
+    await page.setViewportSize({ width: 420, height: 800 });
+    await expect
+      .poll(async () => (await page.locator(selector).boundingBox())!.width, {
+        timeout: 10000,
+      })
+      .toBeLessThan(480);
+
+    const narrowBox = (await page.locator(selector).boundingBox())!;
+    expect(narrowBox.width / narrowBox.height).toBeCloseTo(3 / 2, 1);
   });
 
   test('fit="contain" letterboxes symmetry at its authored ratio', async ({

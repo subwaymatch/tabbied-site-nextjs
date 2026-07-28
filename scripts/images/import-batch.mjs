@@ -90,7 +90,7 @@ if (failed.length) {
 }
 
 console.log(`\n${indexed.length} image(s) listed in ${path.relative(ROOT, IMAGE_INDEX)}`);
-console.log('Next: npm run build   (regenerates the static samples too)');
+console.log('Next: npm run build');
 
 writeJson(path.join(path.dirname(STATE), 'imported.json'), {
   importedAt: new Date().toISOString(),

@@ -16,7 +16,11 @@ import s from './ShowcaseSite.module.css';
 // custom_id sent to the API and the filename that comes back, so a finished
 // image finds its way home without a lookup table. Keep it in step with
 // scripts/images/extract-prompts.mjs if the slot naming ever changes.
-const imageId = (site: Site, slot: 'card' | 'alt' | 'gallery', i: number) =>
+const imageId = (
+  site: Site,
+  slot: 'hero' | 'about' | 'card' | 'alt' | 'gallery' | 'team',
+  i: number
+) =>
   `react__${site.slug}__${slot}-${i}`;
 
 // ---- color helpers --------------------------------------------------------
@@ -63,6 +67,7 @@ const KIT_CLASS: Record<Kit, string> = {
 
 type ArtMap = Record<string, ArtworkDefinition>;
 type Props = { site: Site; artworks: ArtMap };
+type HeroProps = Props & { heroImage?: string; overlay?: string };
 
 function artAt(site: Site, artworks: ArtMap, i: number): ArtworkDefinition {
   const slugs = site.artworks;
@@ -93,6 +98,7 @@ export default function ShowcaseSite({ site, artworks }: Props) {
     '--line': dark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.12)',
     '--display': site.fonts.display,
     '--body': site.fonts.body,
+    ...(site.tracking ? { '--tracking': site.tracking } : {}),
   };
 
   const content = SHOWCASE_CONTENT[site.slug];
@@ -100,6 +106,12 @@ export default function ShowcaseSite({ site, artworks }: Props) {
   const kitClass = sec ? KIT_CLASS[sec.kit] : s.kitSoft;
 
   const ctx = { site, artworks, content, sec };
+  const heroProps: HeroProps = {
+    site,
+    artworks,
+    heroImage: sec?.heroImage,
+    overlay: sec?.heroOverlayArtwork,
+  };
   const order: SectionKey[] = sec?.sections ?? ['about', 'items', 'features', 'testimonials', 'band', 'newsletter'];
 
   return (
@@ -108,10 +120,10 @@ export default function ShowcaseSite({ site, artworks }: Props) {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="stylesheet" href={site.fonts.href} precedence="default" />
 
-      {site.layout === 'split' && <SplitHero site={site} artworks={artworks} />}
-      {site.layout === 'spotlight' && <SpotlightHero site={site} artworks={artworks} />}
-      {site.layout === 'editorial' && <EditorialHero site={site} artworks={artworks} />}
-      {site.layout === 'boutique' && <BoutiqueHero site={site} artworks={artworks} />}
+      {site.layout === 'split' && <SplitHero {...heroProps} />}
+      {site.layout === 'spotlight' && <SpotlightHero {...heroProps} />}
+      {site.layout === 'editorial' && <EditorialHero {...heroProps} />}
+      {site.layout === 'boutique' && <BoutiqueHero {...heroProps} />}
 
       {order.map((key, i) => (
         <Section key={`${key}-${i}`} k={key} {...ctx} />
@@ -198,7 +210,13 @@ function About({ site, artworks, content }: Ctx & { content: NonNullable<Ctx['co
         {content.about.body.map((p, i) => <p key={i}>{p}</p>)}
         <ul className={s.points}>{content.about.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
       </div>
-      <div className={s.aboutArt}><Decor def={artAt(site, artworks, 2)} palette={site.colors} density={1} /></div>
+      <div className={s.aboutArt}>
+        {content.aboutImage ? (
+          <ImageCard id={imageId(site, 'about', 0)} prompt={content.aboutImage} colors={site.colors} />
+        ) : (
+          <Decor def={artAt(site, artworks, 2)} palette={site.colors} density={1} />
+        )}
+      </div>
     </section>
   );
 }
@@ -257,7 +275,7 @@ function Items({ site, content }: { site: Site; content?: Ctx['content'] }) {
   const promptFor = (seed: string) => content?.images[seed] ?? '';
   return (
     <section className={s.section} id="items">
-      <div className={s.sectionHead}><h2>{site.sectionTitle}</h2><p>{site.sectionSub}</p></div>
+      <SectionHead kicker={site.sectionKicker} title={site.sectionTitle} sub={site.sectionSub} />
       <div className={s.grid}>
         {site.items.map((it, i) => (
           <article className={s.card} key={it.seed}>
@@ -394,14 +412,38 @@ function Specs({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['specs']> }
 
 // Portraits are the site's own artwork, re-seeded per person, which is the
 // point of the showcase: the generative system carries the brand everywhere.
-function Team({ site, artworks, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['team']> }) {
+/**
+ * The prompt for one portrait: the team's shared scene, this person's role, and
+ * their authored `look`.
+ *
+ * The `look` is not decoration. Prompting on role and scene alone returned the
+ * same face for all twenty-four people — leaving appearance unsaid does not
+ * produce a varied cast, it just hands the casting to the model's default. It
+ * is authored per person rather than inferred from a name, which would be
+ * guessing someone's gender and ethnicity from its spelling.
+ *
+ * "Exactly one person" is explicit because these prompts otherwise return spare
+ * bodies and extra hands.
+ */
+const portraitPrompt = (role: string, look: string, scene: string) =>
+  `A natural, candid waist-up portrait of ${look}, working as a ${role.toLowerCase()}, ${scene}. ` +
+  'Exactly one person in the frame, facing the camera with a relaxed expression, both hands visible or out of shot. ' +
+  'Soft natural light, shallow depth of field, high detail, no text or logos.';
+
+function Team({ site, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['team']> }) {
   return (
     <section className={s.team}>
       <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
       <div className={s.teamGrid}>
         {data.people.map((p, i) => (
           <div key={p.name}>
-            <div className={s.teamArt}><Decor def={artAt(site, artworks, i + 1)} palette={site.colors} density={2} /></div>
+            <div className={s.teamArt}>
+              <ImageCard
+                id={imageId(site, 'team', i)}
+                prompt={portraitPrompt(p.role, p.look, data.portraitScene)}
+                colors={site.colors}
+              />
+            </div>
             <h3 className={s.teamName}>{p.name}</h3>
             <div className={s.teamRole}>{p.role}</div>
             <p className={s.teamBio}>{p.bio}</p>
@@ -496,7 +538,7 @@ function Footer({ site }: { site: Site }) {
 }
 
 // ---- heroes ---------------------------------------------------------------
-function SplitHero({ site, artworks }: Props) {
+function SplitHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
@@ -507,18 +549,53 @@ function SplitHero({ site, artworks }: Props) {
           <p className={s.lede}>{site.lede}</p>
           <CtaRow site={site} />
         </div>
-        <div className={s.splitArt}><Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} /></div>
+        <div className={s.splitArt}>
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
+        </div>
       </header>
     </>
   );
 }
 
-function SpotlightHero({ site, artworks }: Props) {
+/**
+ * Whatever fills a hero's art panel: the site's artwork on its own, or — when
+ * the site supplies a `heroImage` prompt — a generated photograph with an
+ * artwork drawn across it. Every layout renders this, so the photograph is a
+ * per-site choice rather than something only one hero shape supports.
+ *
+ * The overlay is drawn at full opacity with no blend mode. What makes the
+ * photograph readable underneath is `transparent` in color0, the artwork's
+ * background slot: the design's own marks land opaquely and everything it would
+ * otherwise fill is left as real negative space. That only works for a sparse
+ * design, which is why the site names its overlay (`heroOverlayArtwork`) rather
+ * than taking whatever is to hand. Density is the coarsest authored level, so
+ * what crosses the picture is a few large shapes rather than a texture.
+ */
+function HeroArt({ site, artworks, heroImage, overlay }: HeroProps) {
+  if (!heroImage) {
+    return <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />;
+  }
+
+  const def = (overlay && artworks[overlay]) ?? artAt(site, artworks, site.artworks.length - 1);
+
+  return (
+    <>
+      <ImageCard id={imageId(site, 'hero', 0)} prompt={heroImage} colors={site.colors} />
+      <div className={s.heroPattern} aria-hidden="true">
+        <Decor def={def} palette={['transparent', ...site.colors.slice(1)]} density={0} />
+      </div>
+    </>
+  );
+}
+
+function SpotlightHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
       <header className={s.spotHero}>
-        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}><Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} /></div>
+        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
+        </div>
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
           <div className={s.eyebrow}>{site.eyebrow}</div>
@@ -536,7 +613,7 @@ function SpotlightHero({ site, artworks }: Props) {
   );
 }
 
-function EditorialHero({ site, artworks }: Props) {
+function EditorialHero({ site, artworks, heroImage, overlay }: HeroProps) {
   const lead = site.items[0];
   return (
     <>
@@ -544,19 +621,21 @@ function EditorialHero({ site, artworks }: Props) {
       <div className={s.edTitleRow}><h1>{site.brand}</h1><p className={s.lede}>{site.lede}</p></div>
       <nav className={s.edNav}>{site.nav.map((n) => <a key={n} href="#">{n}</a>)}</nav>
       <div className={s.edCover}>
-        <Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} />
+        <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
         <div className={s.edCoverCaption}><div className={s.k}>{lead.eyebrow}</div><h2>{lead.title}</h2></div>
       </div>
     </>
   );
 }
 
-function BoutiqueHero({ site, artworks }: Props) {
+function BoutiqueHero({ site, artworks, heroImage, overlay }: HeroProps) {
   return (
     <>
       <Nav site={site} />
       <header className={s.boutHero}>
-        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}><Decor def={artAt(site, artworks, 0)} palette={site.colors} density={1} /></div>
+        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+          <HeroArt site={site} artworks={artworks} heroImage={heroImage} overlay={overlay} />
+        </div>
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
           <div className={s.eyebrow}>{site.eyebrow}</div>
