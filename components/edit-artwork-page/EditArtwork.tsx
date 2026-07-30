@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { AlertDialog } from '@base-ui-components/react/alert-dialog';
 import { Dialog } from '@base-ui-components/react/dialog';
 import {
   ArrowLeft,
@@ -1035,20 +1034,21 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
       />
 
       {/* Confirmation before downloading an SVG with known limitations
-          (filter-based effects or documented sub-pixel deviations). */}
-      <AlertDialog.Root open={svgConfirmOpen} onOpenChange={setSvgConfirmOpen}>
-        <AlertDialog.Portal>
-          <AlertDialog.Backdrop className={styles.svgConfirmBackdrop} />
-          <AlertDialog.Popup className={styles.svgConfirmPopup}>
-            <AlertDialog.Title className={styles.svgConfirmTitle}>
+          (filter-based effects or documented sub-pixel deviations). A plain
+          Dialog rather than AlertDialog so clicking outside dismisses it. */}
+      <Dialog.Root open={svgConfirmOpen} onOpenChange={setSvgConfirmOpen}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className={styles.svgConfirmBackdrop} />
+          <Dialog.Popup className={styles.svgConfirmPopup}>
+            <Dialog.Title className={styles.svgConfirmTitle}>
               <TriangleAlert
                 className={styles.svgConfirmTitleIcon}
                 size={17}
                 aria-hidden="true"
               />
               About this SVG export
-            </AlertDialog.Title>
-            <AlertDialog.Description
+            </Dialog.Title>
+            <Dialog.Description
               className={styles.svgConfirmIntro}
               render={<div />}
             >
@@ -1064,11 +1064,11 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                   <li key={note}>{note}</li>
                 ))}
               </ul>
-            </AlertDialog.Description>
+            </Dialog.Description>
             <div className={styles.svgConfirmActions}>
-              <AlertDialog.Close className={styles.svgConfirmCancel}>
+              <Dialog.Close className={styles.svgConfirmCancel}>
                 Cancel
-              </AlertDialog.Close>
+              </Dialog.Close>
               <button
                 type="button"
                 className={styles.svgConfirmDownload}
@@ -1080,9 +1080,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
                 Download SVG
               </button>
             </div>
-          </AlertDialog.Popup>
-        </AlertDialog.Portal>
-      </AlertDialog.Root>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
 
       <main className={styles.editArtworkSection}>
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>

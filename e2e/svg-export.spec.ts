@@ -301,7 +301,7 @@ test.describe('native SVG export', () => {
     await expect(item.locator('svg')).toHaveCount(2); // file icon + warning
     await item.click();
 
-    const dialog = page.getByRole('alertdialog');
+    const dialog = page.getByRole('dialog', { name: 'About this SVG export' });
     await expect(dialog).toBeVisible();
     await expect(dialog).toContainText('SVG drop-shadow filters');
 
@@ -314,14 +314,19 @@ test.describe('native SVG export', () => {
     await expect(dialog).not.toBeVisible();
     expect(downloaded).toBe(false);
 
+    // Clicking outside the dialog dismisses it too.
+    await page.getByRole('button', { name: 'Export' }).click();
+    await page.getByRole('menuitem', { name: 'Download SVG' }).click();
+    await expect(dialog).toBeVisible();
+    await page.mouse.click(8, 8);
+    await expect(dialog).not.toBeVisible();
+    expect(downloaded).toBe(false);
+
     // Confirming downloads the file.
     await page.getByRole('button', { name: 'Export' }).click();
     await page.getByRole('menuitem', { name: 'Download SVG' }).click();
     const downloadPromise = page.waitForEvent('download');
-    await page
-      .getByRole('alertdialog')
-      .getByRole('button', { name: 'Download SVG' })
-      .click();
+    await dialog.getByRole('button', { name: 'Download SVG' }).click();
     expect((await downloadPromise).suggestedFilename()).toBe('neon.svg');
   });
 
@@ -342,9 +347,9 @@ test.describe('native SVG export', () => {
     const item = page.getByRole('menuitem', { name: 'Download SVG' });
     await expect(item.locator('svg')).toHaveCount(2);
     await item.click();
-    await expect(page.getByRole('alertdialog')).toContainText(
-      'shadow effect is exported as an SVG drop-shadow filter'
-    );
+    await expect(
+      page.getByRole('dialog', { name: 'About this SVG export' })
+    ).toContainText('shadow effect is exported as an SVG drop-shadow filter');
   });
 
   for (const slug of unsupportedSlugs) {
