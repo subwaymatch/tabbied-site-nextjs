@@ -60,6 +60,12 @@ exported through SVG filters (blur, glow shadows, blend modes) render
 correctly in browsers but may degrade when imported into design tools; such
 cases are listed in `warnings`.
 
+Designs with known export limitations describe them in
+`artwork.svgExportNote` (and, for limitations introduced by a toggle option
+such as a filter-based shadow, `option.svgExportNote`) — surface these to the
+user before downloading, the way the Tabbied editor's confirmation dialog
+does.
+
 The converter itself (~21 KB gzipped) is **not** part of the main bundle:
 `exportSvg()` loads it on demand via a dynamic import, so apps that never
 export pay nothing for the feature. To call the converter directly (e.g. on a

@@ -2,6 +2,7 @@
   "name": "Misprint",
   "slug": "misprint",
   "galleryOrder": 128,
+  "svgExportNote": "The overlapping inks use a blend mode. Browsers render it correctly, but some design tools import SVG blend modes imperfectly.",
   "description": "Two riso plates sliding in and out of register — mirrored offsets pull the inks apart and let them overlap into new blends.",
   "palette": [
     "#FBF7EE",

@@ -2,6 +2,7 @@
   "name": "Terrain",
   "slug": "terrain",
   "galleryOrder": 9,
+  "svgExportNote": "The drop shadows are exported as SVG filters. Browsers render them correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
   "galleryWhite": true,
   "palette": ["#232529", "#3E434B", "#3E8BFF", "#3FFFB2", "#275AA6", "#3EECFF"],
   "colors": {

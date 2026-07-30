@@ -13,6 +13,7 @@ import {
   Link as LinkIcon,
   CodeXml,
   Shuffle,
+  TriangleAlert,
 } from 'lucide-react';
 import {
   armGalleryScrollRestore,
@@ -36,6 +37,11 @@ type EditArtworkHeaderProps = {
   onExportSvg: () => void;
   /** SVG export is disabled for designs using effects SVG can't represent. */
   svgExportDisabled: boolean;
+  /**
+   * The current export has known limitations (filter-based effects or
+   * documented sub-pixel deviations) — mark the menu item with a warning.
+   */
+  svgExportWarning: boolean;
   /** Copy the current (fully-encoded) URL to the clipboard. */
   onCopyLink: () => void | Promise<void>;
   /** Copy a ready-to-paste <TabbiedArtwork> snippet to the clipboard. */
@@ -60,6 +66,7 @@ export default function EditArtworkHeader({
   onExportPng,
   onExportSvg,
   svgExportDisabled,
+  svgExportWarning,
   onCopyLink,
   onCopyReactComponent,
   mobile,
@@ -200,6 +207,13 @@ export default function EditArtworkHeader({
                   }
                 >
                   <FileCode size={15} /> Download SVG
+                  {svgExportWarning && (
+                    <TriangleAlert
+                      className={styles.menuItemWarning}
+                      size={14}
+                      aria-label="Has export limitations"
+                    />
+                  )}
                 </Menu.Item>
                 <Menu.Item
                   className={styles.menuItem}

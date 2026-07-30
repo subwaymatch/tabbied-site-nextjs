@@ -18,6 +18,13 @@ export type ArtworkOption = {
   step?: number;
   /** ToggleSwitch "on" snippet. */
   code?: string;
+  /**
+   * ToggleSwitch only: SVG-export limitation introduced when this option is
+   * on (e.g. a shadow that exports as an SVG filter). Export UIs should
+   * surface it before downloading. See ArtworkDefinition.svgExportNote for
+   * always-on limitations.
+   */
+  svgExportNote?: string;
 };
 
 /**
@@ -91,6 +98,14 @@ export type ArtworkDefinition = {
    * cannot represent (smooth conic-gradient sweeps). Defaults to true.
    */
   svgExport?: boolean;
+  /**
+   * A user-facing note about this design's SVG-export limitations (effects
+   * exported as SVG filters that design tools import imperfectly, or
+   * documented sub-pixel deviations from the on-screen rendering). Export
+   * UIs should surface it before downloading. Options can carry their own
+   * conditional note — see ArtworkOption.svgExportNote.
+   */
+  svgExportNote?: string;
 };
 
 /**

@@ -17,3 +17,8 @@ The converter (~21 KB gzipped) stays out of the main bundle: `exportSvg()`
 loads it on demand through a dynamic import, and direct use is available via
 the new `tabbied/svg-export` subpath (`import { doodleToSvg } from
 'tabbied/svg-export'`).
+
+Designs with known export limitations (filter-based effects, documented
+sub-pixel deviations) describe them in the new `svgExportNote` fields on the
+definition and on toggle options, for export UIs to surface before
+downloading.

@@ -277,15 +277,74 @@ test.describe('native SVG export', () => {
   });
 
   test('editor downloads a native .svg file', async ({ page }) => {
+    // radius (shadow toggle off) has no limitations — no warning icon, no
+    // confirmation dialog, straight to the download.
     await openArtwork(page, 'radius');
     await page.getByRole('button', { name: 'Export' }).click();
+    const item = page.getByRole('menuitem', { name: 'Download SVG' });
+    await expect(item.locator('svg')).toHaveCount(1); // file icon only
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('menuitem', { name: 'Download SVG' }).click();
+    await item.click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe('radius.svg');
     const content = fs.readFileSync(await download.path(), 'utf8');
     expect(content).toContain('xmlns="http://www.w3.org/2000/svg"');
     expect(content).not.toContain('foreignObject');
+  });
+
+  test('limited exports warn and confirm before downloading', async ({ page }) => {
+    // neon's glow exports as SVG filters: warning icon on the menu item and
+    // a confirmation dialog that can cancel or proceed.
+    await openArtwork(page, 'neon');
+    await page.getByRole('button', { name: 'Export' }).click();
+    const item = page.getByRole('menuitem', { name: 'Download SVG' });
+    await expect(item.locator('svg')).toHaveCount(2); // file icon + warning
+    await item.click();
+
+    const dialog = page.getByRole('alertdialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText('SVG drop-shadow filters');
+
+    // Cancel closes without downloading.
+    let downloaded = false;
+    page.on('download', () => {
+      downloaded = true;
+    });
+    await dialog.getByRole('button', { name: 'Cancel' }).click();
+    await expect(dialog).not.toBeVisible();
+    expect(downloaded).toBe(false);
+
+    // Confirming downloads the file.
+    await page.getByRole('button', { name: 'Export' }).click();
+    await page.getByRole('menuitem', { name: 'Download SVG' }).click();
+    const downloadPromise = page.waitForEvent('download');
+    await page
+      .getByRole('alertdialog')
+      .getByRole('button', { name: 'Download SVG' })
+      .click();
+    expect((await downloadPromise).suggestedFilename()).toBe('neon.svg');
+  });
+
+  test('toggle-dependent limitations only warn when the option is on', async ({
+    page,
+  }) => {
+    // radius with its shadow toggle enabled joins the filter tier.
+    await page.goto('/artworks/radius/?seed=e2e01&shadow=true');
+    await page.waitForFunction(
+      () => {
+        const el = document.querySelector('div[data-artwork="radius"] css-doodle');
+        return Boolean(el && el.shadowRoot && el.shadowRoot.querySelector('cssd-grid'));
+      },
+      undefined,
+      { timeout: 30000 }
+    );
+    await page.getByRole('button', { name: 'Export' }).click();
+    const item = page.getByRole('menuitem', { name: 'Download SVG' });
+    await expect(item.locator('svg')).toHaveCount(2);
+    await item.click();
+    await expect(page.getByRole('alertdialog')).toContainText(
+      'shadow effect is exported as an SVG drop-shadow filter'
+    );
   });
 
   for (const slug of unsupportedSlugs) {

@@ -143,6 +143,12 @@
   color: #ced4da;
 }
 
+/* Right-aligned limitations marker on "Download SVG". */
+.menuItem svg.menuItemWarning {
+  margin-left: auto;
+  color: #e8a13c;
+}
+
 /* ---- Mobile (7d) compact header: back + centered title + icon buttons ---- */
 
 .headerMobile {
