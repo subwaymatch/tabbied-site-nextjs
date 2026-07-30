@@ -21,11 +21,7 @@ import {
   resolveFitMode,
   type CoverRender,
 } from './sizing.js';
-import {
-  doodleToSvg,
-  type SvgExportOptions,
-  type SvgExportResult,
-} from './svgExport.js';
+import type { SvgExportOptions, SvgExportResult } from './svgExport.js';
 import type {
   ArtworkDefinition,
   FitMode,
@@ -623,7 +619,12 @@ export function createArtwork(
 
       const { download, name, ...svgOptions } = options ?? {};
 
-      await settleAnimations(element);
+      // The converter is ~21 KB gzipped and only needed here — load it on
+      // demand so consumers who never export don't bundle it.
+      const [{ doodleToSvg }] = await Promise.all([
+        import('./svgExport.js'),
+        settleAnimations(element),
+      ]);
       const result = doodleToSvg(element, svgOptions);
 
       if (download) {

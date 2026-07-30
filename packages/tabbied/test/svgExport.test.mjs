@@ -5,7 +5,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { _internals, supportsSvgExport } from '../dist/core/svgExport.js';
+import { _internals } from '../dist/core/svgExport.js';
+import { supportsSvgExport } from '../dist/core/types.js';
 
 const {
   splitTopLevel,

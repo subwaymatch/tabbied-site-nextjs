@@ -35,15 +35,6 @@ export type SvgExportResult = {
   warnings: string[];
 };
 
-/**
- * Whether an artwork can be exported as native SVG. False only for designs
- * whose definition opts out via `svgExport: false` (smooth conic-gradient
- * sweeps have no SVG equivalent).
- */
-export function supportsSvgExport(artwork: { svgExport?: boolean }): boolean {
-  return artwork.svgExport !== false;
-}
-
 /** A CSS feature with no faithful native-SVG mapping was encountered. */
 export class SvgExportUnsupportedError extends Error {
   constructor(feature: string, value?: string) {

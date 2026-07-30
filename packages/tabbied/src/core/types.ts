@@ -92,3 +92,14 @@ export type ArtworkDefinition = {
    */
   svgExport?: boolean;
 };
+
+/**
+ * Whether an artwork can be exported as native SVG. False only for designs
+ * whose definition opts out via `svgExport: false` (smooth conic-gradient
+ * sweeps have no SVG equivalent). Lives here — not in the converter module —
+ * so UI gating never pulls the converter into the bundle (exportSvg() loads
+ * it on demand).
+ */
+export function supportsSvgExport(artwork: { svgExport?: boolean }): boolean {
+  return artwork.svgExport !== false;
+}

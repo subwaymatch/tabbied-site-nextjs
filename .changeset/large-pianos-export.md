@@ -12,3 +12,8 @@ check `supportsSvgExport(artwork)` before offering the option. Blur, glow
 shadows and blend modes export as SVG filter effects and are reported in the
 result's `warnings` (they render correctly in browsers but may degrade when
 imported into some design tools).
+
+The converter (~21 KB gzipped) stays out of the main bundle: `exportSvg()`
+loads it on demand through a dynamic import, and direct use is available via
+the new `tabbied/svg-export` subpath (`import { doodleToSvg } from
+'tabbied/svg-export'`).

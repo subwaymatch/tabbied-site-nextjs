@@ -36,6 +36,11 @@
       "import": "./dist/artworks.generated.js",
       "default": "./dist/artworks.generated.js"
     },
+    "./svg-export": {
+      "types": "./dist/core/svgExport.d.ts",
+      "import": "./dist/core/svgExport.js",
+      "default": "./dist/core/svgExport.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/core/index.js",
