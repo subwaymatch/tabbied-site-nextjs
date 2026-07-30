@@ -56,8 +56,11 @@
 >    `windowpane` pass at a documented 2% threshold (≤1-CSS-px sub-pixel
 >    deviations in mask-image rasterization and mixed-width corner-arc
 >    junctions respectively). The first full-catalog sweep passed 156/164;
->    each of the 8 failures was diagnosed and re-verified individually
->    with the fixes above.
+>    after the fixes above the final full sweep passed **164/164 supported
+>    artworks** with zero failures. (CI's Chromium build measures slightly
+>    different anti-aliasing/shadow-falloff variance than local runs —
+>    glyph/terrain/neon/lantern carry small documented threshold headroom
+>    for that.)
 
 ---
 
