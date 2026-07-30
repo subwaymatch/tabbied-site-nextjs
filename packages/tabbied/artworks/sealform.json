@@ -1,0 +1,49 @@
+{
+  "name": "Sealform",
+  "slug": "sealform",
+  "galleryOrder": 1565,
+  "description": "A disc with a band of radial notches round its edge.",
+  "palette": [
+    "#F2EFEA",
+    "#3A5A40",
+    "#588157",
+    "#A3B18A",
+    "#344E41",
+    "#DAD7CD"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 14%; background: var(--color1); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, #000 34%, transparent 34%); mask: radial-gradient(circle closest-side at 50% 50%, #000 34%, transparent 34%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 8%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 40%, #000 40% 50%, transparent 50%), repeating-linear-gradient(90deg, #000 0 6%, transparent 6% 12%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 40%, #000 40% 50%, transparent 50%), repeating-linear-gradient(90deg, #000 0 6%, transparent 6% 12%); -webkit-mask-composite: source-in; mask-composite: intersect; -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

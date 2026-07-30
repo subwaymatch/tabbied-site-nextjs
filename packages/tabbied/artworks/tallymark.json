@@ -1,0 +1,50 @@
+{
+  "name": "Tallymark",
+  "slug": "tallymark",
+  "galleryOrder": 1395,
+  "galleryWhite": true,
+  "description": "Four uprights with a fifth struck across them.",
+  "palette": [
+    "#161616",
+    "#F5F5F0",
+    "#9A9A9A",
+    "#5A5A5A",
+    "#C8C8C8",
+    "#3A3A3A"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 14% 12%; background: var(--color1); -webkit-mask: repeating-linear-gradient(90deg, #000 0 9%, transparent 9% 26%); mask: repeating-linear-gradient(90deg, #000 0 9%, transparent 9% 26%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 6%; right: 6%; top: 44%; height: 10%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(-18deg); transform: rotate(-18deg); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

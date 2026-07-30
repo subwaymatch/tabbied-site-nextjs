@@ -1,0 +1,49 @@
+{
+  "name": "Openframe",
+  "slug": "openframe",
+  "galleryOrder": 1324,
+  "description": "The whole corner treatment turned inside out: an octagon with a square hole cut through it.",
+  "palette": [
+    "#FCFBFF",
+    "#60569E",
+    "#9B8FD4",
+    "#C9BFF2",
+    "#3E8BFF",
+    "#E6437D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 0; background: var(--color1); -webkit-clip-path: polygon(69.1% 3.8%, 96.2% 30.9%, 96.2% 69.1%, 69.1% 96.2%, 30.9% 96.2%, 3.8% 69.1%, 3.8% 30.9%, 30.9% 3.8%); clip-path: polygon(69.1% 3.8%, 96.2% 30.9%, 96.2% 69.1%, 69.1% 96.2%, 30.9% 96.2%, 3.8% 69.1%, 3.8% 30.9%, 30.9% 3.8%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 0; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 34.0% 34.0%, 34.0% 66.0%, 66.0% 66.0%, 66.0% 34.0%, 34.0% 34.0%); clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 34.0% 34.0%, 34.0% 66.0%, 66.0% 66.0%, 66.0% 34.0%, 34.0% 34.0%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

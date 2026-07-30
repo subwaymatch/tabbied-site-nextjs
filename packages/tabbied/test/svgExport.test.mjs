@@ -18,6 +18,7 @@ const {
   sectorPath,
   parseConicSectors,
   parseBoxShadows,
+  originBox,
 } = _internals;
 
 const rgb = (r, g, b, a = 1) => ({ r, g, b, a });
@@ -194,4 +195,48 @@ test('parseBoxShadows reads the computed serialization', () => {
     parseBoxShadows('rgb(0, 0, 0) 0px 0px 4px 0px inset', normalize)[0].inset,
     true
   );
+});
+
+test('originBox insets the background positioning area by the border', () => {
+  const border = {
+    borderLeftWidth: '7px',
+    borderTopWidth: '7px',
+    borderRightWidth: '7px',
+    borderBottomWidth: '7px',
+    paddingLeft: '4px',
+    paddingTop: '4px',
+    paddingRight: '4px',
+    paddingBottom: '4px',
+  };
+  const box = { x: 0, y: 0, w: 60, h: 60 };
+
+  // padding-box is the CSS default: percentage stops and sizes resolve
+  // against the box inside the border, not the border box itself.
+  assert.deepEqual(originBox(box, border, 'padding-box'), {
+    x: 7,
+    y: 7,
+    w: 46,
+    h: 46,
+  });
+  assert.deepEqual(originBox(box, border, 'content-box'), {
+    x: 11,
+    y: 11,
+    w: 38,
+    h: 38,
+  });
+  assert.deepEqual(originBox(box, border, 'border-box'), box);
+
+  // A borderless box — every artwork that predates batch 11's frames — is
+  // returned untouched, so nothing about those exports moves.
+  const plain = {
+    borderLeftWidth: '0px',
+    borderTopWidth: '0px',
+    borderRightWidth: '0px',
+    borderBottomWidth: '0px',
+    paddingLeft: '0px',
+    paddingTop: '0px',
+    paddingRight: '0px',
+    paddingBottom: '0px',
+  };
+  assert.equal(originBox(box, plain, 'padding-box'), box);
 });

@@ -1,0 +1,50 @@
+{
+  "name": "Registration",
+  "slug": "registration",
+  "galleryOrder": 1455,
+  "galleryWhite": true,
+  "description": "A cross and a ring sharing a centre, the way a register mark is drawn.",
+  "palette": [
+    "#1D1F24",
+    "#E8E6E1",
+    "#F5B82E",
+    "#3EECFF",
+    "#FF4D6D",
+    "#2E86AB"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 8%; background: var(--color1); -webkit-clip-path: polygon(45.0% 0.0%, 55.0% 0.0%, 55.0% 45.0%, 100.0% 45.0%, 100.0% 55.0%, 55.0% 55.0%, 55.0% 100.0%, 45.0% 100.0%, 45.0% 55.0%, 0.0% 55.0%, 0.0% 45.0%, 45.0% 45.0%); clip-path: polygon(45.0% 0.0%, 55.0% 0.0%, 55.0% 45.0%, 100.0% 45.0%, 100.0% 55.0%, 55.0% 55.0%, 55.0% 100.0%, 45.0% 100.0%, 45.0% 55.0%, 0.0% 55.0%, 0.0% 45.0%, 45.0% 45.0%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 20%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 34%, #000 34% 46%, transparent 46%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 34%, #000 34% 46%, transparent 46%); opacity: 0.85; -webkit-transition: ease 450ms; transition: ease 450ms; } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

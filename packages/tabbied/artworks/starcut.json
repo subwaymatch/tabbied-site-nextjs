@@ -1,0 +1,49 @@
+{
+  "name": "Starcut",
+  "slug": "starcut",
+  "galleryOrder": 1498,
+  "description": "Two ink layers: a star cut to a disc, over a ring that runs round outside it.",
+  "palette": [
+    "#FCFBFF",
+    "#60569E",
+    "#9B8FD4",
+    "#C9BFF2",
+    "#3E8BFF",
+    "#E6437D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 0; background: var(--color1); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 42%, #000 42% 50%, transparent 50%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 42%, #000 42% 50%, transparent 50%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; inset: 0; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 4.0%, 61.2% 34.6%, 93.7% 35.8%, 68.1% 55.9%, 77.0% 87.2%, 50.0% 69.0%, 23.0% 87.2%, 31.9% 55.9%, 6.3% 35.8%, 38.8% 34.6%); clip-path: polygon(50.0% 4.0%, 61.2% 34.6%, 93.7% 35.8%, 68.1% 55.9%, 77.0% 87.2%, 50.0% 69.0%, 23.0% 87.2%, 31.9% 55.9%, 6.3% 35.8%, 38.8% 34.6%); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, #000 40%, transparent 40%); mask: radial-gradient(circle closest-side at 50% 50%, #000 40%, transparent 40%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

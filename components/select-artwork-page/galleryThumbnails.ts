@@ -1327,4 +1327,1204 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   fluting: {
     options: { grid: '5x5', frequency: 1 },
   },
+  ridgeline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  waterline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sill: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  highwater: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cantline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slipjoint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  thirdstop: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overrun: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shallowcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quarterturn: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  applique: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  swapcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  listing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  crossquarter: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  steppedcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sawcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bowcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  goldenline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  seamband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halfmast: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  floatcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  notchcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fivebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slantband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chordcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pinstripe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  corduroy: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grating: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  combline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coarseline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tramline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ledgerline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  staveline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  twophase: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ribline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scoreline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pitchline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slatting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  blindfold: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bandsaw: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  striation: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cannelure: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grainline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rasp: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  serration: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  picketline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  railset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sleeperline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundrule: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tuckline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rayset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  beamspread: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  searchlight: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coneset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slicepair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doublefan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sunspoke: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spokeset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fanblade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bladeset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  vaneset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  turbinate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shutterfan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  irisfan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  clockface: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sweephand: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dialface: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  protractor: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  compassrose: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sectorpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pieface: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cakecut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wedgepair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornerfan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  apexfan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grommet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ferrule: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  collar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bandring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rimband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  discring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  areola: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  limbus: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pupil: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  retina: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  circlet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  torc: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bangle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  oring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bezelring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wheelrim: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tyre: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tread: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  diskband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  platter: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coaster: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ripplering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  poolring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tidering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wellring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornercut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  clipcorner: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bevelset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mitre: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  skewback: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nosing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bullnose: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rebate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rabbet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  housing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halving: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  birdsmouth: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scarf: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chase: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  plinth: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stylobate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dieblock: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  guttae: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mutule: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  modillion: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cymatium: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  antefix: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  acroterion: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trochilus: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  openframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lobeform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  petalcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  leafcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  palmate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cordate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reniform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  obovate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spatulate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lanceolate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  auricle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lappet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  earlobe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dropform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pearform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ovoid: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bolster: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cushion: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pillowform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundend: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  obround: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slotform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  racetrack: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quadrifoil: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trilobe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bilobe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mountboard: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  matboard: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sashframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  casement: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  muntin: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  glazingbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doorcase: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  surround: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bolection: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  beadframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doubleframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  innerframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  outerframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hairlineframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  thickline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sideborder: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halfborder: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornerbrace: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bracketframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  angleiron: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tiebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  escutcheon: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shieldframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  panelframe: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wainscot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  teebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ellbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ladderbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rungbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  batten: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cleatbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  strapbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bandbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tickbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stopbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  endstop: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  runbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gapbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doublebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  triplebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  offsetbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  crossnought: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  plusmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  minusmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gridmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tallymark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slashbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  backslashbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  verticalbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  signalbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gnomonwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sailwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  finform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  prowform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  keelform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rudderwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  arrowset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  barbform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fletching: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nockform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dartform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pointset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  beakform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  talonform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fangform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  toothset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ploughshare: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chiselform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wedgeblock: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  splitwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quoinwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  featheredge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  taperblock: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rampform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  demilune: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  speckfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pindot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  polkadot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grainfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sandfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  peppering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mottle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spotting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  beadfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pearlfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  caviar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  semolina: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shotfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  buckshot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  birdseye: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fisheye: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotscreen: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rosette: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  moirefield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  duotone: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coarsescreen: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotmatrix: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  perforation: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  studfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overlay: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  underlay: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  superimpose: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doubleprint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  offprint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  registration: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  misregister: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trapping: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  knockout: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overprint: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  screenlap: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  layerpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cardstack: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fanned: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overhang: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  eclipse: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  occultation: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  transit: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  conjunction: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ghosting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mirrorpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scalepair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nestpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  boxinbox: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  barinbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  commonpart: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sharedpart: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bothways: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cutdown: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  croppage: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trimline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  whittle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  paredown: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cropmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bitepart: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overlapcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  meetpart: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  coincide: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  concord: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  twincut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  maskpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shearpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lopcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shavecut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  facecut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  squarecut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wedgecut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ringcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  starcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  latheform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  softedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  vignette: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  falloff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rolloff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dimmer: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  douse: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadeout: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadein: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  blushform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  flush: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tinting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shading: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  toning: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  glazing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scumble: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sfumato: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  airbrush: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mistform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hazeform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dusklight: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gloaming: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  umbra: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  softwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  softsplit: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  meltband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  plaidwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tartanset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ginghamweave: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chequerweave: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  basketwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  canework: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  netting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  meshwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grillework: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cagework: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  barwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gridwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reticule: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  reticle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hatchwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wickerwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lathwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  trelliswork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  latticework: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  screenwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  jaliwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grillage: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quarrel: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  leadwork: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tabbyweave: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  glyphmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  runemark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sigilmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cipherform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  notation: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  monogram: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rebus: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  emblemform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  blazon: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  hallmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  touchmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  makersmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  assaymark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  brandmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stampform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sealform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  signet: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chopmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  printersmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  watermark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  countermark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mintmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tallyglyph: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wardmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  punchmark: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  swellfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  openfan: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tightening: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  leanfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  growring: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  turnfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shrinkbox: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  weightfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tiltfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sinkfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadefield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spreadfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornerfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  depthfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slantfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  riserfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  widthfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  diagfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  splitfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  wedgefield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bandfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gridfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  arcfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scalefield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
 };

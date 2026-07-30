@@ -1,0 +1,49 @@
+{
+  "name": "Assaymark",
+  "slug": "assaymark",
+  "galleryOrder": 1562,
+  "description": "A ring with a dot in the middle and a tick outside it.",
+  "palette": [
+    "#FFF3B0",
+    "#335C67",
+    "#E09F3E",
+    "#9E2A2B",
+    "#540B0E",
+    "#2E4057"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; inset: 18%; background: var(--color1); -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 36%, #000 36% 48%, transparent 48%), radial-gradient(circle closest-side at 50% 50%, #000 16%, transparent 16%); mask: radial-gradient(circle closest-side at 50% 50%, transparent 36%, #000 36% 48%, transparent 48%), radial-gradient(circle closest-side at 50% 50%, #000 16%, transparent 16%); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 66%; width: 22%; top: 12%; height: 8%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(-40deg); transform: rotate(-40deg); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

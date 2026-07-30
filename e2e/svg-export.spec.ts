@@ -38,6 +38,12 @@ const unsupportedSlugs = allArtworks
 // One artwork per feature family: solid cells + pseudo-elements, radii,
 // clip-paths, masks, every gradient kind, hard-stop conic sectors, nested
 // @doodle masks, @svg payloads, borders, filters, blend modes, z-index.
+//
+// The last six come from batch 11 and cover what that batch added: a border
+// with positioned pseudo-elements inside it and a border with background
+// layers on it (both of which resolve against the *padding* box, not the
+// border box), tiled dot patterns, smooth gradients used as masks, and
+// position-driven parameters that vary per cell.
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -65,6 +71,12 @@ const REPRESENTATIVE = [
   'circuit',
   'ring',
   'bloks',
+  'sashframe',
+  'muntin',
+  'mottle',
+  'vignette',
+  'plaidwork',
+  'arcfield',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few

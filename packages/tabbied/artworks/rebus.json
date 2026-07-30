@@ -1,0 +1,50 @@
+{
+  "name": "Rebus",
+  "slug": "rebus",
+  "galleryOrder": 1556,
+  "galleryWhite": true,
+  "description": "A square, a triangle and nothing else — read it how you like.",
+  "palette": [
+    "#2D132C",
+    "#801336",
+    "#C72C41",
+    "#EE4540",
+    "#F0C419",
+    "#FFE9C7"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 14%; width: 32%; top: 18%; height: 32%; background: var(--color1); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 48%; width: 38%; top: 46%; height: 38%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%); clip-path: polygon(50.0% 0.0%, 100.0% 100.0%, 0.0% 100.0%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

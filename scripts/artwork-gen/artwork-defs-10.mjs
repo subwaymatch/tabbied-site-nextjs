@@ -232,7 +232,7 @@ const PAL = [
 // Every motif name used anywhere in the project so far, including the designs
 // authored for batches 7 and 8 and cut before they shipped — a name should
 // never come to mean two different things.
-const TAKEN = new Set(
+export const TAKEN = new Set(
   (
     'abacus abjad abugida accordion acorn agate airy alias ambit ammann ' +
     'amoeba ampersand amphora analemma anamorph anchor annulet annulus ' +
@@ -368,7 +368,7 @@ const TAKEN = new Set(
 
 // JS reserved words can't be emitted as `export const <slug>` by the package
 // codegen, so they're banned as slugs.
-const RESERVED = new Set(
+export const RESERVED = new Set(
   ('do if in for let new try var case else enum eval null this true void with ' +
     'await break catch class const false super throw while yield delete export ' +
     'import public return static switch typeof default extends finally package ' +

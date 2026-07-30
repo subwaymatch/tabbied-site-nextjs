@@ -6,6 +6,13 @@ converter, or export UI. Written for future maintainers and coding agents.
 Historical background lives in `agent-outputs/native-svg-export-handoff.md`
 (the original research + implementation addendum, kept as a dated record).
 
+Batch 11 (gallery orders 1200+, 400 designs) was authored against this
+document: every design in it is tier 4, and
+`scripts/artwork-gen/validate-svg-batch11.mjs` is the gate that keeps it
+there — it runs the shipped converter over each rendered design and fails on
+a throw, on any warning, or on a pixel diff above a budget deliberately
+tighter than the shipped one.
+
 ## What it is
 
 `doodleToSvg()` (`packages/tabbied/src/core/svgExport.ts`) walks a rendered
@@ -78,7 +85,7 @@ shadow toggle is on**, because the shadow exports as an SVG filter:
 `bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
 `quarterfall`, `radius` (default off).
 
-### 4. Full support — everything else (~146)
+### 4. Full support — everything else (~553)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -143,7 +150,16 @@ npm test --workspace tabbied              # unit tests for the pure parsers
 npm run build && npm run test:e2e         # e2e incl. representative parity set
 SVG_FULL_SWEEP=1 npx playwright test e2e/svg-export.spec.ts   # full catalog
 node scripts/svg-parity-sweep.mjs [slug ...]   # dev-server sweep w/ artifacts
+node scripts/artwork-gen/validate-svg-batch11.mjs   # no dev server needed
 ```
+
+The last one is the fast path while authoring: it renders artworks directly
+from their JSON, twelve to a page across two seeds with the frequency gate
+wide open, so a few hundred designs sweep in minutes instead of one page load
+each. It also fails on any converter *warning*, which the parity scripts do
+not — a warning is precisely the signal that a design needs an
+`svgExportNote`. `SLUGS=a,b` narrows it to specific artworks (including ones
+outside batch 11).
 
 The sweep script needs `npm run build --workspace tabbied` first (it injects
 `dist/core/svgExport.js`) and a running dev server; failure artifacts
@@ -181,5 +197,13 @@ The sweep script needs `npm run build --workspace tabbied` first (it injects
 - **Colors** are normalized through a DOM probe that **fails loudly** on
   unparseable values — a silent fallback once painted whole artworks in the
   page's inherited text color (the `curl` calc()-ramp incident).
+- **Borders shift the boxes inside them.** An absolutely-positioned
+  pseudo-element resolves its offsets against its host's *padding* box, a
+  static one is centred in the content box, and a background layer is
+  positioned in the origin box (padding-box by default) even though it is
+  clipped to the border box. All three coincide on a borderless element,
+  which every artwork was until batch 11 put pseudo-elements and background
+  layers inside frames — before that the converter used the border box for
+  all of them and the contents came out displaced by the border width.
 - **Determinism**: same DOM in → byte-identical SVG out (deterministic def
   ids); e2e asserts it.

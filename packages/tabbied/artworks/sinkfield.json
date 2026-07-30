@@ -1,0 +1,50 @@
+{
+  "name": "Sinkfield",
+  "slug": "sinkfield",
+  "galleryOrder": 1585,
+  "galleryWhite": true,
+  "description": "A disc of one size, sitting higher in the cell at the top of the sheet and lower at the foot.",
+  "palette": [
+    "#0E2438",
+    "#275AA6",
+    "#3E8BFF",
+    "#3EECFF",
+    "#97F4FF",
+    "#E9F1FF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle closest-side at 50% @calc(16 + 68 * @y / @Y)%, #000 34%, transparent 34%); mask: radial-gradient(circle closest-side at 50% @calc(16 + 68 * @y / @Y)%, #000 34%, transparent 34%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
