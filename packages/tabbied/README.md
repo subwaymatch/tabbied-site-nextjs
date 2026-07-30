@@ -39,10 +39,26 @@ export function Example() {
       <TabbiedArtwork ref={ref} artwork={radius} seed="k9Pz" height={320} />
       <button onClick={() => ref.current?.redraw()}>Redraw</button>
       <button onClick={() => ref.current?.exportImage()}>Export PNG</button>
+      <button onClick={() => ref.current?.exportSvg({ download: true })}>
+        Export SVG
+      </button>
     </>
   );
 }
 ```
+
+### SVG export
+
+`exportSvg()` converts the rendered artwork to a **native vector SVG** — real
+`<rect>`/`<path>`/gradient elements, no `<foreignObject>` — so the file opens
+in design tools and scales to any resolution. It resolves with
+`{ svg, width, height, warnings }`; pass `{ download: true }` to also save a
+`.svg` file. A few designs paint smooth conic-gradient sweeps that SVG cannot
+represent — they set `svgExport: false` on their definition, and
+`supportsSvgExport(artwork)` tells you whether to offer the option. Effects
+exported through SVG filters (blur, glow shadows, blend modes) render
+correctly in browsers but may degrade when imported into design tools; such
+cases are listed in `warnings`.
 
 ### Importing presets (tree-shaking)
 
@@ -163,6 +179,7 @@ const controller = createArtwork(el, {
   onReady: async () => {
     controller.redraw(); // re-randomize the seed
     await controller.exportImage();
+    const { svg } = await controller.exportSvg(); // native vector SVG
   },
 });
 

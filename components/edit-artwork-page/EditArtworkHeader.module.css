@@ -129,9 +129,18 @@
   background-color: #f8f9fa;
 }
 
+.menuItem[data-disabled] {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
 .menuItem svg {
   color: #646d7b;
   flex: none;
+}
+
+.menuItem[data-disabled] svg {
+  color: #ced4da;
 }
 
 /* ---- Mobile (7d) compact header: back + centered title + icon buttons ---- */

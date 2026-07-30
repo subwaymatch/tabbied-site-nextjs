@@ -4,6 +4,45 @@
 - **Repo:** `subwaymatch/tabbied` (branch: `claude/artwork-svg-export-gdohv5`, based on `95127ff`)
 - **Audience:** a coding agent (or developer) implementing the feature. This document contains verified facts about the current codebase and `css-doodle` 0.51.0, the full artwork-compatibility audit, the chosen design, a phased implementation plan, and a verification harness that can prove correctness per artwork.
 
+> **Implementation addendum (2026-07-30).** The feature has been implemented
+> on this branch. Four findings from implementation supersede parts of this
+> document:
+>
+> 1. **`wedge` is NOT convertible** (Tier A, not Tier B): its two `@pick()`
+>    position rolls are independent, so most cells render a *smooth*
+>    conic fade (e.g. `#000 0 70deg, transparent 180deg 360deg`) rather than
+>    a hard-stop wedge. It now carries `svgExport: false`, bringing the
+>    unsupported set to 4: `coil`, `spectrum`, `pinwheel`, `wedge`.
+>    (`spray`/`sunray`/`glyph` use literal constant positions and stay
+>    supported.) The converter's conic parser rejects any nonzero span whose
+>    endpoints differ in color, so misclassified designs fail loudly.
+> 2. **The parity harness compares against live element screenshots**, not
+>    css-doodle's foreignObject export: that export renders conic *masks*
+>    measurably differently from the live page (verified with a
+>    live/mine/ref triple comparison), so the screenshot is the only honest
+>    ground truth. The diff treats a differing pixel as an anti-aliasing
+>    artifact when its color sits channel-wise between the other image's
+>    3×3-neighborhood extremes (CSS pixel-snaps edges; SVG anti-aliases
+>    fractional geometry).
+> 3. **The converter is a single module** (`src/core/svgExport.ts`) with
+>    type-only imports, so the compiled `dist/core/svgExport.js` has zero
+>    runtime imports and tests inject the exact shipped build into pages.
+> 4. Notable converter subtleties, all discovered via the parity loop:
+>    geometry must come from `getBoundingClientRect` with transforms
+>    temporarily disabled (layout offsets are integer-rounded; the override
+>    must be unwound in two steps or the artworks' 400ms transitions restart
+>    and computed transforms read as identity), `filter: blur(v)`'s
+>    parameter IS the Gaussian σ (shadow blur radii are 2σ), multiple
+>    box-shadows need independent blur→offset→flood branches merged under
+>    the source (chained feDropShadows blur each other), filter regions
+>    must be absolute `userSpaceOnUse` boxes (percentage regions clip glows
+>    on thin boxes), abutting conic sectors need a hair of angular overlap,
+>    and nested-@doodle mask tiles use `crispEdges` to avoid AA seams. The
+>    three nested-@doodle artworks (`fractal`, `matryoshka`, `subdivide`)
+>    pass at a documented looser threshold because css-doodle's *live*
+>    rendering shows hairline seams from rasterizing the nested mask that
+>    the clean vector export intentionally does not reproduce.
+
 ---
 
 ## 0. TL;DR

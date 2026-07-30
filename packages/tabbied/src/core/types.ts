@@ -86,4 +86,9 @@ export type ArtworkDefinition = {
   galleryWhite?: boolean;
   /** Sort position in the gallery (ascending). Unset sorts last. */
   galleryOrder?: number;
+  /**
+   * False disables native SVG export — for designs that paint effects SVG
+   * cannot represent (smooth conic-gradient sweeps). Defaults to true.
+   */
+  svgExport?: boolean;
 };

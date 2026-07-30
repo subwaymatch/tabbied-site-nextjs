@@ -9,6 +9,7 @@ import {
   ChevronRight,
   CodeXml,
   Expand,
+  FileCode,
   ImageDown,
   Link as LinkIcon,
   Minus,
@@ -28,6 +29,7 @@ import {
   gridToLevel,
   isAspectRatioId,
   randomSeed,
+  supportsSvgExport,
 } from 'tabbied';
 import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
@@ -651,6 +653,19 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
   };
 
+  const svgExportEnabled = supportsSvgExport(artwork);
+
+  const exportSvgArtwork = async () => {
+    if (!svgExportEnabled) return;
+
+    try {
+      await doodleRef.current?.exportSvg({ download: true });
+      toaster.add({ title: 'SVG downloaded' });
+    } catch {
+      toaster.add({ title: 'Could not export the SVG' });
+    }
+  };
+
   const copyShareLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -930,6 +945,22 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         <button
           type="button"
           className={styles.exportRow}
+          disabled={!svgExportEnabled}
+          title={
+            svgExportEnabled
+              ? undefined
+              : "This design uses effects SVG can't represent."
+          }
+          onClick={() => {
+            void exportSvgArtwork();
+            closeMobilePanel();
+          }}
+        >
+          <FileCode className={styles.exportIcon} size={16} /> Download SVG
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
           onClick={() => {
             void copyShareLink();
             closeMobilePanel();
@@ -959,6 +990,8 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onRunShuffle={runShuffle}
         onSelectShuffle={selectShuffleAction}
         onExportPng={exportArtwork}
+        onExportSvg={exportSvgArtwork}
+        svgExportDisabled={!svgExportEnabled}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
         mobile={isMobile}

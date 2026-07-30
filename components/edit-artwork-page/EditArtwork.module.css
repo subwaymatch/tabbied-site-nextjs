@@ -634,6 +634,19 @@
   background: #f1f3f5;
 }
 
+.exportRow:disabled {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.exportRow:disabled:hover {
+  background: transparent;
+}
+
+.exportRow:disabled .exportIcon {
+  color: #ced4da;
+}
+
 .scopeOptionActive {
   background: #f1f3f5;
 }
