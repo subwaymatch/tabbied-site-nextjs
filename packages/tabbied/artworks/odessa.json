@@ -31,6 +31,7 @@
     },
     {
       "id": "shadow",
+      "svgExportNote": "The shadow effect is exported as an SVG drop-shadow filter. Browsers render it correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
       "displayName": "Shadow",
       "type": "ToggleSwitch",
       "default": false,

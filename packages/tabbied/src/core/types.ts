@@ -18,6 +18,13 @@ export type ArtworkOption = {
   step?: number;
   /** ToggleSwitch "on" snippet. */
   code?: string;
+  /**
+   * ToggleSwitch only: SVG-export limitation introduced when this option is
+   * on (e.g. a shadow that exports as an SVG filter). Export UIs should
+   * surface it before downloading. See ArtworkDefinition.svgExportNote for
+   * always-on limitations.
+   */
+  svgExportNote?: string;
 };
 
 /**
@@ -86,4 +93,28 @@ export type ArtworkDefinition = {
   galleryWhite?: boolean;
   /** Sort position in the gallery (ascending). Unset sorts last. */
   galleryOrder?: number;
+  /**
+   * False disables native SVG export — for designs that paint effects SVG
+   * cannot represent (smooth conic-gradient sweeps). Defaults to true.
+   */
+  svgExport?: boolean;
+  /**
+   * A user-facing note about this design's SVG-export limitations (effects
+   * exported as SVG filters that design tools import imperfectly, or
+   * documented sub-pixel deviations from the on-screen rendering). Export
+   * UIs should surface it before downloading. Options can carry their own
+   * conditional note — see ArtworkOption.svgExportNote.
+   */
+  svgExportNote?: string;
 };
+
+/**
+ * Whether an artwork can be exported as native SVG. False only for designs
+ * whose definition opts out via `svgExport: false` (smooth conic-gradient
+ * sweeps have no SVG equivalent). Lives here — not in the converter module —
+ * so UI gating never pulls the converter into the bundle (exportSvg() loads
+ * it on demand).
+ */
+export function supportsSvgExport(artwork: { svgExport?: boolean }): boolean {
+  return artwork.svgExport !== false;
+}

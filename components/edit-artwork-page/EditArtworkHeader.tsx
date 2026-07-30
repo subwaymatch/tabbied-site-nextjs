@@ -8,10 +8,12 @@ import {
   ArrowDownToLine,
   ArrowLeft,
   ChevronDown,
+  FileCode,
   ImageDown,
   Link as LinkIcon,
   CodeXml,
   Shuffle,
+  TriangleAlert,
 } from 'lucide-react';
 import {
   armGalleryScrollRestore,
@@ -31,6 +33,15 @@ type EditArtworkHeaderProps = {
   onSelectShuffle: (id: ShuffleAction) => void;
   /** Download the current artwork as a PNG. */
   onExportPng: () => void;
+  /** Download the current artwork as a native vector SVG. */
+  onExportSvg: () => void;
+  /** SVG export is disabled for designs using effects SVG can't represent. */
+  svgExportDisabled: boolean;
+  /**
+   * The current export has known limitations (filter-based effects or
+   * documented sub-pixel deviations) — mark the menu item with a warning.
+   */
+  svgExportWarning: boolean;
   /** Copy the current (fully-encoded) URL to the clipboard. */
   onCopyLink: () => void | Promise<void>;
   /** Copy a ready-to-paste <TabbiedArtwork> snippet to the clipboard. */
@@ -53,6 +64,9 @@ export default function EditArtworkHeader({
   onRunShuffle,
   onSelectShuffle,
   onExportPng,
+  onExportSvg,
+  svgExportDisabled,
+  svgExportWarning,
   onCopyLink,
   onCopyReactComponent,
   mobile,
@@ -181,6 +195,25 @@ export default function EditArtworkHeader({
               <Menu.Popup className={styles.menuPopup}>
                 <Menu.Item className={styles.menuItem} onClick={onExportPng}>
                   <ImageDown size={15} /> Download PNG
+                </Menu.Item>
+                <Menu.Item
+                  className={styles.menuItem}
+                  onClick={onExportSvg}
+                  disabled={svgExportDisabled}
+                  title={
+                    svgExportDisabled
+                      ? "This design uses effects SVG can't represent."
+                      : undefined
+                  }
+                >
+                  <FileCode size={15} /> Download SVG
+                  {svgExportWarning && (
+                    <TriangleAlert
+                      className={styles.menuItemWarning}
+                      size={14}
+                      aria-label="Has export limitations"
+                    />
+                  )}
                 </Menu.Item>
                 <Menu.Item
                   className={styles.menuItem}

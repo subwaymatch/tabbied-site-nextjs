@@ -674,6 +674,17 @@ export default function ReactDocsPage() {
                       resolves when css-doodle has produced the file — bump{' '}
                       <Code>scale</Code> for print-resolution exports.
                     </p>
+                    <p>
+                      <Code>exportSvg()</Code> converts the rendered artwork
+                      to a native vector SVG (real shapes and gradients, no{' '}
+                      <Code>foreignObject</Code>) that opens in design tools
+                      and scales to any resolution; pass{' '}
+                      <Code>{'{ download: true }'}</Code> to save a{' '}
+                      <Code>.svg</Code>. A few designs use smooth
+                      conic-gradient sweeps SVG can&apos;t express — they set{' '}
+                      <Code>svgExport: false</Code> in their definition, which{' '}
+                      <Code>supportsSvgExport(artwork)</Code> checks.
+                    </p>
                   </Section>
 
                   <Section id="animation" title="Ambient animation">
@@ -742,7 +753,8 @@ export default function ReactDocsPage() {
                       config)</Code> mounts an artwork into any element and
                       returns a controller with{' '}
                       <Code>update()</Code>, <Code>redraw()</Code>,{' '}
-                      <Code>exportImage()</Code> and <Code>destroy()</Code>.
+                      <Code>exportImage()</Code>, <Code>exportSvg()</Code> and{' '}
+                      <Code>destroy()</Code>.
                       It accepts the same config the component takes as props.
                     </p>
                     <CodeBlock
@@ -997,6 +1009,21 @@ export default function ReactDocsPage() {
                             <td>
                               PNG export via css-doodle. Returns a promise;
                               rejects before the artwork has mounted.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className={styles.propName}>
+                              exportSvg(options?)
+                            </td>
+                            <td>
+                              Native vector SVG export (no{' '}
+                              <code>foreignObject</code>). Resolves with{' '}
+                              <code>
+                                {'{ svg, width, height, warnings }'}
+                              </code>
+                              ; <code>{'{ download: true }'}</code> saves a
+                              file. Unavailable for definitions with{' '}
+                              <code>svgExport: false</code>.
                             </td>
                           </tr>
                           <tr>

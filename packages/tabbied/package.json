@@ -36,6 +36,11 @@
       "import": "./dist/artworks.generated.js",
       "default": "./dist/artworks.generated.js"
     },
+    "./svg-export": {
+      "types": "./dist/core/svgExport.d.ts",
+      "import": "./dist/core/svgExport.js",
+      "default": "./dist/core/svgExport.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/core/index.js",
@@ -49,6 +54,7 @@
   "scripts": {
     "codegen": "node scripts/codegen.mjs",
     "build": "node scripts/codegen.mjs && node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "test": "node --test",
     "dev": "node scripts/codegen.mjs && tsc -p tsconfig.json --watch",
     "typecheck": "node scripts/codegen.mjs && tsc -p tsconfig.json --noEmit",
     "prepublishOnly": "npm run build"

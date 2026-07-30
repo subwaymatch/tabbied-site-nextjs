@@ -2,6 +2,7 @@
   "name": "Windowpane",
   "slug": "windowpane",
   "galleryOrder": 285,
+  "svgExportNote": "Cells that mix two border widths on rounded corners can differ from the screen by up to a pixel where the arcs meet.",
   "description": "A lattice of mullions with the odd crossing node, re-weighting on reseed.",
   "palette": [
     "#F2E9DC",

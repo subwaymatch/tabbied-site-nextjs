@@ -9,10 +9,12 @@ import {
   ChevronRight,
   CodeXml,
   Expand,
+  FileCode,
   ImageDown,
   Link as LinkIcon,
   Minus,
   Plus,
+  TriangleAlert,
   X,
 } from 'lucide-react';
 import useMediaQuery from 'lib/useMediaQuery';
@@ -28,6 +30,7 @@ import {
   gridToLevel,
   isAspectRatioId,
   randomSeed,
+  supportsSvgExport,
 } from 'tabbied';
 import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
 import EditArtworkHeader from 'components/edit-artwork-page/EditArtworkHeader';
@@ -651,6 +654,42 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
     }
   };
 
+  const svgExportEnabled = supportsSvgExport(artwork);
+
+  // Limitations worth confirming before an SVG download: the design's own
+  // note (filter-based effects, documented sub-pixel deviations) plus notes
+  // from any enabled toggle options (e.g. shadows that export as filters).
+  const svgExportNotes = [
+    ...(artwork.svgExportNote ? [artwork.svgExportNote] : []),
+    ...artwork.options.flatMap((option, index) =>
+      option.svgExportNote && optionValues[index] === true
+        ? [option.svgExportNote]
+        : []
+    ),
+  ];
+
+  const [svgConfirmOpen, setSvgConfirmOpen] = useState(false);
+
+  const downloadSvg = async () => {
+    try {
+      await doodleRef.current?.exportSvg({ download: true });
+      toaster.add({ title: 'SVG downloaded' });
+    } catch {
+      toaster.add({ title: 'Could not export the SVG' });
+    }
+  };
+
+  const exportSvgArtwork = async () => {
+    if (!svgExportEnabled) return;
+
+    if (svgExportNotes.length > 0) {
+      setSvgConfirmOpen(true);
+      return;
+    }
+
+    await downloadSvg();
+  };
+
   const copyShareLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -930,6 +969,29 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         <button
           type="button"
           className={styles.exportRow}
+          disabled={!svgExportEnabled}
+          title={
+            svgExportEnabled
+              ? undefined
+              : "This design uses effects SVG can't represent."
+          }
+          onClick={() => {
+            void exportSvgArtwork();
+            closeMobilePanel();
+          }}
+        >
+          <FileCode className={styles.exportIcon} size={16} /> Download SVG
+          {svgExportEnabled && svgExportNotes.length > 0 && (
+            <TriangleAlert
+              className={styles.exportWarningIcon}
+              size={15}
+              aria-label="Has export limitations"
+            />
+          )}
+        </button>
+        <button
+          type="button"
+          className={styles.exportRow}
           onClick={() => {
             void copyShareLink();
             closeMobilePanel();
@@ -959,6 +1021,9 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onRunShuffle={runShuffle}
         onSelectShuffle={selectShuffleAction}
         onExportPng={exportArtwork}
+        onExportSvg={exportSvgArtwork}
+        svgExportDisabled={!svgExportEnabled}
+        svgExportWarning={svgExportEnabled && svgExportNotes.length > 0}
         onCopyLink={copyShareLink}
         onCopyReactComponent={copyReactComponent}
         mobile={isMobile}
@@ -967,6 +1032,57 @@ export default function EditArtwork({ artwork }: { artwork: Artwork }) {
         onOpenExportPanel={openExportPanel}
         onCloseMobilePanel={closeMobilePanel}
       />
+
+      {/* Confirmation before downloading an SVG with known limitations
+          (filter-based effects or documented sub-pixel deviations). A plain
+          Dialog rather than AlertDialog so clicking outside dismisses it. */}
+      <Dialog.Root open={svgConfirmOpen} onOpenChange={setSvgConfirmOpen}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className={styles.svgConfirmBackdrop} />
+          <Dialog.Popup className={styles.svgConfirmPopup}>
+            <Dialog.Title className={styles.svgConfirmTitle}>
+              <TriangleAlert
+                className={styles.svgConfirmTitleIcon}
+                size={17}
+                aria-hidden="true"
+              />
+              About this SVG export
+            </Dialog.Title>
+            <Dialog.Description
+              className={styles.svgConfirmIntro}
+              render={<div />}
+            >
+              <p>
+                {artwork.name} exports with{' '}
+                {svgExportNotes.length > 1
+                  ? 'a few limitations'
+                  : 'a limitation'}
+                :
+              </p>
+              <ul className={styles.svgConfirmList}>
+                {svgExportNotes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            </Dialog.Description>
+            <div className={styles.svgConfirmActions}>
+              <Dialog.Close className={styles.svgConfirmCancel}>
+                Cancel
+              </Dialog.Close>
+              <button
+                type="button"
+                className={styles.svgConfirmDownload}
+                onClick={() => {
+                  setSvgConfirmOpen(false);
+                  void downloadSvg();
+                }}
+              >
+                Download SVG
+              </button>
+            </div>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
 
       <main className={styles.editArtworkSection}>
         <Dialog.Root open={isExpanded} onOpenChange={setIsExpanded}>

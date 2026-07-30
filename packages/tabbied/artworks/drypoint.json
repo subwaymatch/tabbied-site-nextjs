@@ -2,6 +2,7 @@
   "name": "Drypoint",
   "slug": "drypoint",
   "galleryOrder": 902,
+  "svgExportNote": "The stripe mask can sit up to a pixel away from the on-screen rendering, and its internal coordinates use calc(), which some design tools don't evaluate.",
   "description": "Drypoint: lines that thicken steadily across the plate, the way the needle digs in as it goes.",
   "palette": [
     "#F0EAD6",

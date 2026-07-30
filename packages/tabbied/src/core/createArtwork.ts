@@ -21,6 +21,7 @@ import {
   resolveFitMode,
   type CoverRender,
 } from './sizing.js';
+import type { SvgExportOptions, SvgExportResult } from './svgExport.js';
 import type {
   ArtworkDefinition,
   FitMode,
@@ -40,6 +41,14 @@ export type ArtworkExportOptions = {
   name?: string;
   download?: boolean;
   detail?: boolean;
+};
+
+/** Options for the native SVG export (doodleToSvg + download plumbing). */
+export type ArtworkSvgExportOptions = SvgExportOptions & {
+  /** Trigger a browser download of the .svg file. */
+  download?: boolean;
+  /** Download file name (without extension). Defaults to the artwork slug. */
+  name?: string;
 };
 
 export type ArtworkConfig = {
@@ -85,8 +94,37 @@ export type ArtworkController = {
   redraw(seed?: string): void;
   /** Wraps css-doodle's element.export() — PNG export at a scale factor. */
   exportImage(options?: ArtworkExportOptions): Promise<unknown>;
+  /**
+   * Native SVG export: real vector primitives, no foreignObject. Waits for
+   * any in-flight render transitions to settle, then snapshots the DOM.
+   * Not available for artworks with `svgExport: false`.
+   */
+  exportSvg(options?: ArtworkSvgExportOptions): Promise<SvgExportResult>;
   destroy(): void;
 };
+
+// Let redraw/option transitions (the artworks author ~400ms eases) finish so
+// computed styles aren't captured mid-flight. Capped so a long or infinite
+// animation can't wedge the export.
+const SETTLE_TIMEOUT_MS = 1200;
+
+async function settleAnimations(element: CssDoodleElement): Promise<void> {
+  const root = element.shadowRoot;
+  if (!root) return;
+
+  const animations: Animation[] = [];
+  for (const node of root.querySelectorAll('*')) {
+    if (typeof node.getAnimations === 'function') {
+      animations.push(...node.getAnimations());
+    }
+  }
+  if (animations.length === 0) return;
+
+  await Promise.race([
+    Promise.allSettled(animations.map((animation) => animation.finished)),
+    new Promise((resolve) => setTimeout(resolve, SETTLE_TIMEOUT_MS)),
+  ]);
+}
 
 // Delay before a resize-driven grid change re-renders. Every grid step
 // re-randomizes the arrangement (same seed + different grid ⇒ different
@@ -572,6 +610,35 @@ export function createArtwork(
       }
 
       return element.export({ name: config.artwork.slug, ...options });
+    },
+
+    async exportSvg(options?: ArtworkSvgExportOptions) {
+      if (!element) {
+        throw new Error('[tabbied] exportSvg() called before the artwork mounted');
+      }
+
+      const { download, name, ...svgOptions } = options ?? {};
+
+      // The converter is ~21 KB gzipped and only needed here — load it on
+      // demand so consumers who never export don't bundle it.
+      const [{ doodleToSvg }] = await Promise.all([
+        import('./svgExport.js'),
+        settleAnimations(element),
+      ]);
+      const result = doodleToSvg(element, svgOptions);
+
+      if (download) {
+        const blob = new Blob([result.svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.download = `${name ?? config.artwork.slug}.svg`;
+        anchor.href = url;
+        anchor.click();
+        // Revoking synchronously can abort the just-started download.
+        setTimeout(() => URL.revokeObjectURL(url), 10_000);
+      }
+
+      return result;
     },
 
     destroy() {

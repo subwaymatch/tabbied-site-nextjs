@@ -17,10 +17,12 @@ import {
   type ArtworkController,
   type ArtworkDefinition,
   type ArtworkExportOptions,
+  type ArtworkSvgExportOptions,
   type CoverRender,
   type CssDoodleElement,
   type FitMode,
   type OptionValue,
+  type SvgExportResult,
 } from '../core/index.js';
 
 export type TabbiedArtworkHandle = {
@@ -28,6 +30,11 @@ export type TabbiedArtworkHandle = {
   redraw: (seed?: string) => void;
   /** PNG export via css-doodle's element.export(). */
   exportImage: (options?: ArtworkExportOptions) => Promise<unknown>;
+  /**
+   * Native SVG export — real vector primitives, no foreignObject. Not
+   * available for artworks with `svgExport: false` (see supportsSvgExport).
+   */
+  exportSvg: (options?: ArtworkSvgExportOptions) => Promise<SvgExportResult>;
   /** The raw <css-doodle> element, for power users. */
   readonly element: CssDoodleElement | null;
 };
@@ -264,6 +271,17 @@ export const TabbiedArtwork = forwardRef<
         }
 
         return controller.exportImage(exportOptions);
+      },
+      exportSvg: (exportOptions?: ArtworkSvgExportOptions) => {
+        const controller = controllerRef.current;
+
+        if (!controller) {
+          return Promise.reject(
+            new Error('[tabbied] exportSvg() called before mount')
+          );
+        }
+
+        return controller.exportSvg(exportOptions);
       },
       get element() {
         return controllerRef.current?.element ?? null;
