@@ -460,22 +460,50 @@ function parseStops(
 }
 
 /**
- * CSS interpolates gradients in premultiplied alpha; SVG does not. Rewriting
- * fully-transparent stops to carry the neighboring stop's RGB reproduces the
- * premultiplied look (no "fade through gray").
+ * CSS interpolates gradients in premultiplied alpha; SVG does not. Between
+ * two stops with different alphas AND different colors the two models
+ * diverge visibly (e.g. a solid color fading to rgba(0,0,0,0.15) stays light
+ * in CSS but drags through dark grays in SVG). Approximate the CSS ramp by
+ * inserting premultiplied-interpolated intermediate stops.
  */
-function fixTransparentStops(stops: GradientStop[]): void {
+function emulatePremultipliedInterpolation(stops: GradientStop[]): GradientStop[] {
+  const out: GradientStop[] = [];
+  const SUBDIVISIONS = 8;
   for (let i = 0; i < stops.length; i++) {
-    if (stops[i].color.a === 0) {
-      const neighbor =
-        (i > 0 && stops[i - 1].color.a > 0 && stops[i - 1].color) ||
-        (i < stops.length - 1 && stops[i + 1].color.a > 0 && stops[i + 1].color) ||
-        null;
-      if (neighbor) {
-        stops[i] = { ...stops[i], color: { ...neighbor, a: 0 } };
+    out.push(stops[i]);
+    const next = stops[i + 1];
+    if (!next) break;
+    const c1 = stops[i].color;
+    const c2 = next.color;
+    const sameRgb = c1.r === c2.r && c1.g === c2.g && c1.b === c2.b;
+    if (c1.a === c2.a || sameRgb) continue;
+    if (c1.a === 0 || c2.a === 0) {
+      // Exact fix: a fully-transparent stop interpolates (premultiplied) as
+      // the opaque neighbor's RGB at alpha 0.
+      const solid = c1.a === 0 ? c2 : c1;
+      const idx = c1.a === 0 ? out.length - 1 : null;
+      if (idx !== null) {
+        out[idx] = { ...stops[i], color: { ...solid, a: 0 } };
+      } else {
+        stops[i + 1] = { ...next, color: { ...solid, a: 0 } };
       }
+      continue;
+    }
+    const p1 = stops[i].pos!;
+    const p2 = next.pos!;
+    if (p2 - p1 <= 0) continue;
+    for (let k = 1; k < SUBDIVISIONS; k++) {
+      const t = k / SUBDIVISIONS;
+      const a = c1.a + (c2.a - c1.a) * t;
+      const mix = (ch1: number, ch2: number) =>
+        a === 0 ? ch2 : (ch1 * c1.a * (1 - t) + ch2 * c2.a * t) / a;
+      out.push({
+        pos: p1 + (p2 - p1) * t,
+        color: { r: mix(c1.r, c2.r), g: mix(c1.g, c2.g), b: mix(c1.b, c2.b), a },
+      });
     }
   }
+  return out;
 }
 
 function stopNodes(stops: GradientStop[], ctx: Ctx, offsetMap?: (p: number) => number): SvgNode[] {
@@ -546,7 +574,7 @@ function linearGradientDef(
   const cy = area.y + area.h / 2;
 
   const stops = parseStops(stopParts, lineLength, normalizeColor);
-  fixTransparentStops(stops);
+  const finalStops = emulatePremultipliedInterpolation(stops);
 
   let startPos = 0;
   let endPos = 1;
@@ -575,7 +603,7 @@ function linearGradientDef(
       y2: fmtNum(y2, p),
       spreadMethod: repeating ? 'repeat' : undefined,
     },
-    children: stopNodes(stops, ctx, repeating ? (t) => (t - startPos) / span : undefined),
+    children: stopNodes(finalStops, ctx, repeating ? (t) => (t - startPos) / span : undefined),
   };
   return addDef(ctx, node);
 }
@@ -662,7 +690,7 @@ function radialGradientDef(
   ry = Math.max(ry, 1e-6);
 
   const stops = parseStops(stopParts, rx, normalizeColor);
-  fixTransparentStops(stops);
+  const finalStops = emulatePremultipliedInterpolation(stops);
 
   let startPos = 0;
   let endPos = 1;
@@ -694,7 +722,7 @@ function radialGradientDef(
           : undefined,
     },
     children: stopNodes(
-      stops,
+      finalStops,
       ctx,
       repeating ? (t) => (t - startPos) / span : (t) => t / endPos
     ),
@@ -1134,9 +1162,11 @@ function paintSvgDataUri(
     }
     const suffix = contentHash(source);
     const inner = namespaceIds(svgEl.innerHTML, suffix);
+    // overflow: the artworks' @svg payloads intentionally bleed past their
+    // viewBox (e.g. stripes at y:-1..102); symbols clip by default.
     const symbolId = addDef(ctx, {
       tag: 'symbol',
-      attrs: { viewBox, preserveAspectRatio: 'none' },
+      attrs: { viewBox, preserveAspectRatio: 'none', overflow: 'visible' },
       children: [{ tag: '__raw__', attrs: { __source__: inner } }],
     });
     const use: SvgNode = {
@@ -1236,31 +1266,219 @@ function paintBoxLayers(box: Box, cs: CSSStyleDeclaration, env: WalkEnv): SvgNod
     }
   }
 
-  // Borders: uniform solid borders become an inset stroke.
-  const bw = px(cs.borderTopWidth);
-  if (bw > 0 && cs.borderTopStyle !== 'none') {
-    const widths = [cs.borderTopWidth, cs.borderRightWidth, cs.borderBottomWidth, cs.borderLeftWidth].map(px);
-    const uniform = widths.every((w) => Math.abs(w - bw) < 0.01);
-    if (!uniform) throw new SvgExportUnsupportedError('non-uniform border widths');
-    const borderColor = env.normalizeColor(cs.borderTopColor);
-    if (borderColor.a > 0) {
-      const color = ctx.maskMode ? { r: 255, g: 255, b: 255, a: borderColor.a } : borderColor;
-      nodes.push(
-        shapeNode(
-          insetShape(shape, bw / 2, ctx.precision),
-          {
-            fill: 'none',
-            stroke: rgbString(color),
-            'stroke-opacity': color.a === 1 ? undefined : fmtNum(color.a, 4),
-            'stroke-width': fmtNum(bw, ctx.precision),
-          },
-          ctx.precision
-        )
-      );
+  nodes.push(...paintBorders(box, cs, radii, shape, env));
+
+  return nodes;
+}
+
+type BorderSide = 'top' | 'right' | 'bottom' | 'left';
+
+/**
+ * Path along one side's border centerline, including the halves of the two
+ * corner arcs that side owns (CSS splits each corner between its adjacent
+ * sides at the 45° diagonal). Sharp corners run to the box corner; stroking
+ * this path with the side's width reproduces CSS side borders — including
+ * windowpane's quarter-circle arcs and elbow's rounded pipe corner.
+ */
+function sideBorderPath(
+  box: Box,
+  radii: CornerRadii | null,
+  side: BorderSide,
+  width: number,
+  precision: number
+): string {
+  const f = (n: number) => fmtNum(n, precision);
+  const inset = width / 2;
+  const r = radii ?? { tl: [0, 0], tr: [0, 0], br: [0, 0], bl: [0, 0] };
+  // Corner ellipse centers (border-box) and centerline radii.
+  const corners = {
+    tl: { cx: box.x + r.tl[0], cy: box.y + r.tl[1], rx: r.tl[0] - inset, ry: r.tl[1] - inset },
+    tr: { cx: box.x + box.w - r.tr[0], cy: box.y + r.tr[1], rx: r.tr[0] - inset, ry: r.tr[1] - inset },
+    br: { cx: box.x + box.w - r.br[0], cy: box.y + box.h - r.br[1], rx: r.br[0] - inset, ry: r.br[1] - inset },
+    bl: { cx: box.x + r.bl[0], cy: box.y + box.h - r.bl[1], rx: r.bl[0] - inset, ry: r.bl[1] - inset },
+  };
+  // Each side: [corner at its start (half-arc), corner at its end], with the
+  // side's straight run between the corners' axis points, and the sharp-
+  // corner fallback endpoints on the centerline.
+  const SIDES: Record<
+    BorderSide,
+    {
+      start: keyof typeof corners; startFrom: number;
+      end: keyof typeof corners; endTo: number;
+      sharpStart: [number, number]; sharpEnd: [number, number];
+    }
+  > = {
+    top: {
+      start: 'tl', startFrom: 315, end: 'tr', endTo: 45,
+      sharpStart: [box.x, box.y + inset], sharpEnd: [box.x + box.w, box.y + inset],
+    },
+    right: {
+      start: 'tr', startFrom: 45, end: 'br', endTo: 135,
+      sharpStart: [box.x + box.w - inset, box.y], sharpEnd: [box.x + box.w - inset, box.y + box.h],
+    },
+    bottom: {
+      start: 'br', startFrom: 135, end: 'bl', endTo: 225,
+      sharpStart: [box.x + box.w, box.y + box.h - inset], sharpEnd: [box.x, box.y + box.h - inset],
+    },
+    left: {
+      start: 'bl', startFrom: 225, end: 'tl', endTo: 315,
+      sharpStart: [box.x + inset, box.y + box.h], sharpEnd: [box.x + inset, box.y],
+    },
+  };
+  const spec = SIDES[side];
+  const point = (c: (typeof corners)['tl'], bearing: number): [number, number] => {
+    const rad = (bearing * Math.PI) / 180;
+    return [c.cx + c.rx * Math.sin(rad), c.cy - c.ry * Math.cos(rad)];
+  };
+  const arc = (c: (typeof corners)['tl'], to: [number, number]): string =>
+    `A${f(c.rx)} ${f(c.ry)} 0 0 1 ${f(to[0])} ${f(to[1])}`;
+
+  const startCorner = corners[spec.start];
+  const endCorner = corners[spec.end];
+  const startRound = startCorner.rx > 0.01 && startCorner.ry > 0.01;
+  const endRound = endCorner.rx > 0.01 && endCorner.ry > 0.01;
+
+  let d = '';
+  if (startRound) {
+    const p0 = point(startCorner, spec.startFrom);
+    const p1 = point(startCorner, spec.startFrom + 45);
+    d += `M${f(p0[0])} ${f(p0[1])}${arc(startCorner, p1)}`;
+  } else {
+    d += `M${f(spec.sharpStart[0])} ${f(spec.sharpStart[1])}`;
+  }
+  if (endRound) {
+    const p2 = point(endCorner, spec.endTo - 45);
+    const p3 = point(endCorner, spec.endTo);
+    d += `L${f(p2[0])} ${f(p2[1])}${arc(endCorner, p3)}`;
+  } else {
+    d += `L${f(spec.sharpEnd[0])} ${f(spec.sharpEnd[1])}`;
+  }
+  return d;
+}
+
+/** Borders: a uniform ring becomes an inset stroke; otherwise stroke each
+ * visible side's centerline path independently. */
+function paintBorders(
+  box: Box,
+  cs: CSSStyleDeclaration,
+  radii: CornerRadii | null,
+  shape: Shape,
+  env: WalkEnv
+): SvgNode[] {
+  const { ctx } = env;
+  const sides: { side: BorderSide; w: number; style: string; color: Rgba }[] = (
+    [
+      ['top', cs.borderTopWidth, cs.borderTopStyle, cs.borderTopColor],
+      ['right', cs.borderRightWidth, cs.borderRightStyle, cs.borderRightColor],
+      ['bottom', cs.borderBottomWidth, cs.borderBottomStyle, cs.borderBottomColor],
+      ['left', cs.borderLeftWidth, cs.borderLeftStyle, cs.borderLeftColor],
+    ] as const
+  )
+    .map(([side, w, style, color]) => ({
+      side,
+      w: px(w),
+      style,
+      color: env.normalizeColor(color),
+    }))
+    .filter((s) => s.w > 0 && s.style !== 'none' && s.color.a > 0);
+
+  if (sides.length === 0) return [];
+  for (const s of sides) {
+    if (s.style !== 'solid') {
+      throw new SvgExportUnsupportedError('border-style', s.style);
     }
   }
 
-  return nodes;
+  const maskColor = (c: Rgba): Rgba =>
+    ctx.maskMode ? { r: 255, g: 255, b: 255, a: c.a } : c;
+  const strokeAttrs = (color: Rgba, width: number): Attrs => ({
+    fill: 'none',
+    stroke: rgbString(color),
+    'stroke-opacity': color.a === 1 ? undefined : fmtNum(color.a, 4),
+    'stroke-width': fmtNum(width, ctx.precision),
+  });
+
+  const first = sides[0];
+  const sameColor = sides.every(
+    (s) =>
+      s.color.r === first.color.r &&
+      s.color.g === first.color.g &&
+      s.color.b === first.color.b &&
+      s.color.a === first.color.a
+  );
+  const uniformRing =
+    sides.length === 4 &&
+    sameColor &&
+    sides.every((s) => Math.abs(s.w - first.w) < 0.01);
+  if (uniformRing) {
+    return [
+      shapeNode(
+        insetShape(shape, first.w / 2, ctx.precision),
+        strokeAttrs(maskColor(first.color), first.w),
+        ctx.precision
+      ),
+    ];
+  }
+
+  // Where differently-colored sides meet at a sharp corner, CSS miters at
+  // 45° — draw those sides as filled trapezoids. Same-colored sides (and
+  // rounded corners, whose 45° arc split miters inherently) keep centerline
+  // strokes.
+  const visible = new Map(sides.map((s) => [s.side, s.w]));
+  const sharp = {
+    tl: !radii || (radii.tl[0] < 0.01 && radii.tl[1] < 0.01),
+    tr: !radii || (radii.tr[0] < 0.01 && radii.tr[1] < 0.01),
+    br: !radii || (radii.br[0] < 0.01 && radii.br[1] < 0.01),
+    bl: !radii || (radii.bl[0] < 0.01 && radii.bl[1] < 0.01),
+  };
+  const sideCorners: Record<BorderSide, [keyof typeof sharp, keyof typeof sharp]> = {
+    top: ['tl', 'tr'],
+    right: ['tr', 'br'],
+    bottom: ['br', 'bl'],
+    left: ['bl', 'tl'],
+  };
+
+  return sides.map((s) => {
+    const [c1, c2] = sideCorners[s.side];
+    if (sameColor || !sharp[c1] || !sharp[c2]) {
+      return {
+        tag: 'path',
+        attrs: {
+          d: sideBorderPath(box, radii, s.side, s.w, ctx.precision),
+          ...strokeAttrs(maskColor(s.color), s.w),
+        },
+      };
+    }
+    const f = (n: number) => fmtNum(n, ctx.precision);
+    const adj = (side: BorderSide) => visible.get(side) ?? 0;
+    const color = maskColor(s.color);
+    // Outer edge corner-to-corner; inner edge inset by this side's width and
+    // slanted in by each visible adjacent side's width (the 45° miter).
+    let points: [number, number][];
+    const { x, y, w: bw, h: bh } = box;
+    switch (s.side) {
+      case 'top':
+        points = [[x, y], [x + bw, y], [x + bw - adj('right'), y + s.w], [x + adj('left'), y + s.w]];
+        break;
+      case 'right':
+        points = [[x + bw, y], [x + bw, y + bh], [x + bw - s.w, y + bh - adj('bottom')], [x + bw - s.w, y + adj('top')]];
+        break;
+      case 'bottom':
+        points = [[x + bw, y + bh], [x, y + bh], [x + adj('left'), y + bh - s.w], [x + bw - adj('right'), y + bh - s.w]];
+        break;
+      default:
+        points = [[x, y + bh], [x, y], [x + s.w, y + adj('top')], [x + s.w, y + bh - adj('bottom')]];
+        break;
+    }
+    return {
+      tag: 'polygon',
+      attrs: {
+        points: points.map(([px2, py2]) => `${f(px2)},${f(py2)}`).join(' '),
+        fill: rgbString(color),
+        'fill-opacity': color.a === 1 ? undefined : fmtNum(color.a, 4),
+      },
+    };
+  });
 }
 
 /** Parse computed clip-path into a clipPath def; returns its url() or null. */
@@ -1356,10 +1574,15 @@ function maskUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): string | null
     cs.getPropertyValue('mask-position') || cs.getPropertyValue('-webkit-mask-position') || '0% 0%';
   const repeat =
     cs.getPropertyValue('mask-repeat') || cs.getPropertyValue('-webkit-mask-repeat') || 'repeat';
-  const composite =
-    cs.getPropertyValue('mask-composite') || cs.getPropertyValue('-webkit-mask-composite');
+  const composite = (
+    cs.getPropertyValue('mask-composite') ||
+    cs.getPropertyValue('-webkit-mask-composite') ||
+    'add'
+  ).trim();
   const layers = splitTopLevel(image);
-  if (layers.length > 1 && composite && !/^(add|source-over)(,\s*(add|source-over))*$/.test(composite.trim())) {
+  const addComposite = /^(add|source-over)(,\s*(add|source-over))*$/.test(composite);
+  const intersectComposite = /^(intersect|source-in)(,\s*(intersect|source-in))*$/.test(composite);
+  if (layers.length > 1 && !addComposite && !intersectComposite) {
     throw new SvgExportUnsupportedError('mask-composite', composite);
   }
 
@@ -1367,16 +1590,25 @@ function maskUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): string | null
   const positions = splitTopLevel(position || '0% 0%');
   const repeats = splitTopLevel(repeat || 'repeat');
 
+  const f = (n: number) => fmtNum(n, ctx.precision);
+  const regionAttrs = (): Attrs => ({
+    maskUnits: 'userSpaceOnUse',
+    x: f(box.x - box.w),
+    y: f(box.y - box.h),
+    width: f(box.w * 3),
+    height: f(box.h * 3),
+  });
+
   const wasMaskMode = ctx.maskMode;
   ctx.maskMode = true;
   let children: SvgNode[];
   try {
-    children = [];
     const shape: Shape = { kind: 'rect', box };
-    for (let i = layers.length - 1; i >= 0; i--) {
+    const layerContents: SvgNode[][] = [];
+    for (let i = 0; i < layers.length; i++) {
       if (layers[i] === 'none') continue;
-      children.push(
-        ...paintImageLayer(
+      layerContents.push(
+        paintImageLayer(
           layers[i],
           shape,
           box,
@@ -1387,12 +1619,29 @@ function maskUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): string | null
         )
       );
     }
+    if (layerContents.length > 1 && intersectComposite) {
+      // Intersection: mask each layer's content by the next layer, nested.
+      children = layerContents.reduceRight((inner, layer) =>
+        inner.length === 0
+          ? layer
+          : [
+              {
+                tag: 'g',
+                attrs: {
+                  mask: `url(#${addDef(ctx, { tag: 'mask', attrs: regionAttrs(), children: inner })})`,
+                },
+                children: layer,
+              },
+            ]
+      );
+    } else {
+      // Additive layers paint bottom-up into one mask.
+      children = layerContents.slice().reverse().flat();
+    }
   } finally {
     ctx.maskMode = wasMaskMode;
   }
   if (children.length === 0) return null;
-
-  const f = (n: number) => fmtNum(n, ctx.precision);
   const id = addDef(ctx, {
     tag: 'mask',
     attrs: {
@@ -1551,14 +1800,15 @@ function paintPseudo(
   pseudo: '::before' | '::after',
   box: Box,
   env: WalkEnv
-): SvgNode[] {
+): { z: number; nodes: SvgNode[] } {
+  const none = { z: 0, nodes: [] };
   const cs = env.getStyle(el, pseudo);
   const content = cs.content;
-  if (!content || content === 'none' || cs.display === 'none') return [];
+  if (!content || content === 'none' || cs.display === 'none') return none;
   if (!/^(""|''|normal)$/.test(content)) {
     throw new SvgExportUnsupportedError('pseudo-element text content', content);
   }
-  if (cs.visibility === 'hidden') return [];
+  if (cs.visibility === 'hidden') return none;
 
   let w: number;
   let h: number;
@@ -1592,14 +1842,15 @@ function paintPseudo(
     // place-items:center, so a sized pseudo sits centered.
     w = cs.width === 'auto' ? 0 : px(cs.width);
     h = cs.height === 'auto' ? 0 : px(cs.height);
-    if (w <= 0 || h <= 0) return [];
+    if (w <= 0 || h <= 0) return none;
     x = box.x + (box.w - w) / 2;
     y = box.y + (box.h - h) / 2;
   }
-  if (w <= 0 || h <= 0) return [];
+  if (w <= 0 || h <= 0) return none;
 
   const pseudoBox: Box = { x, y, w, h };
-  return paintPaintedBox(pseudoBox, cs, env, []);
+  const z = cs.zIndex === 'auto' ? 0 : parseInt(cs.zIndex, 10) || 0;
+  return { z, nodes: paintPaintedBox(pseudoBox, cs, env, []) };
 }
 
 /**
@@ -1668,10 +1919,15 @@ function paintElement(el: HTMLElement, env: WalkEnv): SvgNode[] {
   const box = env.boxes.get(el);
   if (!box) return [];
 
+  // Pseudo-elements join the paint list as first/last siblings, so a
+  // z-index on either (plait flips its strand layering this way) reorders
+  // them exactly like CSS stacking does.
   const before = paintPseudo(el, '::before', box, env);
   const after = paintPseudo(el, '::after', box, env);
 
-  const kids: { z: number; order: number; nodes: SvgNode[] }[] = [];
+  const kids: { z: number; order: number; nodes: SvgNode[] }[] = [
+    { z: before.z, order: -1, nodes: before.nodes },
+  ];
   let order = 0;
   for (const child of Array.from(el.children)) {
     if (!(child instanceof HTMLElement)) continue;
@@ -1680,9 +1936,10 @@ function paintElement(el: HTMLElement, env: WalkEnv): SvgNode[] {
     const z = childCs.zIndex === 'auto' ? 0 : parseInt(childCs.zIndex, 10) || 0;
     kids.push({ z, order: order++, nodes: paintElement(child, env) });
   }
+  kids.push({ z: after.z, order: order + 1, nodes: after.nodes });
   kids.sort((a, b) => a.z - b.z || a.order - b.order);
 
-  let content = [...before, ...kids.flatMap((k) => k.nodes), ...after];
+  let content = kids.flatMap((k) => k.nodes);
 
   // overflow:hidden clips descendants (and pseudos) to the border box.
   if (content.length > 0 && cs.overflow !== 'visible' && cs.overflow !== '') {

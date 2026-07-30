@@ -42,6 +42,22 @@
 >    pass at a documented looser threshold because css-doodle's *live*
 >    rendering shows hairline seams from rasterizing the nested mask that
 >    the clean vector export intentionally does not reproduce.
+> 5. The full-catalog sweep surfaced five more converter requirements beyond
+>    §4's mapping table: per-side borders as centerline stroke paths with
+>    45°-split corner-arc halves (elbow's rounded pipe, windowpane's
+>    quarter-circles) and mitered trapezoids where differently-colored sides
+>    meet at sharp corners; `mask-composite: intersect` as nested SVG masks
+>    (gasket, gravure); premultiplied-alpha gradient interpolation emulated
+>    with subdivided stops (prismfold — SVG interpolates non-premultiplied
+>    and drags mids toward a low-alpha stop's hue); pseudo-elements
+>    participating in the z-index paint order (plait flips its strand
+>    layering with `z-index` on `::before`); and `calc(P% ± Npx)`
+>    anti-aliasing-ramp stop positions (curl and friends). `drypoint` and
+>    `windowpane` pass at a documented 2% threshold (≤1-CSS-px sub-pixel
+>    deviations in mask-image rasterization and mixed-width corner-arc
+>    junctions respectively). The first full-catalog sweep passed 156/164;
+>    each of the 8 failures was diagnosed and re-verified individually
+>    with the fixes above.
 
 ---
 
