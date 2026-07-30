@@ -76,6 +76,12 @@ const REPRESENTATIVE = [
 //   different sub-pixel rounding than the inlined symbol (≤1 CSS px).
 // - windowpane: CSS blends mixed-width borders progressively around rounded
 //   corners; the per-side arc strokes junction within ≤1 CSS px of it.
+// - glyph: every quadrant boundary is a maximum-contrast edge, so ordinary
+//   anti-aliasing variance between Chromium builds lands right at the
+//   default threshold (measured 0.50% locally, 1.004% on CI).
+// - terrain/neon/lantern: box-shadow glows approximate as feDropShadow;
+//   the falloff differs slightly per Chromium build (terrain hit 1.37% on
+//   CI vs 0.99% locally).
 const MAX_BAD_FRACTION = 0.01;
 const PER_ARTWORK_MAX: Record<string, number> = {
   fractal: 0.03,
@@ -83,6 +89,10 @@ const PER_ARTWORK_MAX: Record<string, number> = {
   subdivide: 0.035,
   drypoint: 0.02,
   windowpane: 0.02,
+  glyph: 0.015,
+  terrain: 0.02,
+  neon: 0.015,
+  lantern: 0.015,
 };
 
 const paritySlugs = process.env.SVG_FULL_SWEEP ? supportedSlugs : REPRESENTATIVE;

@@ -63,12 +63,17 @@ const MAX_BAD_FRACTION = 0.01; // 1% of pixels
 // - windowpane: mixed-width borders on rounded cells blend their corner
 //   arcs progressively in CSS; the per-side arc strokes junction within
 //   ≤1 CSS px of it.
+// Keep in sync with e2e/svg-export.spec.ts (which documents each entry).
 const PER_ARTWORK_MAX = {
   fractal: 0.03,
   matryoshka: 0.03,
   subdivide: 0.035,
   drypoint: 0.02,
   windowpane: 0.02,
+  glyph: 0.015,
+  terrain: 0.02,
+  neon: 0.015,
+  lantern: 0.015,
 };
 
 const browser = await chromium.launch({
