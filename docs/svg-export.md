@@ -6,12 +6,23 @@ converter, or export UI. Written for future maintainers and coding agents.
 Historical background lives in `agent-outputs/native-svg-export-handoff.md`
 (the original research + implementation addendum, kept as a dated record).
 
-Batch 11 (gallery orders 1200+, 55 designs) was authored against this
-document: every design in it is tier 4, and
-`scripts/artwork-gen/validate-svg-batch11.mjs` is the gate that keeps it
-there — it runs the shipped converter over each rendered design and fails on
-a throw, on any warning, or on a pixel diff above a budget deliberately
-tighter than the shipped one.
+Batches 11 (gallery orders 1200-1254, 55 designs) and 12 (1400-1431, 32
+designs) were authored against this document: every design in them is tier 4,
+and `scripts/artwork-gen/validate-svg-batch11.mjs` /
+`validate-svg-batch12.mjs` are the gate that keeps them there — they run the
+shipped converter over each rendered design and fail on a throw, on any
+warning, or on a pixel diff above a budget deliberately tighter than the
+shipped one. Both are thin callers of `scripts/artwork-gen/svg-sweep.mjs`, and
+both batches share the authoring lints in `scripts/artwork-gen/artwork-lints.mjs`.
+
+Batch 12 is where the *smooth* gradient gets used: 19 of its 32 designs are
+built on linear and radial ramps — fades, a corner glow, halftones and ruled
+fields thinned across a cell, and a fade posterized into flat alpha levels.
+That is deliberate, and it is the tier-4 way to draw the effects that
+otherwise reach for `filter: blur()` or `box-shadow` and land in tier 2 (see
+`bokeh`, `neon`, `lantern`, `terrain`). A ramp written as gradient stops is a
+`<linearGradient>` or `<radialGradient>` with the same stops; a blur is an
+`feGaussianBlur`.
 
 ## What it is
 
@@ -85,7 +96,7 @@ shadow toggle is on**, because the shadow exports as an SVG filter:
 `bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
 `quarterfall`, `radius` (default off).
 
-### 4. Full support — everything else (~207)
+### 4. Full support — everything else (~239)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -143,6 +154,11 @@ on `ArtworkOption`), so package consumers can implement the same UX.
 - The three tiers are **pinned by a unit test** (`packages/tabbied/test/`), so
   losing or changing one fails `npm test --workspace tabbied`. Changing a
   design's tier means updating that test and the counts above with it.
+- **A batch generator owns a bounded range of gallery orders**, and deletes
+  anything in its range it no longer defines. The bound is the important half:
+  batch 10 once claimed every order above 1100 and so deleted the whole of
+  batch 11. Batch 11 owns 1200-1399, batch 12 owns 1400-1999, and a batch 13
+  starts at 2000 and bounds itself the same way.
 - `scripts/artwork-gen/generate-artworks.mjs` (batches 1-3) is historical and
   refuses to run: its definitions would recreate 105 retired designs and
   overwrite `tetro`. For those artworks the JSON is authoritative — edit it
@@ -160,12 +176,44 @@ directions. Default budget: ≤1% differing pixels; the tiers above carry
 documented per-artwork headroom (see `PER_ARTWORK_MAX` in the spec — CI's
 Chromium measures slightly different AA/shadow falloff than local builds).
 
+### Cell boundaries: integer vs fractional
+
+The batch sweeps draw each design in a square box, so a square grid gives
+cells at an exact integer size (300px / 5x5 = 60.0px). The editor does not: at
+the default 6x9 grid the artwork page renders a 364x546 element, and the cells
+come out **60.66px**. That one difference is worth knowing about, because a
+design whose hard edges land on integer boundaries in the sweep lands
+mid-device-pixel in the editor — and mid-pixel is exactly where CSS snaps an
+edge and SVG anti-aliases it.
+
+`SVG_CELL=301` makes the sweep use a box that does not divide evenly, which
+reproduces the editor's condition. Under it the *whole shipped catalogue*
+moves into a 0.5-1.8% band wherever a design draws many hard edges per cell —
+batch 11's `toning` measures 1.84%, `dimmer` 1.71%, `tinting` 1.36%,
+`housing` 1.31%. These are the same designs that sit at 0.00% on integer
+boundaries.
+
+So: the 0.4% budget below is calibrated for the integer-cell default, where it
+is a tight and stable signal for real authoring mistakes — abutments, wrong
+geometry, gradient aliasing. It is *not* a claim that any design holds 0.4% at
+every grid the editor offers. When a design is edge-dense enough to matter,
+the e2e's `PER_ARTWORK_MAX` carries the documented headroom (`glyph`,
+`stepramp`).
+
+One thing the fractional pass does catch that the default misses: repeating
+*smooth* ramps alias badly once the period falls to a handful of pixels. Two
+batch-12 candidates measured 4.8% and 6.0% at a 12% period on a small cell,
+and widening the period so a cell holds a few repeats rather than a dozen took
+them to 0.15% and 0.14%. Prefer a period a design can afford at `10x15`.
+
 ```bash
 npm test --workspace tabbied              # unit tests for the pure parsers
 npm run build && npm run test:e2e         # e2e incl. representative parity set
 SVG_FULL_SWEEP=1 npx playwright test e2e/svg-export.spec.ts   # full catalog
 node scripts/svg-parity-sweep.mjs [slug ...]   # dev-server sweep w/ artifacts
-node scripts/artwork-gen/validate-svg-batch11.mjs   # no dev server needed
+node scripts/artwork-gen/validate-svg-batch12.mjs   # no dev server needed
+SVG_CELL=301 node scripts/artwork-gen/validate-svg-batch12.mjs  # fractional cells
+SVG_GRID=6x9 node scripts/artwork-gen/validate-svg-batch12.mjs  # editor default
 ```
 
 The last one is the fast path while authoring: it renders artworks directly
@@ -174,7 +222,7 @@ wide open, so a few hundred designs sweep in minutes instead of one page load
 each. It also fails on any converter *warning*, which the parity scripts do
 not — a warning is precisely the signal that a design needs an
 `svgExportNote`. `SLUGS=a,b` narrows it to specific artworks (including ones
-outside batch 11).
+outside the batch the script names).
 
 The sweep script needs `npm run build --workspace tabbied` first (it injects
 `dist/core/svgExport.js`) and a running dev server; failure artifacts

@@ -1489,4 +1489,100 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   scumble: {
     options: { grid: '5x5', frequency: 1 },
   },
+  gloaming: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rolloff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  decay: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  subside: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tailoff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stipplefade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotfade: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grainfall: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  spraydown: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dustfall: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotdrift: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  peppering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotwash: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  drybrush: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  streaking: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  radiance: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadedwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadedbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stepramp: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  twohalf: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sheared: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  snipcorner: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  angleoff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornerchip: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ringfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gritfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  overbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bothcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  roundstep: {
+    options: { grid: '5x5', frequency: 1 },
+  },
 };

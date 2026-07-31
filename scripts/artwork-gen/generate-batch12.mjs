@@ -1,19 +1,19 @@
-// Syncs packages/tabbied/artworks/ with the batch-11 definitions: writes one
-// JSON per definition, deletes any batch-11 artwork (and its gallery thumbnail
+// Syncs packages/tabbied/artworks/ with the batch-12 definitions: writes one
+// JSON per definition, deletes any batch-12 artwork (and its gallery thumbnail
 // entry) that the definitions no longer describe, and prints the thumbnail
-// entries to insert. Scoped to gallery orders 1200+ so it never touches
+// entries to insert. Scoped to gallery orders 1400-1999 so it never touches
 // artworks shipped in another batch.
 //
-// On top of the house rules every batch is checked against, this one lints for
-// the CSS that would cost a design its clean SVG-export tier — box-shadow,
-// filter, blend modes, smooth conic sweeps, nested doodles and @svg payloads.
-// Both sets live in artwork-lints.mjs, shared with batch 12, which makes the
-// same promise. Those checks are the cheap first pass; validate-svg-batch11.mjs
-// is the real gate, running the shipped converter over every rendered design.
+// The lints are in artwork-lints.mjs, shared with batch 11: the house rules
+// every batch is checked against, plus the CSS that would cost a design its
+// clean SVG-export tier — box-shadow, filter, blend modes, smooth conic
+// sweeps, nested doodles and @svg payloads. Those checks are the cheap first
+// pass; validate-svg-batch12.mjs is the real gate, running the shipped
+// converter over every rendered design.
 import { writeFileSync, readdirSync, readFileSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { batch11 } from './artwork-defs-11.mjs';
+import { batch12 } from './artwork-defs-12.mjs';
 import { lintArtwork } from './artwork-lints.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -48,7 +48,7 @@ const FREQ_OPTION = (def) => ({
 
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
 
-const defs = batch11;
+const defs = batch12;
 
 const batchSlugs = new Set();
 for (const def of defs) {
@@ -56,13 +56,12 @@ for (const def of defs) {
   batchSlugs.add(def.slug);
 }
 
-// Batch 11 owns gallery orders 1200-1399, so a file already on disk is either
+// Batch 12 owns gallery orders 1400-1999, so a file already on disk is either
 // this batch's own output (safe to rewrite) or another batch's artwork (never
-// clobber it). The upper bound is what keeps this generator from deleting
-// batch 12, which starts at 1400.
-const FIRST_ORDER = 1200;
-const PAST_LAST_ORDER = 1400;
-const ownedByBatch11 = (order) => order >= FIRST_ORDER && order < PAST_LAST_ORDER;
+// clobber it). A batch 13 starts at 2000 and bounds itself the same way.
+const FIRST_ORDER = 1400;
+const PAST_LAST_ORDER = 2000;
+const ownedByBatch12 = (order) => order >= FIRST_ORDER && order < PAST_LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))
@@ -74,15 +73,15 @@ const orderOf = (slug) =>
 
 for (const def of defs) {
   if (!existing.has(def.slug)) continue;
-  if (!ownedByBatch11(orderOf(def.slug))) {
-    throw new Error(`batch-11 slug ${def.slug} collides with an existing artwork`);
+  if (!ownedByBatch12(orderOf(def.slug))) {
+    throw new Error(`batch-12 slug ${def.slug} collides with an existing artwork`);
   }
 }
 
 // Drop artworks this batch used to own but no longer defines, so the
 // definitions stay the single source of truth for what ships.
 const dropped = [...existing].filter(
-  (slug) => !batchSlugs.has(slug) && ownedByBatch11(orderOf(slug))
+  (slug) => !batchSlugs.has(slug) && ownedByBatch12(orderOf(slug))
 );
 for (const slug of dropped) {
   unlinkSync(path.join(ARTWORKS_DIR, `${slug}.json`));
@@ -115,8 +114,8 @@ for (const def of defs) {
     doodle,
     options,
     palette: def.palette,
-    colors: { min: 2, max: def.colors.max, default: def.colors.default },
-    batch: 'batch 11',
+    colors: def.colors,
+    batch: 'batch 12',
   });
 
   const artwork = {
