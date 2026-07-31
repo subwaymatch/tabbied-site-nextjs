@@ -1,0 +1,1105 @@
+/* ————————————————————————————————————————————————————————————
+   CALDERA — The Caldera Railway Company
+   Vintage travel-poster system: parchment ground, navy ink,
+   thick-and-thin rules, ticket-stub perforations, stamp badges.
+   ———————————————————————————————————————————————————————————— */
+
+.page {
+  --parchment: #f0ead6;
+  --parchment-lift: #fbf7ea;
+  --parchment-dim: #e7dfc6;
+  --navy: #264653;
+  --teal: #2a9d8f;
+  --gold: #e9c46a;
+  --apricot: #f4a261;
+  --ember: #e76f51;
+  /* Ember darkened for text-on-parchment roles (contrast ≥ 4.5:1). */
+  --ember-ink: #c14e31;
+  --ink-soft: rgba(38, 70, 83, 0.78);
+  --hairline: rgba(38, 70, 83, 0.28);
+  --display: 'DM Serif Display', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Jost', 'Avenir Next', 'Century Gothic', sans-serif;
+
+  font-family: var(--sans);
+  font-weight: 400;
+  background: var(--parchment);
+  color: var(--navy);
+  line-height: 1.6;
+  overflow-x: clip;
+  font-size: 1.0625rem;
+}
+
+.page :is(a):focus-visible {
+  outline: 3px solid var(--ember-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Links on the navy footer need a lighter ring to read. */
+.footer a:focus-visible {
+  outline-color: var(--gold);
+}
+
+/* ————— Masthead ————— */
+
+.masthead {
+  text-align: center;
+  padding: 0 1.5rem 2rem;
+  border-bottom: 4px double var(--navy);
+}
+
+.mastheadRule {
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.mastheadMark {
+  margin: 1.6rem 0 0.2rem;
+  color: var(--ember);
+  font-size: 1.1rem;
+  letter-spacing: 0;
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 9vw, 5.8rem);
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 0.7rem 0 1.6rem;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 0.4rem;
+}
+
+.nav a {
+  color: var(--navy);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.3rem 1.1rem;
+}
+
+.nav a + a {
+  border-left: 1px solid var(--hairline);
+}
+
+.nav a:hover {
+  color: var(--ember);
+}
+
+/* ————— Hero ————— */
+
+.hero {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 5.5rem;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.kicker {
+  margin: 0 0 1.1rem;
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ember-ink);
+  border: 1px solid var(--ember-ink);
+  padding: 0.35rem 0.9rem;
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.4vw, 4.2rem);
+  line-height: 1.05;
+}
+
+.heroLead {
+  margin: 1.4rem 0 2rem;
+  max-width: 34rem;
+  font-size: 1.14rem;
+  color: var(--ink-soft);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btnSolid,
+.btnGhost {
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.85rem 1.6rem;
+  border: 2px solid var(--navy);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.btnSolid {
+  background: var(--navy);
+  color: var(--parchment-lift);
+  box-shadow: 4px 4px 0 var(--ember);
+}
+
+.btnGhost {
+  background: transparent;
+  color: var(--navy);
+}
+
+.btnSolid:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ember);
+}
+
+.btnGhost:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--navy);
+}
+
+.heroFacts {
+  margin: 2.6rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 1.3rem;
+}
+
+.heroFacts dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.heroFacts dd {
+  margin: 0.2rem 0 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+}
+
+/* Poster stack: pattern panel offset behind a double-ruled frame */
+
+.posterStack {
+  position: relative;
+  padding: 1.4rem 1.4rem 0 0;
+}
+
+.posterPattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 78%;
+  height: 62%;
+  background: var(--parchment);
+  border: 2px solid var(--navy);
+}
+
+.posterFrame {
+  position: relative;
+  margin: 0;
+  background: var(--parchment-lift);
+  border: 3px solid var(--navy);
+  outline: 1px solid var(--navy);
+  outline-offset: 5px;
+  padding: 0.9rem;
+  box-shadow: 10px 12px 0 rgba(38, 70, 83, 0.16);
+}
+
+.posterImage {
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+}
+
+.posterImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.posterCaption {
+  padding: 0.8rem 0.4rem 0.2rem;
+  text-align: center;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.stamp {
+  position: absolute;
+  left: -1.6rem;
+  bottom: -1.9rem;
+  width: 7.4rem;
+  height: 7.4rem;
+  margin: 0;
+  border: 2px double var(--ember);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  transform: rotate(-11deg);
+  color: var(--ember);
+  background: rgba(240, 234, 214, 0.85);
+  box-shadow: inset 0 0 0 5px rgba(240, 234, 214, 0.85),
+    inset 0 0 0 7px var(--ember);
+}
+
+.stamp span {
+  display: block;
+  padding: 0 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* ————— Divider band ————— */
+
+.dividerBand {
+  position: relative;
+  height: 4.5rem;
+  border-top: 4px double var(--navy);
+  border-bottom: 4px double var(--navy);
+  background: var(--parchment);
+}
+
+/* ————— Section chrome ————— */
+
+.section,
+.sectionAlt {
+  padding: 5.5rem 1.5rem;
+}
+
+.section > *,
+.sectionAlt > * {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionAlt {
+  background: var(--parchment-dim);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.sectionNo,
+.sectionNoLight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ember-ink);
+}
+
+.sectionNo::before,
+.sectionNo::after,
+.sectionNoLight::before,
+.sectionNoLight::after {
+  content: '';
+  width: 3.2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.sectionNoLight {
+  color: var(--gold);
+}
+
+.sectionHead h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  line-height: 1.1;
+}
+
+.sectionLead {
+  margin: 1.1rem auto 0;
+  max-width: 44rem;
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+}
+
+/* ————— Ticket-stub route cards ————— */
+
+.ticketRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.ticket {
+  background: var(--parchment-lift);
+  border: 2px solid var(--navy);
+  box-shadow: 6px 7px 0 rgba(38, 70, 83, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ticketNo {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  color: var(--ember-ink);
+}
+
+.ticketDays {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 0.25rem 0.7rem;
+}
+
+.ticketName {
+  margin: 1.1rem 1.2rem 0.15rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.65rem;
+  line-height: 1.1;
+}
+
+.ticketPath {
+  margin: 0 1.2rem 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.ticketImage {
+  margin: 0 1.2rem;
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+}
+
+.ticketImage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.perforation {
+  position: relative;
+  margin: 1.4rem 0.9rem;
+  border-top: 2px dashed rgba(38, 70, 83, 0.5);
+}
+
+.perforation::before,
+.perforation::after {
+  content: '';
+  position: absolute;
+  top: -0.55rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--parchment);
+  border: 2px solid var(--navy);
+}
+
+.perforation::before {
+  left: -1.55rem;
+}
+
+.perforation::after {
+  right: -1.55rem;
+}
+
+.ticketStub {
+  padding: 0 1.2rem 1.5rem;
+  margin-top: auto;
+}
+
+.ticketFacts {
+  margin: 0 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ticketFacts dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.ticketFacts dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.fare {
+  color: var(--ember-ink);
+}
+
+.ticketNote {
+  margin: 0;
+  font-size: 0.93rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.9rem;
+}
+
+/* ————— Route timeline ————— */
+
+.timeline {
+  position: relative;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: calc(4.5rem + 1.2rem + 0.75rem - 1px);
+  top: 1.4rem;
+  bottom: 1.4rem;
+  border-left: 2px dashed rgba(38, 70, 83, 0.4);
+}
+
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.5rem 1.5rem 1fr;
+  column-gap: 1.2rem;
+  align-items: start;
+  padding: 0.95rem 0;
+}
+
+.stopTime {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ember-ink);
+  line-height: 1.4;
+}
+
+.stopDot {
+  margin-top: 0.42rem;
+  justify-self: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2.5px solid var(--navy);
+  box-shadow: 0 0 0 4px var(--parchment-dim);
+}
+
+.stopStation {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.stopDetail {
+  display: block;
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+
+/* ————— Aboard ————— */
+
+.aboardGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.diningFigure {
+  margin: 0;
+}
+
+.diningFigure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--navy);
+  box-shadow: 8px 9px 0 rgba(38, 70, 83, 0.14);
+}
+
+.diningFigure figcaption {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.aboardCopy h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.55rem;
+}
+
+.aboardCopy h3 + p {
+  margin: 0 0 2rem;
+  color: var(--ink-soft);
+}
+
+.cabinList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cabinList li {
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.cabinList li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.cabinName {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.cabinFare {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 0.22rem 0.65rem;
+  white-space: nowrap;
+}
+
+.cabinDesc {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* Vignette tiles: cut-outs seated on pattern fields */
+
+.vignettes {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.vignette {
+  margin: 0;
+}
+
+.vignettePattern {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 2px solid var(--navy);
+  overflow: hidden;
+}
+
+.vignetteCutout {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 300px);
+  height: auto;
+  filter: drop-shadow(0 14px 18px rgba(38, 70, 83, 0.45));
+}
+
+.vignette figcaption {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ————— Fleet (dark patterned band) ————— */
+
+.fleet {
+  position: relative;
+  background: var(--navy);
+  border-top: 4px double var(--gold);
+  border-bottom: 4px double var(--gold);
+  overflow: hidden;
+}
+
+.fleetPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+
+.fleetPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    rgba(38, 70, 83, 0.25) 0%,
+    rgba(38, 70, 83, 0.82) 78%
+  );
+}
+
+.fleetInner {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 5.5rem 1.5rem 6rem;
+}
+
+.fleetHead {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.fleetHead h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  color: var(--parchment);
+}
+
+.fleetLoco {
+  text-align: center;
+}
+
+.locoCutout {
+  width: min(92%, 780px);
+  height: auto;
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.55));
+}
+
+.fleetCard {
+  max-width: 40rem;
+  margin: -1.5rem auto 0;
+  position: relative;
+  background: var(--parchment-lift);
+  border: 3px solid var(--navy);
+  outline: 1px solid var(--gold);
+  outline-offset: 5px;
+  padding: 2rem 2.2rem 2.2rem;
+}
+
+.fleetCard h3 {
+  margin: 0 0 0.7rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+.fleetCard h3 em {
+  color: var(--ember-ink);
+}
+
+.fleetCard p {
+  margin: 0 0 1.4rem;
+  color: var(--ink-soft);
+}
+
+.fleetSpecs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem 2rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 1.3rem;
+}
+
+.fleetSpecs dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fleetSpecs dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--display);
+  font-size: 1.1rem;
+}
+
+/* ————— Journal quotes ————— */
+
+.quoteRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.quote {
+  margin: 0;
+  padding-top: 2.6rem;
+  position: relative;
+  border-top: 1px solid var(--hairline);
+}
+
+.quote::before {
+  content: '“';
+  position: absolute;
+  top: 0.4rem;
+  left: 0;
+  font-family: var(--display);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.quote p {
+  margin: 0 0 1rem;
+  font-family: var(--display);
+  font-size: 1.22rem;
+  line-height: 1.45;
+}
+
+.quote footer {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ————— Timetable ————— */
+
+.tableScroll {
+  overflow-x: auto;
+  border: 2px solid var(--navy);
+  background: var(--parchment-lift);
+  box-shadow: 6px 7px 0 rgba(38, 70, 83, 0.14);
+}
+
+.tableScroll:focus-visible {
+  outline: 3px solid var(--ember-ink);
+  outline-offset: 3px;
+}
+
+.table {
+  width: 100%;
+  min-width: 46rem;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.table th {
+  background: var(--navy);
+  color: var(--parchment);
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.8rem 1.1rem;
+}
+
+.table td {
+  padding: 0.75rem 1.1rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.table tbody tr:nth-child(even) td {
+  background: rgba(233, 196, 106, 0.14);
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.tableCaption {
+  caption-side: bottom;
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  border-top: 2px dashed rgba(38, 70, 83, 0.4);
+}
+
+.bookingRow {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.bookingCard {
+  background: var(--parchment-lift);
+  border: 1px solid var(--navy);
+  border-top: 5px solid var(--ember);
+  padding: 1.6rem 1.7rem;
+}
+
+.bookingCard h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+.bookingCard p {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+
+/* ————— Footer ————— */
+
+.footer {
+  background: var(--navy);
+  color: var(--parchment);
+}
+
+.footerBand {
+  position: relative;
+  height: 3.4rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.footerInner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2.5rem;
+}
+
+.footerCols {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.footerBrand {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footerSmall {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(240, 234, 214, 0.75);
+  max-width: 24rem;
+}
+
+.footerHead {
+  margin: 0.35rem 0 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.footerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95rem;
+}
+
+.footerList li {
+  padding: 0.22rem 0;
+  color: rgba(240, 234, 214, 0.85);
+}
+
+.footerRule {
+  margin-top: 2.8rem;
+  border-top: 1px solid rgba(240, 234, 214, 0.28);
+  padding-top: 1.3rem;
+  text-align: center;
+}
+
+.footerRule p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(240, 234, 214, 0.7);
+}
+
+.credit {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.credit:hover {
+  color: var(--apricot);
+}
+
+/* ————— Responsive ————— */
+
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding-top: 3.5rem;
+  }
+
+  .posterStack {
+    max-width: 34rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ticketRow,
+  .quoteRow,
+  .bookingRow {
+    grid-template-columns: 1fr;
+    max-width: 34rem;
+  }
+
+  .aboardGrid {
+    grid-template-columns: 1fr;
+    max-width: 40rem;
+  }
+
+  .vignettes {
+    max-width: 40rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    font-size: 1rem;
+  }
+
+  .section,
+  .sectionAlt {
+    padding: 4rem 1.25rem;
+  }
+
+  .vignettes {
+    grid-template-columns: 1fr;
+  }
+
+  .heroFacts {
+    gap: 1rem;
+  }
+
+  .stamp {
+    left: auto;
+    right: -0.6rem;
+    bottom: -2.2rem;
+    width: 6.6rem;
+    height: 6.6rem;
+  }
+
+  .timeline::before {
+    left: calc(3.4rem + 0.9rem + 0.75rem - 1px);
+  }
+
+  .stop {
+    grid-template-columns: 3.4rem 1.5rem 1fr;
+    column-gap: 0.9rem;
+  }
+
+  .footerCols {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav a {
+    padding: 0.3rem 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnSolid,
+  .btnGhost {
+    text-align: center;
+  }
+
+  .ticketFacts {
+    grid-template-columns: repeat(3, auto);
+    gap: 0.6rem;
+  }
+
+  .perforation::before {
+    left: -1.35rem;
+  }
+
+  .perforation::after {
+    right: -1.35rem;
+  }
+}
