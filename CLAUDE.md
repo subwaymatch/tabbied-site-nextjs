@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 Tabbied: generative artworks built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 422 artwork
+`packages/tabbied/` (framework-free core + React wrapper + 254 artwork
 presets as JSON in `packages/tabbied/artworks/`, embedded by codegen).
 
 ```bash
@@ -47,7 +47,7 @@ rendered artworks to true vector SVG. Rules that must not regress:
   conic sweeps): the editor *disables* "Download SVG" for them.
   `"svgExportNote"` on a definition (11 designs) or on a ToggleSwitch option
   (7 shadow toggles, note applies only while on) documents limitations —
-  filter-based effects or ≤1px deviations. Everything else (~407) is clean.
+  filter-based effects or ≤1px deviations. Everything else (~239) is clean.
   See docs/svg-export.md for the complete lists and reasons.
 - **Limited exports must warn before downloading**: a right-aligned amber
   `TriangleAlert` on the "Download SVG" item (desktop menu + mobile panel)

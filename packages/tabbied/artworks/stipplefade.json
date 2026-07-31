@@ -1,7 +1,7 @@
 {
   "name": "Stipplefade",
   "slug": "stipplefade",
-  "galleryOrder": 1422,
+  "galleryOrder": 1405,
   "galleryWhite": true,
   "description": "An even stipple at one edge of the cell, thinning to nothing at the other.",
   "palette": [

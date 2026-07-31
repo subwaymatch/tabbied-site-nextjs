@@ -1,7 +1,7 @@
 {
   "name": "Dotset",
   "slug": "dotset",
-  "galleryOrder": 1538,
+  "galleryOrder": 1425,
   "description": "Nine dots to a cell, each a third of its own tile.",
   "palette": [
     "#FAEFE0",

@@ -1,46 +1,50 @@
-// Batch 12 — 200 designs that export as native SVG with no caveat at all.
+// Batch 12 — 32 designs that export as native SVG with no caveat at all.
 //
 // Batch 11 asked what the catalogue looks like when the *format* is the
-// constraint: 55 designs that download as true vector files with no warning
+// constraint: designs that download as true vector files with no warning
 // dialog, no filter effects for a design tool to mangle, and no sub-pixel
-// deviation from what is on screen. This batch is 200 more under the same
-// rule, and it spends most of them on the one part of the supported subset the
-// catalogue had barely used — the smooth gradient.
+// deviation from what is on screen. This batch keeps that rule and spends most
+// of its designs on the one part of the supported CSS subset the catalogue had
+// barely used — the smooth gradient.
 //
-// Sections A-H (88 designs) are built on ramps: linear and radial, as masks
-// over solid ink and as fields thinned across a cell. That is the largest
-// gradient family in the catalogue by a wide margin, and it is safe for the
-// same reason the hard-edged half is: a <linearGradient> or <radialGradient>
-// carries the same stops CSS did, and the converter subdivides a
-// colour→transparent run to account for CSS interpolating premultiplied alpha
-// where SVG does not. Only *conic* blends are impossible, and there are none.
+// Nineteen of the thirty-two are ramps: straight fades over a solid ink, dot
+// fields and ruled fields thinned across a cell, a glow thrown from a corner,
+// ramps shut inside a cut shape, and a fade posterized into flat alpha levels.
+// They are safe for the same reason the hard-edged ones are: a
+// <linearGradient> or <radialGradient> carries the same stops CSS did, and the
+// converter subdivides a colour→transparent run to account for CSS
+// interpolating premultiplied alpha where SVG does not. Only *conic* blends
+// are impossible, and there are none.
 //
-// Sections I-T (112 designs) work in the hard-edged vocabulary batch 11
-// established — clip paths, hard-stop radial and conic stops, masks, placed
-// rectangles — on motifs that batch did not reach.
+// Every ramp is a mask over an ordinary background-color rather than a
+// two-colour background image. That keeps the ink transitionable — a reseed
+// morphs through the colour instead of snapping to it — and it makes the faded
+// end a real hole: set the background slot to transparent and the sheet shows
+// through a soft edge exactly as it does through a hard one.
 //
-// The twenty families, in the order they ship:
+// The remaining thirteen work in the hard-edged vocabulary batch 11
+// established — splits, chamfers, hard-stop radial bands, dot fields,
+// overlaps, mask intersections and border-radius forms.
 //
-//   A. Falloff     one ink, one straight ramp.                        (11)
-//   B. Crossfade   two inks handing over through a blend.             (11)
-//   C. Stipple     dot fields thinned by a ramp.                      (11)
-//   D. Drybrush    ruled fields thinned by a ramp.                    (11)
-//   E. Bloom       radial ramps: glows, vignettes, soft rings.        (11)
-//   F. Cutfade     a ramp confined to a cut shape.                    (11)
-//   G. Rampband    repeating and stepped ramps.                       (11)
-//   H. Softedge    shapes whose edges are ramps rather than lines.    (11)
-//   I. Split       one cut across the cell, an ink either side.        (9)
-//   J. Chamfer     corners, notches and steps taken off the square.   (10)
-//   K. Sector      hard-stop conic pies and fans.                     (10)
-//   L. Ring        hard-stop radial bands.                            (10)
-//   M. Bar         placed rectangles.                                 (10)
-//   N. Speck       hard-edged dot fields.                             (10)
-//   O. Lattice     ruled fields crossed and combined.                 (10)
-//   P. Frame       borders drawn as shapes, and what they enclose.    (10)
-//   Q. Wedge       triangles.                                          (7)
-//   R. Overlap     two shapes crossing, read through opacity.          (8)
-//   S. Intersect   mask-composite: intersect.                          (8)
-//   T. Radius      border-radius forms.                               (10)
+// The thirteen families, in the order they ship:
+//
+//   A. Falloff     one ink, one straight ramp.                         (5)
+//   C. Stipple     dot fields thinned by a ramp.                       (8)
+//   D. Drybrush    ruled fields thinned by a ramp.                     (2)
+//   E. Bloom       a radial ramp thrown from a corner.                 (1)
+//   F. Cutfade     a ramp confined to a cut shape.                     (2)
+//   G. Rampband    a fade posterized into flat alpha levels.           (1)
+//   I. Split       one cut across the cell, an ink either side.        (2)
+//   J. Chamfer     corners taken off the square.                       (3)
+//   L. Ring        hard-stop radial bands.                             (1)
+//   N. Speck       hard-edged dot fields.                              (2)
+//   R. Overlap     two shapes crossing, read through opacity.          (1)
+//   S. Intersect   mask-composite: intersect.                          (1)
+//   T. Radius      border-radius forms.                                (3)
+//
+// (The letters are the families the batch was drawn from. B, H, K, M, O, P and
+// Q were authored and cut, so the sequence skips them rather than renumbering
+// designs that already have their gallery order.)
 //
 // House rules, inherited from every earlier batch and enforced by
 // generate-batch12.mjs (via artwork-lints.mjs) and validate-batch12.mjs:
@@ -51,44 +55,30 @@
 // moment the background is transparent.
 import { RESERVED, TAKEN12 } from './artwork-defs-12/shared.mjs';
 import { sectionA } from './artwork-defs-12/a-falloff.mjs';
-import { sectionB } from './artwork-defs-12/b-crossfade.mjs';
 import { sectionC } from './artwork-defs-12/c-stipple.mjs';
 import { sectionD } from './artwork-defs-12/d-drybrush.mjs';
 import { sectionE } from './artwork-defs-12/e-bloom.mjs';
 import { sectionF } from './artwork-defs-12/f-cutfade.mjs';
 import { sectionG } from './artwork-defs-12/g-rampband.mjs';
-import { sectionH } from './artwork-defs-12/h-softedge.mjs';
 import { sectionI } from './artwork-defs-12/i-split.mjs';
 import { sectionJ } from './artwork-defs-12/j-chamfer.mjs';
-import { sectionK } from './artwork-defs-12/k-sector.mjs';
 import { sectionL } from './artwork-defs-12/l-ring.mjs';
-import { sectionM } from './artwork-defs-12/m-bar.mjs';
 import { sectionN } from './artwork-defs-12/n-speck.mjs';
-import { sectionO } from './artwork-defs-12/o-lattice.mjs';
-import { sectionP } from './artwork-defs-12/p-frame.mjs';
-import { sectionQ } from './artwork-defs-12/q-wedge.mjs';
 import { sectionR } from './artwork-defs-12/r-overlap.mjs';
 import { sectionS } from './artwork-defs-12/s-intersect.mjs';
 import { sectionT } from './artwork-defs-12/t-radius.mjs';
 
 const SECTIONS = [
   sectionA,
-  sectionB,
   sectionC,
   sectionD,
   sectionE,
   sectionF,
   sectionG,
-  sectionH,
   sectionI,
   sectionJ,
-  sectionK,
   sectionL,
-  sectionM,
   sectionN,
-  sectionO,
-  sectionP,
-  sectionQ,
   sectionR,
   sectionS,
   sectionT,

@@ -1,7 +1,7 @@
 {
   "name": "Decay",
   "slug": "decay",
-  "galleryOrder": 1404,
+  "galleryOrder": 1402,
   "description": "A fall broken by one flat step half way down, so the drop reads in two stages.",
   "palette": [
     "#FDF0D5",

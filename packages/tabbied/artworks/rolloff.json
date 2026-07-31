@@ -1,7 +1,7 @@
 {
   "name": "Rolloff",
   "slug": "rolloff",
-  "galleryOrder": 1403,
+  "galleryOrder": 1401,
   "galleryWhite": true,
   "description": "The ramp runs corner to corner rather than edge to edge, so the fall is on the diagonal.",
   "palette": [

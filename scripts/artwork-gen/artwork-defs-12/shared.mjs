@@ -17,12 +17,12 @@
 //
 // Where batch 12 goes further is the other direction: *smooth* gradients.
 // Batch 11 had one section of them (M. Fade, nine designs) and used hard stops
-// everywhere else. Half of this batch is built on the smooth ramp — linear and
-// radial, as masks and as ink — because that is the part of the supported
-// subset the catalogue had barely touched, and because a <linearGradient> or
+// everywhere else. Most of this batch is built on the smooth ramp — linear and
+// radial, always as masks — because that is the part of the supported subset
+// the catalogue had barely touched, and because a <linearGradient> or
 // <radialGradient> with the same stops is about the most faithful thing the
-// converter emits. Sections A-H are those 88 designs; I-T are 112 more in the
-// hard-edged vocabulary.
+// converter emits. Nineteen of the thirty-two designs are those; the other
+// thirteen work in the hard-edged vocabulary.
 //
 // Two things make a smooth ramp safe here where a conic one is not:
 //
@@ -42,14 +42,12 @@
 // var(--color0).
 export {
   RESERVED,
-  PAL,
   section,
   F,
   TR,
   cp,
   rot,
   msk,
-  mskI,
   B,
   A,
   ink,
@@ -57,13 +55,8 @@ export {
   R2,
   R4,
   pieL,
-  bandL,
-  bandAt,
   slotL,
   ringsL,
-  pie1,
-  slot1,
-  arcSector,
   poly,
 } from '../artwork-defs-11/shared.mjs';
 
@@ -95,14 +88,6 @@ export const rise = (angle, from, to) =>
 export const midFade = (angle, a, b, c, d) =>
   `linear-gradient(${angle}, transparent ${a}, #000 ${b} ${c}, transparent ${d})`;
 
-/** A ramp that repeats: solid for `on`, faded out by `period`, over and over. */
-export const rampL = (angle, on, period) =>
-  `repeating-linear-gradient(${angle}, #000 0 ${on}, transparent ${period})`;
-
-/** Repeating soft-edged lines — a ramp up to `peak` and back down each period. */
-export const softRampL = (angle, peak, period) =>
-  `repeating-linear-gradient(${angle}, transparent 0, #000 ${peak}, transparent ${period})`;
-
 /**
  * Stepped translucency: a fade posterized into `steps` flat levels. Every stop
  * pair sits at the same position, so this is a hard-stop gradient that reads
@@ -121,30 +106,6 @@ export const stepFade = (angle, steps, span = 100) => {
   stops.push(`transparent ${span}%`);
   return `linear-gradient(${angle}, ${stops.join(', ')})`;
 };
-
-/** A glow: solid at the centre, gone by `r`. */
-export const glowL = (r, at = '50% 50%') =>
-  `radial-gradient(circle closest-side at ${at}, #000 0%, transparent ${r})`;
-
-/** A glow with a solid core before the falloff starts. */
-export const coreGlowL = (core, r, at = '50% 50%') =>
-  `radial-gradient(circle closest-side at ${at}, #000 0 ${core}, transparent ${r})`;
-
-/** The inverse: a clear middle darkening towards the corners. */
-export const vignetteL = (r, at = '50% 50%') =>
-  `radial-gradient(circle closest-side at ${at}, transparent ${r}, #000 100%)`;
-
-/** A ring with soft edges — up between `a`/`b`, down between `c`/`d`. */
-export const softBandL = (a, b, c, d, at = '50% 50%') =>
-  `radial-gradient(circle closest-side at ${at}, transparent ${a}, #000 ${b} ${c}, transparent ${d})`;
-
-/** A glow squashed into an ellipse. */
-export const ovalGlowL = (rx, ry, at = '50% 50%') =>
-  `radial-gradient(ellipse ${rx} ${ry} at ${at}, #000 0%, transparent 100%)`;
-
-/** Concentric soft rings, all the way out. */
-export const softRingsL = (peak, period, at = '50% 50%') =>
-  `repeating-radial-gradient(circle at ${at}, transparent 0, #000 ${peak}, transparent ${period})`;
 
 // ── tiled fields ───────────────────────────────────────────────────────────
 // A gradient smaller than its box tiles, and the converter turns the layer

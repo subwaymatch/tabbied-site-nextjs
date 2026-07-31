@@ -1,7 +1,7 @@
 {
   "name": "Drybrush",
   "slug": "drybrush",
-  "galleryOrder": 1433,
+  "galleryOrder": 1413,
   "description": "Rules dragged across the cell, thinning as they go until the ground shows through.",
   "palette": [
     "#F0EAD6",

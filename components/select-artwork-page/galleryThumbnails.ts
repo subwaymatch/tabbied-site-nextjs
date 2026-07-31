@@ -1492,12 +1492,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   gloaming: {
     options: { grid: '5x5', frequency: 1 },
   },
-  dissolve: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  feather: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   rolloff: {
     options: { grid: '5x5', frequency: 1 },
   },
@@ -1507,52 +1501,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   subside: {
     options: { grid: '5x5', frequency: 1 },
   },
-  dusk: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   tailoff: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softstop: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fadeaway: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  slantfade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossfade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  blendpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  meetline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mingle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  seep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bleedline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  interfade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  twotone: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossover: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softseam: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  meld: {
     options: { grid: '5x5', frequency: 1 },
   },
   stipplefade: {
@@ -1564,13 +1513,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   grainfall: {
     options: { grid: '5x5', frequency: 1 },
   },
-  sandfall: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   spraydown: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mistdot: {
     options: { grid: '5x5', frequency: 1 },
   },
   dustfall: {
@@ -1585,484 +1528,52 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   dotwash: {
     options: { grid: '5x5', frequency: 1 },
   },
-  dotveil: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   drybrush: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  brushdrag: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dragline: {
     options: { grid: '5x5', frequency: 1 },
   },
   streaking: {
     options: { grid: '5x5', frequency: 1 },
   },
-  combfade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rulefade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hachurefade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rakefade: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  brushout: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  drylines: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wearline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  glowdisc: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softglow: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   radiance: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  vignette: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  aureola: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softorb: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hazedisc: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lampglow: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sunspot: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ringglow: {
     options: { grid: '5x5', frequency: 1 },
   },
   fadedwedge: {
     options: { grid: '5x5', frequency: 1 },
   },
-  softtri: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   fadedbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fadedbox: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ghostpoly: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fadedarc: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softchamfer: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fadedhex: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fadedkite: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softnotch: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  blendcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rampband: {
     options: { grid: '5x5', frequency: 1 },
   },
   stepramp: {
     options: { grid: '5x5', frequency: 1 },
   },
-  rampfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  triramp: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  longramp: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softbands: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rampstack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gradband: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rampweave: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gradpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  blendline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softblock: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softcircle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softslab: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mistbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softplate: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hazeblock: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  blurbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softdot: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  softfall: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  halflight: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cleave: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  offcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   twohalf: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  splitline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cutaway: {
     options: { grid: '5x5', frequency: 1 },
   },
   sheared: {
     options: { grid: '5x5', frequency: 1 },
   },
-  bisect: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  partline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cleft: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   snipcorner: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bevelcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cutbox: {
     options: { grid: '5x5', frequency: 1 },
   },
   angleoff: {
     options: { grid: '5x5', frequency: 1 },
   },
-  cornerstep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  nickbox: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   cornerchip: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  stepcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cutstep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chamferpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  piecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fanslice: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sectorpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  quartercut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  arcfan: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  slicecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  pieband: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fanstack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  piepair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  arcpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ringpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ringstack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hoopset: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bandring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  targetring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ringcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  discring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ringgap: {
     options: { grid: '5x5', frequency: 1 },
   },
   ringfield: {
     options: { grid: '5x5', frequency: 1 },
   },
-  ringstep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barset: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  stackbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barstep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barslide: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  longbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barpad: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  barrow: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  specks: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   dotset: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotgrid: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotstack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotcut: {
     options: { grid: '5x5', frequency: 1 },
   },
   gritfield: {
     options: { grid: '5x5', frequency: 1 },
   },
-  dotband: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotrow: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dotring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gridlines: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  meshfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossrule: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  latticecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gridcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  weavecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossbars: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  netfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gridpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  meshcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  boxframe: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framering: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  innerframe: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framegap: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framepair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  boxinset: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framecorner: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  frameband: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  framestack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wedgepair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  trislice: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wedgecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tristack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wedgeband: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  trifield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wedgerow: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossbox: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  twoshape: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  overcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  overpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crossdisc: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  overshape: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  overring: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   overbar: {
     options: { grid: '5x5', frequency: 1 },
   },
-  cutinto: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crosscut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  maskcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   bothcut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  agreecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cutpair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  intercut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cutfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  roundbox: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  pillbox: {
     options: { grid: '5x5', frequency: 1 },
   },
   roundcut: {
@@ -2071,22 +1582,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   roundpair: {
     options: { grid: '5x5', frequency: 1 },
   },
-  roundbar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  roundnotch: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  capsulecut: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   roundstep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  roundfield: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lozengecut: {
     options: { grid: '5x5', frequency: 1 },
   },
 };

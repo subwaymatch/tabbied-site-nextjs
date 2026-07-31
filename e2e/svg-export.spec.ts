@@ -43,12 +43,11 @@ const unsupportedSlugs = allArtworks
 // mask, two stripe fields composited with mask-composite: intersect, and a
 // many-vertex clip path.
 //
-// The last five come from batch 12, which is built on smooth ramps and adds
-// four gradient shapes nothing else in the list exercises: a radial ramp used
-// as a mask (`glowdisc`), a fade posterized into flat alpha levels
-// (`stepramp`), a repeating soft ramp (`softbands`), a frame assembled from
-// four added mask layers (`framecut`), and a dot field intersected with a
-// radial ramp (`mistdot`).
+// The last three come from batch 12, which is built on smooth ramps and adds
+// gradient shapes nothing else in the list exercises: a fade posterized into
+// flat alpha levels (`stepramp`), a radial ramp thrown from a corner and used
+// as a mask (`radiance`), and a dot field intersected with a radial ramp
+// (`dotwash`).
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -79,11 +78,9 @@ const REPRESENTATIVE = [
   'shading',
   'bothways',
   'dieblock',
-  'glowdisc',
   'stepramp',
-  'softbands',
-  'framecut',
-  'mistdot',
+  'radiance',
+  'dotwash',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few
@@ -101,13 +98,12 @@ const REPRESENTATIVE = [
 // - terrain/neon/lantern: box-shadow glows approximate as feDropShadow;
 //   the falloff differs slightly per Chromium build (terrain hit 1.37% on
 //   CI vs 0.99% locally).
-// - stepramp/framecut: the same phenomenon as glyph, from edge *density*
-//   rather than contrast. Both draw several full-width hard edges in every
-//   cell (four alpha levels; four frame sides), and the editor's default grid
-//   puts the cell boundaries on fractional pixels — 60.66px at 6x9 — so every
-//   one of those edges lands mid-device-pixel, where CSS snaps and SVG
-//   anti-aliases. Measured 1.21% and 1.10%. This is a property of the
-//   geometry, not of these two designs: swept at a fractional cell size the
+// - stepramp: the same phenomenon as glyph, from edge *density* rather than
+//   contrast. It draws four full-width hard edges in every cell (one per alpha
+//   level), and the editor's default grid puts the cell boundaries on
+//   fractional pixels — 60.66px at 6x9 — so every one of those edges lands
+//   mid-device-pixel, where CSS snaps and SVG anti-aliases. This is a property
+//   of the geometry, not of the design: swept at a fractional cell size the
 //   shipped batch-11 catalogue lands in the same 0.5-1.8% band (toning 1.84%,
 //   dimmer 1.71%, tinting 1.36%). See docs/svg-export.md.
 const MAX_BAD_FRACTION = 0.01;
@@ -122,7 +118,6 @@ const PER_ARTWORK_MAX: Record<string, number> = {
   neon: 0.015,
   lantern: 0.015,
   stepramp: 0.02,
-  framecut: 0.02,
 };
 
 const paritySlugs = process.env.SVG_FULL_SWEEP ? supportedSlugs : REPRESENTATIVE;

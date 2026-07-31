@@ -6,7 +6,7 @@ converter, or export UI. Written for future maintainers and coding agents.
 Historical background lives in `agent-outputs/native-svg-export-handoff.md`
 (the original research + implementation addendum, kept as a dated record).
 
-Batches 11 (gallery orders 1200-1254, 55 designs) and 12 (1400-1599, 200
+Batches 11 (gallery orders 1200-1254, 55 designs) and 12 (1400-1431, 32
 designs) were authored against this document: every design in them is tier 4,
 and `scripts/artwork-gen/validate-svg-batch11.mjs` /
 `validate-svg-batch12.mjs` are the gate that keeps them there — they run the
@@ -15,13 +15,14 @@ warning, or on a pixel diff above a budget deliberately tighter than the
 shipped one. Both are thin callers of `scripts/artwork-gen/svg-sweep.mjs`, and
 both batches share the authoring lints in `scripts/artwork-gen/artwork-lints.mjs`.
 
-Batch 12 is where the *smooth* gradient gets used in bulk: 88 of its 200
-designs are built on linear and radial ramps — fades, blends, glows,
-vignettes, halftones and ruled fields thinned across a cell. That is
-deliberate, and it is the tier-4 way to draw the effects that otherwise reach
-for `filter: blur()` or `box-shadow` and land in tier 2 (see `bokeh`, `neon`,
-`lantern`, `terrain`). A ramp written as gradient stops is a `<linearGradient>`
-or `<radialGradient>` with the same stops; a blur is an `feGaussianBlur`.
+Batch 12 is where the *smooth* gradient gets used: 19 of its 32 designs are
+built on linear and radial ramps — fades, a corner glow, halftones and ruled
+fields thinned across a cell, and a fade posterized into flat alpha levels.
+That is deliberate, and it is the tier-4 way to draw the effects that
+otherwise reach for `filter: blur()` or `box-shadow` and land in tier 2 (see
+`bokeh`, `neon`, `lantern`, `terrain`). A ramp written as gradient stops is a
+`<linearGradient>` or `<radialGradient>` with the same stops; a blur is an
+`feGaussianBlur`.
 
 ## What it is
 
@@ -95,7 +96,7 @@ shadow toggle is on**, because the shadow exports as an SVG filter:
 `bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
 `quarterfall`, `radius` (default off).
 
-### 4. Full support — everything else (~407)
+### 4. Full support — everything else (~239)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -189,22 +190,21 @@ edge and SVG anti-aliases it.
 reproduces the editor's condition. Under it the *whole shipped catalogue*
 moves into a 0.5-1.8% band wherever a design draws many hard edges per cell —
 batch 11's `toning` measures 1.84%, `dimmer` 1.71%, `tinting` 1.36%,
-`housing` 1.31%; batch 12's worst is `seep` at 1.72%. These are the same
-designs that sit at 0.00% on integer boundaries.
+`housing` 1.31%. These are the same designs that sit at 0.00% on integer
+boundaries.
 
 So: the 0.4% budget below is calibrated for the integer-cell default, where it
 is a tight and stable signal for real authoring mistakes — abutments, wrong
 geometry, gradient aliasing. It is *not* a claim that any design holds 0.4% at
 every grid the editor offers. When a design is edge-dense enough to matter,
 the e2e's `PER_ARTWORK_MAX` carries the documented headroom (`glyph`,
-`stepramp`, `framecut`).
+`stepramp`).
 
 One thing the fractional pass does catch that the default misses: repeating
-*smooth* ramps alias badly once the period falls to a handful of pixels.
-Batch 12's `softbands` measured 4.8% and `rampband` 6.0% at a 12% period on a
-small cell; widening the period so a cell holds a few repeats rather than a
-dozen took them to 0.15% and 0.14%. Prefer a period a design can afford at
-`10x15`.
+*smooth* ramps alias badly once the period falls to a handful of pixels. Two
+batch-12 candidates measured 4.8% and 6.0% at a 12% period on a small cell,
+and widening the period so a cell holds a few repeats rather than a dozen took
+them to 0.15% and 0.14%. Prefer a period a design can afford at `10x15`.
 
 ```bash
 npm test --workspace tabbied              # unit tests for the pure parsers

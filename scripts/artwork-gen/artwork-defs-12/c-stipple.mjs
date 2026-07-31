@@ -16,15 +16,12 @@ import {
   TR,
   ink,
   rot,
-  mskI,
   fade,
   rise,
   midFade,
-  glowL,
   dotsL,
   softDotsL,
   both,
-  c1,
   R2,
   R4,
 } from './shared.mjs';
@@ -57,28 +54,12 @@ add(
 );
 
 add(
-  'Sandfall',
-  'Every dot softened at its own edge as well, so the field has no hard mark anywhere in it.',
-  (c) => ({
-    rule: thinned(c, softDotsL('10%', '55%', '10%'), fade('180deg', '0%', '100%')),
-  }),
-  { pal: 41 }
-);
-
-add(
   'Spraydown',
   'Nothing at the top of the cell and a heavy spray by the bottom.',
   (c) => ({
     rule: thinned(c, softDotsL('6%', '48%', '6.25%'), rise('180deg', '4%', '100%')),
   }),
   { pal: 59 }
-);
-
-add(
-  'Mistdot',
-  'The stipple gathered into a soft disc in the middle and gone by the corners.',
-  (c) => ({ rule: thinned(c, softDotsL('12%', '60%', '12.5%'), glowL('100%'), R2) }),
-  { pal: 30 }
 );
 
 add(
@@ -117,15 +98,6 @@ add(
     ),
   }),
   { pal: 74 }
-);
-
-add(
-  'Dotveil',
-  'A flat ink with a second one stippled over it and thinning across the cell.',
-  (c) => ({
-    rule: `--rot: ${R4}; ${F} { background: ${c1}; ${A(`inset: 0; background: ${ink(c, 2)}; ${mskI(dotsL('32%', '11.1%'), fade('180deg', '0%', '100%'))}`)} ${rot('@var(--rot)')} }${TR}`,
-  }),
-  { pal: 36 }
 );
 
 export const sectionC = { title: 'C. Stipple', all };
