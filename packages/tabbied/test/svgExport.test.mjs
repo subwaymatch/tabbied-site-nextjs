@@ -19,6 +19,7 @@ const {
   parseConicSectors,
   parseBoxShadows,
   originBox,
+  pseudoBoxFor,
 } = _internals;
 
 const rgb = (r, g, b, a = 1) => ({ r, g, b, a });
@@ -239,4 +240,91 @@ test('originBox insets the background positioning area by the border', () => {
     paddingBottom: '0px',
   };
   assert.equal(originBox(box, plain, 'padding-box'), box);
+});
+
+// A host with a 7px border round a 60x60 cell, no padding: the padding box is
+// the 46x46 square inside the border.
+const BORDERED_HOST = {
+  borderLeftWidth: '7px',
+  borderTopWidth: '7px',
+  borderRightWidth: '7px',
+  borderBottomWidth: '7px',
+  paddingLeft: '0px',
+  paddingTop: '0px',
+  paddingRight: '0px',
+  paddingBottom: '0px',
+};
+const PLAIN_HOST = {
+  borderLeftWidth: '0px',
+  borderTopWidth: '0px',
+  borderRightWidth: '0px',
+  borderBottomWidth: '0px',
+  paddingLeft: '0px',
+  paddingTop: '0px',
+  paddingRight: '0px',
+  paddingBottom: '0px',
+};
+const CELL = { x: 0, y: 0, w: 60, h: 60 };
+const absolute = (over) => ({
+  position: 'absolute',
+  left: 'auto',
+  right: 'auto',
+  top: 'auto',
+  bottom: 'auto',
+  width: 'auto',
+  height: 'auto',
+  marginLeft: '0px',
+  marginTop: '0px',
+  ...over,
+});
+
+test('pseudoBoxFor positions an absolute pseudo against the padding box', () => {
+  // `inset: 26%` on a bordered host: the browser resolves 26% against the
+  // 46px padding box (11.96px), so the pseudo starts 7 + 11.96 in from the
+  // cell edge. Measuring from the border box instead shifts it by the border.
+  assert.deepEqual(
+    pseudoBoxFor(CELL, BORDERED_HOST, absolute({ left: '11.96px', top: '11.96px', right: '11.96px', bottom: '11.96px' })),
+    { x: 18.96, y: 18.96, w: 22.08, h: 22.08 }
+  );
+  // Anchored from the far side, and centred with neither side set.
+  assert.deepEqual(
+    pseudoBoxFor(CELL, BORDERED_HOST, absolute({ right: '4px', bottom: '4px', width: '10px', height: '10px' })),
+    { x: 39, y: 39, w: 10, h: 10 }
+  );
+  assert.deepEqual(
+    pseudoBoxFor(CELL, BORDERED_HOST, absolute({ width: '20px', height: '20px' })),
+    { x: 20, y: 20, w: 20, h: 20 }
+  );
+});
+
+test('pseudoBoxFor centres a static pseudo in the content box', () => {
+  const staticPseudo = { position: 'static', width: '20px', height: '10px' };
+  assert.deepEqual(pseudoBoxFor(CELL, BORDERED_HOST, staticPseudo), {
+    x: 20,
+    y: 25,
+    w: 20,
+    h: 10,
+  });
+  assert.deepEqual(
+    pseudoBoxFor(CELL, { ...BORDERED_HOST, paddingLeft: '10px' }, staticPseudo),
+    { x: 25, y: 25, w: 20, h: 10 }
+  );
+  // Nothing to paint.
+  assert.equal(
+    pseudoBoxFor(CELL, PLAIN_HOST, { position: 'static', width: 'auto', height: 'auto' }),
+    null
+  );
+});
+
+test('pseudoBoxFor leaves a borderless host untouched', () => {
+  // Every artwork that predates batch 11's frames goes through this path, so
+  // the padding-box fix must be a no-op for it.
+  assert.deepEqual(
+    pseudoBoxFor(CELL, PLAIN_HOST, absolute({ left: '0px', top: '0px', right: '0px', bottom: '0px' })),
+    { x: 0, y: 0, w: 60, h: 60 }
+  );
+  assert.deepEqual(
+    pseudoBoxFor(CELL, PLAIN_HOST, absolute({ left: '6px', top: '6px', width: '12px', height: '12px' })),
+    { x: 6, y: 6, w: 12, h: 12 }
+  );
 });

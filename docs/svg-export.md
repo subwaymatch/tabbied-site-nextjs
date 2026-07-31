@@ -6,7 +6,7 @@ converter, or export UI. Written for future maintainers and coding agents.
 Historical background lives in `agent-outputs/native-svg-export-handoff.md`
 (the original research + implementation addendum, kept as a dated record).
 
-Batch 11 (gallery orders 1200+, 400 designs) was authored against this
+Batch 11 (gallery orders 1200+, 55 designs) was authored against this
 document: every design in it is tier 4, and
 `scripts/artwork-gen/validate-svg-batch11.mjs` is the gate that keeps it
 there — it runs the shipped converter over each rendered design and fails on
@@ -85,7 +85,7 @@ shadow toggle is on**, because the shadow exports as an SVG filter:
 `bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
 `quarterfall`, `radius` (default off).
 
-### 4. Full support — everything else (~553)
+### 4. Full support — everything else (~208)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -202,8 +202,10 @@ The sweep script needs `npm run build --workspace tabbied` first (it injects
   static one is centred in the content box, and a background layer is
   positioned in the origin box (padding-box by default) even though it is
   clipped to the border box. All three coincide on a borderless element,
-  which every artwork was until batch 11 put pseudo-elements and background
-  layers inside frames — before that the converter used the border box for
-  all of them and the contents came out displaced by the border width.
+  which every artwork in the catalogue currently is — so this has no live
+  parity coverage and is held by unit tests instead (`originBox` and
+  `pseudoBoxFor` in the package's test suite). The converter used the border
+  box for all three until batch 11, and anything placed inside a frame came
+  out displaced by the border width.
 - **Determinism**: same DOM in → byte-identical SVG out (deterministic def
   ids); e2e asserts it.

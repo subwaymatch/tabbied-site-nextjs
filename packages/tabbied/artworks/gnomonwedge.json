@@ -1,7 +1,7 @@
 {
   "name": "Gnomonwedge",
   "slug": "gnomonwedge",
-  "galleryOrder": 1400,
+  "galleryOrder": 1233,
   "galleryWhite": true,
   "description": "A right triangle filling half the cell, the hypotenuse running corner to corner.",
   "palette": [

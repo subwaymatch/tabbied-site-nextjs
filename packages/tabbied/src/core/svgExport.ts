@@ -1813,37 +1813,27 @@ function boxShadowFilterUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): st
   return `url(#${id})`;
 }
 
-/** Paint a ::before/::after pseudo-element of `el`. */
-function paintPseudo(
-  el: HTMLElement,
-  pseudo: '::before' | '::after',
+/**
+ * Where a ::before/::after sits, given its host's *border* box.
+ *
+ * Neither kind of pseudo is laid out against the border box: an
+ * absolutely-positioned one resolves its offsets against the padding box, a
+ * static one is centred in the content box. On a borderless host the three
+ * coincide — which is every artwork that predates batch 11's frames — but on a
+ * bordered one, using the border box displaces the pseudo by the border width.
+ *
+ * Returns null when the pseudo has no area to paint.
+ */
+function pseudoBoxFor(
   box: Box,
-  env: WalkEnv
-): { z: number; nodes: SvgNode[] } {
-  const none = { z: 0, nodes: [] };
-  const cs = env.getStyle(el, pseudo);
-  const content = cs.content;
-  if (!content || content === 'none' || cs.display === 'none') return none;
-  if (!/^(""|''|normal)$/.test(content)) {
-    throw new SvgExportUnsupportedError('pseudo-element text content', content);
-  }
-  if (cs.visibility === 'hidden') return none;
-
-  // `box` is the host's *border* box, but neither kind of pseudo is laid out
-  // against that: an absolutely-positioned one resolves its offsets against
-  // the padding box, a static one is centred in the content box. On a
-  // borderless host (nearly every artwork) the three coincide; on a bordered
-  // one, using the border box shifts the pseudo by the border width.
-  const hostCs = env.getStyle(el);
-  const bl = px(hostCs.borderLeftWidth);
-  const bt = px(hostCs.borderTopWidth);
-  const br = px(hostCs.borderRightWidth);
-  const bb = px(hostCs.borderBottomWidth);
+  hostCs: CSSStyleDeclaration,
+  cs: CSSStyleDeclaration
+): Box | null {
   const padBox: Box = {
-    x: box.x + bl,
-    y: box.y + bt,
-    w: box.w - bl - br,
-    h: box.h - bt - bb,
+    x: box.x + px(hostCs.borderLeftWidth),
+    y: box.y + px(hostCs.borderTopWidth),
+    w: box.w - px(hostCs.borderLeftWidth) - px(hostCs.borderRightWidth),
+    h: box.h - px(hostCs.borderTopWidth) - px(hostCs.borderBottomWidth),
   };
 
   let w: number;
@@ -1882,13 +1872,33 @@ function paintPseudo(
     const pb = px(hostCs.paddingBottom);
     w = cs.width === 'auto' ? 0 : px(cs.width);
     h = cs.height === 'auto' ? 0 : px(cs.height);
-    if (w <= 0 || h <= 0) return none;
+    if (w <= 0 || h <= 0) return null;
     x = padBox.x + pl + (padBox.w - pl - pr - w) / 2;
     y = padBox.y + pt + (padBox.h - pt - pb - h) / 2;
   }
-  if (w <= 0 || h <= 0) return none;
+  if (w <= 0 || h <= 0) return null;
+  return { x, y, w, h };
+}
 
-  const pseudoBox: Box = { x, y, w, h };
+/** Paint a ::before/::after pseudo-element of `el`. */
+function paintPseudo(
+  el: HTMLElement,
+  pseudo: '::before' | '::after',
+  box: Box,
+  env: WalkEnv
+): { z: number; nodes: SvgNode[] } {
+  const none = { z: 0, nodes: [] };
+  const cs = env.getStyle(el, pseudo);
+  const content = cs.content;
+  if (!content || content === 'none' || cs.display === 'none') return none;
+  if (!/^(""|''|normal)$/.test(content)) {
+    throw new SvgExportUnsupportedError('pseudo-element text content', content);
+  }
+  if (cs.visibility === 'hidden') return none;
+
+  const pseudoBox = pseudoBoxFor(box, env.getStyle(el), cs);
+  if (!pseudoBox) return none;
+
   const z = cs.zIndex === 'auto' ? 0 : parseInt(cs.zIndex, 10) || 0;
   return { z, nodes: paintPaintedBox(pseudoBox, cs, env, []) };
 }
@@ -2133,4 +2143,5 @@ export const _internals = {
   parseBoxShadows,
   fmtNum,
   originBox,
+  pseudoBoxFor,
 };

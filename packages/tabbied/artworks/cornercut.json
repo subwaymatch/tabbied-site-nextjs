@@ -1,7 +1,7 @@
 {
   "name": "Cornercut",
   "slug": "cornercut",
-  "galleryOrder": 1300,
+  "galleryOrder": 1215,
   "galleryWhite": true,
   "description": "One corner taken off square, and the cut turning round the cell from one to the next.",
   "palette": [

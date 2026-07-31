@@ -1,7 +1,7 @@
 {
   "name": "Dotfield",
   "slug": "dotfield",
-  "galleryOrder": 1426,
+  "galleryOrder": 1236,
   "description": "A plain even field: the dot half the width of its tile.",
   "palette": [
     "#EAE0CC",

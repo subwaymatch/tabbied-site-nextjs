@@ -39,11 +39,9 @@ const unsupportedSlugs = allArtworks
 // clip-paths, masks, every gradient kind, hard-stop conic sectors, nested
 // @doodle masks, @svg payloads, borders, filters, blend modes, z-index.
 //
-// The last six come from batch 11 and cover what that batch added: a border
-// with positioned pseudo-elements inside it and a border with background
-// layers on it (both of which resolve against the *padding* box, not the
-// border box), tiled dot patterns, smooth gradients used as masks, and
-// position-driven parameters that vary per cell.
+// The last four come from batch 11: a tiled dot pattern, a smooth gradient
+// used as a mask, two stripe fields composited with mask-composite: intersect,
+// and a many-vertex clip path.
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -71,12 +69,10 @@ const REPRESENTATIVE = [
   'circuit',
   'ring',
   'bloks',
-  'sashframe',
-  'muntin',
-  'mottle',
-  'vignette',
-  'plaidwork',
-  'arcfield',
+  'dotfield',
+  'shading',
+  'bothways',
+  'dieblock',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few

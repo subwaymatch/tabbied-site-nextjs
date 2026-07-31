@@ -1,7 +1,7 @@
 {
   "name": "Shading",
   "slug": "shading",
-  "galleryOrder": 1511,
+  "galleryOrder": 1251,
   "description": "A fade running on the diagonal, over a cell that is otherwise plain.",
   "palette": [
     "#FDFCFB",

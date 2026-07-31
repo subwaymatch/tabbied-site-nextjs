@@ -1,7 +1,7 @@
 {
   "name": "Glazing",
   "slug": "glazing",
-  "galleryOrder": 1513,
+  "galleryOrder": 1253,
   "galleryWhite": true,
   "description": "A dot field with a fade laid over it, so the stipple thins out across the cell.",
   "palette": [

@@ -3,28 +3,10 @@
 // Every design here starts from the full square and removes: a corner, an
 // edge, a notch, a step. clip-path: polygon() is the whole toolkit, and the
 // converter turns it into an SVG <clipPath> with the same points, so a
-// twenty-vertex profile costs nothing and lands exactly where CSS put it.
-//
-// A polygon can also carry its own hole — run the outline back on itself and
-// the slit is zero-width in both renderings — which is how the openings in
-// this section stay real holes on a transparent background.
-import {
-  section,
-  A,
-  B,
-  F,
-  TR,
-  cp,
-  ink,
-  poly,
-  ngon,
-  rot,
-  withHole,
-  rectHole,
-  R2,
-  R4,
-  c1,
-} from './shared.mjs';
+// twenty-vertex profile costs nothing and lands exactly where CSS put it, and
+// the notches and channels stay real holes on a transparent background because
+// nothing is filled back in — the shape simply stops.
+import { section, A, F, TR, cp, ink, poly, rot, R2, R4 } from './shared.mjs';
 
 const { add, all } = section('E. Chamfer');
 
@@ -85,46 +67,6 @@ add(
 );
 
 add(
-  'Bullnose',
-  'One end rounded right off, drawn as a many-sided profile rather than a curve.',
-  (c) => ({
-    rule: cut(
-      c,
-      poly([
-        [0, 0],
-        [56, 0],
-        [78, 6],
-        [93, 22],
-        [100, 50],
-        [93, 78],
-        [78, 94],
-        [56, 100],
-        [0, 100],
-      ])
-    ),
-  }),
-  { pal: 55 }
-);
-
-add(
-  'Rebate',
-  'A square bite taken out of the middle of one edge.',
-  (c) => ({
-    rule: cut(c, poly([[0, 0], [100, 0], [100, 100], [68, 100], [68, 62], [32, 62], [32, 100], [0, 100]])),
-  }),
-  { pal: 9 }
-);
-
-add(
-  'Rabbet',
-  'A rectangular step cut out of one corner, the way two boards are lapped.',
-  (c) => ({
-    rule: cut(c, poly([[0, 0], [100, 0], [100, 58], [58, 58], [58, 100], [0, 100]])),
-  }),
-  { pal: 41 }
-);
-
-add(
   'Housing',
   'A slot let into one edge and stopped short of the far side.',
   (c) => ({
@@ -169,15 +111,6 @@ add(
 );
 
 add(
-  'Scarf',
-  'A long shallow taper, the joint you would cut to lengthen a beam.',
-  (c) => ({
-    rule: cut(c, poly([[0, 0], [100, 0], [100, 42], [0, 74]])),
-  }),
-  { pal: 15 }
-);
-
-add(
   'Chase',
   'A straight channel run right across the cell, ends open.',
   (c) => ({
@@ -188,15 +121,6 @@ add(
     ),
   }),
   { pal: 24 }
-);
-
-add(
-  'Plinth',
-  'A wide base with a narrower block set on it — two rectangles cut as one shape.',
-  (c) => ({
-    rule: cut(c, poly([[22, 0], [78, 0], [78, 70], [100, 70], [100, 100], [0, 100], [0, 70], [22, 70]])),
-  }),
-  { pal: 57 }
 );
 
 add(
@@ -238,35 +162,6 @@ add(
 );
 
 add(
-  'Guttae',
-  'A row of small square teeth left standing along one edge.',
-  (c) => ({
-    rule: cut(
-      c,
-      poly([
-        [0, 0],
-        [100, 0],
-        [100, 66],
-        [86, 66],
-        [86, 100],
-        [72, 100],
-        [72, 66],
-        [58, 66],
-        [58, 100],
-        [44, 100],
-        [44, 66],
-        [30, 66],
-        [30, 100],
-        [16, 100],
-        [16, 66],
-        [0, 66],
-      ])
-    ),
-  }),
-  { pal: 51 }
-);
-
-add(
   'Mutule',
   'A block projecting from one edge, wider than it is deep.',
   (c) => ({
@@ -282,78 +177,6 @@ add(
     rule: cut(c, poly([[0, 0], [100, 0], [100, 28], [58, 28], [58, 52], [82, 52], [40, 100], [0, 100]])),
   }),
   { pal: 39 }
-);
-
-add(
-  'Cymatium',
-  'A moulding drawn as a run of short straight facets: an S profile without any curve in it.',
-  (c) => ({
-    rule: cut(
-      c,
-      poly([
-        [0, 0],
-        [100, 0],
-        [100, 100],
-        [72, 100],
-        [72, 82],
-        [56, 74],
-        [44, 60],
-        [40, 42],
-        [28, 30],
-        [0, 24],
-      ])
-    ),
-  }),
-  { pal: 74 }
-);
-
-add(
-  'Antefix',
-  'A fan of facets standing up from one edge, cut from the block rather than added to it.',
-  (c) => ({
-    rule: cut(
-      c,
-      poly([
-        [0, 100],
-        [0, 62],
-        [14, 40],
-        [32, 26],
-        [50, 20],
-        [68, 26],
-        [86, 40],
-        [100, 62],
-        [100, 100],
-      ])
-    ),
-  }),
-  { pal: 26 }
-);
-
-add(
-  'Acroterion',
-  'A corner ornament: the cell keeps its square back and comes to a point at the front.',
-  (c) => ({
-    rule: cut(c, poly([[0, 0], [40, 0], [64, 22], [100, 34], [70, 58], [76, 100], [0, 100]])),
-  }),
-  { pal: 65 }
-);
-
-add(
-  'Trochilus',
-  'A hollow: two facets cut in from one edge and meeting in a shallow trough.',
-  (c) => ({
-    rule: cut(c, poly([[0, 0], [100, 0], [100, 100], [72, 100], [50, 58], [28, 100], [0, 100]])),
-  }),
-  { pal: 47 }
-);
-
-add(
-  'Openframe',
-  'The whole corner treatment turned inside out: an octagon with a square hole cut through it.',
-  (c) => ({
-    rule: `--rot: ${R2}; ${F} { ${B(`inset: 0; background: ${c1}; ${cp(poly(ngon(8, 50, -67.5)))}`)} ${A(`inset: 0; background: ${ink(c, 2)}; ${cp(withHole(rectHole(34, 34)))}`)} ${rot('@var(--rot)')} }${TR}`,
-  }),
-  { pal: 43 }
 );
 
 export const sectionE = { title: 'E. Chamfer', all };

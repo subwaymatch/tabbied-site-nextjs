@@ -25,22 +25,23 @@
 //   * @svg() payloads — supported, but the browser rasterizes an @svg mask
 //     with different sub-pixel rounding than the inlined symbol.
 //   * a border on a partially-rounded box — the converter throws, and mixed
-//     border widths around rounded corners deviate by up to a pixel. Borders
-//     here go on square boxes or on full circles, never in between.
+//     border widths around rounded corners deviate by up to a pixel. A border
+//     may go on a square box or on a full circle, never in between; no design
+//     in the batch as it ships uses one.
 //
 // What is left is still a wide vocabulary: solid fills, border-radius shapes,
-// per-side borders, clip paths, every linear and radial gradient (smooth or
-// hard-stop, plain or repeating), CSS masks including mask-composite:
-// intersect, hard-stop conic sectors, transforms, opacity and z-index. Each of
-// those is parity-verified pixel-for-pixel by the existing catalog.
+// clip paths, every linear and radial gradient (smooth or hard-stop, plain or
+// repeating), CSS masks including mask-composite: intersect, hard-stop conic
+// sectors, transforms, opacity and z-index. Each of those is parity-verified
+// pixel-for-pixel by the existing catalog.
 //
 // The house rules inherited from batches 6-10 still apply and are enforced by
 // generate-batch11.mjs:
 //
 //   * exactly one @random(${shapeFrequency}) gate per design, so the frequency
 //     slider always thins the whole field;
-//   * every design samples a transition-able ink per cell (background-color or
-//     border-color), so a reseed morphs rather than snapping;
+//   * every design samples a transition-able ink per cell (a background-color
+//     or border-color), so a reseed morphs rather than snapping;
 //   * a randomized custom property read more than once goes through @var(--x);
 //   * nothing paints var(--color0) — a hole knocked out in the background
 //     colour stops being a hole the moment the background is transparent.
@@ -52,7 +53,7 @@ export const F = '@random(${shapeFrequency})';
 export const TR = ' -webkit-transition: ease 450ms; transition: ease 450ms;';
 
 export const cp = (p) => `-webkit-clip-path: ${p}; clip-path: ${p};`;
-export const xf = (v) => `-webkit-transform: ${v}; transform: ${v};`;
+const xf = (v) => `-webkit-transform: ${v}; transform: ${v};`;
 export const rot = (v) => xf(`rotate(${v})`);
 
 /** One or more mask layers, composited the default way (add). */
@@ -86,17 +87,6 @@ export const c1 = 'var(--color1)';
 
 export const R2 = '@pick(0deg, 90deg)';
 export const R4 = '@pick(0deg, 90deg, 180deg, 270deg)';
-export const R8 =
-  '@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)';
-/** The four axis-aligned flips, as a transform value. */
-export const FLIP4 = '@pick(scale(1,1), scale(-1,1), scale(1,-1), scale(-1,-1))';
-
-/**
- * A px length authored for a six-column grid and scaled down as the grid
- * densifies, so borders keep their proportion instead of swallowing the cell.
- * Border and outline widths take lengths only, never percentages.
- */
-export const u = (v) => `calc(${v}px * 6 / @size-col)`;
 
 // ── mask layers: the geometry is cut, the ink is a plain background ────────
 // Every layer here paints in #000/transparent only. Keeping colour out of the
@@ -111,12 +101,8 @@ export const u = (v) => `calc(${v}px * 6 / @size-col)`;
 export const pieL = (deg, { from = '0deg', at = '50% 50%' } = {}) =>
   `conic-gradient(from ${from} at ${at}, #000 0 ${deg}, transparent ${deg} 360deg)`;
 
-/** Only the disc; everything outside it is cut. */
-export const discL = (r, at = '50% 50%') =>
-  `radial-gradient(circle closest-side at ${at}, #000 ${r}, transparent ${r})`;
-
 /** Everything outside a disc: a hole bored through the middle. */
-export const boreL = (r, at = '50% 50%') =>
+const boreL = (r, at = '50% 50%') =>
   `radial-gradient(circle closest-side at ${at}, transparent ${r}, #000 ${r})`;
 
 /** The band between two radii. */
@@ -131,17 +117,9 @@ export const bandL = (inner, outer, at = '50% 50%') =>
 export const bandAt = (inner, outer, at) =>
   `radial-gradient(circle at ${at}, transparent ${inner}, #000 ${inner} ${outer}, transparent ${outer})`;
 
-/** An ellipse rather than a circle, sized to the box. */
-export const ellipseL = (rx, ry, at = '50% 50%') =>
-  `radial-gradient(ellipse ${rx} ${ry} at ${at}, #000 99%, transparent 100%)`;
-
 /** Parallel slots: `on` inked out of every `period`, at `angle`. */
 export const slotL = (angle, on, period) =>
   `repeating-linear-gradient(${angle}, #000 0 ${on}, transparent ${on} ${period})`;
-
-/** One straight cut: inked up to `at`, clear past it. */
-export const halfL = (angle, at) =>
-  `linear-gradient(${angle}, #000 0 ${at}, transparent ${at} 100%)`;
 
 /** Concentric rings, all the way out. The first stop must sit at 0. */
 export const ringsL = (on, period, at = '50% 50%') =>
@@ -149,73 +127,16 @@ export const ringsL = (on, period, at = '50% 50%') =>
 
 // Declaration-level shorthands for the common single-layer cases.
 export const pie1 = (deg, opts) => msk(pieL(deg, opts));
-export const disc1 = (r, at) => msk(discL(r, at));
-export const bore1 = (r, at) => msk(boreL(r, at));
-export const band1 = (i, o, at) => msk(bandL(i, o, at));
 export const slot1 = (angle, on, period) => msk(slotL(angle, on, period));
-export const rings1 = (on, period, at) => msk(ringsL(on, period, at));
 
 /** A sector with its apex bored out — an annular sector. */
 export const arcSector = (deg, bore, { from = '0deg', at = '50% 50%' } = {}) =>
   mskI(pieL(deg, { from, at }), boreL(bore, at));
 
 // ── clip paths: polygons written as percentages ────────────────────────────
-export const P = (pts) =>
+const P = (pts) =>
   pts.map(([x, y]) => `${(+x).toFixed(1)}% ${(+y).toFixed(1)}%`).join(', ');
 export const poly = (pts) => `polygon(${P(pts)})`;
-
-/**
- * A polygon with a polygon-shaped hole in it, cut by running the outline back
- * on itself. The seam is a zero-width slit, invisible in both renderings.
- */
-export const withHole = (inner) =>
-  `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, ${P(inner)}, ${P([inner[0]])})`;
-
-export const rectHole = (x, y) => [
-  [x, y],
-  [x, 100 - y],
-  [100 - x, 100 - y],
-  [100 - x, y],
-];
-
-export const roundHole = (r, steps = 32) =>
-  Array.from({ length: steps }, (_, i) => {
-    const a = (-2 * Math.PI * i) / steps;
-    return [50 + r * Math.cos(a), 50 + r * Math.sin(a)];
-  });
-
-export const diamondHole = (r) => [
-  [50, 50 - r],
-  [50 + r, 50],
-  [50, 50 + r],
-  [50 - r, 50],
-];
-
-/** A regular n-gon inscribed in radius r, first vertex at `turn` degrees. */
-export const ngon = (n, r, turn = -90, cx = 50, cy = 50) =>
-  Array.from({ length: n }, (_, i) => {
-    const a = ((turn + (360 * i) / n) * Math.PI) / 180;
-    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
-  });
-
-/** An n-pointed star alternating between radii r and inner. */
-export const star = (n, r, inner, turn = -90) =>
-  Array.from({ length: n * 2 }, (_, i) => {
-    const a = ((turn + (180 * i) / n) * Math.PI) / 180;
-    const rr = i % 2 ? inner : r;
-    return [50 + rr * Math.cos(a), 50 + rr * Math.sin(a)];
-  });
-
-// ── sheet-scale ramps, for the designs that grade across the grid ──────────
-export const RX = '@x / @X';
-export const RY = '@y / @Y';
-export const RD = '(@x + @y) / (@X + @Y)';
-export const ramp = (a, b, t) =>
-  `@calc(${a} ${b >= a ? '+' : '-'} ${Math.abs(b - a)} * ${t})%`;
-export const rampDeg = (a, b, t) =>
-  `@calc(${a} ${b >= a ? '+' : '-'} ${Math.abs(b - a)} * ${t})deg`;
-export const rampNum = (a, b, t) =>
-  `@calc(${a} ${b >= a ? '+' : '-'} ${Math.abs(b - a)} * ${t})`;
 
 // ── palettes ───────────────────────────────────────────────────────────────
 // Six slots each (a background plus five inks), in the house style: no ink

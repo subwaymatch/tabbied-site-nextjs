@@ -2,13 +2,12 @@
 'tabbied': minor
 ---
 
-Add 400 artworks (gallery orders 1200+) that export as native SVG with no
+Add 55 artworks (gallery orders 1200+) that export as native SVG with no
 caveat: no `svgExport: false`, no `svgExportNote`, and no converter warning.
-They are organised as sixteen families of twenty-five — splits, stripe fields,
-hard-stop conic sectors, rings, chamfers, border-radius forms, frames, bars,
-wedges, dot fields, overlaps, mask intersections, smooth fades, lattices,
-assembled marks, and designs whose parameter is driven by the cell's place on
-the sheet. Every one is verified against its live render pixel-by-pixel by
+They come from twelve families — splits, stripe fields, hard-stop conic
+sectors, rings, chamfers, border-radius forms, bars, wedges, dot fields,
+overlaps, mask intersections and smooth fades. Every one is verified against
+its live render pixel-by-pixel by
 `scripts/artwork-gen/validate-svg-batch11.mjs`, which fails on a throw, on any
 warning, or on a pixel diff above a budget tighter than the shipped one.
 
@@ -24,5 +23,5 @@ where the border box and the padding box differ:
   percentage stops and tile sizes on a bordered box resolved against the wrong
   size.
 
-Both are no-ops for borderless elements, which is every artwork that predates
-this batch.
+Both are no-ops for borderless elements, which is every artwork in the
+catalogue.
