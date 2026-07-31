@@ -21,7 +21,7 @@
   overflow-x: clip;
 }
 
-.page a {
+.page :where(a) {
   color: inherit;
 }
 

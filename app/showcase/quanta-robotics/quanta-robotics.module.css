@@ -28,7 +28,7 @@
   border-radius: 0;
 }
 
-.page a {
+.page :where(a) {
   color: var(--phosphor);
   text-decoration: none;
 }
