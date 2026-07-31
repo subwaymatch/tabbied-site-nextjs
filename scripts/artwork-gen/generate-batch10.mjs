@@ -49,12 +49,14 @@ for (const def of defs) {
   if (batchSlugs.has(def.slug)) throw new Error(`duplicate slug: ${def.slug}`);
   batchSlugs.add(def.slug);
 }
-// Batch 10 owns gallery orders 1100+, so a file already on disk is either this
-// batch's own output (safe to rewrite) or an earlier batch's artwork (never
-// clobber it). Batch 10 is the last batch, so its range is open-ended; a batch
-// 11 would need to bound this the way the earlier generators bound theirs.
+// Batch 10 owns gallery orders 1100-1199, so a file already on disk is either
+// this batch's own output (safe to rewrite) or another batch's artwork (never
+// clobber it). The range is bounded at both ends so batch 11, which lives
+// above it, survives a batch-10 regeneration — while the range was open-ended
+// this script deleted all of batch 11.
 const FIRST_ORDER = 1100;
-const ownedByBatch10 = (order) => order >= FIRST_ORDER;
+const LAST_ORDER = 1199;
+const ownedByBatch10 = (order) => order >= FIRST_ORDER && order <= LAST_ORDER;
 const existing = new Set(
   readdirSync(ARTWORKS_DIR)
     .filter((f) => f.endsWith('.json'))
@@ -178,6 +180,8 @@ for (const def of defs) {
     palette: def.palette,
     colors: def.colors,
     ...(def.minCellPx ? { sizing: { minCellPx: def.minCellPx } } : {}),
+    ...(def.svgExport === false ? { svgExport: false } : {}),
+    ...(def.svgExportNote ? { svgExportNote: def.svgExportNote } : {}),
     options,
     code: { style, doodle },
   };

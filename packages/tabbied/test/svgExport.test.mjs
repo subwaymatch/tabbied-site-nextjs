@@ -5,6 +5,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { _internals } from '../dist/core/svgExport.js';
 import { supportsSvgExport } from '../dist/core/types.js';
 
@@ -327,4 +331,75 @@ test('pseudoBoxFor leaves a borderless host untouched', () => {
     pseudoBoxFor(CELL, PLAIN_HOST, absolute({ left: '6px', top: '6px', width: '12px', height: '12px' })),
     { x: 6, y: 6, w: 12, h: 12 }
   );
+});
+
+// ── SVG-export tiers ───────────────────────────────────────────────────────
+// The tier metadata drives real behaviour: `svgExport: false` disables the
+// download, `svgExportNote` puts a warning dialog in front of it. It is also
+// easy to lose — the batch generators rewrite every artwork file they own, so
+// a tier that exists only in the generated JSON disappears the next time
+// anyone regenerates that batch. That is not a loud failure: the artwork keeps
+// working, the export just quietly becomes wrong. (It happened to `wedge`.)
+//
+// Pinning the three tiers here makes any such loss fail `npm test` instead.
+// Changing a design's tier is a deliberate act — update this list with it, and
+// update docs/svg-export.md, which these numbers are quoted in.
+const ARTWORKS_DIR = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '..',
+  'artworks'
+);
+const catalogue = fs
+  .readdirSync(ARTWORKS_DIR)
+  .filter((file) => file.endsWith('.json'))
+  .map((file) => JSON.parse(fs.readFileSync(path.join(ARTWORKS_DIR, file), 'utf8')));
+
+const slugsWhere = (predicate) => catalogue.filter(predicate).map((a) => a.slug).sort();
+
+test('tier 1 — the designs SVG cannot represent still opt out', () => {
+  assert.deepEqual(slugsWhere((a) => a.svgExport === false), [
+    'coil',
+    'pinwheel',
+    'spectrum',
+    'wedge',
+  ]);
+});
+
+test('tier 2 — the designs that export with a caveat still carry their note', () => {
+  assert.deepEqual(slugsWhere((a) => Boolean(a.svgExportNote)), [
+    'bokeh',
+    'drypoint',
+    'fractal',
+    'glyph',
+    'lantern',
+    'matryoshka',
+    'misprint',
+    'neon',
+    'subdivide',
+    'terrain',
+    'windowpane',
+  ]);
+});
+
+test('tier 3 — every shadow toggle still warns while it is on', () => {
+  assert.deepEqual(
+    slugsWhere((a) => a.options.some((option) => option.svgExportNote)),
+    ['bloks', 'cupola', 'foliage', 'mixtape', 'odessa', 'quarterfall', 'radius']
+  );
+  // One wording, so the dialog reads the same wherever the toggle appears.
+  const notes = new Set(
+    catalogue.flatMap((a) => a.options.map((o) => o.svgExportNote).filter(Boolean))
+  );
+  assert.equal(notes.size, 1);
+});
+
+test('a tier-1 design never also carries a note', () => {
+  // The editor disables the download outright for these, so a note would
+  // never be shown — carrying one means the tier was set by mistake.
+  for (const artwork of catalogue) {
+    if (artwork.svgExport === false) {
+      assert.equal(supportsSvgExport(artwork), false);
+      assert.equal(artwork.svgExportNote, undefined, artwork.slug);
+    }
+  }
 });

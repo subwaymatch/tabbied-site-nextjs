@@ -2,7 +2,6 @@
   "name": "Coil",
   "slug": "coil",
   "galleryOrder": 318,
-  "svgExport": false,
   "galleryWhite": true,
   "description": "Colour-wheel rings with a hollow hub, the coil re-winding to a new angle on each redraw.",
   "palette": [
@@ -18,6 +17,7 @@
     "max": 6,
     "default": 6
   },
+  "svgExport": false,
   "options": [
     {
       "id": "grid",

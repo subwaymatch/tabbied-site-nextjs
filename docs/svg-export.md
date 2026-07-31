@@ -132,6 +132,21 @@ on `ArtworkOption`), so package consumers can implement the same UX.
 - After any artwork change, run the parity sweep for it (below); keep the
   representative list and threshold table in `e2e/svg-export.spec.ts` in
   sync (thresholds are mirrored in `scripts/svg-parity-sweep.mjs`).
+- **The tier belongs in the batch definition, never only in the generated
+  JSON.** Each `scripts/artwork-gen/artwork-defs-N.mjs` takes `svgExport` /
+  `svgExportNote` in a design's cfg and its generator emits them; the shadow
+  toggle's note is emitted by `generate-batch7.mjs`'s `SHADOW_OPTION`. A tier
+  written straight into `packages/tabbied/artworks/*.json` is silently erased
+  the next time anyone regenerates that batch — the generators rewrite every
+  file they own. This is not hypothetical: `wedge` lost its `svgExport: false`
+  that way, and nothing failed.
+- The three tiers are **pinned by a unit test** (`packages/tabbied/test/`), so
+  losing or changing one fails `npm test --workspace tabbied`. Changing a
+  design's tier means updating that test and the counts above with it.
+- `scripts/artwork-gen/generate-artworks.mjs` (batches 1-3) is historical and
+  refuses to run: its definitions would recreate 105 retired designs and
+  overwrite `tetro`. For those artworks the JSON is authoritative — edit it
+  directly, and the unit test guards the tiers.
 
 ## Verification
 

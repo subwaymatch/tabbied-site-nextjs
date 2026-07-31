@@ -29,3 +29,17 @@ catalogue.
 Retire the `Wireframe` artwork (batch 9). Its slug stays reserved so the name
 is never reused, and the batch-9 designs that followed it shift down one
 gallery position.
+
+Stop the artwork generators from silently dropping SVG-export metadata. The
+tiers introduced with native export were written straight into the generated
+JSON, but every batch generator rewrites the files it owns from its
+definitions — so regenerating a batch erased them, turning a design that
+cannot be exported into one that offers a broken download. The tier now lives
+in each batch's definitions and is emitted by its generator, and the three
+tier lists are pinned by a unit test so any future loss fails the build.
+
+Two related generator hazards fixed at the same time: `generate-batch10.mjs`
+claimed every gallery order above 1100 and so deleted all of batch 11, and
+`generate-batch4.mjs` read the pre-monorepo artworks path and could not run at
+all. `generate-artworks.mjs` (batches 1-3) now refuses to run — its
+definitions predate 105 retirements and an unrelated redesign of `tetro`.

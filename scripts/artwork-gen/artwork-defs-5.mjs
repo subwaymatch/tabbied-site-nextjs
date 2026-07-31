@@ -159,6 +159,12 @@ const add = (name, palIdx, description, build, cfg = {}) => {
     colors: { min: 2, max: c, default: c },
     gridDefault: cfg.grid ?? '8x12',
     freqDefault: cfg.freq ?? 1,
+    // SVG-export tier (docs/svg-export.md). It belongs in the definition, not
+    // hand-added to the generated JSON: the generator rewrites every file it
+    // owns, so metadata that only exists downstream is silently dropped the
+    // next time anyone regenerates the batch.
+    ...(cfg.svgExport === false ? { svgExport: false } : {}),
+    ...(cfg.svgExportNote ? { svgExportNote: cfg.svgExportNote } : {}),
     thumb: { grid: cfg.tg ?? '5x5', frequency: cfg.tf ?? 0.92 },
     vars,
     rule,

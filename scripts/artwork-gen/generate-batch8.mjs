@@ -179,6 +179,8 @@ for (const def of defs) {
     palette: def.palette,
     colors: def.colors,
     ...(def.minCellPx ? { sizing: { minCellPx: def.minCellPx } } : {}),
+    ...(def.svgExport === false ? { svgExport: false } : {}),
+    ...(def.svgExportNote ? { svgExportNote: def.svgExportNote } : {}),
     options,
     code: { style, doodle },
   };

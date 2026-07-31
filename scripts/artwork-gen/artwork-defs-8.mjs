@@ -278,6 +278,15 @@ const all = [];
 //   freq   default frequency                             (default 1)
 //   tg/tf  gallery-thumbnail grid / frequency            (default '5x5' / 1)
 //   min    sizing.minCellPx floor, for px-scaled details
+// Documented sub-pixel deviations from the live render (docs/svg-export.md,
+// tier 2). The export is the *correct* drawing in both cases; it is the
+// browser's rasterization of the mask that differs, so the user is told
+// before the download rather than after.
+const NESTED_SEAM_NOTE =
+  "The nested mask is exported as clean vector shapes \u2014 the faint seams visible on screen come from browser rasterization and won't appear in the SVG, so it can differ from the screen by a hair.";
+const SVG_MASK_NOTE =
+  "The stripe mask can sit up to a pixel away from the on-screen rendering, and its internal coordinates use calc(), which some design tools don't evaluate.";
+
 const add = (name, palIdx, description, build, cfg = {}) => {
   const slug = name.toLowerCase();
   if (!/^[a-z][a-z0-9]*$/.test(slug)) throw new Error(`bad slug: ${slug}`);
@@ -303,6 +312,12 @@ const add = (name, palIdx, description, build, cfg = {}) => {
     gridDefault: cfg.grid ?? '6x9',
     freqDefault: cfg.freq ?? 1,
     ...(cfg.min ? { minCellPx: cfg.min } : {}),
+    // SVG-export tier (docs/svg-export.md). It belongs in the definition, not
+    // hand-added to the generated JSON: the generator rewrites every file it
+    // owns, so metadata that only exists downstream is silently dropped the
+    // next time anyone regenerates the batch.
+    ...(cfg.svgExport === false ? { svgExport: false } : {}),
+    ...(cfg.svgExportNote ? { svgExportNote: cfg.svgExportNote } : {}),
     thumb: { grid: cfg.tg ?? '5x5', frequency: cfg.tf ?? 1 },
     vars,
     rule,
@@ -331,7 +346,7 @@ add('Linocut', 32, 'Linocut gouges: broad chisel strokes with rounded ends.', (c
 add('Drypoint', 34, 'Drypoint: lines that thicken steadily across the plate, the way the needle digs in as it goes.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${svgMask('viewBox: 0 0 100 100; rect*6 { x: calc(@n(-1) * 16.6 + 2); y: -1; width: calc(2 + @n(-1) * 1.8); height: 102; fill: #000 }')} ${rot(R2)} }${TR}`,
-}), { tg: '5x5' });
+}), { tg: '5x5', svgExportNote: SVG_MASK_NOTE });
 
 add('Gravure', 19, 'Photogravure cells: a grid of square wells with the walls left standing between them.', (c) => ({
   vars: '',
@@ -365,17 +380,17 @@ add('Hairpin', 39, 'A hairpin bend — the road doubling back on itself — turn
 add('Matryoshka', 18, 'A doodle inside a doodle: each cell holds a whole second grid, and only some of its cells are open.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${innerMask('4', 'background: @p(#000, #000, #0000);')} }${TR}`,
-}), { tg: '5x5' });
+}), { tg: '5x5', svgExportNote: NESTED_SEAM_NOTE });
 
 add('Fractal', 50, 'Self-similar all the way down: the inner grid uses the same open-or-shut rule as the outer one.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${innerMask('3', 'background: #000; @nth(5) { background: #0000; }')} }${TR}`,
-}), { tg: '5x5' });
+}), { tg: '5x5', svgExportNote: NESTED_SEAM_NOTE });
 
 add('Subdivide', 7, 'Quartered, then quartered again: a mask that keeps three of every four squares.', (c) => ({
   vars: '',
   rule: `${F} { background: ${ink(c)}; ${innerMask('2', 'background: @p(#000, #000, #000, #0000);')} ${rot(R4)} }${TR}`,
-}), { grid: '8x12', tg: '6x6' });
+}), { grid: '8x12', tg: '6x6', svgExportNote: NESTED_SEAM_NOTE });
 
 if (all.length !== 10) {
   throw new Error(`batch 8 must hold exactly 10 designs, found ${all.length}`);
