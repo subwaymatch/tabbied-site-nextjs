@@ -1,0 +1,50 @@
+{
+  "name": "Crossdisc",
+  "slug": "crossdisc",
+  "galleryOrder": 1578,
+  "galleryWhite": true,
+  "description": "Two discs of the same size, overlapping by about a third.",
+  "palette": [
+    "#1A1A2E",
+    "#16213E",
+    "#0F3460",
+    "#E94560",
+    "#F5F5F5",
+    "#53BF9D"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 2%; width: 62%; top: 19%; height: 62%; border-radius: 50%; background: var(--color1); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; right: 2%; width: 62%; top: 19%; height: 62%; border-radius: 50%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); opacity: 0.72; -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

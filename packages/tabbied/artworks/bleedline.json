@@ -1,0 +1,50 @@
+{
+  "name": "Bleedline",
+  "slug": "bleedline",
+  "galleryOrder": 1416,
+  "galleryWhite": true,
+  "description": "A broad stripe of the second ink with no edge to it at all — it just thickens and thins.",
+  "palette": [
+    "#1B2A4A",
+    "#F7C548",
+    "#F25F5C",
+    "#247BA0",
+    "#70C1B3",
+    "#FFFFFF"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: var(--color1); :after { content: ''; position: absolute; inset: 0; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(180deg, transparent 18%, #000 40% 60%, transparent 82%); mask: linear-gradient(180deg, transparent 18%, #000 40% 60%, transparent 82%); -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

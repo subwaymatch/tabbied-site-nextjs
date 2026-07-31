@@ -1,0 +1,49 @@
+{
+  "name": "Softtri",
+  "slug": "softtri",
+  "galleryOrder": 1456,
+  "description": "The same triangle with the ramp running square across it instead of along it.",
+  "palette": [
+    "#F3F9D2",
+    "#274001",
+    "#8AA624",
+    "#547326",
+    "#BDD358",
+    "#C9A227"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(50.0% 6.0%, 96.0% 94.0%, 4.0% 94.0%); clip-path: polygon(50.0% 6.0%, 96.0% 94.0%, 4.0% 94.0%); -webkit-mask: linear-gradient(90deg, #000 0%, transparent 100%); mask: linear-gradient(90deg, #000 0%, transparent 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

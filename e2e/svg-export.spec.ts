@@ -39,9 +39,16 @@ const unsupportedSlugs = allArtworks
 // clip-paths, masks, every gradient kind, hard-stop conic sectors, nested
 // @doodle masks, @svg payloads, borders, filters, blend modes, z-index.
 //
-// The last four come from batch 11: a tiled dot pattern, a smooth gradient
-// used as a mask, two stripe fields composited with mask-composite: intersect,
-// and a many-vertex clip path.
+// Four come from batch 11: a tiled dot pattern, a smooth gradient used as a
+// mask, two stripe fields composited with mask-composite: intersect, and a
+// many-vertex clip path.
+//
+// The last five come from batch 12, which is built on smooth ramps and adds
+// four gradient shapes nothing else in the list exercises: a radial ramp used
+// as a mask (`glowdisc`), a fade posterized into flat alpha levels
+// (`stepramp`), a repeating soft ramp (`softbands`), a frame assembled from
+// four added mask layers (`framecut`), and a dot field intersected with a
+// radial ramp (`mistdot`).
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -72,6 +79,11 @@ const REPRESENTATIVE = [
   'shading',
   'bothways',
   'dieblock',
+  'glowdisc',
+  'stepramp',
+  'softbands',
+  'framecut',
+  'mistdot',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few
