@@ -55,3 +55,7 @@ yarn-error.log*
 
 # generated image-batch working files (manifest, JSONL, batch state)
 /scripts/images/.batch/
+
+# GPT Image 2 output from scripts/generate-images.mjs — candidates only.
+# Only the promoted public/images/sites/*.webp is committed.
+generated-images/

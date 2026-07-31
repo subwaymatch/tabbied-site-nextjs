@@ -1,0 +1,864 @@
+{
+  "meta": {
+    "model": "gpt-image-2",
+    "defaults": { "size": "1536x1024", "quality": "low", "paletteMode": "hex", "cutout": false }
+  },
+
+  "projects": {
+    "mistral-cycles": {
+      "title": "Mistral Cycles — handbuilt bicycle frames",
+      "style": "product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Navy": { "hex": "#0D1B2A", "as": "the workshop's shadowed walls and deep backgrounds" },
+        "Blue": { "hex": "#1B98E0", "as": "frame paint and anodised accents" },
+        "Ice": { "hex": "#E0FBFC", "as": "polished alloy and bright highlights" },
+        "Orange": { "hex": "#FF7B00", "as": "accent panels, cable housing and small details" },
+        "Yellow": { "hex": "#FFD23F", "as": "an occasional flash on tools and tape" },
+        "Grey": { "hex": "#EAEAEA", "as": "brushed steel and the concrete floor" }
+      }
+    },
+    "koyo-tea": {
+      "title": "Koyo — Japanese tea house",
+      "style": "editorial still-life photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F2EFEA", "as": "linen cloth and pale ceramic glazes" },
+        "Pine": { "hex": "#3A5A40", "as": "the deep green of steeped sencha and shadowed foliage" },
+        "Moss": { "hex": "#588157", "as": "matcha powder and glaze accents" },
+        "Sage": { "hex": "#A3B18A", "as": "soft celadon ware and dried grasses" },
+        "Forest": { "hex": "#344E41", "as": "the iron kettle and dark timber" },
+        "Mist": { "hex": "#DAD7CD", "as": "morning mist and stoneware rims" }
+      }
+    },
+    "zenith-observatory": {
+      "title": "Zenith — public observatory and planetarium",
+      "style": "flat vector illustration",
+      "paletteMode": "hex",
+      "palette": {
+        "Night": "#10002B",
+        "Nebula": "#5A189A",
+        "Violet": "#9D4EDD",
+        "Orchid": "#C77DFF",
+        "Lilac": "#E0AAFF",
+        "Pale": "#FFD6FF"
+      }
+    },
+    "wildgrain-bakery": {
+      "title": "Wildgrain — naturally leavened bakery",
+      "style": "editorial food photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Cream": { "hex": "#EAE0CC", "as": "flour-dusted surfaces and linen" },
+        "Ink": { "hex": "#1B1B1E", "as": "cast iron and deep oven shadow" },
+        "Crust": { "hex": "#C6AC8F", "as": "golden baked crust" },
+        "Umber": { "hex": "#5E503F", "as": "dark rye and walnut wood" },
+        "Taupe": { "hex": "#A9927D", "as": "kraft paper and stoneware" },
+        "Ember": { "hex": "#EB5E28", "as": "the oven's glow and a fired-clay accent" }
+      }
+    },
+    "ledgerline": {
+      "title": "Ledgerline — personal finance app",
+      "style": "3D clay render",
+      "paletteMode": "scene",
+      "palette": {
+        "Navy": { "hex": "#0B1F3A", "as": "the deep matte backdrop plane" },
+        "Blue": { "hex": "#3E8BFF", "as": "the primary clay objects" },
+        "Cyan": { "hex": "#3EECFF", "as": "secondary clay accents" },
+        "Frost": { "hex": "#97F4FF", "as": "soft rim light on edges" },
+        "Mint": { "hex": "#9EFFD8", "as": "small success-state details" },
+        "White": { "hex": "#FFFFFF", "as": "matte white clay bases" }
+      }
+    },
+    "maison-ambre": {
+      "title": "Maison Ambre — perfume house",
+      "style": "product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Ink": { "hex": "#141210", "as": "black lacquer and deep shadow" },
+        "Gold": { "hex": "#C9A227", "as": "foil trim, amber liquid and metallic caps" },
+        "Champagne": { "hex": "#E8D9B0", "as": "warm highlights on glass" },
+        "Bronze": { "hex": "#8C6A2F", "as": "aged brass and amber resin" },
+        "Ivory": { "hex": "#FBF6EA", "as": "the soft key light" },
+        "Umber": { "hex": "#5A4632", "as": "smoked oak and dark linen" }
+      }
+    },
+    "cairn-expeditions": {
+      "title": "Cairn — alpine guiding service",
+      "style": "editorial mountain landscape photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Slate": { "hex": "#10222E", "as": "the pre-dawn sky and wet rock" },
+        "Ice": { "hex": "#A8CEDE", "as": "glacier ice and shadowed snow" },
+        "Snow": { "hex": "#F2F7F9", "as": "snowfields and clouds" },
+        "Ember": { "hex": "#E8734A", "as": "shell jackets, tents and rope accents" },
+        "Storm": { "hex": "#4E7A8C", "as": "distant ridgelines" },
+        "Pale": { "hex": "#D8E8EF", "as": "high-altitude haze" }
+      }
+    },
+    "hopscotch-museum": {
+      "title": "Hopscotch — children's discovery museum",
+      "style": "flat vector illustration",
+      "paletteMode": "hex",
+      "palette": {
+        "Cream": "#FFF9EF",
+        "Ink": "#2B2B33",
+        "Coral": "#FF5C4D",
+        "Blue": "#2E86DE",
+        "Teal": "#27C093",
+        "Sun": "#FFC53D"
+      }
+    },
+    "analog-dept": {
+      "title": "Analog Dept. — film photography lab",
+      "style": "grainy 35mm film photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Charcoal": { "hex": "#0F0F10", "as": "matte black camera bodies and shadow" },
+        "Silver": { "hex": "#E8E6E1", "as": "chrome dials and photographic paper" },
+        "Red": { "hex": "#E63946", "as": "the darkroom safelight and small accents" }
+      }
+    },
+    "grotesk-foundry": {
+      "title": "Grotesk — independent type foundry",
+      "style": "black-and-white studio photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F4F1EC", "as": "white walls and newsprint" },
+        "Ink": { "hex": "#111111", "as": "wood type, iron presses and printed ink" },
+        "Red": { "hex": "#D63515", "as": "the single printed accent colour" },
+        "Stone": { "hex": "#B9B3A8", "as": "worn metal and paper dust" },
+        "Ash": { "hex": "#8A857C", "as": "mid shadow tones" },
+        "Char": { "hex": "#2E2B27", "as": "oiled cast iron" }
+      }
+    },
+    "cerulean-swim": {
+      "title": "Cerulean — swimwear label",
+      "style": "editorial fashion photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Foam": { "hex": "#F2FBFC", "as": "pale sky and sea foam" },
+        "Lagoon": { "hex": "#0FA3B1", "as": "pool water and swimsuit fabric" },
+        "Mist": { "hex": "#B5E2E8", "as": "shallow water and tiles" },
+        "Coral": { "hex": "#FF8266", "as": "swimsuit accents and towels" },
+        "Sand": { "hex": "#FFD97D", "as": "sunlit sand" },
+        "Deep": { "hex": "#134D57", "as": "deep water" }
+      }
+    },
+    "oxbow-workshop": {
+      "title": "Oxbow — furniture workshop",
+      "style": "furniture product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": { "hex": "#F5F1E8", "as": "plaster walls and pale upholstery" },
+        "Char": { "hex": "#2E2A25", "as": "blackened steel frames" },
+        "Oak": { "hex": "#A9713C", "as": "oiled white oak" },
+        "Walnut": { "hex": "#6B4F35", "as": "dark walnut" },
+        "Sage": { "hex": "#9AA69B", "as": "muted textile accents" },
+        "Sand": { "hex": "#C7BBA5", "as": "raw canvas and cord" }
+      }
+    },
+    "piquant-provisions": {
+      "title": "Piquant Provisions — small-batch hot sauce",
+      "style": "risograph illustration",
+      "paletteMode": "hex",
+      "palette": {
+        "Night": "#0F1A20",
+        "Mustard": "#F4D35E",
+        "Amber": "#EE964B",
+        "Flame": "#F95738",
+        "Bone": "#EFE6DD",
+        "Sky": "#4C8FBD"
+      }
+    },
+    "quanta-robotics": {
+      "title": "Quanta — robotics laboratory",
+      "style": "isometric illustration",
+      "paletteMode": "hex",
+      "palette": {
+        "Void": "#0B0E14",
+        "Teal": "#25E0C8",
+        "Steel": "#4A5568",
+        "Fog": "#E8ECF1",
+        "Indigo": "#7A88FF",
+        "Panel": "#1A2230"
+      }
+    },
+    "madrigal-strings": {
+      "title": "Madrigal — violin atelier",
+      "style": "editorial still-life photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Aubergine": { "hex": "#2D132C", "as": "the dark ground and deep shadow" },
+        "Burgundy": { "hex": "#801336", "as": "velvet linings and varnish depths" },
+        "Crimson": { "hex": "#C72C41", "as": "warm varnish mid-tones" },
+        "Vermilion": { "hex": "#EE4540", "as": "an accent in silk and ribbon" },
+        "Gold": { "hex": "#F0C419", "as": "brass fittings and rosin glow" },
+        "Parchment": { "hex": "#FFE9C7", "as": "spruce tops and aged paper" }
+      }
+    },
+    "neve-gelato": {
+      "title": "Neve — gelato shop",
+      "style": "product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Cream": { "hex": "#FFF9F5", "as": "pale walls and cups" },
+        "Rose": { "hex": "#FF8FB8", "as": "strawberry and raspberry gelato" },
+        "Petal": { "hex": "#FFC2D4", "as": "soft pink surfaces" },
+        "Apricot": { "hex": "#FF8A5C", "as": "mango and blood-orange scoops" },
+        "Lavender": { "hex": "#D89FFF", "as": "ube and violet flavours" },
+        "Butter": { "hex": "#F5C542", "as": "vanilla custard and waffle cones" }
+      }
+    },
+    "plumbline-studio": {
+      "title": "Plumbline — architecture practice",
+      "style": "editorial architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Chalk": { "hex": "#F6F5F1", "as": "rendered walls and pale concrete" },
+        "Ink": { "hex": "#17171A", "as": "steel frames and shadow gaps" },
+        "Cobalt": { "hex": "#2947F0", "as": "one saturated accent on doors and panels" },
+        "Fog": { "hex": "#B9B9BE", "as": "raw concrete" },
+        "Graphite": { "hex": "#6E6E74", "as": "zinc cladding" },
+        "Putty": { "hex": "#DCDCD8", "as": "limestone and light timber" }
+      }
+    },
+    "foxglove-books": {
+      "title": "Foxglove — bookshop and café",
+      "style": "editorial interior photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Cream": { "hex": "#F7F3E8", "as": "aged paper and lamplight" },
+        "Forest": { "hex": "#1E3A2F", "as": "painted shelves and deep shadow" },
+        "Fern": { "hex": "#3E6B54", "as": "cloth bindings" },
+        "Terracotta": { "hex": "#C25E4C", "as": "book spines and café accents" },
+        "Wheat": { "hex": "#D9CBA8", "as": "oak floors and kraft covers" },
+        "Sage": { "hex": "#8FA98F", "as": "muted spines" }
+      }
+    },
+    "caldera-rail": {
+      "title": "Caldera — scenic railway journeys",
+      "style": "gouache travel illustration",
+      "paletteMode": "hex",
+      "palette": {
+        "Parchment": "#F0EAD6",
+        "Pine": "#264653",
+        "Teal": "#2A9D8F",
+        "Gold": "#E9C46A",
+        "Peach": "#F4A261",
+        "Rust": "#E76F51"
+      }
+    },
+    "stillpoint-yoga": {
+      "title": "Stillpoint — movement and breathwork studio",
+      "style": "soft natural-light lifestyle photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Linen": { "hex": "#F5EFE7", "as": "washed walls and morning light" },
+        "Clay": { "hex": "#C97B5A", "as": "terracotta pots and cork" },
+        "Stone": { "hex": "#8C7A6B", "as": "props and soft shadows" },
+        "Sand": { "hex": "#E5D5C3", "as": "mats and the timber floor" },
+        "Espresso": { "hex": "#4A423A", "as": "dark accents" },
+        "Blush": { "hex": "#D9B99F", "as": "textiles" }
+      }
+    }
+  },
+
+  "sets": {
+    "mistral-gear": {
+      "style": "product photograph",
+      "cutout": true,
+      "backdrop": "The product stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Navy": { "hex": "#0D1B2A", "as": "deep shadow inside the object" },
+        "Blue": { "hex": "#1B98E0", "as": "the frame paint and anodised parts" },
+        "Ice": { "hex": "#E0FBFC", "as": "polished alloy highlights" },
+        "Orange": { "hex": "#FF7B00", "as": "accent panels and small details" }
+      }
+    },
+    "mistral-team": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain neutral light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Navy": { "hex": "#0D1B2A", "as": "workwear and shadow" },
+        "Blue": { "hex": "#1B98E0", "as": "an occasional accent in clothing" },
+        "Ice": { "hex": "#E0FBFC", "as": "bright highlights" },
+        "Grey": { "hex": "#EAEAEA", "as": "warm neutral tones in the clothing" }
+      }
+    },
+    "koyo-ware": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Pine": { "hex": "#3A5A40", "as": "deep glaze tones" },
+        "Moss": { "hex": "#588157", "as": "matcha and glaze accents" },
+        "Sage": { "hex": "#A3B18A", "as": "celadon surfaces" },
+        "Forest": { "hex": "#344E41", "as": "cast iron and dark timber" }
+      }
+    },
+    "zenith-objects": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
+    },
+    "wildgrain-bakes": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The bake stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Crust": { "hex": "#C6AC8F", "as": "the golden baked crust" },
+        "Umber": { "hex": "#5E503F", "as": "dark scoring and rye tones" },
+        "Cream": { "hex": "#EAE0CC", "as": "flour dusting" }
+      }
+    },
+    "wildgrain-team": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Ink": { "hex": "#1B1B1E", "as": "aprons and hair" },
+        "Cream": { "hex": "#EAE0CC", "as": "linen shirts and warm highlights on skin" },
+        "Ember": { "hex": "#EB5E28", "as": "an occasional warm accent in clothing" }
+      }
+    },
+    "ledger-objects": {
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame."
+    },
+    "ambre-flacons": {
+      "cutout": true,
+      "backdrop": "The bottle stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Ink": { "hex": "#141210", "as": "the lacquered cap and deep glass shadow" },
+        "Gold": { "hex": "#C9A227", "as": "the amber liquid and metallic trim" },
+        "Champagne": { "hex": "#E8D9B0", "as": "warm highlights through the glass" },
+        "Bronze": { "hex": "#8C6A2F", "as": "deeper amber tones" }
+      }
+    },
+    "cairn-gear": {
+      "style": "product photograph",
+      "cutout": true,
+      "backdrop": "The gear stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Ember": { "hex": "#E8734A", "as": "the shell fabric and webbing accents" },
+        "Slate": { "hex": "#10222E", "as": "dark technical fabric and rubber" },
+        "Ice": { "hex": "#A8CEDE", "as": "buckles and zip pulls" }
+      }
+    },
+    "cairn-guides": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, weathered, friendly expression. Soft overcast daylight, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain cool light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Ember": { "hex": "#E8734A", "as": "a shell jacket accent" },
+        "Slate": { "hex": "#10222E", "as": "fleece layers and shadow" },
+        "Snow": { "hex": "#F2F7F9", "as": "bright highlights" }
+      }
+    },
+    "hopscotch-props": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
+    },
+    "analog-gear": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Charcoal": { "hex": "#0F0F10", "as": "the matte black body" },
+        "Silver": { "hex": "#E8E6E1", "as": "chrome dials and metal trim" },
+        "Red": { "hex": "#E63946", "as": "one small accent detail" }
+      }
+    },
+    "grotesk-props": {
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame."
+    },
+    "cerulean-flatlay": {
+      "style": "product flat-lay photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The product lies flat, alone, on a plain neutral light-grey seamless backdrop, photographed from directly above, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Lagoon": { "hex": "#0FA3B1", "as": "the main fabric colour" },
+        "Coral": { "hex": "#FF8266", "as": "trim and accent details" },
+        "Deep": { "hex": "#134D57", "as": "dark linings" }
+      }
+    },
+    "oxbow-pieces": {
+      "cutout": true,
+      "backdrop": "The piece stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Oak": { "hex": "#A9713C", "as": "oiled white oak surfaces" },
+        "Walnut": { "hex": "#6B4F35", "as": "dark walnut surfaces" },
+        "Char": { "hex": "#2E2A25", "as": "blackened steel legs and frames" },
+        "Sand": { "hex": "#C7BBA5", "as": "woven cane and canvas" }
+      }
+    },
+    "oxbow-makers": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Char": { "hex": "#2E2A25", "as": "work aprons and hair" },
+        "Bone": { "hex": "#F5F1E8", "as": "shirts and warm highlights on skin" },
+        "Oak": { "hex": "#A9713C", "as": "a warm accent in clothing" }
+      }
+    },
+    "piquant-cutouts": {
+      "cutout": true,
+      "backdrop": "The subject sits alone, centred on a plain flat off-white background with nothing else in frame."
+    },
+    "quanta-units": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The machine sits alone, centred on a plain flat pale background with nothing else in frame."
+    },
+    "madrigal-instruments": {
+      "style": "product photograph",
+      "cutout": true,
+      "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Crimson": { "hex": "#C72C41", "as": "the warm varnish" },
+        "Burgundy": { "hex": "#801336", "as": "varnish depths and fittings" },
+        "Gold": { "hex": "#F0C419", "as": "brass details and highlights" },
+        "Parchment": { "hex": "#FFE9C7", "as": "the pale spruce top" }
+      }
+    },
+    "neve-scoops": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The serving stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Rose": { "hex": "#FF8FB8", "as": "strawberry gelato" },
+        "Apricot": { "hex": "#FF8A5C", "as": "mango and blood-orange scoops" },
+        "Lavender": { "hex": "#D89FFF", "as": "ube gelato" },
+        "Butter": { "hex": "#F5C542", "as": "vanilla custard and the waffle cone" },
+        "Cream": { "hex": "#FFF9F5", "as": "cups and fior di latte" }
+      }
+    },
+    "plumbline-principals": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a composed, quietly confident expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain cool light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Ink": { "hex": "#17171A", "as": "dark tailored clothing and hair" },
+        "Chalk": { "hex": "#F6F5F1", "as": "shirts and bright highlights" },
+        "Cobalt": { "hex": "#2947F0", "as": "one small accent in the clothing" }
+      }
+    },
+    "foxglove-goods": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Forest": { "hex": "#1E3A2F", "as": "deep green cloth and print" },
+        "Terracotta": { "hex": "#C25E4C", "as": "spines and accents" },
+        "Wheat": { "hex": "#D9CBA8", "as": "kraft paper and pale boards" }
+      }
+    },
+    "foxglove-staff": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a warm, bookish, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Forest": { "hex": "#1E3A2F", "as": "knitwear and deep tones" },
+        "Cream": { "hex": "#F7F3E8", "as": "shirts and warm highlights on skin" },
+        "Terracotta": { "hex": "#C25E4C", "as": "an occasional accent in clothing" }
+      }
+    },
+    "caldera-props": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The subject sits alone, centred on a plain flat parchment-coloured background with nothing else in frame."
+    },
+    "stillpoint-props": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The prop stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Clay": { "hex": "#C97B5A", "as": "cork and terracotta tones" },
+        "Sand": { "hex": "#E5D5C3", "as": "the mat and pale fabric" },
+        "Espresso": { "hex": "#4A423A", "as": "dark straps and trim" }
+      }
+    },
+    "stillpoint-teachers": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": true,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, open expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "palette": {
+        "Espresso": { "hex": "#4A423A", "as": "hair and dark clothing" },
+        "Linen": { "hex": "#F5EFE7", "as": "soft tops and warm highlights on skin" },
+        "Clay": { "hex": "#C97B5A", "as": "an occasional warm accent in clothing" }
+      }
+    }
+  },
+
+  "prompts": [
+    { "id": "mistral-hero", "project": "mistral-cycles", "slot": "hero",
+      "subject": "a frame-builder's workshop wall hung with three unpainted steel bicycle frames, a workbench with brazing torches below, moody side light raking across the scene" },
+    { "id": "mistral-workshop", "project": "mistral-cycles", "slot": "story",
+      "subject": "a builder in a leather apron brazing a bicycle frame lug in a jig, sparks of torchlight, seen from a respectful middle distance" },
+    { "id": "mistral-lug", "project": "mistral-cycles", "slot": "detail", "size": "1024x1024",
+      "subject": "an extreme close-up of a polished lugged bicycle frame joint with hand-filed edges, shallow depth of field" },
+    { "id": "mistral-frame", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product",
+      "subject": "a complete lugged steel bicycle frame painted deep blue, three-quarter view" },
+    { "id": "mistral-bike", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product",
+      "subject": "a finished randonneur bicycle in blue with polished alloy fenders and a small front rack, full side profile view" },
+    { "id": "mistral-saddle", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
+      "subject": "a hand-stitched leather bicycle saddle with copper rivets, three-quarter view" },
+    { "id": "mistral-helmet", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
+      "subject": "a matte navy cycling helmet with an orange strap, three-quarter view" },
+    { "id": "mistral-toolroll", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
+      "subject": "an unrolled waxed-canvas bicycle tool roll holding a neat row of chrome wrenches, seen from above" },
+    { "id": "mistral-founder-1", "project": "mistral-cycles", "set": "mistral-team", "slot": "about",
+      "subject": "a woman in her forties with short cropped dark hair, wearing a navy work shirt with rolled sleeves" },
+    { "id": "mistral-founder-2", "project": "mistral-cycles", "set": "mistral-team", "slot": "about",
+      "subject": "a South Asian man in his thirties with a trimmed beard and tied-back hair, wearing a grey canvas apron over a white tee" },
+
+    { "id": "koyo-hero", "project": "koyo-tea", "slot": "hero",
+      "subject": "a low wooden tea table set with an iron kettle, two celadon cups and a folded linen cloth beside a paper window, soft morning light and faint steam" },
+    { "id": "koyo-field", "project": "koyo-tea", "slot": "story", "style": "landscape photograph",
+      "subject": "terraced green tea fields rolling into morning mist, rows curving with the hillside, one distant figure picking leaves" },
+    { "id": "koyo-interior", "project": "koyo-tea", "slot": "space",
+      "subject": "a minimalist tearoom interior with tatami mats, a single hanging scroll alcove and a low bench, diffuse window light" },
+    { "id": "koyo-pour", "project": "koyo-tea", "slot": "ritual", "size": "1024x1024",
+      "subject": "a close-up of pale green sencha being poured from a kyusu teapot into a small cup, gentle steam" },
+    { "id": "koyo-teapot", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
+      "subject": "a dark green ceramic kyusu teapot with a side handle, three-quarter view" },
+    { "id": "koyo-chawan", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
+      "subject": "a rustic celadon matcha bowl with an uneven glazed rim, three-quarter view slightly from above" },
+    { "id": "koyo-whisk", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
+      "subject": "a bamboo matcha whisk standing upright, fine curled tines" },
+    { "id": "koyo-tin", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop", "size": "1024x1536",
+      "subject": "a tall cylindrical sage-green tea caddy with a plain pressed-metal lid" },
+
+    { "id": "zenith-hero", "project": "zenith-observatory", "slot": "hero",
+      "subject": "an observatory dome on a dark hilltop under a swirling star field, a beam of warm light spilling from the open slit, tiny visitors on the path below" },
+    { "id": "zenith-panorama", "project": "zenith-observatory", "slot": "story",
+      "subject": "a wide night-sky panorama with a band of milky way, layered silhouetted hills, and a scatter of constellations joined by thin lines" },
+    { "id": "zenith-telescope", "project": "zenith-observatory", "set": "zenith-objects", "slot": "visit", "size": "1024x1536",
+      "subject": "a brass refractor telescope on a wooden tripod, tilted toward the upper left" },
+    { "id": "zenith-planet", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
+      "subject": "a ringed gas planet with soft banded stripes, tilted at a jaunty angle" },
+    { "id": "zenith-comet", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
+      "subject": "a comet with a bright head and two sweeping tail streams" },
+    { "id": "zenith-moon", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
+      "subject": "a crescent moon with simple crater marks" },
+    { "id": "zenith-dome", "project": "zenith-observatory", "set": "zenith-objects", "slot": "visit",
+      "subject": "a small observatory building with a hemispherical dome and an open viewing slit" },
+
+    { "id": "wildgrain-hero", "project": "wildgrain-bakery", "slot": "hero",
+      "subject": "a crowded wooden counter of rustic sourdough loaves on linen, deep scoring patterns, flour dust hanging in warm morning side light" },
+    { "id": "wildgrain-oven", "project": "wildgrain-bakery", "slot": "story",
+      "subject": "a baker sliding a long peel of shaped loaves into a glowing deck oven, seen from the side in warm light" },
+    { "id": "wildgrain-crumb", "project": "wildgrain-bakery", "slot": "detail", "size": "1024x1024",
+      "subject": "a torn sourdough loaf held in two hands showing an open glossy crumb, close up" },
+    { "id": "wildgrain-cafe", "project": "wildgrain-bakery", "slot": "space",
+      "subject": "a small bakery café interior with a marble counter, bentwood stools and shelves of bread behind glass, gentle daylight" },
+    { "id": "wildgrain-loaf", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
+      "subject": "a round country sourdough boule with a flour-dusted spiral score" },
+    { "id": "wildgrain-baguette", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu", "size": "1536x1024",
+      "subject": "two crisp baguettes crossed over each other, blistered crust" },
+    { "id": "wildgrain-croissant", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
+      "subject": "a deeply laminated croissant, three-quarter view showing the honeycomb edge" },
+    { "id": "wildgrain-rye", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
+      "subject": "a dark seeded rye tin loaf, one slice cut and leaning against it" },
+    { "id": "wildgrain-baker-1", "project": "wildgrain-bakery", "set": "wildgrain-team", "slot": "about",
+      "subject": "a woman in her thirties with tied-back auburn hair and freckles, wearing a flour-dusted black apron over a cream linen shirt" },
+    { "id": "wildgrain-baker-2", "project": "wildgrain-bakery", "set": "wildgrain-team", "slot": "about",
+      "subject": "an East Asian man in his fifties with short grey-flecked hair, wearing a dark apron over a rolled-sleeve chambray shirt" },
+
+    { "id": "ledger-hero", "project": "ledgerline", "slot": "hero", "cutout": false,
+      "subject": "a tidy desk scene built entirely from matte modelling clay: a laptop, a coffee cup, a small plant and scattered coins, viewed from a high three-quarter angle on a deep navy ground" },
+    { "id": "ledger-coins", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
+      "subject": "a leaning stack of oversized matte clay coins in blue and white" },
+    { "id": "ledger-wallet", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
+      "subject": "a plump matte clay wallet with two rounded card tabs peeking out" },
+    { "id": "ledger-chart", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
+      "subject": "a rising bar chart sculpted from matte clay blocks with a small arrow arcing over it" },
+    { "id": "ledger-piggy", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
+      "subject": "a rounded matte clay piggy bank with a single slot coin balanced above it" },
+    { "id": "ledger-shield", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
+      "subject": "a rounded matte clay shield with a small padlock resting in front of it" },
+    { "id": "ledger-phone", "project": "ledgerline", "set": "ledger-objects", "slot": "app", "size": "1024x1536",
+      "subject": "an upright smartphone sculpted from matte clay with a completely blank pale screen" },
+
+    { "id": "ambre-hero", "project": "maison-ambre", "slot": "hero",
+      "subject": "a faceted amber glass perfume bottle standing on dark veined marble, a wisp of smoke curling behind it, one warm shaft of light from the left" },
+    { "id": "ambre-ingredients", "project": "maison-ambre", "slot": "notes",
+      "subject": "a still life of raw perfume ingredients on dark linen: lumps of amber resin, vanilla pods, dried orange slices and jasmine sprigs, low warm light" },
+    { "id": "ambre-atelier", "project": "maison-ambre", "slot": "story",
+      "subject": "a perfumer's organ: tiered rows of small tincture bottles rising around an empty blending desk, warm lamplight" },
+    { "id": "ambre-bottle-1", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1536",
+      "subject": "a tall slender rectangular perfume flacon of amber glass with a black lacquered cap" },
+    { "id": "ambre-bottle-2", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1024",
+      "subject": "a round shouldered perfume flacon of smoked glass with a gold collar and stopper" },
+    { "id": "ambre-bottle-3", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1024",
+      "subject": "a small cylindrical travel atomiser in brushed gold" },
+    { "id": "ambre-nose", "project": "maison-ambre", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": true,
+      "note": "Head-and-shoulders portrait, subject facing the camera with a composed expression, soft key light from camera left, natural skin texture, 85mm lens look.",
+      "backdrop": "Plain warm dark-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "subject": "a French woman in her fifties with silver hair in a low chignon, wearing a black high-collared jacket" },
+
+    { "id": "cairn-hero", "project": "cairn-expeditions", "slot": "hero",
+      "subject": "a rope team of three climbers crossing a glacier at dawn, headlamps still on, pink alpenglow on the peak above them" },
+    { "id": "cairn-valley", "project": "cairn-expeditions", "slot": "trip",
+      "subject": "two orange tents pitched on a rocky moraine shelf above a braided glacial valley, evening light" },
+    { "id": "cairn-summit", "project": "cairn-expeditions", "slot": "trip",
+      "subject": "a narrow snow ridge leading to a summit, one roped climber silhouetted against blowing spindrift" },
+    { "id": "cairn-night", "project": "cairn-expeditions", "slot": "trip",
+      "subject": "a lone glowing tent under a sweep of stars, the dark mass of a mountain behind" },
+    { "id": "cairn-axe", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1536",
+      "subject": "a modern ice axe with an orange shaft, upright, slight three-quarter view" },
+    { "id": "cairn-boots", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1024",
+      "subject": "a pair of grey mountaineering boots with orange laces, one slightly ahead of the other" },
+    { "id": "cairn-pack", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1536",
+      "subject": "a slim orange alpine climbing backpack with an ice axe loop, front three-quarter view" },
+    { "id": "cairn-guide-1", "project": "cairn-expeditions", "set": "cairn-guides", "slot": "about",
+      "subject": "a woman in her forties with sun-lined skin and a short blonde braid, wearing a dark orange shell jacket" },
+    { "id": "cairn-guide-2", "project": "cairn-expeditions", "set": "cairn-guides", "slot": "about",
+      "subject": "an Indigenous Andean man in his fifties with short black hair and deep smile lines, wearing a slate-blue fleece" },
+
+    { "id": "hopscotch-hero", "project": "hopscotch-museum", "slot": "hero",
+      "subject": "a bright museum hall where small children orbit a huge suspended model solar system, one child reaching up from a step ladder" },
+    { "id": "hopscotch-water", "project": "hopscotch-museum", "slot": "exhibit-scene",
+      "subject": "children in rolled sleeves steering little boats through a winding elevated water channel exhibit" },
+    { "id": "hopscotch-rocket", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit", "size": "1024x1536",
+      "subject": "a friendly striped toy rocket with round porthole windows, standing on three fins" },
+    { "id": "hopscotch-dino", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
+      "subject": "a cheerful long-necked dinosaur skeleton on a wheeled museum base" },
+    { "id": "hopscotch-gears", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
+      "subject": "a cluster of three interlocking gears with a small crank handle" },
+    { "id": "hopscotch-magnifier", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
+      "subject": "an oversized magnifying glass with a ladybird sitting on the lens" },
+    { "id": "hopscotch-prism", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
+      "subject": "a triangular prism splitting a single beam into a fanned rainbow of flat colour bands" },
+
+    { "id": "analog-hero", "project": "analog-dept", "slot": "hero",
+      "subject": "a film lab work desk at night: a glowing lightbox scattered with negative strips, a loupe, cotton gloves and a mug, one anglepoise lamp" },
+    { "id": "analog-darkroom", "project": "analog-dept", "slot": "story",
+      "subject": "a darkroom bathed in red safelight, prints hanging from a line on clips, an enlarger silhouetted in the corner" },
+    { "id": "analog-street", "project": "analog-dept", "slot": "gallery",
+      "subject": "a rain-slicked city street at dusk, one figure with an umbrella crossing under a lit shopfront" },
+    { "id": "analog-diner", "project": "analog-dept", "slot": "gallery",
+      "subject": "the chrome counter of an empty late-night diner, coffee cup in the foreground, window light" },
+    { "id": "analog-window", "project": "analog-dept", "slot": "gallery", "size": "1024x1024",
+      "subject": "a cat asleep on a sunlit windowsill beside a curtain, strong shadow stripes" },
+    { "id": "analog-camera", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
+      "subject": "a classic 35mm single-lens-reflex film camera with a chrome top plate and black leatherette, three-quarter view" },
+    { "id": "analog-film", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
+      "subject": "a single 35mm film canister with a short leader of film curling out" },
+    { "id": "analog-loupe", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
+      "subject": "a photographer's focusing loupe standing upright" },
+
+    { "id": "grotesk-hero", "project": "grotesk-foundry", "slot": "hero",
+      "subject": "a letterpress studio seen straight on: wide flat cabinets of type drawers, a proofing press at centre, posters pinned in a strict row above" },
+    { "id": "grotesk-press", "project": "grotesk-foundry", "slot": "story",
+      "subject": "a close view of an iron proofing press cylinder mid-pull, inked forme locked in the bed" },
+    { "id": "grotesk-wall", "project": "grotesk-foundry", "slot": "story",
+      "subject": "a white studio wall pinned with a grid of stark typographic proof sheets, one sheet printed in red" },
+    { "id": "grotesk-case", "project": "grotesk-foundry", "slot": "detail", "size": "1024x1024",
+      "subject": "an open type case drawer of worn wooden letterpress blocks, seen from directly above" },
+    { "id": "grotesk-block", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
+      "subject": "a single large wooden letterpress block, ink-stained face forward" },
+    { "id": "grotesk-specimen", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
+      "subject": "a thick cloth-bound specimen book standing upright, plain cover, red ribbon marker" },
+    { "id": "grotesk-stick", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
+      "subject": "a steel composing stick holding a line of metal type, three-quarter view" },
+
+    { "id": "cerulean-hero", "project": "cerulean-swim", "slot": "hero",
+      "subject": "a swimmer floating on her back in clear turquoise water, photographed from directly above, arms spread, small ripples radiating" },
+    { "id": "cerulean-beach", "project": "cerulean-swim", "slot": "story",
+      "subject": "a row of leaning striped parasols on pale sand, midday light, no people close to camera" },
+    { "id": "cerulean-dive", "project": "cerulean-swim", "slot": "story",
+      "subject": "an underwater view of a swimmer gliding through sun rays, bubbles trailing from her fingertips" },
+    { "id": "cerulean-pool", "project": "cerulean-swim", "slot": "story", "size": "1024x1024",
+      "subject": "the corner of a tiled pool with a chrome ladder and sharp morning shadows" },
+    { "id": "cerulean-suit-1", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop", "size": "1024x1536",
+      "subject": "a teal one-piece swimsuit with coral piping, laid perfectly flat" },
+    { "id": "cerulean-suit-2", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
+      "subject": "a two-piece swimsuit in a small wave-stripe print, top and bottom arranged together" },
+    { "id": "cerulean-goggles", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
+      "subject": "a pair of swimming goggles with mirrored teal lenses, strap coiled neatly" },
+    { "id": "cerulean-towel", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
+      "subject": "a rolled striped beach towel tied with a cord" },
+
+    { "id": "oxbow-hero", "project": "oxbow-workshop", "slot": "hero",
+      "subject": "a sunlit joinery workshop with two long benches, curls of wood shavings, clamped panels and hand planes hung on the back wall" },
+    { "id": "oxbow-hands", "project": "oxbow-workshop", "slot": "story", "size": "1024x1024",
+      "subject": "a close-up of two hands paring a walnut dovetail joint with a chisel, shavings lifting" },
+    { "id": "oxbow-showroom", "project": "oxbow-workshop", "slot": "space",
+      "subject": "a spare gallery-like showroom: one oak table under a skylight, a black steel chair beside it, bare plaster walls" },
+    { "id": "oxbow-chair", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1024",
+      "subject": "a low lounge chair with an oiled oak frame and woven cane back, three-quarter view" },
+    { "id": "oxbow-credenza", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1536x1024",
+      "subject": "a long walnut credenza with fluted doors on slim blackened-steel legs, straight front view" },
+    { "id": "oxbow-stool", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1024",
+      "subject": "a three-legged oak workshop stool with a saddle-carved seat" },
+    { "id": "oxbow-lamp", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1536",
+      "subject": "a slender floor lamp with a blackened-steel stem and a pleated paper shade" },
+    { "id": "oxbow-maker-1", "project": "oxbow-workshop", "set": "oxbow-makers", "slot": "about",
+      "subject": "a Black woman in her thirties with close-cropped hair and small gold earrings, wearing a charcoal work apron over a bone-white tee" },
+    { "id": "oxbow-maker-2", "project": "oxbow-workshop", "set": "oxbow-makers", "slot": "about",
+      "subject": "a broad-shouldered man in his fifties with a grey beard and cropped hair, wearing a rust-brown chore coat" },
+
+    { "id": "piquant-hero", "project": "piquant-provisions", "slot": "hero",
+      "subject": "a crowded market stall stacked with crates of chilli peppers under a striped awning, strings of dried chillies hanging from the frame" },
+    { "id": "piquant-kitchen", "project": "piquant-provisions", "slot": "story",
+      "subject": "a bubbling stock pot of red sauce on a stove, steam swirling up, a wooden spoon resting across the rim" },
+    { "id": "piquant-bottle-1", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1536",
+      "subject": "a tall hot sauce bottle with a blank label and a dripping wax-sealed cap" },
+    { "id": "piquant-bottle-2", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1536",
+      "subject": "a squat round hot sauce jar with a blank label and a knotted twine collar" },
+    { "id": "piquant-chili", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1024",
+      "subject": "a single curling chilli pepper with its stem" },
+    { "id": "piquant-taco", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "recipe", "size": "1024x1024",
+      "subject": "an overstuffed taco dripping one bead of sauce" },
+    { "id": "piquant-crate", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1024",
+      "subject": "a small wooden crate piled with mixed chilli peppers" },
+
+    { "id": "quanta-hero", "project": "quanta-robotics", "slot": "hero",
+      "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles" },
+    { "id": "quanta-line", "project": "quanta-robotics", "slot": "story",
+      "subject": "a compact automated assembly line where a conveyor carries modules between two robot arms and a scanning gantry" },
+    { "id": "quanta-arm", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
+      "subject": "a six-axis robot arm with teal joint rings, poised holding a small cube" },
+    { "id": "quanta-rover", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
+      "subject": "a four-wheeled research rover with a sensor mast and stubby antenna" },
+    { "id": "quanta-drone", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
+      "subject": "a quadcopter drone with guarded rotors, hovering slightly tilted" },
+    { "id": "quanta-server", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform", "size": "1024x1536",
+      "subject": "a tall server rack with rows of blinking teal status lights and neat cable runs" },
+
+    { "id": "madrigal-hero", "project": "madrigal-strings", "slot": "hero",
+      "subject": "a violin resting on a cluttered luthier's workbench among gouges, curled maple shavings and a jar of amber varnish, warm window light from the left" },
+    { "id": "madrigal-workshop", "project": "madrigal-strings", "slot": "story",
+      "subject": "a wall of luthier's tools and hanging unfinished violin bodies in pale raw wood, one finished instrument glowing among them" },
+    { "id": "madrigal-varnish", "project": "madrigal-strings", "slot": "detail", "size": "1024x1024",
+      "subject": "a close-up of a brush laying amber varnish onto a violin's spruce top, the grain flaring through the wet coat" },
+    { "id": "madrigal-concert", "project": "madrigal-strings", "slot": "story",
+      "subject": "a string quartet on a dark stage lit by a single warm spotlight, seen from the back of the hall" },
+    { "id": "madrigal-violin", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1024x1536",
+      "subject": "a finished violin standing upright, deep red-amber varnish, facing forward" },
+    { "id": "madrigal-bow", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1024x1536",
+      "subject": "a violin bow held vertically, pernambuco stick and pale horsehair, silver winding at the frog" },
+    { "id": "madrigal-case", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1536x1024",
+      "subject": "an open oblong violin case lined with burgundy velvet, empty, lid raised" },
+    { "id": "madrigal-luthier", "project": "madrigal-strings", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": true,
+      "note": "Head-and-shoulders portrait, subject facing the camera with a calm, focused expression, soft key light from camera left, natural skin texture, 85mm lens look.",
+      "backdrop": "Plain warm dark-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt" },
+
+    { "id": "neve-hero", "project": "neve-gelato", "slot": "hero",
+      "subject": "a gelato display case seen from the customer side, ribboned mounds of pastel flavours in steel pans, small flag-less flavour markers left blank" },
+    { "id": "neve-shop", "project": "neve-gelato", "slot": "space",
+      "subject": "a small pastel gelato shop interior with round marble tables, pink stools and an arched doorway, soft afternoon light" },
+    { "id": "neve-cone", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu", "size": "1024x1536",
+      "subject": "a waffle cone stacked with two scoops, strawberry over vanilla, one clean drip starting down the cone" },
+    { "id": "neve-cup", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
+      "subject": "a pale paper cup holding a swirled scoop of ube gelato with a tiny wooden spade spoon" },
+    { "id": "neve-sundae", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu", "size": "1024x1536",
+      "subject": "a tall glass sundae layered with mango and raspberry gelato, cream and a fan wafer" },
+    { "id": "neve-sandwich", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
+      "subject": "a gelato sandwich pressed between two soft amaretti-style cookies" },
+    { "id": "neve-pint", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
+      "subject": "a blank-labelled takeaway pint tub with the lid off, gelato swirled proud of the rim" },
+
+    { "id": "plumbline-hero", "project": "plumbline-studio", "slot": "hero",
+      "subject": "a low concrete-and-glass house at dusk, interior light glowing through full-height glazing, a still reflecting pool in front" },
+    { "id": "plumbline-pavilion", "project": "plumbline-studio", "slot": "work",
+      "subject": "a timber pavilion with a deep cantilevered roof in a meadow, seen straight on in even light" },
+    { "id": "plumbline-library", "project": "plumbline-studio", "slot": "work",
+      "subject": "a brick community library with a sawtooth roof and one cobalt-blue entrance door, three-quarter view" },
+    { "id": "plumbline-stair", "project": "plumbline-studio", "slot": "work", "size": "1024x1024",
+      "subject": "a sculptural concrete spiral stair seen from below, daylight falling through a roof light" },
+    { "id": "plumbline-courtyard", "project": "plumbline-studio", "slot": "work", "size": "1024x1024",
+      "subject": "an internal courtyard with a single tree, limestone pavers and deep window reveals" },
+    { "id": "plumbline-model", "project": "plumbline-studio", "slot": "process", "size": "1024x1024", "cutout": true, "style": "product photograph",
+      "backdrop": "The model stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "subject": "a pale architectural massing model of a stepped building, made of layered card and basswood" },
+    { "id": "plumbline-principal-1", "project": "plumbline-studio", "set": "plumbline-principals", "slot": "about",
+      "subject": "a Korean woman in her forties with a sharp black bob, wearing a collarless ink-black jacket" },
+    { "id": "plumbline-principal-2", "project": "plumbline-studio", "set": "plumbline-principals", "slot": "about",
+      "subject": "a tall man in his fifties with cropped grey hair and rectangular glasses, wearing a chalk-white shirt buttoned to the neck" },
+
+    { "id": "foxglove-hero", "project": "foxglove-books", "slot": "hero",
+      "subject": "a narrow bookshop interior at golden hour: floor-to-ceiling deep green shelves, a rolling ladder, brass lamps pooling light on tables of books" },
+    { "id": "foxglove-cafe", "project": "foxglove-books", "slot": "cafe",
+      "subject": "the shop's café corner: a marble bar with a lever espresso machine, two stools, and a slice of cake under a glass dome" },
+    { "id": "foxglove-nook", "project": "foxglove-books", "slot": "space", "size": "1024x1024",
+      "subject": "a window reading nook with a worn leather armchair, a small stack of books on the sill and rain outside" },
+    { "id": "foxglove-table", "project": "foxglove-books", "slot": "space", "size": "1024x1024",
+      "subject": "a front-of-shop display table of new hardbacks with blank covers arranged in overlapping rows, seen from above" },
+    { "id": "foxglove-stack", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
+      "subject": "a leaning stack of five clothbound hardback books with blank spines in green, terracotta and cream" },
+    { "id": "foxglove-tote", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
+      "subject": "a natural canvas tote bag with plain forest-green handles, standing filled and upright" },
+    { "id": "foxglove-cup", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
+      "subject": "a terracotta-glazed café cup and saucer with a small biscotto balanced on the saucer edge" },
+    { "id": "foxglove-keeper-1", "project": "foxglove-books", "set": "foxglove-staff", "slot": "about",
+      "subject": "a woman in her sixties with silver hair in a loose bun and tortoiseshell glasses, wearing a forest-green cardigan" },
+    { "id": "foxglove-keeper-2", "project": "foxglove-books", "set": "foxglove-staff", "slot": "about",
+      "subject": "a young Black man in his twenties with short locs, wearing a cream fisherman's jumper" },
+
+    { "id": "caldera-hero", "project": "caldera-rail", "slot": "hero",
+      "subject": "a teal-and-cream train crossing a tall stone viaduct over a river canyon, steam trailing, late golden light on the cliffs" },
+    { "id": "caldera-coast", "project": "caldera-rail", "slot": "route",
+      "subject": "a train hugging a cliffside track above a cove of turquoise water, gulls wheeling below the rails" },
+    { "id": "caldera-alpine", "project": "caldera-rail", "slot": "route",
+      "subject": "a train winding through a snowy mountain pass between tall pines, warm windows glowing" },
+    { "id": "caldera-vineyard", "project": "caldera-rail", "slot": "route",
+      "subject": "a train running along terraced vineyard hills at harvest, rows striping the slopes down to a lake" },
+    { "id": "caldera-dining", "project": "caldera-rail", "slot": "aboard",
+      "subject": "a vintage dining car interior with white tablecloths, brass lamps and big landscape windows" },
+    { "id": "caldera-locomotive", "project": "caldera-rail", "set": "caldera-props", "slot": "fleet", "size": "1536x1024",
+      "subject": "a streamlined teal locomotive with cream trim, full side profile view" },
+    { "id": "caldera-suitcase", "project": "caldera-rail", "set": "caldera-props", "slot": "aboard",
+      "subject": "a vintage leather suitcase with travel-worn corners and a striped strap" },
+    { "id": "caldera-watch", "project": "caldera-rail", "set": "caldera-props", "slot": "aboard",
+      "subject": "a conductor's brass pocket watch on a short chain, face blank" },
+
+    { "id": "stillpoint-hero", "project": "stillpoint-yoga", "slot": "hero",
+      "subject": "a sunlit movement studio with a row of sand-coloured mats unrolled toward tall windows, hanging plants throwing soft shadows on a washed plaster wall" },
+    { "id": "stillpoint-class", "project": "stillpoint-yoga", "slot": "story",
+      "subject": "a small class holding a low lunge in warm backlight, dust motes in the air, seen from the back of the room" },
+    { "id": "stillpoint-corner", "project": "stillpoint-yoga", "slot": "space", "size": "1024x1024",
+      "subject": "a quiet corner with a floor cushion, a stack of folded blankets and a potted olive tree" },
+    { "id": "stillpoint-tea", "project": "stillpoint-yoga", "slot": "space", "size": "1024x1024",
+      "subject": "a low bench with two clay cups of herbal tea and a sprig of eucalyptus, morning light" },
+    { "id": "stillpoint-mat", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
+      "subject": "a rolled cork yoga mat with a woven carry strap, standing on end" },
+    { "id": "stillpoint-blocks", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
+      "subject": "two cork yoga blocks, one stacked askew on the other" },
+    { "id": "stillpoint-cushion", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
+      "subject": "a round pleated meditation cushion in warm clay-coloured linen" },
+    { "id": "stillpoint-teacher-1", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
+      "subject": "a Latina woman in her thirties with dark hair in a low bun, wearing a soft oatmeal wrap top" },
+    { "id": "stillpoint-teacher-2", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
+      "subject": "a lean man in his forties with a shaved head and warm brown eyes, wearing a clay-coloured tee" }
+  ]
+}
