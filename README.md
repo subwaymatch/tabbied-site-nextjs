@@ -41,6 +41,24 @@ export function Example() {
 
 Presets are imported individually, so your bundle only includes the designs you actually use. See the **[package README](./packages/tabbied/README.md)** for the full API, the framework-agnostic core, and exporting to PNG.
 
+### 🤖 Using Tabbied with an AI coding assistant
+
+The hard part for an assistant isn't the API — it's picking one of the 222
+designs, since the slugs (`cleat`, `gnomonwedge`, `karst`) say nothing about
+what they draw. Point it at
+**[tabbied.com/llms-full.txt](https://tabbied.com/llms-full.txt)**: the API
+contract plus a one-line description of every design, in a single fetch.
+
+| File | For |
+| --- | --- |
+| [`/llms.txt`](https://tabbied.com/llms.txt) | The [llms.txt](https://llmstxt.org/) index — a short pointer to everything below. |
+| [`/llms-full.txt`](https://tabbied.com/llms-full.txt) | The full API contract and a one-line entry for all 222 designs (~31 KB). |
+| [`/catalog.json`](https://tabbied.com/catalog.json) | Structured per-design data: palette, options and accepted values, default fit, SVG-export support. Also shipped in the package as `tabbied/catalog.json`. |
+
+All three are generated at build time from the same `artworks/*.json` the
+package is built from ([`scripts/generate-llms.mjs`](./scripts/generate-llms.mjs)),
+so they can't drift from what's published.
+
 ## 🚀 Developing locally
 
 To develop locally, clone the repository, run `npm install`, and start the dev server with `npm run dev`:

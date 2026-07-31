@@ -69,6 +69,57 @@ test.describe('Tabbied site', () => {
     await expect(firstCard).toHaveText(beforeName ?? '');
   });
 
+  test('the gallery grid reflows when the window narrows', async ({ page }) => {
+    // Regression guard: the grid's tracks were a bare `1fr`
+    // (= minmax(auto, 1fr)), so `min-width: auto` floored each track at the
+    // item's min-content width. Because the cards carry
+    // `content-visibility: auto`, a card that had been scrolled past reported
+    // the size it last rendered at as that floor — narrowing the window could
+    // then no longer shrink the tracks and the grid overflowed its column
+    // until a reload. Tracks are minmax(0, 1fr) now; this asserts the grid
+    // still fits after a resize, without one.
+    await page.setViewportSize({ width: 1640, height: 1000 });
+    await page.goto('/artworks');
+    await page
+      .locator('main css-doodle')
+      .first()
+      .waitFor({ state: 'attached', timeout: 15000 });
+
+    // Scroll far enough that lower cards render and are then skipped again,
+    // which is what seeded the stale minimum.
+    await page.mouse.wheel(0, 1600);
+    await page.waitForTimeout(500);
+    await page.mouse.wheel(0, -1600);
+    await page.waitForTimeout(500);
+
+    // The grid is the div whose direct children are the card links.
+    const grid = page
+      .locator('main div')
+      .filter({ has: page.locator('> a h3') })
+      .first();
+    await expect(grid).toBeVisible();
+
+    for (const width of [1400, 1200, 1000]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.waitForTimeout(200);
+    }
+
+    // No horizontal overflow in the grid, and none on the document either.
+    await expect
+      .poll(
+        () => grid.evaluate((el) => el.scrollWidth - el.clientWidth),
+        { timeout: 5000 }
+      )
+      .toBe(0);
+    expect(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth -
+          document.documentElement.clientWidth
+      )
+    ).toBe(0);
+  });
+
   test('the gallery sidebar stays fixed while the grid scrolls', async ({
     page,
   }) => {

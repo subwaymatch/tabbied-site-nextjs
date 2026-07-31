@@ -1,10 +1,17 @@
-// Generates src/artworks.generated.ts from artworks/*.json.
+// Generates src/artworks.generated.ts and catalog.json from artworks/*.json.
 //
 // Embedding the presets as one named `const` per artwork (instead of reading
 // JSON at runtime) removes any node:fs dependency from library code, gives
 // consumers compile-time `ArtworkSlug` types, and lets bundlers tree-shake the
 // presets a consumer never imports. Run via `npm run codegen` (also part of
 // `npm run build`).
+//
+// catalog.json is the same data reshaped for *readers* rather than bundlers:
+// one entry per design with the metadata needed to pick one and configure it,
+// minus the css-doodle source. It ships in the published tarball and is
+// served by the site, so an AI coding assistant can search the designs by
+// description instead of guessing slugs. See scripts/generate-llms.mjs at the
+// repo root, which builds the site's llms.txt from it.
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 const packageRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const artworksDir = path.join(packageRoot, 'artworks');
 const outFile = path.join(packageRoot, 'src', 'artworks.generated.ts');
+const catalogFile = path.join(packageRoot, 'catalog.json');
 
 // ES reserved words that pass the lowercase-alphanumeric slug check, plus the
 // generated module's own exports.
@@ -91,5 +99,83 @@ console.log(
   `codegen: wrote ${artworks.length} artworks to ${path.relative(
     packageRoot,
     outFile
+  )}`
+);
+
+// ---- catalog.json ----
+
+// The fit an artwork defaults to when none is requested. This mirrors
+// defaultFitMode()/hasGridOption() in src/core/sizing.ts — kept in sync by
+// hand because codegen runs before tsc, so there's no compiled module to
+// import. If the rule there changes, change it here too.
+const defaultFit = (definition) =>
+  definition.sizing?.default ??
+  (definition.options?.some((option) => option.id === 'grid')
+    ? 'grid'
+    : 'cover');
+
+// Options minus `replace`/`code` — those are css-doodle template plumbing, not
+// something a consumer passes. What's left is the id to key `options` by, the
+// control type, and the range of accepted values.
+const catalogOption = (option) => ({
+  id: option.id,
+  label: option.displayName,
+  type: option.type,
+  default: option.default,
+  ...(option.options ? { values: option.options } : {}),
+  ...(option.min != null ? { min: option.min } : {}),
+  ...(option.max != null ? { max: option.max } : {}),
+  ...(option.step != null ? { step: option.step } : {}),
+  // Present only on ToggleSwitch options, and only while the toggle is on.
+  ...(option.svgExportNote ? { svgExportNote: option.svgExportNote } : {}),
+});
+
+const { version } = JSON.parse(
+  await readFile(path.join(packageRoot, 'package.json'), 'utf-8')
+);
+
+const catalog = {
+  package: 'tabbied',
+  version,
+  count: artworks.length,
+  docs: 'https://tabbied.com/llms.txt',
+  // Repeated once here rather than on all 222 entries.
+  usage: {
+    install: 'npm install tabbied',
+    import: "import { <slug> } from 'tabbied/artworks';",
+    react:
+      "import { TabbiedArtwork } from 'tabbied/react';\n<TabbiedArtwork artwork={<slug>} height={320} />",
+    core: "import { createArtwork } from 'tabbied';",
+  },
+  designs: artworks.map((definition) => ({
+    slug: definition.slug,
+    name: definition.name,
+    ...(definition.description ? { description: definition.description } : {}),
+    palette: definition.palette ?? [],
+    ...(definition.colors ? { colors: definition.colors } : {}),
+    options: (definition.options ?? []).map(catalogOption),
+    fit: {
+      default: defaultFit(definition),
+      ...(definition.sizing?.allowed
+        ? { allowed: definition.sizing.allowed }
+        : {}),
+    },
+    ...(definition.defaultAspectRatio
+      ? { defaultAspectRatio: definition.defaultAspectRatio }
+      : {}),
+    svgExport: {
+      // Absent means supported; only the conic-sweep designs opt out.
+      supported: definition.svgExport !== false,
+      ...(definition.svgExportNote ? { note: definition.svgExportNote } : {}),
+    },
+  })),
+};
+
+await writeFile(catalogFile, `${JSON.stringify(catalog, null, 2)}\n`);
+
+console.log(
+  `codegen: wrote catalog for ${artworks.length} designs to ${path.relative(
+    packageRoot,
+    catalogFile
   )}`
 );

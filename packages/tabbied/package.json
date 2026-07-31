@@ -41,12 +41,14 @@
       "import": "./dist/core/svgExport.js",
       "default": "./dist/core/svgExport.js"
     },
+    "./catalog.json": "./catalog.json",
     "./package.json": "./package.json"
   },
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "catalog.json"
   ],
   "sideEffects": [
     "./dist/**/register.js"

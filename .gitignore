@@ -24,9 +24,15 @@ next-env.d.ts
 # production
 /build
 
-# tabbied package build output (dist + codegen artifact)
+# tabbied package build output (dist + codegen artifacts)
 /packages/tabbied/dist/
 /packages/tabbied/src/artworks.generated.ts
+/packages/tabbied/catalog.json
+
+# agent-facing docs generated from the catalog by scripts/generate-llms.mjs
+/public/llms.txt
+/public/llms-full.txt
+/public/catalog.json
 
 # misc
 .DS_Store

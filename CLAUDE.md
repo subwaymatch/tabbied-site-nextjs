@@ -14,7 +14,28 @@ npm run dev                          # site (predev builds the package)
 npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
+npm run llms                         # regenerate public/llms*.txt + catalog
 ```
+
+## Agent-facing docs — all generated, never hand-edited
+
+Four build artifacts describe the catalog to tools that can't see the
+artworks. They're gitignored and regenerated on every build, so edit the
+generators, not the output:
+
+- `packages/tabbied/catalog.json` — written by the package's
+  `scripts/codegen.mjs` from the same `artworks/*.json` it compiles, exported
+  as `tabbied/catalog.json`. Carries each design's description, palette,
+  options, default fit, and SVG-export tier — but **not** the css-doodle
+  `code`, which is what keeps it readable.
+- `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — written
+  by `scripts/generate-llms.mjs` from that catalog.
+
+Codegen re-implements `defaultFitMode()` and `supportsSvgExport()` because it
+runs before tsc and has no compiled module to import. `test/catalog.test.mjs`
+pins both against the real implementations — if you change the rule in
+`src/core/sizing.ts` or `types.ts`, change it in codegen too or that test
+fails.
 
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
