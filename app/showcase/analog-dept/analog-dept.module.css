@@ -1,0 +1,956 @@
+/* ————————————————————————————————————————————————
+   ANALOG DEPT. — film lab zine
+   charcoal / silver / safelight red
+   ———————————————————————————————————————————————— */
+
+.page {
+  --charcoal: #0f0f10;
+  --coal-2: #161618;
+  --coal-3: #1e1e21;
+  --silver: #e8e6e1;
+  --silver-dim: #a7a49e;
+  --red: #e63946;
+  --line: rgba(232, 230, 225, 0.18);
+  --display: 'Anton', 'Arial Narrow Bold', impact, sans-serif;
+  --mono: 'Space Mono', 'Courier New', monospace;
+
+  font-family: var(--mono);
+  background: var(--charcoal);
+  color: var(--silver);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  overflow-x: clip;
+}
+
+.page a {
+  color: inherit;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+.page img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ————— masthead ————— */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 2px solid var(--silver);
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.mastheadStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--silver-dim);
+}
+
+.statusDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.mastheadNav {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.2rem;
+}
+
+.mastheadNav a {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.15rem;
+}
+
+.mastheadNav a:hover {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+/* ————— hero ————— */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  border-bottom: 2px solid var(--silver);
+}
+
+.heroGrain {
+  position: absolute !important;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 30% 40%,
+    rgba(15, 15, 16, 0.2),
+    rgba(15, 15, 16, 0.88) 75%
+  );
+}
+
+.heroInner {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6.5rem) clamp(1rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.heroCopy {
+  min-width: 0;
+}
+
+.heroKicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--red);
+  margin: 0 0 1.2rem;
+}
+
+.heroTitle {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6.4vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0 0 1.4rem;
+  text-wrap: balance;
+}
+
+.heroTitleRed {
+  color: var(--red);
+}
+
+.heroLede {
+  max-width: 33rem;
+  color: var(--silver-dim);
+  margin: 0 0 1.8rem;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 1.6rem;
+}
+
+.btnRed,
+.btnLine {
+  display: inline-block;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.btnRed {
+  background: var(--red);
+  color: var(--charcoal);
+  border: 2px solid var(--red);
+}
+
+.btnRed:hover {
+  background: var(--silver);
+  border-color: var(--silver);
+}
+
+.btnLine {
+  border: 2px solid var(--silver);
+  color: var(--silver);
+}
+
+.btnLine:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.heroFormats {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--silver-dim);
+  margin: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  max-width: 33rem;
+}
+
+.heroFigure {
+  margin: 0;
+}
+
+.heroPhoto {
+  border: 2px solid var(--silver);
+  box-shadow: 14px 14px 0 rgba(230, 57, 70, 0.35);
+}
+
+.heroPhoto img {
+  width: 100%;
+  height: auto;
+}
+
+.heroCaption {
+  margin-top: 0.8rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--silver-dim);
+}
+
+/* ————— cut lines ————— */
+
+.cutLine {
+  position: relative;
+  border-top: 2px dashed var(--silver-dim);
+  margin: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.cutLine::before {
+  content: '✂';
+  position: absolute;
+  left: 1.2rem;
+  top: -0.85rem;
+  font-size: 1.1rem;
+  color: var(--silver-dim);
+  background: var(--charcoal);
+  padding: 0 0.4rem;
+}
+
+/* ————— section chrome ————— */
+
+.section,
+.scansSection,
+.gearSection {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 2rem;
+  margin-bottom: clamp(1.8rem, 4vw, 3rem);
+  border-bottom: 2px solid var(--silver);
+  padding-bottom: 0.9rem;
+}
+
+.h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4.4vw, 3rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.sectionNote {
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  margin: 0 0 0 auto;
+}
+
+/* ————— order form ————— */
+
+.orderLayout {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: clamp(1.4rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.orderForm {
+  background: var(--silver);
+  color: var(--charcoal);
+  border: 2px dashed var(--charcoal);
+  outline: 6px solid var(--silver);
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.5);
+  transform: rotate(-0.4deg);
+}
+
+.orderHead {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  padding: 0.9rem 1.4rem;
+  border-bottom: 2px solid var(--charcoal);
+}
+
+.orderHead span:last-child {
+  color: var(--red);
+}
+
+.orderCols {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.orderGroup {
+  padding: 1.1rem 1.4rem 1.3rem;
+}
+
+.orderGroup + .orderGroup {
+  border-top: 1px solid rgba(15, 15, 16, 0.25);
+}
+
+.orderGroup h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+}
+
+.orderGroup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.orderGroup li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.32rem 0;
+  font-size: 0.85rem;
+}
+
+.box {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid var(--charcoal);
+  transform: translateY(2px);
+}
+
+.orderItem {
+  flex: none;
+  max-width: 70%;
+}
+
+.leader {
+  flex: 1;
+  border-bottom: 2px dotted rgba(15, 15, 16, 0.5);
+  transform: translateY(-3px);
+  min-width: 1.5rem;
+}
+
+.orderPrice {
+  font-weight: 700;
+}
+
+.orderFoot {
+  border-top: 2px solid var(--charcoal);
+  padding: 0.8rem 1.4rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: rgba(15, 15, 16, 0.75);
+}
+
+/* ————— turnaround ————— */
+
+.turnaroundCard {
+  border: 2px solid var(--silver);
+  padding: 1.3rem 1.4rem 1.5rem;
+  background: var(--coal-2);
+}
+
+.turnaroundTitle {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  color: var(--red);
+}
+
+.turnTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.turnTable thead th {
+  text-align: left;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  border-bottom: 1px solid var(--line);
+  padding: 0 0 0.5rem;
+}
+
+.turnTable tbody th {
+  text-align: left;
+  font-weight: 700;
+  padding: 0.7rem 0.8rem 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.turnTable tbody td {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--red);
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.turnNote {
+  display: block;
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: var(--silver-dim);
+  margin-top: 0.15rem;
+}
+
+/* ————— darkroom ————— */
+
+.darkroom {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5.5rem);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(1.8rem, 4.5vw, 4rem);
+  align-items: start;
+}
+
+.darkroomMedia {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.darkroomMedia img {
+  width: 100%;
+  border: 2px solid var(--silver);
+}
+
+.photoTag {
+  margin: 0.7rem 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--silver-dim);
+}
+
+.darkroomCopy p {
+  color: var(--silver-dim);
+  max-width: 36rem;
+}
+
+.darkroomCopy p strong {
+  color: var(--silver);
+}
+
+.safelightPanel {
+  position: relative;
+  isolation: isolate;
+  margin: 1.6rem 0;
+  border: 2px solid var(--red);
+  overflow: hidden;
+}
+
+.safelightGrain {
+  position: absolute !important;
+  inset: 0;
+  z-index: -1;
+}
+
+.safelightPanel p {
+  margin: 0;
+  padding: 1.1rem 1.3rem;
+  font-size: 0.85rem;
+  color: var(--silver);
+  background: linear-gradient(
+    to right,
+    rgba(15, 15, 16, 0.82),
+    rgba(15, 15, 16, 0.55)
+  );
+  max-width: none;
+}
+
+.safelightPanel strong {
+  color: var(--red);
+  letter-spacing: 0.08em;
+}
+
+.darkroomFacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+.darkroomFacts li {
+  padding: 0.55rem 0 0.55rem 1.6rem;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+
+.darkroomFacts li::before {
+  content: '●';
+  position: absolute;
+  left: 0.2rem;
+  color: var(--red);
+  font-size: 0.7rem;
+  top: 0.75rem;
+}
+
+/* ————— film strip ————— */
+
+.filmStrip {
+  background: #060607;
+  border-block: 2px solid var(--silver);
+}
+
+.sprockets {
+  height: 20px;
+  background-image: radial-gradient(
+    6px 4px at 13px 10px,
+    rgba(232, 230, 225, 0.8) 96%,
+    transparent
+  );
+  background-size: 30px 20px;
+  background-repeat: repeat-x;
+}
+
+.filmFrames {
+  position: relative;
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  padding: 2rem clamp(1rem, 4vw, 3rem) 1.4rem;
+  overflow-x: auto;
+  scrollbar-color: var(--red) var(--coal-2);
+}
+
+.filmEdge {
+  position: absolute;
+  top: 0.35rem;
+  left: clamp(1rem, 4vw, 3rem);
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  color: rgba(232, 230, 225, 0.5);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.frame {
+  flex: 0 0 clamp(240px, 38vw, 420px);
+  margin: 0;
+}
+
+.frameImg {
+  border: 1px solid rgba(232, 230, 225, 0.35);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--coal-2);
+}
+
+.frameImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frameCaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+  margin-top: 0.55rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--silver-dim);
+  text-transform: uppercase;
+}
+
+.frameNum {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.frameCredit {
+  margin-left: auto;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+/* ————— gear ————— */
+
+.gearField {
+  position: relative;
+  isolation: isolate;
+  border: 2px solid var(--silver);
+  overflow: hidden;
+}
+
+.gearGrain {
+  position: absolute !important;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.gearRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+
+.gearCard {
+  margin: 0;
+  padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1rem, 2.4vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  background: rgba(15, 15, 16, 0.55);
+}
+
+.gearImg {
+  width: min(64%, 200px);
+  filter: drop-shadow(0 18px 16px rgba(0, 0, 0, 0.65));
+}
+
+.gearCard figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.gearCard strong {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gearSpec {
+  font-size: 0.7rem;
+  color: var(--silver-dim);
+  letter-spacing: 0.06em;
+}
+
+.gearPrice {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--red);
+  letter-spacing: 0.04em;
+}
+
+.gearFine {
+  margin: 1.4rem 0 0;
+  font-size: 0.78rem;
+  color: var(--silver-dim);
+  max-width: 44rem;
+}
+
+/* ————— drop-off ————— */
+
+.dropSection {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: clamp(1.8rem, 4.5vw, 4rem);
+}
+
+.dropIntro p {
+  color: var(--silver-dim);
+  max-width: 28rem;
+}
+
+.address {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+  border-left: 4px solid var(--red);
+  padding-left: 1.1rem;
+  margin: 1.4rem 0;
+}
+
+.addressMeta {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--silver-dim) !important;
+}
+
+.dropSteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropStep {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.4rem;
+  padding: 1.4rem 0;
+  border-top: 2px solid var(--silver);
+}
+
+.dropStep:last-child {
+  border-bottom: 2px solid var(--silver);
+}
+
+.dropNum {
+  font-family: var(--display);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--red);
+  min-width: 3.4rem;
+}
+
+.dropStep h3 {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.dropStep p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--silver-dim);
+}
+
+/* ————— footer ————— */
+
+.footer {
+  border-top: 2px solid var(--silver);
+}
+
+.footerGrain {
+  height: clamp(52px, 7vw, 84px);
+  opacity: 0.5;
+}
+
+.footerInner {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 3rem) 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.footerWordmark {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.4rem;
+}
+
+.footerNav a {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--silver-dim);
+}
+
+.footerNav a:hover {
+  color: var(--red);
+}
+
+.footerFine {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--silver-dim);
+  max-width: 54rem;
+}
+
+.credit {
+  margin: 0;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  color: var(--silver-dim);
+}
+
+.credit a {
+  color: var(--silver);
+  font-weight: 700;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+
+.credit a:hover {
+  color: var(--red);
+}
+
+/* ————— responsive ————— */
+
+@media (min-width: 720px) {
+  .orderCols {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .orderGroup + .orderGroup {
+    border-top: 0;
+  }
+
+  .orderGroup:nth-child(2) {
+    border-left: 1px solid rgba(15, 15, 16, 0.25);
+  }
+
+  .orderGroup:nth-child(3) {
+    border-top: 1px solid rgba(15, 15, 16, 0.25);
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1020px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroFigure {
+    max-width: 34rem;
+  }
+
+  .orderLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .darkroom {
+    grid-template-columns: 1fr;
+  }
+
+  .darkroomMedia {
+    position: static;
+    max-width: 38rem;
+  }
+
+  .gearRow {
+    grid-template-columns: 1fr;
+  }
+
+  .gearCard {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+  }
+
+  .gearCard figcaption {
+    align-items: flex-start;
+  }
+
+  .gearImg {
+    width: min(30%, 140px);
+    flex: none;
+  }
+
+  .dropSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .mastheadStatus {
+    order: 3;
+    width: 100%;
+  }
+
+  .sectionNote {
+    margin-left: 0;
+  }
+
+  .frame {
+    flex-basis: 78vw;
+  }
+
+  .gearCard {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .gearCard figcaption {
+    align-items: center;
+  }
+
+  .gearImg {
+    width: min(56%, 180px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusDot {
+    animation: none;
+  }
+}
