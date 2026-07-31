@@ -23,6 +23,8 @@
 //
 // Env read here: SLUGS (comma-separated slugs; defaults to the whole batch),
 //                CHROMIUM_PATH, SVG_SEEDS (comma-separated, default two),
+//                SVG_GRID (grid override, e.g. 6x9 — the editor default),
+//                SVG_CELL (px box per design, default 300),
 //                SVG_ARTIFACTS (dir for out.svg / mine.png / ref.png).
 import { chromium } from '@playwright/test';
 import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -43,9 +45,13 @@ const TOLERANCE = 12;
 const MAX_BAD_FRACTION = 0.004;
 
 const ALL_CELLS = 9999; // gate wide open: every cell paints
-const CELL = 300;
-const COLS = 4;
-const ROWS = 3;
+// SVG_CELL widens the box each design is drawn in, which is how a design gets
+// checked at something like the editor's own cell size rather than a
+// thumbnail's. Fewer fit on a page, so the sweep drops to one column/row pair
+// once the box is large.
+const CELL = Number(process.env.SVG_CELL) || 300;
+const COLS = CELL > 500 ? 1 : 4;
+const ROWS = CELL > 500 ? 1 : 3;
 const GAP = 16;
 const PAD = 16;
 const PER_PAGE = COLS * ROWS;
@@ -241,7 +247,13 @@ export async function runSvgSweep({ defs, label, artifactsPrefix = 'tabbied-svg'
 
   // Thumbnail grids keep the sweep honest about cell aspect: a square canvas
   // with a square grid means cells are square, the way the design was authored.
-  const gridFor = (slug) => defs.find((d) => d.slug === slug)?.thumb.grid ?? '4x4';
+  //
+  // SVG_GRID overrides that for every design, which is how a batch gets checked
+  // at the *editor* default too — a non-square grid on a square canvas gives
+  // fractional, non-square cells, and a design whose edges land on clean pixel
+  // boundaries at 5x5 can drift at 6x9.
+  const gridFor = (slug) =>
+    process.env.SVG_GRID || defs.find((d) => d.slug === slug)?.thumb.grid || '4x4';
 
   const browser = await chromium.launch(
     process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}

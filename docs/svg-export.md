@@ -175,12 +175,45 @@ directions. Default budget: ≤1% differing pixels; the tiers above carry
 documented per-artwork headroom (see `PER_ARTWORK_MAX` in the spec — CI's
 Chromium measures slightly different AA/shadow falloff than local builds).
 
+### Cell boundaries: integer vs fractional
+
+The batch sweeps draw each design in a square box, so a square grid gives
+cells at an exact integer size (300px / 5x5 = 60.0px). The editor does not: at
+the default 6x9 grid the artwork page renders a 364x546 element, and the cells
+come out **60.66px**. That one difference is worth knowing about, because a
+design whose hard edges land on integer boundaries in the sweep lands
+mid-device-pixel in the editor — and mid-pixel is exactly where CSS snaps an
+edge and SVG anti-aliases it.
+
+`SVG_CELL=301` makes the sweep use a box that does not divide evenly, which
+reproduces the editor's condition. Under it the *whole shipped catalogue*
+moves into a 0.5-1.8% band wherever a design draws many hard edges per cell —
+batch 11's `toning` measures 1.84%, `dimmer` 1.71%, `tinting` 1.36%,
+`housing` 1.31%; batch 12's worst is `seep` at 1.72%. These are the same
+designs that sit at 0.00% on integer boundaries.
+
+So: the 0.4% budget below is calibrated for the integer-cell default, where it
+is a tight and stable signal for real authoring mistakes — abutments, wrong
+geometry, gradient aliasing. It is *not* a claim that any design holds 0.4% at
+every grid the editor offers. When a design is edge-dense enough to matter,
+the e2e's `PER_ARTWORK_MAX` carries the documented headroom (`glyph`,
+`stepramp`, `framecut`).
+
+One thing the fractional pass does catch that the default misses: repeating
+*smooth* ramps alias badly once the period falls to a handful of pixels.
+Batch 12's `softbands` measured 4.8% and `rampband` 6.0% at a 12% period on a
+small cell; widening the period so a cell holds a few repeats rather than a
+dozen took them to 0.15% and 0.14%. Prefer a period a design can afford at
+`10x15`.
+
 ```bash
 npm test --workspace tabbied              # unit tests for the pure parsers
 npm run build && npm run test:e2e         # e2e incl. representative parity set
 SVG_FULL_SWEEP=1 npx playwright test e2e/svg-export.spec.ts   # full catalog
 node scripts/svg-parity-sweep.mjs [slug ...]   # dev-server sweep w/ artifacts
 node scripts/artwork-gen/validate-svg-batch12.mjs   # no dev server needed
+SVG_CELL=301 node scripts/artwork-gen/validate-svg-batch12.mjs  # fractional cells
+SVG_GRID=6x9 node scripts/artwork-gen/validate-svg-batch12.mjs  # editor default
 ```
 
 The last one is the fast path while authoring: it renders artworks directly

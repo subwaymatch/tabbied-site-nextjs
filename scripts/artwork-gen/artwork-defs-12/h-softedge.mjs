@@ -91,7 +91,7 @@ add(
 add(
   'Blurbar',
   'Three soft bars to a cell, evenly spaced and all of them edgeless.',
-  (c) => ({ rule: soft(c, softRampL('180deg', '8%', '33.34%'), R2) }),
+  (c) => ({ rule: soft(c, softRampL('180deg', '14%', '33.34%'), R2) }),
   { pal: 65 }
 );
 

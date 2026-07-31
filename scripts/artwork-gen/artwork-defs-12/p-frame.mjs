@@ -50,7 +50,7 @@ const turned = (c, decl, turns = R4) =>
 add(
   'Framecut',
   'A plain frame with the middle of the cell taken clean out.',
-  (c) => ({ rule: still(c, faded(c, ...frameL(14))) }),
+  (c) => ({ rule: still(c, faded(c, ...frameL(19))) }),
   { pal: 2 }
 );
 

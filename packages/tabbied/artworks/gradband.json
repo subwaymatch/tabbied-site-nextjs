@@ -43,7 +43,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-linear-gradient(90deg, transparent 0, #000 9%, transparent 20%); mask: repeating-linear-gradient(90deg, transparent 0, #000 9%, transparent 20%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-linear-gradient(90deg, transparent 0, #000 15%, transparent 33.34%); mask: repeating-linear-gradient(90deg, transparent 0, #000 15%, transparent 33.34%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

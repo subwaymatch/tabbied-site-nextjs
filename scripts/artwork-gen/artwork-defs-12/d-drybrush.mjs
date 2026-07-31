@@ -103,7 +103,7 @@ add(
   'Brushout',
   'Rules with no hard edge of their own, thinning across the cell.',
   (c) => ({
-    rule: dragged(c, softRampL('0deg', '5%', '18%'), fade('90deg', '0%', '100%')),
+    rule: dragged(c, softRampL('0deg', '9%', '25%'), fade('90deg', '0%', '100%')),
   }),
   { pal: 61 }
 );
@@ -120,7 +120,7 @@ add(
 add(
   'Wearline',
   'Soft rules worn through in the middle of the cell and left standing round the edges.',
-  (c) => ({ rule: dragged(c, softRampL('90deg', '6%', '14%'), vignetteL('30%'), R2) }),
+  (c) => ({ rule: dragged(c, softRampL('90deg', '11%', '25%'), vignetteL('30%'), R2) }),
   { pal: 22 }
 );
 

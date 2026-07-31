@@ -101,6 +101,15 @@ const REPRESENTATIVE = [
 // - terrain/neon/lantern: box-shadow glows approximate as feDropShadow;
 //   the falloff differs slightly per Chromium build (terrain hit 1.37% on
 //   CI vs 0.99% locally).
+// - stepramp/framecut: the same phenomenon as glyph, from edge *density*
+//   rather than contrast. Both draw several full-width hard edges in every
+//   cell (four alpha levels; four frame sides), and the editor's default grid
+//   puts the cell boundaries on fractional pixels — 60.66px at 6x9 — so every
+//   one of those edges lands mid-device-pixel, where CSS snaps and SVG
+//   anti-aliases. Measured 1.21% and 1.10%. This is a property of the
+//   geometry, not of these two designs: swept at a fractional cell size the
+//   shipped batch-11 catalogue lands in the same 0.5-1.8% band (toning 1.84%,
+//   dimmer 1.71%, tinting 1.36%). See docs/svg-export.md.
 const MAX_BAD_FRACTION = 0.01;
 const PER_ARTWORK_MAX: Record<string, number> = {
   fractal: 0.03,
@@ -112,6 +121,8 @@ const PER_ARTWORK_MAX: Record<string, number> = {
   terrain: 0.02,
   neon: 0.015,
   lantern: 0.015,
+  stepramp: 0.02,
+  framecut: 0.02,
 };
 
 const paritySlugs = process.env.SVG_FULL_SWEEP ? supportedSlugs : REPRESENTATIVE;

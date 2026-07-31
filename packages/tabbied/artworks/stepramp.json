@@ -3,7 +3,7 @@
   "slug": "stepramp",
   "galleryOrder": 1467,
   "galleryWhite": true,
-  "description": "A single fall cut into six flat levels, so the fade is counted rather than smooth.",
+  "description": "A single fall cut into five flat levels, so the fade is counted rather than smooth.",
   "palette": [
     "#191D32",
     "#282F44",
@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(180deg, #000000ff 0.0% 16.7%, #000000d5 16.7% 33.3%, #000000aa 33.3% 50.0%, #00000080 50.0% 66.7%, #00000055 66.7% 83.3%, #0000002a 83.3% 100.0%, transparent 100%); mask: linear-gradient(180deg, #000000ff 0.0% 16.7%, #000000d5 16.7% 33.3%, #000000aa 33.3% 50.0%, #00000080 50.0% 66.7%, #00000055 66.7% 83.3%, #0000002a 83.3% 100.0%, transparent 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(180deg, #000000ff 0.0% 20.0%, #000000cc 20.0% 40.0%, #00000099 40.0% 60.0%, #00000066 60.0% 80.0%, #00000033 80.0% 100.0%, transparent 100%); mask: linear-gradient(180deg, #000000ff 0.0% 20.0%, #000000cc 20.0% 40.0%, #00000099 40.0% 60.0%, #00000066 60.0% 80.0%, #00000033 80.0% 100.0%, transparent 100%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

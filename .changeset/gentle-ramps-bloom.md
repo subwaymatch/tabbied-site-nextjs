@@ -45,3 +45,21 @@ catalogue:
   loaded machine it could read one of its two passes mid-transition and report
   whole pages of designs as painting with `color0`. It now waits for the
   reading to stop changing.
+- The SVG sweep drew every design in a 300px box, so a square grid gave cells
+  at an exact integer size — and integer cell boundaries hide the deviation
+  that dense hard edges show at fractional ones, which is what the editor
+  actually renders (60.66px cells at the default 6x9 grid). `SVG_CELL` and
+  `SVG_GRID` now let the sweep reproduce that condition. Under it the whole
+  shipped catalogue moves into a 0.5-1.8% band wherever a design draws many
+  hard edges per cell, batch 11 included; `docs/svg-export.md` records the
+  numbers and what the 0.4% batch budget does and does not claim.
+
+That check found one real defect class in this batch: repeating *smooth* ramps
+alias badly once their period falls to a few pixels. `softbands` measured 4.8%
+and `rampband` 6.0% at a 12% period on a small cell. Widening the periods so a
+cell holds a few repeats rather than a dozen took them to 0.15% and 0.14%, and
+made the designs more legible at small sizes into the bargain.
+
+`stepramp` and `framecut` keep documented per-artwork headroom in the e2e for
+the same reason `glyph` already does — several full-width hard edges per cell,
+landing mid-device-pixel at the editor's default grid.

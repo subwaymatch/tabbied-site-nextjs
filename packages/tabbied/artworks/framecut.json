@@ -44,7 +44,7 @@
     }
   ],
   "code": {
-    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(90deg, #000 0 14%, transparent 14%), linear-gradient(270deg, #000 0 14%, transparent 14%), linear-gradient(180deg, #000 0 14%, transparent 14%), linear-gradient(0deg, #000 0 14%, transparent 14%); mask: linear-gradient(90deg, #000 0 14%, transparent 14%), linear-gradient(270deg, #000 0 14%, transparent 14%), linear-gradient(180deg, #000 0 14%, transparent 14%), linear-gradient(0deg, #000 0 14%, transparent 14%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(90deg, #000 0 19%, transparent 19%), linear-gradient(270deg, #000 0 19%, transparent 19%), linear-gradient(180deg, #000 0 19%, transparent 19%), linear-gradient(0deg, #000 0 19%, transparent 19%); mask: linear-gradient(90deg, #000 0 19%, transparent 19%), linear-gradient(270deg, #000 0 19%, transparent 19%), linear-gradient(180deg, #000 0 19%, transparent 19%), linear-gradient(0deg, #000 0 19%, transparent 19%); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }
