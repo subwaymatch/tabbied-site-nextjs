@@ -8,17 +8,20 @@ import {
 } from 'tabbied/artworks';
 import LazyArtwork from './LazyArtwork';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
-import s from './samples.module.css';
+import { NEW_SHOWCASE_SITES } from 'lib/showcaseSites';
+import s from './showcases.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied, 20 Sample Websites',
+  title: 'Made with Tabbied, 40 Showcase Websites',
   description:
-    'Twenty sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
+    'Forty sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
   neon, pebble, circuit, foliage, bauhaus, quoit, veil, louvre, tetro, halftone,
   lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
+  // The second collection's artworks, keyed by preset slug.
+  ...Object.fromEntries(NEW_SHOWCASE_SITES.map((x) => [x.artworkSlug, x.artwork])),
 };
 
 type CardData = {
@@ -101,7 +104,7 @@ function GroupHead({
   );
 }
 
-export default function SamplesGallery() {
+export default function ShowcasesGallery() {
   const cards: CardData[] = SHOWCASE_SITES.map((x, i) => ({
     href: `/showcase/${x.slug}/`,
     n: i + 1,
@@ -113,16 +116,19 @@ export default function SamplesGallery() {
     seed: `RCT${i}`,
   }));
 
+  const newCards: CardData[] = NEW_SHOWCASE_SITES.map((x, i) => ({
+    href: `/showcase/${x.slug}/`,
+    n: cards.length + i + 1,
+    name: x.name,
+    topic: x.topic,
+    artwork: x.artworkSlug,
+    paletteName: x.paletteName,
+    colors: x.palette,
+    seed: x.seed,
+  }));
+
   return (
     <main className={s.page}>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap"
-        precedence="default"
-      />
-
       <header className={s.hero}>
         <div className={s.heroArt} aria-hidden="true">
           {HERO_TILES.map((t) => (
@@ -141,18 +147,18 @@ export default function SamplesGallery() {
         <div className={s.heroInner}>
           <div className={s.pre}>Made with Tabbied</div>
           <h1>
-            Twenty sites,<br />
+            Forty sites,<br />
             <span>one pattern engine</span>
           </h1>
           <p>
             Every site below uses a <strong>Tabbied</strong> generative artwork as its
-            main design accent, themed end to end with a single palette from the library.
-            Same component, twenty completely different moods.
+            main design accent, themed end to end with a single palette.
+            Same component, forty completely different moods.
           </p>
           <dl className={s.facts}>
-            <div><dt>20</dt><dd>sample sites</dd></div>
-            <div><dt>20</dt><dd>palettes</dd></div>
-            <div><dt>20</dt><dd>artworks</dd></div>
+            <div><dt>40</dt><dd>sample sites</dd></div>
+            <div><dt>40</dt><dd>palettes</dd></div>
+            <div><dt>40</dt><dd>artworks</dd></div>
             <div><dt>1</dt><dd>component</dd></div>
           </dl>
         </div>
@@ -173,6 +179,26 @@ export default function SamplesGallery() {
           />
           <div className={s.mosaic}>
             {cards.map((c) => (
+              <Card key={c.href} c={c} />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <GroupHead
+            kicker="02"
+            title="Twenty new design worlds"
+            body={
+              <>
+                A second collection of fully independent single-page brand sites —
+                new artworks, custom palettes, and AI-generated imagery composited
+                over the patterns.
+              </>
+            }
+            count={newCards.length}
+          />
+          <div className={s.mosaic}>
+            {newCards.map((c) => (
               <Card key={c.href} c={c} />
             ))}
           </div>
