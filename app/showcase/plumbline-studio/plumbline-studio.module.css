@@ -1,0 +1,657 @@
+/* ————————————————————————————————————————————————
+   Plumbline — architecture practice
+   Strict Swiss grid on chalk. Hairlines, numbered
+   sections, cobalt reserved for accents and links.
+   ———————————————————————————————————————————————— */
+
+.page {
+  --chalk: #f6f5f1;
+  --ink: #17171a;
+  --cobalt: #2947f0;
+  --grey: #6e6e74;
+  --hairline: #b9b9be;
+  --panel: #dcdcd8;
+
+  font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--chalk);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow-x: clip;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.page p {
+  margin: 0;
+}
+
+.page a {
+  color: var(--cobalt);
+  text-decoration: none;
+}
+
+.page a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page a:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--grey);
+  margin: 0;
+}
+
+/* ——— Masthead ——— */
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1rem, 4vw, 3rem) 1.2rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.wordmark {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.wordmark span {
+  color: var(--cobalt);
+}
+
+.mastheadNote {
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+.mastheadNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.mastheadNav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ink);
+  padding: 0.2rem 0;
+}
+
+.mastheadNav a:hover {
+  color: var(--cobalt);
+  text-decoration: none;
+}
+
+/* ——— Section chrome ——— */
+
+.section {
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+.sectionMark {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.6rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.sectionNum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--cobalt);
+}
+
+.sectionLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+}
+
+.sectionTitle {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 40rem;
+}
+
+/* ——— 01 Practice / hero ——— */
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+}
+
+.statement {
+  font-size: clamp(2.1rem, 5.4vw, 4.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  max-width: 18em;
+}
+
+.heroArtCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.artInsert {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-height: 22rem;
+  background: var(--chalk);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+}
+
+.practiceText {
+  max-width: 44rem;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.heroFigure {
+  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+}
+
+.heroImgWrap {
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroFigure .mono {
+  margin-top: 0.6rem;
+}
+
+/* ——— 02 Selected work ——— */
+
+.workGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.5rem);
+}
+
+.workItemWide,
+.workItem {
+  margin: 0;
+  min-width: 0;
+}
+
+.workGrid > figure:nth-child(1) {
+  grid-column: 1 / span 8;
+}
+
+.workGrid > figure:nth-child(2) {
+  grid-column: 5 / span 8;
+}
+
+.workGrid > figure:nth-child(3) {
+  grid-column: 1 / span 5;
+}
+
+.workGrid > figure:nth-child(4) {
+  grid-column: 7 / span 6;
+}
+
+.workImgWide {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.workImg {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.workCaption {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  border-bottom: 1px solid var(--hairline);
+  padding: 0.55rem 0.1rem 0.5rem;
+}
+
+.workName {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.workMeta {
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+/* ——— 03 Project index ——— */
+
+.tableWrap {
+  overflow-x: auto;
+  border-top: 1px solid var(--ink);
+}
+
+.indexTable {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.indexTable th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--grey);
+  text-align: left;
+  padding: 0.7rem 1.25rem 0.7rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.indexTable td {
+  padding: 0.62rem 1.25rem 0.62rem 0;
+  border-bottom: 1px solid var(--panel);
+  vertical-align: baseline;
+}
+
+.indexTable td.mono {
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+.indexTable tbody tr {
+  transition: background-color 120ms ease;
+}
+
+.indexTable tbody tr:hover {
+  background: #edece7;
+}
+
+.indexName {
+  font-weight: 600;
+}
+
+.status {
+  color: var(--grey);
+  font-size: 0.85rem;
+}
+
+.statusActive {
+  color: var(--cobalt);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tableFootnote {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+  max-width: 40rem;
+}
+
+/* ——— 04 Approach ——— */
+
+.approachGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.approachItem {
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.8rem;
+}
+
+.approachItem .mono {
+  color: var(--cobalt);
+  margin-bottom: 0.6rem;
+}
+
+.approachItem h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.approachItem p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #3a3a40;
+}
+
+.approachItem h3 + p {
+  color: #3a3a40;
+}
+
+.approachBand {
+  position: relative;
+  height: clamp(6rem, 12vw, 9rem);
+  background: var(--chalk);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+}
+
+/* ——— 05 Studio ——— */
+
+.studioGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.studioText p {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin-bottom: 1.1rem;
+  max-width: 34rem;
+}
+
+.modelFigure {
+  margin: 0;
+}
+
+.modelStage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #dcdcd8;
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.modelImg {
+  position: relative;
+  width: 68%;
+  height: auto;
+  filter: drop-shadow(0 18px 22px rgba(23, 23, 26, 0.28));
+}
+
+.modelFigure .mono {
+  margin-top: 0.6rem;
+}
+
+.principals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.principal {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 1.25rem;
+  align-items: end;
+  border-top: 1px solid var(--hairline);
+  padding-top: 1.25rem;
+}
+
+.principalTile {
+  aspect-ratio: 3 / 4;
+  background: var(--panel);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.principalImg {
+  width: 88%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgba(23, 23, 26, 0.25));
+  transform: translateY(4%);
+}
+
+.principalName {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.principal .mono {
+  display: block;
+  margin: 0.25rem 0 0.7rem;
+}
+
+.principalBio {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #3a3a40;
+}
+
+/* ——— 06 Recognitions ——— */
+
+.recognitionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 56rem;
+}
+
+.recognitionRow {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 0.75rem 0.1rem;
+  border-bottom: 1px solid var(--panel);
+  font-size: 0.96rem;
+}
+
+.recognitionRow .mono {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+/* ——— 07 Contact ——— */
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.contactText {
+  max-width: 34rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.contactLink a {
+  font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid var(--cobalt);
+  padding-bottom: 0.1em;
+}
+
+.contactLink a:hover {
+  text-decoration: none;
+  background: #e7eafd;
+}
+
+.contactMeta {
+  border-left: 1px solid var(--hairline);
+  padding-left: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.address {
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.contactNote {
+  font-size: 0.88rem;
+  color: var(--grey);
+}
+
+/* ——— Footer ——— */
+
+.footer {
+  position: relative;
+  background: var(--ink);
+  color: var(--panel);
+  overflow: hidden;
+}
+
+.footerArt {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  opacity: 0.35;
+}
+
+.footerInner {
+  position: relative;
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+
+.footerWordmark {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f6f5f1;
+  margin-bottom: 1.75rem;
+}
+
+.footerWordmark span {
+  color: #8fa0ff;
+}
+
+.footerCols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.footerCols a {
+  color: #8fa0ff;
+}
+
+.footerCredit {
+  color: #9d9da3;
+}
+
+.footerCredit a {
+  color: #b9c4ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ——— Responsive ——— */
+
+@media (max-width: 1023px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .artInsert {
+    aspect-ratio: 5 / 2;
+    max-height: none;
+  }
+
+  .studioGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .principals {
+    grid-template-columns: 1fr;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactMeta {
+    border-left: none;
+    border-top: 1px solid var(--hairline);
+    padding-left: 0;
+    padding-top: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .masthead {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .workGrid > figure:nth-child(1),
+  .workGrid > figure:nth-child(2),
+  .workGrid > figure:nth-child(3),
+  .workGrid > figure:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+
+  .approachGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .principal {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    align-items: start;
+  }
+
+  .footerCols {
+    grid-template-columns: 1fr;
+  }
+
+  .recognitionRow {
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.9rem;
+  }
+}

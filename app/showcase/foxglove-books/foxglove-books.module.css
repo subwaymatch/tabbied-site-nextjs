@@ -1,0 +1,991 @@
+/* ————————————————————————————————————————————————
+   Foxglove — booksellers & café
+   Cream paper, forest-green ink, terracotta accents,
+   ex-libris rules, drop caps, a CSS shelf of spines.
+   ———————————————————————————————————————————————— */
+
+.page {
+  --paper: #f7f3e8;
+  --paper-deep: #f0ead8;
+  --green: #1e3a2f;
+  --green-mid: #3e6b54;
+  --sage: #8fa98f;
+  --tan: #d9cba8;
+  --terracotta: #c25e4c;
+  --terracotta-ink: #a6402e;
+  --ink: #2e3b33;
+
+  font-family: 'Crimson Pro', 'Iowan Old Style', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 1.125rem;
+  overflow-x: clip;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-weight: 600;
+  color: var(--green);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.page p {
+  margin: 0;
+}
+
+.page a {
+  color: var(--green-mid);
+  text-decoration: underline;
+  text-decoration-color: var(--sage);
+  text-underline-offset: 3px;
+}
+
+.page a:hover {
+  color: var(--terracotta-ink);
+  text-decoration-color: var(--terracotta);
+}
+
+.page a:focus-visible {
+  outline: 2px solid var(--terracotta-ink);
+  outline-offset: 3px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ——— Masthead ——— */
+
+.masthead {
+  text-align: center;
+  padding: 2.25rem 1rem 0;
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.mastheadOver {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--terracotta-ink);
+  margin-bottom: 0.5rem;
+}
+
+.mastheadTitle {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  line-height: 1;
+  color: var(--green);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.mastheadBand {
+  position: relative;
+  height: 2.75rem;
+  background: var(--paper);
+  border-top: 1px solid var(--green);
+  border-bottom: 1px solid var(--green);
+  overflow: hidden;
+}
+
+.mastheadNav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.6rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--green);
+}
+
+.mastheadNav a {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  text-decoration: none;
+  padding: 0.15rem 0.1rem;
+}
+
+.mastheadNav a:hover {
+  color: var(--terracotta-ink);
+}
+
+/* ——— Hero ——— */
+
+.hero {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 4rem) 1rem 0;
+}
+
+.heroFrame {
+  margin: 0;
+  border: 1px solid var(--green);
+  padding: 0.45rem;
+}
+
+.heroImgWrap {
+  border: 3px double var(--green);
+  aspect-ratio: 21 / 10;
+  overflow: hidden;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroCaption {
+  font-style: italic;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.8rem 1rem 0.4rem;
+  color: #5a685f;
+}
+
+.heroLede {
+  max-width: 44rem;
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  text-align: center;
+  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+  line-height: 1.6;
+}
+
+/* ——— Section head ——— */
+
+.sectionHead {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  padding: 0 1rem;
+}
+
+.overline {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--terracotta-ink);
+  margin-bottom: 0.5rem;
+}
+
+.sectionHead h2 {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  margin-bottom: 0.75rem;
+}
+
+.sectionSub {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #4c5a51;
+}
+
+/* ——— This month's table ——— */
+
+.tableSection {
+  padding: clamp(3.5rem, 7vw, 6rem) 0 0;
+}
+
+.tableGrid {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.tableImgWrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--tan);
+  position: sticky;
+  top: 1.5rem;
+}
+
+.bookList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: book;
+}
+
+.bookRow {
+  counter-increment: book;
+  position: relative;
+  padding: 1.1rem 0 1.1rem 2.6rem;
+  border-bottom: 1px solid var(--tan);
+}
+
+.bookRow::before {
+  content: counter(book, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1.35rem;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+}
+
+.bookRow:first-child {
+  padding-top: 0.25rem;
+}
+
+.bookRow:first-child::before {
+  top: 0.5rem;
+}
+
+.bookHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.bookTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.bookPrice {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--terracotta-ink);
+  white-space: nowrap;
+}
+
+.bookAuthor {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5a685f;
+  margin: 0.15rem 0 0.35rem;
+}
+
+.bookBlurb {
+  font-style: italic;
+  font-size: 1.02rem;
+  color: #45534a;
+}
+
+/* ——— The shelf ——— */
+
+.shelf {
+  max-width: 66rem;
+  margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+  padding: 0 1rem;
+}
+
+.spineRow {
+  list-style: none;
+  margin: 0;
+  padding: 0 clamp(0.5rem, 3vw, 2rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: clamp(11rem, 24vw, 15rem);
+}
+
+.spine,
+.spineTilted {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 3rem;
+  border-radius: 3px 3px 0 0;
+  box-shadow: inset -3px 0 4px rgba(30, 58, 47, 0.25);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0.7rem;
+  overflow: hidden;
+}
+
+.spine span,
+.spineTilted span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Karla', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 100%;
+}
+
+.spineTilted {
+  transform: rotate(7deg) translateY(2px);
+  transform-origin: bottom left;
+  margin-left: 0.8rem;
+}
+
+.shelfBoard {
+  height: 0.85rem;
+  background: #6b5a41;
+  border-radius: 2px;
+  box-shadow: 0 6px 10px rgba(46, 59, 51, 0.25);
+}
+
+.shelfNote {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.98rem;
+  color: #5a685f;
+  margin-top: 1rem;
+}
+
+/* ——— Staff picks ——— */
+
+.picks {
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+}
+
+.pickGrid {
+  max-width: 66rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.pickCard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: 1px solid var(--tan);
+  background: #fbf8ef;
+}
+
+.pickTile {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.pickTileArt {
+  position: absolute;
+  inset: 0;
+  background: var(--paper-deep);
+}
+
+.pickPortrait {
+  position: relative;
+  width: 52%;
+  height: auto;
+  filter: drop-shadow(0 14px 18px rgba(30, 58, 47, 0.35));
+  transform: translateY(6%);
+}
+
+.pickQuote {
+  margin: 0;
+  padding: 1.5rem 1.75rem 1.75rem;
+  border-top: 1px solid var(--tan);
+}
+
+.pickQuote p {
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+
+.pickQuote footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.pickName {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.pickRole {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  color: #5a685f;
+}
+
+/* ——— Café ——— */
+
+.cafe {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  background: var(--paper-deep);
+  border-top: 1px solid var(--green);
+  border-bottom: 1px solid var(--green);
+  padding: clamp(3rem, 6vw, 5rem) 1rem;
+}
+
+.cafeGrid {
+  max-width: 66rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.cafeIntro h2 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin-bottom: 1rem;
+}
+
+.cafeText {
+  max-width: 30rem;
+  margin-bottom: 1.75rem;
+}
+
+.cafeImgWrap {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--tan);
+}
+
+.menuCard {
+  position: relative;
+  background: #fbf8ef;
+  border: 1px solid var(--green);
+  outline: 1px solid var(--green);
+  outline-offset: 4px;
+  padding: 2rem 1.75rem 1.5rem;
+  margin: 4px;
+}
+
+.menuHeading {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--terracotta-ink);
+  margin-bottom: 1.25rem;
+}
+
+.menuGroup {
+  margin-bottom: 1.4rem;
+}
+
+.menuGroup h3 {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+
+.menuGroup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menuGroup li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.28rem 0;
+  font-size: 1.02rem;
+}
+
+.menuName {
+  flex-shrink: 1;
+}
+
+.menuDots {
+  flex: 1 1 0;
+  min-width: 1rem;
+  border-bottom: 2px dotted var(--tan);
+  transform: translateY(-0.25em);
+}
+
+.menuPrice {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.menuCup {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.menuCupImg {
+  width: 8.5rem;
+  height: auto;
+  filter: drop-shadow(0 12px 14px rgba(30, 58, 47, 0.3));
+}
+
+.menuFootnote {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #5a685f;
+}
+
+/* ——— Events ——— */
+
+.events {
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+}
+
+.eventList {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 52rem;
+}
+
+.eventRow {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--tan);
+}
+
+.eventRow:first-child {
+  border-top: 1px solid var(--tan);
+}
+
+.eventDate {
+  background: var(--green);
+  color: var(--paper);
+  text-align: center;
+  padding: 0.5rem 0.25rem 0.55rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.eventDay {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.eventMonth {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.eventBody h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.eventBody p {
+  font-size: 1rem;
+  color: #4c5a51;
+}
+
+/* ——— Story ——— */
+
+.storySection {
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+}
+
+.storyGrid {
+  max-width: 68rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.storyText {
+  columns: 2;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--tan);
+}
+
+.storyText p {
+  margin-bottom: 1.1rem;
+  break-inside: avoid-column;
+}
+
+.dropcap::first-letter {
+  font-size: 4.4em;
+  font-weight: 600;
+  float: left;
+  line-height: 0.78;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--terracotta);
+}
+
+.storyFigure {
+  margin: 0;
+}
+
+.storyImgWrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--green);
+  padding: 0.35rem;
+}
+
+.storyImgWrap .photo {
+  border: 3px double var(--green);
+}
+
+.storyFigure figcaption {
+  font-style: italic;
+  font-size: 0.98rem;
+  color: #5a685f;
+  margin-top: 0.7rem;
+}
+
+/* ——— Goods ——— */
+
+.goods {
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+}
+
+.goodsBand {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--paper-deep);
+  border: 1px solid var(--tan);
+  overflow: hidden;
+}
+
+.goodsBandArt {
+  position: absolute;
+  inset: 0;
+  background: #f0ead8;
+  opacity: 0.55;
+}
+
+.goodsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.goodsCard {
+  background: #fbf8ef;
+  border: 1px solid var(--green);
+  padding: 1.5rem 1.5rem 1.6rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goodsImgWrap,
+.goodsCardPlain {
+  min-height: 11rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.goodsImg {
+  max-width: 10rem;
+  max-height: 10.5rem;
+  width: auto;
+  height: auto;
+  filter: drop-shadow(0 14px 16px rgba(30, 58, 47, 0.3));
+}
+
+.goodsCardPlain {
+  border: 3px double var(--terracotta);
+}
+
+.giftMark {
+  font-style: italic;
+  font-size: 1.9rem;
+  color: var(--terracotta);
+}
+
+.goodsCard h3 {
+  font-size: 1.3rem;
+}
+
+.goodsCard p {
+  font-size: 0.98rem;
+  color: #45534a;
+}
+
+.goodsPrice {
+  margin-top: auto;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--terracotta-ink);
+}
+
+/* ——— Visit ——— */
+
+.visit {
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+}
+
+.visitFrame {
+  max-width: 56rem;
+  margin: 0 auto;
+  border: 1px solid var(--green);
+  outline: 1px solid var(--green);
+  outline-offset: 5px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 5px;
+}
+
+.visitFrame h2 {
+  text-align: center;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin-bottom: 2rem;
+}
+
+.visitCols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.visitCols h3 {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terracotta-ink);
+  margin-bottom: 0.9rem;
+}
+
+.hoursTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.hoursTable th,
+.hoursTable td {
+  text-align: left;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--tan);
+  font-size: 1.02rem;
+}
+
+.hoursTable th {
+  font-weight: 600;
+  color: var(--green);
+  padding-right: 1rem;
+}
+
+.address {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--green);
+  line-height: 1.6;
+  margin-bottom: 0.9rem;
+}
+
+.visitNote {
+  font-size: 0.98rem;
+  color: #45534a;
+  margin-bottom: 0.8rem;
+}
+
+/* ——— Footer ——— */
+
+.footer {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  background: var(--green);
+  color: var(--paper);
+}
+
+.footerBand {
+  position: relative;
+  height: 3.25rem;
+  background: var(--green);
+  border-bottom: 1px solid rgba(247, 243, 232, 0.3);
+  overflow: hidden;
+}
+
+.footerInner {
+  max-width: 66rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: clamp(2.5rem, 5vw, 4rem) 1rem 2.5rem;
+}
+
+.footerMark {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+
+.footerLine {
+  font-size: 1rem;
+  color: #cfdccf;
+  margin-bottom: 1.5rem;
+}
+
+.footerNav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.6rem;
+  margin-bottom: 1.75rem;
+}
+
+.footerNav a {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.footerNav a:hover {
+  color: var(--tan);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footerNav a:focus-visible,
+.colophon a:focus-visible {
+  outline: 2px solid var(--tan);
+  outline-offset: 3px;
+}
+
+.colophon {
+  font-style: italic;
+  font-size: 0.92rem;
+  color: #b7c8b7;
+}
+
+.colophon a {
+  color: #d9e4d9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.colophon a:hover {
+  color: var(--tan);
+}
+
+/* ——— Responsive ——— */
+
+@media (max-width: 1023px) {
+  .tableGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tableImgWrap {
+    position: static;
+    aspect-ratio: 3 / 2;
+  }
+
+  .pickGrid {
+    grid-template-columns: 1fr;
+    max-width: 34rem;
+  }
+
+  .cafeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .menuCard {
+    max-width: 34rem;
+    margin: 4px auto;
+  }
+
+  .storyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .storyFigure {
+    max-width: 26rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    font-size: 1.06rem;
+  }
+
+  .storyText {
+    columns: 1;
+  }
+
+  .goodsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .visitCols {
+    grid-template-columns: 1fr;
+  }
+
+  .eventRow {
+    grid-template-columns: 3.6rem 1fr;
+    gap: 1rem;
+  }
+
+  .spineRow {
+    gap: 3px;
+    padding: 0;
+  }
+
+  .spine span,
+  .spineTilted span {
+    font-size: 0.58rem;
+  }
+
+  .heroImgWrap {
+    aspect-ratio: 4 / 3;
+  }
+
+  .mastheadNav {
+    gap: 0.2rem 1rem;
+  }
+}

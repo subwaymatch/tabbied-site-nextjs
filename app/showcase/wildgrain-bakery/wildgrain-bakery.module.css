@@ -1,0 +1,1160 @@
+/* ————————————————————————————————————————————————————————————————
+   Wildgrain — warm editorial: cream ground, near-black ink,
+   oversized Fraunces, burnt-orange accents, marquee ticker.
+   ———————————————————————————————————————————————————————————————— */
+
+.page {
+  --cream: #eae0cc;
+  --ink: #1b1b1e;
+  --tan: #c6ac8f;
+  --umber: #5e503f;
+  --clay: #a9927d;
+  --ember: #eb5e28;
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: clip;
+}
+
+.page a {
+  color: inherit;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--ember);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-family: var(--serif);
+  font-weight: 560;
+  line-height: 1.06;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.page p {
+  margin: 0;
+}
+
+/* ——————————————————————————————————————————————— top bar */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3.5rem);
+  border-bottom: 1.5px solid var(--ink);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--cream);
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 640;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.wordmarkDot {
+  color: var(--ember);
+  font-weight: 400;
+}
+
+.nav {
+  display: flex;
+  gap: 1.6rem;
+  margin-inline: auto;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  padding: 0.2rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--ember);
+}
+
+.topbarCta {
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color 160ms ease;
+}
+
+.topbarCta:hover {
+  background: var(--ember);
+}
+
+/* ——————————————————————————————————————————————— hero */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding: clamp(3rem, 7vw, 6.5rem) clamp(1.25rem, 4vw, 3.5rem) clamp(3.5rem, 7vw, 6rem);
+  max-width: 84rem;
+  margin-inline: auto;
+}
+
+.heroKicker {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--umber);
+  margin-bottom: 1.4rem;
+}
+
+.heroHeading {
+  font-size: clamp(2.9rem, 7.2vw, 6rem);
+  font-variation-settings: 'opsz' 144;
+}
+
+.heroHeading em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ember);
+}
+
+.heroLede {
+  max-width: 34rem;
+  margin-top: 1.6rem;
+  font-size: 1.12rem;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary,
+.btnGhost {
+  font-weight: 800;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  padding: 0.9rem 1.7rem;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.btnPrimary {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.btnPrimary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.btnGhost:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+/* hero collage: pattern panel + scene photo + loaf cut-out overlap */
+
+.heroCollage {
+  position: relative;
+  min-height: 24rem;
+}
+
+.heroScene {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  margin-left: auto;
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: -14px 14px 0 0 var(--tan);
+}
+
+.heroScene img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heroPattern {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  bottom: -8%;
+  width: 46%;
+  aspect-ratio: 3 / 4;
+  background: var(--tan);
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.heroLoaf {
+  position: absolute;
+  z-index: 2;
+  left: 4%;
+  bottom: -14%;
+  width: 46%;
+}
+
+.heroLoaf img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 18px 22px rgba(27, 27, 30, 0.35));
+}
+
+.heroStamp {
+  position: absolute;
+  z-index: 3;
+  top: -1.6rem;
+  right: -0.4rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 0.9rem;
+  border-radius: 50%;
+  width: 6.4rem;
+  height: 6.4rem;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  rotate: 8deg;
+  line-height: 1.3;
+}
+
+.heroStamp span {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  color: var(--ember);
+}
+
+/* ——————————————————————————————————————————————— ticker */
+
+.ticker {
+  border-block: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--cream);
+  overflow: hidden;
+  padding: 0.85rem 0;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: wgTicker 36s linear infinite;
+}
+
+.tickerGroup {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-right: 1.4rem;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.tickerStar {
+  color: var(--ember);
+  font-size: 1rem;
+}
+
+@keyframes wgTicker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerTrack {
+    animation: none;
+  }
+}
+
+/* ——————————————————————————————————————————————— manifesto */
+
+.manifesto {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.sectionKicker {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ember);
+  margin-bottom: 1rem;
+}
+
+.sectionKickerLight {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--tan);
+  margin-bottom: 1rem;
+}
+
+.manifestoHeading {
+  font-size: clamp(2.1rem, 4.6vw, 3.8rem);
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.4rem clamp(1.5rem, 3vw, 3rem);
+  border-top: 1.5px solid var(--ink);
+  padding-top: 2.4rem;
+}
+
+.principle h3 {
+  font-size: 1.35rem;
+  margin: 0.5rem 0 0.7rem;
+}
+
+.principle p {
+  font-size: 0.98rem;
+  color: #3c3a36;
+}
+
+.principleNumber {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2.2rem;
+  color: var(--ember);
+  line-height: 1;
+}
+
+.pullQuote {
+  margin: clamp(3rem, 6vw, 5rem) auto 0;
+  max-width: 46rem;
+  text-align: center;
+  border: none;
+}
+
+.pullQuote p {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-weight: 480;
+  line-height: 1.25;
+}
+
+.pullQuote em {
+  color: var(--ember);
+}
+
+.pullQuote cite {
+  display: block;
+  margin-top: 1.2rem;
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--umber);
+}
+
+/* ——————————————————————————————————————————————— today's bakes */
+
+.bakes {
+  position: relative;
+  background: var(--ink);
+  color: var(--cream);
+  overflow: hidden;
+}
+
+.bakesBackdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+}
+
+.bakesInner {
+  position: relative;
+  z-index: 1;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.bakesHeader {
+  max-width: 40rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.bakesHeader h2 {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  color: var(--cream);
+}
+
+.bakesNote {
+  margin-top: 1.1rem;
+  color: var(--clay);
+  font-size: 1.02rem;
+}
+
+.bakeGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.bakeCard {
+  background: rgba(234, 224, 204, 0.06);
+  border: 1.5px solid rgba(234, 224, 204, 0.28);
+  border-radius: 1rem;
+  padding: 1.4rem 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease;
+}
+
+.bakeCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--ember);
+}
+
+.bakeImage {
+  padding: 0.8rem 0.6rem 1.2rem;
+}
+
+.bakeImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.5));
+}
+
+.bakeMeta {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.bakeTag {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink);
+  background: var(--tan);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.bakeMeta h3 {
+  font-size: 1.45rem;
+  color: var(--cream);
+}
+
+.bakeMeta p {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  color: var(--clay);
+  flex-grow: 1;
+}
+
+.bakePrice {
+  margin-top: 1.1rem;
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 560;
+  color: var(--ember);
+}
+
+/* ——————————————————————————————————————————————— oven story */
+
+.oven {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.ovenMedia {
+  position: relative;
+}
+
+.ovenMedia img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  box-shadow: 14px 14px 0 0 var(--ember);
+}
+
+.ovenCaption {
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--umber);
+}
+
+.ovenText h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  margin-bottom: 1.4rem;
+}
+
+.ovenText p + p {
+  margin-top: 1.1rem;
+}
+
+.ovenStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+  margin: 2.2rem 0 0;
+  border-top: 1.5px solid var(--ink);
+  padding-top: 1.8rem;
+}
+
+.ovenStats dt {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--umber);
+}
+
+.ovenStats dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 560;
+  color: var(--ember);
+}
+
+/* ——————————————————————————————————————————————— divider band */
+
+.dividerBand {
+  position: relative;
+  height: clamp(4.5rem, 9vw, 7.5rem);
+  background: var(--ember);
+  border-block: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+/* ——————————————————————————————————————————————— crumb gallery */
+
+.crumb {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.crumb h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.crumbCollage {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.crumbCollage figure {
+  margin: 0;
+}
+
+.crumbCollage figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--umber);
+}
+
+.crumbShotBig {
+  grid-column: 1 / 6;
+}
+
+.crumbShotBig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  rotate: -1.2deg;
+}
+
+.crumbShotWide {
+  grid-column: 6 / 13;
+  margin-top: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.crumbShotWide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  rotate: 0.8deg;
+}
+
+.crumbQuote {
+  grid-column: 2 / 8;
+  margin: clamp(1rem, 3vw, 2rem) 0 0;
+  background: var(--tan);
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  padding: 2rem 2.2rem;
+  rotate: -0.6deg;
+  box-shadow: 8px 8px 0 0 var(--ink);
+}
+
+.crumbQuote p {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.crumbQuote cite {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--umber);
+}
+
+/* ——————————————————————————————————————————————— bakers */
+
+.bakers {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: 0 clamp(1.25rem, 4vw, 3.5rem) clamp(3.5rem, 8vw, 7rem);
+}
+
+.bakers h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.bakerGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.bakerTile {
+  position: relative;
+  border: 2px solid var(--ink);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--clay);
+  aspect-ratio: 5 / 6;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bakerTilePattern {
+  position: absolute;
+  inset: 0;
+}
+
+.bakerTile img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 72%;
+  height: auto;
+  filter: drop-shadow(0 12px 18px rgba(27, 27, 30, 0.4));
+}
+
+.bakerCard h3 {
+  margin-top: 1.4rem;
+  font-size: 1.7rem;
+}
+
+.bakerRole {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--ember);
+}
+
+.bakerBio {
+  margin-top: 0.9rem;
+  color: #3c3a36;
+  max-width: 34rem;
+}
+
+/* ——————————————————————————————————————————————— bread club */
+
+.club {
+  background: #e2d5ba;
+  border-block: 2px solid var(--ink);
+}
+
+.clubHeader {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3.5rem) 0;
+}
+
+.clubHeader h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+}
+
+.clubLede {
+  margin-top: 1.2rem;
+  color: #4a463f;
+}
+
+.tierRow {
+  max-width: 74rem;
+  margin-inline: auto;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3.5rem) clamp(3.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  align-items: stretch;
+}
+
+.tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  padding: 2rem 1.8rem;
+}
+
+.tierFeatured {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: 10px 10px 0 0 var(--ember);
+}
+
+.tierBadge {
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  translate: -50% 0;
+  background: var(--ember);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  white-space: nowrap;
+}
+
+.tier h3 {
+  font-size: 1.6rem;
+}
+
+.tierPrice {
+  margin-top: 0.6rem;
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--ember);
+}
+
+.tierPrice span {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: inherit;
+  opacity: 0.65;
+}
+
+.tierBlurb {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.tier ul {
+  list-style: none;
+  margin: 1.4rem 0 1.8rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  flex-grow: 1;
+}
+
+.tier li {
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.tier li::before {
+  content: '✳';
+  position: absolute;
+  left: 0;
+  color: var(--ember);
+}
+
+.tierCta {
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.tier .tierCta:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.tierFeatured .tierCta {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.tierFeatured .tierCta:hover {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--ink);
+}
+
+/* ——————————————————————————————————————————————— find us */
+
+.findUs {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.findIntro h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  margin-bottom: 1.4rem;
+}
+
+.address {
+  font-style: normal;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+.address a {
+  color: var(--ember);
+  text-underline-offset: 3px;
+}
+
+.marketNote {
+  margin-top: 1.6rem;
+  max-width: 32rem;
+  color: #3c3a36;
+}
+
+.marketNote strong {
+  color: var(--ink);
+}
+
+.hoursTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--ink);
+  background: #f2ebdb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.hoursCaption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding-bottom: 0.9rem;
+}
+
+.hoursTable th,
+.hoursTable td {
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid rgba(27, 27, 30, 0.18);
+  text-align: left;
+  font-size: 0.98rem;
+}
+
+.hoursTable tr:last-child th,
+.hoursTable tr:last-child td {
+  border-bottom: none;
+}
+
+.hoursTable th {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--umber);
+}
+
+.hoursTable td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ——————————————————————————————————————————————— footer */
+
+.footer {
+  position: relative;
+  background: var(--ink);
+  color: var(--cream);
+  border-top: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+.footerPattern {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+}
+
+.footerInner {
+  position: relative;
+  z-index: 1;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem);
+  text-align: center;
+}
+
+.footerWordmark {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  font-weight: 640;
+  letter-spacing: -0.02em;
+}
+
+.footerWordmark span {
+  color: var(--ember);
+  font-weight: 400;
+}
+
+.footerLine {
+  margin-top: 1rem;
+  color: var(--clay);
+  font-size: 0.95rem;
+}
+
+.credit {
+  margin-top: 2.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.credit a {
+  color: var(--cream);
+  text-decoration-color: var(--ember);
+  text-underline-offset: 4px;
+}
+
+.credit a:hover {
+  color: var(--ember);
+}
+
+/* ——————————————————————————————————————————————— responsive */
+
+@media (max-width: 64rem) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .heroCollage {
+    max-width: 34rem;
+    margin-inline: auto;
+    padding-bottom: 3rem;
+  }
+
+  .principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bakeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .oven {
+    grid-template-columns: 1fr;
+  }
+
+  .crumbShotBig {
+    grid-column: 1 / 7;
+  }
+
+  .crumbShotWide {
+    grid-column: 4 / 13;
+  }
+
+  .crumbQuote {
+    grid-column: 1 / 10;
+  }
+
+  .findUs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 48rem) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 0.8rem 1.4rem;
+    position: static;
+  }
+
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    gap: 1rem 1.3rem;
+    margin-inline: 0;
+  }
+
+  .topbarCta {
+    margin-left: auto;
+  }
+
+  .tierRow {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+  }
+
+  .bakerGrid {
+    grid-template-columns: 1fr;
+    max-width: 26rem;
+  }
+
+  .crumbCollage {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .crumbShotWide {
+    margin-top: 0;
+  }
+
+  .crumbQuote {
+    rotate: 0deg;
+  }
+
+  .ovenStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem 1.4rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .bakeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroStamp {
+    right: 0;
+    top: -2.2rem;
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnPrimary,
+  .btnGhost {
+    text-align: center;
+  }
+}
