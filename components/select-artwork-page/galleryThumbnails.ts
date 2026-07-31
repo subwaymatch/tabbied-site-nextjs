@@ -1006,9 +1006,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   reedpen: {
     options: { grid: '5x5', frequency: 1 },
   },
-  wireframe: {
-    options: { grid: '4x4', frequency: 1 },
-  },
   armature: {
     options: { grid: '5x5', frequency: 1 },
   },
@@ -1325,6 +1322,171 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '5x5', frequency: 1 },
   },
   fluting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ridgeline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  thirdstop: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  swapcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  seamband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halfmast: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  notchcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  corduroy: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ribline: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  blindfold: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  beamspread: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  protractor: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  rimband: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bangle: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  ripplering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tidering: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  cornercut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  clipcorner: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bevelset: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mitre: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  skewback: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  nosing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  housing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  halving: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  birdsmouth: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  chase: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  stylobate: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dieblock: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  mutule: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  modillion: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  lobeform: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  petalcut: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  doublebar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  slashbar: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  gnomonwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  quoinwedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  speckfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  pindot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  polkadot: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  grainfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  sandfield: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dotmatrix: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fanned: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  bothways: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  meetpart: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shearpair: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  softedge: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  falloff: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  dimmer: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  fadein: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  tinting: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  shading: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  toning: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  glazing: {
+    options: { grid: '5x5', frequency: 1 },
+  },
+  scumble: {
     options: { grid: '5x5', frequency: 1 },
   },
 };

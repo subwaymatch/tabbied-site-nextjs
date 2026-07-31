@@ -70,16 +70,27 @@ const add = (name, palIdx, description, build, cfg = {}) => {
   const palette = PAL[palIdx % PAL.length];
   const c = palette.length;
   const { vars, rule } = build(c);
+  // A retired design keeps its place in the sequence but is not emitted: the
+  // gallery orders of everything after it were assigned while it still
+  // shipped, so dropping the definition outright would renumber them all.
+  const thisOrder = order++;
+  if (cfg.retired) return;
   all.push({
     name,
     slug: name.toLowerCase(),
-    order: order++,
+    order: thisOrder,
     ...(isDark(palette[0]) ? { white: true } : {}),
     description,
     palette,
     colors: { min: 2, max: c, default: c },
     gridDefault: cfg.grid ?? '8x12',
     freqDefault: cfg.freq ?? 1,
+    // SVG-export tier (docs/svg-export.md). It belongs in the definition, not
+    // hand-added to the generated JSON: the generator rewrites every file it
+    // owns, so metadata that only exists downstream is silently dropped the
+    // next time anyone regenerates the batch.
+    ...(cfg.svgExport === false ? { svgExport: false } : {}),
+    ...(cfg.svgExportNote ? { svgExportNote: cfg.svgExportNote } : {}),
     thumb: { grid: cfg.tg ?? '5x5', frequency: cfg.tf ?? 0.92 },
     vars,
     rule,
@@ -125,17 +136,19 @@ add('Fishscale', 14, 'Overlapping scales tiling into shoals, every scale re-shad
 add('Spectrum', 1, 'Smooth colour wheels turning a quarter at a time, the spectrum sweeping to a new orientation each seed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { width: 88%; height: 88%; margin: 6%; border-radius: 50%; background: conic-gradient(from 0deg, ${ink(c)}, ${ink(c)}, ${ink(c)}, ${ink(c)}, ${ink(c)}); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); }${TR}`,
-}), { grid: '6x9', tg: '4x4', tf: 0.9 });
+  // A smooth conic sweep; SVG has no angular gradient. See docs/svg-export.md, tier 1.
+}), { grid: '6x9', tg: '4x4', tf: 0.9, svgExport: false });
 
 add('Coil', 23, 'Colour-wheel rings with a hollow hub, the coil re-winding to a new angle on each redraw.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { width: 90%; height: 90%; margin: 5%; border-radius: 50%; background: conic-gradient(from 0deg, ${ink(c)}, ${ink(c)}, ${ink(c)}); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); :after { content: ''; position: absolute; inset: 34%; border-radius: 50%; background: var(--color0);${pt} } }${TR}`,
-}), { grid: '6x9', tg: '4x4', tf: 0.9 });
+  // A smooth conic sweep; SVG has no angular gradient. See docs/svg-export.md, tier 1.
+}), { grid: '6x9', tg: '4x4', tf: 0.9, svgExport: false });
 
 add('Lens', 3, 'Two overlapping discs blending where they cross, the vesica re-colouring on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { :before { content: ''; position: absolute; left: 8%; top: 18%; @size: 64%; border-radius: 50%; background: ${ink(c)}; mix-blend-mode: screen;${pt} } :after { content: ''; position: absolute; left: 28%; top: 18%; @size: 64%; border-radius: 50%; background: ${ink(c)}; mix-blend-mode: screen;${pt} } }${TR}`,
-}), { grid: '6x9', tg: '4x4', tf: 0.9 });
+}), { grid: '6x9', tg: '4x4', tf: 0.9, retired: true });
 
 add('Orb', 0, 'Shaded spheres with a soft highlight, each ball re-colouring smoothly on every seed.', (c) => ({
   vars: '',
@@ -308,7 +321,7 @@ add('Merlon', 23, 'Squared U-notches like castle merlons, each turning to a new 
 add('Ibeam', 24, 'Capital I-beams standing and lying down, the girders re-colouring each seed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg); @random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-clip-path: polygon(15% 0, 85% 0, 85% 28%, 64% 28%, 64% 72%, 85% 72%, 85% 100%, 15% 100%, 15% 72%, 36% 72%, 36% 28%, 15% 28%); clip-path: polygon(15% 0, 85% 0, 85% 28%, 64% 28%, 64% 72%, 85% 72%, 85% 100%, 15% 100%, 15% 72%, 36% 72%, 36% 28%, 15% 28%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); }${TR}`,
-}));
+}), { retired: true });
 
 add('Pinion', 14, 'Cogged squares with notched corners meshing across the grid, re-tinting on reseed.', (c) => ({
   vars: '',
@@ -354,7 +367,7 @@ add('Beveled', 21, 'Squares with bright bevels on two sides and shadow on the ot
 add('Tictac', 1, 'A miniature nine-square grid in every cell, the centre patch re-inking on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: ${ink(c)}; :after { content: ''; position: absolute; inset: 34%; background: ${ink(c)};${pt} } }${TR}`,
-}));
+}), { retired: true });
 
 add('Inset', 13, 'A square dropped into a recessed well, the inner panel re-colouring on reseed.', (c) => ({
   vars: '',
@@ -385,7 +398,7 @@ add('Portal', 2, 'Arched doorways topped with a semicircle, the openings re-tint
 add('Crosshatch', 0, 'Cells crossed by both diagonals into an X-hatch, the strokes re-colouring on reseed.', (c) => ({
   vars: '',
   rule: `@random(\${shapeFrequency}) { background: linear-gradient(45deg, transparent 43%, ${ink(c)} 43% 57%, transparent 57%), linear-gradient(-45deg, transparent 43%, ${ink(c)} 43% 57%, transparent 57%); :after { content: ''; position: absolute; left: 44%; top: 44%; @size: 12%; background: ${ink(c)};${pt} } }${TR}`,
-}));
+}), { retired: true });
 
 add('Rungs', 18, 'Ladder rungs stacked across the cell, turning upright or flat on each seed.', (c) => ({
   vars: '',
@@ -487,7 +500,7 @@ add('Ricrac', 9, 'A fat ric-rac zigzag ribbon woven across the grid, re-weaving 
 add('Sawedge', 24, 'A row of saw teeth biting along one edge, the blade re-facing on reseed.', (c) => ({
   vars: '',
   rule: `--rot: @pick(0deg, 90deg, 180deg, 270deg); @random(\${shapeFrequency}) { background: ${ink(c)}; -webkit-clip-path: polygon(0 0, 100% 0, 100% 55%, 83% 100%, 66% 55%, 50% 100%, 33% 55%, 16% 100%, 0 55%); clip-path: polygon(0 0, 100% 0, 100% 55%, 83% 100%, 66% 55%, 50% 100%, 33% 55%, 16% 100%, 0 55%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); }${TR}`,
-}));
+}), { retired: true });
 
 add('Switchback', 0, 'A bold L-turn switchback stroke, the trail doubling back to a new corner each seed.', (c) => ({
   vars: '',

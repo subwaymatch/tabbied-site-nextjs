@@ -38,6 +38,10 @@ const unsupportedSlugs = allArtworks
 // One artwork per feature family: solid cells + pseudo-elements, radii,
 // clip-paths, masks, every gradient kind, hard-stop conic sectors, nested
 // @doodle masks, @svg payloads, borders, filters, blend modes, z-index.
+//
+// The last four come from batch 11: a tiled dot pattern, a smooth gradient
+// used as a mask, two stripe fields composited with mask-composite: intersect,
+// and a many-vertex clip path.
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -60,11 +64,14 @@ const REPRESENTATIVE = [
   'fractal',
   'matryoshka',
   'subdivide',
-  'wireframe',
   'charcoal',
   'circuit',
   'ring',
   'bloks',
+  'dotfield',
+  'shading',
+  'bothways',
+  'dieblock',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few

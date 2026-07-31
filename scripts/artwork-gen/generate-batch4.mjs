@@ -43,7 +43,7 @@ for (const def of defs) {
   batchSlugs.add(def.slug);
 }
 const existing = new Set(
-  readdirSync(path.join(ROOT, 'artworks'))
+  readdirSync(path.join(ROOT, 'packages/tabbied/artworks'))
     .filter((f) => f.endsWith('.json'))
     .map((f) => f.replace(/\.json$/, ''))
 );
@@ -117,6 +117,8 @@ for (const def of defs) {
     description: def.description,
     palette: def.palette,
     colors: def.colors,
+    ...(def.svgExport === false ? { svgExport: false } : {}),
+    ...(def.svgExportNote ? { svgExportNote: def.svgExportNote } : {}),
     options,
     code: { style, doodle },
   };

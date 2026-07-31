@@ -2,7 +2,6 @@
   "name": "Subdivide",
   "slug": "subdivide",
   "galleryOrder": 909,
-  "svgExportNote": "The nested mask is exported as clean vector shapes \u2014 the faint seams visible on screen come from browser rasterization and won't appear in the SVG, so it can differ from the screen by a hair.",
   "galleryWhite": true,
   "description": "Quartered, then quartered again: a mask that keeps three of every four squares.",
   "palette": [
@@ -18,6 +17,7 @@
     "max": 6,
     "default": 6
   },
+  "svgExportNote": "The nested mask is exported as clean vector shapes — the faint seams visible on screen come from browser rasterization and won't appear in the SVG, so it can differ from the screen by a hair.",
   "options": [
     {
       "id": "grid",

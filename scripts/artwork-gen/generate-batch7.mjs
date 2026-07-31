@@ -42,6 +42,12 @@ const FREQ_OPTION = (def) => ({
 // all carry one); batch-7 designs opt in by putting the token in their rule.
 const SHADOW_OPTION = (def) => ({
   id: 'shadow',
+  // The caveat belongs to the effect, not to any one design: while the switch
+  // is on, the shadow exports as an SVG drop-shadow filter, so every artwork
+  // carrying this option carries the note. Emitting it here means a
+  // regeneration cannot drop it. See docs/svg-export.md, tier 3.
+  svgExportNote:
+    'The shadow effect is exported as an SVG drop-shadow filter. Browsers render it correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.',
   displayName: 'Shadow',
   type: 'ToggleSwitch',
   default: def,

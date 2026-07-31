@@ -232,7 +232,7 @@ const PAL = [
 // Every motif name used anywhere in the project so far, including the designs
 // authored for batches 7 and 8 and cut before they shipped — a name should
 // never come to mean two different things.
-const TAKEN = new Set(
+export const TAKEN = new Set(
   (
     'abacus abjad abugida accordion acorn agate airy alias ambit ammann ' +
     'amoeba ampersand amphora analemma anamorph anchor annulet annulus ' +
@@ -368,7 +368,7 @@ const TAKEN = new Set(
 
 // JS reserved words can't be emitted as `export const <slug>` by the package
 // codegen, so they're banned as slugs.
-const RESERVED = new Set(
+export const RESERVED = new Set(
   ('do if in for let new try var case else enum eval null this true void with ' +
     'await break catch class const false super throw while yield delete export ' +
     'import public return static switch typeof default extends finally package ' +
@@ -409,6 +409,12 @@ const add = (name, palIdx, description, build, cfg = {}) => {
     gridDefault: cfg.grid ?? '6x9',
     freqDefault: cfg.freq ?? 1,
     ...(cfg.min ? { minCellPx: cfg.min } : {}),
+    // SVG-export tier (docs/svg-export.md). It belongs in the definition, not
+    // hand-added to the generated JSON: the generator rewrites every file it
+    // owns, so metadata that only exists downstream is silently dropped the
+    // next time anyone regenerates the batch.
+    ...(cfg.svgExport === false ? { svgExport: false } : {}),
+    ...(cfg.svgExportNote ? { svgExportNote: cfg.svgExportNote } : {}),
     thumb: { grid: cfg.tg ?? '5x5', frequency: cfg.tf ?? 1 },
     vars,
     rule,

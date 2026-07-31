@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 Tabbied: generative artworks built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 168 artwork
+`packages/tabbied/` (framework-free core + React wrapper + 222 artwork
 presets as JSON in `packages/tabbied/artworks/`, embedded by codegen).
 
 ```bash

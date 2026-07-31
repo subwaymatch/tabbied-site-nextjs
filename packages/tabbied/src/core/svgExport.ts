@@ -1209,6 +1209,29 @@ function paintSvgDataUri(
 }
 
 /** Background color + image layers + border for one box. */
+/**
+ * The background positioning area for one layer: the border box inset by the
+ * border (padding-box, the CSS default) and optionally the padding too
+ * (content-box). Identical to `box` on a box without borders, which is every
+ * artwork that predates section G of batch 11.
+ */
+function originBox(box: Box, cs: CSSStyleDeclaration, origin: string): Box {
+  const kind = origin.trim();
+  if (kind === 'border-box') return box;
+  let l = px(cs.borderLeftWidth);
+  let t = px(cs.borderTopWidth);
+  let r = px(cs.borderRightWidth);
+  let b = px(cs.borderBottomWidth);
+  if (kind === 'content-box') {
+    l += px(cs.paddingLeft);
+    t += px(cs.paddingTop);
+    r += px(cs.paddingRight);
+    b += px(cs.paddingBottom);
+  }
+  if (!l && !t && !r && !b) return box;
+  return { x: box.x + l, y: box.y + t, w: box.w - l - r, h: box.h - t - b };
+}
+
 function paintBoxLayers(box: Box, cs: CSSStyleDeclaration, env: WalkEnv): SvgNode[] {
   const { ctx } = env;
   const radii = readRadii(cs, box);
@@ -1240,6 +1263,7 @@ function paintBoxLayers(box: Box, cs: CSSStyleDeclaration, env: WalkEnv): SvgNod
     const sizes = splitTopLevel(cs.backgroundSize || 'auto');
     const positions = splitTopLevel(cs.backgroundPosition || '0% 0%');
     const repeats = splitTopLevel(cs.backgroundRepeat || 'repeat');
+    const origins = splitTopLevel(cs.backgroundOrigin || 'padding-box');
     // CSS lists layers top-first; paint bottom-up.
     for (let i = layers.length - 1; i >= 0; i--) {
       if (layers[i] === 'none') continue;
@@ -1247,7 +1271,11 @@ function paintBoxLayers(box: Box, cs: CSSStyleDeclaration, env: WalkEnv): SvgNod
         ...paintImageLayer(
           layers[i],
           shape,
-          box,
+          // The *positioning area* is the origin box (padding-box by
+          // default), not the border box — percentage stops and sizes
+          // resolve against it. `shape` stays the border box, which is what
+          // the layer is clipped to.
+          originBox(box, cs, origins[i % origins.length]),
           sizes[i % sizes.length],
           positions[i % positions.length],
           repeats[i % repeats.length],
@@ -1785,21 +1813,28 @@ function boxShadowFilterUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): st
   return `url(#${id})`;
 }
 
-/** Paint a ::before/::after pseudo-element of `el`. */
-function paintPseudo(
-  el: HTMLElement,
-  pseudo: '::before' | '::after',
+/**
+ * Where a ::before/::after sits, given its host's *border* box.
+ *
+ * Neither kind of pseudo is laid out against the border box: an
+ * absolutely-positioned one resolves its offsets against the padding box, a
+ * static one is centred in the content box. On a borderless host the three
+ * coincide — which is every artwork that predates batch 11's frames — but on a
+ * bordered one, using the border box displaces the pseudo by the border width.
+ *
+ * Returns null when the pseudo has no area to paint.
+ */
+function pseudoBoxFor(
   box: Box,
-  env: WalkEnv
-): { z: number; nodes: SvgNode[] } {
-  const none = { z: 0, nodes: [] };
-  const cs = env.getStyle(el, pseudo);
-  const content = cs.content;
-  if (!content || content === 'none' || cs.display === 'none') return none;
-  if (!/^(""|''|normal)$/.test(content)) {
-    throw new SvgExportUnsupportedError('pseudo-element text content', content);
-  }
-  if (cs.visibility === 'hidden') return none;
+  hostCs: CSSStyleDeclaration,
+  cs: CSSStyleDeclaration
+): Box | null {
+  const padBox: Box = {
+    x: box.x + px(hostCs.borderLeftWidth),
+    y: box.y + px(hostCs.borderTopWidth),
+    w: box.w - px(hostCs.borderLeftWidth) - px(hostCs.borderRightWidth),
+    h: box.h - px(hostCs.borderTopWidth) - px(hostCs.borderBottomWidth),
+  };
 
   let w: number;
   let h: number;
@@ -1816,30 +1851,54 @@ function paintPseudo(
     const mt = px(cs.marginTop);
 
     if (width !== 'auto') w = px(width);
-    else if (left !== 'auto' && right !== 'auto') w = box.w - px(left) - px(right);
+    else if (left !== 'auto' && right !== 'auto') w = padBox.w - px(left) - px(right);
     else w = 0;
     if (height !== 'auto') h = px(height);
-    else if (top !== 'auto' && bottom !== 'auto') h = box.h - px(top) - px(bottom);
+    else if (top !== 'auto' && bottom !== 'auto') h = padBox.h - px(top) - px(bottom);
     else h = 0;
 
-    if (left !== 'auto') x = box.x + px(left) + ml;
-    else if (right !== 'auto') x = box.x + box.w - px(right) - w + ml;
-    else x = box.x + (box.w - w) / 2 + ml;
-    if (top !== 'auto') y = box.y + px(top) + mt;
-    else if (bottom !== 'auto') y = box.y + box.h - px(bottom) - h + mt;
-    else y = box.y + (box.h - h) / 2 + mt;
+    if (left !== 'auto') x = padBox.x + px(left) + ml;
+    else if (right !== 'auto') x = padBox.x + padBox.w - px(right) - w + ml;
+    else x = padBox.x + (padBox.w - w) / 2 + ml;
+    if (top !== 'auto') y = padBox.y + px(top) + mt;
+    else if (bottom !== 'auto') y = padBox.y + padBox.h - px(bottom) - h + mt;
+    else y = padBox.y + (padBox.h - h) / 2 + mt;
   } else {
     // Static pseudo inside a css-doodle cell: the cell is a grid with
-    // place-items:center, so a sized pseudo sits centered.
+    // place-items:center, so a sized pseudo sits centered in the content box.
+    const pl = px(hostCs.paddingLeft);
+    const pt = px(hostCs.paddingTop);
+    const pr = px(hostCs.paddingRight);
+    const pb = px(hostCs.paddingBottom);
     w = cs.width === 'auto' ? 0 : px(cs.width);
     h = cs.height === 'auto' ? 0 : px(cs.height);
-    if (w <= 0 || h <= 0) return none;
-    x = box.x + (box.w - w) / 2;
-    y = box.y + (box.h - h) / 2;
+    if (w <= 0 || h <= 0) return null;
+    x = padBox.x + pl + (padBox.w - pl - pr - w) / 2;
+    y = padBox.y + pt + (padBox.h - pt - pb - h) / 2;
   }
-  if (w <= 0 || h <= 0) return none;
+  if (w <= 0 || h <= 0) return null;
+  return { x, y, w, h };
+}
 
-  const pseudoBox: Box = { x, y, w, h };
+/** Paint a ::before/::after pseudo-element of `el`. */
+function paintPseudo(
+  el: HTMLElement,
+  pseudo: '::before' | '::after',
+  box: Box,
+  env: WalkEnv
+): { z: number; nodes: SvgNode[] } {
+  const none = { z: 0, nodes: [] };
+  const cs = env.getStyle(el, pseudo);
+  const content = cs.content;
+  if (!content || content === 'none' || cs.display === 'none') return none;
+  if (!/^(""|''|normal)$/.test(content)) {
+    throw new SvgExportUnsupportedError('pseudo-element text content', content);
+  }
+  if (cs.visibility === 'hidden') return none;
+
+  const pseudoBox = pseudoBoxFor(box, env.getStyle(el), cs);
+  if (!pseudoBox) return none;
+
   const z = cs.zIndex === 'auto' ? 0 : parseInt(cs.zIndex, 10) || 0;
   return { z, nodes: paintPaintedBox(pseudoBox, cs, env, []) };
 }
@@ -2083,4 +2142,6 @@ export const _internals = {
   parseConicSectors,
   parseBoxShadows,
   fmtNum,
+  originBox,
+  pseudoBoxFor,
 };
