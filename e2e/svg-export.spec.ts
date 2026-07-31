@@ -64,7 +64,6 @@ const REPRESENTATIVE = [
   'fractal',
   'matryoshka',
   'subdivide',
-  'wireframe',
   'charcoal',
   'circuit',
   'ring',

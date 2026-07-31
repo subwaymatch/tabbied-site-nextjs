@@ -25,3 +25,7 @@ where the border box and the padding box differ:
 
 Both are no-ops for borderless elements, which is every artwork in the
 catalogue.
+
+Retire the `Wireframe` artwork (batch 9). Its slug stays reserved so the name
+is never reused, and the batch-9 designs that followed it shift down one
+gallery position.

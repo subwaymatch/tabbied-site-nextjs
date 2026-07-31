@@ -1006,9 +1006,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   reedpen: {
     options: { grid: '5x5', frequency: 1 },
   },
-  wireframe: {
-    options: { grid: '4x4', frequency: 1 },
-  },
   armature: {
     options: { grid: '5x5', frequency: 1 },
   },

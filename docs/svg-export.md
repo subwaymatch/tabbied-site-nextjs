@@ -85,7 +85,7 @@ shadow toggle is on**, because the shadow exports as an SVG filter:
 `bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
 `quarterfall`, `radius` (default off).
 
-### 4. Full support — everything else (~208)
+### 4. Full support — everything else (~207)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and

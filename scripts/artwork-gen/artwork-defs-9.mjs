@@ -1,4 +1,4 @@
-// Batch 9 — 23 motifs (gallery orders 1000+).
+// Batch 9 — 22 motifs (gallery orders 1000+); 23 as authored, less Wireframe.
 //
 // Every batch before this one draws a *tile*: each cell is an independent
 // motif, and the canvas is however many copies of it happen to fit. This batch
@@ -20,8 +20,7 @@
 //                         Gyre, Maelstrom, Nutation, Gimbal, Dipole).
 //   C. Conic              conic-gradient as a mask, so the wedge is a real
 //                         hole (Wedge).
-//   D. Line art           @svg with stroke and round caps (Charcoal, Reedpen,
-//                         Wireframe).
+//   D. Line art           @svg with stroke and round caps (Charcoal, Reedpen).
 //   E. Mirrors            the canvas folded about an axis (Bilateral, Axial,
 //                         Foldback).
 //   F. Perspective        skew and scale ramps that make a flat grid recede
@@ -133,12 +132,12 @@ const pieMask = (deg, from = '0deg') =>
 // vary per cell varies through a repeated element's own attributes instead.
 //
 // The cap matters. A round cap overhangs the end of a segment by half the
-// stroke width, which on an open path that stops at a corner shows up as a
-// thorn poking out past the join — obvious on Wireframe, where six segments
-// all end on the cube's corners. Those designs pass `butt` and let the
-// neighbouring closed path's miter join fill the corner instead.
-const strokePath = (d, w, extra = '', cap = 'round') =>
-  svgMask(`viewBox: 0 0 100 100; path { d: ${d}; fill: none; stroke: #000; stroke-width: ${w}; stroke-linecap: ${cap}; ${extra} }`);
+// stroke width, which reads as a rounded terminal on an open stroke — right
+// for these designs, but wrong on a path that stops at a corner, where the
+// overhang shows as a thorn poking out past the join. A design like that
+// wants `butt` and a neighbouring miter join to fill the corner instead.
+const strokePath = (d, w) =>
+  svgMask(`viewBox: 0 0 100 100; path { d: ${d}; fill: none; stroke: #000; stroke-width: ${w}; stroke-linecap: round; }`);
 
 // ── graded rules ───────────────────────────────────────────────────────────
 // A border width authored for a six-column grid, ramping from `a` to `b`.
@@ -376,6 +375,12 @@ const add = (name, palIdx, description, build, cfg = {}) => {
     gridDefault: cfg.grid ?? '8x12',
     freqDefault: cfg.freq ?? 1,
     ...(cfg.min ? { minCellPx: cfg.min } : {}),
+    // SVG-export tier (docs/svg-export.md). It belongs in the definition, not
+    // hand-added to the generated JSON: the generator rewrites every file it
+    // owns, so metadata that only exists downstream is silently dropped the
+    // next time anyone regenerates the batch.
+    ...(cfg.svgExport === false ? { svgExport: false } : {}),
+    ...(cfg.svgExportNote ? { svgExportNote: cfg.svgExportNote } : {}),
     thumb: { grid: cfg.tg ?? '6x6', frequency: cfg.tf ?? 1 },
     vars,
     rule,
@@ -449,7 +454,10 @@ add('Dipole', 10, 'Two poles instead of one, and the field between them bending 
 add('Wedge', 2, 'A single wedge cut out of each cell, its angle rolled from a short list.', (c) => ({
   vars: '',
   rule: `--from: ${R8}; ${F} { background: ${ink(c)}; ${pieMask('@pick(70deg, 120deg, 180deg, 250deg)', '@var(--from)')} }${TR}`,
-}), { grid: '6x9', tg: '5x5' });
+  // The two @pick() stop positions roll independently, so most cells get a
+  // smooth black-to-transparent conic fade rather than a hard-stop sector —
+  // and SVG has no angular gradient. See docs/svg-export.md, tier 1.
+}), { grid: '6x9', tg: '5x5', svgExport: false });
 
 // ══════════════════════════════════════════════════════════════════════════
 // D. Line art — @svg used as a mask, drawing with stroke rather than fill.
@@ -464,11 +472,6 @@ add('Reedpen', 62, 'A reed pen: three strokes of the same length, laid down side
   vars: '',
   rule: `--rot: ${R2}; ${F} { background: ${ink(c)}; ${strokePath('M20 14 V86 M50 14 V86 M80 14 V86', 10)} ${rot('@var(--rot)')} }${TR}`,
 }), { grid: '6x9', tg: '5x5' });
-
-add('Wireframe', 34, 'A box drawn in wire: the front face, the back face, and the four edges joining them.', (c) => ({
-  vars: '',
-  rule: `${F} { background: ${ink(c)}; ${strokePath('M10 30 H70 V90 H10 Z M30 10 H90 V70 H30 Z M10 30 L30 10 M70 30 L90 10 M70 90 L90 70 M10 90 L30 70', 5, 'stroke-linejoin: miter; stroke-miterlimit: 4;', 'butt')} }${TR}`,
-}), { grid: '4x6', tg: '4x4' });
 
 // ══════════════════════════════════════════════════════════════════════════
 // E. Mirrors — @match on the cell's own address folds the canvas about an
@@ -529,8 +532,10 @@ add('Thickset', 2, 'Heavy throughout, and heavier still as it goes: frames that 
   rule: `${F} { ${A(`inset: 2%; border-style: solid; border-color: ${ink(c)}; border-width: ${wRamp(4, 15, RY)}; box-sizing: border-box;`)} }${TR}`,
 }), { tg: '6x6', min: 34 });
 
-if (all.length !== 23) {
-  throw new Error(`batch 9 must hold exactly 23 designs, found ${all.length}`);
+// 23 as authored, less Wireframe (retired) — the count is asserted so a
+// definition cannot be lost to a bad edit without the generator saying so.
+if (all.length !== 22) {
+  throw new Error(`batch 9 must hold exactly 22 designs, found ${all.length}`);
 }
 
 export const batch9 = all;
