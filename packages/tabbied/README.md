@@ -23,6 +23,32 @@ entry point. The core works in any framework (or none).
 | `tabbied`          | The framework-agnostic core: `createArtwork`, sizing/seed helpers, and the type definitions. |
 | `tabbied/react`    | The `TabbiedArtwork` React component (and its handle/prop types).                       |
 | `tabbied/artworks` | The preset `ArtworkDefinition`s (import individually) plus the full `artworks` record.  |
+| `tabbied/catalog.json` | Every design as data — description, palette, options, default fit, SVG-export support. See [Finding a design](#finding-a-design). |
+
+## Finding a design
+
+The presets are referenced by slug, and there are a lot of them — the slug
+alone (`cleat`, `gnomonwedge`, `karst`) won't tell you what a design looks
+like. `catalog.json` is the searchable index: one entry per design with a
+description, the authored palette, every option and its accepted values, the
+default fit, and whether it exports to SVG.
+
+```js
+// Bundlers (Vite, webpack, Next) import JSON directly. In native Node ESM,
+// add the import attribute: `with { type: 'json' }`.
+import catalog from 'tabbied/catalog.json';
+
+const arches = catalog.designs.filter((design) =>
+  /arc|curve|round/.test(design.description ?? '')
+);
+```
+
+The same data is served at
+**[tabbied.com/catalog.json](https://tabbied.com/catalog.json)**, alongside
+[llms.txt](https://tabbied.com/llms.txt) and
+[llms-full.txt](https://tabbied.com/llms-full.txt) — an API contract plus a
+one-line entry per design, sized to fit in one fetch. If you are pointing a
+coding assistant at this package, give it that URL.
 
 ## React
 

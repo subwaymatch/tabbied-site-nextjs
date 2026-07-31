@@ -43,22 +43,29 @@
 
 /* ---- Design grid ---- */
 
+/* Tracks are minmax(0, 1fr), never a bare 1fr. A bare `1fr` is
+   minmax(auto, 1fr), and `min-width: auto` on a grid item floors the track at
+   the item's min-content width. The cards carry `content-visibility: auto`
+   (.doodleThumb), so once a card has been scrolled past, the size it last
+   rendered at becomes that floor — and narrowing the window could no longer
+   shrink the tracks, overflowing the column until a reload cleared the
+   remembered size. The explicit 0 minimum lets tracks shrink on resize. */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin-top: 18px;
 }
 
 @media (min-width: 560px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 992px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

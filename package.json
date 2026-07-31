@@ -6,10 +6,11 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "npm run build --workspace tabbied",
+    "predev": "npm run build --workspace tabbied && npm run llms",
     "dev": "next dev",
-    "prebuild": "npm run build --workspace tabbied",
+    "prebuild": "npm run build --workspace tabbied && npm run llms",
     "build": "next build",
+    "llms": "node scripts/generate-llms.mjs",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",
     "images:extract": "node scripts/images/extract-prompts.mjs",
