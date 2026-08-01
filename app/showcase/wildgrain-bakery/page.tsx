@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { reeding } from 'tabbied/artworks';
+import { grainfall, reeding } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './wildgrain-bakery.module.css';
 
@@ -85,14 +85,14 @@ const BAKES = [
 
 const BAKERS = [
   {
-    slug: 'wildgrain-baker-1-cutout',
+    slug: 'wildgrain-baker-1',
     alt: 'Portrait of Maeve Byrne, head baker, auburn hair, wearing a black apron',
     name: 'Maeve Byrne',
     role: 'Head baker & starter custodian',
     bio: 'Maeve mixed her first sourdough at nineteen and has been arguing with fermentation ever since. She names every starter batch after a storm. The current one is called Doris.',
   },
   {
-    slug: 'wildgrain-baker-2-cutout',
+    slug: 'wildgrain-baker-2',
     alt: 'Portrait of Kenji Hara, oven lead, wearing a chambray shirt',
     name: 'Kenji Hara',
     role: 'Oven lead & lamination whisperer',
@@ -175,54 +175,67 @@ export default function WildgrainBakeryPage() {
       <main id="top">
         {/* ---------------------------------------------------------- hero */}
         <section className={styles.hero} aria-labelledby="hero-heading">
-          <div className={styles.heroText}>
-            <p className={styles.heroKicker}>Naturally leavened · Cinder Lane · est. 2014</p>
-            <h1 id="hero-heading" className={styles.heroHeading}>
-              Bread with a<br />
-              <em>will of its own.</em>
-            </h1>
-            <p className={styles.heroLede}>
-              We mill, mix, and bake on one street corner — flour from three nearby farms, an
-              eleven-year-old starter, and a deck oven lit at 4&nbsp;a.m. Baked at dawn. Sold by
-              noon. Gone by lunch, usually.
-            </p>
-            <div className={styles.heroActions}>
-              <a href="#bakes" className={styles.btnPrimary}>
-                See today’s bakes
-              </a>
-              <a href="#find-us" className={styles.btnGhost}>
-                Hours &amp; directions
-              </a>
-            </div>
+          <div className={styles.heroField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={reeding}
+              palette={[CREAM, TAN, CLAY, UMBER]}
+              seed="wg-hero-field-02"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.heroFieldScrim} />
           </div>
 
-          <div className={styles.heroCollage}>
-            <div className={styles.heroScene}>
-              <Figure
-                slug="wildgrain-hero"
-                alt="Freshly baked sourdough loaves cooling on a flour-dusted counter"
-                priority
-              />
+          <div className={styles.heroInner}>
+            <div className={styles.heroText}>
+              <p className={styles.heroKicker}>Naturally leavened · Cinder Lane · est. 2014</p>
+              <h1 id="hero-heading" className={styles.heroHeading}>
+                Bread with a<br />
+                <em>will of its own.</em>
+              </h1>
+              <p className={styles.heroLede}>
+                We mill, mix, and bake on one street corner — flour from three nearby farms, an
+                eleven-year-old starter, and a deck oven lit at 4&nbsp;a.m. Baked at dawn. Sold by
+                noon. Gone by lunch, usually.
+              </p>
+              <div className={styles.heroActions}>
+                <a href="#bakes" className={styles.btnPrimary}>
+                  See today’s bakes
+                </a>
+                <a href="#find-us" className={styles.btnGhost}>
+                  Hours &amp; directions
+                </a>
+              </div>
             </div>
-            <div className={styles.heroPattern} aria-hidden="true">
-              <TabbiedArtwork
-                artwork={reeding}
-                palette={[TAN, UMBER, CREAM, EMBER]}
-                seed="wg-hero-07"
-                fit="grid"
-                style={{ position: 'absolute', inset: 0 }}
-              />
+
+            <div className={styles.heroCollage}>
+              <div className={styles.heroScene}>
+                <Figure
+                  slug="wildgrain-hero"
+                  alt="Freshly baked sourdough loaves cooling on a flour-dusted counter"
+                  priority
+                />
+              </div>
+              <div className={styles.heroPattern} aria-hidden="true">
+                <TabbiedArtwork
+                  artwork={reeding}
+                  palette={[TAN, UMBER, CREAM, EMBER]}
+                  seed="wg-hero-07"
+                  fit="grid"
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+              </div>
+              <div className={styles.heroLoaf}>
+                <Figure
+                  slug="wildgrain-loaf-cutout"
+                  cutout
+                  alt="Country boule with a flour-dusted, deeply scored crust"
+                />
+              </div>
+              <p className={styles.heroStamp}>
+                <span>240°C</span> deck-baked
+              </p>
             </div>
-            <div className={styles.heroLoaf}>
-              <Figure
-                slug="wildgrain-loaf-cutout"
-                cutout
-                alt="Country boule with a flour-dusted, deeply scored crust"
-              />
-            </div>
-            <p className={styles.heroStamp}>
-              <span>240°C</span> deck-baked
-            </p>
           </div>
         </section>
 
@@ -278,8 +291,9 @@ export default function WildgrainBakeryPage() {
               seed="wg-board-03"
               fit="grid"
               density={1}
-              style={{ position: 'absolute', inset: 0, opacity: 0.55 }}
+              style={{ position: 'absolute', inset: 0, opacity: 0.85 }}
             />
+            <div className={styles.bakesScrim} />
           </div>
           <div className={styles.bakesInner}>
             <header className={styles.bakesHeader}>
@@ -294,6 +308,7 @@ export default function WildgrainBakeryPage() {
               {BAKES.map((bake) => (
                 <li key={bake.slug} className={styles.bakeCard}>
                   <div className={styles.bakeImage}>
+                    <span className={styles.bakeGlow} aria-hidden="true" />
                     <Figure slug={bake.slug} cutout alt={bake.alt} />
                   </div>
                   <div className={styles.bakeMeta}>
@@ -399,28 +414,31 @@ export default function WildgrainBakeryPage() {
 
         {/* -------------------------------------------------------- bakers */}
         <section id="bakers" className={styles.bakers} aria-labelledby="bakers-heading">
-          <p className={styles.sectionKicker}>Floury hands</p>
-          <h2 id="bakers-heading">The people at the peel</h2>
-          <div className={styles.bakerGrid}>
-            {BAKERS.map((baker, i) => (
-              <article key={baker.slug} className={styles.bakerCard}>
-                <div className={styles.bakerTile}>
-                  <div className={styles.bakerTilePattern} aria-hidden="true">
-                    <TabbiedArtwork
-                      artwork={reeding}
-                      palette={i === 0 ? [CLAY, UMBER, CREAM] : [TAN, INK, CREAM]}
-                      seed={`wg-baker-${i + 1}`}
-                      fit="grid"
-                      style={{ position: 'absolute', inset: 0, opacity: 0.8 }}
-                    />
+          <div className={styles.bakersField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={grainfall}
+              palette={[CREAM, TAN, CLAY, UMBER]}
+              seed="wg-bakers-field-04"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0, opacity: 0.85 }}
+            />
+            <div className={styles.bakersFieldScrim} />
+          </div>
+          <div className={styles.bakersInner}>
+            <p className={styles.sectionKicker}>Floury hands</p>
+            <h2 id="bakers-heading">The people at the peel</h2>
+            <div className={styles.bakerGrid}>
+              {BAKERS.map((baker) => (
+                <article key={baker.slug} className={styles.bakerCard}>
+                  <div className={styles.portraitFrame}>
+                    <Figure slug={baker.slug} alt={baker.alt} />
                   </div>
-                  <Figure slug={baker.slug} cutout alt={baker.alt} />
-                </div>
-                <h3>{baker.name}</h3>
-                <p className={styles.bakerRole}>{baker.role}</p>
-                <p className={styles.bakerBio}>{baker.bio}</p>
-              </article>
-            ))}
+                  <h3>{baker.name}</h3>
+                  <p className={styles.bakerRole}>{baker.role}</p>
+                  <p className={styles.bakerBio}>{baker.bio}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -499,7 +517,7 @@ export default function WildgrainBakeryPage() {
             palette={[INK, UMBER, CLAY, EMBER]}
             seed="wg-footer-05"
             fit="grid"
-            style={{ position: 'absolute', inset: 0, opacity: 0.6 }}
+            style={{ position: 'absolute', inset: 0, opacity: 0.75 }}
           />
         </div>
         <div className={styles.footerInner}>

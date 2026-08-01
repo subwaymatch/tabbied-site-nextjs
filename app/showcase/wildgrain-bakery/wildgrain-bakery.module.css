@@ -114,6 +114,41 @@
 /* ——————————————————————————————————————————————— hero */
 
 .hero {
+  position: relative;
+  isolation: isolate;
+}
+
+/* full-bleed ribbed field carrying the whole hero */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--cream);
+  border-bottom: 1.5px solid rgba(27, 27, 30, 0.12);
+}
+
+.heroFieldScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      104deg,
+      rgba(234, 224, 204, 0.9) 0%,
+      rgba(234, 224, 204, 0.78) 30%,
+      rgba(234, 224, 204, 0.46) 58%,
+      rgba(234, 224, 204, 0.3) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(234, 224, 204, 0.55) 0%,
+      rgba(234, 224, 204, 0) 22%,
+      rgba(234, 224, 204, 0) 74%,
+      rgba(234, 224, 204, 0.6) 100%
+    );
+}
+
+.heroInner {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: clamp(2rem, 5vw, 5rem);
@@ -232,10 +267,26 @@
   width: 46%;
 }
 
+/* a calm pocket of the page's own cream so the loaf detaches from the
+   ribbed panel behind it */
+.heroLoaf::before {
+  content: '';
+  position: absolute;
+  inset: -22% -18%;
+  background: radial-gradient(
+    ellipse 58% 54% at 50% 52%,
+    rgba(234, 224, 204, 0.92) 0%,
+    rgba(234, 224, 204, 0.68) 44%,
+    rgba(234, 224, 204, 0.22) 72%,
+    rgba(234, 224, 204, 0) 100%
+  );
+}
+
 .heroLoaf img {
+  position: relative;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 18px 22px rgba(27, 27, 30, 0.35));
+  filter: drop-shadow(0 20px 26px rgba(27, 27, 30, 0.5));
 }
 
 .heroStamp {
@@ -422,6 +473,19 @@
   background: var(--ink);
 }
 
+.bakesScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 27, 30, 0.95) 0%,
+    rgba(27, 27, 30, 0.9) 16%,
+    rgba(27, 27, 30, 0.55) 32%,
+    rgba(27, 27, 30, 0.36) 62%,
+    rgba(27, 27, 30, 0.28) 100%
+  );
+}
+
 .bakesInner {
   position: relative;
   z-index: 1;
@@ -456,8 +520,9 @@
 }
 
 .bakeCard {
-  background: rgba(234, 224, 204, 0.06);
-  border: 1.5px solid rgba(234, 224, 204, 0.28);
+  background: rgba(22, 21, 23, 0.84);
+  backdrop-filter: blur(3px);
+  border: 1.5px solid rgba(234, 224, 204, 0.3);
   border-radius: 1rem;
   padding: 1.4rem 1.4rem 1.6rem;
   display: flex;
@@ -473,14 +538,29 @@
 }
 
 .bakeImage {
+  position: relative;
   padding: 0.8rem 0.6rem 1.2rem;
 }
 
+/* a warm pocket that lifts the cut-out clear of the ribbed board behind it */
+.bakeGlow {
+  position: absolute;
+  inset: -6% -4%;
+  background: radial-gradient(
+    ellipse 60% 56% at 50% 50%,
+    rgba(234, 224, 204, 0.16) 0%,
+    rgba(234, 224, 204, 0.07) 50%,
+    rgba(234, 224, 204, 0) 100%
+  );
+  pointer-events: none;
+}
+
 .bakeImage img {
+  position: relative;
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.72));
 }
 
 .bakeMeta {
@@ -689,9 +769,36 @@
 /* ——————————————————————————————————————————————— bakers */
 
 .bakers {
+  position: relative;
+  isolation: isolate;
+}
+
+/* a quiet grain field — the second Tabbied design on this page */
+.bakersField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--cream);
+  border-block: 1.5px solid rgba(27, 27, 30, 0.14);
+}
+
+.bakersFieldScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(234, 224, 204, 0.78) 0%,
+    rgba(234, 224, 204, 0.34) 24%,
+    rgba(234, 224, 204, 0.34) 76%,
+    rgba(234, 224, 204, 0.8) 100%
+  );
+}
+
+.bakersInner {
   max-width: 84rem;
   margin-inline: auto;
-  padding: 0 clamp(1.25rem, 4vw, 3.5rem) clamp(3.5rem, 8vw, 7rem);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem) clamp(3.5rem, 8vw, 7rem);
 }
 
 .bakers h2 {
@@ -702,42 +809,42 @@
 .bakerGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.5rem, 4vw, 3.5rem);
+  gap: clamp(1.8rem, 4vw, 3.5rem);
 }
 
-.bakerTile {
-  position: relative;
+.bakerCard {
+  background: var(--cream);
   border: 2px solid var(--ink);
-  border-radius: 0.75rem;
-  overflow: hidden;
-  background: var(--clay);
-  aspect-ratio: 5 / 6;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  border-radius: 0.9rem;
+  padding: 0.9rem 0.9rem 1.6rem;
+  box-shadow: 10px 10px 0 0 var(--tan);
 }
 
-.bakerTilePattern {
-  position: absolute;
-  inset: 0;
-}
-
-.bakerTile img {
+/* opaque studio photograph, filling a definite frame */
+.portraitFrame {
   position: relative;
-  z-index: 1;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--ink);
+  background: var(--clay);
+}
+
+.portraitFrame img {
   display: block;
-  width: 72%;
-  height: auto;
-  filter: drop-shadow(0 12px 18px rgba(27, 27, 30, 0.4));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 26%;
 }
 
 .bakerCard h3 {
-  margin-top: 1.4rem;
+  margin: 1.4rem 0.5rem 0;
   font-size: 1.7rem;
 }
 
 .bakerRole {
-  margin-top: 0.3rem;
+  margin: 0.3rem 0.5rem 0;
   font-size: 0.85rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -746,7 +853,7 @@
 }
 
 .bakerBio {
-  margin-top: 0.9rem;
+  margin: 0.9rem 0.5rem 0;
   color: #3c3a36;
   max-width: 34rem;
 }
@@ -997,6 +1104,20 @@
   background: var(--ink);
 }
 
+/* pattern stays bold at the edges, calms under the centred wordmark */
+.footerPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 82% 84% at 50% 50%,
+    rgba(27, 27, 30, 0.95) 0%,
+    rgba(27, 27, 30, 0.88) 48%,
+    rgba(27, 27, 30, 0.46) 78%,
+    rgba(27, 27, 30, 0.12) 100%
+  );
+}
+
 .footerInner {
   position: relative;
   z-index: 1;
@@ -1045,9 +1166,19 @@
 /* ——————————————————————————————————————————————— responsive */
 
 @media (max-width: 64rem) {
-  .hero {
+  .heroInner {
     grid-template-columns: 1fr;
     gap: 4rem;
+  }
+
+  .heroFieldScrim {
+    background: linear-gradient(
+      180deg,
+      rgba(234, 224, 204, 0.86) 0%,
+      rgba(234, 224, 204, 0.66) 22%,
+      rgba(234, 224, 204, 0.4) 58%,
+      rgba(234, 224, 204, 0.72) 100%
+    );
   }
 
   .heroCollage {
@@ -1110,7 +1241,8 @@
 
   .bakerGrid {
     grid-template-columns: 1fr;
-    max-width: 26rem;
+    max-width: 30rem;
+    margin-inline: auto;
   }
 
   .crumbCollage {

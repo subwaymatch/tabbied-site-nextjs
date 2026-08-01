@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { gloaming } from 'tabbied/artworks';
+import { gloaming, scumble } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './maison-ambre.module.css';
 
@@ -154,6 +154,16 @@ export default function MaisonAmbrePage() {
               priority
             />
           </div>
+          <div className={styles.heroMist} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={scumble}
+              palette={[NOIR, BRONZE, GOLD, TAUPE]}
+              seed="ma-hero-mist-06"
+              fit="grid"
+              cellSize={30}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <div className={styles.heroVeil} aria-hidden="true" />
           <div className={styles.heroContent}>
             <p className={styles.heroOverline}>Parfums composés à Grasse · depuis MCMLXXXVII</p>
@@ -228,6 +238,17 @@ export default function MaisonAmbrePage() {
 
         {/* ------------------------------------------------------- les eaux */}
         <section id="eaux" className={styles.eaux} aria-labelledby="eaux-title">
+          <div className={styles.eauxField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={scumble}
+              palette={[NOIR, TAUPE, BRONZE, GOLD]}
+              seed="ma-eaux-field-03"
+              fit="grid"
+              cellSize={34}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.eauxFieldScrim} />
+          </div>
           <header className={styles.sectionHead}>
             <span className={styles.sectionNumeral} aria-hidden="true">
               II
@@ -309,6 +330,24 @@ export default function MaisonAmbrePage() {
           </div>
         </section>
 
+        {/* --------------------------------------------------- archive band */}
+        <aside className={styles.archive} aria-label="L’archive">
+          <div className={styles.archiveField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={gloaming}
+              palette={[NOIR, BRONZE, GOLD, TAUPE]}
+              seed="ma-archive-07"
+              fit="grid"
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.archiveScrim} />
+          </div>
+          <p className={styles.archiveLine}>
+            <span className={styles.archiveLabel}>La mémoire</span>
+            Four hundred amber vials, kept and never sold
+          </p>
+        </aside>
+
         {/* -------------------------------------------------------- le nez */}
         <section id="nez" className={styles.nez} aria-labelledby="nez-title">
           <header className={styles.sectionHead}>
@@ -319,22 +358,15 @@ export default function MaisonAmbrePage() {
             <p className={styles.sectionSub}>Hélène Verdier · perfumer since 1994</p>
           </header>
           <div className={styles.nezGrid}>
-            <div className={styles.nezPortrait}>
-              <div className={styles.nezPattern} aria-hidden="true">
-                <TabbiedArtwork
-                  artwork={gloaming}
-                  palette={[TAUPE, GOLD, NOIR, CHAMPAGNE]}
-                  seed="ma-nez-09"
-                  fit="cover"
-                  style={{ position: 'absolute', inset: 0, opacity: 0.75 }}
+            <figure className={styles.nezPortrait}>
+              <div className={styles.portraitFrame}>
+                <Figure
+                  slug="ambre-nose"
+                  alt="Portrait of Hélène Verdier, silver chignon, black jacket, photographed against a charcoal wall"
                 />
               </div>
-              <Figure
-                slug="ambre-nose-cutout"
-                cutout
-                alt="Portrait of Hélène Verdier, silver chignon, black jacket, eyes closed as if smelling"
-              />
-            </div>
+              <figcaption>Hélène Verdier — atelier, Grasse</figcaption>
+            </figure>
             <div className={styles.nezText}>
               <blockquote className={styles.nezQuote}>
                 <p>
@@ -422,7 +454,7 @@ export default function MaisonAmbrePage() {
             palette={[NOIR, BRONZE, GOLD]}
             seed="ma-footer-02"
             fit="grid"
-            style={{ position: 'absolute', inset: 0, opacity: 0.7 }}
+            style={{ position: 'absolute', inset: 0, opacity: 0.9 }}
           />
         </div>
         <div className={styles.footerInner}>
