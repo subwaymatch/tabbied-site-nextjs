@@ -1,5 +1,5 @@
 import {
-  gasket, stylobate, spark, reeding, facetgrad, gloaming, ridgeline, glyph,
+  gasket, spark, reeding, facetgrad, gloaming, ridgeline, glyph,
   grain, kern, wavelet, mortise, karst, hilbert, linocut, fluting, gutter,
   quire, cascade, ripplering,
 } from 'tabbied/artworks';
@@ -19,14 +19,13 @@ export type NewShowcaseSite = {
 };
 
 /**
- * The second showcase collection: twenty fully independent single-page brand
+ * The second showcase collection: nineteen fully independent single-page brand
  * sites under /showcase/<slug>/, each designed around one Tabbied artwork and
  * AI-generated imagery (see docs/image-pipeline.md). Listed on /showcase and
  * /showcases; palettes here mirror each page's own constants.
  */
 export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'mistral-cycles', name: 'Mistral Cycles', topic: 'Handbuilt bicycle frames', artworkSlug: 'gasket', artwork: gasket, paletteName: 'Blueprint navy', palette: ['#0D1B2A', '#1B98E0', '#E0FBFC', '#FF7B00', '#FFD23F', '#EAEAEA'], seed: 'dir-mc' },
-  { slug: 'koyo-tea', name: 'Koyo', topic: 'Japanese tea house', artworkSlug: 'stylobate', artwork: stylobate, paletteName: 'Matcha stone', palette: ['#F2EFEA', '#3A5A40', '#588157', '#A3B18A', '#344E41', '#DAD7CD'], seed: 'dir-ko' },
   { slug: 'zenith-observatory', name: 'Zenith', topic: 'Observatory & planetarium', artworkSlug: 'spark', artwork: spark, paletteName: 'Nebula violet', palette: ['#10002B', '#5A189A', '#9D4EDD', '#C77DFF', '#E0AAFF', '#FFD6FF'], seed: 'dir-ze' },
   { slug: 'wildgrain-bakery', name: 'Wildgrain', topic: 'Naturally leavened bakery', artworkSlug: 'reeding', artwork: reeding, paletteName: 'Oven cream', palette: ['#EAE0CC', '#1B1B1E', '#C6AC8F', '#5E503F', '#A9927D', '#EB5E28'], seed: 'dir-wg' },
   { slug: 'ledgerline', name: 'Ledgerline', topic: 'Personal finance app', artworkSlug: 'facetgrad', artwork: facetgrad, paletteName: 'Fintech blue', palette: ['#0B1F3A', '#3E8BFF', '#3EECFF', '#97F4FF', '#9EFFD8', '#FFFFFF'], seed: 'dir-le' },

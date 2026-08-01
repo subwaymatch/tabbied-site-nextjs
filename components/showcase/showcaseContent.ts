@@ -536,41 +536,7 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     },
   },
 
-  'sunday-press': {
-    aboutImage:
-      'A stack of thick independent magazines on a pale paper desk beside proof sheets, the pages shown only as soft grey texture with no readable words. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    about: {
-      eyebrow: 'About the Press',
-      title: 'Slow journalism about fast tools',
-      body: [
-        'The Sunday Press is a reader-funded magazine that takes design and technology seriously without taking itself too seriously. No ads, no chum, just long reads and clean typography.',
-        'We publish one considered issue a month and keep the whole archive open.',
-      ],
-      points: ['Reader-funded, no ads', 'One issue a month', 'Open archive, forever'],
-    },
-    features: [
-      { title: 'Read', body: 'A monthly issue of essays, interviews, and criticism worth your Sunday.' },
-      { title: 'Support', body: 'Subscriptions keep it independent and the archive free.' },
-      { title: 'Contribute', body: 'We pay writers fairly and edit them generously.' },
-    ],
-    testimonials: [
-      { quote: 'The only newsletter I read start to finish.', name: 'Dana R.', role: 'Subscriber' },
-      { quote: 'Design writing with a spine. Rare and welcome.', name: 'Theo M.', role: 'Reader' },
-    ],
-    newsletter: {
-      title: 'The Sunday note',
-      body: 'A short dispatch each week with what we are reading and publishing.',
-      cta: 'Subscribe free',
-      placeholder: 'you@email.com',
-    },
-    images: {
-      s1: 'A bold editorial illustration of an abstract modernist grid in primary colors, Bauhaus poster style. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      s2: 'A clean flat-lay of a small laptop and notebook on a warm paper desk, minimal editorial photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      s3: 'A geometric collage of overlapping paper shapes in red, blue, and yellow, playful print-style artwork. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    },
-  },
-
-  zest: {
+zest: {
     about: {
       eyebrow: 'How Zest works',
       title: 'Short lists, big flavour',
@@ -702,37 +668,4 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     },
   },
 
-  'roast-and-co': {
-    aboutImage:
-      'A drum coffee roaster in a workshop, freshly roasted beans cooling in the tray, warm morning light and sacks stacked behind. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    about: {
-      eyebrow: 'From crop to cup',
-      title: 'Roasted the day before it ships',
-      body: [
-        'We buy small lots direct from farms we visit, roast them in batches you can count, and send them out within a day so they reach you at their peak.',
-        'Every bag lists the farm, altitude, and process, because where a coffee comes from is half the flavour.',
-      ],
-      points: ['Direct-trade sourcing', 'Roasted to order', 'Farm and process on every bag'],
-    },
-    features: [
-      { title: 'Source', body: 'Long relationships with growers, and prices above the fair-trade floor.' },
-      { title: 'Roast', body: 'Small batches dialled in for each lot, the day before dispatch.' },
-      { title: 'Brew', body: 'A card in every bag with the recipe we brew it by.' },
-    ],
-    testimonials: [
-      { quote: 'The freshest coffee that has ever reached my kitchen.', name: 'Lena K.', role: 'Subscriber' },
-      { quote: 'You can taste the care in the cup.', name: 'Sam R.', role: 'Cafe owner' },
-    ],
-    newsletter: {
-      title: 'Fresh beans, fortnightly',
-      body: 'New lots and brewing notes, plus the occasional roastery invite.',
-      cta: 'Build a subscription',
-      placeholder: 'you@email.com',
-    },
-    images: {
-      c1: 'A bag of single-origin coffee beans spilling onto burlap, warm espresso-brown tones, product photo. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      c2: 'A still life of a pour-over brewer on a wooden counter: a cone dripper seated on a glass carafe half full of coffee, a gooseneck kettle standing to one side, soft window light, brown palette. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      c3: 'Glossy roasted coffee beans piled close-up with warm highlights, rich brown coffee photography. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    },
-  },
 };

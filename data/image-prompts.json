@@ -18,20 +18,7 @@
         "Grey": { "hex": "#EAEAEA", "as": "brushed steel and the concrete floor" }
       }
     },
-    "koyo-tea": {
-      "title": "Koyo — Japanese tea house",
-      "style": "editorial still-life photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Paper": { "hex": "#F2EFEA", "as": "linen cloth and pale ceramic glazes" },
-        "Pine": { "hex": "#3A5A40", "as": "the deep green of steeped sencha and shadowed foliage" },
-        "Moss": { "hex": "#588157", "as": "matcha powder and glaze accents" },
-        "Sage": { "hex": "#A3B18A", "as": "soft celadon ware and dried grasses" },
-        "Forest": { "hex": "#344E41", "as": "the iron kettle and dark timber" },
-        "Mist": { "hex": "#DAD7CD", "as": "morning mist and stoneware rims" }
-      }
-    },
-    "zenith-observatory": {
+"zenith-observatory": {
       "title": "Zenith — public observatory and planetarium",
       "style": "flat vector illustration",
       "paletteMode": "hex",
@@ -289,19 +276,7 @@
         "Grey": { "hex": "#EAEAEA", "as": "warm neutral tones in the clothing" }
       }
     },
-    "koyo-ware": {
-      "style": "product photograph",
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Pine": { "hex": "#3A5A40", "as": "deep glaze tones" },
-        "Moss": { "hex": "#588157", "as": "matcha and glaze accents" },
-        "Sage": { "hex": "#A3B18A", "as": "celadon surfaces" },
-        "Forest": { "hex": "#344E41", "as": "cast iron and dark timber" }
-      }
-    },
-    "zenith-objects": {
+"zenith-objects": {
       "cutout": true,
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
@@ -539,24 +514,7 @@
     { "id": "mistral-founder-2", "project": "mistral-cycles", "set": "mistral-team", "slot": "about",
       "subject": "a South Asian man in his thirties with a trimmed beard and tied-back hair, wearing a grey canvas apron over a white tee" },
 
-    { "id": "koyo-hero", "project": "koyo-tea", "slot": "hero",
-      "subject": "a low wooden tea table set with an iron kettle, two celadon cups and a folded linen cloth beside a paper window, soft morning light and faint steam" },
-    { "id": "koyo-field", "project": "koyo-tea", "slot": "story", "style": "landscape photograph",
-      "subject": "terraced green tea fields rolling into morning mist, rows curving with the hillside, one distant figure picking leaves" },
-    { "id": "koyo-interior", "project": "koyo-tea", "slot": "space",
-      "subject": "a minimalist tearoom interior with tatami mats, a single hanging scroll alcove and a low bench, diffuse window light" },
-    { "id": "koyo-pour", "project": "koyo-tea", "slot": "ritual", "size": "1024x1024",
-      "subject": "a close-up of pale green sencha being poured from a kyusu teapot into a small cup, gentle steam" },
-    { "id": "koyo-teapot", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
-      "subject": "a dark green ceramic kyusu teapot with a side handle, three-quarter view" },
-    { "id": "koyo-chawan", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
-      "subject": "a rustic celadon matcha bowl with an uneven glazed rim, three-quarter view slightly from above" },
-    { "id": "koyo-whisk", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop",
-      "subject": "a bamboo matcha whisk standing upright, fine curled tines" },
-    { "id": "koyo-tin", "project": "koyo-tea", "set": "koyo-ware", "slot": "shop", "size": "1024x1536",
-      "subject": "a tall cylindrical sage-green tea caddy with a plain pressed-metal lid" },
-
-    { "id": "zenith-hero", "project": "zenith-observatory", "slot": "hero",
+{ "id": "zenith-hero", "project": "zenith-observatory", "slot": "hero",
       "subject": "an observatory dome on a dark hilltop under a swirling star field, a beam of warm light spilling from the open slit, tiny visitors on the path below" },
     { "id": "zenith-panorama", "project": "zenith-observatory", "slot": "story",
       "subject": "a wide night-sky panorama with a band of milky way, layered silhouetted hills, and a scatter of constellations joined by thin lines" },
