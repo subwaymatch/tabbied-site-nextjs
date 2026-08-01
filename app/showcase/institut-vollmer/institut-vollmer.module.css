@@ -53,12 +53,12 @@
   list-style: none;
 }
 
-.page a {
+.page :where(a) {
   color: var(--blue);
   text-decoration: none;
 }
 
-.page a:hover {
+.page :where(a):hover {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
@@ -508,15 +508,15 @@
   background: radial-gradient(
     ellipse at 50% 52%,
     #ffffff 0%,
-    #ffffff 42%,
-    rgba(255, 255, 255, 0) 76%
+    #ffffff 36%,
+    rgba(255, 255, 255, 0) 68%
   );
 }
 
 .cutoutPhoto {
   position: relative;
-  width: 70%;
-  max-width: 18rem;
+  width: 78%;
+  max-width: 21rem;
   height: auto;
   filter: drop-shadow(0 14px 22px rgba(26, 26, 26, 0.24));
 }

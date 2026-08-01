@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { crescendo } from 'tabbied/artworks';
+import { crescendo, diminuendo, gravure, ortho } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './konzerthaus-halden.module.css';
 
@@ -9,17 +9,23 @@ export const metadata = {
     'Konzerthaus Halden, Haldenplatz 4. Ninety-two concerts between September 2026 and June 2027 in a 1,412-seat hall of 1964. Tickets from CHF 15, under 30 flat rate CHF 15.',
 };
 
+/* The six house colours. Every pattern field on the page draws from this set
+   and nothing else: fields differ only in which of the six leads. */
 const PAPER = '#F2F1EE';
 const INK = '#111111';
 const RED = '#E1261C';
+const GREY = '#8C8C88';
 const PALE = '#D8D7D2';
 const WARM = '#B9B4A8';
 
-/* Crescendo takes exactly two colours, background first. */
-const FIELD_RED = [PAPER, RED];
+/* Background first. Each field is a reordering or subset of the six above:
+   red leads only where the accent is meant to be read. */
+const FIELD_HERO = [PAPER, RED];
 const FIELD_QUIET = [PALE, INK];
-const FIELD_WARM = [PAPER, WARM];
-const FIELD_DARK = [INK, RED];
+const FIELD_BAND = [PAPER, WARM, PALE, GREY];
+const FIELD_STRIP = [PAPER, INK, GREY, PALE, WARM];
+const FIELD_EDU = [PAPER, RED, GREY, PALE];
+const FIELD_DARK = [INK, RED, WARM, GREY, PALE, PAPER];
 
 const NAV = [
   { no: '01', label: 'Season', href: '#season' },
@@ -185,7 +191,7 @@ const ORGAN_SPECS = [
 const RESIDENTS = [
   {
     slug: 'halden-conductor',
-    alt: 'Portrait of conductor Ines Vogler in a rehearsal room, score in hand',
+    alt: 'Studio portrait of conductor Ines Vogler, short grey hair, dark jacket with a red collar',
     name: 'Ines Vogler',
     role: 'Chief Conductor',
     since: 'Appointed 2023, contract to 2030',
@@ -193,7 +199,7 @@ const RESIDENTS = [
   },
   {
     slug: 'halden-soloist',
-    alt: 'Portrait of cellist Junia Halvorsen holding her instrument in the foyer',
+    alt: 'Studio portrait of cellist Junia Halvorsen in a dark roll-neck against a plain wall',
     name: 'Junia Halvorsen',
     role: 'Artist in Residence 2026/27',
     since: 'One season, six appearances',
@@ -327,7 +333,7 @@ export default function KonzerthausHaldenPage() {
                 <div className={`${s.artField} ${s.fieldPaper}`} aria-hidden="true">
                   <TabbiedArtwork
                     artwork={crescendo}
-                    palette={FIELD_RED}
+                    palette={FIELD_HERO}
                     seed="kh-hero-1"
                     fit="cover"
                     options={{ grid: '8x12' }}
@@ -413,11 +419,11 @@ export default function KonzerthausHaldenPage() {
         <div className={s.band}>
           <div className={s.bandField} aria-hidden="true">
             <TabbiedArtwork
-              artwork={crescendo}
-              palette={FIELD_WARM}
+              artwork={diminuendo}
+              palette={FIELD_BAND}
               seed="kh-band-3"
               fit="cover"
-              options={{ grid: '10x15' }}
+              options={{ grid: '10x15', frequency: 0.9 }}
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
@@ -498,6 +504,21 @@ export default function KonzerthausHaldenPage() {
             </div>
           </div>
         </section>
+
+        {/* Full-width ruled strip: the seat plan, reduced to its lines */}
+        <div className={s.strip}>
+          <div className={`${s.stripField} ${s.fieldPaper}`} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={ortho}
+              palette={FIELD_STRIP}
+              seed="kh-strip-4"
+              fit="grid"
+              cellSize={44}
+              options={{ frequency: 1 }}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </div>
 
         {/* 03 Hall */}
         <section id="hall" className={s.section} aria-labelledby="t-hall">
@@ -582,7 +603,7 @@ export default function KonzerthausHaldenPage() {
                 only on the stage.
               </p>
             </div>
-            <div className={s.grid}>
+            <div className={`${s.grid} ${s.residentsRow}`}>
               {RESIDENTS.map((r, i) => (
                 <article
                   key={r.name}
@@ -623,11 +644,11 @@ export default function KonzerthausHaldenPage() {
               <div className={s.eduArt}>
                 <div className={`${s.artField} ${s.fieldPaper}`} aria-hidden="true">
                   <TabbiedArtwork
-                    artwork={crescendo}
-                    palette={FIELD_RED}
-                    seed="kh-edu-4"
+                    artwork={ortho}
+                    palette={FIELD_EDU}
+                    seed="kh-edu-5"
                     fit="cover"
-                    options={{ grid: '6x9' }}
+                    options={{ grid: '6x9', frequency: 0.8 }}
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
@@ -749,11 +770,11 @@ export default function KonzerthausHaldenPage() {
             <div className={s.footArt}>
               <div className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
                 <TabbiedArtwork
-                  artwork={crescendo}
+                  artwork={gravure}
                   palette={FIELD_DARK}
-                  seed="kh-foot-5"
+                  seed="kh-foot-6"
                   fit="cover"
-                  options={{ grid: '8x12' }}
+                  options={{ grid: '6x9', frequency: 0.9 }}
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>

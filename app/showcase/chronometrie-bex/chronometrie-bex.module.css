@@ -116,6 +116,7 @@
 .topField {
   position: absolute;
   inset: 0;
+  background: var(--bone);
 }
 
 .masthead {
@@ -161,10 +162,14 @@
   row-gap: calc(var(--u) * 6);
 }
 
-/* Accent, use one of two: the kicker. */
+/* Accent, one of two: the dateline field. Ink on orange clears AA; orange
+   type on the bone ground would not. */
 .kicker {
   grid-column: 1 / 13;
-  color: var(--orange);
+  justify-self: start;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 0.3rem 0.55rem 0.25rem;
 }
 
 .heroTitle {
@@ -303,6 +308,7 @@
   gap: calc(var(--u) * 3);
   max-width: var(--measure);
   font-size: 0.9375rem;
+  align-content: start;
 }
 
 .atelierFig {
@@ -330,6 +336,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--gutter);
   row-gap: calc(var(--u) * 3.5);
+  align-content: start;
 }
 
 .specPairs dt {
@@ -416,6 +423,7 @@
   margin-top: calc(var(--u) * 4);
   display: grid;
   row-gap: calc(var(--u) * 2);
+  align-content: start;
 }
 
 .plateSpecs > div {
@@ -554,6 +562,7 @@
   grid-template-columns: subgrid;
   column-gap: var(--gutter);
   row-gap: calc(var(--u) * 4);
+  align-content: start;
 }
 
 .termRow {
@@ -583,6 +592,7 @@
   gap: calc(var(--u) * 3);
   font-size: 0.9375rem;
   max-width: var(--measure);
+  align-content: start;
 }
 
 /* ------------------------------------------------------------- 07 ordering */
@@ -591,6 +601,7 @@
   grid-column: 1 / 8;
   display: grid;
   row-gap: calc(var(--u) * 4);
+  align-content: start;
 }
 
 .orderRow {
@@ -628,7 +639,7 @@
 .buttonFilled {
   display: inline-block;
   background: var(--orange);
-  color: var(--bone);
+  color: var(--ink);
   padding: 0.75rem 1.15rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -649,6 +660,7 @@
   grid-template-columns: subgrid;
   column-gap: var(--gutter);
   row-gap: calc(var(--u) * 5);
+  align-content: start;
 }
 
 .visitPairs > div {
@@ -680,6 +692,7 @@
   position: absolute;
   inset: 0;
   height: clamp(4.5rem, 7vw, 6.5rem);
+  background: var(--shadow);
   overflow: hidden;
 }
 
@@ -715,15 +728,15 @@
   max-width: 22em;
 }
 
-.footCol:nth-of-type(1) {
+.footCol:nth-child(2) {
   grid-column: 5 / 8;
 }
 
-.footCol:nth-of-type(2) {
+.footCol:nth-child(3) {
   grid-column: 8 / 10;
 }
 
-.footCol:nth-of-type(3) {
+.footCol:nth-child(4) {
   grid-column: 10 / 13;
 }
 
@@ -738,12 +751,14 @@
   font-size: 0.8125rem;
   list-style: none;
   padding: 0;
+  align-content: start;
 }
 
 .footAddress {
   font-size: 0.8125rem;
   line-height: 1.7;
   font-style: normal;
+  overflow-wrap: break-word;
 }
 
 .footBase {
@@ -805,15 +820,15 @@
     grid-column: span 6;
   }
 
-  .footCol:nth-of-type(1) {
+  .footCol:nth-child(2) {
     grid-column: 4 / 7;
   }
 
-  .footCol:nth-of-type(2) {
+  .footCol:nth-child(3) {
     grid-column: 7 / 10;
   }
 
-  .footCol:nth-of-type(3) {
+  .footCol:nth-child(4) {
     grid-column: 10 / 13;
   }
 }
@@ -874,6 +889,16 @@
 }
 
 @media (max-width: 620px) {
+  .wordmark,
+  .nav,
+  .mastMeta {
+    grid-column: 1 / -1;
+  }
+
+  .mastMeta {
+    margin-top: calc(var(--u) * 1);
+  }
+
   .plate,
   .step,
   .termRow,
@@ -916,9 +941,9 @@
   }
 
   .footBrand,
-  .footCol:nth-of-type(1),
-  .footCol:nth-of-type(2),
-  .footCol:nth-of-type(3) {
+  .footCol:nth-child(2),
+  .footCol:nth-child(3),
+  .footCol:nth-child(4) {
     grid-column: 1 / -1;
   }
 

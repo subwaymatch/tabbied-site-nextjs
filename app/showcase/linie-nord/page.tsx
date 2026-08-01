@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { bothways } from 'tabbied/artworks';
+import { bothways, dotmatrix, ortho, rafter } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './linie-nord.module.css';
 
@@ -328,7 +328,7 @@ export default function LinieNordPage() {
             <div className={styles.heroField}>
               <TabbiedArtwork
                 artwork={bothways}
-                palette={[CONCRETE, INK, STEEL, PALE]}
+                palette={[CONCRETE, STEEL, PALE, INK]}
                 seed="ln-hero-01"
                 options={{ grid: '8x12', frequency: 0.9 }}
                 fit="grid"
@@ -396,15 +396,16 @@ export default function LinieNordPage() {
           </div>
         </section>
 
+        {/* Raking members: the ballast and track band. */}
         <div className={styles.bleed}>
           <div className={styles.band}>
             <TabbiedArtwork
-              artwork={bothways}
-              palette={[DARK, STEEL, PALE]}
+              artwork={rafter}
+              palette={[DARK, STEEL, STEEL, PALE]}
               seed="ln-band-02"
-              options={{ grid: '6x9', frequency: 0.7 }}
+              options={{ grid: '4x6', frequency: 0.85 }}
               fit="grid"
-              cellSize={54}
+              cellSize={34}
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
@@ -425,7 +426,7 @@ export default function LinieNordPage() {
             <div className={styles.frameTall}>
               <TabbiedArtwork
                 artwork={bothways}
-                palette={[CONCRETE, INK, STEEL]}
+                palette={[PALE, INK, STEEL]}
                 seed="ln-tile-03"
                 options={{ grid: '6x9', frequency: 0.85 }}
                 fit="grid"
@@ -648,15 +649,16 @@ export default function LinieNordPage() {
         </section>
 
         {/* 04 Fares */}
+        {/* Departure-board lattice, run slim across the page. */}
         <div className={styles.bleed}>
           <div className={styles.bandSlim}>
             <TabbiedArtwork
-              artwork={bothways}
+              artwork={dotmatrix}
               palette={[PALE, STEEL, INK]}
               seed="ln-band-04"
-              options={{ grid: '4x6', frequency: 0.6 }}
+              options={{ grid: '4x6', frequency: 0.75 }}
               fit="grid"
-              cellSize={40}
+              cellSize={34}
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
@@ -810,12 +812,12 @@ export default function LinieNordPage() {
             <div className={styles.validatorCol}>
               <div className={styles.frameTall}>
                 <TabbiedArtwork
-                  artwork={bothways}
-                  palette={[PALE, STEEL, CONCRETE]}
+                  artwork={dotmatrix}
+                  palette={[CONCRETE, STEEL, PALE]}
                   seed="ln-valid-06"
-                  options={{ grid: '4x6', frequency: 0.8 }}
+                  options={{ grid: '4x6', frequency: 0.85 }}
                   fit="grid"
-                  cellSize={38}
+                  cellSize={30}
                   style={{ position: 'absolute', inset: 0 }}
                 />
                 <div className={styles.veil} aria-hidden="true" />
@@ -932,12 +934,12 @@ export default function LinieNordPage() {
       <footer className={styles.footer}>
         <div className={styles.footerField} aria-hidden="true">
           <TabbiedArtwork
-            artwork={bothways}
+            artwork={ortho}
             palette={[DARK, STEEL, PALE, CONCRETE]}
             seed="ln-foot-09"
-            options={{ grid: '6x9', frequency: 0.75 }}
+            options={{ grid: '6x9', frequency: 0.8 }}
             fit="grid"
-            cellSize={46}
+            cellSize={48}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>

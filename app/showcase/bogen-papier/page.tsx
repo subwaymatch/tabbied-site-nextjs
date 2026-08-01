@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
-import { taper } from 'tabbied/artworks';
+/* Four presets, one job each, all drawn from the same six site hexes:
+   gravure opens and closes the page, taper is the weight scale,
+   diminuendo backs the reel, subdivide sits in the specimen grid. */
+import { gravure, taper, diminuendo, subdivide } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './bogen-papier.module.css';
 
@@ -123,11 +126,13 @@ const ORDER_STEPS = [
 ];
 
 const TEAM = [
-  ['Ilse Brander', 'Merchant, since 1998'],
+  ['Urs Brander', 'Merchant, since 1998'],
   ['Marek Novotny', 'Cutting floor and reels'],
   ['Sara Achermann', 'Orders and sample service'],
   ['Tobias Frei', 'Delivery, Zones 1 to 3'],
 ];
+
+const ZONE_COLUMNS = ['Zone', 'Area covered', 'Cut-off', 'Arrival', 'Charge'];
 
 const ZONES = [
   { zone: 'Z1', area: 'Winterthur, Töss, Wülflingen, Seen', cutoff: '15:00',
@@ -232,11 +237,11 @@ export default function BogenPapierPage() {
           <div className={styles.heroSplit}>
             <div className={styles.heroField}>
               <TabbiedArtwork
-                artwork={taper}
-                palette={[PAPER, WARM, PALE, UMBER, GREEN]}
+                artwork={gravure}
+                palette={[PAPER, WARM, PALE, UMBER]}
                 seed="bogen-hero-01"
                 fit="grid"
-                cellSize={72}
+                cellSize={78}
                 style={{ position: 'absolute', inset: 0 }}
               />
             </div>
@@ -306,7 +311,7 @@ export default function BogenPapierPage() {
 
         {/* 02 THE RANGE: swatch grid */}
         <section
-          className={`${styles.section} ${styles.sectionPale}`}
+          className={`${styles.section} ${styles.sectionRange}`}
           id="range"
           aria-labelledby="range-title"
         >
@@ -382,13 +387,9 @@ export default function BogenPapierPage() {
                           cellSize={30}
                           style={{ position: 'absolute', inset: 0 }}
                         />
-                        <span className={styles.swatchRefInside}>Scale</span>
                       </div>
                       <div className={styles.swatchMeta}>
-                        <p className={styles.swatchName}>
-                          <span className={styles.swatchRef}>B.00</span>
-                          Weight scale
-                        </p>
+                        <p className={styles.swatchName}>Weight scale</p>
                         <p className={styles.swatchGloss}>
                           Ninety through three fifty, drawn to size
                         </p>
@@ -406,17 +407,12 @@ export default function BogenPapierPage() {
                     </li>
                   )}
                   <li className={styles.swatchCell}>
-                    <div
-                      className={`${styles.swatchField} ${styles[s.tone]}`}
-                      aria-hidden="true"
-                    >
+                    {/* The reference is printed on the chip, as in the book. */}
+                    <div className={`${styles.swatchField} ${styles[s.tone]}`}>
                       <span className={styles.swatchRefInside}>{s.ref}</span>
                     </div>
                     <div className={styles.swatchMeta}>
-                      <h3 className={styles.swatchName}>
-                        <span className={styles.swatchRef}>{s.ref}</span>
-                        {s.name}
-                      </h3>
+                      <h3 className={styles.swatchName}>{s.name}</h3>
                       <p className={styles.swatchGloss}>{s.gloss}</p>
                       <div className={styles.swatchSpecs}>
                         <span className={styles.specTerm}>Surface</span>
@@ -502,11 +498,11 @@ export default function BogenPapierPage() {
               <div className={styles.millCut}>
                 <div className={styles.millCutField}>
                   <TabbiedArtwork
-                    artwork={taper}
-                    palette={[PALE, WARM, PAPER]}
+                    artwork={diminuendo}
+                    palette={[PALE, WARM, PAPER, UMBER]}
                     seed="bogen-mill-02"
                     fit="grid"
-                    cellSize={44}
+                    cellSize={46}
                     style={{ position: 'absolute', inset: 0 }}
                   />
                   <span className={styles.veil} aria-hidden="true" />
@@ -562,11 +558,11 @@ export default function BogenPapierPage() {
               </div>
               <div className={styles.specimenPattern}>
                 <TabbiedArtwork
-                  artwork={taper}
-                  palette={[PAPER, PALE, WARM, GREEN]}
+                  artwork={subdivide}
+                  palette={[PAPER, PALE, WARM, UMBER]}
                   seed="bogen-specimen-03"
                   fit="grid"
-                  cellSize={52}
+                  cellSize={58}
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>
@@ -693,7 +689,7 @@ export default function BogenPapierPage() {
               <figure className={styles.portraitFrame}>
                 <Figure
                   slug="bogen-merchant"
-                  alt="Ilse Brander, the merchant, standing at the cutting bench."
+                  alt="Urs Brander, the merchant, standing at the cutting bench."
                   className={styles.portrait}
                 />
               </figure>
@@ -708,7 +704,7 @@ export default function BogenPapierPage() {
                     the interesting part.
                   </p>
                   <footer className={styles.quoteAttr}>
-                    Ilse Brander, merchant
+                    Urs Brander, merchant
                   </footer>
                 </blockquote>
                 <dl className={styles.teamList}>
@@ -757,21 +753,11 @@ export default function BogenPapierPage() {
               aria-label="Delivery zones"
             >
               <div className={styles.zoneHead} role="row">
-                <p className={styles.zoneHeadCell} role="columnheader">
-                  Zone
-                </p>
-                <p className={styles.zoneHeadCell} role="columnheader">
-                  Area covered
-                </p>
-                <p className={styles.zoneHeadCell} role="columnheader">
-                  Cut-off
-                </p>
-                <p className={styles.zoneHeadCell} role="columnheader">
-                  Arrival
-                </p>
-                <p className={styles.zoneHeadCell} role="columnheader">
-                  Charge
-                </p>
+                {ZONE_COLUMNS.map((label) => (
+                  <p className={styles.zoneHeadCell} role="columnheader" key={label}>
+                    {label}
+                  </p>
+                ))}
               </div>
               {ZONES.map((z) => (
                 <div className={styles.zoneRow} role="row" key={z.zone}>
@@ -823,11 +809,11 @@ export default function BogenPapierPage() {
       <footer className={styles.footer}>
         <div className={styles.footField} aria-hidden="true">
           <TabbiedArtwork
-            artwork={taper}
+            artwork={gravure}
             palette={[INK, UMBER, WARM]}
             seed="bogen-foot-09"
             fit="grid"
-            cellSize={64}
+            cellSize={78}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -861,10 +847,11 @@ export default function BogenPapierPage() {
                 <p className={styles.footLine}>VAT CHE-114.702.338</p>
               </div>
               <p className={styles.colophon}>
-                Set in Inter. Fields drawn with the Tabbied artwork Taper, a
-                scale of squares growing one step at a time, used here for the
-                weight ramp. Photography by Roman Keller, 2025. Prices valid to
-                31 December 2026.
+                Set in Inter. Fields drawn with four Tabbied artworks in the
+                house palette: Gravure at the head and the foot, Taper for the
+                weight ramp, Diminuendo behind the reel, Subdivide in the
+                specimen grid. Photography by Roman Keller, 2025. Prices valid
+                to 31 December 2026.
               </p>
             </div>
           </div>

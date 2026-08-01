@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { perforate } from 'tabbied/artworks';
+import { dotmatrix, moire, perforate, subdivide } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './institut-vollmer.module.css';
 
@@ -9,6 +9,8 @@ export const metadata = {
     'Institut Vollmer is an independent materials research institute founded in 1951. Four research programmes, 148 staff, 112 peer-reviewed papers in 2025, and contract testing for industry.',
 };
 
+/* Six house colours. Every pattern field on the page is drawn from this set
+   and no other: the fields differ only in which of the six leads. */
 const WHITE = '#FFFFFF';
 const INK = '#1A1A1A';
 const BLUE = '#0B4EE0';
@@ -16,11 +18,14 @@ const STEEL = '#9AA0A6';
 const PALE = '#E9EBEE';
 const GRAPHITE = '#4A4F55';
 
-/* Perforate takes two to six colours, background first. */
-const FIELD_BLUE = [WHITE, BLUE, STEEL, PALE];
-const FIELD_QUIET = [WHITE, PALE, STEEL];
-const FIELD_PALE = [PALE, STEEL, BLUE];
-const FIELD_DARK = [INK, GRAPHITE, BLUE, STEEL];
+/* Background first. Each field is a reordering or subset of the six above:
+   blue leads only where the accent is meant to be read. */
+const FIELD_STRIP = [WHITE, BLUE, STEEL, PALE, GRAPHITE, INK];
+const FIELD_RESEARCH = [WHITE, PALE, STEEL, GRAPHITE];
+const FIELD_INSTRUMENT = [PALE, STEEL, BLUE, GRAPHITE];
+const FIELD_PEOPLE = [WHITE, BLUE, STEEL, PALE];
+const FIELD_SAMPLES = [WHITE, PALE, STEEL, GRAPHITE];
+const FIELD_DARK = [INK, BLUE, GRAPHITE, STEEL];
 
 const NAV = [
   { no: '01', label: 'Research', href: '#research' },
@@ -208,14 +213,14 @@ const PUBLICATIONS = [
 const PEOPLE = [
   {
     slug: 'vollmer-researcher-1',
-    alt: 'Portrait of Dr Katrin Reuss in the fatigue laboratory, wearing safety glasses',
+    alt: 'Studio portrait of Dr Katrin Reuss in a white laboratory coat against a grey wall',
     name: 'Dr Katrin Reuss',
     role: 'Head, Fatigue and fracture',
     body: 'At the institute since 2011. Chairs the working group on load spectrum disclosure and teaches the fracture mechanics course at the technical university two afternoons a week.',
   },
   {
     slug: 'vollmer-researcher-2',
-    alt: 'Portrait of Prof. Samuel Ndiaye at a deposition chamber in the clean room',
+    alt: 'Studio portrait of Prof. Samuel Ndiaye in a white laboratory coat and wire-framed glasses',
     name: 'Prof. Samuel Ndiaye',
     role: 'Head, Thin films and coatings',
     body: 'At the institute since 2003, director since 2021. Responsible for the clean room, for the industry programme and for the decision that all raw data leaves the building with the report.',
@@ -365,7 +370,7 @@ export default function InstitutVollmerPage() {
             <div className={`${s.stripField} ${s.fieldWhite}`} aria-hidden="true">
               <TabbiedArtwork
                 artwork={perforate}
-                palette={FIELD_BLUE}
+                palette={FIELD_STRIP}
                 seed="iv-strip-1"
                 fit="cover"
                 options={{ grid: '10x15', frequency: 0.85 }}
@@ -426,7 +431,7 @@ export default function InstitutVollmerPage() {
                 <div className={`${s.artField} ${s.fieldWhite}`} aria-hidden="true">
                   <TabbiedArtwork
                     artwork={perforate}
-                    palette={FIELD_QUIET}
+                    palette={FIELD_RESEARCH}
                     seed="iv-research-2"
                     fit="cover"
                     options={{ grid: '8x12', frequency: 0.9 }}
@@ -470,14 +475,19 @@ export default function InstitutVollmerPage() {
                 ))}
               </ul>
 
+              <p className={s.facilitiesNote}>
+                Hourly rates and the booking calendar are published at the
+                reception desk and revised each January. Academic users from
+                partner institutions pay the marginal cost of consumables only.
+              </p>
               <div className={s.instrumentStage}>
                 <div className={`${s.stageField} ${s.fieldPale}`} aria-hidden="true">
                   <TabbiedArtwork
-                    artwork={perforate}
-                    palette={FIELD_PALE}
+                    artwork={moire}
+                    palette={FIELD_INSTRUMENT}
                     seed="iv-instrument-3"
                     fit="cover"
-                    options={{ grid: '6x9', frequency: 0.7 }}
+                    options={{ grid: '4x6', frequency: 0.9 }}
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
@@ -489,11 +499,6 @@ export default function InstitutVollmerPage() {
                   className={s.cutoutPhoto}
                 />
               </div>
-              <p className={s.facilitiesNote}>
-                Hourly rates and the booking calendar are published at the
-                reception desk and revised each January. Academic users from
-                partner institutions pay the marginal cost of consumables only.
-              </p>
             </div>
           </div>
         </section>
@@ -565,8 +570,8 @@ export default function InstitutVollmerPage() {
               <div className={s.peopleArt}>
                 <div className={`${s.artField} ${s.fieldWhite}`} aria-hidden="true">
                   <TabbiedArtwork
-                    artwork={perforate}
-                    palette={FIELD_BLUE}
+                    artwork={dotmatrix}
+                    palette={FIELD_PEOPLE}
                     seed="iv-people-4"
                     fit="cover"
                     options={{ grid: '6x9', frequency: 0.5 }}
@@ -574,8 +579,8 @@ export default function InstitutVollmerPage() {
                   />
                 </div>
                 <p className={s.caption}>
-                  Staff by programme, one mark per person. Ninety-two of the 148
-                  are shown; the remainder work across all four.
+                  Fig. 3. Staff by programme, one square per person. Ninety-two
+                  of the 148 are shown; the remainder work across all four.
                 </p>
               </div>
             </div>
@@ -605,14 +610,20 @@ export default function InstitutVollmerPage() {
                 ))}
               </ol>
 
+              <p className={s.industryTerms}>
+                Terms are the same for every client: fixed price, written scope,
+                no exclusivity beyond twelve months, and no result withheld
+                because it is unwelcome. Contracts that require otherwise are
+                declined, which happened four times in 2025.
+              </p>
               <div className={s.samplesStage}>
                 <div className={`${s.stageField} ${s.fieldWhite}`} aria-hidden="true">
                   <TabbiedArtwork
-                    artwork={perforate}
-                    palette={FIELD_QUIET}
+                    artwork={subdivide}
+                    palette={FIELD_SAMPLES}
                     seed="iv-samples-5"
                     fit="cover"
-                    options={{ grid: '10x15', frequency: 1 }}
+                    options={{ grid: '8x12', frequency: 0.85 }}
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
@@ -624,12 +635,6 @@ export default function InstitutVollmerPage() {
                   className={s.cutoutPhoto}
                 />
               </div>
-              <p className={s.industryTerms}>
-                Terms are the same for every client: fixed price, written scope,
-                no exclusivity beyond twelve months, and no result withheld
-                because it is unwelcome. Contracts that require otherwise are
-                declined, which happened four times in 2025.
-              </p>
             </div>
           </div>
         </section>
@@ -740,11 +745,11 @@ export default function InstitutVollmerPage() {
             <div className={s.footArt}>
               <div className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
                 <TabbiedArtwork
-                  artwork={perforate}
+                  artwork={dotmatrix}
                   palette={FIELD_DARK}
                   seed="iv-foot-6"
                   fit="cover"
-                  options={{ grid: '8x12', frequency: 0.6 }}
+                  options={{ grid: '6x9', frequency: 0.55 }}
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>

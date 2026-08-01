@@ -90,7 +90,6 @@
 .sectionLabel,
 .factTerm,
 .specTerm,
-.swatchRef,
 .swatchRefInside,
 .swatchLegendLabel,
 .millTerm,
@@ -113,7 +112,6 @@
 .rampUnit { font-size: 0.625rem; }
 
 .specTerm,
-.swatchRef,
 .swatchRefInside { font-size: 0.5625rem; }
 
 /* figures are set as tables wherever they line up in a column */
@@ -276,6 +274,13 @@
 
 .sectionPale { --ground: var(--pale); background: var(--pale); }
 
+/* The range gets its own ground, warmer than any shade in the grid, so that
+   B.01 Natur and B.02 Kreide read as rectangles and not as holes. */
+.sectionRange {
+  --ground: color-mix(in srgb, var(--warm) 26%, var(--paper));
+  background: color-mix(in srgb, var(--warm) 26%, var(--paper));
+}
+
 .sectionInk {
   --ground: var(--ink);
   --muted: color-mix(in srgb, var(--warm) 72%, var(--umber));
@@ -389,6 +394,7 @@
   left: 10px;
   bottom: 8px;
   color: var(--on-tone);
+  opacity: 0.85;
 }
 
 .swatchMeta { padding-top: calc(var(--u) * 2); }
@@ -400,8 +406,6 @@
   letter-spacing: -0.022em;
   line-height: 1.15;
 }
-
-.swatchRef { display: block; margin-bottom: 5px; }
 
 .swatchGloss {
   margin: calc(var(--u) * 0.75) 0 0;

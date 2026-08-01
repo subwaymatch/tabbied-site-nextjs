@@ -314,6 +314,7 @@
   display: grid;
   gap: calc(var(--u) * 2.5);
   max-width: var(--measure);
+  align-content: start;
 }
 
 .netAside {
@@ -327,6 +328,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--gutter);
   row-gap: calc(var(--u) * 4);
+  align-content: start;
 }
 
 .figureLabel {
@@ -536,6 +538,7 @@
 .pairs {
   display: grid;
   gap: calc(var(--u) * 3);
+  align-content: start;
 }
 
 .pairs dt {
@@ -697,6 +700,7 @@
   display: grid;
   gap: calc(var(--u) * 2);
   font-variant-numeric: tabular-nums;
+  align-content: start;
 }
 
 .priceRow {
@@ -736,6 +740,7 @@
   display: grid;
   gap: calc(var(--u) * 2.5);
   max-width: var(--measure);
+  align-content: start;
 }
 
 .accessText + .pairs {
@@ -771,6 +776,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--gutter);
   row-gap: calc(var(--u) * 3.5);
+  align-content: start;
 }
 
 .pairsWide dt {
@@ -800,6 +806,7 @@
   display: grid;
   gap: calc(var(--u) * 0.5);
   margin-top: calc(var(--u) * 2);
+  align-content: start;
 }
 
 .staffName {
@@ -828,6 +835,7 @@
   display: grid;
   gap: calc(var(--u) * 2.5);
   font-size: 0.9375rem;
+  align-content: start;
 }
 
 /* ------------------------------------------------------------- 08 updates */
@@ -838,6 +846,7 @@
   gap: calc(var(--u) * 5);
   list-style: none;
   padding: 0;
+  align-content: start;
 }
 
 .update {
@@ -900,6 +909,7 @@
   position: absolute;
   inset: 0;
   height: clamp(5rem, 8vw, 7rem);
+  background: var(--dark);
   overflow: hidden;
 }
 
@@ -935,15 +945,15 @@
   max-width: 24em;
 }
 
-.footCol:nth-of-type(1) {
+.footCol:nth-child(2) {
   grid-column: 5 / 8;
 }
 
-.footCol:nth-of-type(2) {
+.footCol:nth-child(3) {
   grid-column: 8 / 11;
 }
 
-.footCol:nth-of-type(3) {
+.footCol:nth-child(4) {
   grid-column: 11 / 13;
 }
 
@@ -965,6 +975,7 @@
   font-size: 0.8125rem;
   list-style: none;
   padding: 0;
+  align-content: start;
 }
 
 .footBase {
@@ -1022,15 +1033,15 @@
     grid-column: 8 / 13;
   }
 
-  .footCol:nth-of-type(1) {
+  .footCol:nth-child(2) {
     grid-column: 4 / 7;
   }
 
-  .footCol:nth-of-type(2) {
+  .footCol:nth-child(3) {
     grid-column: 7 / 10;
   }
 
-  .footCol:nth-of-type(3) {
+  .footCol:nth-child(4) {
     grid-column: 10 / 13;
   }
 }
@@ -1217,14 +1228,26 @@
   }
 
   .footBrand,
-  .footCol:nth-of-type(1),
-  .footCol:nth-of-type(2),
-  .footCol:nth-of-type(3) {
+  .footCol:nth-child(2),
+  .footCol:nth-child(3),
+  .footCol:nth-child(4) {
     grid-column: 1 / -1;
   }
 
   .footerGrid {
     padding-top: calc(var(--u) * 16);
+  }
+}
+
+@media (max-width: 620px) {
+  .wordmark,
+  .nav,
+  .mastMeta {
+    grid-column: 1 / -1;
+  }
+
+  .mastMeta {
+    margin-top: calc(var(--u) * 1);
   }
 }
 

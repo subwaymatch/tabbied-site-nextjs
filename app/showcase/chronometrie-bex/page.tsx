@@ -1,12 +1,12 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { torsion } from 'tabbied/artworks';
+import { annulus, centroid, gravure, torsion } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './chronometrie-bex.module.css';
 
 export const metadata = {
   title: 'Chronométrie Bex | Mechanical watch manufacture, Bex',
   description:
-    'Chronométrie Bex builds 240 hand-wound and automatic wristwatches a year in the Rhône valley. Three references, full specifications, servicing terms and ordering.',
+    'Chronométrie Bex builds 240 hand-wound watches a year in the Rhône valley. Three references, full specifications, servicing terms and ordering.',
 };
 
 const BONE = '#EDEDEB';
@@ -64,10 +64,10 @@ const COLLECTION = [
     ref: '03',
     slug: 'bex-watch-3-cutout',
     name: 'Type 03 Réserve',
-    alt: 'A round wristwatch with a blank dial, a power reserve sector and a satin steel case, isolated on a plain field',
-    line: 'The only automatic in the catalogue. Three days of walking away from it and it is still running.',
-    diameter: '40.5 mm',
-    calibre: 'CB-21, automatic',
+    alt: 'A hunter-cased pocket watch with a blank dial, the cover opened, hanging from a steel chain, isolated on a plain field',
+    line: 'Not a wristwatch. A hunter case on a steel chain, with three days of reserve from twin barrels.',
+    diameter: '46.0 mm',
+    calibre: 'CB-21, hand-wound',
     reserve: '72 hours',
     price: 'CHF 14 600',
     seed: 'cb-plate-03',
@@ -76,17 +76,18 @@ const COLLECTION = [
 
 const SPEC_ROWS = [
   { label: 'Case material', values: ['Steel 316L', 'Steel 316L', 'Steel 316L'] },
-  { label: 'Diameter', values: ['37.0 mm', '39.0 mm', '40.5 mm'] },
-  { label: 'Height', values: ['8.4 mm', '9.1 mm', '10.6 mm'] },
-  { label: 'Lug width', values: ['18 mm', '19 mm', '20 mm'] },
+  { label: 'Worn', values: ['Wrist', 'Wrist', 'Pocket'] },
+  { label: 'Diameter', values: ['37.0 mm', '39.0 mm', '46.0 mm'] },
+  { label: 'Height', values: ['8.4 mm', '9.1 mm', '11.8 mm'] },
+  { label: 'Lug or bow', values: ['18 mm', '19 mm', 'Bow, 6 mm'] },
   { label: 'Crystal', values: ['Sapphire', 'Sapphire', 'Sapphire'] },
-  { label: 'Water resistance', values: ['30 m', '30 m', '50 m'] },
+  { label: 'Water resistance', values: ['30 m', '30 m', 'Dust-tight'] },
   { label: 'Calibre', values: ['CB-11', 'CB-14', 'CB-21'] },
-  { label: 'Winding', values: ['Hand', 'Hand', 'Automatic'] },
-  { label: 'Frequency', values: ['18 000 A/h', '21 600 A/h', '28 800 A/h'] },
-  { label: 'Jewels', values: ['19', '22', '31'] },
+  { label: 'Winding', values: ['Hand', 'Hand', 'Hand'] },
+  { label: 'Frequency', values: ['18 000 A/h', '21 600 A/h', '18 000 A/h'] },
+  { label: 'Jewels', values: ['19', '22', '25'] },
   { label: 'Power reserve', values: ['62 h', '58 h', '72 h'] },
-  { label: 'Strap', values: ['Calf', 'Calf', 'Calf or steel'] },
+  { label: 'Strap or chain', values: ['Calf', 'Calf', 'Steel chain'] },
   { label: 'Made per year', values: ['90', '110', '40'] },
   { label: 'Price', values: ['CHF 8 400', 'CHF 11 900', 'CHF 14 600'] },
 ];
@@ -170,11 +171,11 @@ export default function ChronometrieBexPage() {
         <div className={styles.topField} aria-hidden="true">
           <TabbiedArtwork
             artwork={torsion}
-            palette={[BONE, PALE, STEEL]}
+            palette={[BONE, PALE]}
             seed="cb-hero-01"
-            options={{ grid: '10x15', frequency: 0.45 }}
+            options={{ grid: '10x15', frequency: 0.55 }}
             fit="grid"
-            cellSize={82}
+            cellSize={64}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -292,14 +293,15 @@ export default function ChronometrieBexPage() {
           </div>
         </section>
 
+        {/* Machined wells: the plate, run full width between sections. */}
         <div className={styles.band}>
           <TabbiedArtwork
-            artwork={torsion}
+            artwork={gravure}
             palette={[INK, STEEL, PALE]}
             seed="cb-band-02"
-            options={{ grid: '6x9', frequency: 0.8 }}
+            options={{ grid: '4x6', frequency: 0.9 }}
             fit="grid"
-            cellSize={56}
+            cellSize={60}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -378,13 +380,14 @@ export default function ChronometrieBexPage() {
                 <article key={w.ref} className={styles.plate}>
                   <p className={styles.plateNo}>Plate {w.ref}</p>
                   <div className={styles.plateField}>
+                    {/* Rings, one treatment for all three plates. */}
                     <TabbiedArtwork
-                      artwork={torsion}
-                      palette={[PALE, STEEL, BONE]}
+                      artwork={annulus}
+                      palette={[PALE, BONE, STEEL]}
                       seed={w.seed}
-                      options={{ grid: '6x9', frequency: 0.7 }}
+                      options={{ grid: '4x6', frequency: 0.8 }}
                       fit="grid"
-                      cellSize={40}
+                      cellSize={44}
                       style={{ position: 'absolute', inset: 0 }}
                     />
                     <div className={styles.veil} aria-hidden="true" />
@@ -472,7 +475,8 @@ export default function ChronometrieBexPage() {
               Steel 316L is bar stock, not cast. Water resistance is tested at
               the stated depth plus 25 % and again after any service. Lug width
               is quoted between the lugs, so a 19 mm strap fits Type 02 without
-              persuasion.
+              persuasion. Type 03 is a pocket watch and is sealed against dust,
+              not water.
             </p>
           </div>
         </section>
@@ -676,12 +680,12 @@ export default function ChronometrieBexPage() {
       <footer className={styles.footer}>
         <div className={styles.footerField} aria-hidden="true">
           <TabbiedArtwork
-            artwork={torsion}
+            artwork={centroid}
             palette={[SHADOW, STEEL, PALE, BONE]}
             seed="cb-foot-09"
-            options={{ grid: '8x12', frequency: 0.65 }}
+            options={{ grid: '8x12', frequency: 0.9 }}
             fit="grid"
-            cellSize={50}
+            cellSize={44}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -689,7 +693,7 @@ export default function ChronometrieBexPage() {
           <div className={styles.footBrand}>
             <p className={styles.footWordmark}>Chronométrie Bex</p>
             <p className={styles.footTag}>
-              Mechanical wristwatches, made and serviced at Rue du Jura 12 since
+              Mechanical watches, made and serviced at Rue du Jura 12 since
               1974.
             </p>
           </div>

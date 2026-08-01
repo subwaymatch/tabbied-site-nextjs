@@ -53,12 +53,12 @@
   list-style: none;
 }
 
-.page a {
+.page :where(a) {
   color: var(--red);
   text-decoration: none;
 }
 
-.page a:hover {
+.page :where(a):hover {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
@@ -287,6 +287,19 @@
   height: clamp(18rem, 46vw, 34rem);
   object-fit: cover;
   object-position: 50% 50%;
+}
+
+/* full-width ruled strip between sections */
+.strip {
+  position: relative;
+  height: clamp(4rem, 7vw, 6.5rem);
+  background-color: var(--paper);
+}
+
+.stripField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
 /* ---------- generic section ---------- */
@@ -595,6 +608,10 @@
 }
 
 /* ---------- 04 artists ---------- */
+
+.residentsRow {
+  margin-top: calc(var(--u) * 7);
+}
 
 .residentA {
   grid-column: 1 / 6;
@@ -1009,6 +1026,14 @@
   .bandCutout {
     min-height: 0;
     justify-items: start;
+  }
+
+  .veil {
+    inset: 0;
+  }
+
+  .strip {
+    height: 3.5rem;
   }
 
   .bandNote {
