@@ -871,7 +871,7 @@
   position: relative;
   max-width: 56rem;
   margin: 0 auto 5px;
-  background: rgba(251, 248, 239, 0.94);
+  background: rgba(251, 248, 239, 0.96);
   border: 1px solid var(--green);
   outline: 1px solid var(--green);
   outline-offset: 5px;

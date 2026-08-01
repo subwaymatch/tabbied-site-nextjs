@@ -1161,6 +1161,31 @@
   }
 }
 
+/* tablet range — keep the whole bar on one line before the nav drops out */
+@media (max-width: 900px) {
+  .headerInner {
+    gap: 0.8rem;
+  }
+
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .nav {
+    gap: 0.3rem;
+  }
+
+  .nav a {
+    font-size: 0.86rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .ticketBtn {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.9rem;
+  }
+}
+
 @media (max-width: 620px) {
   .nav {
     display: none;

@@ -403,7 +403,7 @@ export default function GroteskFoundryPage() {
               A monospace that admits it is one. No cute slashed zero debate:
               you get both, as stylistic sets, and you will pick the dotted one.
             </p>
-            <div className={`${styles.waterfall} ${styles.waterfallMono}`} aria-label="Kilo Mono size waterfall">
+            <div className={styles.waterfall} aria-label="Kilo Mono size waterfall">
               {MONOFALL.map((row) => (
                 <p key={row.label} className={styles.wfRow}>
                   <span className={styles.wfLabel}>{row.label}</span>

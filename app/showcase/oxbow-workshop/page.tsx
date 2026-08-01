@@ -340,7 +340,7 @@ export default function OxbowWorkshopPage() {
         <div className={styles.tailband} aria-hidden="true">
           <TabbiedArtwork
             artwork={halving}
-            palette={[SAND, WALNUT, BONE]}
+            palette={[SAND, BONE, WALNUT, SAGE]}
             seed="ox-band-05"
             fit="grid"
             cellSize={76}

@@ -225,6 +225,14 @@
   padding: 0 0.5rem;
 }
 
+/* this caption sits on the lunette field, so it carries its own ground */
+.heroBench .caption {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.3rem 0.85rem;
+  background: rgba(45, 19, 44, 0.88);
+}
+
 /* ------------------------------------------------------------ ornament */
 
 .ornament {
