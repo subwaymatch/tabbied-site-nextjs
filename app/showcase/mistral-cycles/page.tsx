@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './mistral-cycles.module.css';
 
 export const metadata = {
-  title: 'Mistral Cycles — Handbuilt Steel Frames',
+  title: 'Mistral Cycles, Handbuilt Steel Frames',
   description:
     'Lugged and fillet-brazed steel bicycle frames, drawn, mitred and brazed to order in Providence, Rhode Island. Frame is the drawing; the drawing is yours.',
 };
@@ -33,7 +33,7 @@ const BUILDS = [
   {
     code: 'BUILD 02',
     name: 'Levant',
-    kind: 'Road — quick, not twitchy',
+    kind: 'Road, quick and not twitchy',
     price: 'Framesets from $3,150',
     copy: 'A road frame with manners: 72.5° head angle, 415 mm stays, and a fork we braze on Tuesdays because Tuesdays are calm. Stiff where you stand, forgiving where you sit.',
     specs: ['700C × 32 max', 'Trail 55 mm', 'Fillet-brazed, unfiled on request', 'Mechanical or Di-free electronic'],
@@ -89,7 +89,7 @@ const PROCESS = [
     n: '05',
     title: 'Paint & delivery',
     time: '4 WKS',
-    copy: 'Wet paint in the booth next door, decals under clear, threads chased, faces faced. Crated, insured, and tracked — or collected with coffee.',
+    copy: 'Wet paint in the booth next door, decals under clear, threads chased, faces faced. Crated, insured, and tracked, or collected with coffee.',
   },
 ];
 
@@ -132,7 +132,7 @@ const FAQS = [
   },
   {
     q: 'Do you ship internationally?',
-    a: 'Yes — crated framesets to most countries, complete bikes to the EU, UK, Japan and Australia. Duties are yours; the crate is engineered so the courier would have to try very hard.',
+    a: 'Yes: crated framesets to most countries, complete bikes to the EU, UK, Japan and Australia. Duties are yours; the crate is engineered so the courier would have to try very hard.',
   },
   {
     q: 'What if I crash it?',
@@ -166,7 +166,7 @@ export default function MistralCyclesPage() {
       </header>
 
       <main>
-        {/* ——— HERO ——— */}
+        {/* HERO */}
         <section className={styles.hero} aria-labelledby="hero-title">
           <div className={styles.heroPattern} aria-hidden="true">
             <TabbiedArtwork
@@ -187,7 +187,7 @@ export default function MistralCyclesPage() {
               </h1>
               <p className={styles.lede}>
                 Every Mistral begins as a full-scale pencil drawing and ends as mitred,
-                brazed chromoly — checked on the alignment plate to a half millimetre,
+                brazed chromoly, checked on the alignment plate to a half millimetre,
                 twice. Two builders. Around forty frames a year. No two alike, all of
                 them true.
               </p>
@@ -232,12 +232,12 @@ export default function MistralCyclesPage() {
               <p className={`${styles.callout} ${styles.calloutC}`}>
                 <span>9/6/9</span> BUTTED CRMO
               </p>
-              <p className={styles.panelStamp}>FIG. 1 — FRAMESET, SIZE 55</p>
+              <p className={styles.panelStamp}>FIG. 1 / FRAMESET, SIZE 55</p>
             </div>
           </div>
         </section>
 
-        {/* ——— PHILOSOPHY ——— */}
+        {/* PHILOSOPHY */}
         <section className={styles.philosophy} aria-labelledby="phil-title">
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 01</p>
@@ -248,7 +248,7 @@ export default function MistralCyclesPage() {
               <p className={styles.philIndex}>1.1</p>
               <h3>Steel is honest</h3>
               <p>
-                A chromoly tube tells you what it is doing — under the torch, under
+                A chromoly tube tells you what it is doing: under the torch, under
                 the file, under you at 60 km/h on a bad descent. It flexes, warns,
                 and forgives. We have never met a spreadsheet that does that.
               </p>
@@ -289,7 +289,7 @@ export default function MistralCyclesPage() {
           />
         </div>
 
-        {/* ——— BUILDS ——— */}
+        {/* BUILDS */}
         <section id="builds" className={styles.builds} aria-labelledby="builds-title">
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 02</p>
@@ -318,7 +318,7 @@ export default function MistralCyclesPage() {
               />
             </div>
             <div className={styles.buildFeatureBody}>
-              <p className={styles.buildCode}>{BUILDS[0].code} — FLAGSHIP</p>
+              <p className={styles.buildCode}>{BUILDS[0].code} / FLAGSHIP</p>
               <h3>{BUILDS[0].name}</h3>
               <p className={styles.buildKind}>{BUILDS[0].kind}</p>
               <p className={styles.buildCopy}>{BUILDS[0].copy}</p>
@@ -349,7 +349,7 @@ export default function MistralCyclesPage() {
           </div>
         </section>
 
-        {/* ——— GEOMETRY ——— */}
+        {/* GEOMETRY */}
         <section id="geometry" className={styles.geometry} aria-labelledby="geo-title">
           <div className={styles.geoField} aria-hidden="true">
             <TabbiedArtwork
@@ -364,7 +364,7 @@ export default function MistralCyclesPage() {
           <div className={styles.geoScrim} aria-hidden="true" />
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 03</p>
-            <h2 id="geo-title">Geometry — Tramontane, stock drawings</h2>
+            <h2 id="geo-title">Geometry: Tramontane, stock drawings</h2>
             <p className={styles.sectionSub}>
               Millimetres unless noted. Custom drawings deviate freely; these are
               where the pencil starts.
@@ -414,7 +414,7 @@ export default function MistralCyclesPage() {
           </p>
         </section>
 
-        {/* ——— WORKSHOP ——— */}
+        {/* WORKSHOP */}
         <section id="workshop" className={styles.workshop} aria-labelledby="ws-title">
           <div className={styles.wsBand}>
             <Figure
@@ -422,7 +422,7 @@ export default function MistralCyclesPage() {
               alt="Workshop wall hung with steel frames in various stages of finish"
               className={styles.wsBandImg}
             />
-            <p className={styles.wsBandCaption}>THE WALL — EVERY FRAME HANGS HERE FOR ONE NIGHT BEFORE PAINT</p>
+            <p className={styles.wsBandCaption}>THE WALL / EVERY FRAME HANGS HERE FOR ONE NIGHT BEFORE PAINT</p>
           </div>
           <div className={styles.wsBody}>
             <div className={styles.sectionHead}>
@@ -440,7 +440,7 @@ export default function MistralCyclesPage() {
                 </p>
                 <p>
                   We braze with silver at the lugs and brass at the fillets, and
-                  we let joints cool at their own pace — hurried steel keeps a
+                  we let joints cool at their own pace, because hurried steel keeps a
                   grudge. Alignment happens on a cast-iron plate older than both
                   of us, and the last hour of every build is spent with a
                   half-round file and the radio off.
@@ -456,7 +456,7 @@ export default function MistralCyclesPage() {
                   alt="Builder brazing a frame joint at the bench, torch flame lit"
                   className={styles.wsFigImg}
                 />
-                <figcaption>SILVER BRAZING, SEAT CLUSTER — 745 °C, GIVE OR TAKE A FEELING</figcaption>
+                <figcaption>SILVER BRAZING, SEAT CLUSTER / 745 °C, GIVE OR TAKE A FEELING</figcaption>
               </figure>
               <figure className={styles.wsFigSmall}>
                 <Figure
@@ -470,7 +470,7 @@ export default function MistralCyclesPage() {
           </div>
         </section>
 
-        {/* ——— PROVISIONS ——— */}
+        {/* PROVISIONS */}
         <section className={styles.provisions} aria-labelledby="prov-title">
           <div className={styles.provField} aria-hidden="true">
             <TabbiedArtwork
@@ -506,7 +506,7 @@ export default function MistralCyclesPage() {
           </ul>
         </section>
 
-        {/* ——— FOUNDERS ——— */}
+        {/* FOUNDERS */}
         <section className={styles.founders} aria-labelledby="founders-title">
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 06</p>
@@ -550,11 +550,11 @@ export default function MistralCyclesPage() {
           </div>
         </section>
 
-        {/* ——— PROCESS ——— */}
+        {/* PROCESS */}
         <section id="process" className={styles.process} aria-labelledby="process-title">
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 07</p>
-            <h2 id="process-title">Ordering — five operations</h2>
+            <h2 id="process-title">Ordering in five operations</h2>
           </div>
           <ol className={styles.steps}>
             {PROCESS.map((s) => (
@@ -571,7 +571,7 @@ export default function MistralCyclesPage() {
           </ol>
         </section>
 
-        {/* ——— FAQ ——— */}
+        {/* FAQ */}
         <section id="faq" className={styles.faq} aria-labelledby="faq-title">
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 08</p>
@@ -587,7 +587,7 @@ export default function MistralCyclesPage() {
           </div>
         </section>
 
-        {/* ——— CTA BAND ——— */}
+        {/* CTA BAND */}
         <section className={styles.ctaBand} aria-labelledby="cta-title">
           <TabbiedArtwork
             artwork={gasket}
