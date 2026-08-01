@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { ridgeline } from 'tabbied/artworks';
+import { ridgeline, terrain } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './cairn-expeditions.module.css';
 
@@ -115,22 +115,20 @@ const rentals = [
 
 const guides = [
   {
-    slug: 'cairn-guide-1-cutout',
+    slug: 'cairn-guide-1',
     alt: 'Portrait of guide Lena Aubry-Storli, blonde braid, orange shell jacket',
     name: 'Lena Aubry-Storli',
     cert: 'IFMGA · since 2011',
     home: 'Valsorde, b. Tromsø',
     line: 'Reads a lenticular cloud the way other people read a timetable. Leads the ski programme and most north faces.',
-    seed: 'cairn-guide-a',
   },
   {
-    slug: 'cairn-guide-2-cutout',
+    slug: 'cairn-guide-2',
     alt: 'Portrait of guide Mateo Quispe, slate fleece jacket',
     name: 'Mateo Quispe',
     cert: 'IFMGA · since 2007',
     home: 'Valsorde, b. Huaraz',
     line: 'Nineteen seasons across the Andes and the Alps. Has never once been late for a sunrise, and will not start now.',
-    seed: 'cairn-guide-b',
   },
 ];
 
@@ -307,29 +305,40 @@ export default function CairnExpeditionsPage() {
         </section>
 
         {/* APPROACH */}
-        <section id="approach" className={styles.sectionAlt} aria-labelledby="approach-title">
-          <header className={styles.sectionHead}>
-            <p className={styles.sectionIndex}>02 / Approach</p>
-            <h2 id="approach-title" className={styles.sectionTitle}>
-              How we guide
-            </h2>
-          </header>
-          <div className={styles.principles}>
-            {principles.map((p) => (
-              <article key={p.n} className={styles.principle}>
-                <span className={styles.principleNum}>{p.n}</span>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </article>
-            ))}
+        <section id="approach" className={styles.approach} aria-labelledby="approach-title">
+          <TabbiedArtwork
+            artwork={terrain}
+            palette={[SLATE, ICE, TEAL, EMBER, MIST]}
+            seed="cairn-approach"
+            fit="cover"
+            density={1}
+            className={styles.approachField}
+          />
+          <div className={styles.approachScrim} aria-hidden="true" />
+          <div className={styles.approachInner}>
+            <header className={styles.sectionHead}>
+              <p className={styles.sectionIndex}>02 / Approach</p>
+              <h2 id="approach-title" className={styles.sectionTitle}>
+                How we guide
+              </h2>
+            </header>
+            <div className={styles.principles}>
+              {principles.map((p) => (
+                <article key={p.n} className={styles.principle}>
+                  <span className={styles.principleNum}>{p.n}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </article>
+              ))}
+            </div>
+            <blockquote className={styles.quote}>
+              <p>
+                “Nobody remembers a fast ascent. Everybody remembers feeling looked after at
+                4,000 metres.”
+              </p>
+              <cite>— the line we hire guides by</cite>
+            </blockquote>
           </div>
-          <blockquote className={styles.quote}>
-            <p>
-              “Nobody remembers a fast ascent. Everybody remembers feeling looked after at
-              4,000 metres.”
-            </p>
-            <cite>— the line we hire guides by</cite>
-          </blockquote>
         </section>
 
         {/* STATS BAND */}
@@ -421,15 +430,8 @@ export default function CairnExpeditionsPage() {
           <div className={styles.guideGrid}>
             {guides.map((g) => (
               <article key={g.name} className={styles.guideCard}>
-                <div className={styles.guideTile}>
-                  <TabbiedArtwork
-                    artwork={ridgeline}
-                    palette={[MIST, TEAL, ICE, SNOW]}
-                    seed={g.seed}
-                    fit="grid"
-                    className={styles.guidePattern}
-                  />
-                  <Figure slug={g.slug} cutout alt={g.alt} className={styles.guideImg} />
+                <div className={styles.portraitFrame}>
+                  <Figure slug={g.slug} alt={g.alt} />
                 </div>
                 <div className={styles.guideBody}>
                   <h3>{g.name}</h3>
@@ -476,44 +478,55 @@ export default function CairnExpeditionsPage() {
 
         {/* ENQUIRE */}
         <section id="enquire" className={styles.enquire} aria-labelledby="enquire-title">
-          <header className={styles.sectionHead}>
-            <p className={styles.sectionIndex}>06 / Enquire</p>
-            <h2 id="enquire-title" className={styles.sectionTitle}>
-              Plan a season with us
-            </h2>
-          </header>
-          <div className={styles.bookingSteps}>
-            {bookingSteps.map((s) => (
-              <article key={s.n} className={styles.bookingStep}>
-                <span className={styles.bookingNum}>{s.n}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </article>
-            ))}
-          </div>
-          <div className={styles.enquirePanel}>
-            <div>
-              <p className={styles.enquireLead}>
-                Write with your dates and ambitions —<br /> we answer within two working days.
-              </p>
-              <a className={styles.btnPrimary} href="mailto:bureau@cairn-expeditions.example">
-                bureau@cairn-expeditions.example
-              </a>
+          <TabbiedArtwork
+            artwork={ridgeline}
+            palette={[SLATE, TEAL, ICE, EMBER, MIST]}
+            seed="cairn-enquire"
+            fit="cover"
+            density={1}
+            className={styles.enquireField}
+          />
+          <div className={styles.enquireScrim} aria-hidden="true" />
+          <div className={styles.enquireInner}>
+            <header className={styles.sectionHead}>
+              <p className={styles.sectionIndex}>06 / Enquire</p>
+              <h2 id="enquire-title" className={styles.sectionTitle}>
+                Plan a season with us
+              </h2>
+            </header>
+            <div className={styles.bookingSteps}>
+              {bookingSteps.map((s) => (
+                <article key={s.n} className={styles.bookingStep}>
+                  <span className={styles.bookingNum}>{s.n}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
+                </article>
+              ))}
             </div>
-            <dl className={styles.enquireMeta}>
+            <div className={styles.enquirePanel}>
               <div>
-                <dt>Bureau hours</dt>
-                <dd>Tue — Sat · 09:00 — 17:00</dd>
+                <p className={styles.enquireLead}>
+                  Write with your dates and ambitions —<br /> we answer within two working days.
+                </p>
+                <a className={styles.btnPrimary} href="mailto:bureau@cairn-expeditions.example">
+                  bureau@cairn-expeditions.example
+                </a>
               </div>
-              <div>
-                <dt>Telephone</dt>
-                <dd>+41 (0)27 555 08 14</dd>
-              </div>
-              <div>
-                <dt>In person</dt>
-                <dd>14 Route des Séracs, 1974 Valsorde</dd>
-              </div>
-            </dl>
+              <dl className={styles.enquireMeta}>
+                <div>
+                  <dt>Bureau hours</dt>
+                  <dd>Tue — Sat · 09:00 — 17:00</dd>
+                </div>
+                <div>
+                  <dt>Telephone</dt>
+                  <dd>+41 (0)27 555 08 14</dd>
+                </div>
+                <div>
+                  <dt>In person</dt>
+                  <dd>14 Route des Séracs, 1974 Valsorde</dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </section>
       </main>
@@ -549,7 +562,7 @@ export default function CairnExpeditionsPage() {
             you hope.
           </p>
           <p className={styles.credit}>
-            Ridgelines drawn by{' '}
+            Ridgelines and map fields drawn by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>

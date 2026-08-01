@@ -105,16 +105,21 @@
 
 .hero {
   position: relative;
+  padding: clamp(4rem, 10vw, 7rem) 0 0;
+  text-align: center;
+}
+
+.heroCopy {
+  position: relative;
   max-width: 40rem;
   margin: 0 auto;
-  padding: clamp(4rem, 10vw, 7rem) 1.25rem 0;
-  text-align: center;
+  padding: 0 1.25rem;
 }
 
 .vertical {
   display: none;
   position: absolute;
-  top: clamp(4rem, 10vw, 7rem);
+  top: -2.5rem;
   right: -7.5rem;
   writing-mode: vertical-rl;
   margin: 0;
@@ -142,14 +147,53 @@
 }
 
 .heroLede {
-  margin: 0 auto 3.2rem;
+  margin: 0 auto;
   max-width: 30rem;
   font-size: 0.95rem;
   color: var(--faint);
 }
 
+/* full-bleed seigaiha-like field the hero photograph floats on */
+.heroField {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: clamp(2.8rem, 6vw, 4.8rem);
+  padding: clamp(2.2rem, 5vw, 4.4rem) 1.25rem clamp(2.4rem, 5vw, 4rem);
+  background-color: var(--paper);
+}
+
+/* just enough paper over the arcs to keep the caption readable, never
+   enough to bury them */
+.heroFieldWash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 239, 234, 0.92) 0%,
+    rgba(242, 239, 234, 0.3) 16%,
+    rgba(242, 239, 234, 0.22) 62%,
+    rgba(242, 239, 234, 0.72) 88%,
+    rgba(242, 239, 234, 0.96) 100%
+  );
+}
+
 .heroFigure {
   margin: 0 0 0;
+}
+
+/* the hero photo is matted on paper so it detaches from the field */
+.heroField .heroFigure {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  background: var(--paper);
+  padding: clamp(0.7rem, 1.8vw, 1.15rem) clamp(0.7rem, 1.8vw, 1.15rem) 0.2rem;
+  box-shadow: 0 20px 46px rgba(52, 78, 65, 0.16);
+}
+
+.heroField .heroFigure figcaption {
+  padding-bottom: 0.85rem;
 }
 
 .sceneImg {
@@ -169,8 +213,7 @@
 
 .textileBand {
   position: relative;
-  height: 30px;
-  margin-top: 2.6rem;
+  height: 34px;
   overflow: hidden;
   background: var(--paper);
 }
@@ -379,10 +422,26 @@
 
 .wareFeatureTile {
   position: relative;
+  isolation: isolate;
   aspect-ratio: 5 / 4;
   background: var(--paper);
   overflow: hidden;
   margin-bottom: 1.4rem;
+}
+
+/* a pool of paper between the woven ground and the pot, so the kyūsu's
+   silhouette reads at a glance */
+.wareFeatureVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 56% 54% at 50% 52%,
+    rgba(242, 239, 234, 0.97) 0%,
+    rgba(242, 239, 234, 0.92) 40%,
+    rgba(242, 239, 234, 0.6) 66%,
+    rgba(242, 239, 234, 0.14) 86%,
+    rgba(242, 239, 234, 0) 100%
+  );
 }
 
 .wareFeatureImg {
@@ -392,7 +451,8 @@
   transform: translate(-50%, -50%);
   width: min(66%, 340px);
   height: auto;
-  filter: drop-shadow(0 16px 22px rgba(52, 78, 65, 0.28));
+  filter: drop-shadow(0 18px 26px rgba(52, 78, 65, 0.34))
+    drop-shadow(0 0 14px rgba(242, 239, 234, 0.75));
 }
 
 .wareFeature figcaption {
@@ -485,7 +545,7 @@
 
 .fieldBand {
   position: relative;
-  height: 52px;
+  height: clamp(88px, 12vw, 132px);
   overflow: hidden;
   background: #344e41;
   margin-bottom: clamp(3rem, 7vw, 4.5rem);
@@ -539,6 +599,47 @@
 
 /* ——— seasons ——— */
 
+.seasons {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.seasonsField {
+  position: absolute;
+  inset: 0;
+  background-color: var(--paper);
+}
+
+/* the wash tracks the 40rem reading column, so the arcs stay at full
+   strength in the margins and the notes keep their contrast at any width */
+.seasonsWash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(242, 239, 234, 0.86) 0%,
+      rgba(242, 239, 234, 0) 14%,
+      rgba(242, 239, 234, 0) 86%,
+      rgba(242, 239, 234, 0.86) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(242, 239, 234, 0) 0,
+      rgba(242, 239, 234, 0) calc(50% - 26rem),
+      rgba(242, 239, 234, 0.94) calc(50% - 21rem),
+      rgba(242, 239, 234, 0.96) 50%,
+      rgba(242, 239, 234, 0.94) calc(50% + 21rem),
+      rgba(242, 239, 234, 0) calc(50% + 26rem),
+      rgba(242, 239, 234, 0) 100%
+    );
+}
+
+.seasons .section {
+  position: relative;
+}
+
 .seasonList {
   list-style: none;
   margin: 0;
@@ -586,17 +687,52 @@
 /* ——— footer ——— */
 
 .footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   margin-top: clamp(2rem, 6vw, 4rem);
+  background-color: var(--paper);
 }
 
 .footerBand {
   position: relative;
-  height: 30px;
+  height: 48px;
   overflow: hidden;
   background: var(--paper);
 }
 
+/* patterned hem field under the whole footer */
+.footerField {
+  position: absolute;
+  inset: 48px 0 0;
+  background-color: var(--paper);
+}
+
+.footerWash {
+  position: absolute;
+  inset: 48px 0 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(242, 239, 234, 0.55) 0%,
+      rgba(242, 239, 234, 0) 22%,
+      rgba(242, 239, 234, 0) 78%,
+      rgba(242, 239, 234, 0.7) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(242, 239, 234, 0) 0,
+      rgba(242, 239, 234, 0) calc(50% - 24rem),
+      rgba(242, 239, 234, 0.94) calc(50% - 18rem),
+      rgba(242, 239, 234, 0.96) 50%,
+      rgba(242, 239, 234, 0.94) calc(50% + 18rem),
+      rgba(242, 239, 234, 0) calc(50% + 24rem),
+      rgba(242, 239, 234, 0) 100%
+    );
+}
+
 .footerInner {
+  position: relative;
   text-align: center;
   padding: clamp(2.8rem, 7vw, 4.5rem) 1.25rem clamp(3rem, 7vw, 4.5rem);
 }

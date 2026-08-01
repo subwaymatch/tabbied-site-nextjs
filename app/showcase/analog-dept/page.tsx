@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { grain } from 'tabbied/artworks';
+import { grain, halftone } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './analog-dept.module.css';
 
@@ -188,90 +188,101 @@ export default function AnalogDeptPage() {
         <div className={styles.cutLine} role="presentation" />
 
         {/* PRICES */}
-        <section id="prices" className={styles.section} aria-labelledby="prices-title">
-          <div className={styles.sectionHead}>
-            <h2 id="prices-title" className={styles.h2}>
-              Services & prices
-            </h2>
-            <p className={styles.sectionNote}>
-              EFFECTIVE 01·07 — CHEMISTRY COSTS WHAT IT COSTS
-            </p>
-          </div>
-          <div className={styles.orderLayout}>
-            <div className={styles.orderForm}>
-              <header className={styles.orderHead}>
-                <span>ORDER FORM</span>
-                <span>№ 0847</span>
-              </header>
-              <div className={styles.orderCols}>
-                <div className={styles.orderGroup}>
-                  <h3>Develop</h3>
-                  <ul>
-                    {devPrices.map((row) => (
-                      <li key={row.item}>
-                        <span className={styles.box} aria-hidden="true" />
-                        <span className={styles.orderItem}>{row.item}</span>
-                        <span className={styles.leader} aria-hidden="true" />
-                        <span className={styles.orderPrice}>{row.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={styles.orderGroup}>
-                  <h3>Scan</h3>
-                  <ul>
-                    {scanPrices.map((row) => (
-                      <li key={row.item}>
-                        <span className={styles.box} aria-hidden="true" />
-                        <span className={styles.orderItem}>{row.item}</span>
-                        <span className={styles.leader} aria-hidden="true" />
-                        <span className={styles.orderPrice}>{row.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={styles.orderGroup}>
-                  <h3>Print</h3>
-                  <ul>
-                    {printPrices.map((row) => (
-                      <li key={row.item}>
-                        <span className={styles.box} aria-hidden="true" />
-                        <span className={styles.orderItem}>{row.item}</span>
-                        <span className={styles.leader} aria-hidden="true" />
-                        <span className={styles.orderPrice}>{row.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <footer className={styles.orderFoot}>
-                NAME: ______________ · PHONE: ______________ · PUSH? Y / N / “WHAT’S PUSHING”
-              </footer>
+        <section id="prices" className={styles.priceSection} aria-labelledby="prices-title">
+          <TabbiedArtwork
+            artwork={halftone}
+            palette={[CHARCOAL, SILVER, RED]}
+            seed="analog-prices"
+            fit="cover"
+            density={2}
+            className={styles.priceScreen}
+          />
+          <div className={styles.priceScrim} aria-hidden="true" />
+          <div className={styles.priceInner}>
+            <div className={styles.sectionHead}>
+              <h2 id="prices-title" className={styles.h2}>
+                Services & prices
+              </h2>
+              <p className={styles.sectionNote}>
+                EFFECTIVE 01·07 — CHEMISTRY COSTS WHAT IT COSTS
+              </p>
             </div>
-            <aside className={styles.turnaroundCard} aria-labelledby="turnaround-title">
-              <h3 id="turnaround-title" className={styles.turnaroundTitle}>
-                Turnaround
-              </h3>
-              <table className={styles.turnTable}>
-                <thead>
-                  <tr>
-                    <th scope="col">Service</th>
-                    <th scope="col">Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {turnaround.map((t) => (
-                    <tr key={t.service}>
-                      <th scope="row">
-                        {t.service}
-                        <span className={styles.turnNote}>{t.note}</span>
-                      </th>
-                      <td>{t.time}</td>
+            <div className={styles.orderLayout}>
+              <div className={styles.orderForm}>
+                <header className={styles.orderHead}>
+                  <span>ORDER FORM</span>
+                  <span>№ 0847</span>
+                </header>
+                <div className={styles.orderCols}>
+                  <div className={styles.orderGroup}>
+                    <h3>Develop</h3>
+                    <ul>
+                      {devPrices.map((row) => (
+                        <li key={row.item}>
+                          <span className={styles.box} aria-hidden="true" />
+                          <span className={styles.orderItem}>{row.item}</span>
+                          <span className={styles.leader} aria-hidden="true" />
+                          <span className={styles.orderPrice}>{row.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={styles.orderGroup}>
+                    <h3>Scan</h3>
+                    <ul>
+                      {scanPrices.map((row) => (
+                        <li key={row.item}>
+                          <span className={styles.box} aria-hidden="true" />
+                          <span className={styles.orderItem}>{row.item}</span>
+                          <span className={styles.leader} aria-hidden="true" />
+                          <span className={styles.orderPrice}>{row.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={styles.orderGroup}>
+                    <h3>Print</h3>
+                    <ul>
+                      {printPrices.map((row) => (
+                        <li key={row.item}>
+                          <span className={styles.box} aria-hidden="true" />
+                          <span className={styles.orderItem}>{row.item}</span>
+                          <span className={styles.leader} aria-hidden="true" />
+                          <span className={styles.orderPrice}>{row.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <footer className={styles.orderFoot}>
+                  NAME: ______________ · PHONE: ______________ · PUSH? Y / N / “WHAT’S PUSHING”
+                </footer>
+              </div>
+              <aside className={styles.turnaroundCard} aria-labelledby="turnaround-title">
+                <h3 id="turnaround-title" className={styles.turnaroundTitle}>
+                  Turnaround
+                </h3>
+                <table className={styles.turnTable}>
+                  <thead>
+                    <tr>
+                      <th scope="col">Service</th>
+                      <th scope="col">Time</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </aside>
+                  </thead>
+                  <tbody>
+                    {turnaround.map((t) => (
+                      <tr key={t.service}>
+                        <th scope="row">
+                          {t.service}
+                          <span className={styles.turnNote}>{t.note}</span>
+                        </th>
+                        <td>{t.time}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </aside>
+            </div>
           </div>
         </section>
 
@@ -396,36 +407,47 @@ export default function AnalogDeptPage() {
 
         {/* DROP-OFF */}
         <section id="dropoff" className={styles.dropSection} aria-labelledby="drop-title">
-          <div className={styles.dropIntro}>
-            <h2 id="drop-title" className={styles.h2}>
-              Drop-off & mail-in
-            </h2>
-            <p>
-              The slot in the door works 24/7. The humans work Tuesday to Saturday, 11:00 to
-              19:00, and answer the phone when the tanks allow.
-            </p>
-            <address className={styles.address}>
-              ANALOG DEPT.
-              <br />
-              UNIT 3 · 117 FIXER LANE
-              <br />
-              (BACK OF THE ARCADE — FOLLOW THE RED LIGHT)
-            </address>
-            <p className={styles.addressMeta}>
-              MAIL-IN: SAME ADDRESS. PAD YOUR ROLLS. WRITE “FILM — DO NOT X-RAY” AND HOPE.
-            </p>
+          <TabbiedArtwork
+            artwork={halftone}
+            palette={[CHARCOAL, SILVER, RED]}
+            seed="analog-dropoff"
+            fit="cover"
+            density={2}
+            className={styles.dropScreen}
+          />
+          <div className={styles.dropScrim} aria-hidden="true" />
+          <div className={styles.dropInner}>
+            <div className={styles.dropIntro}>
+              <h2 id="drop-title" className={styles.h2}>
+                Drop-off & mail-in
+              </h2>
+              <p>
+                The slot in the door works 24/7. The humans work Tuesday to Saturday, 11:00 to
+                19:00, and answer the phone when the tanks allow.
+              </p>
+              <address className={styles.address}>
+                ANALOG DEPT.
+                <br />
+                UNIT 3 · 117 FIXER LANE
+                <br />
+                (BACK OF THE ARCADE — FOLLOW THE RED LIGHT)
+              </address>
+              <p className={styles.addressMeta}>
+                MAIL-IN: SAME ADDRESS. PAD YOUR ROLLS. WRITE “FILM — DO NOT X-RAY” AND HOPE.
+              </p>
+            </div>
+            <ol className={styles.dropSteps}>
+              {dropSteps.map((s) => (
+                <li key={s.n} className={styles.dropStep}>
+                  <span className={styles.dropNum}>{s.n}</span>
+                  <div>
+                    <h3>{s.title}</h3>
+                    <p>{s.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
-          <ol className={styles.dropSteps}>
-            {dropSteps.map((s) => (
-              <li key={s.n} className={styles.dropStep}>
-                <span className={styles.dropNum}>{s.n}</span>
-                <div>
-                  <h3>{s.title}</h3>
-                  <p>{s.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </section>
       </main>
 
@@ -454,7 +476,7 @@ export default function AnalogDeptPage() {
             mocked. · dept@analogdept.example · (555) 019-2741
           </p>
           <p className={styles.credit}>
-            GRAIN BY{' '}
+            GRAIN & HALFTONE BY{' '}
             <a href="https://tabbied.com" rel="noopener">
               TABBIED
             </a>{' '}

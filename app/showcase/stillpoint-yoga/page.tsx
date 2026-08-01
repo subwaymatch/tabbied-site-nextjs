@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { ripplering } from 'tabbied/artworks';
+import { annulus, bangle, ripplering } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './stillpoint-yoga.module.css';
 
@@ -193,52 +193,57 @@ export default function StillpointPage() {
       <main id="top">
         {/* ————— Hero ————— */}
         <section className={styles.hero} aria-labelledby="hero-heading">
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>A movement &amp; breathwork studio</p>
-            <h1 id="hero-heading" className={styles.heroTitle}>
-              Move slowly.
-              <br />
-              <em>Breathe wide.</em>
-            </h1>
-            <p className={styles.heroLead}>
-              One sunlit room, a cork floor, an olive tree, and classes that
-              never rush you anywhere. We practice slow movement and honest
-              breathing — nothing to achieve, plenty to notice.
-            </p>
-            <div className={styles.heroActions}>
-              <a className={styles.btnPrimary} href="#schedule">
-                See the week
-              </a>
-              <a className={styles.btnQuiet} href="#breath">
-                Try one breath first
-              </a>
-            </div>
-            <p className={styles.heroNote}>
-              New: a 6:30 dawn practice, Mondays to Fridays. Tea after, always.
-            </p>
+          {/* A full-bleed field of rings behind the whole hero — the same
+              breath the studio teaches, drawn large. */}
+          <div className={styles.heroPattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={annulus}
+              palette={[LINEN, CLAY, DUNE, SAND, STONE]}
+              seed="sp-hero-rings-478"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
           </div>
 
-          <div className={styles.heroArt}>
-            <div className={styles.heroRings} aria-hidden="true">
-              <TabbiedArtwork
-                artwork={ripplering}
-                palette={[LINEN, CLAY, DUNE, SAND]}
-                seed="sp-hero-04"
-                fit="cover"
-                style={{ position: 'absolute', inset: 0 }}
-              />
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>A movement &amp; breathwork studio</p>
+              <h1 id="hero-heading" className={styles.heroTitle}>
+                Move slowly.
+                <br />
+                <em>Breathe wide.</em>
+              </h1>
+              <p className={styles.heroLead}>
+                One sunlit room, a cork floor, an olive tree, and classes that
+                never rush you anywhere. We practice slow movement and honest
+                breathing — nothing to achieve, plenty to notice.
+              </p>
+              <div className={styles.heroActions}>
+                <a className={styles.btnPrimary} href="#schedule">
+                  See the week
+                </a>
+                <a className={styles.btnQuiet} href="#breath">
+                  Try one breath first
+                </a>
+              </div>
+              <p className={styles.heroNote}>
+                New: a 6:30 dawn practice, Mondays to Fridays. Tea after, always.
+              </p>
             </div>
-            <div className={styles.heroPhoto}>
-              <Figure
-                slug="stillpoint-hero"
-                alt="Sunlit studio with cork floor, rolled mats along a lime-washed wall and long morning shadows"
-                priority
-              />
+
+            <div className={styles.heroArt}>
+              <div className={styles.heroPhoto}>
+                <Figure
+                  slug="stillpoint-hero"
+                  alt="Sunlit studio with cork floor, rolled mats along a lime-washed wall and long morning shadows"
+                  priority
+                />
+              </div>
+              <p className={styles.heroBadge}>
+                in <span aria-hidden="true">·</span> hold{' '}
+                <span aria-hidden="true">·</span> out
+              </p>
             </div>
-            <p className={styles.heroBadge}>
-              in <span aria-hidden="true">·</span> hold{' '}
-              <span aria-hidden="true">·</span> out
-            </p>
           </div>
         </section>
 
@@ -248,6 +253,19 @@ export default function StillpointPage() {
           className={styles.philosophy}
           aria-labelledby="philosophy-heading"
         >
+          {/* Sparse arcs drifting behind the manifesto — quiet enough to
+              read through, present enough to feel. */}
+          <div className={styles.philosophyPattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={bangle}
+              palette={[LINEN, CLAY, DUNE, SAND, STONE]}
+              seed="sp-why-slow-07"
+              fit="grid"
+              cellSize={150}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+
           <p className={styles.sideLabel} aria-hidden="true">
             why slow
           </p>
@@ -392,8 +410,7 @@ export default function StillpointPage() {
             <article className={styles.teacherCard}>
               <div className={`${styles.teacherTile} ${styles.tileClay}`}>
                 <Figure
-                  slug="stillpoint-teacher-1-cutout"
-                  cutout
+                  slug="stillpoint-teacher-1"
                   alt="Portrait of Marisol, a woman in her thirties with a low bun, wearing an oatmeal wrap top"
                   className={styles.teacherImg}
                 />
@@ -409,8 +426,7 @@ export default function StillpointPage() {
             <article className={styles.teacherCard}>
               <div className={`${styles.teacherTile} ${styles.tileSand}`}>
                 <Figure
-                  slug="stillpoint-teacher-2-cutout"
-                  cutout
+                  slug="stillpoint-teacher-2"
                   alt="Portrait of Teo, a man in his forties with a shaved head, wearing a clay-colored tee"
                   className={styles.teacherImg}
                 />
@@ -601,6 +617,16 @@ export default function StillpointPage() {
 
       {/* ————— Footer ————— */}
       <footer className={styles.footer}>
+        <div className={styles.footerPattern} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={bangle}
+            palette={[SAND, CLAY, DUNE, STONE]}
+            seed="sp-footer-arcs-21"
+            fit="grid"
+            cellSize={110}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
         <div className={styles.footerGrid}>
           <div className={styles.footerBlock}>
             <p className={styles.footerWordmark}>

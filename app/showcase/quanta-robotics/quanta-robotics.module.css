@@ -150,16 +150,24 @@
   background: var(--void);
 }
 
+/* dark enough under the copy column, thin enough on the right that the
+   hilbert field is plainly the hero */
 .heroFade {
   position: absolute;
   inset: 0;
   background: linear-gradient(
       100deg,
-      rgba(11, 14, 20, 0.97) 0%,
-      rgba(11, 14, 20, 0.86) 48%,
-      rgba(11, 14, 20, 0.55) 100%
+      rgba(11, 14, 20, 0.95) 0%,
+      rgba(11, 14, 20, 0.9) 34%,
+      rgba(11, 14, 20, 0.6) 58%,
+      rgba(11, 14, 20, 0.2) 100%
     ),
-    linear-gradient(180deg, rgba(11, 14, 20, 0.4), rgba(11, 14, 20, 0.9));
+    linear-gradient(
+      180deg,
+      rgba(11, 14, 20, 0.1) 0%,
+      rgba(11, 14, 20, 0) 45%,
+      rgba(11, 14, 20, 0.55) 100%
+    );
 }
 
 .heroGrid {
@@ -324,6 +332,16 @@
 }
 
 @media (max-width: 900px) {
+  /* single column: the copy spans the full width, so the fade has to run
+     top-to-bottom instead of left-to-right */
+  .heroFade {
+    background: linear-gradient(
+      180deg,
+      rgba(11, 14, 20, 0.35) 0%,
+      rgba(11, 14, 20, 0.88) 9%,
+      rgba(11, 14, 20, 0.91) 100%
+    );
+  }
   .heroGrid {
     grid-template-columns: 1fr;
   }
@@ -444,6 +462,20 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* a dark pocket punched through the hilbert field so the hardware silhouette
+   is instantly readable; the pattern still runs to the edges of the stage */
+.platformVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 54% 56% at 50% 54%,
+    rgba(11, 14, 20, 0.96) 0%,
+    rgba(11, 14, 20, 0.88) 44%,
+    rgba(11, 14, 20, 0.42) 76%,
+    rgba(11, 14, 20, 0) 100%
+  );
+}
+
 .platformCutout {
   position: absolute;
   left: 50%;
@@ -452,8 +484,9 @@
   height: 90%;
   width: auto;
   max-width: none;
-  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.65))
-    drop-shadow(0 0 24px rgba(37, 224, 200, 0.12));
+  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 0 2px rgba(232, 236, 241, 0.35))
+    drop-shadow(0 0 34px rgba(37, 224, 200, 0.28));
 }
 
 .platformRole {
@@ -584,6 +617,20 @@
   inset: 0;
   z-index: -1;
   background: var(--void);
+}
+
+/* keeps the band's heading legible while the circuit field stays vivid at the
+   top and bottom edges */
+.telemetryScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 14, 20, 0.22) 0%,
+    rgba(11, 14, 20, 0.9) 12%,
+    rgba(11, 14, 20, 0.9) 80%,
+    rgba(11, 14, 20, 0.22) 100%
+  );
 }
 
 .telemetryInner {
@@ -904,11 +951,34 @@
 /* ------------------------------------------------------------- footer */
 
 .footer {
+  position: relative;
+  isolation: isolate;
   border-top: 1px solid var(--line);
   background: #070a0f;
 }
 
+.footerPattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--void);
+}
+
+/* the footer literally names the pattern source, so let it show one */
+.footerScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 10, 15, 0.55) 0%,
+    rgba(7, 10, 15, 0.89) 11%,
+    rgba(7, 10, 15, 0.9) 89%,
+    rgba(7, 10, 15, 0.55) 100%
+  );
+}
+
 .footerGrid {
+  position: relative;
   width: min(78rem, 100%);
   margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 3vw, 2rem) 2.5rem;

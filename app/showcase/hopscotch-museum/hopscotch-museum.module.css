@@ -473,11 +473,29 @@
   position: absolute !important;
   inset: 0;
   z-index: -1;
+  opacity: 0.6;
+}
+
+/* a cream pocket between the pattern and the cut-out, so the object's
+   silhouette reads instantly while the confetti still shows at the edges */
+.patternTile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 58% at 50% 50%,
+    rgba(255, 249, 239, 0.94) 0%,
+    rgba(255, 249, 239, 0.78) 42%,
+    rgba(255, 249, 239, 0.24) 72%,
+    transparent 100%
+  );
 }
 
 .exhibitImg {
   width: 62%;
-  filter: drop-shadow(0 14px 12px rgba(43, 43, 51, 0.35));
+  filter: drop-shadow(0 16px 14px rgba(43, 43, 51, 0.42));
 }
 
 .exhibitTileTall .exhibitImg {
@@ -554,14 +572,36 @@
 }
 
 .visitBand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: var(--blue);
   padding: clamp(2.2rem, 5vw, 4rem) clamp(1rem, 4vw, 2.5rem) clamp(2.6rem, 6vw, 4.5rem);
 }
 
-.visitBand > * {
+.visitBand > h2,
+.visitBand > .visitGrid {
+  position: relative;
   max-width: 74rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.visitPattern {
+  position: absolute !important;
+  inset: 0;
+  z-index: -2;
+}
+
+.visitScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--blue) 62%, transparent),
+    color-mix(in srgb, var(--blue) 34%, transparent)
+  );
 }
 
 .visitGrid {
@@ -680,6 +720,32 @@
 /* ————— birthdays ————— */
 
 .birthdays {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.birthdayConfetti {
+  position: absolute !important;
+  inset: 0;
+  z-index: -2;
+}
+
+.birthdayScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    color-mix(in srgb, var(--cream) 92%, transparent) 0%,
+    color-mix(in srgb, var(--cream) 78%, transparent) 46%,
+    color-mix(in srgb, var(--cream) 50%, transparent) 100%
+  );
+}
+
+.birthdaysInner {
+  position: relative;
   max-width: 74rem;
   margin: 0 auto;
   padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 4vw, 2.5rem);
@@ -1037,6 +1103,7 @@
   height: clamp(56px, 8vw, 90px);
   border-radius: 16px;
   overflow: hidden;
+  background: var(--ink);
   border: 2.5px solid color-mix(in srgb, var(--cream) 25%, transparent);
 }
 

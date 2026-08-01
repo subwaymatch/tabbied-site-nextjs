@@ -249,6 +249,7 @@ export default function ZenithObservatoryPage() {
                     cellSize={52}
                     style={{ position: 'absolute', inset: 0 }}
                   />
+                  <div className={styles.orbitVeil} aria-hidden="true" />
                   <div className={styles.orbitRing} aria-hidden="true" />
                   <div className={styles.orbitRingInner} aria-hidden="true" />
                   <Figure slug={e.slug} cutout alt={e.alt} className={styles.exhibitImg} />

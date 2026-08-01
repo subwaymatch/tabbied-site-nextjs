@@ -428,6 +428,21 @@
     0 0 50px rgba(90, 24, 154, 0.45);
 }
 
+/* a pool of deep space between the star field and the model, so each
+   exhibit's silhouette reads at a glance */
+.orbitVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(16, 0, 43, 0.95) 0%,
+    rgba(16, 0, 43, 0.9) 34%,
+    rgba(16, 0, 43, 0.62) 56%,
+    rgba(16, 0, 43, 0.18) 78%,
+    rgba(16, 0, 43, 0) 100%
+  );
+}
+
 .orbitRing {
   position: absolute;
   inset: 7%;
@@ -449,7 +464,8 @@
   transform: translate(-50%, -50%);
   width: 62%;
   height: auto;
-  filter: drop-shadow(0 0 34px rgba(224, 170, 255, 0.45)) drop-shadow(0 14px 18px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 0 26px rgba(16, 0, 43, 0.95)) drop-shadow(0 0 40px rgba(224, 170, 255, 0.4))
+    drop-shadow(0 16px 22px rgba(0, 0, 0, 0.75));
 }
 
 .exhibit h3 {

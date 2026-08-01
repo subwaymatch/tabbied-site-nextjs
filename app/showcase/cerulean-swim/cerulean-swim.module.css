@@ -107,8 +107,50 @@
 /* ————— hero ————— */
 
 .hero {
+  position: relative;
+  isolation: isolate;
   text-align: center;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(3.5rem, 9vw, 7rem);
+  overflow: hidden;
+  border-radius: 0 0 45% 45% / 0 0 clamp(2rem, 5vw, 4rem)
+    clamp(2rem, 5vw, 4rem);
+}
+
+/* the sea the whole hero floats on */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--foam);
+  overflow: hidden;
+}
+
+/* clears the type, leaves the crests reading in the corners and below */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 66% 52% at 50% 24%,
+      rgba(242, 251, 252, 0.97) 0%,
+      rgba(242, 251, 252, 0.93) 42%,
+      rgba(242, 251, 252, 0.6) 74%,
+      rgba(242, 251, 252, 0.2) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(242, 251, 252, 0.5) 0%,
+      rgba(242, 251, 252, 0.1) 40%,
+      rgba(242, 251, 252, 0) 72%
+    );
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
 }
 
 .eyebrow {
@@ -192,17 +234,6 @@
   line-height: 1;
 }
 
-.heroWave {
-  position: relative;
-  height: clamp(80px, 12vw, 150px);
-  max-width: 66rem;
-  margin: 1.25rem auto 0;
-  border-radius: 999px;
-  overflow: hidden;
-  background: var(--foam);
-  border: 1.5px solid var(--aqua);
-}
-
 /* ————— sections ————— */
 
 .section {
@@ -211,11 +242,30 @@
   margin: 0 auto;
 }
 
+/* full-width tide field the care card floats on */
+.careBand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--aqua);
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.careField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--aqua);
+  overflow: hidden;
+}
+
 .sectionAlt {
+  position: relative;
+  z-index: 1;
   background: #ffffff;
   border-radius: clamp(2rem, 6vw, 4rem);
   margin: 0 clamp(0.75rem, 2vw, 2rem);
-  box-shadow: 0 24px 50px -40px rgba(19, 77, 87, 0.35);
+  box-shadow: 0 30px 60px -34px rgba(6, 42, 49, 0.55);
 }
 
 .careInner {
@@ -311,8 +361,18 @@
   box-shadow: 0 26px 44px -26px rgba(19, 77, 87, 0.5);
 }
 
+/* the cut-outs are opaque objects on a flat tint, not on a pattern — a soft
+   pocket of foam under each one keeps its silhouette instant anyway */
 .productStage {
-  background: linear-gradient(180deg, var(--aqua) 0%, var(--foam) 100%);
+  position: relative;
+  background:
+    radial-gradient(
+      ellipse 66% 62% at 50% 50%,
+      rgba(242, 251, 252, 0.92) 0%,
+      rgba(242, 251, 252, 0.55) 52%,
+      rgba(242, 251, 252, 0) 100%
+    ),
+    linear-gradient(180deg, var(--aqua) 0%, var(--foam) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -325,12 +385,14 @@
 }
 
 .productImg {
+  position: relative;
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 16px 20px rgba(19, 77, 87, 0.28));
+  filter: drop-shadow(0 18px 22px rgba(19, 77, 87, 0.32))
+    drop-shadow(0 3px 6px rgba(19, 77, 87, 0.2));
 }
 
 .productMeta {

@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { kern } from 'tabbied/artworks';
+import { gutter, kern } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './grotesk-foundry.module.css';
 
@@ -240,22 +240,26 @@ export default function GroteskFoundryPage() {
       <main>
         {/* 00 — HERO */}
         <section className={styles.hero} aria-labelledby="hero-title">
+          <div className={styles.heroField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={kern}
+              palette={[PAPER, INK, STONE, ASH]}
+              seed="gk-hero-04"
+              fit="grid"
+              cellSize={118}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={styles.heroScrim} aria-hidden="true" />
           <h1 id="hero-title" className={styles.heroWord}>
             <span className={styles.heroLine}>GROT</span>
             <span className={styles.heroLine}>
               ESK<span className={styles.heroStop}>.</span>
             </span>
           </h1>
-          <div className={styles.heroBand} aria-hidden="true">
-            <TabbiedArtwork
-              artwork={kern}
-              palette={[PAPER, INK, STONE, ASH]}
-              seed="gk-hero-04"
-              fit="grid"
-              cellSize={44}
-              style={{ position: 'absolute', inset: 0 }}
-            />
-          </div>
+          <p className={styles.heroTag}>
+            Seven families cut above a print shop in Basel.
+          </p>
           <div className={styles.heroFoot}>
             <p className={styles.heroDef}>
               grotesk <em>(n.)</em> — a letter stripped of serifs; a foundry
@@ -340,11 +344,11 @@ export default function GroteskFoundryPage() {
         {/* DIVIDER BAND */}
         <div className={styles.inkBand} aria-hidden="true">
           <TabbiedArtwork
-            artwork={kern}
+            artwork={gutter}
             palette={[INK, PAPER, STONE, ASH]}
             seed="gk-band-02"
             fit="grid"
-            cellSize={36}
+            cellSize={46}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -538,12 +542,12 @@ export default function GroteskFoundryPage() {
               <figure key={p.slug} className={styles.propCard}>
                 <div className={styles.propTile}>
                   <TabbiedArtwork
-                    artwork={kern}
+                    artwork={gutter}
                     palette={p.palette}
                     seed={p.seed}
                     fit="grid"
-                    cellSize={40}
-                    style={{ position: 'absolute', inset: 0 }}
+                    cellSize={52}
+                    style={{ position: 'absolute', inset: 0, opacity: 0.9 }}
                   />
                   <Figure
                     slug={p.slug}
@@ -588,21 +592,31 @@ export default function GroteskFoundryPage() {
             Three tiers. Plain language. The EULA fits on two pages because we
             typeset it properly.
           </p>
-          <div className={styles.licGrid}>
-            {LICENSES.map((l) => (
-              <article key={l.tier} className={styles.licCard}>
-                <h3 className={styles.licTier}>{l.tier}</h3>
-                <p className={styles.licPrice}>
-                  {l.price} <span>{l.unit}</span>
-                </p>
-                <p className={styles.licAlt}>{l.alt}</p>
-                <ul>
-                  {l.terms.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+          <div className={styles.licField}>
+            <TabbiedArtwork
+              artwork={gutter}
+              palette={[SOOT, STONE, ASH, PAPER]}
+              seed="gk-lic-06"
+              fit="grid"
+              cellSize={54}
+              style={{ position: 'absolute', inset: 0, opacity: 0.85 }}
+            />
+            <div className={styles.licGrid}>
+              {LICENSES.map((l) => (
+                <article key={l.tier} className={styles.licCard}>
+                  <h3 className={styles.licTier}>{l.tier}</h3>
+                  <p className={styles.licPrice}>
+                    {l.price} <span>{l.unit}</span>
+                  </p>
+                  <p className={styles.licAlt}>{l.alt}</p>
+                  <ul>
+                    {l.terms.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
           </div>
           <dl className={styles.rules}>
             {FAQ_RULES.map(([q, a]) => (
@@ -639,9 +653,12 @@ export default function GroteskFoundryPage() {
               <h2 className={styles.colHead}>Colophon</h2>
               <p>
                 This page is set in Ledger Grotesk and Kilo Mono, which do not
-                exist, rendered in Archivo and Space Mono, which do. The
-                pattern is “Kern” — two letterform blocks tucked together,
-                which felt on the nose in the best way.
+                exist, rendered in Archivo and Space Mono, which do. Two
+                patterns carry it: “Kern”, two letterform blocks tucked
+                together, at poster scale behind the masthead and down here;
+                and “Gutter”, a page grid repeated spread after spread, for the
+                bands and the licence field. Both felt on the nose in the best
+                way.
               </p>
             </div>
             <div>

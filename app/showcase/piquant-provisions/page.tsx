@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { karst } from 'tabbied/artworks';
+import { karst, linocut, misprint } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './piquant-provisions.module.css';
 
@@ -245,6 +245,7 @@ export default function PiquantProvisionsPage() {
               </div>
             </div>
             <div className={styles.heroBottle}>
+              <span className={styles.heroBottleVeil} aria-hidden="true" />
               <Figure
                 slug="piquant-bottle-1-cutout"
                 cutout
@@ -285,8 +286,9 @@ export default function PiquantProvisionsPage() {
                     seed={sauce.seed}
                     fit="grid"
                     cellSize={30}
-                    style={{ position: 'absolute', inset: 0 }}
+                    style={{ position: 'absolute', inset: 0, opacity: 0.88 }}
                   />
+                  <span className={styles.sauceVeil} aria-hidden="true" />
                   <Figure
                     slug={sauce.slug}
                     cutout
@@ -338,12 +340,26 @@ export default function PiquantProvisionsPage() {
                 two of us have notarised the results.
               </p>
               <div className={styles.heatChili}>
+                <div className={styles.heatChiliArt}>
+                  <TabbiedArtwork
+                    artwork={misprint}
+                    palette={[BONE, FLAME, MARIGOLD, YOLK, POOL]}
+                    seed="pq-heat-medallion"
+                    fit="grid"
+                    cellSize={40}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                  <span className={styles.heatChiliVeil} aria-hidden="true" />
+                </div>
                 <Figure
                   slug="piquant-chili-cutout"
                   cutout
                   alt="A single bright red chilli with a curled green stem"
                   className={styles.heatChiliImg}
                 />
+                <p className={styles.heatChiliStamp} aria-hidden="true">
+                  Tasted by three
+                </p>
               </div>
             </div>
             <ol className={styles.heatList}>
@@ -367,6 +383,17 @@ export default function PiquantProvisionsPage() {
 
         {/* ------------------------------------------------------- PROCESS */}
         <section id="process" className={styles.process} aria-labelledby="process-title">
+          <div className={styles.processPattern}>
+            <TabbiedArtwork
+              artwork={linocut}
+              palette={[INK, FLAME, MARIGOLD, YOLK, POOL]}
+              seed="pq-process"
+              fit="grid"
+              cellSize={96}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.processScrim} aria-hidden="true" />
+          </div>
           <div className={styles.sectionHead}>
             <p className={styles.sectionKicker}>How it&rsquo;s made</p>
             <h2 id="process-title" className={styles.sectionTitle}>
@@ -391,6 +418,7 @@ export default function PiquantProvisionsPage() {
               <figcaption>Kettle two, doing its loud little job.</figcaption>
             </figure>
             <div className={styles.processCrate}>
+              <span className={styles.processCrateVeil} aria-hidden="true" />
               <Figure
                 slug="piquant-crate-cutout"
                 cutout
@@ -414,32 +442,35 @@ export default function PiquantProvisionsPage() {
 
         {/* -------------------------------------------------------- RECIPE */}
         <section id="recipe" className={styles.recipe} aria-labelledby="recipe-title">
-          <div className={styles.recipeCard}>
-            <div className={styles.recipeHead}>
-              <p className={styles.sectionKicker}>From the test kitchen</p>
-              <h2 id="recipe-title" className={styles.recipeTitle}>
-                Midnight tacos
-              </h2>
-              <p className={styles.recipeMeta}>
-                Serves 2, generously &middot; 25 minutes &middot; uses № 04 Deep Cut
-              </p>
-            </div>
-            <div className={styles.recipeBody}>
-              <div className={styles.recipeIngredients}>
-                <h3 className={styles.recipeSubhead}>You will need</h3>
-                <ul>
-                  {RECIPE_INGREDIENTS.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className={styles.recipeStage}>
+            <div className={styles.recipeCard}>
+              <div className={styles.recipeHead}>
+                <p className={styles.sectionKicker}>From the test kitchen</p>
+                <h2 id="recipe-title" className={styles.recipeTitle}>
+                  Midnight tacos
+                </h2>
+                <p className={styles.recipeMeta}>
+                  Serves 2, generously &middot; 25 minutes &middot; uses № 04
+                  Deep Cut
+                </p>
               </div>
-              <div className={styles.recipeSteps}>
-                <h3 className={styles.recipeSubhead}>Then</h3>
-                <ol>
-                  {RECIPE_STEPS.map((step) => (
-                    <li key={step}>{step}</li>
-                  ))}
-                </ol>
+              <div className={styles.recipeBody}>
+                <div className={styles.recipeIngredients}>
+                  <h3 className={styles.recipeSubhead}>You will need</h3>
+                  <ul>
+                    {RECIPE_INGREDIENTS.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={styles.recipeSteps}>
+                  <h3 className={styles.recipeSubhead}>Then</h3>
+                  <ol>
+                    {RECIPE_STEPS.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
               </div>
             </div>
             <div className={styles.recipeTaco}>
@@ -483,13 +514,14 @@ export default function PiquantProvisionsPage() {
         <section id="wholesale" className={styles.wholesale} aria-labelledby="wholesale-title">
           <div className={styles.wholesalePattern}>
             <TabbiedArtwork
-              artwork={karst}
-              palette={[INK, POOL, BONE, YOLK]}
+              artwork={linocut}
+              palette={[INK, FLAME, YOLK, MARIGOLD, POOL]}
               seed="pq-wholesale"
               fit="grid"
-              cellSize={34}
+              cellSize={62}
               style={{ position: 'absolute', inset: 0 }}
             />
+            <div className={styles.wholesaleScrim} aria-hidden="true" />
           </div>
           <div className={styles.wholesaleInner}>
             <h2 id="wholesale-title" className={styles.wholesaleTitle}>

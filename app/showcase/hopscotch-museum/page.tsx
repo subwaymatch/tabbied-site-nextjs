@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { glyph } from 'tabbied/artworks';
+import { glyph, polkadot } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './hopscotch-museum.module.css';
 
@@ -300,7 +300,12 @@ export default function HopscotchMuseumPage() {
             {exhibits.map((ex, i) => (
               <article key={ex.name} className={styles.exhibitCard} data-tilt={i % 3}>
                 <div
-                  className={ex.tall ? styles.exhibitTileTall : styles.exhibitTile}
+                  className={[
+                    ex.tall ? styles.exhibitTileTall : styles.exhibitTile,
+                    ex.tile === 'pattern' ? styles.patternTile : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
                   style={{ backgroundColor: ex.bg }}
                 >
                   {ex.tile === 'pattern' && ex.palette && (
@@ -344,6 +349,15 @@ export default function HopscotchMuseumPage() {
         <section id="visit" className={styles.visit} aria-labelledby="visit-title">
           <div className={styles.scallopTopBlue} role="presentation" />
           <div className={styles.visitBand}>
+            <TabbiedArtwork
+              artwork={polkadot}
+              palette={[BLUE, CREAM, YELLOW, GREEN]}
+              seed="hop-visit"
+              fit="cover"
+              density={1}
+              className={styles.visitPattern}
+            />
+            <div className={styles.visitScrim} aria-hidden="true" />
             <h2 id="visit-title" className={styles.h2Light}>
               Plan your visit
             </h2>
@@ -400,32 +414,43 @@ export default function HopscotchMuseumPage() {
 
         {/* BIRTHDAYS */}
         <section id="birthdays" className={styles.birthdays} aria-labelledby="birthdays-title">
-          <h2 id="birthdays-title" className={styles.h2}>
-            Birthdays & parties
-          </h2>
-          <p className={styles.sectionLede}>
-            You bring the birthday kid. We bring a museum. Cake crumbs are cleaned by
-            professionals (us).
-          </p>
-          <div className={styles.partyGrid}>
-            {parties.map((p) => (
-              <article key={p.name} className={`${styles.partyCard} ${p.color}`}>
-                <h3>{p.name}</h3>
-                <p className={styles.partyPrice}>{p.price}</p>
-                <ul className={styles.funList}>
-                  {p.perks.map((perk) => (
-                    <li key={perk}>{perk}</li>
-                  ))}
-                </ul>
-                <a href="#footer-contact" className={styles.partyBtn}>
-                  Book this one
-                </a>
-              </article>
-            ))}
+          <TabbiedArtwork
+            artwork={polkadot}
+            palette={[CREAM, YELLOW, RED, GREEN, BLUE]}
+            seed="hop-birthdays"
+            fit="cover"
+            density={1}
+            className={styles.birthdayConfetti}
+          />
+          <div className={styles.birthdayScrim} aria-hidden="true" />
+          <div className={styles.birthdaysInner}>
+            <h2 id="birthdays-title" className={styles.h2}>
+              Birthdays & parties
+            </h2>
+            <p className={styles.sectionLede}>
+              You bring the birthday kid. We bring a museum. Cake crumbs are cleaned by
+              professionals (us).
+            </p>
+            <div className={styles.partyGrid}>
+              {parties.map((p) => (
+                <article key={p.name} className={`${styles.partyCard} ${p.color}`}>
+                  <h3>{p.name}</h3>
+                  <p className={styles.partyPrice}>{p.price}</p>
+                  <ul className={styles.funList}>
+                    {p.perks.map((perk) => (
+                      <li key={perk}>{perk}</li>
+                    ))}
+                  </ul>
+                  <a href="#footer-contact" className={styles.partyBtn}>
+                    Book this one
+                  </a>
+                </article>
+              ))}
+            </div>
+            <p className={styles.partyFine}>
+              Saturdays book out about six weeks ahead. Sundays are the sleeper hit.
+            </p>
           </div>
-          <p className={styles.partyFine}>
-            Saturdays book out about six weeks ahead. Sundays are the sleeper hit.
-          </p>
         </section>
 
         {/* MEMBERSHIP */}
@@ -562,7 +587,7 @@ export default function HopscotchMuseumPage() {
           </div>
           <div className={styles.footerField} role="presentation">
             <TabbiedArtwork
-              artwork={glyph}
+              artwork={polkadot}
               palette={[INK, YELLOW, RED, BLUE, GREEN]}
               seed="hop-footer"
               fit="grid"

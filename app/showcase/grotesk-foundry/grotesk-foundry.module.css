@@ -94,10 +94,49 @@
 /* ————— hero ————— */
 
 .hero {
+  position: relative;
   border-bottom: var(--rule);
+  background: var(--paper);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* full-bleed poster-scale pattern, the hero's actual subject */
+.heroField {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* thin enough on the right that the artwork plainly reads; opaque under the
+   display word so the black type keeps its edge */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(244, 241, 236, 0.97) 0%,
+      rgba(244, 241, 236, 0.95) 40%,
+      rgba(244, 241, 236, 0.74) 56%,
+      rgba(244, 241, 236, 0.3) 72%,
+      rgba(244, 241, 236, 0.06) 88%,
+      rgba(244, 241, 236, 0) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(244, 241, 236, 0.55) 0%,
+      rgba(244, 241, 236, 0) 28%
+    );
 }
 
 .heroWord {
+  position: relative;
+  z-index: 2;
   margin: 0;
   padding: 2.5rem 1.5rem 0;
   display: flex;
@@ -117,23 +156,29 @@
   color: var(--red);
 }
 
-.heroBand {
+.heroTag {
   position: relative;
-  height: clamp(90px, 14vw, 170px);
-  margin-top: clamp(1.5rem, 4vw, 3rem);
-  border-top: var(--rule);
-  border-bottom: var(--rule);
-  background: var(--paper);
-  overflow: hidden;
+  z-index: 2;
+  margin: clamp(1.25rem, 3vw, 2.25rem) 1.5rem clamp(3.5rem, 9vw, 8rem);
+  max-width: 20em;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--soot);
 }
 
 .heroFoot {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 1.5rem;
   padding: 1rem 1.5rem 1.2rem;
   flex-wrap: wrap;
+  background: var(--paper);
+  border-top: var(--rule);
 }
 
 .heroDef {
@@ -625,11 +670,31 @@
   justify-content: center;
 }
 
+/* a pocket of plain paper punched through the pattern so the cut-out's
+   silhouette reads instantly; the pattern still runs to the keyline */
+.propTile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 58% 56% at 50% 52%,
+    rgba(244, 241, 236, 0.96) 0%,
+    rgba(244, 241, 236, 0.9) 42%,
+    rgba(244, 241, 236, 0.42) 70%,
+    rgba(244, 241, 236, 0.06) 88%,
+    rgba(244, 241, 236, 0) 100%
+  );
+}
+
 .propImg {
   position: relative;
-  width: 78%;
+  z-index: 2;
+  width: 74%;
   height: auto;
-  filter: drop-shadow(0 14px 18px rgba(17, 17, 17, 0.28));
+  filter: drop-shadow(0 20px 26px rgba(17, 17, 17, 0.34))
+    drop-shadow(0 3px 7px rgba(17, 17, 17, 0.24));
   transition: transform 160ms ease;
 }
 
@@ -677,20 +742,31 @@
   letter-spacing: -0.01em;
 }
 
-.licGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-left: var(--rule);
-  border-top: var(--rule);
+/* three paper licences pinned on a patterned field */
+.licField {
+  position: relative;
+  overflow: hidden;
+  background: var(--soot);
+  border: var(--rule);
+  padding: clamp(1rem, 2.5vw, 2rem);
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
+.licGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.85rem, 1.8vw, 1.5rem);
+}
+
 .licCard {
-  border-right: var(--rule);
-  border-bottom: var(--rule);
+  border: var(--rule);
+  background: var(--paper);
   padding: 1.5rem 1.4rem 1.75rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 22px rgba(17, 17, 17, 0.32);
 }
 
 .licTier {
@@ -801,6 +877,7 @@
   position: relative;
   height: clamp(120px, 18vw, 220px);
   overflow: hidden;
+  background: var(--soot);
   border-bottom: 2px solid var(--paper);
 }
 

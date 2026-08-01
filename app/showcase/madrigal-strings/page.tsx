@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { linocut } from 'tabbied/artworks';
+import { linocut, lunette } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './madrigal-strings.module.css';
 
@@ -197,6 +197,17 @@ export default function MadrigalStringsPage() {
       <main id="programme">
         {/* --------------------------------------------------------- HERO */}
         <section className={styles.hero} aria-labelledby="hero-h">
+          <div className={styles.heroField}>
+            <TabbiedArtwork
+              artwork={lunette}
+              palette={[AUBERGINE, GOLD, CARMINE, WINE, PARCHMENT]}
+              seed="md-hero-field"
+              fit="grid"
+              cellSize={112}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.heroFieldScrim} aria-hidden="true" />
+          </div>
           <div className={styles.heroArch}>
             <TabbiedArtwork
               artwork={linocut}
@@ -205,6 +216,7 @@ export default function MadrigalStringsPage() {
               fit="cover"
               style={{ position: 'absolute', inset: 0 }}
             />
+            <span className={styles.plateVeil} aria-hidden="true" />
             <Figure
               slug="madrigal-violin-cutout"
               cutout
@@ -213,19 +225,21 @@ export default function MadrigalStringsPage() {
               className={styles.heroViolin}
             />
           </div>
-          <h1 id="hero-h" className={styles.heroTitle}>
-            Instruments in the old manner
-          </h1>
-          <p className={styles.heroLede}>
-            Two benches, one varnish room, and fifty-eight years of morning
-            light. The Madrigal workshop builds violins, bows, and cases for
-            players who intend to keep them for life — and then leave them to
-            someone who will.
-          </p>
-          <p className={styles.heroNote}>
-            <span className={styles.smallCaps}>Commissions open</span> · autumn
-            waitlist, from September the 1st
-          </p>
+          <div className={styles.heroCartouche}>
+            <h1 id="hero-h" className={styles.heroTitle}>
+              Instruments in the old manner
+            </h1>
+            <p className={styles.heroLede}>
+              Two benches, one varnish room, and fifty-eight years of morning
+              light. The Madrigal workshop builds violins, bows, and cases for
+              players who intend to keep them for life — and then leave them to
+              someone who will.
+            </p>
+            <p className={styles.heroNote}>
+              <span className={styles.smallCaps}>Commissions open</span> ·
+              autumn waitlist, from September the 1st
+            </p>
+          </div>
           <figure className={styles.heroBench}>
             <Figure
               slug="madrigal-hero"
@@ -299,8 +313,9 @@ export default function MadrigalStringsPage() {
                   seed={inst.seed}
                   fit="grid"
                   cellSize={34}
-                  style={{ position: 'absolute', inset: 0, opacity: 0.85 }}
+                  style={{ position: 'absolute', inset: 0, opacity: 0.7 }}
                 />
+                <span className={styles.plateVeil} aria-hidden="true" />
                 <Figure
                   slug={inst.slug}
                   cutout
@@ -409,22 +424,19 @@ export default function MadrigalStringsPage() {
 
         {/* ------------------------------------------------------ LUTHIER */}
         <section className={styles.luthier} aria-labelledby="luthier-h">
-          <div className={styles.luthierPortrait}>
-            <TabbiedArtwork
-              artwork={linocut}
-              palette={[AUBERGINE, WINE, GOLD, CARMINE]}
-              seed="md-luthier"
-              fit="grid"
-              cellSize={30}
-              style={{ position: 'absolute', inset: 0, opacity: 0.9 }}
-            />
-            <Figure
-              slug="madrigal-luthier-cutout"
-              cutout
-              alt="Ottavio Madrigal, white-haired and spectacled, in his burgundy work apron"
-              className={styles.luthierImg}
-            />
-          </div>
+          <figure className={styles.luthierPlate}>
+            <div className={styles.luthierPortrait}>
+              <Figure
+                slug="madrigal-luthier"
+                alt="Ottavio Madrigal, white-haired and spectacled, in his burgundy work apron"
+                className={styles.luthierImg}
+              />
+            </div>
+            <figcaption className={styles.luthierCaption}>
+              Ottavio at the front bench, photographed in the varnish room
+              window.
+            </figcaption>
+          </figure>
           <div className={styles.luthierBody}>
             <h2 className={styles.sectionTitle} id="luthier-h">
               The Luthier
@@ -485,6 +497,17 @@ export default function MadrigalStringsPage() {
 
         {/* ----------------------------------------------------- VISITING */}
         <section className={styles.visiting} aria-labelledby="visiting">
+          <div className={styles.visitingField}>
+            <TabbiedArtwork
+              artwork={lunette}
+              palette={[AUBERGINE, WINE, GOLD, CARMINE]}
+              seed="md-visiting"
+              fit="grid"
+              cellSize={86}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.visitingScrim} aria-hidden="true" />
+          </div>
           <h2 className={styles.sectionTitle} id="visiting">
             Visiting the Atelier
           </h2>

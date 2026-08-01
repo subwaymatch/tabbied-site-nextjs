@@ -241,17 +241,34 @@
   width: min(100%, 30rem);
 }
 
+/* a calm ink pocket so the bottle's silhouette detaches from the pattern */
+.heroBottleVeil {
+  position: absolute;
+  inset: -14% -20%;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 52% 50% at 50% 52%,
+    rgba(15, 26, 32, 0.9) 0%,
+    rgba(15, 26, 32, 0.72) 42%,
+    rgba(15, 26, 32, 0.32) 72%,
+    rgba(15, 26, 32, 0) 100%
+  );
+}
+
 .heroBottleImg {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: auto;
   transform: rotate(3deg);
-  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.7));
 }
 
 /* stickers */
 
 .sticker {
   position: absolute;
+  z-index: 2;
   margin: 0;
   font-family: var(--display);
   text-transform: uppercase;
@@ -390,6 +407,20 @@
   border-bottom: 3px solid var(--bone);
 }
 
+/* the pattern still reads at the tile edges, but the middle goes quiet so the
+   bottle/jar/chilli silhouette is instantly legible */
+.sauceVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 58% at 50% 56%,
+    rgba(239, 230, 221, 0.95) 0%,
+    rgba(239, 230, 221, 0.74) 38%,
+    rgba(239, 230, 221, 0.22) 68%,
+    rgba(239, 230, 221, 0) 100%
+  );
+}
+
 .sauceCutout {
   position: absolute;
   left: 50%;
@@ -398,7 +429,8 @@
   height: 92%;
   width: auto;
   max-width: none;
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 16px 18px rgba(15, 26, 32, 0.45))
+    drop-shadow(0 2px 3px rgba(15, 26, 32, 0.5));
 }
 
 .saucePrice {
@@ -563,15 +595,62 @@
   color: rgba(15, 26, 32, 0.8);
 }
 
+/* a riso-dot medallion, with a calm centre so the chilli reads clean on it */
 .heatChili {
-  max-width: 15rem;
+  position: relative;
+  width: min(100%, 17rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.heatChiliArt {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bone);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 rgba(249, 87, 56, 0.85);
+}
+
+.heatChiliVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 46% 44% at 50% 50%,
+    rgba(239, 230, 221, 0.94) 0%,
+    rgba(239, 230, 221, 0.72) 46%,
+    rgba(239, 230, 221, 0.16) 78%,
+    rgba(239, 230, 221, 0) 100%
+  );
 }
 
 .heatChiliImg {
-  width: 100%;
+  position: relative;
+  z-index: 1;
+  width: 62%;
   height: auto;
   transform: rotate(-10deg);
-  filter: drop-shadow(0 14px 14px rgba(15, 26, 32, 0.3));
+  filter: drop-shadow(0 14px 14px rgba(15, 26, 32, 0.38))
+    drop-shadow(0 2px 2px rgba(15, 26, 32, 0.35));
+}
+
+.heatChiliStamp {
+  position: absolute;
+  z-index: 2;
+  bottom: 4%;
+  right: -6%;
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  background: var(--yolk);
+  color: var(--ink);
+  padding: 0.45rem 0.8rem;
+  border: 3px solid var(--ink);
+  transform: rotate(-6deg);
 }
 
 .heatList {
@@ -642,14 +721,41 @@
     position: static;
   }
   .heatChili {
-    max-width: 11rem;
+    width: min(70%, 13rem);
   }
 }
 
 /* ------------------------------------------------------------ process */
 
 .process {
-  padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 9vw, 7rem);
+}
+
+/* full-bleed riso misprint field carrying the whole section */
+.processPattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+.processScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 26, 32, 0.94) 0%,
+    rgba(15, 26, 32, 0.86) 15%,
+    rgba(15, 26, 32, 0.26) 27%,
+    rgba(15, 26, 32, 0.3) 52%,
+    rgba(15, 26, 32, 0.82) 63%,
+    rgba(15, 26, 32, 0.92) 72%,
+    rgba(15, 26, 32, 0.97) 92%,
+    rgba(15, 26, 32, 1) 100%
+  );
 }
 
 .processCollage {
@@ -667,8 +773,12 @@
   margin: 0;
 }
 
+/* an ink chip so the caption stays readable over the linocut field */
 .processCollage figcaption {
+  display: inline-block;
   margin-top: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--ink);
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -700,11 +810,30 @@
   z-index: 2;
 }
 
+.processCrateVeil {
+  position: absolute;
+  inset: -30% -34%;
+  background: radial-gradient(
+    ellipse 46% 44% at 50% 54%,
+    rgba(15, 26, 32, 0.95) 0%,
+    rgba(15, 26, 32, 0.85) 42%,
+    rgba(15, 26, 32, 0.4) 72%,
+    rgba(15, 26, 32, 0) 100%
+  );
+}
+
 .processCrateImg {
+  position: relative;
   width: 100%;
   height: auto;
   transform: rotate(5deg);
-  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.65))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+/* keep the caption clear of the crate that sits over this figure's corner */
+.processFigureB figcaption {
+  padding-right: clamp(0rem, 15vw, 11rem);
 }
 
 .processSteps {
@@ -771,10 +900,17 @@
     clamp(3.5rem, 8vw, 6.5rem);
 }
 
-.recipeCard {
+/* the taco lives on the stage, not inside the card — the card's torn-paper
+   clip-path would otherwise slice the cut-out and its sticker in half */
+.recipeStage {
   position: relative;
   width: min(66rem, 100%);
   margin: 0 auto;
+}
+
+.recipeCard {
+  position: relative;
+  width: 100%;
   background: var(--bone);
   color: var(--ink);
   padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)
@@ -993,11 +1129,17 @@
   background: var(--ink);
 }
 
-.wholesalePattern::after {
-  content: '';
+/* dark where the copy sits, thin at the edges so the misprint still shows */
+.wholesaleScrim {
   position: absolute;
   inset: 0;
-  background: rgba(15, 26, 32, 0.72);
+  background: radial-gradient(
+    ellipse 60% 92% at 50% 50%,
+    rgba(15, 26, 32, 0.95) 0%,
+    rgba(15, 26, 32, 0.91) 48%,
+    rgba(15, 26, 32, 0.58) 80%,
+    rgba(15, 26, 32, 0.24) 100%
+  );
 }
 
 .wholesaleInner {

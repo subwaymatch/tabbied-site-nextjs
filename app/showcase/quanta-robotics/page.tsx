@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { hilbert } from 'tabbied/artworks';
+import { circuit, hilbert } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './quanta-robotics.module.css';
 
@@ -256,9 +256,10 @@ export default function QuantaRoboticsPage() {
           <div className={styles.heroPattern}>
             <TabbiedArtwork
               artwork={hilbert}
-              palette={[VOID, PHOSPHOR, PANEL, SLATE]}
+              palette={[VOID, PHOSPHOR, PANEL, SLATE, INDIGO]}
               seed="qx-hero"
-              fit="cover"
+              fit="grid"
+              cellSize={96}
               style={{ position: 'absolute', inset: 0 }}
             />
             <div className={styles.heroFade} aria-hidden="true" />
@@ -341,6 +342,7 @@ export default function QuantaRoboticsPage() {
                     cellSize={26}
                     style={{ position: 'absolute', inset: 0, opacity: 0.55 }}
                   />
+                  <span className={styles.platformVeil} aria-hidden="true" />
                   <Figure
                     slug={p.slug}
                     cutout
@@ -386,13 +388,14 @@ export default function QuantaRoboticsPage() {
         <section className={styles.telemetry} aria-labelledby="telemetry-h">
           <div className={styles.telemetryPattern}>
             <TabbiedArtwork
-              artwork={hilbert}
-              palette={[VOID, INDIGO, PHOSPHOR, PANEL]}
+              artwork={circuit}
+              palette={[VOID, PHOSPHOR, INDIGO, SLATE, PAPER]}
               seed="qx-telemetry"
               fit="grid"
-              cellSize={30}
-              style={{ position: 'absolute', inset: 0, opacity: 0.5 }}
+              cellSize={64}
+              style={{ position: 'absolute', inset: 0 }}
             />
+            <div className={styles.telemetryScrim} aria-hidden="true" />
           </div>
           <div className={styles.telemetryInner}>
             <h2 id="telemetry-h" className={styles.telemetryTitle}>
@@ -529,6 +532,17 @@ export default function QuantaRoboticsPage() {
 
       {/* ------------------------------------------------------- FOOTER */}
       <footer className={styles.footer}>
+        <div className={styles.footerPattern}>
+          <TabbiedArtwork
+            artwork={circuit}
+            palette={[VOID, SLATE, PHOSPHOR, INDIGO]}
+            seed="qx-footer"
+            fit="grid"
+            cellSize={78}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+          <div className={styles.footerScrim} aria-hidden="true" />
+        </div>
         <div className={styles.footerGrid}>
           <div>
             <p className={styles.footerWordmark}>QUANTA.LAB</p>
@@ -564,7 +578,7 @@ export default function QuantaRoboticsPage() {
             <a href="https://tabbied.com" rel="noopener" className={styles.footerCredit}>
               tabbied.com
             </a>{' '}
-            // hilbert curve, rendered live
+            // hilbert curve + circuit board, rendered live
           </p>
         </div>
       </footer>

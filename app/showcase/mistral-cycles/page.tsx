@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { gasket } from 'tabbied/artworks';
+import { gasket, isometry } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './mistral-cycles.module.css';
 
@@ -168,66 +168,72 @@ export default function MistralCyclesPage() {
       <main>
         {/* ——— HERO ——— */}
         <section className={styles.hero} aria-labelledby="hero-title">
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>HANDBUILT FRAMES · PROVIDENCE, RI · EST. 2011</p>
-            <h1 id="hero-title" className={styles.title}>
-              The frame is a drawing <em>you can ride.</em>
-            </h1>
-            <p className={styles.lede}>
-              Every Mistral begins as a full-scale pencil drawing and ends as mitred,
-              brazed chromoly — checked on the alignment plate to a half millimetre,
-              twice. Two builders. Around forty frames a year. No two alike, all of
-              them true.
-            </p>
-            <div className={styles.ctaRow}>
-              <a className={styles.btnPrimary} href="#process">
-                Commission a frame
-              </a>
-              <a className={styles.btnGhost} href="#geometry">
-                Read the geometry
-              </a>
-            </div>
-            <ul className={styles.chipRow} aria-label="Shop numbers">
-              <li>
-                <strong>612</strong> frames since 2011
-              </li>
-              <li>
-                <strong>0.5 mm</strong> mitre tolerance
-              </li>
-              <li>
-                <strong>≈7 mo</strong> door to door
-              </li>
-            </ul>
-          </div>
-
-          <div className={styles.heroPanel}>
+          <div className={styles.heroPattern} aria-hidden="true">
             <TabbiedArtwork
               artwork={gasket}
               palette={BLUEPRINT_PALETTE}
               seed="mc-hero-04"
               fit="cover"
-              density={2}
+              density={1}
               style={{ position: 'absolute', inset: 0 }}
             />
-            <div className={styles.heroFrameWrap}>
-              <Figure
-                slug="mistral-frame-cutout"
-                cutout
-                priority
-                alt="Lugged steel bicycle frameset painted storm blue, photographed in profile"
-                className={styles.heroFrame}
-              />
+          </div>
+          <div className={styles.heroScrim} aria-hidden="true" />
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>HANDBUILT FRAMES · PROVIDENCE, RI · EST. 2011</p>
+              <h1 id="hero-title" className={styles.title}>
+                The frame is a drawing <em>you can ride.</em>
+              </h1>
+              <p className={styles.lede}>
+                Every Mistral begins as a full-scale pencil drawing and ends as mitred,
+                brazed chromoly — checked on the alignment plate to a half millimetre,
+                twice. Two builders. Around forty frames a year. No two alike, all of
+                them true.
+              </p>
+              <div className={styles.ctaRow}>
+                <a className={styles.btnPrimary} href="#process">
+                  Commission a frame
+                </a>
+                <a className={styles.btnGhost} href="#geometry">
+                  Read the geometry
+                </a>
+              </div>
+              <ul className={styles.chipRow} aria-label="Shop numbers">
+                <li>
+                  <strong>612</strong> frames since 2011
+                </li>
+                <li>
+                  <strong>0.5 mm</strong> mitre tolerance
+                </li>
+                <li>
+                  <strong>≈7 mo</strong> door to door
+                </li>
+              </ul>
             </div>
-            <p className={`${styles.callout} ${styles.calloutA}`}>
-              <span>72.5°</span> HEAD ANGLE
-            </p>
-            <p className={`${styles.callout} ${styles.calloutB}`}>
-              <span>385</span> REACH, MM
-            </p>
-            <p className={`${styles.callout} ${styles.calloutC}`}>
-              <span>9/6/9</span> BUTTED CRMO
-            </p>
-            <p className={styles.panelStamp}>FIG. 1 — FRAMESET, SIZE 55</p>
+
+            <div className={styles.heroPanel}>
+              <div className={styles.heroPanelVeil} aria-hidden="true" />
+              <div className={styles.heroFrameWrap}>
+                <Figure
+                  slug="mistral-frame-cutout"
+                  cutout
+                  priority
+                  alt="Lugged steel bicycle frameset painted storm blue, photographed in profile"
+                  className={styles.heroFrame}
+                />
+              </div>
+              <p className={`${styles.callout} ${styles.calloutA}`}>
+                <span>72.5°</span> HEAD ANGLE
+              </p>
+              <p className={`${styles.callout} ${styles.calloutB}`}>
+                <span>385</span> REACH, MM
+              </p>
+              <p className={`${styles.callout} ${styles.calloutC}`}>
+                <span>9/6/9</span> BUTTED CRMO
+              </p>
+              <p className={styles.panelStamp}>FIG. 1 — FRAMESET, SIZE 55</p>
+            </div>
           </div>
         </section>
 
@@ -295,6 +301,15 @@ export default function MistralCyclesPage() {
 
           <div className={styles.buildFeature}>
             <div className={styles.buildFeatureMedia}>
+              <TabbiedArtwork
+                artwork={isometry}
+                palette={BLUEPRINT_PALETTE}
+                seed="mc-build-22"
+                fit="grid"
+                cellSize={64}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+              <div className={styles.buildMediaVeil} aria-hidden="true" />
               <Figure
                 slug="mistral-bike-cutout"
                 cutout
@@ -336,6 +351,17 @@ export default function MistralCyclesPage() {
 
         {/* ——— GEOMETRY ——— */}
         <section id="geometry" className={styles.geometry} aria-labelledby="geo-title">
+          <div className={styles.geoField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={isometry}
+              palette={BLUEPRINT_PALETTE}
+              seed="mc-geo-31"
+              fit="cover"
+              density={1}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={styles.geoScrim} aria-hidden="true" />
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 03</p>
             <h2 id="geo-title">Geometry — Tramontane, stock drawings</h2>
@@ -344,33 +370,42 @@ export default function MistralCyclesPage() {
               where the pencil starts.
             </p>
           </div>
-          <div className={styles.tableScroll} tabIndex={0} role="region" aria-label="Geometry chart, scrollable">
-            <table className={styles.geoTable}>
-              <thead>
-                <tr>
-                  {GEO_COLS.map((c) => (
-                    <th key={c} scope="col">
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {GEO_ROWS.map((row) => (
-                  <tr key={row[0]}>
-                    {row.map((cell, i) =>
-                      i === 0 ? (
-                        <th key={i} scope="row">
-                          {cell}
+          <div className={styles.tableSheet}>
+            <div className={styles.tableSheetInner}>
+              <div
+                className={styles.tableScroll}
+                tabIndex={0}
+                role="region"
+                aria-label="Geometry chart, scrollable"
+              >
+                <table className={styles.geoTable}>
+                  <thead>
+                    <tr>
+                      {GEO_COLS.map((c) => (
+                        <th key={c} scope="col">
+                          {c}
                         </th>
-                      ) : (
-                        <td key={i}>{cell}</td>
-                      )
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {GEO_ROWS.map((row) => (
+                      <tr key={row[0]}>
+                        {row.map((cell, i) =>
+                          i === 0 ? (
+                            <th key={i} scope="row">
+                              {cell}
+                            </th>
+                          ) : (
+                            <td key={i}>{cell}</td>
+                          )
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
           <p className={styles.tableNote}>
             HT∠ head-tube angle · ST∠ seat-tube angle · CS chainstay length · WB
@@ -437,6 +472,17 @@ export default function MistralCyclesPage() {
 
         {/* ——— PROVISIONS ——— */}
         <section className={styles.provisions} aria-labelledby="prov-title">
+          <div className={styles.provField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={isometry}
+              palette={BLUEPRINT_PALETTE}
+              seed="mc-prov-47"
+              fit="grid"
+              cellSize={104}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={styles.provScrim} aria-hidden="true" />
           <div className={styles.sectionHead}>
             <p className={styles.sectionNo}>§ 05</p>
             <h2 id="prov-title">Outfitting</h2>
@@ -469,17 +515,8 @@ export default function MistralCyclesPage() {
           <div className={styles.founderGrid}>
             <article className={styles.founder}>
               <div className={styles.founderTile}>
-                <TabbiedArtwork
-                  artwork={gasket}
-                  palette={BLUEPRINT_PALETTE}
-                  seed="mc-mara-02"
-                  fit="grid"
-                  cellSize={56}
-                  style={{ position: 'absolute', inset: 0 }}
-                />
                 <Figure
-                  slug="mistral-founder-1-cutout"
-                  cutout
+                  slug="mistral-founder-1"
                   alt="Portrait of Mara Voss, framebuilder, in a navy work shirt"
                   className={styles.founderImg}
                 />
@@ -495,17 +532,8 @@ export default function MistralCyclesPage() {
             </article>
             <article className={styles.founder}>
               <div className={styles.founderTile}>
-                <TabbiedArtwork
-                  artwork={gasket}
-                  palette={EMBER_PALETTE}
-                  seed="mc-arjun-07"
-                  fit="grid"
-                  cellSize={56}
-                  style={{ position: 'absolute', inset: 0 }}
-                />
                 <Figure
-                  slug="mistral-founder-2-cutout"
-                  cutout
+                  slug="mistral-founder-2"
                   alt="Portrait of Arjun Mehta, painter and fitter, in a grey shop apron"
                   className={styles.founderImg}
                 />

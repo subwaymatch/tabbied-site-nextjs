@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { mortise } from 'tabbied/artworks';
+import { halving, mortise } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './oxbow-workshop.module.css';
 
@@ -103,20 +103,20 @@ const PLATES: Plate[] = [
 
 const MAKERS = [
   {
-    slug: 'oxbow-maker-1-cutout',
+    slug: 'oxbow-maker-1',
     alt: 'Portrait of Naomi Alcott in a charcoal work apron',
     name: 'Naomi Alcott',
     role: 'Founder — chairs, weaving',
     bio: 'Trained as a boatbuilder; still lofts every chair full-scale on the shop floor. Keeps the cane damp and the jokes dry.',
-    tint: 'sage' as const,
+    plate: 'Fig. iv',
   },
   {
-    slug: 'oxbow-maker-2-cutout',
+    slug: 'oxbow-maker-2',
     alt: 'Portrait of Edmund Tate in a rust-colored chore coat',
     name: 'Edmund Tate',
     role: 'Casework, finishing',
     bio: 'Thirty years at the bench. Grades every board in the yard by ear as much as by eye, and has never once rushed an oil coat.',
-    tint: 'sand' as const,
+    plate: 'Fig. v',
   },
 ];
 
@@ -158,29 +158,32 @@ export default function OxbowWorkshopPage() {
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400..700;1,400..700&family=Mulish:wght@300..700&display=swap"
       />
 
-      {/* MASTHEAD */}
+      {/* MASTHEAD — a label pasted on the catalogue's patterned endpaper */}
       <header className={styles.masthead}>
-        <p className={styles.mastLabel}>Catalogue № 7 — Spring 2026</p>
-        <h1 className={styles.mastTitle}>OXBOW</h1>
-        <p className={styles.mastSub}>Furniture Workshop · Hudson Valley</p>
-        <nav className={styles.mastNav} aria-label="Catalogue contents">
-          <a href="#collection">The Collection</a>
-          <span aria-hidden="true">·</span>
-          <a href="#joinery">On Joinery</a>
-          <span aria-hidden="true">·</span>
-          <a href="#workshop">The Workshop</a>
-          <span aria-hidden="true">·</span>
-          <a href="#commissions">Commissions</a>
-        </nav>
-        <div className={styles.endpaper} aria-hidden="true">
+        <div className={styles.mastField} aria-hidden="true">
           <TabbiedArtwork
             artwork={mortise}
             palette={[BONE, SAND, SAGE, OAK]}
             seed="ox-endpaper-02"
             fit="grid"
-            cellSize={42}
+            cellSize={88}
             style={{ position: 'absolute', inset: 0 }}
           />
+        </div>
+        <div className={styles.mastScrim} aria-hidden="true" />
+        <div className={styles.mastPlate}>
+          <p className={styles.mastLabel}>Catalogue № 7 — Spring 2026</p>
+          <h1 className={styles.mastTitle}>OXBOW</h1>
+          <p className={styles.mastSub}>Furniture Workshop · Hudson Valley</p>
+          <nav className={styles.mastNav} aria-label="Catalogue contents">
+            <a href="#collection">The Collection</a>
+            <span aria-hidden="true">·</span>
+            <a href="#joinery">On Joinery</a>
+            <span aria-hidden="true">·</span>
+            <a href="#workshop">The Workshop</a>
+            <span aria-hidden="true">·</span>
+            <a href="#commissions">Commissions</a>
+          </nav>
         </div>
       </header>
 
@@ -240,14 +243,17 @@ export default function OxbowWorkshopPage() {
                   } ${plate.wide ? styles.plateFieldWide : ''}`}
                 >
                   {plate.field === 'pattern' && (
-                    <TabbiedArtwork
-                      artwork={mortise}
-                      palette={plate.palette}
-                      seed={plate.seed}
-                      fit="grid"
-                      cellSize={48}
-                      style={{ position: 'absolute', inset: 0 }}
-                    />
+                    <>
+                      <TabbiedArtwork
+                        artwork={halving}
+                        palette={plate.palette}
+                        seed={plate.seed}
+                        fit="grid"
+                        cellSize={68}
+                        style={{ position: 'absolute', inset: 0 }}
+                      />
+                      <span className={styles.plateVeil} aria-hidden="true" />
+                    </>
                   )}
                   <Figure
                     slug={plate.slug}
@@ -333,11 +339,11 @@ export default function OxbowWorkshopPage() {
         {/* QUIET DIVIDER */}
         <div className={styles.tailband} aria-hidden="true">
           <TabbiedArtwork
-            artwork={mortise}
+            artwork={halving}
             palette={[SAND, WALNUT, BONE]}
             seed="ox-band-05"
             fit="grid"
-            cellSize={44}
+            cellSize={76}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -412,18 +418,18 @@ export default function OxbowWorkshopPage() {
           <div className={styles.makerGrid}>
             {MAKERS.map((m) => (
               <article key={m.name} className={styles.makerCard}>
-                <div
-                  className={`${styles.makerTile} ${
-                    m.tint === 'sage' ? styles.fieldSage : styles.fieldSand
-                  }`}
-                >
-                  <Figure
-                    slug={m.slug}
-                    cutout
-                    alt={m.alt}
-                    className={styles.makerImg}
-                  />
+                <div className={styles.makerMat}>
+                  <div className={styles.makerFrame}>
+                    <Figure
+                      slug={m.slug}
+                      alt={m.alt}
+                      className={styles.makerImg}
+                    />
+                  </div>
                 </div>
+                <p className={styles.plateCaption}>
+                  {m.plate} — at the bench, one window, no styling.
+                </p>
                 <h3 className={styles.makerName}>{m.name}</h3>
                 <p className={styles.makerRole}>{m.role}</p>
                 <p className={styles.makerBio}>{m.bio}</p>
@@ -449,7 +455,7 @@ export default function OxbowWorkshopPage() {
                 palette={[BONE, OAK, WALNUT]}
                 seed="ox-ornament-01"
                 fit="grid"
-                cellSize={36}
+                cellSize={26}
                 style={{ position: 'absolute', inset: 0 }}
               />
             </div>
@@ -521,34 +527,38 @@ export default function OxbowWorkshopPage() {
 
       {/* COLOPHON */}
       <footer id="colophon" className={styles.colophon}>
-        <div className={styles.colophonRule} aria-hidden="true" />
-        <p className={styles.colophonMark}>OXBOW</p>
-        <address className={styles.colophonAddress}>
-          6 Millbrook Lane · Hudson Valley, New York
-          <br />
-          bench@oxbow.example · Showroom Saturdays 10—4
-        </address>
-        <p className={styles.colophonNote}>
-          Catalogue № 7, set in Cormorant and Mulish. Photography made in the
-          workshop with no styling and one window. The joinery pattern
-          throughout is “Mortise,” drawn with{' '}
-          <a
-            href="https://tabbied.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            className={styles.tabbiedCredit}
-          >
-            Tabbied
-          </a>
-          .
-        </p>
+        <div className={styles.colophonInner}>
+          <div className={styles.colophonRule} aria-hidden="true" />
+          <p className={styles.colophonMark}>OXBOW</p>
+          <address className={styles.colophonAddress}>
+            6 Millbrook Lane · Hudson Valley, New York
+            <br />
+            bench@oxbow.example · Showroom Saturdays 10—4
+          </address>
+          <p className={styles.colophonNote}>
+            Catalogue № 7, set in Cormorant and Mulish. Photography made in the
+            workshop with no styling and one window. Two joints are drawn
+            through the book — “Mortise” on the endpapers and “Halving” on the
+            plates and bands — both with{' '}
+            <a
+              href="https://tabbied.com"
+              target="_blank"
+              rel="noreferrer noopener"
+              className={styles.tabbiedCredit}
+            >
+              Tabbied
+            </a>
+            .
+          </p>
+        </div>
+        {/* back endpaper */}
         <div className={styles.colophonTail} aria-hidden="true">
           <TabbiedArtwork
             artwork={mortise}
             palette={[INK, SAND, OAK]}
             seed="ox-tail-08"
             fit="grid"
-            cellSize={40}
+            cellSize={84}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>

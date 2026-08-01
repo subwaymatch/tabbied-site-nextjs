@@ -154,6 +154,45 @@
 /* ——— hero ——— */
 
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* full-bleed bolt-circle field behind the whole hero */
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  background-color: var(--navy);
+}
+
+/* scrim: dense under the copy column, thin over the drawing side so the
+   pattern still reads as the hero rather than as a texture */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      94deg,
+      rgba(10, 22, 34, 0.95) 0%,
+      rgba(10, 22, 34, 0.94) 40%,
+      rgba(10, 22, 34, 0.88) 47%,
+      rgba(10, 22, 34, 0.5) 55%,
+      rgba(10, 22, 34, 0.2) 66%,
+      rgba(10, 22, 34, 0.1) 82%,
+      rgba(10, 22, 34, 0.24) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(13, 27, 42, 0.72) 0%,
+      rgba(13, 27, 42, 0) 18%,
+      rgba(13, 27, 42, 0) 72%,
+      rgba(13, 27, 42, 0.86) 100%
+    );
+}
+
+.heroInner {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: clamp(2rem, 4vw, 4rem);
@@ -263,15 +302,28 @@
   font-weight: 700;
 }
 
-/* hero panel with pattern + cutout + callouts */
+/* hero panel — a keyline "drawing sheet" cut out of the hero pattern, with a
+   dark veil pooled in the middle so the frameset cut-out reads clearly */
 
 .heroPanel {
   position: relative;
-  background: var(--navy);
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--hairline-strong);
   aspect-ratio: 6 / 5;
   overflow: hidden;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 42px), calc(100% - 42px) 100%, 0 100%);
+}
+
+.heroPanelVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 64% at 50% 52%,
+    rgba(8, 18, 30, 0.96) 0%,
+    rgba(8, 18, 30, 0.9) 40%,
+    rgba(8, 18, 30, 0.6) 66%,
+    rgba(8, 18, 30, 0.18) 86%,
+    rgba(8, 18, 30, 0) 100%
+  );
 }
 
 .heroFrameWrap {
@@ -285,7 +337,7 @@
 .heroFrame {
   max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 22px 30px rgba(3, 8, 14, 0.65));
+  filter: drop-shadow(0 26px 34px rgba(2, 6, 11, 0.85)) drop-shadow(0 0 18px rgba(2, 6, 11, 0.7));
 }
 
 .callout {
@@ -320,27 +372,53 @@
 }
 
 .calloutC {
-  bottom: 16%;
+  bottom: 20%;
   left: 10%;
 }
 
 .panelStamp {
   position: absolute;
-  right: 1rem;
+  left: 1rem;
   bottom: 0.7rem;
   margin: 0;
+  padding: 0.25rem 0.5rem;
   font-family: var(--mono);
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   color: var(--azure);
+  background: rgba(8, 18, 30, 0.82);
 }
 
 @media (max-width: 900px) {
-  .hero {
+  .heroInner {
     grid-template-columns: 1fr;
   }
   .heroPanel {
     aspect-ratio: 4 / 3;
+  }
+  /* stacked: the wash rides the copy block itself, so the pattern stays bold
+     everywhere else no matter how tall the headline wraps */
+  .heroScrim {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 22, 34, 0.8) 0%,
+      rgba(10, 22, 34, 0.2) 12%,
+      rgba(10, 22, 34, 0.2) 84%,
+      rgba(10, 22, 34, 0.86) 100%
+    );
+  }
+
+  .heroCopy {
+    position: relative;
+    margin: -1rem;
+    padding: 1rem;
+    background: radial-gradient(
+      ellipse 88% 86% at 50% 48%,
+      rgba(10, 22, 34, 0.96) 0%,
+      rgba(10, 22, 34, 0.94) 66%,
+      rgba(10, 22, 34, 0.62) 88%,
+      rgba(10, 22, 34, 0.05) 100%
+    );
   }
 }
 
@@ -438,15 +516,35 @@
 }
 
 .buildFeatureMedia {
-  background: linear-gradient(160deg, var(--navy-3), var(--navy-2));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--navy);
   border: 1px solid var(--hairline);
   padding: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  align-items: center;
+}
+
+/* calm pocket in the middle of the isometric field so the bicycle detaches */
+.buildMediaVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 66% 60% at 50% 50%,
+    rgba(10, 22, 34, 0.95) 0%,
+    rgba(10, 22, 34, 0.88) 42%,
+    rgba(10, 22, 34, 0.52) 70%,
+    rgba(10, 22, 34, 0.1) 90%,
+    rgba(10, 22, 34, 0) 100%
+  );
 }
 
 .buildBike {
+  position: relative;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 26px 34px rgba(3, 8, 14, 0.7));
+  filter: drop-shadow(0 28px 36px rgba(2, 6, 11, 0.85)) drop-shadow(0 0 16px rgba(2, 6, 11, 0.6));
 }
 
 .buildCode {
@@ -542,16 +640,55 @@
 /* ——— geometry ——— */
 
 .geometry {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid var(--hairline);
   padding: clamp(3.5rem, 7vw, 6rem) 0;
-  background: linear-gradient(180deg, rgba(10, 22, 34, 0.65), transparent 40%);
 }
 
-.tableScroll {
+/* drafting field behind the spec sheet */
+.geoField {
+  position: absolute;
+  inset: 0;
+  background-color: var(--navy);
+}
+
+.geoScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 22, 34, 0.94) 0%,
+    rgba(10, 22, 34, 0.9) 26%,
+    rgba(10, 22, 34, 0.52) 44%,
+    rgba(10, 22, 34, 0.52) 68%,
+    rgba(10, 22, 34, 0.9) 100%
+  );
+}
+
+.geometry .sectionHead,
+.tableNote {
+  position: relative;
+}
+
+/* the table sits on a clean sheet floating above the drafting field */
+.tableSheet {
+  position: relative;
   max-width: 72rem;
   margin: 0 auto;
   padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.tableSheetInner {
+  background: rgba(8, 18, 30, 0.9);
+  border: 1px solid var(--hairline-strong);
+  backdrop-filter: blur(2px);
+}
+
+.tableScroll {
   overflow-x: auto;
+  padding: clamp(0.6rem, 1.6vw, 1.1rem) clamp(0.9rem, 2vw, 1.6rem);
 }
 
 .geoTable {
@@ -601,6 +738,7 @@
   font-size: 0.68rem;
   color: var(--ink-dim);
   letter-spacing: 0.04em;
+  text-shadow: 0 1px 6px rgba(8, 18, 30, 0.95);
 }
 
 /* ——— workshop ——— */
@@ -703,11 +841,40 @@
 /* ——— provisions ——— */
 
 .provisions {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid var(--hairline);
   padding: clamp(3.5rem, 7vw, 6rem) 0;
 }
 
+/* big, quiet isometric field behind the outfitting shelf */
+.provField {
+  position: absolute;
+  inset: 0;
+  background-color: var(--navy);
+  opacity: 0.62;
+}
+
+.provScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 42, 0.95) 0%,
+    rgba(13, 27, 42, 0.92) 20%,
+    rgba(13, 27, 42, 0.42) 34%,
+    rgba(13, 27, 42, 0.42) 72%,
+    rgba(13, 27, 42, 0.94) 100%
+  );
+}
+
+.provisions .sectionHead {
+  position: relative;
+}
+
 .provGrid {
+  position: relative;
   list-style: none;
   max-width: 72rem;
   margin: 0 auto;
@@ -718,8 +885,10 @@
 }
 
 .provCard {
-  border: 1px solid var(--hairline);
-  background: rgba(18, 36, 57, 0.35);
+  border: 1px solid var(--hairline-strong);
+  background: rgba(10, 22, 34, 0.92);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 18px 40px rgba(2, 6, 11, 0.45);
   display: flex;
   flex-direction: column;
 }
@@ -791,24 +960,25 @@
   gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
+/* opaque studio photographs — a keyline frame on the page's own surface,
+   no pattern behind the face, photo fills the frame */
 .founderTile {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border: 1px solid var(--hairline);
-  background: var(--navy);
+  border: 1px solid var(--hairline-strong);
+  background: var(--navy-3);
   margin-bottom: 1.3rem;
+  box-shadow: 0 20px 44px rgba(2, 6, 11, 0.5);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%);
 }
 
 .founderImg {
-  position: absolute;
-  bottom: -4%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 96%;
-  width: auto;
-  max-width: none;
-  filter: drop-shadow(0 18px 26px rgba(3, 8, 14, 0.7));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+  display: block;
 }
 
 .founder h3 {

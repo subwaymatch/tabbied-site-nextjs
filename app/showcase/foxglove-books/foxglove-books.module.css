@@ -130,15 +130,48 @@
 /* ——— Hero ——— */
 
 .hero {
+  position: relative;
+  isolation: isolate;
   max-width: 66rem;
   margin: 0 auto;
-  padding: clamp(2.5rem, 5vw, 4rem) 1rem 0;
+  padding: clamp(2.5rem, 5vw, 4rem) 1rem clamp(2rem, 4vw, 3rem);
+}
+
+/* A full-bleed field of ivy behind the shop, breaking the 66rem measure out
+   to the viewport edges — the pattern is the hero, the scrim only protects
+   the lede beneath it. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.heroFieldScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(247, 243, 232, 0.62) 0%,
+      rgba(247, 243, 232, 0.28) 18%,
+      rgba(247, 243, 232, 0.28) 58%,
+      rgba(247, 243, 232, 0.9) 78%,
+      rgba(247, 243, 232, 0.96) 100%
+    );
 }
 
 .heroFrame {
+  position: relative;
   margin: 0;
   border: 1px solid var(--green);
   padding: 0.45rem;
+  background: var(--paper);
+  box-shadow: 0 18px 40px rgba(30, 58, 47, 0.16);
 }
 
 .heroImgWrap {
@@ -163,6 +196,7 @@
 }
 
 .heroLede {
+  position: relative;
   max-width: 44rem;
   margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
   text-align: center;
@@ -298,12 +332,41 @@
 /* ——— The shelf ——— */
 
 .shelf {
+  position: relative;
+  isolation: isolate;
   max-width: 66rem;
   margin: clamp(3rem, 6vw, 4.5rem) auto 0;
-  padding: 0 1rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 1rem 0;
+}
+
+/* Endpaper: the marbled sheet a gathering is pasted to, run full-width
+   behind the spines and stopped at the shelf board. */
+.shelfEndpaper {
+  position: absolute;
+  top: 0;
+  bottom: 3.1rem;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  overflow: hidden;
+  background: var(--paper-deep);
+  border-top: 1px solid var(--tan);
+}
+
+.shelfEndpaperScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 243, 232, 0.72) 0%,
+    rgba(247, 243, 232, 0.32) 40%,
+    rgba(247, 243, 232, 0.18) 100%
+  );
 }
 
 .spineRow {
+  position: relative;
   list-style: none;
   margin: 0;
   padding: 0 clamp(0.5rem, 3vw, 2rem);
@@ -350,6 +413,7 @@
 }
 
 .shelfBoard {
+  position: relative;
   height: 0.85rem;
   background: #6b5a41;
   border-radius: 2px;
@@ -371,47 +435,43 @@
 }
 
 .pickGrid {
-  max-width: 66rem;
+  max-width: 52rem;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 2.5rem);
 }
 
+/* Opaque studio photographs: the keeper fills a plain ruled frame beside
+   their quote — no pattern behind a face, nothing floating. */
 .pickCard {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
   border: 1px solid var(--tan);
   background: #fbf8ef;
 }
 
 .pickTile {
   position: relative;
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.pickTileArt {
-  position: absolute;
-  inset: 0;
   background: var(--paper-deep);
+  border-right: 1px solid var(--tan);
 }
 
 .pickPortrait {
-  position: relative;
-  width: 52%;
-  height: auto;
-  filter: drop-shadow(0 14px 18px rgba(30, 58, 47, 0.35));
-  transform: translateY(6%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 14%;
 }
 
 .pickQuote {
   margin: 0;
-  padding: 1.5rem 1.75rem 1.75rem;
-  border-top: 1px solid var(--tan);
+  padding: 1.5rem 1.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .pickQuote p {
@@ -719,18 +779,34 @@
 
 .goodsImgWrap,
 .goodsCardPlain {
+  position: relative;
   min-height: 11rem;
   display: grid;
   place-items: center;
   margin-bottom: 0.5rem;
 }
 
+.goodsImgWrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 56% 52% at 50% 50%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.45) 58%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
 .goodsImg {
+  position: relative;
   max-width: 10rem;
   max-height: 10.5rem;
   width: auto;
   height: auto;
-  filter: drop-shadow(0 14px 16px rgba(30, 58, 47, 0.3));
+  filter: drop-shadow(0 14px 14px rgba(30, 58, 47, 0.38))
+    drop-shadow(0 2px 3px rgba(30, 58, 47, 0.24));
 }
 
 .goodsCardPlain {
@@ -763,17 +839,43 @@
 /* ——— Visit ——— */
 
 .visit {
-  padding: clamp(3.5rem, 7vw, 6rem) 1rem 0;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem clamp(2.5rem, 5vw, 4rem);
+  overflow: hidden;
+}
+
+/* Ivy grown up the wall behind the hours card. */
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--paper);
+  opacity: 0.62;
+}
+
+.visitField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 62% 66% at 50% 52%,
+    rgba(247, 243, 232, 0.94) 0%,
+    rgba(247, 243, 232, 0.7) 48%,
+    rgba(247, 243, 232, 0.18) 80%,
+    rgba(247, 243, 232, 0) 100%
+  );
 }
 
 .visitFrame {
+  position: relative;
   max-width: 56rem;
-  margin: 0 auto;
+  margin: 0 auto 5px;
+  background: rgba(251, 248, 239, 0.94);
   border: 1px solid var(--green);
   outline: 1px solid var(--green);
   outline-offset: 5px;
   padding: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 5px;
 }
 
 .visitFrame h2 {
@@ -926,11 +1028,6 @@
     aspect-ratio: 3 / 2;
   }
 
-  .pickGrid {
-    grid-template-columns: 1fr;
-    max-width: 34rem;
-  }
-
   .cafeGrid {
     grid-template-columns: 1fr;
   }
@@ -952,6 +1049,16 @@
 @media (max-width: 767px) {
   .page {
     font-size: 1.06rem;
+  }
+
+  .pickCard {
+    grid-template-columns: 1fr;
+  }
+
+  .pickTile {
+    aspect-ratio: 3 / 4;
+    border-right: none;
+    border-bottom: 1px solid var(--tan);
   }
 
   .storyText {

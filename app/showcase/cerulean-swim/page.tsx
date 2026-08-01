@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { wavelet } from 'tabbied/artworks';
+import { tidering, wavelet } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './cerulean-swim.module.css';
 
@@ -168,39 +168,42 @@ export default function CeruleanSwimPage() {
       <main>
         {/* HERO */}
         <section className={styles.hero} aria-labelledby="hero-title">
-          <p className={styles.eyebrow}>Collection № 04 — Meltemi</p>
-          <h1 id="hero-title" className={styles.heroTitle}>
-            Cut for salt.
-            <br />
-            <em>Sewn for sun.</em>
-          </h1>
-          <p className={styles.heroLede}>
-            Swimwear made slowly on the Ligurian coast from regenerated nylon —
-            built to outlast summers, tides, and the hotel pool you were not
-            strictly a guest of.
-          </p>
-          <div className={styles.heroFrame}>
-            <Figure
-              slug="cerulean-hero"
-              alt="A swimmer floating on her back in clear turquoise water, photographed from above"
-              priority
-              className={styles.coverImg}
-            />
-            <p className={styles.heroBadge} aria-hidden="true">
-              <span>UPF</span>
-              <strong>50+</strong>
-              <span>salt-tested</span>
-            </p>
-          </div>
-          <div className={styles.heroWave} aria-hidden="true">
+          <div className={styles.heroField} aria-hidden="true">
             <TabbiedArtwork
               artwork={wavelet}
               palette={[FOAM, TEAL, AQUA, SUN]}
               seed="cs-hero-07"
               fit="grid"
-              cellSize={52}
+              cellSize={96}
               style={{ position: 'absolute', inset: 0 }}
             />
+          </div>
+          <div className={styles.heroScrim} aria-hidden="true" />
+          <div className={styles.heroInner}>
+            <p className={styles.eyebrow}>Collection № 04 — Meltemi</p>
+            <h1 id="hero-title" className={styles.heroTitle}>
+              Cut for salt.
+              <br />
+              <em>Sewn for sun.</em>
+            </h1>
+            <p className={styles.heroLede}>
+              Swimwear made slowly on the Ligurian coast from regenerated nylon
+              — built to outlast summers, tides, and the hotel pool you were not
+              strictly a guest of.
+            </p>
+            <div className={styles.heroFrame}>
+              <Figure
+                slug="cerulean-hero"
+                alt="A swimmer floating on her back in clear turquoise water, photographed from above"
+                priority
+                className={styles.coverImg}
+              />
+              <p className={styles.heroBadge} aria-hidden="true">
+                <span>UPF</span>
+                <strong>50+</strong>
+                <span>salt-tested</span>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -296,11 +299,11 @@ export default function CeruleanSwimPage() {
         {/* RIBBON DIVIDER */}
         <div className={styles.ribbon} aria-hidden="true">
           <TabbiedArtwork
-            artwork={wavelet}
-            palette={[AQUA, DEEP, FOAM]}
+            artwork={tidering}
+            palette={[AQUA, FOAM, TEAL]}
             seed="cs-ribbon-03"
             fit="grid"
-            cellSize={40}
+            cellSize={96}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -345,33 +348,45 @@ export default function CeruleanSwimPage() {
           </div>
         </section>
 
-        {/* CARE GUIDE */}
-        <section className={styles.sectionAlt} aria-labelledby="care-title">
-          <div className={styles.careInner}>
-            <header className={styles.secHead}>
-              <h2 id="care-title" className={styles.secTitle}>
-                Care, in <em>five</em> slow steps
-              </h2>
-              <p className={styles.secLede}>
-                A suit is a small machine for holding you together at speed.
-                Treat it like this and it will do ten seasons.
-              </p>
-            </header>
-            <ol className={styles.careList}>
-              {CARE_STEPS.map((step, i) => (
-                <li key={step.title} className={styles.careStep}>
-                  <span className={styles.careNo} aria-hidden="true">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+        {/* CARE GUIDE — white card floating on a full-width tide field */}
+        <div className={styles.careBand}>
+          <div className={styles.careField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={tidering}
+              palette={[AQUA, FOAM, TEAL]}
+              seed="cs-care-11"
+              fit="grid"
+              cellSize={132}
+              style={{ position: 'absolute', inset: 0 }}
+            />
           </div>
-        </section>
+          <section className={styles.sectionAlt} aria-labelledby="care-title">
+            <div className={styles.careInner}>
+              <header className={styles.secHead}>
+                <h2 id="care-title" className={styles.secTitle}>
+                  Care, in <em>five</em> slow steps
+                </h2>
+                <p className={styles.secLede}>
+                  A suit is a small machine for holding you together at speed.
+                  Treat it like this and it will do ten seasons.
+                </p>
+              </header>
+              <ol className={styles.careList}>
+                {CARE_STEPS.map((step, i) => (
+                  <li key={step.title} className={styles.careStep}>
+                    <span className={styles.careNo} aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        </div>
 
         {/* WATER CLUB */}
         <section id="club" className={styles.club} aria-labelledby="club-title">
@@ -444,11 +459,11 @@ export default function CeruleanSwimPage() {
       <footer className={styles.footer}>
         <div className={styles.footerWave} aria-hidden="true">
           <TabbiedArtwork
-            artwork={wavelet}
+            artwork={tidering}
             palette={[FOAM, AQUA, TEAL]}
             seed="cs-foot-05"
             fit="grid"
-            cellSize={56}
+            cellSize={92}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -493,7 +508,7 @@ export default function CeruleanSwimPage() {
           <div className={styles.footerBase}>
             <p>© 2026 Cerulean Swim S.r.l. — sewn by six people and the sea.</p>
             <p className={styles.tabbiedCredit}>
-              Wave patterns by{' '}
+              “Wavelet” and “Tidering” patterns by{' '}
               <a
                 href="https://tabbied.com"
                 target="_blank"

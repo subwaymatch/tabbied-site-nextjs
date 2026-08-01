@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { stylobate } from 'tabbied/artworks';
+import { stylobate, tidering } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './koyo-tea.module.css';
 
@@ -130,27 +130,42 @@ export default function KoyoTeaPage() {
       <main>
         {/* ——— HERO ——— */}
         <section className={styles.hero} aria-labelledby="hero-title">
-          <p className={styles.vertical} aria-hidden="true">
-            紅葉 — the turning of the leaves
-          </p>
-          <h1 id="hero-title" className={styles.heroTitle}>
-            A quiet room,
-            <br />a precise cup.
-          </h1>
-          <p className={styles.heroLede}>
-            Koyo is six seats, one kettle, and the teas of four small gardens.
-            We steep by the degree and the second — not out of fussiness, but
-            because the leaf notices.
-          </p>
-          <figure className={styles.heroFigure}>
-            <Figure
-              slug="koyo-hero"
-              priority
-              alt="A low wooden table set for tea: kyūsu, two cups, and a folded cloth in soft morning light"
-              className={styles.sceneImg}
+          <div className={styles.heroCopy}>
+            <p className={styles.vertical} aria-hidden="true">
+              紅葉 — the turning of the leaves
+            </p>
+            <h1 id="hero-title" className={styles.heroTitle}>
+              A quiet room,
+              <br />a precise cup.
+            </h1>
+            <p className={styles.heroLede}>
+              Koyo is six seats, one kettle, and the teas of four small gardens.
+              We steep by the degree and the second — not out of fussiness, but
+              because the leaf notices.
+            </p>
+          </div>
+
+          <div className={styles.heroField}>
+            <TabbiedArtwork
+              artwork={tidering}
+              palette={LIGHT_PALETTE}
+              seed="koyo-nami-13"
+              fit="cover"
+              density={1}
+              style={{ position: 'absolute', inset: 0 }}
             />
-            <figcaption>The morning table, set before opening.</figcaption>
-          </figure>
+            <div className={styles.heroFieldWash} aria-hidden="true" />
+            <figure className={styles.heroFigure}>
+              <Figure
+                slug="koyo-hero"
+                priority
+                alt="A low wooden table set for tea: kyūsu, two cups, and a folded cloth in soft morning light"
+                className={styles.sceneImg}
+              />
+              <figcaption>The morning table, set before opening.</figcaption>
+            </figure>
+          </div>
+
           <div className={styles.textileBand} aria-hidden="true">
             <TabbiedArtwork
               artwork={stylobate}
@@ -283,6 +298,7 @@ export default function KoyoTeaPage() {
                 cellSize={64}
                 style={{ position: 'absolute', inset: 0 }}
               />
+              <div className={styles.wareFeatureVeil} aria-hidden="true" />
               <Figure
                 slug="koyo-teapot-cutout"
                 cutout
@@ -422,24 +438,37 @@ export default function KoyoTeaPage() {
         <hr className={styles.rule} />
 
         {/* ——— SEASONAL NOTES ——— */}
-        <section className={styles.section} aria-labelledby="season-title">
-          <h2 className={styles.sectionTitle} id="season-title">
-            <span className={styles.titleKanji} aria-hidden="true">
-              四季
-            </span>
-            Seasonal notes
-          </h2>
-          <ul className={styles.seasonList}>
-            {SEASONS.map((s) => (
-              <li key={s.name} className={styles.season}>
-                <span className={styles.seasonKanji} aria-hidden="true">
-                  {s.kanji}
-                </span>
-                <h3>{s.name}</h3>
-                <p>{s.note}</p>
-              </li>
-            ))}
-          </ul>
+        <section className={styles.seasons} aria-labelledby="season-title">
+          <div className={styles.seasonsField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={tidering}
+              palette={LIGHT_PALETTE}
+              seed="koyo-shiki-21"
+              fit="grid"
+              cellSize={110}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={styles.seasonsWash} aria-hidden="true" />
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle} id="season-title">
+              <span className={styles.titleKanji} aria-hidden="true">
+                四季
+              </span>
+              Seasonal notes
+            </h2>
+            <ul className={styles.seasonList}>
+              {SEASONS.map((s) => (
+                <li key={s.name} className={styles.season}>
+                  <span className={styles.seasonKanji} aria-hidden="true">
+                    {s.kanji}
+                  </span>
+                  <h3>{s.name}</h3>
+                  <p>{s.note}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       </main>
 
@@ -455,6 +484,17 @@ export default function KoyoTeaPage() {
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
+        <div className={styles.footerField} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={tidering}
+            palette={LIGHT_PALETTE}
+            seed="koyo-suso-29"
+            fit="cover"
+            density={1}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+        <div className={styles.footerWash} aria-hidden="true" />
         <div className={styles.footerInner}>
           <p className={styles.footerMark} aria-hidden="true">
             紅葉

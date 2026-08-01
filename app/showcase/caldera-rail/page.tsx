@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { cascade } from 'tabbied/artworks';
+import { baste, cascade, lunette } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './caldera-rail.module.css';
 
@@ -227,65 +227,70 @@ export default function CalderaRailPage() {
       <main>
         {/* ————— Hero ————— */}
         <section className={styles.hero} aria-labelledby="hero-heading">
-          <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Summer service · 12 May — 28 Sept</p>
-            <h1 id="hero-heading" className={styles.heroTitle}>
-              Take the slow way round.
-            </h1>
-            <p className={styles.heroLead}>
-              Three routes cross the caldera country: along the cliffs, over
-              the pass, and through the terraces. Each one runs to the minute
-              and never faster than the view deserves.
-            </p>
-            <div className={styles.heroActions}>
-              <a className={styles.btnSolid} href="#timetable">
-                Consult the timetable
-              </a>
-              <a className={styles.btnGhost} href="#routes">
-                The three routes
-              </a>
-            </div>
-            <dl className={styles.heroFacts}>
-              <div>
-                <dt>Routes</dt>
-                <dd>3 + night car</dd>
-              </div>
-              <div>
-                <dt>Viaducts</dt>
-                <dd>17 crossed</dd>
-              </div>
-              <div>
-                <dt>Punctuality</dt>
-                <dd>98.4% (1927–)</dd>
-              </div>
-            </dl>
+          {/* Full-bleed arcade of arches behind the whole hero — the viaduct
+              motif the railway is built on, scrimmed back where type sits. */}
+          <div className={styles.heroPattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={lunette}
+              palette={FULL}
+              seed="caldera-arcade-1927"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
           </div>
 
-          <div className={styles.posterStack}>
-            <div className={styles.posterPattern} aria-hidden="true">
-              <TabbiedArtwork
-                artwork={cascade}
-                palette={FULL}
-                seed="caldera-viaduct-27"
-                fit="cover"
-                style={{ position: 'absolute', inset: 0 }}
-              />
-            </div>
-            <figure className={styles.posterFrame}>
-              <div className={styles.posterImage}>
-                <Figure
-                  slug="caldera-hero"
-                  alt="Gouache travel-poster illustration of a teal locomotive crossing a tall stone viaduct at golden hour"
-                  priority
-                />
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <p className={styles.kicker}>Summer service · 12 May — 28 Sept</p>
+              <h1 id="hero-heading" className={styles.heroTitle}>
+                Take the slow way round.
+              </h1>
+              <p className={styles.heroLead}>
+                Three routes cross the caldera country: along the cliffs, over
+                the pass, and through the terraces. Each one runs to the minute
+                and never faster than the view deserves.
+              </p>
+              <div className={styles.heroActions}>
+                <a className={styles.btnSolid} href="#timetable">
+                  Consult the timetable
+                </a>
+                <a className={styles.btnGhost} href="#routes">
+                  The three routes
+                </a>
               </div>
-              <figcaption className={styles.posterCaption}>
-                The Viaduct at Sienna Gorge — morning service
-              </figcaption>
-            </figure>
-            <p className={styles.stamp} aria-hidden="true">
-              <span>Caldera Rly Co · Est 1927 ·</span>
-            </p>
+              <dl className={styles.heroFacts}>
+                <div>
+                  <dt>Routes</dt>
+                  <dd>3 + night car</dd>
+                </div>
+                <div>
+                  <dt>Viaducts</dt>
+                  <dd>17 crossed</dd>
+                </div>
+                <div>
+                  <dt>Punctuality</dt>
+                  <dd>98.4% (1927–)</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className={styles.posterStack}>
+              <figure className={styles.posterFrame}>
+                <div className={styles.posterImage}>
+                  <Figure
+                    slug="caldera-hero"
+                    alt="Gouache travel-poster illustration of a teal locomotive crossing a tall stone viaduct at golden hour"
+                    priority
+                  />
+                </div>
+                <figcaption className={styles.posterCaption}>
+                  The Viaduct at Sienna Gorge — morning service
+                </figcaption>
+              </figure>
+              <p className={styles.stamp} aria-hidden="true">
+                <span>Caldera Rly Co · Est 1927 ·</span>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -353,9 +358,22 @@ export default function CalderaRailPage() {
         {/* ————— Route timeline ————— */}
         <section
           id="line"
-          className={styles.sectionAlt}
+          className={`${styles.sectionAlt} ${styles.lineSection}`}
           aria-labelledby="line-heading"
         >
+          {/* Sleeper-dashes running the length of the section, quiet enough
+              to sit under the called stops. */}
+          <div className={styles.linePattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={baste}
+              palette={[PARCHMENT, NAVY, TEAL, GOLD, EMBER]}
+              seed="caldera-sleepers-101"
+              fit="grid"
+              cellSize={96}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+
           <header className={styles.sectionHead}>
             <p className={styles.sectionNo}>Section II</p>
             <h2 id="line-heading">Down the Line — Service 101</h2>

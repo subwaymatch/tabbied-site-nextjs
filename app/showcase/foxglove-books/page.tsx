@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { quire } from 'tabbied/artworks';
+import { ivy, quire } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './foxglove-books.module.css';
 
@@ -177,6 +177,17 @@ export default function FoxgloveBooksPage() {
       <main>
         {/* ——— Hero ——— */}
         <section className={s.hero} aria-label="The shop">
+          <div className={s.heroField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={ivy}
+              palette={['#F7F3E8', '#8FA98F', '#3E6B54', '#D9CBA8', '#1E3A2F']}
+              seed="foxglove-ivy-01"
+              fit="grid"
+              cellSize={84}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <span className={s.heroFieldScrim} />
+          </div>
           <figure className={s.heroFrame}>
             <div className={s.heroImgWrap}>
               <Figure
@@ -232,6 +243,17 @@ export default function FoxgloveBooksPage() {
           </div>
 
           <div className={s.shelf} aria-label="A shelf of this season’s spines">
+            <div className={s.shelfEndpaper} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={quire}
+                palette={['#F0EAD8', '#D9CBA8', '#8FA98F', '#3E6B54', '#C25E4C']}
+                seed="foxglove-endpaper-04"
+                fit="grid"
+                cellSize={52}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+              <span className={s.shelfEndpaperScrim} />
+            </div>
             <ul className={s.spineRow}>
               {SPINES.map((spine, i) => (
                 <li
@@ -263,19 +285,8 @@ export default function FoxgloveBooksPage() {
           <div className={s.pickGrid}>
             <article className={s.pickCard}>
               <div className={s.pickTile}>
-                <div className={s.pickTileArt}>
-                  <TabbiedArtwork
-                    artwork={quire}
-                    palette={['#E9E0C9', '#8FA98F', '#3E6B54', '#D9CBA8']}
-                    seed="foxglove-edith-02"
-                    fit="grid"
-                    cellSize={40}
-                    style={{ position: 'absolute', inset: 0 }}
-                  />
-                </div>
                 <Figure
-                  slug="foxglove-keeper-1-cutout"
-                  cutout
+                  slug="foxglove-keeper-1"
                   alt="Portrait of Edith Cray, a woman in her sixties with a silver bun and a green cardigan"
                   className={s.pickPortrait}
                 />
@@ -297,19 +308,8 @@ export default function FoxgloveBooksPage() {
             </article>
             <article className={s.pickCard}>
               <div className={s.pickTile}>
-                <div className={s.pickTileArt}>
-                  <TabbiedArtwork
-                    artwork={quire}
-                    palette={['#EFE0D8', '#C25E4C', '#D9CBA8', '#3E6B54']}
-                    seed="foxglove-theo-03"
-                    fit="grid"
-                    cellSize={40}
-                    style={{ position: 'absolute', inset: 0 }}
-                  />
-                </div>
                 <Figure
-                  slug="foxglove-keeper-2-cutout"
-                  cutout
+                  slug="foxglove-keeper-2"
                   alt="Portrait of Theo Mensah, a young man with short locs wearing a cream jumper"
                   className={s.pickPortrait}
                 />
@@ -522,6 +522,16 @@ export default function FoxgloveBooksPage() {
 
         {/* ——— Visit ——— */}
         <section id="visit" className={s.visit} aria-labelledby="t-visit">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={ivy}
+              palette={['#F7F3E8', '#D9CBA8', '#8FA98F', '#3E6B54', '#C25E4C']}
+              seed="foxglove-ivy-07"
+              fit="grid"
+              cellSize={68}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <div className={s.visitFrame}>
             <h2 id="t-visit">Hours &amp; whereabouts</h2>
             <div className={s.visitCols}>
@@ -597,7 +607,7 @@ export default function FoxgloveBooksPage() {
             <a href="#visit">Visit</a>
           </nav>
           <p className={s.colophon}>
-            Set in Crimson Pro &amp; Karla. Endpapers patterned by{' '}
+            Set in Crimson Pro &amp; Karla. Endpapers &amp; ivy patterned by{' '}
             <a href="https://tabbied.com">Tabbied</a>.
           </p>
         </div>

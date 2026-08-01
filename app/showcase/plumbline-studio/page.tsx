@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { gutter } from 'tabbied/artworks';
+import { gutter, lintel } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './plumbline-studio.module.css';
 
@@ -11,6 +11,7 @@ export const metadata = {
 
 const CHALK = ['#F6F5F1', '#17171A', '#B9B9BE', '#6E6E74', '#DCDCD8'];
 const COBALT_ACCENT = ['#F6F5F1', '#17171A', '#2947F0', '#B9B9BE', '#DCDCD8'];
+const PALE_ACCENT = ['#F6F5F1', '#B9B9BE', '#DCDCD8', '#2947F0', '#6E6E74'];
 const DARK = ['#17171A', '#DCDCD8', '#6E6E74', '#2947F0', '#B9B9BE'];
 
 const WORK: {
@@ -129,25 +130,38 @@ export default function PlumblineStudioPage() {
         {/* ——— 01 Practice ——— */}
         <section id="practice" className={s.section} aria-labelledby="t-practice">
           <SectionMark n="01" label="Practice" />
-          <div className={s.heroGrid}>
-            <h1 id="t-practice" className={s.statement}>
-              Buildings that hold their line — drawn once, checked twice,
-              built to be kept.
-            </h1>
-            <div className={s.heroArtCol}>
-              <div className={s.artInsert}>
-                <TabbiedArtwork
-                  artwork={gutter}
-                  palette={COBALT_ACCENT}
-                  seed="plumbline-01"
-                  fit="grid"
-                  cellSize={34}
-                  style={{ position: 'absolute', inset: 0 }}
-                />
+          <div className={s.heroStage}>
+            <div className={s.heroBackdrop} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={lintel}
+                palette={PALE_ACCENT}
+                seed="plumbline-colonnade-01"
+                fit="grid"
+                cellSize={96}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+              <span className={s.heroBackdropScrim} />
+            </div>
+            <div className={s.heroGrid}>
+              <h1 id="t-practice" className={s.statement}>
+                Buildings that hold their line — drawn once, checked twice,
+                built to be kept.
+              </h1>
+              <div className={s.heroArtCol}>
+                <div className={s.artInsert}>
+                  <TabbiedArtwork
+                    artwork={gutter}
+                    palette={COBALT_ACCENT}
+                    seed="plumbline-01"
+                    fit="grid"
+                    cellSize={34}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.mono}>
+                  Fig. 0 — the page grid, repeated spread after spread.
+                </p>
               </div>
-              <p className={s.mono}>
-                Fig. 0 — the page grid, repeated spread after spread.
-              </p>
             </div>
           </div>
           <p className={s.practiceText}>
@@ -327,6 +341,7 @@ export default function PlumblineStudioPage() {
                   cellSize={38}
                   style={{ position: 'absolute', inset: 0 }}
                 />
+                <span className={s.modelVeil} aria-hidden="true" />
                 <Figure
                   slug="plumbline-model-cutout"
                   cutout
@@ -344,8 +359,7 @@ export default function PlumblineStudioPage() {
             <figure className={s.principal}>
               <div className={s.principalTile}>
                 <Figure
-                  slug="plumbline-principal-1-cutout"
-                  cutout
+                  slug="plumbline-principal-1"
                   alt="Portrait of Mihee Kang, a woman in her forties with a black bob, wearing an ink-blue jacket"
                   className={s.principalImg}
                 />
@@ -362,8 +376,7 @@ export default function PlumblineStudioPage() {
             <figure className={s.principal}>
               <div className={s.principalTile}>
                 <Figure
-                  slug="plumbline-principal-2-cutout"
-                  cutout
+                  slug="plumbline-principal-2"
                   alt="Portrait of Elias Thorne, a man in his fifties with grey cropped hair and glasses, wearing a white shirt"
                   className={s.principalImg}
                 />
@@ -395,6 +408,21 @@ export default function PlumblineStudioPage() {
             ))}
           </ul>
         </section>
+
+        {/* ——— Full-width colonnade rule ——— */}
+        <div className={s.colonnade}>
+          <TabbiedArtwork
+            artwork={lintel}
+            palette={DARK}
+            seed="plumbline-colonnade-06"
+            fit="grid"
+            cellSize={64}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+          <p className={s.colonnadeCaption}>
+            <span>Fig. 2 — post and lintel, the oldest way of standing up.</span>
+          </p>
+        </div>
 
         {/* ——— 07 Contact ——— */}
         <section id="contact" className={s.section} aria-labelledby="t-contact">
@@ -468,8 +496,8 @@ export default function PlumblineStudioPage() {
               </a>
             </p>
             <p className={s.footerCredit}>
-              * The ruled inserts on this page are the pattern “Gutter”, drawn
-              by <a href="https://tabbied.com">Tabbied</a>.
+              * The ruled inserts are “Gutter” and the colonnades are “Lintel”,
+              both drawn by <a href="https://tabbied.com">Tabbied</a>.
             </p>
           </div>
         </div>

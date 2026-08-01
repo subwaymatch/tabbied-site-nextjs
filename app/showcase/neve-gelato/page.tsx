@@ -1,5 +1,5 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { fluting } from 'tabbied/artworks';
+import { bowl, fluting } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './neve-gelato.module.css';
 
@@ -129,6 +129,7 @@ export default function NeveGelatoPage() {
                 style={{ position: 'absolute', inset: 0 }}
               />
             </div>
+            <div className={s.heroScrim} aria-hidden="true" />
             <div className={s.heroInner}>
               <div className={s.heroCopy}>
                 <p className={s.heroKicker}>Gelateria · Harbourfields</p>
@@ -150,6 +151,7 @@ export default function NeveGelatoPage() {
                 </div>
               </div>
               <div className={s.heroCone}>
+                <span className={s.heroConeVeil} aria-hidden="true" />
                 <Figure
                   slug="neve-cone-cutout"
                   cutout
@@ -178,6 +180,15 @@ export default function NeveGelatoPage() {
 
         {/* ——— Flavour board ——— */}
         <section id="flavours" className={s.flavours} aria-labelledby="flavours-title">
+          <div className={s.flavoursArt} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={bowl}
+              palette={['#FFC2D4', '#FFF9F5', '#FF8FB8', '#D89FFF']}
+              seed="neve-board-11"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <div className={s.sectionHead}>
             <h2 id="flavours-title">Today’s eighteen</h2>
             <p>
@@ -253,11 +264,11 @@ export default function NeveGelatoPage() {
         <section id="story" className={s.story} aria-labelledby="story-title">
           <div className={s.storyArtCol}>
             <TabbiedArtwork
-              artwork={fluting}
-              palette={['#FFF3EA', '#FF8A5C', '#F5C542', '#FFC2D4']}
+              artwork={bowl}
+              palette={['#FFF3EA', '#FF8A5C', '#F5C542', '#FFC2D4', '#D89FFF']}
               seed="neve-story-02"
               fit="grid"
-              cellSize={44}
+              cellSize={72}
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
@@ -297,6 +308,15 @@ export default function NeveGelatoPage() {
 
         {/* ——— The shop ——— */}
         <section id="shop" className={s.shop} aria-labelledby="shop-title">
+          <div className={s.shopArt} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={bowl}
+              palette={['#F0E2FF', '#D89FFF', '#FFC2D4', '#FFF9F5', '#FF8FB8']}
+              seed="neve-shop-09"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <div className={s.shopBody}>
             <h2 id="shop-title">A small pink room with big spoons</h2>
             <p>

@@ -122,6 +122,42 @@
 /* ————— Hero ————— */
 
 .hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Full-bleed ring field. The scrim thickens over the copy column and thins
+   towards the edges so the artwork stays the loudest thing in the section. */
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  background: var(--linen);
+}
+
+.heroPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(245, 239, 231, 0.96) 0%,
+      rgba(245, 239, 231, 0.93) 32%,
+      rgba(245, 239, 231, 0.66) 48%,
+      rgba(245, 239, 231, 0.28) 64%,
+      rgba(245, 239, 231, 0.16) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(245, 239, 231, 0.6) 0%,
+      rgba(245, 239, 231, 0) 18%,
+      rgba(245, 239, 231, 0) 72%,
+      rgba(245, 239, 231, 0.88) 100%
+    );
+}
+
+.heroInner {
+  position: relative;
   max-width: 74rem;
   margin: 0 auto;
   padding: 3.5rem 1.5rem 6rem;
@@ -210,17 +246,6 @@
   padding: 2.5rem 0 3rem 2.5rem;
 }
 
-.heroRings {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 62%;
-  height: 64%;
-  border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
-  overflow: hidden;
-  background: var(--linen);
-}
-
 .heroPhoto {
   position: relative;
   border-radius: 46% 54% 44% 56% / 56% 46% 54% 44%;
@@ -259,6 +284,52 @@
   max-width: 74rem;
   margin: 0 auto;
   padding: 4rem 1.5rem 6rem;
+}
+
+.philosophyPattern {
+  position: absolute;
+  inset: 0 -6vw;
+  background: var(--linen);
+  opacity: 0.58;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 9%,
+    #000 91%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 9%,
+    #000 91%,
+    transparent
+  );
+}
+
+.philosophyPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 46% 44% at 50% 38%,
+      rgba(245, 239, 231, 0.96) 0%,
+      rgba(245, 239, 231, 0.86) 55%,
+      rgba(245, 239, 231, 0.2) 88%,
+      rgba(245, 239, 231, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(245, 239, 231, 0.95) 0%,
+      rgba(245, 239, 231, 0.3) 20%,
+      rgba(245, 239, 231, 0.3) 80%,
+      rgba(245, 239, 231, 0.95) 100%
+    );
+}
+
+.philosophy > :not(.philosophyPattern) {
+  position: relative;
 }
 
 .sideLabel {
@@ -322,6 +393,7 @@
   position: relative;
   height: 6rem;
   overflow: hidden;
+  background: var(--linen);
   opacity: 0.85;
   mask-image: linear-gradient(
     to right,
@@ -559,29 +631,45 @@
   color: var(--ink-soft);
 }
 
+/* Portraits are opaque studio photographs: they fill an alcove-shaped frame
+   edge to edge, seated on the page's own tint with a hairline keyline. */
 .teacherTile {
   position: relative;
-  aspect-ratio: 4 / 4.6;
+  aspect-ratio: 3 / 4;
+  max-width: 25rem;
   overflow: hidden;
   border-radius: 50% 50% 38px 38px / 42% 42% 38px 38px;
+  box-shadow: 0 20px 40px rgba(74, 66, 58, 0.18);
+}
+
+/* Keyline drawn over the photograph, so it reads on the frame, not under it. */
+.teacherTile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1.5px solid currentColor;
 }
 
 .tileClay {
   background: rgba(201, 123, 90, 0.28);
+  color: rgba(158, 86, 51, 0.55);
 }
 
 .tileSand {
   background: var(--sand);
+  color: rgba(140, 122, 107, 0.5);
 }
 
 .teacherImg {
-  position: absolute;
-  bottom: -2%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 86%;
-  height: auto;
-  filter: drop-shadow(0 16px 22px rgba(74, 66, 58, 0.3));
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* These 2:3 portraits are already framed head-and-shoulders, so bias the
+     crop hard to the top: the chest goes, the crown never does. */
+  object-position: 50% 8%;
 }
 
 /* ————— The space ————— */
@@ -649,7 +737,22 @@
 .kitPattern {
   position: absolute;
   inset: 0;
+  background: var(--sand);
   opacity: 0.4;
+}
+
+/* Calm the top of the band so the heading reads; the rings stay loud where
+   the product cards sit. */
+.kitPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(229, 213, 195, 0.92) 0%,
+    rgba(229, 213, 195, 0.6) 24%,
+    rgba(229, 213, 195, 0) 44%
+  );
 }
 
 .kitInner {
@@ -693,19 +796,37 @@
   box-shadow: 0 14px 30px rgba(74, 66, 58, 0.12);
 }
 
+/* The card already lifts the props off the ring band; a soft pocket of linen
+   behind each one and a firmer shadow finish the separation. */
 .kitImgWrap {
+  position: relative;
   display: grid;
   place-items: center;
   height: 11rem;
   margin-bottom: 1.2rem;
 }
 
+.kitImgWrap::before {
+  content: '';
+  position: absolute;
+  inset: -6% -4%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 52%,
+    rgba(251, 247, 240, 0.95) 0%,
+    rgba(251, 247, 240, 0.6) 60%,
+    rgba(251, 247, 240, 0) 100%
+  );
+}
+
 .kitImg {
+  position: relative;
   max-width: 74%;
   max-height: 100%;
   width: auto;
   height: auto;
-  filter: drop-shadow(0 12px 14px rgba(74, 66, 58, 0.28));
+  filter: drop-shadow(0 14px 16px rgba(74, 66, 58, 0.34))
+    drop-shadow(0 2px 3px rgba(74, 66, 58, 0.3));
 }
 
 .kitLine {
@@ -832,6 +953,7 @@
 .breathPattern {
   position: absolute;
   inset: 0;
+  background: var(--bark);
   opacity: 0.35;
 }
 
@@ -965,11 +1087,34 @@
 /* ————— Footer ————— */
 
 .footer {
+  position: relative;
   background: #efe4d5;
   border-top: 1.5px solid var(--sand);
+  overflow: hidden;
+}
+
+/* Arcs drifting across the footer field, veiled back under the columns. */
+.footerPattern {
+  position: absolute;
+  inset: 0;
+  background: #efe4d5;
+  opacity: 0.85;
+}
+
+.footerPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(239, 228, 213, 0.55) 0%,
+    rgba(239, 228, 213, 0.88) 40%,
+    rgba(239, 228, 213, 0.92) 100%
+  );
 }
 
 .footerGrid {
+  position: relative;
   max-width: 74rem;
   margin: 0 auto;
   padding: 3.5rem 1.5rem 2.5rem;
@@ -1004,6 +1149,7 @@
 }
 
 .footerBase {
+  position: relative;
   border-top: 1.5px solid rgba(217, 185, 159, 0.6);
 }
 
@@ -1028,10 +1174,22 @@
 /* ————— Responsive ————— */
 
 @media (max-width: 1020px) {
-  .hero {
+  .heroInner {
     grid-template-columns: 1fr;
     gap: 3rem;
     padding-bottom: 4.5rem;
+  }
+
+  /* Stacked hero: the copy spans the full width, so scrim top-to-bottom. */
+  .heroPattern::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(245, 239, 231, 0.95) 0%,
+      rgba(245, 239, 231, 0.94) 58%,
+      rgba(245, 239, 231, 0.5) 68%,
+      rgba(245, 239, 231, 0.24) 88%,
+      rgba(245, 239, 231, 0.85) 100%
+    );
   }
 
   .heroArt {

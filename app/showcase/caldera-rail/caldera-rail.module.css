@@ -110,9 +110,47 @@
 /* ————— Hero ————— */
 
 .hero {
+  position: relative;
+  background: var(--parchment);
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Full-bleed arcade behind the hero. The doodle carries the section; the
+   scrim above it only thickens where the headline and the facts sit. */
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  background: var(--parchment);
+}
+
+.heroPattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(240, 234, 214, 0.97) 0%,
+      rgba(240, 234, 214, 0.95) 30%,
+      rgba(240, 234, 214, 0.72) 46%,
+      rgba(240, 234, 214, 0.3) 60%,
+      rgba(240, 234, 214, 0.18) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(240, 234, 214, 0.72) 0%,
+      rgba(240, 234, 214, 0) 20%,
+      rgba(240, 234, 214, 0) 74%,
+      rgba(240, 234, 214, 0.78) 100%
+    );
+}
+
+.heroInner {
+  position: relative;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 4.5rem 1.5rem 5.5rem;
+  padding: 5.5rem 1.5rem 6.5rem;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 4rem;
@@ -208,21 +246,11 @@
   font-size: 1.25rem;
 }
 
-/* Poster stack: pattern panel offset behind a double-ruled frame */
+/* Poster stack: a double-ruled frame floating over the hero arcade */
 
 .posterStack {
   position: relative;
   padding: 1.4rem 1.4rem 0 0;
-}
-
-.posterPattern {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 78%;
-  height: 62%;
-  background: var(--parchment);
-  border: 2px solid var(--navy);
 }
 
 .posterFrame {
@@ -258,8 +286,8 @@
 
 .stamp {
   position: absolute;
-  left: -1.6rem;
-  bottom: -1.9rem;
+  left: -1.9rem;
+  bottom: 3.4rem;
   width: 7.4rem;
   height: 7.4rem;
   margin: 0;
@@ -502,6 +530,38 @@
 
 /* ————— Route timeline ————— */
 
+.lineSection {
+  position: relative;
+  overflow: hidden;
+}
+
+/* A field of basted dashes — sleepers seen from above — under the stops. */
+.linePattern {
+  position: absolute;
+  inset: 0;
+  max-width: none;
+  margin: 0;
+  background: var(--parchment-dim);
+  opacity: 0.75;
+}
+
+.linePattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 46% 70% at 50% 48%,
+    rgba(231, 223, 198, 0.97) 0%,
+    rgba(231, 223, 198, 0.95) 58%,
+    rgba(231, 223, 198, 0.45) 82%,
+    rgba(231, 223, 198, 0) 100%
+  );
+}
+
+.lineSection > :not(.linePattern) {
+  position: relative;
+}
+
 .timeline {
   position: relative;
   max-width: 46rem;
@@ -664,16 +724,37 @@
   aspect-ratio: 16 / 9;
   border: 2px solid var(--navy);
   overflow: hidden;
+  background: var(--parchment-lift);
+}
+
+/* A pool of parchment poured between the doodle and the object, so the
+   silhouette reads instantly while the pattern still runs to the edges. */
+.vignettePattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 58% 62% at 50% 52%,
+    rgba(251, 247, 234, 0.95) 0%,
+    rgba(251, 247, 234, 0.85) 40%,
+    rgba(251, 247, 234, 0.42) 68%,
+    rgba(251, 247, 234, 0.08) 86%,
+    rgba(251, 247, 234, 0) 100%
+  );
 }
 
 .vignetteCutout {
   position: absolute;
+  z-index: 2;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: min(58%, 300px);
   height: auto;
-  filter: drop-shadow(0 14px 18px rgba(38, 70, 83, 0.45));
+  filter: drop-shadow(0 16px 20px rgba(38, 70, 83, 0.42))
+    drop-shadow(0 2px 3px rgba(38, 70, 83, 0.4));
 }
 
 .vignette figcaption {
@@ -700,18 +781,28 @@
 .fleetPattern {
   position: absolute;
   inset: 0;
-  opacity: 0.5;
+  background: var(--navy);
+  opacity: 0.58;
 }
 
 .fleetPattern::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 42%,
-    rgba(38, 70, 83, 0.25) 0%,
-    rgba(38, 70, 83, 0.82) 78%
-  );
+  background:
+    radial-gradient(
+      ellipse 40% 22% at 50% 13%,
+      rgba(17, 40, 50, 0.93) 0%,
+      rgba(17, 40, 50, 0.74) 52%,
+      rgba(17, 40, 50, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(38, 70, 83, 0.62) 0%,
+      rgba(38, 70, 83, 0.2) 24%,
+      rgba(38, 70, 83, 0.2) 74%,
+      rgba(38, 70, 83, 0.74) 100%
+    );
 }
 
 .fleetInner {
@@ -735,13 +826,37 @@
 }
 
 .fleetLoco {
+  position: relative;
   text-align: center;
 }
 
+/* Teal engine on a teal-and-navy field: sink a pool of deep navy behind her
+   so the profile cuts out cleanly, and let the pattern keep the edges. */
+.fleetLoco::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(148%, 1240px);
+  height: 260%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 44% 34% at 50% 50%,
+    rgba(15, 37, 46, 0.96) 0%,
+    rgba(15, 37, 46, 0.92) 46%,
+    rgba(15, 37, 46, 0.58) 70%,
+    rgba(15, 37, 46, 0.16) 88%,
+    rgba(15, 37, 46, 0) 100%
+  );
+}
+
 .locoCutout {
+  position: relative;
   width: min(92%, 780px);
   height: auto;
-  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 2px rgba(233, 196, 106, 0.35));
 }
 
 .fleetCard {
@@ -927,6 +1042,7 @@
 .footerBand {
   position: relative;
   height: 3.4rem;
+  background: var(--navy);
   border-bottom: 2px solid var(--gold);
 }
 
@@ -1004,10 +1120,23 @@
 /* ————— Responsive ————— */
 
 @media (max-width: 1000px) {
-  .hero {
+  .heroInner {
     grid-template-columns: 1fr;
     gap: 3.5rem;
-    padding-top: 3.5rem;
+    padding: 4rem 1.5rem 5rem;
+  }
+
+  /* One column: the copy now runs the full width, so even the scrim out. */
+  .heroPattern::after {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(240, 234, 214, 0.93) 0%,
+        rgba(240, 234, 214, 0.9) 42%,
+        rgba(240, 234, 214, 0.62) 62%,
+        rgba(240, 234, 214, 0.4) 82%,
+        rgba(240, 234, 214, 0.8) 100%
+      );
   }
 
   .posterStack {
@@ -1054,9 +1183,21 @@
   .stamp {
     left: auto;
     right: -0.6rem;
-    bottom: -2.2rem;
+    bottom: 5.2rem;
     width: 6.6rem;
     height: 6.6rem;
+  }
+
+  /* One narrow column of stops: veil the sleepers across the full width and
+     let the dashes run free above and below the list instead. */
+  .linePattern::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(231, 223, 198, 0.3) 0%,
+      rgba(231, 223, 198, 0.92) 15%,
+      rgba(231, 223, 198, 0.92) 85%,
+      rgba(231, 223, 198, 0.3) 100%
+    );
   }
 
   .timeline::before {

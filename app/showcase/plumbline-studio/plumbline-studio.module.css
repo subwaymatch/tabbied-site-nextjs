@@ -143,7 +143,49 @@
 
 /* ——— 01 Practice / hero ——— */
 
+/* The statement stands in front of a full-bleed colonnade. The stage keeps
+   the page grid; the backdrop breaks out of it to the viewport edges. */
+.heroStage {
+  position: relative;
+  isolation: isolate;
+}
+
+.heroBackdrop {
+  position: absolute;
+  top: clamp(-2.5rem, -4vw, -1.5rem);
+  bottom: clamp(-2.5rem, -4vw, -1.5rem);
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  overflow: hidden;
+  background: var(--chalk);
+}
+
+/* Thin enough that the lintels read clearly, heavy where the statement sits. */
+.heroBackdropScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(246, 245, 241, 0.88) 0%,
+      rgba(246, 245, 241, 0.8) 32%,
+      rgba(246, 245, 241, 0.42) 55%,
+      rgba(246, 245, 241, 0.14) 80%,
+      rgba(246, 245, 241, 0.1) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(246, 245, 241, 0.72) 0%,
+      rgba(246, 245, 241, 0) 26%,
+      rgba(246, 245, 241, 0) 72%,
+      rgba(246, 245, 241, 0.85) 100%
+    );
+}
+
 .heroGrid {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
   gap: clamp(1.5rem, 4vw, 3rem);
@@ -173,7 +215,13 @@
   overflow: hidden;
 }
 
+.heroArtCol .mono {
+  background: rgba(246, 245, 241, 0.94);
+  padding: 0.35rem 0.5rem;
+}
+
 .practiceText {
+  position: relative;
   max-width: 44rem;
   margin-top: clamp(1.5rem, 3vw, 2.5rem);
   font-size: 1.1rem;
@@ -403,11 +451,28 @@
   place-items: center;
 }
 
+/* A calm pocket of the stage's own grey between the ruling and the model,
+   so the card silhouette reads instantly and the pattern still runs to the
+   edges of the frame. */
+.modelVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 82% 80% at 50% 54%,
+    rgba(220, 220, 216, 0.97) 0%,
+    rgba(220, 220, 216, 0.94) 48%,
+    rgba(220, 220, 216, 0.66) 68%,
+    rgba(220, 220, 216, 0.2) 86%,
+    rgba(220, 220, 216, 0) 100%
+  );
+}
+
 .modelImg {
   position: relative;
   width: 68%;
   height: auto;
-  filter: drop-shadow(0 18px 22px rgba(23, 23, 26, 0.28));
+  filter: drop-shadow(0 16px 18px rgba(23, 23, 26, 0.42))
+    drop-shadow(0 2px 3px rgba(23, 23, 26, 0.26));
 }
 
 .modelFigure .mono {
@@ -430,20 +495,22 @@
   padding-top: 1.25rem;
 }
 
+/* Opaque studio photographs, so they simply fill a hairline-ruled frame —
+   no pattern behind, no drop-shadow, nothing floating. */
 .principalTile {
-  aspect-ratio: 3 / 4;
+  position: relative;
+  aspect-ratio: 4 / 5;
   background: var(--panel);
+  border: 1px solid var(--hairline);
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
 }
 
 .principalImg {
-  width: 88%;
-  height: auto;
-  filter: drop-shadow(0 10px 14px rgba(23, 23, 26, 0.25));
-  transform: translateY(4%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
 }
 
 .principalName {
@@ -485,6 +552,37 @@
 .recognitionRow .mono {
   color: var(--ink);
   font-size: 0.82rem;
+}
+
+/* ——— Full-width colonnade rule ——— */
+
+.colonnade {
+  position: relative;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  height: clamp(9rem, 18vw, 15rem);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.colonnadeCaption {
+  position: absolute;
+  left: 50%;
+  bottom: 0.7rem;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 84rem;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  margin: 0;
+}
+
+.colonnadeCaption span {
+  display: inline-block;
+  background: rgba(23, 23, 26, 0.92);
+  padding: 0.28rem 0.6rem;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  color: rgba(246, 245, 241, 0.86);
 }
 
 /* ——— 07 Contact ——— */
