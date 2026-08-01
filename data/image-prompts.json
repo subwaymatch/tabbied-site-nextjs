@@ -279,9 +279,9 @@
     "mistral-team": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain neutral light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain steel-grey studio wall, softly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
         "Navy": { "hex": "#0D1B2A", "as": "workwear and shadow" },
         "Blue": { "hex": "#1B98E0", "as": "an occasional accent in clothing" },
@@ -320,9 +320,9 @@
     "wildgrain-team": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain flour-cream plaster wall, warmly lit with a soft falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
         "Ink": { "hex": "#1B1B1E", "as": "aprons and hair" },
         "Cream": { "hex": "#EAE0CC", "as": "linen shirts and warm highlights on skin" },
@@ -357,9 +357,9 @@
     "cairn-guides": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, weathered, friendly expression. Soft overcast daylight, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain cool light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain cool slate-grey studio wall, evenly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
         "Ember": { "hex": "#E8734A", "as": "a shell jacket accent" },
         "Slate": { "hex": "#10222E", "as": "fleece layers and shadow" },
@@ -411,9 +411,9 @@
     "oxbow-makers": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain bone-white plaster wall, warmly lit with a soft falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
         "Char": { "hex": "#2E2A25", "as": "work aprons and hair" },
         "Bone": { "hex": "#F5F1E8", "as": "shirts and warm highlights on skin" },
@@ -455,9 +455,9 @@
     "plumbline-principals": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a composed, quietly confident expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain cool light-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain chalk-grey studio wall, lit flat and evenly with only the faintest falloff, no props in frame.",
       "palette": {
         "Ink": { "hex": "#17171A", "as": "dark tailored clothing and hair" },
         "Chalk": { "hex": "#F6F5F1", "as": "shirts and bright highlights" },
@@ -478,9 +478,9 @@
     "foxglove-staff": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a warm, bookish, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain warm cream wall with a faint green cast in the shadows, softly lit with a gentle falloff behind the subject's shoulders, no props in frame.",
       "palette": {
         "Forest": { "hex": "#1E3A2F", "as": "knitwear and deep tones" },
         "Cream": { "hex": "#F7F3E8", "as": "shirts and warm highlights on skin" },
@@ -506,9 +506,9 @@
     "stillpoint-teachers": {
       "style": "portrait photograph",
       "size": "1024x1536",
-      "cutout": true,
+      "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, open expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain warm linen-toned wall in soft daylight, with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
         "Espresso": { "hex": "#4A423A", "as": "hair and dark clothing" },
         "Linen": { "hex": "#F5EFE7", "as": "soft tops and warm highlights on skin" },
@@ -619,9 +619,9 @@
       "subject": "a round shouldered perfume flacon of smoked glass with a gold collar and stopper" },
     { "id": "ambre-bottle-3", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1024",
       "subject": "a small cylindrical travel atomiser in brushed gold" },
-    { "id": "ambre-nose", "project": "maison-ambre", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": true,
+    { "id": "ambre-nose", "project": "maison-ambre", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": false,
       "note": "Head-and-shoulders portrait, subject facing the camera with a composed expression, soft key light from camera left, natural skin texture, 85mm lens look.",
-      "backdrop": "Plain warm dark-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain deep charcoal studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
       "subject": "a French woman in her fifties with silver hair in a low chignon, wearing a black high-collared jacket" },
 
     { "id": "cairn-hero", "project": "cairn-expeditions", "slot": "hero",
@@ -768,9 +768,9 @@
       "subject": "a violin bow held vertically, pernambuco stick and pale horsehair, silver winding at the frog" },
     { "id": "madrigal-case", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1536x1024",
       "subject": "an open oblong violin case lined with burgundy velvet, empty, lid raised" },
-    { "id": "madrigal-luthier", "project": "madrigal-strings", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": true,
+    { "id": "madrigal-luthier", "project": "madrigal-strings", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": false,
       "note": "Head-and-shoulders portrait, subject facing the camera with a calm, focused expression, soft key light from camera left, natural skin texture, 85mm lens look.",
-      "backdrop": "Plain warm dark-grey seamless studio backdrop, evenly lit, no props, no cast shadow on the backdrop.",
+      "backdrop": "Plain warm dark-aubergine studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
       "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt" },
 
     { "id": "neve-hero", "project": "neve-gelato", "slot": "hero",

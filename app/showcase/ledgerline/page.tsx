@@ -117,7 +117,7 @@ export default function LedgerlinePage() {
       <link
         rel="stylesheet"
         precedence="default"
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap"
       />
 
       <header className={styles.header}>

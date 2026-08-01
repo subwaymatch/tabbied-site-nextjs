@@ -1,6 +1,6 @@
 /* ————————————————————————————————————————————————————————————————
    Ledgerline — crisp SaaS: light page, deep-navy patterned hero,
-   floating clay cut-outs, soft shadows, Manrope everywhere.
+   floating clay cut-outs, soft shadows, Inter everywhere.
    ———————————————————————————————————————————————————————————————— */
 
 .page {
@@ -18,12 +18,20 @@
   --radius-md: 1.1rem;
   --shadow-soft: 0 24px 60px -24px rgba(11, 31, 58, 0.35);
 
-  font-family: 'Manrope', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  /* Inter, tracked slightly tight — it sets a touch wide at these sizes. */
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.012em;
   background: var(--paper);
   color: var(--ink);
   font-size: 1.045rem;
   line-height: 1.65;
   overflow-x: clip;
+}
+
+/* The header is sticky, so an anchor jump must stop clear of it. */
+.page :where(section[id]) {
+  scroll-margin-top: 6rem;
 }
 
 .page :focus-visible {
@@ -38,7 +46,10 @@
   margin: 0;
   line-height: 1.12;
   font-weight: 800;
-  letter-spacing: -0.022em;
+  /* Display sizes need more negative tracking than the body copy. */
+  letter-spacing: -0.032em;
+  /* Evens out the rag — without it the hero drops "every" onto a line alone. */
+  text-wrap: balance;
 }
 
 .page p {
@@ -148,7 +159,14 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, rgba(11, 31, 58, 0.92) 8%, rgba(11, 31, 58, 0.55) 46%, rgba(11, 31, 58, 0.15) 100%);
+  /* Dark enough under the headline to hold contrast, thin enough on the right
+     that the artwork itself carries the hero. */
+  background: linear-gradient(
+    105deg,
+    rgba(11, 31, 58, 0.88) 6%,
+    rgba(11, 31, 58, 0.46) 44%,
+    rgba(11, 31, 58, 0.08) 100%
+  );
 }
 
 .heroInner {
@@ -175,10 +193,14 @@
   border-radius: 999px;
   padding: 0.4rem 0.95rem;
   margin-bottom: 1.5rem;
+  /* A pill that wraps onto two lines reads as a broken button. */
+  text-wrap: nowrap;
 }
 
+/* Sized so the authored break after "every" actually holds in the copy
+   column — at 4.4rem the first line overflowed and wrapped a word early. */
 .heroCopy h1 {
-  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-size: clamp(2.4rem, 5.2vw, 4.05rem);
 }
 
 .heroAccent {
@@ -366,9 +388,11 @@
 
 .heroCoins {
   position: absolute;
-  top: -4%;
-  right: 2%;
-  width: 24%;
+  /* Kept fully inside the stage — the hero clips its overflow, and at -4% the
+     top of the stack was being sliced off. */
+  top: 2%;
+  right: 3%;
+  width: 22%;
 }
 
 .heroCoins img {
@@ -487,9 +511,14 @@
   margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
+/* A highlighter swipe that sits under the word rather than trailing below the
+   descenders — the band stops short of the line box's full height. */
 .titleUnderline {
-  background: linear-gradient(transparent 68%, var(--mint) 68%);
-  padding-inline: 0.1em;
+  background-image: linear-gradient(var(--mint), var(--mint));
+  background-repeat: no-repeat;
+  background-size: 100% 0.28em;
+  background-position: 0 88%;
+  padding-inline: 0.08em;
 }
 
 .featureRow {
@@ -528,10 +557,27 @@
   inset: 0;
 }
 
+/* The pattern is the surface, but it must not compete with the object sitting
+   on it: a soft veil of the tile's own colour calms the middle of the tile so
+   the cut-out keeps a clean silhouette. */
+.featureTilePattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 62% 58% at 50% 52%,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0.12) 74%,
+    transparent 100%
+  );
+}
+
 .featureTile img {
   position: relative;
   z-index: 1;
   width: 58%;
+  min-width: 0;
   height: auto;
   filter: drop-shadow(0 22px 26px rgba(11, 31, 58, 0.35));
 }
@@ -602,15 +648,31 @@
 }
 
 .miniFeatureArt {
-  height: 9.5rem;
+  position: relative;
+  height: 11rem;
   display: grid;
   place-items: center;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-md);
+  background: radial-gradient(
+    ellipse at 50% 62%,
+    rgba(62, 139, 255, 0.16) 0%,
+    rgba(62, 139, 255, 0.06) 55%,
+    transparent 78%
+  );
 }
 
+/* A grid item's automatic minimum size is its intrinsic size, which outranks
+   max-height — without min-height:0 these 1024px clay renders render full-size
+   and burst straight out of the card. */
 .miniFeatureArt img {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
   max-height: 100%;
   width: auto;
+  height: auto;
+  object-fit: contain;
   filter: drop-shadow(0 16px 20px rgba(11, 31, 58, 0.25));
 }
 
@@ -659,8 +721,26 @@
 }
 
 .securityShield {
+  position: relative;
   display: grid;
   place-items: center;
+}
+
+/* Pools the navy back in behind the shield so it reads against the pattern. */
+.securityShield::before {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(11, 31, 58, 0.92) 0%,
+    rgba(11, 31, 58, 0.72) 42%,
+    transparent 72%
+  );
+}
+
+.securityShield img {
+  position: relative;
 }
 
 .securityShield img {
@@ -1160,6 +1240,14 @@
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+  }
+
+  /* Below ~26rem the pill can't hold its line; let it wrap rather than
+     overflow the viewport. */
+  .heroEyebrow {
+    text-wrap: balance;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
   }
 
   .uiCard {
