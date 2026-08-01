@@ -65,45 +65,7 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     },
   },
 
-  'harbor-and-vine': {
-    aboutImage:
-      'A tall shelf of natural wine bottles in a warm harbourside bar, low evening light raking across the labels, a few open bottles on the counter below. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    about: {
-      eyebrow: 'Our cellar',
-      title: 'Bottles with nothing to hide',
-      body: [
-        'We pour low-intervention wine from small growers who farm without shortcuts. Nothing added, nothing stripped away, just fermented grapes that taste like the place they came from.',
-        'The list changes every week because the good stuff runs out, and we would rather chase something new than keep pouring the safe thing.',
-      ],
-      points: [
-        'Forty-plus bottles, always rotating',
-        'A dozen pours by the glass',
-        'Snacks built for the wine, not the other way around',
-      ],
-    },
-    features: [
-      { title: 'Small growers', body: 'Family plots and first-vintage upstarts, never factory labels.' },
-      { title: 'By the glass', body: 'Try three you have never heard of before you commit to a bottle.' },
-      { title: 'Corkage nights', body: 'Bring a bottle from your own shelf on Mondays, we do the rest.' },
-    ],
-    testimonials: [
-      { quote: 'The only list in town where I trust every single pour.', name: 'Mara L.', role: 'Regular' },
-      { quote: 'Funky, alive, and never pretentious about it.', name: 'Theo K.', role: 'Wine writer' },
-    ],
-    newsletter: {
-      title: 'This week on the list',
-      body: 'A short Thursday note with the new arrivals and what is pouring by the glass.',
-      cta: 'Send me the list',
-      placeholder: 'you@email.com',
-    },
-    images: {
-      hv1: `A glass of cloudy orange skin-contact wine on a marble bar, warm amber backlight, cozy wine bar. ${IMG}`,
-      hv2: `A chilled bottle of pet-nat rose with condensation, pale pink, harbourside evening light. ${IMG}`,
-      hv3: `A ruby glass of chilled gamay beside a small plate of charcuterie, candlelit bar top. ${IMG}`,
-    },
-  },
-
-  lumen: {
+lumen: {
     about: {
       eyebrow: 'Why Lumen',
       title: 'Three days at the edge of the field',
@@ -434,41 +396,7 @@ export const SHOWCASE_CONTENT: Record<string, ShowcaseContent> = {
     },
   },
 
-  'terra-ceramics': {
-    aboutImage:
-      'A pottery studio shelf of unglazed vessels drying in daylight, a wheel and tools in the foreground, dust in the air. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    about: {
-      eyebrow: 'In the studio',
-      title: 'Made slowly, by two pairs of hands',
-      body: [
-        'We throw every piece on the wheel, trim it the next day, and glaze it by hand before a long firing. The little marks left behind are the point, not a flaw.',
-        'Our glazes are mixed in-house from local minerals, so the colours shift with the season and the kiln.',
-      ],
-      points: ['Wheel-thrown, never moulded', 'Food-safe, lead-free glazes', 'Fired in small batches'],
-    },
-    features: [
-      { title: 'Throw', body: 'Each vessel starts as a ball of local stoneware on the wheel.' },
-      { title: 'Glaze', body: 'Hand-dipped in small-batch glazes mixed from mineral oxides.' },
-      { title: 'Fire', body: 'A slow stoneware firing sets the colour and makes it last.' },
-    ],
-    testimonials: [
-      { quote: 'My morning coffee has never felt so considered.', name: 'Hana W.', role: 'Customer' },
-      { quote: 'You can feel the hand that made it. That is rare now.', name: 'Robin C.', role: 'Regular' },
-    ],
-    newsletter: {
-      title: 'New drops and open studio',
-      body: 'A gentle note when a fresh batch lands and when class spots open up.',
-      cta: 'Keep in touch',
-      placeholder: 'you@email.com',
-    },
-    images: {
-      p1: 'A handmade stoneware ripple bowl in warm terracotta glaze on a linen surface, artisanal ceramics. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      p2: 'A rustic hand-thrown ceramic mug in earthy rust glaze on a wooden table, cozy and tactile. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-      p3: 'A tall matte ceramic vase in dune tones with a single dried stem, minimal studio still life. Soft natural studio light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
-    },
-  },
-
-  meridian: {
+meridian: {
     aboutImage:
       'An abstract 3D render of layered translucent panels and fine connecting lines over deep navy, cool and technical, no interface or screen anywhere. Soft natural light, shallow depth of field, high detail, no text or logos. Any person in the frame is shown whole and uncropped — no disembodied hands, no limbs cut off by the edge, and no bodies without heads.',
     about: {

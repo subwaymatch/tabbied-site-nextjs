@@ -44,20 +44,7 @@
         "Ember": { "hex": "#EB5E28", "as": "the oven's glow and a fired-clay accent" }
       }
     },
-    "ledgerline": {
-      "title": "Ledgerline — personal finance app",
-      "style": "3D clay render",
-      "paletteMode": "scene",
-      "palette": {
-        "Navy": { "hex": "#0B1F3A", "as": "the deep matte backdrop plane" },
-        "Blue": { "hex": "#3E8BFF", "as": "the primary clay objects" },
-        "Cyan": { "hex": "#3EECFF", "as": "secondary clay accents" },
-        "Frost": { "hex": "#97F4FF", "as": "soft rim light on edges" },
-        "Mint": { "hex": "#9EFFD8", "as": "small success-state details" },
-        "White": { "hex": "#FFFFFF", "as": "matte white clay bases" }
-      }
-    },
-    "maison-ambre": {
+"maison-ambre": {
       "title": "Maison Ambre — perfume house",
       "style": "product photograph",
       "paletteMode": "scene",
@@ -184,20 +171,7 @@
         "Parchment": { "hex": "#FFE9C7", "as": "spruce tops and aged paper" }
       }
     },
-    "neve-gelato": {
-      "title": "Neve — gelato shop",
-      "style": "product photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Cream": { "hex": "#FFF9F5", "as": "pale walls and cups" },
-        "Rose": { "hex": "#FF8FB8", "as": "strawberry and raspberry gelato" },
-        "Petal": { "hex": "#FFC2D4", "as": "soft pink surfaces" },
-        "Apricot": { "hex": "#FF8A5C", "as": "mango and blood-orange scoops" },
-        "Lavender": { "hex": "#D89FFF", "as": "ube and violet flavours" },
-        "Butter": { "hex": "#F5C542", "as": "vanilla custard and waffle cones" }
-      }
-    },
-    "plumbline-studio": {
+"plumbline-studio": {
       "title": "Plumbline — architecture practice",
       "style": "editorial architectural photograph",
       "paletteMode": "scene",
@@ -210,20 +184,7 @@
         "Putty": { "hex": "#DCDCD8", "as": "limestone and light timber" }
       }
     },
-    "foxglove-books": {
-      "title": "Foxglove — bookshop and café",
-      "style": "editorial interior photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Cream": { "hex": "#F7F3E8", "as": "aged paper and lamplight" },
-        "Forest": { "hex": "#1E3A2F", "as": "painted shelves and deep shadow" },
-        "Fern": { "hex": "#3E6B54", "as": "cloth bindings" },
-        "Terracotta": { "hex": "#C25E4C", "as": "book spines and café accents" },
-        "Wheat": { "hex": "#D9CBA8", "as": "oak floors and kraft covers" },
-        "Sage": { "hex": "#8FA98F", "as": "muted spines" }
-      }
-    },
-    "caldera-rail": {
+"caldera-rail": {
       "title": "Caldera — scenic railway journeys",
       "style": "gouache travel illustration",
       "paletteMode": "hex",
@@ -236,20 +197,7 @@
         "Rust": "#E76F51"
       }
     },
-    "stillpoint-yoga": {
-      "title": "Stillpoint — movement and breathwork studio",
-      "style": "soft natural-light lifestyle photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Linen": { "hex": "#F5EFE7", "as": "washed walls and morning light" },
-        "Clay": { "hex": "#C97B5A", "as": "terracotta pots and cork" },
-        "Stone": { "hex": "#8C7A6B", "as": "props and soft shadows" },
-        "Sand": { "hex": "#E5D5C3", "as": "mats and the timber floor" },
-        "Espresso": { "hex": "#4A423A", "as": "dark accents" },
-        "Blush": { "hex": "#D9B99F", "as": "textiles" }
-      }
-    },
-    "konzerthaus-halden": {
+"konzerthaus-halden": {
       "title": "Konzerthaus Halden — concert hall",
       "style": "architectural photograph",
       "paletteMode": "scene",
@@ -369,12 +317,7 @@
         "Ember": { "hex": "#EB5E28", "as": "an occasional warm accent in clothing" }
       }
     },
-    "ledger-objects": {
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame."
-    },
-    "ambre-flacons": {
+"ambre-flacons": {
       "cutout": true,
       "backdrop": "The bottle stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
@@ -480,19 +423,7 @@
         "Parchment": { "hex": "#FFE9C7", "as": "the pale spruce top" }
       }
     },
-    "neve-scoops": {
-      "cutout": true,
-      "size": "1024x1024",
-      "backdrop": "The serving stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Rose": { "hex": "#FF8FB8", "as": "strawberry gelato" },
-        "Apricot": { "hex": "#FF8A5C", "as": "mango and blood-orange scoops" },
-        "Lavender": { "hex": "#D89FFF", "as": "ube gelato" },
-        "Butter": { "hex": "#F5C542", "as": "vanilla custard and the waffle cone" },
-        "Cream": { "hex": "#FFF9F5", "as": "cups and fior di latte" }
-      }
-    },
-    "plumbline-principals": {
+"plumbline-principals": {
       "style": "portrait photograph",
       "size": "1024x1536",
       "cutout": false,
@@ -504,58 +435,12 @@
         "Cobalt": { "hex": "#2947F0", "as": "one small accent in the clothing" }
       }
     },
-    "foxglove-goods": {
-      "style": "product photograph",
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Forest": { "hex": "#1E3A2F", "as": "deep green cloth and print" },
-        "Terracotta": { "hex": "#C25E4C", "as": "spines and accents" },
-        "Wheat": { "hex": "#D9CBA8", "as": "kraft paper and pale boards" }
-      }
-    },
-    "foxglove-staff": {
-      "style": "portrait photograph",
-      "size": "1024x1536",
-      "cutout": false,
-      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a warm, bookish, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm cream wall with a faint green cast in the shadows, softly lit with a gentle falloff behind the subject's shoulders, no props in frame.",
-      "palette": {
-        "Forest": { "hex": "#1E3A2F", "as": "knitwear and deep tones" },
-        "Cream": { "hex": "#F7F3E8", "as": "shirts and warm highlights on skin" },
-        "Terracotta": { "hex": "#C25E4C", "as": "an occasional accent in clothing" }
-      }
-    },
-    "caldera-props": {
+"caldera-props": {
       "cutout": true,
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat parchment-coloured background with nothing else in frame."
     },
-    "stillpoint-props": {
-      "style": "product photograph",
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The prop stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Clay": { "hex": "#C97B5A", "as": "cork and terracotta tones" },
-        "Sand": { "hex": "#E5D5C3", "as": "the mat and pale fabric" },
-        "Espresso": { "hex": "#4A423A", "as": "dark straps and trim" }
-      }
-    },
-    "stillpoint-teachers": {
-      "style": "portrait photograph",
-      "size": "1024x1536",
-      "cutout": false,
-      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, open expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain warm linen-toned wall in soft daylight, with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
-      "palette": {
-        "Espresso": { "hex": "#4A423A", "as": "hair and dark clothing" },
-        "Linen": { "hex": "#F5EFE7", "as": "soft tops and warm highlights on skin" },
-        "Clay": { "hex": "#C97B5A", "as": "an occasional warm accent in clothing" }
-      }
-    },
-    "halden-people": {
+"halden-people": {
       "style": "portrait photograph",
       "size": "1024x1536",
       "cutout": false,
@@ -695,22 +580,7 @@
     { "id": "wildgrain-baker-2", "project": "wildgrain-bakery", "set": "wildgrain-team", "slot": "about",
       "subject": "an East Asian man in his fifties with short grey-flecked hair, wearing a dark apron over a rolled-sleeve chambray shirt" },
 
-    { "id": "ledger-hero", "project": "ledgerline", "slot": "hero", "cutout": false,
-      "subject": "a tidy desk scene built entirely from matte modelling clay: a laptop, a coffee cup, a small plant and scattered coins, viewed from a high three-quarter angle on a deep navy ground" },
-    { "id": "ledger-coins", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
-      "subject": "a leaning stack of oversized matte clay coins in blue and white" },
-    { "id": "ledger-wallet", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
-      "subject": "a plump matte clay wallet with two rounded card tabs peeking out" },
-    { "id": "ledger-chart", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
-      "subject": "a rising bar chart sculpted from matte clay blocks with a small arrow arcing over it" },
-    { "id": "ledger-piggy", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
-      "subject": "a rounded matte clay piggy bank with a single slot coin balanced above it" },
-    { "id": "ledger-shield", "project": "ledgerline", "set": "ledger-objects", "slot": "feature",
-      "subject": "a rounded matte clay shield with a small padlock resting in front of it" },
-    { "id": "ledger-phone", "project": "ledgerline", "set": "ledger-objects", "slot": "app", "size": "1024x1536",
-      "subject": "an upright smartphone sculpted from matte clay with a completely blank pale screen" },
-
-    { "id": "ambre-hero", "project": "maison-ambre", "slot": "hero",
+{ "id": "ambre-hero", "project": "maison-ambre", "slot": "hero",
       "subject": "a faceted amber glass perfume bottle standing on dark veined marble, a wisp of smoke curling behind it, one warm shaft of light from the left" },
     { "id": "ambre-ingredients", "project": "maison-ambre", "slot": "notes",
       "subject": "a still life of raw perfume ingredients on dark linen: lumps of amber resin, vanilla pods, dried orange slices and jasmine sprigs, low warm light" },
@@ -876,22 +746,7 @@
       "backdrop": "Plain warm dark-aubergine studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
       "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt" },
 
-    { "id": "neve-hero", "project": "neve-gelato", "slot": "hero",
-      "subject": "a gelato display case seen from the customer side, ribboned mounds of pastel flavours in steel pans, small flag-less flavour markers left blank" },
-    { "id": "neve-shop", "project": "neve-gelato", "slot": "space",
-      "subject": "a small pastel gelato shop interior with round marble tables, pink stools and an arched doorway, soft afternoon light" },
-    { "id": "neve-cone", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu", "size": "1024x1536",
-      "subject": "a waffle cone stacked with two scoops, strawberry over vanilla, one clean drip starting down the cone" },
-    { "id": "neve-cup", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
-      "subject": "a pale paper cup holding a swirled scoop of ube gelato with a tiny wooden spade spoon" },
-    { "id": "neve-sundae", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu", "size": "1024x1536",
-      "subject": "a tall glass sundae layered with mango and raspberry gelato, cream and a fan wafer" },
-    { "id": "neve-sandwich", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
-      "subject": "a gelato sandwich pressed between two soft amaretti-style cookies" },
-    { "id": "neve-pint", "project": "neve-gelato", "set": "neve-scoops", "slot": "menu",
-      "subject": "a blank-labelled takeaway pint tub with the lid off, gelato swirled proud of the rim" },
-
-    { "id": "plumbline-hero", "project": "plumbline-studio", "slot": "hero",
+{ "id": "plumbline-hero", "project": "plumbline-studio", "slot": "hero",
       "subject": "a low concrete-and-glass house at dusk, interior light glowing through full-height glazing, a still reflecting pool in front" },
     { "id": "plumbline-pavilion", "project": "plumbline-studio", "slot": "work",
       "subject": "a timber pavilion with a deep cantilevered roof in a meadow, seen straight on in even light" },
@@ -909,26 +764,7 @@
     { "id": "plumbline-principal-2", "project": "plumbline-studio", "set": "plumbline-principals", "slot": "about",
       "subject": "a tall man in his fifties with cropped grey hair and rectangular glasses, wearing a chalk-white shirt buttoned to the neck" },
 
-    { "id": "foxglove-hero", "project": "foxglove-books", "slot": "hero",
-      "subject": "a narrow bookshop interior at golden hour: floor-to-ceiling deep green shelves, a rolling ladder, brass lamps pooling light on tables of books" },
-    { "id": "foxglove-cafe", "project": "foxglove-books", "slot": "cafe",
-      "subject": "the shop's café corner: a marble bar with a lever espresso machine, two stools, and a slice of cake under a glass dome" },
-    { "id": "foxglove-nook", "project": "foxglove-books", "slot": "space", "size": "1024x1024",
-      "subject": "a window reading nook with a worn leather armchair, a small stack of books on the sill and rain outside" },
-    { "id": "foxglove-table", "project": "foxglove-books", "slot": "space", "size": "1024x1024",
-      "subject": "a front-of-shop display table of new hardbacks with blank covers arranged in overlapping rows, seen from above" },
-    { "id": "foxglove-stack", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
-      "subject": "a leaning stack of five clothbound hardback books with blank spines in green, terracotta and cream" },
-    { "id": "foxglove-tote", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
-      "subject": "a natural canvas tote bag with plain forest-green handles, standing filled and upright" },
-    { "id": "foxglove-cup", "project": "foxglove-books", "set": "foxglove-goods", "slot": "shop",
-      "subject": "a terracotta-glazed café cup and saucer with a small biscotto balanced on the saucer edge" },
-    { "id": "foxglove-keeper-1", "project": "foxglove-books", "set": "foxglove-staff", "slot": "about",
-      "subject": "a woman in her sixties with silver hair in a loose bun and tortoiseshell glasses, wearing a forest-green cardigan" },
-    { "id": "foxglove-keeper-2", "project": "foxglove-books", "set": "foxglove-staff", "slot": "about",
-      "subject": "a young Black man in his twenties with short locs, wearing a cream fisherman's jumper" },
-
-    { "id": "caldera-hero", "project": "caldera-rail", "slot": "hero",
+{ "id": "caldera-hero", "project": "caldera-rail", "slot": "hero",
       "subject": "a teal-and-cream train crossing a tall stone viaduct over a river canyon, steam trailing, late golden light on the cliffs" },
     { "id": "caldera-coast", "project": "caldera-rail", "slot": "route",
       "subject": "a train hugging a cliffside track above a cove of turquoise water, gulls wheeling below the rails" },
@@ -945,24 +781,6 @@
     { "id": "caldera-watch", "project": "caldera-rail", "set": "caldera-props", "slot": "aboard",
       "subject": "a conductor's brass pocket watch on a short chain, face blank" },
 
-    { "id": "stillpoint-hero", "project": "stillpoint-yoga", "slot": "hero",
-      "subject": "a sunlit movement studio with a row of sand-coloured mats unrolled toward tall windows, hanging plants throwing soft shadows on a washed plaster wall" },
-    { "id": "stillpoint-class", "project": "stillpoint-yoga", "slot": "story",
-      "subject": "a small class holding a low lunge in warm backlight, dust motes in the air, seen from the back of the room" },
-    { "id": "stillpoint-corner", "project": "stillpoint-yoga", "slot": "space", "size": "1024x1024",
-      "subject": "a quiet corner with a floor cushion, a stack of folded blankets and a potted olive tree" },
-    { "id": "stillpoint-tea", "project": "stillpoint-yoga", "slot": "space", "size": "1024x1024",
-      "subject": "a low bench with two clay cups of herbal tea and a sprig of eucalyptus, morning light" },
-    { "id": "stillpoint-mat", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
-      "subject": "a rolled cork yoga mat with a woven carry strap, standing on end" },
-    { "id": "stillpoint-blocks", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
-      "subject": "two cork yoga blocks, one stacked askew on the other" },
-    { "id": "stillpoint-cushion", "project": "stillpoint-yoga", "set": "stillpoint-props", "slot": "kit",
-      "subject": "a round pleated meditation cushion in warm clay-coloured linen" },
-    { "id": "stillpoint-teacher-1", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
-      "subject": "a Latina woman in her thirties with dark hair in a low bun, wearing a soft oatmeal wrap top" },
-    { "id": "stillpoint-teacher-2", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
-      "subject": "a lean man in his forties with a shaved head and warm brown eyes, wearing a clay-coloured tee" },
 { "id": "halden-hero", "project": "konzerthaus-halden", "slot": "hero",
       "subject": "a concert auditorium seen from the rear stalls, empty, house lights up, rows of red seating sweeping toward a pale timber stage" },
     { "id": "halden-orchestra", "project": "konzerthaus-halden", "slot": "season",

@@ -213,45 +213,21 @@
    Every row divides the track count exactly, so a group never ends on a
    half-empty row, and the patterns get to show at two different scales instead
    of twenty identical thumbnails. */
+/* One even three-column grid: every card is the same size, so the collection
+   reads as a single set rather than a few featured items plus the rest. */
 .mosaic {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(14px, 1.4vw, 20px);
 }
-.mosaic > * {
-  grid-column: span 4;
-}
-.mosaic > :nth-child(1),
-.mosaic > :nth-child(2),
-.mosaic > :nth-child(9),
-.mosaic > :nth-child(10) {
-  grid-column: span 6;
-}
-.mosaic > :nth-child(1) .thumb,
-.mosaic > :nth-child(2) .thumb,
-.mosaic > :nth-child(9) .thumb,
-.mosaic > :nth-child(10) .thumb {
-  aspect-ratio: 16 / 9;
-}
 @media (max-width: 1000px) {
-  .mosaic > *,
-  .mosaic > :nth-child(1),
-  .mosaic > :nth-child(2),
-  .mosaic > :nth-child(9),
-  .mosaic > :nth-child(10) {
-    grid-column: span 6;
-  }
-  .mosaic > * .thumb {
-    aspect-ratio: 16 / 10;
+  .mosaic {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 620px) {
-  .mosaic > *,
-  .mosaic > :nth-child(1),
-  .mosaic > :nth-child(2),
-  .mosaic > :nth-child(9),
-  .mosaic > :nth-child(10) {
-    grid-column: span 12;
+  .mosaic {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

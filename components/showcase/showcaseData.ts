@@ -112,41 +112,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
   },
 
   // 12, Harbor & Vine · natural wine bar · Cranberry · quilt
-  {
-    slug: 'harbor-and-vine',
-    brand: 'Harbor & Vine',
-    topic: 'Natural wine bar',
-    artwork: 'quilt',
-    artworks: ['quilt', 'lattice', 'tesserae', 'damier'],
-    paletteId: 'lib-cranberry',
-    paletteName: 'Cranberry',
-    colors: ['#fbeef1', '#9e1946', '#e63946', '#1d3557'],
-    layout: 'editorial',
-    fonts: {
-      href: gf('family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Archivo:wght@400;500;700'),
-      display: "'Playfair Display', Georgia, serif",
-      body: "'Archivo', system-ui, sans-serif",
-    },
-    favicon: '🍷',
-    nav: ['The List', 'Menu', 'Events', 'Visit'],
-    eyebrow: 'Low-intervention · By the glass',
-    title: 'Wine that tastes {em}like somewhere{/em}.',
-    lede: 'A harbourside bar pouring small-grower, low-intervention bottles, funky, honest, and always a little alive.',
-    primaryCta: 'See the list',
-    secondaryCta: 'Book a table',
-    ticker: ['NEW ARRIVALS', 'SKIN CONTACT', 'PÉT-NAT FRIDAYS', 'BY THE GLASS', 'CELLAR PICKS'],
-    sectionTitle: 'On the list this week',
-    sectionSub: 'Rotating pours from growers we love.',
-    items: [
-      { eyebrow: 'Orange', title: 'Ribolla Gialla', meta: 'Friuli, IT · glass 14', seed: 'hv1' },
-      { eyebrow: 'Sparkling', title: 'Pét-Nat Rosé', meta: 'Loire, FR · glass 12', seed: 'hv2' },
-      { eyebrow: 'Red', title: 'Gamay Nouveau', meta: 'Beaujolais · glass 13', seed: 'hv3' },
-    ],
-    bandTitle: 'Pull up a stool. We’ll pour you something new.',
-    bandCta: 'Reserve a seat',
-  },
-
-  // 13, Lumen · design conference · Arcade · spectrum
+// 13, Lumen · design conference · Arcade · spectrum
   {
     slug: 'lumen',
     brand: 'Lumen',
@@ -480,41 +446,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     bandCta: 'Pre-save the release',
   },
 
-  {
-    slug: 'terra-ceramics',
-    brand: 'Terra Ceramics',
-    topic: 'Pottery & ceramics studio',
-    artwork: 'pebble',
-    artworks: ['pebble', 'bowl', 'lobe', 'quilt'],
-    paletteId: 'lib-terracotta',
-    paletteName: 'Terracotta',
-    colors: ['#f7ede2', '#c1502e', '#84582c', '#2f3e46'],
-    layout: 'split',
-    fonts: {
-      href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&display=swap',
-      display: "'Fraunces', Georgia, serif",
-      body: "'Inter', system-ui, sans-serif",
-    },
-    favicon: '🏺',
-    nav: ['Shop', 'Studio', 'Classes', 'Journal'],
-    eyebrow: 'Small-batch · Thrown by hand',
-    title: 'Quiet objects for {em}everyday{/em} rituals.',
-    lede: 'Each piece is wheel-thrown, glazed, and fired in our riverside studio. No two exactly alike, all made to be used.',
-    primaryCta: 'Shop the collection',
-    secondaryCta: 'Book a class',
-    stats: [{ n: '1,400°', l: 'Stoneware firing' }, { n: '6 wks', l: 'Kiln to table' }, { n: '100%', l: 'Lead-free glaze' }],
-    sectionTitle: 'The Riverstone collection',
-    sectionSub: 'Tableware toned after wet clay and dusk.',
-    items: [
-      { eyebrow: 'Bowls', title: 'Ripple Bowl', meta: '$48', seed: 'p1' },
-      { eyebrow: 'Mugs', title: 'Ember Mug', meta: '$34', seed: 'p2' },
-      { eyebrow: 'Vases', title: 'Dune Vase', meta: '$92', seed: 'p3' },
-    ],
-    bandTitle: 'We make things that ask to be picked up.',
-    bandCta: 'Visit the studio',
-  },
-
-  {
+{
     slug: 'meridian',
     brand: 'Meridian',
     topic: 'Payments infrastructure',
@@ -584,41 +516,6 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
   },
 
 {
-    slug: 'zest',
-    brand: 'Zest',
-    topic: 'Bright, fast weeknight cooking',
-    artwork: 'quoit',
-    artworks: ['quoit', 'annulus', 'sliver', 'spark'],
-    paletteId: 'lib-citrus',
-    paletteName: 'Citrus',
-    colors: ['#fffbe6', '#ff9f1c', '#2ec4b6', '#e71d36'],
-    layout: 'split',
-    fonts: {
-      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
-      display: "'Inter', system-ui, sans-serif",
-      body: "'Inter', system-ui, sans-serif",
-    },
-    tracking: '-0.012em',
-    favicon: '🍋',
-    nav: ['Recipes', 'Quick', 'Vegetarian', 'Baking'],
-    eyebrow: '30 minutes or less',
-    title: 'Dinner that {em}actually{/em} gets made.',
-    lede: 'Bright, punchy recipes with short lists and shorter cook times, the kind you cook on a Tuesday and brag about on Friday.',
-    primaryCta: "Tonight's recipe",
-    secondaryCta: 'Browse all',
-    stats: [{ n: '15 min', l: 'Fastest meals' }, { n: '1 pan', l: 'Less washing up' }, { n: '4.9★', l: 'Reader rating' }],
-    sectionTitle: "This week's brightest",
-    sectionSub: 'Fresh from the test kitchen, sorted by speed.',
-    items: [
-      { eyebrow: '20 min', title: 'Chili-Lime Corn Bowls', meta: '4 servings', seed: 'z1' },
-      { eyebrow: '15 min', title: 'Blistered Tomato Orzo', meta: '2 servings', seed: 'z2' },
-      { eyebrow: '30 min', title: 'Sesame Crunch Noodles', meta: '4 servings', seed: 'z3' },
-    ],
-    bandTitle: "What's for dinner? We already answered that.",
-    bandCta: 'See tonight’s recipe',
-  },
-
-  {
     slug: 'nocturne',
     brand: 'Nocturne',
     topic: 'Fragrance for the small hours',
