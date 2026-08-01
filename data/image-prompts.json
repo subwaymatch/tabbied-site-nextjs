@@ -248,6 +248,71 @@
         "Espresso": { "hex": "#4A423A", "as": "dark accents" },
         "Blush": { "hex": "#D9B99F", "as": "textiles" }
       }
+    },
+    "konzerthaus-halden": {
+      "title": "Konzerthaus Halden — concert hall",
+      "style": "architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F2F1EE", "as": "pale plaster, programme paper and daylight" },
+        "Ink": { "hex": "#111111", "as": "the stage void, dark suits and deep shadow" },
+        "Red": { "hex": "#E1261C", "as": "the seating upholstery and signage" },
+        "Grey": { "hex": "#8C8C88", "as": "fair-faced concrete and acoustic panels" },
+        "Pale": { "hex": "#D8D7D2", "as": "pale oak cladding" },
+        "Warm": { "hex": "#B9B4A8", "as": "warm reflected light off timber" }
+      }
+    },
+    "institut-vollmer": {
+      "title": "Institut Vollmer — materials research",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "White": { "hex": "#FFFFFF", "as": "laboratory surfaces and even daylight" },
+        "Ink": { "hex": "#1A1A1A", "as": "instrument housings and deep shadow" },
+        "Blue": { "hex": "#0B4EE0", "as": "a single saturated accent on equipment and doors" },
+        "Steel": { "hex": "#9AA0A6", "as": "brushed stainless and aluminium" },
+        "Pale": { "hex": "#E9EBEE", "as": "pale walls and glassware highlights" },
+        "Graphite": { "hex": "#4A4F55", "as": "mid greys in the machinery" }
+      }
+    },
+    "linie-nord": {
+      "title": "Linie Nord — regional transit",
+      "style": "documentary transport photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Concrete": { "hex": "#F1F1EF", "as": "platform concrete and overcast sky" },
+        "Ink": { "hex": "#17181A", "as": "rolling stock livery and deep shadow" },
+        "Signal": { "hex": "#FFD400", "as": "the signal-yellow train fronts and platform markings" },
+        "Steel": { "hex": "#7E858C", "as": "rails, catenary and steel canopies" },
+        "Pale": { "hex": "#DCDEDE", "as": "pale render and glazing" },
+        "Dark": { "hex": "#2A2E33", "as": "tunnel mouths and undercarriage" }
+      }
+    },
+    "chronometrie-bex": {
+      "title": "Chronométrie Bex — watch manufacture",
+      "style": "product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": { "hex": "#EDEDEB", "as": "the bench surface and even studio light" },
+        "Ink": { "hex": "#0E0E0E", "as": "dials, leather and deep shadow" },
+        "Orange": { "hex": "#FF5A1F", "as": "a single accent on a strap or a tool handle" },
+        "Steel": { "hex": "#9C9C98", "as": "polished steel cases and tooling" },
+        "Pale": { "hex": "#DAD9D5", "as": "brushed metal highlights" },
+        "Shadow": { "hex": "#3A3A38", "as": "mid greys in the movement" }
+      }
+    },
+    "bogen-papier": {
+      "title": "Bogen Papier — paper merchant",
+      "style": "product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#FAFAF7", "as": "sheet stock and bright even light" },
+        "Ink": { "hex": "#14150F", "as": "print, dark shelving and shadow" },
+        "Green": { "hex": "#2E7D4F", "as": "a single accent on banding and labels" },
+        "Warm": { "hex": "#C9C4B4", "as": "kraft board and unbleached stock" },
+        "Pale": { "hex": "#E7E5DC", "as": "pale grey card" },
+        "Umber": { "hex": "#6B6656", "as": "timber racking" }
+      }
     }
   },
 
@@ -488,6 +553,86 @@
         "Espresso": { "hex": "#4A423A", "as": "hair and dark clothing" },
         "Linen": { "hex": "#F5EFE7", "as": "soft tops and warm highlights on skin" },
         "Clay": { "hex": "#C97B5A", "as": "an occasional warm accent in clothing" }
+      }
+    },
+    "halden-people": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a composed expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain pale plaster wall, evenly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
+      "palette": {
+        "Ink": { "hex": "#111111", "as": "concert blacks and hair" },
+        "Paper": { "hex": "#F2F1EE", "as": "the wall and bright highlights on skin" },
+        "Red": { "hex": "#E1261C", "as": "an occasional accent in clothing" }
+      }
+    },
+    "vollmer-people": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, direct expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain cool white wall, lit flat and evenly with only the faintest falloff, no props in frame.",
+      "palette": {
+        "Ink": { "hex": "#1A1A1A", "as": "hair and dark clothing" },
+        "White": { "hex": "#FFFFFF", "as": "lab coats, the wall and bright highlights on skin" },
+        "Blue": { "hex": "#0B4EE0", "as": "a small accent in the clothing" }
+      }
+    },
+    "linie-people": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a friendly, workmanlike expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain cool grey wall, evenly lit with a gentle falloff behind the subject's shoulders, no props in frame.",
+      "palette": {
+        "Ink": { "hex": "#17181A", "as": "uniform jackets and hair" },
+        "Concrete": { "hex": "#F1F1EF", "as": "the wall and bright highlights on skin" },
+        "Signal": { "hex": "#FFD400", "as": "a high-visibility accent on the uniform" }
+      }
+    },
+    "bex-people": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a quiet, focused expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm bone-grey wall, evenly lit with a soft falloff behind the subject's shoulders, no props in frame.",
+      "palette": {
+        "Ink": { "hex": "#0E0E0E", "as": "hair and dark clothing" },
+        "Bone": { "hex": "#EDEDEB", "as": "the wall, work coats and highlights on skin" },
+        "Orange": { "hex": "#FF5A1F", "as": "a small accent in the clothing" }
+      }
+    },
+    "bogen-people": {
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
+      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with an open, practical expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
+      "backdrop": "Plain warm off-white wall, evenly lit with a soft falloff behind the subject's shoulders, no props in frame.",
+      "palette": {
+        "Ink": { "hex": "#14150F", "as": "hair and dark clothing" },
+        "Paper": { "hex": "#FAFAF7", "as": "the wall, shirts and highlights on skin" },
+        "Green": { "hex": "#2E7D4F", "as": "a small accent in the clothing" }
+      }
+    },
+    "bex-pieces": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The watch stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame. The dial is completely blank, with no numerals, markings or branding of any kind.",
+      "palette": {
+        "Ink": { "hex": "#0E0E0E", "as": "the dial and leather" },
+        "Steel": { "hex": "#9C9C98", "as": "the polished case and bracelet" },
+        "Orange": { "hex": "#FF5A1F", "as": "a single accent on the strap" }
+      }
+    },
+    "bogen-stock": {
+      "cutout": true,
+      "size": "1024x1024",
+      "backdrop": "The stock stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "palette": {
+        "Paper": { "hex": "#FAFAF7", "as": "the sheet stock" },
+        "Warm": { "hex": "#C9C4B4", "as": "kraft board and unbleached stock" },
+        "Green": { "hex": "#2E7D4F", "as": "the banding" }
       }
     }
   },
@@ -817,6 +962,88 @@
     { "id": "stillpoint-teacher-1", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
       "subject": "a Latina woman in her thirties with dark hair in a low bun, wearing a soft oatmeal wrap top" },
     { "id": "stillpoint-teacher-2", "project": "stillpoint-yoga", "set": "stillpoint-teachers", "slot": "about",
-      "subject": "a lean man in his forties with a shaved head and warm brown eyes, wearing a clay-coloured tee" }
+      "subject": "a lean man in his forties with a shaved head and warm brown eyes, wearing a clay-coloured tee" },
+{ "id": "halden-hero", "project": "konzerthaus-halden", "slot": "hero",
+      "subject": "a concert auditorium seen from the rear stalls, empty, house lights up, rows of red seating sweeping toward a pale timber stage" },
+    { "id": "halden-orchestra", "project": "konzerthaus-halden", "slot": "season",
+      "subject": "a full symphony orchestra mid-performance seen from the first balcony, warm stage light against the dark hall" },
+    { "id": "halden-foyer", "project": "konzerthaus-halden", "slot": "visit",
+      "subject": "the foyer at night, board-marked concrete columns behind a full-height glazed wall, a few figures at the bar" },
+    { "id": "halden-rehearsal", "project": "konzerthaus-halden", "slot": "season", "size": "1024x1024",
+      "subject": "a string section rehearsing in flat daylight, music stands arranged in a shallow curve" },
+    { "id": "halden-organ", "project": "konzerthaus-halden", "slot": "hall", "size": "1024x1536",
+      "subject": "the hall's pipe organ rising above the stage, photographed straight on and symmetrically" },
+    { "id": "halden-cello", "project": "konzerthaus-halden", "slot": "hall", "size": "1024x1536", "cutout": true,
+      "style": "product photograph",
+      "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "subject": "a cello standing upright on its endpin, front view" },
+    { "id": "halden-conductor", "project": "konzerthaus-halden", "set": "halden-people", "slot": "people",
+      "subject": "a woman in her fifties with cropped silver hair, wearing a black high-collared jacket" },
+    { "id": "halden-soloist", "project": "konzerthaus-halden", "set": "halden-people", "slot": "people",
+      "subject": "a Black man in his thirties with short twists and a trimmed beard, wearing a charcoal roll-neck" },
+
+    { "id": "vollmer-hero", "project": "institut-vollmer", "slot": "hero",
+      "subject": "a long white laboratory bench under even daylight, glassware and sample racks arranged in strict rows" },
+    { "id": "vollmer-microscopy", "project": "institut-vollmer", "slot": "research",
+      "subject": "a researcher in a white coat seated at a large electron microscope in a bright, spare laboratory" },
+    { "id": "vollmer-building", "project": "institut-vollmer", "slot": "institute",
+      "subject": "a modernist concrete and glass research building photographed straight on in flat overcast light" },
+    { "id": "vollmer-samples", "project": "institut-vollmer", "slot": "research", "size": "1024x1024", "cutout": true,
+      "backdrop": "The samples sit alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "subject": "a neat row of five small polished material sample discs in different metals and ceramics" },
+    { "id": "vollmer-instrument", "project": "institut-vollmer", "slot": "research", "size": "1024x1024", "cutout": true,
+      "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
+      "subject": "a precision benchtop measuring instrument with a blank display panel and a single dial" },
+    { "id": "vollmer-researcher-1", "project": "institut-vollmer", "set": "vollmer-people", "slot": "people",
+      "subject": "an East Asian woman in her forties with a short bob, wearing a white lab coat over a navy shirt" },
+    { "id": "vollmer-researcher-2", "project": "institut-vollmer", "set": "vollmer-people", "slot": "people",
+      "subject": "a man in his sixties with a shaved head and wire-rimmed glasses, wearing a white lab coat" },
+
+    { "id": "linie-hero", "project": "linie-nord", "slot": "hero",
+      "subject": "a suburban station platform at dawn, a signal-yellow-fronted regional train drawing in beneath a long steel canopy" },
+    { "id": "linie-interior", "project": "linie-nord", "slot": "network",
+      "subject": "the interior of a modern regional train carriage, empty, seats in strict rows, flat morning light through large windows" },
+    { "id": "linie-viaduct", "project": "linie-nord", "slot": "network",
+      "subject": "a regional train crossing a slender concrete viaduct over farmland, seen from a distance in overcast light" },
+    { "id": "linie-depot", "project": "linie-nord", "slot": "operations",
+      "subject": "a maintenance depot at night, four trains standing in a row under overhead work lights" },
+    { "id": "linie-validator", "project": "linie-nord", "slot": "tickets", "size": "1024x1536", "cutout": true,
+      "style": "product photograph",
+      "backdrop": "The unit stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame. Every panel and screen is completely blank.",
+      "subject": "a freestanding ticket validator column with a blank screen and a plain reader panel" },
+    { "id": "linie-driver", "project": "linie-nord", "set": "linie-people", "slot": "people",
+      "subject": "a woman in her thirties with dark hair tied back, wearing a navy uniform jacket with a high-visibility shoulder stripe" },
+    { "id": "linie-controller", "project": "linie-nord", "set": "linie-people", "slot": "people",
+      "subject": "a South Asian man in his fifties with grey at the temples, wearing a navy uniform jacket" },
+
+    { "id": "bex-hero", "project": "chronometrie-bex", "slot": "hero",
+      "subject": "a watchmaker's bench under a single task lamp, a loupe, fine tweezers and movement plates laid out in order on a bone-coloured mat" },
+    { "id": "bex-movement", "project": "chronometrie-bex", "slot": "movement", "size": "1024x1024",
+      "subject": "an extreme macro of a mechanical watch movement showing bridges, jewels and a balance wheel" },
+    { "id": "bex-atelier", "project": "chronometrie-bex", "slot": "manufacture",
+      "subject": "an assembly atelier with white benches in a row under north light, each with a lamp and a stool" },
+    { "id": "bex-watch-1", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection",
+      "subject": "a slim steel dress watch on a black leather strap with a completely blank dial, three-quarter view" },
+    { "id": "bex-watch-2", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection",
+      "subject": "a steel field watch on a woven fabric strap with a completely blank dial, three-quarter view" },
+    { "id": "bex-watch-3", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection", "size": "1024x1536",
+      "subject": "an open steel pocket watch lying on its chain with a completely blank dial, seen from above" },
+    { "id": "bex-watchmaker", "project": "chronometrie-bex", "set": "bex-people", "slot": "people",
+      "subject": "a woman in her forties with dark hair in a low bun, wearing a bone-coloured work coat" },
+
+    { "id": "bogen-hero", "project": "bogen-papier", "slot": "hero",
+      "subject": "stacks of paper reams on high timber racking in a bright warehouse, aisles receding in even light" },
+    { "id": "bogen-mill", "project": "bogen-papier", "slot": "mill",
+      "subject": "a paper mill machine hall with a wide continuous web of paper running between steel rollers" },
+    { "id": "bogen-sheets", "project": "bogen-papier", "slot": "stock", "size": "1024x1024",
+      "subject": "an extreme close-up of the cut edges of a stack of sheets, showing the fibre and slight colour variation" },
+    { "id": "bogen-swatches", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock",
+      "subject": "a fanned deck of paper swatches in pale neutral tones, held open in an arc" },
+    { "id": "bogen-ream", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock",
+      "subject": "a wrapped ream of paper with a plain unprinted band around it" },
+    { "id": "bogen-roll", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock", "size": "1024x1536",
+      "subject": "a standing roll of paper on end, the loose leading edge curling slightly" },
+    { "id": "bogen-merchant", "project": "bogen-papier", "set": "bogen-people", "slot": "people",
+      "subject": "a man in his forties with close-cropped ginger hair and freckles, wearing an olive work shirt" }
   ]
 }

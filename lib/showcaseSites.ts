@@ -1,5 +1,6 @@
 import {
   gasket, spark, reeding, facetgrad, gloaming, ridgeline, glyph,
+  crescendo, perforate, bothways, torsion, taper,
   grain, kern, wavelet, mortise, karst, hilbert, linocut, fluting, gutter,
   quire, cascade, ripplering,
 } from 'tabbied/artworks';
@@ -19,7 +20,7 @@ export type NewShowcaseSite = {
 };
 
 /**
- * The second showcase collection: nineteen fully independent single-page brand
+ * The second showcase collection: twenty-four single-page brand
  * sites under /showcase/<slug>/, each designed around one Tabbied artwork and
  * AI-generated imagery (see docs/image-pipeline.md). Listed on /showcase and
  * /showcases; palettes here mirror each page's own constants.
@@ -44,4 +45,11 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'foxglove-books', name: 'Foxglove', topic: 'Bookshop & café', artworkSlug: 'quire', artwork: quire, paletteName: 'Library green', palette: ['#F7F3E8', '#1E3A2F', '#3E6B54', '#C25E4C', '#D9CBA8', '#8FA98F'], seed: 'dir-fo' },
   { slug: 'caldera-rail', name: 'Caldera', topic: 'Scenic railway journeys', artworkSlug: 'cascade', artwork: cascade, paletteName: 'Gouache travel', palette: ['#F0EAD6', '#264653', '#2A9D8F', '#E9C46A', '#F4A261', '#E76F51'], seed: 'dir-cl' },
   { slug: 'stillpoint-yoga', name: 'Stillpoint', topic: 'Movement & breathwork studio', artworkSlug: 'ripplering', artwork: ripplering, paletteName: 'Warm linen', palette: ['#F5EFE7', '#C97B5A', '#8C7A6B', '#E5D5C3', '#4A423A', '#D9B99F'], seed: 'dir-st' },
+
+  // Swiss-minimal set: one design language, five grids. Inter throughout.
+  { slug: 'konzerthaus-halden', name: 'Konzerthaus Halden', topic: 'Concert hall', artworkSlug: 'crescendo', artwork: crescendo, paletteName: 'Programme red', palette: ['#F2F1EE', '#E1261C'], seed: 'dir-kh' },
+  { slug: 'institut-vollmer', name: 'Institut Vollmer', topic: 'Materials research', artworkSlug: 'perforate', artwork: perforate, paletteName: 'Signal blue', palette: ['#FFFFFF', '#1A1A1A', '#0B4EE0', '#9AA0A6', '#E9EBEE', '#4A4F55'], seed: 'dir-iv' },
+  { slug: 'linie-nord', name: 'Linie Nord', topic: 'Regional transit', artworkSlug: 'bothways', artwork: bothways, paletteName: 'Signal yellow', palette: ['#F1F1EF', '#17181A', '#FFD400', '#7E858C', '#DCDEDE', '#2A2E33'], seed: 'dir-ln' },
+  { slug: 'chronometrie-bex', name: 'Chronométrie Bex', topic: 'Watch manufacture', artworkSlug: 'torsion', artwork: torsion, paletteName: 'Bone and steel', palette: ['#EDEDEB', '#0E0E0E', '#FF5A1F', '#9C9C98', '#DAD9D5', '#3A3A38'], seed: 'dir-cb' },
+  { slug: 'bogen-papier', name: 'Bogen Papier', topic: 'Paper merchant', artworkSlug: 'taper', artwork: taper, paletteName: 'Stock green', palette: ['#FAFAF7', '#14150F', '#2E7D4F', '#C9C4B4', '#E7E5DC', '#6B6656'], seed: 'dir-bp' },
 ];

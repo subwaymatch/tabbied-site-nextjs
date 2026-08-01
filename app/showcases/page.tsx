@@ -12,9 +12,9 @@ import { NEW_SHOWCASE_SITES } from 'lib/showcaseSites';
 import s from './showcases.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied, 37 Showcase Websites',
+  title: 'Made with Tabbied, 42 Showcase Websites',
   description:
-    'Thirty-seven sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
+    'Forty-two sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
@@ -147,18 +147,18 @@ export default function ShowcasesGallery() {
         <div className={s.heroInner}>
           <div className={s.pre}>Made with Tabbied</div>
           <h1>
-            Thirty-seven sites,<br />
+            Forty-two sites,<br />
             <span>one pattern engine</span>
           </h1>
           <p>
             Every site below uses a <strong>Tabbied</strong> generative artwork as its
             main design accent, themed end to end with a single palette.
-            Same component, thirty-seven completely different moods.
+            Same component, forty-two completely different moods.
           </p>
           <dl className={s.facts}>
-            <div><dt>37</dt><dd>sample sites</dd></div>
-            <div><dt>37</dt><dd>palettes</dd></div>
-            <div><dt>37</dt><dd>artworks</dd></div>
+            <div><dt>42</dt><dd>sample sites</dd></div>
+            <div><dt>42</dt><dd>palettes</dd></div>
+            <div><dt>42</dt><dd>artworks</dd></div>
             <div><dt>1</dt><dd>component</dd></div>
           </dl>
         </div>
@@ -187,7 +187,7 @@ export default function ShowcasesGallery() {
         <section>
           <GroupHead
             kicker="02"
-            title="Nineteen new design worlds"
+            title="Twenty-four new design worlds"
             body={
               <>
                 A second collection of fully independent single-page brand sites —
