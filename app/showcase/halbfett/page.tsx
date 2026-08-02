@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { dotmatrix, halftone, ortho, thickset, stitch } from 'tabbied/artworks';
+import {
+  dotmatrix, halftone, ortho, thickset, stitch,
+  dotset, misprint, peppering,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './halbfett.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#000000';
 const RED = '#FF3B14';
 const GREY = '#9A9A9A';
 const PALE = '#DCDCDC';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const FAMILIES = [
   { name: 'Halbfett Grotesk', styles: 18, axes: 'Weight, Width', year: '2019', note: 'The house workhorse. Drawn for signage first, screens second, and it shows in the counters.' },
@@ -261,6 +269,132 @@ export default function HalbfettPage() {
             </div>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things we test before release</h2>
+          <p className={s.secNote}>A family ships when these three pass. There is no schedule that overrules them.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotset}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Spacing, at text size</h3>
+                <p className={s.tileBody}>Set the same paragraph at nine point in every style and read it on paper. Screen proofing hides spacing faults that paper finds in a second.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={misprint}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Hinting and rendering</h3>
+                <p className={s.tileBody}>Every style through four rasterisers at eight sizes. We keep the ugly screenshots and fix them rather than filing them.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={peppering}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The awkward pairs</h3>
+                <p className={s.tileBody}>Two hundred kern pairs nobody remembers to check, including the ones with quotes, and the Swiss ones with numbers in them.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Character set</h2>
+          <p className={s.secNote}>What is in every family. Extended Latin as standard; Greek and Cyrillic on the Grotesk only.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Set</span>
+                <span>Glyphs</span>
+                <span>In</span>
+                <span>Note</span>
+            </li>
+              <li key="Latin, basic">
+                <span>Latin, basic</span>
+                <span>230</span>
+                <span>All families</span>
+                <span>ISO 8859-1 and then some</span>
+              </li>
+              <li key="Latin, extended">
+                <span>Latin, extended</span>
+                <span>412</span>
+                <span>All families</span>
+                <span>Central and eastern European</span>
+              </li>
+              <li key="Greek">
+                <span>Greek</span>
+                <span>188</span>
+                <span>Grotesk</span>
+                <span>Monotonic</span>
+              </li>
+              <li key="Cyrillic">
+                <span>Cyrillic</span>
+                <span>204</span>
+                <span>Grotesk</span>
+                <span>Russian and Ukrainian</span>
+              </li>
+              <li key="Figures">
+                <span>Figures</span>
+                <span>5 sets</span>
+                <span>All families</span>
+                <span>Lining, oldstyle, tabular, fractions, superior</span>
+              </li>
+              <li key="Arrows and symbols">
+                <span>Arrows and symbols</span>
+                <span>96</span>
+                <span>All families</span>
+                <span>Drawn, not borrowed</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Licensing questions</h2>
+          <dl className={s.faqList}>
+              <div key="Can I test before buying">
+                <dt>Can I test before buying?</dt>
+                <dd>Yes. The trial pack is the full library with a limited character set, it is free, and it does not expire. We have never asked anyone to delete one.</dd>
+              </div>
+              <div key="What counts as one app?">
+                <dt>What counts as one app?</dt>
+                <dd>One product on one storefront. Ship it on three platforms and it is still one app; ship a second product and it is a second licence.</dd>
+              </div>
+              <div key="Do you do exclusive comm">
+                <dt>Do you do exclusive commissions?</dt>
+                <dd>Two a year. Exclusivity is for five years, after which the family joins the library unless you buy the extension.</dd>
+              </div>
+              <div key="What if my traffic goes ">
+                <dt>What if my traffic goes over?</dt>
+                <dd>Nothing happens automatically. Write to us at the end of the year and we will invoice the difference at the same rate.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

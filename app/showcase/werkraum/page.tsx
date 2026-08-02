@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { ortho, windowpane, keyway, subdivide, gravure } from 'tabbied/artworks';
+import {
+  ortho, windowpane, keyway, subdivide, gravure, mortise, chase, quire,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './werkraum.module.css';
 
@@ -22,7 +24,9 @@ const NAV = [
   ['02', 'Work', '#work'],
   ['03', 'Method', '#method'],
   ['04', 'People', '#people'],
-  ['05', 'Office', '#office'],
+  ['05', 'Materials', '#materials'],
+  ['06', 'Awards', '#awards'],
+  ['07', 'Office', '#office'],
 ];
 
 type Project = {
@@ -81,6 +85,28 @@ const PEOPLE = [
   ['Jonas Sieber', 'Draughtsman', '2022'],
   ['Ruth Bächtold', 'Office manager', '2011'],
   ['Emil Stucki', 'Model shop', '2018'],
+];
+
+const MATERIALS = [
+  { n: 'A', name: 'Fair-faced concrete', art: 'chase', body: 'Board-marked where it is touched, plain where it is not. We draw the tie grid ourselves and it is always on the drawing before tender.' },
+  { n: 'B', name: 'Untreated timber', art: 'mortise', body: 'Silver-fir cladding, left to grey. Clients are shown a five-year-old sample and asked to agree to it in writing.' },
+  { n: 'C', name: 'Screed and terrazzo', art: 'quire', body: 'Poured on site, ground twice. The aggregate comes from within forty kilometres, which is a constraint and also the whole idea.' },
+];
+
+const AWARDS = [
+  ['2026', 'Auszeichnung guter Bauten beider Basel', 'Wohnhaus Sperrstrasse', 'Shortlist'],
+  ['2025', 'Prix Lignum, Region Mitte', 'Primarschule Rüti', 'Second prize'],
+  ['2025', 'Open competition, Schulhaus Aarwangen', 'Aarwangen', 'Won, in progress'],
+  ['2024', 'Best Architects 25', 'Steg über die Birs', 'Selected'],
+  ['2023', 'Open competition, Genossenschaft Feldrain', 'Bern', 'Won, built'],
+  ['2022', 'Swiss Timber Prize', 'Atelierhaus Klybeck', 'Nominated'],
+];
+
+const QUESTIONS = [
+  { q: 'Do you work outside Switzerland?', a: 'No. Everything is built with people we can visit on a Tuesday, and the furthest site from this desk is one hundred and sixty kilometres.' },
+  { q: 'Will you do a house?', a: 'Sometimes. We take one or two a year, usually a conversion, and we are honest that a small house costs proportionally more of our time than a block of twenty-four flats.' },
+  { q: 'How much does a competition entry cost you?', a: 'About six weeks of one person, which is why we enter four a year rather than fifteen. We would rather lose slowly than badly.' },
+  { q: 'Who draws the details?', a: 'Whoever is running the project, at the same table as everyone else. There is no separate technical department and there never will be.' },
 ];
 
 const FACTS = [
@@ -340,6 +366,85 @@ export default function WerkraumPage() {
           </div>
         </section>
 
+        {/* ----------------------------------------------------- MATERIALS */}
+        <section id="materials" className={s.materials} aria-labelledby="materials-h">
+          <div className={s.rail}>
+            <span>05</span>
+            <span className={s.railRule} aria-hidden="true" />
+          </div>
+          <div className={s.materialsBody}>
+            <h2 id="materials-h">Three materials, mostly</h2>
+            <p className={s.workNote}>
+              A short palette is not a style. It is what happens when the same
+              eleven people specify the same things for seventeen years and get
+              better at them.
+            </p>
+            <div className={s.matGrid}>
+              {MATERIALS.map((m) => (
+                <article key={m.n}>
+                  {/* The decorative plate: a Tabbied artwork on a transparent
+                      ground, standing in for a material sample. */}
+                  <div className={s.matTile} aria-hidden="true">
+                    <TabbiedArtwork
+                      artwork={m.art === 'chase' ? chase : m.art === 'mortise' ? mortise : quire}
+                      palette={['transparent', GREY, PALE]}
+                      fit="grid"
+                      cellSize={72}
+                      redrawInterval={5600}
+                      style={{ position: 'absolute', inset: 0 }}
+                    />
+                  </div>
+                  <p className={s.matN}>{m.n}</p>
+                  <h3>{m.name}</h3>
+                  <p className={s.matBody}>{m.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* -------------------------------------------------------- AWARDS */}
+        <section id="awards" className={s.awards} aria-labelledby="awards-h">
+          <div className={s.rail}>
+            <span>06</span>
+            <span className={s.railRule} aria-hidden="true" />
+          </div>
+          <div className={s.awardsBody}>
+            <h2 id="awards-h">Competitions and prizes</h2>
+            <ol className={s.awardList}>
+              {AWARDS.map(([year, what, where, result]) => (
+                <li key={`${year}-${what}`}>
+                  <span className={s.aYear}>{year}</span>
+                  <span className={s.aWhat}>{what}</span>
+                  <span className={s.aWhere}>{where}</span>
+                  <span className={result.startsWith('Won') ? s.aWon : s.aResult}>
+                    {result}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ QUESTIONS */}
+        <section id="questions" className={s.questions} aria-labelledby="questions-h">
+          <div className={s.rail}>
+            <span>07</span>
+            <span className={s.railRule} aria-hidden="true" />
+          </div>
+          <div className={s.questionsBody}>
+            <h2 id="questions-h">Four questions we get</h2>
+            <dl className={s.qList}>
+              {QUESTIONS.map((x) => (
+                <div key={x.q}>
+                  <dt>{x.q}</dt>
+                  <dd>{x.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
         {/* -------------------------------------------------------- OFFICE */}
         <section id="office" className={s.office} aria-labelledby="office-h">
           <div className={s.officeField} aria-hidden="true">
@@ -354,7 +459,7 @@ export default function WerkraumPage() {
           </div>
           <div className={s.officeInner}>
             <div className={s.rail}>
-              <span>05</span>
+              <span>08</span>
               <span className={s.railRule} aria-hidden="true" />
             </div>
             <div className={s.officeGrid}>

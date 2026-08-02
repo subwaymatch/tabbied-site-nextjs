@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { flux, spark, curl, maelstrom, ripplering } from 'tabbied/artworks';
+import {
+  flux, spark, curl, maelstrom, ripplering,
+  dotwash, streaking,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './klangwerk.module.css';
 
@@ -15,6 +18,11 @@ const PALE = '#E9E9E4';
 const GREEN = '#00E58A';
 const STEEL = '#5A6068';
 const PANEL = '#14161A';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = PALE;
+const TILE_B = STEEL;
+
 
 const ROOMS = [
   {
@@ -297,6 +305,132 @@ export default function KlangwerkPage() {
             </div>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">What the rooms are actually for</h2>
+          <p className={s.secNote}>Three ways of working that the building supports and a laptop does not.</p>
+          <div className={s.tileGrid}>
+              <article key="I">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={ripplering}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>I</p>
+                <h3>Hearing in space</h3>
+                <p className={s.tileBody}>Sixteen speakers on a half-sphere means a sound can be put somewhere and left there. Most composers spend the first week just walking around.</p>
+              </article>
+              <article key="II">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotwash}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>II</p>
+                <h3>Hearing without a room</h3>
+                <p className={s.tileBody}>The anechoic chamber removes the argument. What you hear is the source, which is uncomfortable and extremely useful.</p>
+              </article>
+              <article key="III">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={streaking}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>III</p>
+                <h3>Hearing on tape</h3>
+                <p className={s.tileBody}>Two Studers, because a tape delay that you can reach into behaves differently from one you can undo.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Available on request</h2>
+          <p className={s.secNote}>Kept in the store, signed out on a card, returned before the next resident arrives.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Item</span>
+                <span>Count</span>
+                <span>Detail</span>
+                <span>Condition</span>
+            </li>
+              <li key="Neumann KM 184">
+                <span>Neumann KM 184</span>
+                <span>8</span>
+                <span>Matched pairs</span>
+                <span>Good</span>
+              </li>
+              <li key="Schoeps CMC with caps">
+                <span>Schoeps CMC with caps</span>
+                <span>6</span>
+                <span>Cardioid, omni, fig-8</span>
+                <span>Excellent</span>
+              </li>
+              <li key="DPA 4060 lavalier">
+                <span>DPA 4060 lavalier</span>
+                <span>12</span>
+                <span>For contact and internal</span>
+                <span>Good</span>
+              </li>
+              <li key="Hydrophone, own build">
+                <span>Hydrophone, own build</span>
+                <span>4</span>
+                <span>Aquarian element</span>
+                <span>Serviceable</span>
+              </li>
+              <li key="Contact mic, own build">
+                <span>Contact mic, own build</span>
+                <span>20</span>
+                <span>Piezo, potted</span>
+                <span>Variable</span>
+              </li>
+              <li key="Tape, 1/4 inch">
+                <span>Tape, 1/4 inch</span>
+                <span>40 reels</span>
+                <span>SM900, used</span>
+                <span>Bulk erased</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Before you apply</h2>
+          <dl className={s.faqList}>
+              <div key="Do I need to be a compos">
+                <dt>Do I need to be a composer?</dt>
+                <dd>No. We have had a sound designer, two sculptors, an ornithologist and a person who makes maps of noise complaints. The room does not care.</dd>
+              </div>
+              <div key="Is there a concert at th">
+                <dt>Is there a concert at the end?</dt>
+                <dd>Only if you want one. About half of residents present something in Reihe 41 and the other half leave with a hard drive, which is equally fine.</dd>
+              </div>
+              <div key="Can I bring my own equip">
+                <dt>Can I bring my own equipment?</dt>
+                <dd>Yes, and you can leave it plugged in for three months. Nothing is patched out overnight because somebody else has the room tomorrow.</dd>
+              </div>
+              <div key="Is there accommodation?">
+                <dt>Is there accommodation?</dt>
+                <dd>A flat above the varnish store, one bedroom, no lift. It is included, and it is loud on Fridays.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { bothways, staple, hurdle, dotmatrix, gravure } from 'tabbied/artworks';
+import {
+  bothways, staple, hurdle, dotmatrix, gravure,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './hafen-sechs.module.css';
 
@@ -15,6 +17,11 @@ const BONE = '#F0EFEA';
 const YELLOW = '#FFD400';
 const STEEL = '#6E747C';
 const DEEP = '#1C2026';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = BONE;
+const TILE_B = STEEL;
+
 
 const BERTHS = [
   { no: '61', length: '400 m', depth: '−16.5 m', cranes: '4 × STS', max: '24,000 TEU', status: 'Occupied' },
@@ -297,6 +304,132 @@ export default function HafenSechsPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things that stop a ship</h2>
+          <p className={s.secNote}>Everything else is scheduling. These three are the reasons a berth window is actually lost.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotmatrix}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Wind on the boxes</h3>
+                <p className={s.tileBody}>Above 20 m/s across the stack, gantries stop. A fully-laden 24,000 TEU vessel presents about the same sail area as a small hill.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={hurdle}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Draught and tide</h3>
+                <p className={s.tileBody}>Sixteen and a half metres at the berth, but the approach channel decides. Deep-laden arrivals take the tide, and the tide does not negotiate.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={staple}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Documentation</h3>
+                <p className={s.tileBody}>More calls are delayed by a customs hold than by weather. The paperwork is a berth-critical system and we staff it like one.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Equipment on the terminal</h2>
+          <p className={s.secNote}>Owned, maintained in the workshop at the rail head, and listed here because operators ask.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Equipment</span>
+                <span>Count</span>
+                <span>Capacity</span>
+                <span>Reach</span>
+            </li>
+              <li key="Ship-to-shore gantry">
+                <span>Ship-to-shore gantry</span>
+                <span>14</span>
+                <span>65 t under spreader</span>
+                <span>24 rows</span>
+              </li>
+              <li key="Rail-mounted gantry">
+                <span>Rail-mounted gantry</span>
+                <span>36</span>
+                <span>40 t</span>
+                <span>9 wide, 1 over 5</span>
+              </li>
+              <li key="Mobile harbour crane">
+                <span>Mobile harbour crane</span>
+                <span>4</span>
+                <span>124 t</span>
+                <span>51 m</span>
+              </li>
+              <li key="Terminal tractor">
+                <span>Terminal tractor</span>
+                <span>92</span>
+                <span>60 t drawbar</span>
+                <span>n/a</span>
+              </li>
+              <li key="Reach stacker">
+                <span>Reach stacker</span>
+                <span>11</span>
+                <span>45 t</span>
+                <span>4 high</span>
+              </li>
+              <li key="Empty handler">
+                <span>Empty handler</span>
+                <span>6</span>
+                <span>9 t</span>
+                <span>8 high</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Operator questions</h2>
+          <dl className={s.faqList}>
+              <div key="How is berthing priority">
+                <dt>How is berthing priority decided?</dt>
+                <dd>A vessel inside its window keeps its berth. A vessel outside it takes the next free one, regardless of line, size or how long it has been waiting.</dd>
+              </div>
+              <div key="Do you handle reefers?">
+                <dt>Do you handle reefers?</dt>
+                <dd>Yes, 1,840 plugs, monitored at fifteen-minute intervals with an alarm to the tower. Set-point deviations are logged and sent with the discharge report.</dd>
+              </div>
+              <div key="What about dangerous goo">
+                <dt>What about dangerous goods?</dt>
+                <dd>IMDG classes 2 to 9 except class 1 and class 7. Segregation is planned before arrival and we will decline a stow we cannot segregate.</dd>
+              </div>
+              <div key="Can we run a barge inste">
+                <dt>Can we run a barge instead of rail?</dt>
+                <dd>Two positions, 110 m each, 06.00 to 22.00. Slower and cheaper, and in a rail strike it is the only thing that moves.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

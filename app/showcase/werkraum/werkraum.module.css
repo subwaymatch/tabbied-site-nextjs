@@ -598,6 +598,131 @@
   color: color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
+/* --------------------------------------------------------------- materials
+   The three plates are Tabbied artworks, not photographs: a square tile on a
+   transparent ground standing in for a material sample. Square boxes keep the
+   derived grid square, so the motif is never stretched. */
+
+.materials,
+.awards,
+.questions {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.materials h2,
+.awards h2,
+.questions h2 {
+  margin: 0 0 clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+}
+
+.matGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.matTile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 45%, var(--paper));
+  margin-bottom: 0.9rem;
+}
+
+.matN {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--red);
+}
+
+.matGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.matBody {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------------ awards */
+
+.awardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.awardList li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 2fr) minmax(0, 1.2fr) 8rem;
+  gap: clamp(0.5rem, 1.6vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.9rem;
+}
+
+.aYear {
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+.aWhat {
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+.aWhere {
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+.aResult,
+.aWon {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-align: right;
+}
+
+.aWon {
+  color: var(--red);
+}
+
+/* --------------------------------------------------------------- questions */
+
+.qList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+  max-width: 62rem;
+}
+
+.qList dt {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  margin-bottom: 0.5rem;
+}
+
+.qList dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
 /* ------------------------------------------------------------------ footer
    Quiet by design: no wordmark at display size and no pattern field. Four
    columns of plain links on one flat surface, with the fine print under a
@@ -696,6 +821,21 @@
 @media (max-width: 900px) {
   .page {
     --rail: 3rem;
+  }
+
+  .matGrid,
+  .qList {
+    grid-template-columns: 1fr;
+  }
+
+  .awardList li {
+    grid-template-columns: 3rem minmax(0, 1fr) 7rem;
+    row-gap: 0.2rem;
+  }
+
+  .aWhere {
+    grid-column: 2 / 4;
+    font-size: 0.84rem;
   }
 
   .twoCol {

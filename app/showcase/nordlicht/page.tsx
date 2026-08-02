@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { terrain, epicentre, northstar, maze, dipole } from 'tabbied/artworks';
+import {
+  terrain, epicentre, northstar, maze, dipole,
+  glazing, protractor, stipplefade,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './nordlicht.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#0E1116';
 const BLUE = '#1B4DFF';
 const STEEL = '#8A9098';
 const PALE = '#C3CBD4';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = PALE;
+
 
 const NAV = ['Survey', 'Charts', 'Terrain', 'Field', 'Office'];
 
@@ -343,6 +351,132 @@ export default function NordlichtPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">How a sheet is coloured</h2>
+          <p className={s.secNote}>Three tints, printed in that order. Every sheet in the catalogue uses the same three and nothing else.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={glazing}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Water and depth</h3>
+                <p className={s.tileBody}>Flat tint under everything. Two steps only: charted depth and the rest. A third step would imply a survey we have not done.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={protractor}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Relief and slope</h3>
+                <p className={s.tileBody}>Hillshade from our own lidar, never from a public model. Where the cloud is thin the tint stops and the sheet says so.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={stipplefade}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Culture and route</h3>
+                <p className={s.tileBody}>The only layer allowed the accent blue. Roads, tracks, cairns, and the two ferries that still run in winter.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Instruments on the shelf</h2>
+          <p className={s.secNote}>Everything is owned, calibrated annually, and taken to the field by the person who booked it.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Instrument</span>
+                <span>Make</span>
+                <span>Use</span>
+                <span>Calibrated</span>
+            </li>
+              <li key="Total station">
+                <span>Total station</span>
+                <span>Leica TS16</span>
+                <span>Control and detail</span>
+                <span>Feb 2026</span>
+              </li>
+              <li key="GNSS pair">
+                <span>GNSS pair</span>
+                <span>Trimble R12i</span>
+                <span>Static and RTK</span>
+                <span>Jan 2026</span>
+              </li>
+              <li key="Digital level">
+                <span>Digital level</span>
+                <span>Leica LS15</span>
+                <span>Precise levelling</span>
+                <span>Feb 2026</span>
+              </li>
+              <li key="Lidar, airborne">
+                <span>Lidar, airborne</span>
+                <span>Riegl VUX-1</span>
+                <span>Terrain capture</span>
+                <span>Mar 2026</span>
+              </li>
+              <li key="Multibeam">
+                <span>Multibeam</span>
+                <span>Kongsberg EM 2040</span>
+                <span>Bathymetry</span>
+                <span>Nov 2025</span>
+              </li>
+              <li key="Tide gauges">
+                <span>Tide gauges</span>
+                <span>Own build, 4 off</span>
+                <span>Reduction</span>
+                <span>Continuous</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Asked at the counter</h2>
+          <dl className={s.faqList}>
+              <div key="Why is my house not on t">
+                <dt>Why is my house not on the sheet?</dt>
+                <dd>Buildings under twelve square metres are omitted at 1:25 000 and everything is omitted at 1:50 000. It is on the survey; it is not on the print.</dd>
+              </div>
+              <div key="Can I have the data inst">
+                <dt>Can I have the data instead of the sheet?</dt>
+                <dd>Yes, as LAZ or GeoPackage, at the same price. We will ask what you intend to do with it, not to refuse you but because the answer changes which product is right.</dd>
+              </div>
+              <div key="Do you correct errors?">
+                <dt>Do you correct errors?</dt>
+                <dd>Every reported error is checked within a fortnight and the sheet is reissued at the next printing. The errata list is on the counter, on paper, going back to 1998.</dd>
+              </div>
+              <div key="Why no digital hillshade">
+                <dt>Why no digital hillshade on the 1:50 000?</dt>
+                <dd>Because at that scale it hides the contours, which are the thing you actually navigate by.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

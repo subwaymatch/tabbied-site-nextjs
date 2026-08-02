@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { trigram, caltrop, fulcrum, hilbert, doublebar } from 'tabbied/artworks';
+import {
+  trigram, caltrop, fulcrum, hilbert, doublebar,
+  recession,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './mesura.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#15171A';
 const ORANGE = '#FF6A00';
 const STEEL = '#8C9096';
 const PALE = '#D9D8D2';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = PALE;
+
 
 const CAPABILITIES = [
   { n: '01', t: 'Long-span steel', d: 'Trusses, arches and space frames from 30 to 180 metres. Fabrication drawings issued from the same model we analysed.' },
@@ -295,6 +303,132 @@ export default function MesuraPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three failure modes we design against</h2>
+          <p className={s.secNote}>Collapse is rare. These three are what actually goes wrong and what most of the calculation is really for.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={trigram}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Serviceability, not strength</h3>
+                <p className={s.tileBody}>Almost nothing fails in bending. Things fail by deflecting, cracking, or vibrating enough that people stop using the room.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={doublebar}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The connection, not the member</h3>
+                <p className={s.tileBody}>The member is a catalogue page. The joint is a decision, and it is where the load actually has to be believed.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={recession}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Time</h3>
+                <p className={s.tileBody}>Creep, shrinkage, thermal cycling, and the fact that a building is loaded for eighty years and analysed for an afternoon.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Codes and software</h2>
+          <p className={s.secNote}>What we work to and what we work in. Listed because clients and checking engineers both ask.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Standard</span>
+                <span>Scope</span>
+                <span>Version</span>
+                <span>Note</span>
+            </li>
+              <li key="Eurocode 0 to 8">
+                <span>Eurocode 0 to 8</span>
+                <span>All work</span>
+                <span>EN, Spanish NA</span>
+                <span>Plus CTE where it applies</span>
+              </li>
+              <li key="CTE DB SE">
+                <span>CTE DB SE</span>
+                <span>Buildings</span>
+                <span>2019</span>
+                <span>National</span>
+              </li>
+              <li key="EHE-08">
+                <span>EHE-08</span>
+                <span>Concrete</span>
+                <span>2008</span>
+                <span>Still current</span>
+              </li>
+              <li key="FEM, in house">
+                <span>FEM, in house</span>
+                <span>Analysis</span>
+                <span>Linear and non-linear</span>
+                <span>Every model archived with inputs</span>
+              </li>
+              <li key="Hand check">
+                <span>Hand check</span>
+                <span>Everything</span>
+                <span>Paper</span>
+                <span>A second engineer, a different method</span>
+              </li>
+              <li key="BIM">
+                <span>BIM</span>
+                <span>Coordination</span>
+                <span>IFC 4</span>
+                <span>We issue the model and the drawings</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions from architects</h2>
+          <dl className={s.faqList}>
+              <div key="When do you want to be i">
+                <dt>When do you want to be involved?</dt>
+                <dd>At the sketch. A structural scheme costs almost nothing in week two and costs a redesign in week forty.</dd>
+              </div>
+              <div key="Will you tell us it cann">
+                <dt>Will you tell us it cannot be done?</dt>
+                <dd>Rarely. We will tell you what it costs, in depth, in money and in programme, and let you decide whether the idea is worth it.</dd>
+              </div>
+              <div key="Can we use your model?">
+                <dt>Can we use your model?</dt>
+                <dd>Yes, as IFC, with a note saying what it is and is not for. It is an analysis model, not a fabrication model, and confusing the two is expensive.</dd>
+              </div>
+              <div key="Do you do the site work?">
+                <dt>Do you do the site work?</dt>
+                <dd>We attend the first of every connection type and then monthly. Drawings are wrong until somebody has stood under them.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>
