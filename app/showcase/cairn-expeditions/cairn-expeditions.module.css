@@ -603,9 +603,9 @@
   margin-top: -1px;
 }
 
+/* The box itself is pinned inline (see page.tsx) — the package writes
+   width/height:100% inline on the wrapper, which a class cannot outrank. */
 .statsPattern {
-  position: absolute !important;
-  inset: 0;
   z-index: -1;
   opacity: 0.9;
 }

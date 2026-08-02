@@ -19,6 +19,10 @@ const GREY = '#9EA2A6';
 const PALE = '#DBDBD9';
 /* The two inks the decorative tiles draw with: always the quiet pair, so a
    tile reads as a sample rather than as another headline. */
+/* The tiles pin their doodle to a whole multiple of the cell (9 × 72px)
+   and let the plate clip it. A fluid box gives fractional grid tracks and
+   a hairline seam at every cell edge. */
+const TILE_BOX = 648;
 const TILE_A = GREY;
 const TILE_B = PALE;
 
@@ -287,9 +291,16 @@ export default function NullpunktPage() {
                     artwork={ring}
                     palette={['transparent', TILE_A, TILE_B]}
                     fit="grid"
-                    cellSize={78}
+                    cellSize={72}
                     redrawInterval={5400}
-                    style={{ position: 'absolute', inset: 0 }}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: TILE_BOX,
+                      height: TILE_BOX,
+                    }}
                   />
                 </div>
                 <p className={s.tileN}>01</p>
@@ -302,9 +313,16 @@ export default function NullpunktPage() {
                     artwork={gimbal}
                     palette={['transparent', TILE_A, TILE_B]}
                     fit="grid"
-                    cellSize={64}
+                    cellSize={72}
                     redrawInterval={6200}
-                    style={{ position: 'absolute', inset: 0 }}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: TILE_BOX,
+                      height: TILE_BOX,
+                    }}
                   />
                 </div>
                 <p className={s.tileN}>02</p>
@@ -317,9 +335,16 @@ export default function NullpunktPage() {
                     artwork={protractor}
                     palette={['transparent', TILE_A, TILE_B]}
                     fit="grid"
-                    cellSize={92}
+                    cellSize={72}
                     redrawInterval={4800}
-                    style={{ position: 'absolute', inset: 0 }}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: TILE_BOX,
+                      height: TILE_BOX,
+                    }}
                   />
                 </div>
                 <p className={s.tileN}>03</p>

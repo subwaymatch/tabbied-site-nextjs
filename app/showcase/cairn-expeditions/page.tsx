@@ -347,9 +347,22 @@ export default function CairnExpeditionsPage() {
             artwork={ridgeline}
             palette={[SLATE, TEAL, ICE, MIST, EMBER]}
             seed="cairn-stats"
-            fit="cover"
-            density={2}
+            fit="grid"
+            cellSize={48}
             className={styles.statsPattern}
+            /* Inline, because the package sets width/height:100% inline on the
+               wrapper and a class cannot outrank that. Whole multiples of the
+               cell (64 × 48px wide, 10 × 48px tall), clipped by the band. 64 is
+               css-doodle's hard grid cap, so asking for more columns than that
+               silently rescales the cell and puts the seams back. */
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 3072,
+              height: 480,
+            }}
           />
           <div className={styles.statsInner}>
             {stats.map((s) => (

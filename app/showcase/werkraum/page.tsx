@@ -18,6 +18,10 @@ const INK = '#16161A';
 const RED = '#D6001C';
 const GREY = '#8E8E88';
 const PALE = '#C9C8C1';
+/* The tiles pin their doodle to a whole multiple of the cell (9 × 72px)
+   and let the plate clip it. A fluid box gives fractional grid tracks and
+   a hairline seam at every cell edge. */
+const TILE_BOX = 648;
 
 const NAV = [
   ['01', 'Practice', '#practice'],
@@ -391,7 +395,14 @@ export default function WerkraumPage() {
                       fit="grid"
                       cellSize={72}
                       redrawInterval={5600}
-                      style={{ position: 'absolute', inset: 0 }}
+                      style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: TILE_BOX,
+                      height: TILE_BOX,
+                    }}
                     />
                   </div>
                   <p className={s.matN}>{m.n}</p>
