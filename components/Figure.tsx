@@ -1,6 +1,7 @@
 import imageManifest from 'lib/generated/images';
 
-const PUBLIC_BASE = '/images/sites';
+/** Where an image lives when its manifest entry predates the `base` field. */
+const DEFAULT_BASE = '/images/sites';
 
 interface FigureProps {
   /** Committed filename without its extension — include `-cutout` for cut-outs. */
@@ -49,7 +50,7 @@ export function Figure({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`${PUBLIC_BASE}/${slug}.webp?v=${entry.hash.slice(0, 8)}`}
+      src={`${entry.base ?? DEFAULT_BASE}/${slug}.webp?v=${entry.hash.slice(0, 8)}`}
       width={entry.width}
       height={entry.height}
       alt={alt}

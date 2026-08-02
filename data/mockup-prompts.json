@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "model": "gpt-image-2",
+    "defaults": { "size": "1024x1024", "quality": "low" },
+    "note": "Each entry renders `artwork` to PNG first, then sends that PNG to the images EDITS endpoint as the reference the model must reproduce on the object. See docs/artwork-mockups.md."
+  },
+
+  "mockups": [
+    {
+      "id": "mockup-poster-gallery",
+      "title": "Exhibition poster, gallery wall",
+      "surface": "flat",
+      "size": "1024x1536",
+      "artwork": { "design": "bauhaus", "seed": "mk-poster", "width": 1024, "height": 1536, "fit": "grid",
+        "palette": ["#F2E9DC", "#E63329", "#1D3D8F", "#F0C02E", "#1A1A1A"] },
+      "subject": "a large framed exhibition poster hanging on a white gallery wall, photographed straight on, a pale concrete floor and a low bench just visible at the bottom of the frame, even museum lighting"
+    },
+    {
+      "id": "mockup-compact-cosmetics",
+      "title": "Pressed-powder compact",
+      "surface": "curved",
+      "size": "1024x1024",
+      "artwork": { "design": "fluting", "seed": "mk-compact", "width": 1024, "height": 1024, "fit": "grid", "cell": 64,
+        "palette": ["#FFF9F5", "#FF8FB8", "#FFC2D4", "#FF8A5C", "#D89FFF", "#F5C542"] },
+      "subject": "a round pressed-powder compact with a polished enamel lid, closed, standing at a three-quarter angle on a plain neutral light-grey seamless backdrop, soft even studio light"
+    },
+    {
+      "id": "mockup-van-wrap",
+      "title": "Delivery van livery",
+      "surface": "large-curved",
+      "size": "1536x1024",
+      "artwork": { "design": "ziggy", "seed": "mk-van", "width": 1536, "height": 1024, "fit": "grid", "cell": 96,
+        "palette": ["#F5DD32", "#232529", "#FF3D8B", "#3E8BFF", "#FFFFFF", "#1B4075"] },
+      "subject": "a compact modern delivery van photographed in three-quarter view on a plain asphalt forecourt against a plain pale wall, overcast daylight, the whole side and rear panel visible"
+    },
+    {
+      "id": "mockup-tote-textile",
+      "title": "Printed canvas tote",
+      "surface": "fabric",
+      "size": "1024x1024",
+      "artwork": { "design": "lattice", "seed": "mk-tote", "width": 1024, "height": 1024, "fit": "grid", "cell": 72,
+        "palette": ["#FFFFFF", "#3E8BFF", "#1B4075", "#3EECFF", "#FF3D8B", "#3FFFB2"] },
+      "subject": "a printed canvas tote bag hanging from a simple hook against a plain pale wall, the front face of the bag turned to the camera with a few soft natural folds in the fabric"
+    },
+    {
+      "id": "mockup-tin-packaging",
+      "title": "Coffee tin, cylindrical label",
+      "surface": "cylinder",
+      "size": "1024x1024",
+      "artwork": { "design": "annulus", "seed": "mk-tin", "width": 1024, "height": 1024, "fit": "grid", "cell": 80,
+        "palette": ["#FFF4E6", "#3D348B", "#7678ED", "#F7B801", "#F18701", "#F35B04"] },
+      "subject": "a cylindrical coffee tin with a brushed metal lid standing on a pale stone counter, photographed straight on at eye level, soft even light, the label wrapping around the visible face of the can"
+    }
+  ]
+}
