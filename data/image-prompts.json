@@ -133,6 +133,102 @@
         "Pale": { "hex": "#C3CBD4", "as": "pale water, haze and printed tints" }
       }
     },
+    "halbfett": {
+      "title": "Halbfett — type foundry, Zürich",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "White": { "hex": "#FFFFFF", "as": "bright studio walls and printing paper" },
+        "Ink": { "hex": "#000000", "as": "printed type, dark presses and deep shadow" },
+        "Vermilion": { "hex": "#FF3B14", "as": "one saturated accent on a proof mark or a machine" },
+        "Grey": { "hex": "#9A9A9A", "as": "brushed steel and grey card" },
+        "Pale": { "hex": "#EDEDED", "as": "pale shelving and diffuse light" }
+      }
+    },
+    "hafen-sechs": {
+      "title": "Hafen Sechs — container port",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Dark": { "hex": "#101215", "as": "night sky, shadow and painted steel" },
+        "Bone": { "hex": "#F0EFEA", "as": "floodlight, painted markings and mist" },
+        "Yellow": { "hex": "#FFD400", "as": "crane structures, hi-vis and deck markings" },
+        "Steel": { "hex": "#6E747C", "as": "weathered steel and concrete quay" },
+        "Deep": { "hex": "#1C2026", "as": "dark water and container shadow" }
+      }
+    },
+    "klangwerk": {
+      "title": "Klangwerk — electroacoustic studio",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Void": { "hex": "#08090B", "as": "the darkened room and deep shadow" },
+        "Pale": { "hex": "#E9E9E4", "as": "monitor light, paper and pale acoustic foam" },
+        "Green": { "hex": "#00E58A", "as": "a single accent from a meter or an indicator lamp" },
+        "Steel": { "hex": "#5A6068", "as": "equipment housings and cable" },
+        "Panel": { "hex": "#14161A", "as": "dark timber panelling and racks" }
+      }
+    },
+    "mesura": {
+      "title": "Mesura — structural engineering",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F2F1ED", "as": "overcast daylight and drawing paper" },
+        "Ink": { "hex": "#15171A", "as": "dark steel and deep shadow" },
+        "Orange": { "hex": "#FF6A00", "as": "one saturated accent on primer paint or a helmet" },
+        "Steel": { "hex": "#8C9096", "as": "galvanised steel and concrete" },
+        "Pale": { "hex": "#E1E0DA", "as": "pale sky and bare concrete" }
+      }
+    },
+    "seconde": {
+      "title": "Seconde — sports timing",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F7F7F5", "as": "stadium concrete, daylight and paper" },
+        "Ink": { "hex": "#101010", "as": "dark equipment housings and shadow" },
+        "Magenta": { "hex": "#FF0059", "as": "one saturated accent on a timing beam or a lane marker" },
+        "Grey": { "hex": "#8E8E8E", "as": "aluminium tripods and cabling" },
+        "Pale": { "hex": "#E4E4E1", "as": "pale track surface and overcast sky" }
+      }
+    },
+    "cobalt-works": {
+      "title": "Cobalt Works — pigment manufacturer",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": { "hex": "#F6F4EE", "as": "paper, plaster walls and daylight" },
+        "Ink": { "hex": "#14161C", "as": "dark machinery and deep shadow" },
+        "Blue": { "hex": "#0033CC", "as": "the pigment itself, saturated and dry" },
+        "Steel": { "hex": "#7E8494", "as": "mill housings and steel drums" },
+        "Pale": { "hex": "#E3E1D8", "as": "dusty pale surfaces" }
+      }
+    },
+    "nullpunkt": {
+      "title": "Nullpunkt — metrology institute",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "White": { "hex": "#FFFFFF", "as": "laboratory surfaces and even daylight" },
+        "Ink": { "hex": "#0A0A0A", "as": "instrument housings and deep shadow" },
+        "Red": { "hex": "#E10600", "as": "one small saturated accent on a switch or a label" },
+        "Grey": { "hex": "#9EA2A6", "as": "polished steel and aluminium" },
+        "Pale": { "hex": "#F0F0EE", "as": "pale walls and diffuse highlights" }
+      }
+    },
+    "sammlung-weiss": {
+      "title": "Sammlung Weiss — private art collection",
+      "style": "architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": { "hex": "#EFEDE6", "as": "gallery walls, daylight and plaster" },
+        "Ink": { "hex": "#111111", "as": "door frames, deep shadow and dark stone" },
+        "Stone": { "hex": "#6E6A60", "as": "grey stone, crates and shadow" },
+        "Pale": { "hex": "#D8D5CA", "as": "pale timber floor and raw canvas" },
+        "Light": { "hex": "#FBFAF6", "as": "the brightest wall under a skylight" }
+      }
+    },
     "quanta-robotics": {
       "title": "Quanta — robotics laboratory",
       "style": "isometric illustration",
@@ -609,6 +705,70 @@
       "subject": "a milled physical relief model of a fjord landscape on a plain table, lit from one side to raise the contours" },
     { "id": "nordlicht-field", "project": "nordlicht", "slot": "field", "size": "1024x1536",
       "subject": "a survey tripod and total station standing on bare rock high above a fjord, no people, low grey cloud" },
+    { "id": "halbfett-wall", "project": "halbfett", "slot": "hero", "size": "1536x1024",
+      "subject": "a studio wall pinned edge to edge with large printed type specimen sheets, seen straight on in flat light" },
+    { "id": "halbfett-sorts", "project": "halbfett", "slot": "story", "size": "1024x1024",
+      "subject": "a close overhead view of loose metal type sorts spilled on a steel surface" },
+    { "id": "halbfett-proof", "project": "halbfett", "slot": "story", "size": "1024x1024",
+      "subject": "a designer's desk with proof sheets, a loupe and a red marker, no people" },
+    { "id": "halbfett-press", "project": "halbfett", "slot": "story", "size": "1024x1024",
+      "subject": "a proofing press in a bright workshop with a fresh black print still on the bed" },
+    { "id": "hafen-stacks", "project": "hafen-sechs", "slot": "hero", "size": "1536x1024",
+      "subject": "stacked shipping containers at a port at dusk under floodlights, seen from a low angle" },
+    { "id": "hafen-crane", "project": "hafen-sechs", "slot": "story", "size": "1024x1536",
+      "subject": "a tall yellow gantry crane photographed straight on against a dark evening sky" },
+    { "id": "hafen-control", "project": "hafen-sechs", "slot": "story", "size": "1024x1024",
+      "subject": "a dim port control room at night, monitors and a wide window onto the lit quay, no people" },
+    { "id": "hafen-bollard", "project": "hafen-sechs", "slot": "story", "size": "1024x1024",
+      "subject": "a close view of a heavy mooring rope over a steel bollard on a wet concrete quay" },
+    { "id": "klangwerk-desk", "project": "klangwerk", "slot": "hero", "size": "1536x1024",
+      "subject": "a large analogue mixing desk in a darkened studio, faders catching a single green indicator glow, no people" },
+    { "id": "klangwerk-modular", "project": "klangwerk", "slot": "story", "size": "1024x1024",
+      "subject": "a wall of modular synthesiser panels with patch cables, lit low" },
+    { "id": "klangwerk-chamber", "project": "klangwerk", "slot": "story", "size": "1024x1024",
+      "subject": "the interior of an anechoic chamber, wedge foam on every surface, one small light" },
+    { "id": "klangwerk-tape", "project": "klangwerk", "slot": "story", "size": "1024x1024",
+      "subject": "a reel-to-reel tape machine on a rack in a dark control room, reels loaded" },
+    { "id": "mesura-truss", "project": "mesura", "slot": "hero", "size": "1536x1024",
+      "subject": "a steel roof truss under construction against an overcast sky, bolted joints in orange primer" },
+    { "id": "mesura-testrig", "project": "mesura", "slot": "story", "size": "1024x1024",
+      "subject": "a laboratory load test rig pressing a concrete beam to failure, dial gauges attached" },
+    { "id": "mesura-drawings", "project": "mesura", "slot": "story", "size": "1024x1024",
+      "subject": "structural drawings and a scale rule laid out on a plain table, no people" },
+    { "id": "mesura-bearing", "project": "mesura", "slot": "story", "size": "1024x1024",
+      "subject": "a close view of a large steel bridge bearing between concrete abutment and deck" },
+    { "id": "seconde-gate", "project": "seconde", "slot": "hero", "size": "1536x1024",
+      "subject": "a photo-finish timing gate at the end of an empty athletics track, seen straight down the lanes" },
+    { "id": "seconde-console", "project": "seconde", "slot": "story", "size": "1024x1024",
+      "subject": "a timing console with cables and a small screen on a folding table beside a track" },
+    { "id": "seconde-lane", "project": "seconde", "slot": "story", "size": "1024x1024",
+      "subject": "a close overhead view of painted lane numbers on a running track surface" },
+    { "id": "seconde-board", "project": "seconde", "slot": "story", "size": "1024x1024",
+      "subject": "a large blank stadium scoreboard against an overcast sky, seen from below" },
+    { "id": "cobalt-powder", "project": "cobalt-works", "slot": "hero", "size": "1536x1024",
+      "subject": "heaps of intense dry blue pigment powder on a pale worktop, one heap disturbed by a scoop" },
+    { "id": "cobalt-mill", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
+      "subject": "an industrial roller mill grinding blue pigment in a workshop" },
+    { "id": "cobalt-chips", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
+      "subject": "a fan of painted colour chip cards ranging from pale to deep blue on a plain surface" },
+    { "id": "cobalt-drums", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
+      "subject": "rows of sealed steel drums on pallets in a bright warehouse" },
+    { "id": "nullpunkt-gauges", "project": "nullpunkt", "slot": "hero", "size": "1536x1024",
+      "subject": "a fitted case of precision steel gauge blocks opened on a white laboratory bench" },
+    { "id": "nullpunkt-cmm", "project": "nullpunkt", "slot": "story", "size": "1024x1536",
+      "subject": "a coordinate measuring machine with a probe over a metal part in a clean laboratory" },
+    { "id": "nullpunkt-lab", "project": "nullpunkt", "slot": "story", "size": "1024x1024",
+      "subject": "an empty temperature-controlled measurement laboratory, white surfaces and one red switch" },
+    { "id": "nullpunkt-artefact", "project": "nullpunkt", "slot": "story", "size": "1024x1024",
+      "subject": "a polished metal cylinder standing under a glass bell jar on a black granite table" },
+    { "id": "weiss-room", "project": "sammlung-weiss", "slot": "hero", "size": "1536x1024",
+      "subject": "an empty gallery room under a skylight, bare walls, pale timber floor, one doorway to another room" },
+    { "id": "weiss-crate", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
+      "subject": "a plywood art crate standing closed in an empty white room" },
+    { "id": "weiss-racks", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
+      "subject": "sliding storage racks holding framed works in a windowless art store" },
+    { "id": "weiss-plinth", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
+      "subject": "a rough grey stone sculpture on a plain white plinth in a bare room" },
     { "id": "quanta-hero", "project": "quanta-robotics", "slot": "hero",
       "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles" },
     { "id": "quanta-line", "project": "quanta-robotics", "slot": "story",

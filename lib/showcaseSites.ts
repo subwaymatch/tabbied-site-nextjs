@@ -1,7 +1,7 @@
 import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
-  taper, windowpane,
+  taper, windowpane, epicentre, halftone, staple,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -47,4 +47,7 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   // Pattern-forward Swiss set: full-bleed artwork fields with a transparent
   // background slot, redrawn on a timer so each page keeps moving.
   { slug: 'werkraum', name: 'Werkraum', topic: 'Architecture practice', artworkSlug: 'windowpane', artwork: windowpane, paletteName: 'Basel red', palette: ['#F4F3EF', '#16161A', '#D6001C', '#8E8E88', '#C9C8C1'], seed: 'dir-wr' },
+  { slug: 'nordlicht', name: 'Nordlicht', topic: 'Cartography & survey', artworkSlug: 'epicentre', artwork: epicentre, paletteName: 'Chart blue', palette: ['#FCFCFA', '#0E1116', '#1B4DFF', '#8A9098', '#C3CBD4'], seed: 'dir-nl' },
+  { slug: 'halbfett', name: 'Halbfett', topic: 'Type foundry', artworkSlug: 'halftone', artwork: halftone, paletteName: 'Proof vermilion', palette: ['#FFFFFF', '#000000', '#FF3B14', '#9A9A9A', '#DCDCDC'], seed: 'dir-hb' },
+  { slug: 'hafen-sechs', name: 'Hafen Sechs', topic: 'Container terminal', artworkSlug: 'staple', artwork: staple, paletteName: 'Signal yellow, night', palette: ['#101215', '#F0EFEA', '#FFD400', '#6E747C', '#1C2026'], seed: 'dir-h6' },
 ];
