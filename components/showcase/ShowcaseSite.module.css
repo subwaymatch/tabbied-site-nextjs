@@ -5,6 +5,12 @@
 
 .site {
   --radius: 18px;
+  /* The tone that marks one band off from the next, now that no hairlines do.
+     It is mixed from --ink rather than from white so it steps the same distance
+     away from the page on a light palette as on a dark one — the site-supplied
+     --soft moves toward white either way, which is invisible on a near-white
+     background and is why it stays reserved for surfaces, not for bands. */
+  --band: color-mix(in srgb, var(--ink) 4.5%, var(--bg));
   /* Spacing scale. Sections pick a step by weight rather than all sharing one
      huge value: quiet strips are tight, feature moments get room. */
   --pad-x: clamp(20px, 5vw, 64px);
@@ -277,7 +283,7 @@
 .footer {
   padding: clamp(56px, 7vw, 84px) 0 44px;
   font-size: 14px;
-  background: var(--soft);
+  background: var(--band);
 }
 .footer .logo {
   opacity: 1;
@@ -339,7 +345,7 @@
 .statStrip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: var(--soft);
+  background: var(--band);
 }
 .statStrip div {
   padding: clamp(32px, 4vw, 44px) clamp(20px, 4vw, 48px);
@@ -430,7 +436,7 @@
   overflow: hidden;
   white-space: nowrap;
   padding: 20px 0;
-  background: var(--soft);
+  background: var(--band);
 }
 .marquee span {
   font-family: var(--display);
@@ -455,7 +461,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px clamp(20px, 5vw, 64px);
-  background: var(--soft);
+  background: var(--band);
   font-size: 12px;
   letter-spacing: calc(0.12em + var(--tracking, 0em));
   text-transform: uppercase;
@@ -850,7 +856,7 @@
 /* The tone change alone marks this band off; the hairlines it used to be
    bracketed by said the same thing twice. */
 .features {
-  background: var(--soft);
+  background: var(--band);
 }
 .featGrid {
   max-width: var(--max);
@@ -1002,7 +1008,7 @@
   overflow: hidden;
   padding: clamp(96px, 14vw, 200px) clamp(20px, 5vw, 64px);
   text-align: center;
-  background: var(--soft);
+  background: var(--band);
 }
 .manifestoInner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
 .manifestoInner p {
@@ -1117,7 +1123,7 @@
    one continuous field of background color. The tone change is the divider —
    the hairlines that used to bracket it were doing the same job twice. */
 .panel {
-  background: var(--soft);
+  background: var(--band);
 }
 
 /* ── Process: numbered steps ─────────────────────────────────────────────── */
