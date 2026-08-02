@@ -91,8 +91,6 @@
   flex-wrap: wrap;
   gap: 0.4rem 1.75rem;
   padding: 0.9rem 0;
-  border-top: 3px double var(--hairline);
-  border-bottom: 3px double var(--hairline);
   max-width: 46rem;
   margin: 0 auto;
 }
@@ -167,14 +165,17 @@
   isolation: isolate;
 }
 
+/* Centred in the arch, with the height pulled in so the crown's curve
+   never crops the scroll. */
 .heroViolin {
   position: absolute;
   left: 50%;
-  bottom: -3%;
-  transform: translateX(-50%);
-  height: 88%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 82%;
   width: auto;
-  max-width: none;
+  max-width: 82%;
+  object-fit: contain;
   filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.75))
     drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
 }
@@ -394,14 +395,17 @@
   aspect-ratio: 5 / 4;
 }
 
+/* Centred in the plate rather than hung off its foot, so the whole
+   instrument sits inside the pattern field with even margins around it. */
 .cutoutTall {
   position: absolute;
   left: 50%;
-  bottom: -2%;
-  transform: translateX(-50%);
-  height: 90%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 88%;
   width: auto;
-  max-width: none;
+  max-width: 88%;
+  object-fit: contain;
   filter: drop-shadow(0 20px 26px rgba(0, 0, 0, 0.75))
     drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
 }
