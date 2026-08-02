@@ -1,6 +1,6 @@
 // Per-artwork settings for the live css-doodle gallery thumbnails. Palettes
-// and densities were derived from the original raster thumbnails
-// (public/images/thumb_*.png); `color0` is always the background. Each
+// and densities were derived from the raster thumbnails these replaced (since
+// deleted); `color0` is always the background. Each
 // thumbnail draws with a fresh random seed on every load, so only the look
 // (palette / density / render size) is pinned here, not the placement.
 import type { OptionValue } from 'tabbied';

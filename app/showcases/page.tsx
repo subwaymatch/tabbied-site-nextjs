@@ -14,9 +14,9 @@ import { Figure } from 'components/Figure';
 import s from './showcases.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied, 22 Websites and 5 Mockups',
+  title: 'Made with Tabbied, 22 Websites and 25 Mockups',
   description:
-    'Twenty-two sample websites built with the TabbiedArtwork React component, plus five mockups showing the same artworks printed on real objects.',
+    'Twenty-two sample websites built with the TabbiedArtwork React component, plus twenty-five mockups showing the same artworks printed on real objects.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
@@ -79,10 +79,21 @@ function MockupCard({ m, n }: { m: (typeof MOCKUPS)[number]; n: number }) {
   const vars = { '--accent': m.palette[1] ?? m.palette[0] } as CSSProperties;
   return (
     <figure className={`${s.card} ${s.mockCard}`} style={vars}>
-      <div className={s.thumb}>
+      {/* The thumbnail is cropped to the grid's ratio, so it links out to the
+          committed full-size WebP for anyone who wants to look properly. */}
+      <a
+        className={s.thumb}
+        href={`/images/mockups/${m.id}.webp`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open the full-size image: ${m.title}`}
+      >
         <Figure slug={m.id} alt={m.alt} className={s.mockImg} />
         <span className={s.num}>{String(n).padStart(2, '0')}</span>
-      </div>
+        <span className={s.zoom} aria-hidden="true">
+          Full size
+        </span>
+      </a>
       <figcaption className={s.cbody}>
         <div className={s.cmain}>
           <h3>{m.title}</h3>
