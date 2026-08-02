@@ -1,7 +1,8 @@
 import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
-  taper, windowpane, epicentre, halftone, staple,
+  taper, windowpane, epicentre, halftone, staple, maelstrom, caltrop,
+  tailoff, tinting,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -50,4 +51,8 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'nordlicht', name: 'Nordlicht', topic: 'Cartography & survey', artworkSlug: 'epicentre', artwork: epicentre, paletteName: 'Chart blue', palette: ['#FCFCFA', '#0E1116', '#1B4DFF', '#8A9098', '#C3CBD4'], seed: 'dir-nl' },
   { slug: 'halbfett', name: 'Halbfett', topic: 'Type foundry', artworkSlug: 'halftone', artwork: halftone, paletteName: 'Proof vermilion', palette: ['#FFFFFF', '#000000', '#FF3B14', '#9A9A9A', '#DCDCDC'], seed: 'dir-hb' },
   { slug: 'hafen-sechs', name: 'Hafen Sechs', topic: 'Container terminal', artworkSlug: 'staple', artwork: staple, paletteName: 'Signal yellow, night', palette: ['#101215', '#F0EFEA', '#FFD400', '#6E747C', '#1C2026'], seed: 'dir-h6' },
+  { slug: 'klangwerk', name: 'Klangwerk', topic: 'Electroacoustic studio', artworkSlug: 'maelstrom', artwork: maelstrom, paletteName: 'Signal green, dark', palette: ['#08090B', '#E9E9E4', '#00E58A', '#5A6068', '#14161A'], seed: 'dir-kl' },
+  { slug: 'mesura', name: 'Mesura', topic: 'Structural engineering', artworkSlug: 'caltrop', artwork: caltrop, paletteName: 'Primer orange', palette: ['#F2F1ED', '#15171A', '#FF6A00', '#8C9096', '#D9D8D2'], seed: 'dir-me' },
+  { slug: 'seconde', name: 'Seconde', topic: 'Sports timing', artworkSlug: 'tailoff', artwork: tailoff, paletteName: 'Finish magenta', palette: ['#F7F7F5', '#101010', '#FF0059', '#8E8E8E', '#D6D6D2'], seed: 'dir-se' },
+  { slug: 'cobalt-works', name: 'Cobalt Works', topic: 'Dry pigment mill', artworkSlug: 'tinting', artwork: tinting, paletteName: 'Cobalt', palette: ['#F6F4EE', '#14161C', '#0033CC', '#7E8494', '#DEDBD0'], seed: 'dir-co' },
 ];

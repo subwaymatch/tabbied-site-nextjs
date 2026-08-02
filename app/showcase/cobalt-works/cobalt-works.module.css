@@ -1,0 +1,557 @@
+/* ==========================================================================
+   COBALT WORKS — dry pigment mill, Sheffield
+   A trade-list page: the stock table is the hero content, the type is set
+   small and dense, and the only extravagance is the blue. Pattern fields run
+   full width with `transparent` in the background slot, so the bone paper
+   shows through and the blue reads as pigment rather than as ink.
+   ========================================================================== */
+
+.page {
+  --bone: #f6f4ee;
+  --ink: #14161c;
+  --blue: #0033cc;
+  --steel: #7e8494;
+  --pale: #dedbd0;
+  --gut: clamp(1.15rem, 4vw, 3.25rem);
+  --max: 80rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.013em;
+  background: var(--bone);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut) 0.7rem;
+  background: color-mix(in srgb, var(--bone) 91%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  display: grid;
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.mark i {
+  font-style: normal;
+  margin-top: 0.3rem;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.bar nav {
+  display: flex;
+  gap: clamp(0.85rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--blue);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 10vw, 8rem) var(--gut) clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* glazing is a soft wash design: run it wide and let it bleed off both sides
+   so the blue feels poured rather than printed. */
+.heroField {
+  position: absolute;
+  inset: -20% -30vw;
+  z-index: -1;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7vw, 5.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.048em;
+}
+
+.hero h1 span {
+  color: var(--blue);
+}
+
+.lede {
+  margin: clamp(1.5rem, 4vw, 2.3rem) 0 0;
+  max-width: 33rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.14rem);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.bleed figcaption,
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.bleed figcaption {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 0 var(--gut);
+}
+
+.pair {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.wide {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+/* ------------------------------------------------------------------- facts */
+
+.facts {
+  max-width: var(--max);
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.facts div {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--blue);
+}
+
+.facts dt {
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+/* ------------------------------------------------------------------- stock */
+
+.stock,
+.matching {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1.8fr) 5rem minmax(0, 1.4fr) 4.5rem 6rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.listHead {
+  border-top: 0 !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.ref {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+}
+
+.pname {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.96rem;
+}
+
+.fam {
+  color: var(--blue) !important;
+  font-weight: 550;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- wash band
+   tinting fills its cells almost entirely, so on a transparent ground it
+   becomes a wall of graded blue: the boldest field in the batch. */
+
+.washBand {
+  position: relative;
+  height: clamp(9rem, 22vw, 17rem);
+  overflow: hidden;
+  background: var(--pale);
+}
+
+.washField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.95;
+}
+
+/* ------------------------------------------------------------------ making */
+
+.making {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.makingField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+}
+
+.makingField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 68% 60% at 50% 36%,
+    var(--bone) 0%,
+    color-mix(in srgb, var(--bone) 62%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.makingInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.steps li {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--ink);
+}
+
+.stepN {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  color: var(--blue);
+}
+
+.steps h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ---------------------------------------------------------------- matching */
+
+.matchGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+  line-height: 1.32;
+  letter-spacing: -0.03em;
+  max-width: 26rem;
+}
+
+.matchCol p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ------------------------------------------------------------------- order */
+
+.order {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.orderField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.28;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 40%, transparent 60%, #000 100%);
+}
+
+.orderInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.contact div {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.contact dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 0.4rem;
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.contact a {
+  border-bottom: 2px solid var(--blue);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bone);
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(1.8rem, 4vw, 3rem);
+}
+
+.footField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.42;
+}
+
+.footInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid;
+  gap: 1.4rem;
+}
+
+.footMark {
+  margin: 0;
+  font-size: clamp(2.2rem, 10vw, 7rem);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+
+.footFine {
+  margin: 0;
+  max-width: 38rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--bone) 62%, transparent);
+}
+
+.footFine a {
+  color: var(--bone);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .facts,
+  .steps,
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .matchGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .list li {
+    grid-template-columns: 4.5rem minmax(0, 1fr) 5.5rem;
+    row-gap: 0.2rem;
+  }
+
+  .listHead {
+    display: none !important;
+  }
+
+  .list li > :nth-child(3),
+  .list li > :nth-child(4) {
+    grid-column: 2 / 4;
+    font-size: 0.8rem;
+  }
+
+  .list li > :nth-child(5) {
+    grid-column: 2;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .facts,
+  .steps,
+  .contact,
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+}
