@@ -261,6 +261,28 @@ export function deriveGridForBox(
   return { cols: best.cols, rows: best.rows };
 }
 
+/**
+ * The canvas span that makes every grid track a whole pixel: the smallest
+ * multiple of the track count that still covers the box.
+ *
+ * css-doodle lays its grid out as `repeat(n, 1fr)` (see `get_basic_styles` in
+ * the component), so a box that isn't divisible by n puts every cell boundary
+ * on a sub-pixel — and the browser draws a hairline seam at each one. Since a
+ * fluid container is almost never divisible by its derived track count, the
+ * default `fit: "grid"` in a page layout hits this nearly every time.
+ *
+ * The returned span overflows the box by less than one cell, which the host
+ * clips. Rounding *down* instead would leave a strip of the container
+ * uncovered, which is far more visible on a background field.
+ */
+export function snapSpanToTracks(span: number, tracks: number): number {
+  if (!(span > 0) || !(tracks > 0)) {
+    return Math.max(0, Math.ceil(span));
+  }
+
+  return Math.ceil(span / tracks) * tracks;
+}
+
 // Parse a "colsxrows" grid option value (e.g. "6x9").
 export function parseGridValue(
   value: string

@@ -19,6 +19,7 @@ import {
   fitRenderToBox,
   hasGridOption,
   resolveFitMode,
+  snapSpanToTracks,
   type CoverRender,
 } from './sizing.js';
 import type { SvgExportOptions, SvgExportResult } from './svgExport.js';
@@ -353,6 +354,34 @@ export function createArtwork(
     };
   };
 
+  // Size a `grid` canvas so every track lands on a whole pixel.
+  //
+  // The grid fills the host, and `repeat(cols, 1fr)` over a container that
+  // isn't divisible by cols puts every cell boundary on a sub-pixel, which
+  // paints a hairline seam at each one. Overriding the canvas inline (the
+  // source still says 100%, so the generated pattern and its SVG export are
+  // untouched) rounds each axis up to a whole multiple of its track count;
+  // the host clips the sub-cell overflow.
+  //
+  // Pure arithmetic, so it runs on every resize tick — between debounced grid
+  // steps the canvas keeps covering the host at whole tracks, where plain
+  // percentage sizing would drift back onto sub-pixels.
+  const applyGridSnap = (resolved: ResolvedConfig) => {
+    if (!element || !hostSize || resolved.fit !== 'grid') {
+      return;
+    }
+
+    const { cols, rows } = deriveGridForBox(
+      hostSize.width,
+      hostSize.height,
+      resolved.targetCellPx,
+      resolved.definition.sizing
+    );
+
+    element.style.width = `${snapSpanToTracks(hostSize.width, cols)}px`;
+    element.style.height = `${snapSpanToTracks(hostSize.height, rows)}px`;
+  };
+
   const applyTransform = (resolved: ResolvedConfig) => {
     if (
       !element ||
@@ -409,10 +438,15 @@ export function createArtwork(
       renderBox,
     };
 
-    if (resolved.fit === 'cover' || resolved.fit === 'contain') {
-      // Fixed-resolution render scaled into the host (which clips overflow).
-      // Positioning is set before append so the oversized canvas never
-      // affects layout.
+    if (
+      resolved.fit === 'cover' ||
+      resolved.fit === 'contain' ||
+      resolved.fit === 'grid'
+    ) {
+      // An oversized canvas scaled or snapped into the host (which clips the
+      // overflow): a fixed-resolution render for cover/contain, a whole
+      // number of grid tracks for grid. Positioning is set before append so
+      // the oversized canvas never affects layout.
       const hostStyle = getComputedStyle(host);
       hostStyleBackup ??= {
         position: host.style.position,
@@ -425,6 +459,7 @@ export function createArtwork(
       element.style.position = 'absolute';
       element.style.top = '0';
       element.style.left = '0';
+      applyGridSnap(resolved);
       applyTransform(resolved);
     }
 
@@ -544,6 +579,13 @@ export function createArtwork(
       }
     }
 
+    if (resolved.fit === 'grid') {
+      // Re-snapping the already-rendered canvas is arithmetic — apply on
+      // every tick, so it keeps covering the host at whole tracks while the
+      // re-render below waits out the debounce.
+      applyGridSnap(resolved);
+    }
+
     if ((resolved.fit === 'grid' || resolved.fit === 'cover') && previous) {
       // Between grid steps the canvas stretches via CSS; only a changed
       // derived grid re-renders, debounced so a drag-resize settles first.
@@ -554,6 +596,7 @@ export function createArtwork(
 
         const next = resolve();
         applyUpdate(next);
+        applyGridSnap(next);
         applyTransform(next);
       }, GRID_RESIZE_DEBOUNCE_MS);
     }

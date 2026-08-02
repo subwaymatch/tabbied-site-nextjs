@@ -37,6 +37,24 @@ pins both against the real implementations — if you change the rule in
 `src/core/sizing.ts` or `types.ts`, change it in codegen too or that test
 fails.
 
+## Grid snapping — invariant (full reference: docs/grid-snapping.md)
+
+css-doodle lays its grid out as `repeat(n, 1fr)`, so a container that isn't
+divisible by `n` puts every cell boundary on a sub-pixel and the browser draws
+a hairline seam at each one. `fit: "grid"` therefore **oversizes its canvas**:
+`applyGridSnap` sets it inline to `snapSpanToTracks(hostSpan, tracks)` (the
+smallest multiple of the track count that still covers the box) and the host
+clips the sub-cell overflow with `overflow: hidden`. Don't "simplify" that
+back to `width: 100%`.
+
+The snap is an inline style on the `<css-doodle>` element, *not* a change to
+`@size` in the generated source — the source feeds SVG export and the 254
+definitions' `${width}`/`${height}` substitution, and neither should move
+because a container happened to be 1441px wide. Two traps: a CSS class can't
+set the box (`resolveBoxStyle` writes width/height inline on the wrapper, so a
+class loses), and css-doodle caps grids at 64×64, so a box implying more
+columns than that silently rescales the cell and puts the seams back.
+
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
 The native SVG exporter (`packages/tabbied/src/core/svgExport.ts`) converts
