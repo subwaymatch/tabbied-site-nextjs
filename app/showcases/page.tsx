@@ -3,8 +3,8 @@ import type { CSSProperties, ReactNode } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import type { ArtworkDefinition } from 'tabbied';
 import {
-  neon, pebble, circuit, foliage, bauhaus, quoit, veil, louvre, tetro, halftone,
-  lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
+  lobe, windowpane, prisma, foliage, veil, blossom, spark, frond, chamfer,
+  fluting, merlon, diadem, vitrail, ivy, bokeh, lunette, neon, bauhaus, tetro,
 } from 'tabbied/artworks';
 import LazyArtwork from './LazyArtwork';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
@@ -12,14 +12,14 @@ import { NEW_SHOWCASE_SITES } from 'lib/showcaseSites';
 import s from './showcases.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied, 35 Showcase Websites',
+  title: 'Made with Tabbied, 22 Showcase Websites',
   description:
-    'Thirty-five sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
+    'Twenty-two sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
-  neon, pebble, circuit, foliage, bauhaus, quoit, veil, louvre, tetro, halftone,
-  lobe, quilt, spectrum, lattice, windowpane, frond, maze, bokeh, prisma, metro,
+  lobe, windowpane, prisma, foliage, veil, blossom, spark, frond, chamfer,
+  fluting, merlon, diadem, vitrail, ivy, bokeh, lunette,
   // The second collection's artworks, keyed by preset slug.
   ...Object.fromEntries(NEW_SHOWCASE_SITES.map((x) => [x.artworkSlug, x.artwork])),
 };
@@ -148,18 +148,18 @@ export default function ShowcasesGallery() {
         <div className={s.heroInner}>
           <div className={s.pre}>Made with Tabbied</div>
           <h1>
-            Thirty-five sites,<br />
+            Twenty-two sites,<br />
             <span>one pattern engine</span>
           </h1>
           <p>
             Every site below uses a <strong>Tabbied</strong> generative artwork as its
             main design accent, themed end to end with a single palette.
-            Same component, thirty-five completely different moods.
+            Same component, twenty-two completely different moods.
           </p>
           <dl className={s.facts}>
-            <div><dt>35</dt><dd>sample sites</dd></div>
-            <div><dt>35</dt><dd>palettes</dd></div>
-            <div><dt>35</dt><dd>artworks</dd></div>
+            <div><dt>22</dt><dd>sample sites</dd></div>
+            <div><dt>22</dt><dd>palettes</dd></div>
+            <div><dt>22</dt><dd>artworks</dd></div>
             <div><dt>1</dt><dd>component</dd></div>
           </dl>
         </div>

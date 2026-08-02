@@ -31,19 +31,6 @@
         "Pale": "#FFD6FF"
       }
     },
-    "wildgrain-bakery": {
-      "title": "Wildgrain — naturally leavened bakery",
-      "style": "editorial food photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Cream": { "hex": "#EAE0CC", "as": "flour-dusted surfaces and linen" },
-        "Ink": { "hex": "#1B1B1E", "as": "cast iron and deep oven shadow" },
-        "Crust": { "hex": "#C6AC8F", "as": "golden baked crust" },
-        "Umber": { "hex": "#5E503F", "as": "dark rye and walnut wood" },
-        "Taupe": { "hex": "#A9927D", "as": "kraft paper and stoneware" },
-        "Ember": { "hex": "#EB5E28", "as": "the oven's glow and a fired-clay accent" }
-      }
-    },
 "maison-ambre": {
       "title": "Maison Ambre — perfume house",
       "style": "product photograph",
@@ -83,30 +70,7 @@
         "Sun": "#FFC53D"
       }
     },
-    "analog-dept": {
-      "title": "Analog Dept. — film photography lab",
-      "style": "grainy 35mm film photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Charcoal": { "hex": "#0F0F10", "as": "matte black camera bodies and shadow" },
-        "Silver": { "hex": "#E8E6E1", "as": "chrome dials and photographic paper" },
-        "Red": { "hex": "#E63946", "as": "the darkroom safelight and small accents" }
-      }
-    },
-    "grotesk-foundry": {
-      "title": "Grotesk — independent type foundry",
-      "style": "black-and-white studio photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Paper": { "hex": "#F4F1EC", "as": "white walls and newsprint" },
-        "Ink": { "hex": "#111111", "as": "wood type, iron presses and printed ink" },
-        "Red": { "hex": "#D63515", "as": "the single printed accent colour" },
-        "Stone": { "hex": "#B9B3A8", "as": "worn metal and paper dust" },
-        "Ash": { "hex": "#8A857C", "as": "mid shadow tones" },
-        "Char": { "hex": "#2E2B27", "as": "oiled cast iron" }
-      }
-    },
-    "cerulean-swim": {
+"cerulean-swim": {
       "title": "Cerulean — swimwear label",
       "style": "editorial fashion photograph",
       "paletteMode": "scene",
@@ -294,29 +258,6 @@
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
     },
-    "wildgrain-bakes": {
-      "style": "product photograph",
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The bake stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Crust": { "hex": "#C6AC8F", "as": "the golden baked crust" },
-        "Umber": { "hex": "#5E503F", "as": "dark scoring and rye tones" },
-        "Cream": { "hex": "#EAE0CC", "as": "flour dusting" }
-      }
-    },
-    "wildgrain-team": {
-      "style": "portrait photograph",
-      "size": "1024x1536",
-      "cutout": false,
-      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain flour-cream plaster wall, warmly lit with a soft falloff into shadow behind the subject's shoulders, no props in frame.",
-      "palette": {
-        "Ink": { "hex": "#1B1B1E", "as": "aprons and hair" },
-        "Cream": { "hex": "#EAE0CC", "as": "linen shirts and warm highlights on skin" },
-        "Ember": { "hex": "#EB5E28", "as": "an occasional warm accent in clothing" }
-      }
-    },
 "ambre-flacons": {
       "cutout": true,
       "backdrop": "The bottle stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
@@ -354,23 +295,7 @@
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
     },
-    "analog-gear": {
-      "style": "product photograph",
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "palette": {
-        "Charcoal": { "hex": "#0F0F10", "as": "the matte black body" },
-        "Silver": { "hex": "#E8E6E1", "as": "chrome dials and metal trim" },
-        "Red": { "hex": "#E63946", "as": "one small accent detail" }
-      }
-    },
-    "grotesk-props": {
-      "size": "1024x1024",
-      "cutout": true,
-      "backdrop": "The object stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame."
-    },
-    "cerulean-flatlay": {
+"cerulean-flatlay": {
       "style": "product flat-lay photograph",
       "size": "1024x1024",
       "cutout": true,
@@ -559,27 +484,6 @@
     { "id": "zenith-dome", "project": "zenith-observatory", "set": "zenith-objects", "slot": "visit",
       "subject": "a small observatory building with a hemispherical dome and an open viewing slit" },
 
-    { "id": "wildgrain-hero", "project": "wildgrain-bakery", "slot": "hero",
-      "subject": "a crowded wooden counter of rustic sourdough loaves on linen, deep scoring patterns, flour dust hanging in warm morning side light" },
-    { "id": "wildgrain-oven", "project": "wildgrain-bakery", "slot": "story",
-      "subject": "a baker sliding a long peel of shaped loaves into a glowing deck oven, seen from the side in warm light" },
-    { "id": "wildgrain-crumb", "project": "wildgrain-bakery", "slot": "detail", "size": "1024x1024",
-      "subject": "a torn sourdough loaf held in two hands showing an open glossy crumb, close up" },
-    { "id": "wildgrain-cafe", "project": "wildgrain-bakery", "slot": "space",
-      "subject": "a small bakery café interior with a marble counter, bentwood stools and shelves of bread behind glass, gentle daylight" },
-    { "id": "wildgrain-loaf", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
-      "subject": "a round country sourdough boule with a flour-dusted spiral score" },
-    { "id": "wildgrain-baguette", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu", "size": "1536x1024",
-      "subject": "two crisp baguettes crossed over each other, blistered crust" },
-    { "id": "wildgrain-croissant", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
-      "subject": "a deeply laminated croissant, three-quarter view showing the honeycomb edge" },
-    { "id": "wildgrain-rye", "project": "wildgrain-bakery", "set": "wildgrain-bakes", "slot": "menu",
-      "subject": "a dark seeded rye tin loaf, one slice cut and leaning against it" },
-    { "id": "wildgrain-baker-1", "project": "wildgrain-bakery", "set": "wildgrain-team", "slot": "about",
-      "subject": "a woman in her thirties with tied-back auburn hair and freckles, wearing a flour-dusted black apron over a cream linen shirt" },
-    { "id": "wildgrain-baker-2", "project": "wildgrain-bakery", "set": "wildgrain-team", "slot": "about",
-      "subject": "an East Asian man in his fifties with short grey-flecked hair, wearing a dark apron over a rolled-sleeve chambray shirt" },
-
 { "id": "ambre-hero", "project": "maison-ambre", "slot": "hero",
       "subject": "a faceted amber glass perfume bottle standing on dark veined marble, a wisp of smoke curling behind it, one warm shaft of light from the left" },
     { "id": "ambre-ingredients", "project": "maison-ambre", "slot": "notes",
@@ -631,39 +535,7 @@
     { "id": "hopscotch-prism", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
       "subject": "a triangular prism splitting a single beam into a fanned rainbow of flat colour bands" },
 
-    { "id": "analog-hero", "project": "analog-dept", "slot": "hero",
-      "subject": "a film lab work desk at night: a glowing lightbox scattered with negative strips, a loupe, cotton gloves and a mug, one anglepoise lamp" },
-    { "id": "analog-darkroom", "project": "analog-dept", "slot": "story",
-      "subject": "a darkroom bathed in red safelight, prints hanging from a line on clips, an enlarger silhouetted in the corner" },
-    { "id": "analog-street", "project": "analog-dept", "slot": "gallery",
-      "subject": "a rain-slicked city street at dusk, one figure with an umbrella crossing under a lit shopfront" },
-    { "id": "analog-diner", "project": "analog-dept", "slot": "gallery",
-      "subject": "the chrome counter of an empty late-night diner, coffee cup in the foreground, window light" },
-    { "id": "analog-window", "project": "analog-dept", "slot": "gallery", "size": "1024x1024",
-      "subject": "a cat asleep on a sunlit windowsill beside a curtain, strong shadow stripes" },
-    { "id": "analog-camera", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
-      "subject": "a classic 35mm single-lens-reflex film camera with a chrome top plate and black leatherette, three-quarter view" },
-    { "id": "analog-film", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
-      "subject": "a single 35mm film canister with a short leader of film curling out" },
-    { "id": "analog-loupe", "project": "analog-dept", "set": "analog-gear", "slot": "kit",
-      "subject": "a photographer's focusing loupe standing upright" },
-
-    { "id": "grotesk-hero", "project": "grotesk-foundry", "slot": "hero",
-      "subject": "a letterpress studio seen straight on: wide flat cabinets of type drawers, a proofing press at centre, posters pinned in a strict row above" },
-    { "id": "grotesk-press", "project": "grotesk-foundry", "slot": "story",
-      "subject": "a close view of an iron proofing press cylinder mid-pull, inked forme locked in the bed" },
-    { "id": "grotesk-wall", "project": "grotesk-foundry", "slot": "story",
-      "subject": "a white studio wall pinned with a grid of stark typographic proof sheets, one sheet printed in red" },
-    { "id": "grotesk-case", "project": "grotesk-foundry", "slot": "detail", "size": "1024x1024",
-      "subject": "an open type case drawer of worn wooden letterpress blocks, seen from directly above" },
-    { "id": "grotesk-block", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
-      "subject": "a single large wooden letterpress block, ink-stained face forward" },
-    { "id": "grotesk-specimen", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
-      "subject": "a thick cloth-bound specimen book standing upright, plain cover, red ribbon marker" },
-    { "id": "grotesk-stick", "project": "grotesk-foundry", "set": "grotesk-props", "slot": "shop",
-      "subject": "a steel composing stick holding a line of metal type, three-quarter view" },
-
-    { "id": "cerulean-hero", "project": "cerulean-swim", "slot": "hero",
+{ "id": "cerulean-hero", "project": "cerulean-swim", "slot": "hero",
       "subject": "a swimmer floating on her back in clear turquoise water, photographed from directly above, arms spread, small ripples radiating" },
     { "id": "cerulean-beach", "project": "cerulean-swim", "slot": "story",
       "subject": "a row of leaning striped parasols on pale sand, midday light, no people close to camera" },

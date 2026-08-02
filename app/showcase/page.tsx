@@ -4,9 +4,9 @@ import LazyTile from './LazyTile';
 import s from './showcase.module.css';
 
 export const metadata: Metadata = {
-  title: 'Showcase: 24 sites built on Tabbied patterns',
+  title: 'Showcase: 17 sites built on Tabbied patterns',
   description:
-    'Twenty-four fictional brand sites (a bakery, a type foundry, an observatory, a railway) each designed around a different Tabbied generative artwork and AI-generated imagery.',
+    'Seventeen fictional brand sites (a concert hall, a watch manufacture, an observatory, a railway) each designed around a different Tabbied generative artwork and AI-generated imagery.',
 };
 
 // The site list (palettes, artworks, seeds) lives in lib/showcaseSites so the
@@ -18,7 +18,7 @@ export default function ShowcaseIndexPage() {
     <main className={s.page}>
       <header className={s.head}>
         <p className={s.kicker}>Showcase</p>
-        <h1>Twenty-four sites, twenty-four patterns, twenty-four design worlds.</h1>
+        <h1>Seventeen sites, seventeen patterns, seventeen design worlds.</h1>
         <p>
           Each of these fictional brand sites is designed around a different{' '}
           <a href="/artworks">Tabbied generative artwork</a> — as hero
