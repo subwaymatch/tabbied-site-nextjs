@@ -1,0 +1,296 @@
+import { TabbiedArtwork } from 'tabbied/react';
+import { falloff, radiance, sunray, dimmer, spraydown } from 'tabbied/artworks';
+import { Figure } from 'components/Figure';
+import s from './lichtfeld.module.css';
+
+export const metadata = {
+  title: 'Lichtfeld: Lichtplanung, München',
+  description:
+    'Lichtfeld plans light for buildings and public space. Mock-ups before drawings, measured lux, and a strict position on what should stay dark.',
+};
+
+/* Near-black ground, white type, one warm yellow that is the light itself.
+   Every field takes `transparent` in the background slot. */
+const WHITE = '#FAFAF5';
+const WARM = '#F5E663';
+const GREY = '#6A6A64';
+const PANEL = '#151515';
+
+const WORK = [
+  { code: 'L-118', name: 'Pinakothek, west stair', kind: 'Interior, public', year: '2026', lux: '80 lx' },
+  { code: 'L-112', name: 'Hofgarten colonnade', kind: 'Exterior, listed', year: '2025', lux: '12 lx' },
+  { code: 'L-104', name: 'Werkhalle 3, Riem', kind: 'Industrial', year: '2025', lux: '500 lx' },
+  { code: 'L-097', name: 'Sankt Bonifaz, nave', kind: 'Sacred', year: '2024', lux: '50 lx' },
+  { code: 'L-089', name: 'Isar footbridge', kind: 'Exterior, public', year: '2023', lux: '5 lx' },
+];
+
+const POSITIONS = [
+  { n: '01', t: 'Mock up before you draw', d: 'We build the condition full size, on site, at night, and look at it. Every scheme we have regretted was one that went to drawings first.' },
+  { n: '02', t: 'Dark is a material', d: 'The brief usually asks how bright. The useful question is what should stay unlit, and it is almost always more than the client expects.' },
+  { n: '03', t: 'One colour temperature', d: 'A single CCT per space, held across every fixture and every replacement lamp for the life of the building. Written into the O&M manual.' },
+  { n: '04', t: 'Measure, then argue', d: 'We bring a meter to every handover. An opinion about a lighting scheme is worth having; a reading is worth acting on.' },
+];
+
+const NUMBERS = [
+  ['118', 'Schemes since 2006'],
+  ['2 700 K', 'House warm white'],
+  ['5 lx', 'Lowest scheme'],
+  ['0', 'Uplighters specified'],
+];
+
+export default function LichtfeldPage() {
+  return (
+    <div className={s.page}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..700&display=swap"
+      />
+
+      <header className={s.bar}>
+        <a className={s.mark} href="#top">
+          Lichtfeld
+        </a>
+        <nav aria-label="Sections">
+          <a href="#work">Work</a>
+          <a href="#positions">Positions</a>
+          <a href="#method">Method</a>
+          <a href="#studio">Studio</a>
+        </nav>
+        <span className={s.tag}>Lichtplanung / München</span>
+      </header>
+
+      <main id="top">
+        {/* ---------------------------------------------------------- HERO */}
+        <section className={s.hero}>
+          <div className={s.heroField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={falloff}
+              palette={['transparent', WARM, GREY]}
+              fit="grid"
+              cellSize={168}
+              redrawInterval={5800}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={s.heroInner}>
+            <p className={s.eyebrow}>Lichtplanung / seit 2006</p>
+            <h1>
+              The question is
+              <br />
+              never how bright.
+              <br />
+              <span>It is what stays dark.</span>
+            </h1>
+            <p className={s.lede}>
+              Light for buildings, streets and one footbridge. We mock up on
+              site before we draw, and we bring a meter to the handover.
+            </p>
+          </div>
+        </section>
+
+        <figure className={s.bleed}>
+          <Figure
+            slug="lichtfeld-stair"
+            alt="A concrete stair at night lit only by a continuous recessed line of warm light"
+            priority
+          />
+          <figcaption>L-118, west stair. 80 lx on the tread, nothing on the wall.</figcaption>
+        </figure>
+
+        <dl className={s.numbers}>
+          {NUMBERS.map(([v, k]) => (
+            <div key={k}>
+              <dt>{v}</dt>
+              <dd>{k}</dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* ----------------------------------------------------------- WORK */}
+        <section id="work" className={s.work} aria-labelledby="work-h">
+          <h2 className={s.h2} id="work-h">
+            Recent schemes
+          </h2>
+          <ol className={s.table}>
+            <li className={s.thead} aria-hidden="true">
+              <span>Job</span>
+              <span>Scheme</span>
+              <span>Type</span>
+              <span>Design level</span>
+              <span>Year</span>
+            </li>
+            {WORK.map((w) => (
+              <li key={w.code}>
+                <span className={s.code}>{w.code}</span>
+                <span className={s.name}>{w.name}</span>
+                <span className={s.kind}>{w.kind}</span>
+                <span className={s.lux}>{w.lux}</span>
+                <span className={s.year}>{w.year}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ----------------------------------------------------- GLOW BAND */}
+        <section className={s.glowBand} aria-hidden="true">
+          <div className={s.glowField}>
+            <TabbiedArtwork
+              artwork={radiance}
+              palette={['transparent', WARM, WHITE, GREY]}
+              fit="grid"
+              cellSize={128}
+              redrawInterval={3400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ POSITIONS */}
+        <section id="positions" className={s.positions} aria-labelledby="positions-h">
+          <div className={s.posField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={sunray}
+              palette={['transparent', GREY, WARM]}
+              fit="grid"
+              cellSize={140}
+              redrawInterval={6200}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={s.posInner}>
+            <h2 className={s.h2} id="positions-h">
+              Four positions
+            </h2>
+            <ol className={s.posList}>
+              {POSITIONS.map((p) => (
+                <li key={p.n}>
+                  <span className={s.pN}>{p.n}</span>
+                  <h3>{p.t}</h3>
+                  <p>{p.d}</p>
+                </li>
+              ))}
+            </ol>
+            <div className={s.pair}>
+              <figure>
+                <Figure
+                  slug="lichtfeld-mockup"
+                  alt="A lighting mock-up room with several fixtures aimed at a sample wall"
+                />
+                <figcaption>Mock-up, L-112. Four options, one night, one decision.</figcaption>
+              </figure>
+              <figure>
+                <Figure
+                  slug="lichtfeld-fixture"
+                  alt="A single machined luminaire on a plain workbench lit from the side"
+                />
+                <figcaption>Bespoke, 2,700 K, machined in Augsburg.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        {/* --------------------------------------------------------- METHOD */}
+        <section id="method" className={s.method} aria-labelledby="method-h">
+          <h2 className={s.h2} id="method-h">
+            How a scheme happens
+          </h2>
+          <div className={s.methodGrid}>
+            <p className={s.big}>
+              Walk the site after dark. Build the mock-up. Look at it with the
+              people who will use the building, not only the ones paying for it.
+              Then draw.
+            </p>
+            <div className={s.methodCol}>
+              <p>
+                We do not issue a lighting layout until a full-size condition has
+                been seen at night by somebody with the authority to change their
+                mind. It costs a fortnight and saves a year.
+              </p>
+              <p>
+                Commissioning is part of the fee, not an extra. We aim every
+                fixture ourselves, at night, and we come back once in the first
+                winter to do it again.
+              </p>
+            </div>
+          </div>
+          <figure className={s.wide}>
+            <Figure
+              slug="lichtfeld-facade"
+              alt="A building facade at dusk washed with warm light from below"
+            />
+            <figcaption>L-112, colonnade. 12 lx, and the sky still legible above it.</figcaption>
+          </figure>
+        </section>
+
+        {/* --------------------------------------------------------- STUDIO */}
+        <section id="studio" className={s.studio} aria-labelledby="studio-h">
+          <div className={s.studioField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={dimmer}
+              palette={['transparent', WARM, GREY]}
+              fit="grid"
+              cellSize={86}
+              redrawInterval={4600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={s.studioInner}>
+            <h2 className={s.h2} id="studio-h">
+              Studio
+            </h2>
+            <dl className={s.contact}>
+              <div>
+                <dt>Office</dt>
+                <dd>
+                  Baaderstrasse 18, Rgb.
+                  <br />
+                  80469 München
+                </dd>
+              </div>
+              <div>
+                <dt>Write</dt>
+                <dd>
+                  <a href="mailto:licht@lichtfeld.example">licht@lichtfeld.example</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Appointments</dt>
+                <dd>After dark, on site, by preference</dd>
+              </div>
+              <div>
+                <dt>Fees</dt>
+                <dd>Percentage or lump sum. Commissioning always included.</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </main>
+
+      <footer className={s.footer}>
+        <div className={s.footField} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={spraydown}
+            palette={['transparent', WARM, GREY]}
+            fit="grid"
+            cellSize={58}
+            redrawInterval={6800}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+        <div className={s.footInner}>
+          <p className={s.footMark}>Lichtfeld</p>
+          <p className={s.footFine}>
+            A fictional lighting practice. Every pattern is a live{' '}
+            <a href="https://tabbied.com" rel="noopener">
+              Tabbied
+            </a>{' '}
+            artwork on a transparent ground, redrawn on a timer. © 2026.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}

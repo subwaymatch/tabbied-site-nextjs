@@ -3,6 +3,7 @@ import {
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
   taper, windowpane, epicentre, halftone, staple, maelstrom, caltrop,
   tailoff, tinting, ring, quire, ribline, stitch, damier, plait, chase,
+  tidering, radiance, grainfield, metro, rungs,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -20,7 +21,7 @@ export type NewShowcaseSite = {
 };
 
 /**
- * The second showcase collection: sixteen single-page brand
+ * The second showcase collection: thirty-six single-page brand
  * sites under /showcase/<slug>/, each designed around one Tabbied artwork and
  * AI-generated imagery (see docs/image-pipeline.md). Listed on /showcase and
  * /showcases; palettes here mirror each page's own constants.
@@ -62,4 +63,9 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'passform', name: 'Passform', topic: 'Bespoke tailoring', artworkSlug: 'damier', artwork: damier, paletteName: 'Thread rust', palette: ['#F5F1EA', '#191512', '#C1440E', '#9A9086', '#E5DFD4'], seed: 'dir-pf' },
   { slug: 'meterware', name: 'Meterware', topic: 'Weaving mill', artworkSlug: 'plait', artwork: plait, paletteName: 'Yarn indigo', palette: ['#EFEBE1', '#14161F', '#2B3FAE', '#8E8A7E', '#DCD7C9'], seed: 'dir-mw' },
   { slug: 'sichtbeton', name: 'Sichtbeton', topic: 'Fair-faced concrete', artworkSlug: 'chase', artwork: chase, paletteName: 'Safety orange', palette: ['#E9E9E6', '#131313', '#FF5A00', '#8B8B87', '#D3D3CE'], seed: 'dir-sb' },
+  { slug: 'kaella', name: 'Källa', topic: 'Municipal water utility', artworkSlug: 'tidering', artwork: tidering, paletteName: 'Still water', palette: ['#F2F6F6', '#0F1A1D', '#00A6A6', '#7E9296', '#DCE7E7'], seed: 'dir-ka' },
+  { slug: 'nachtzug', name: 'Nachtzug', topic: 'Sleeper trains', artworkSlug: 'rungs', artwork: rungs, paletteName: 'Lamplight gold', palette: ['#0B0E1A', '#EDE8DA', '#E0A83C', '#545C74', '#141827'], seed: 'dir-nz' },
+  { slug: 'lichtfeld', name: 'Lichtfeld', topic: 'Lighting design', artworkSlug: 'radiance', artwork: radiance, paletteName: 'Warm white', palette: ['#0A0A0A', '#FAFAF5', '#F5E663', '#6A6A64', '#151515'], seed: 'dir-lf' },
+  { slug: 'silbersalz', name: 'Silbersalz', topic: 'Photographic laboratory', artworkSlug: 'grainfield', artwork: grainfield, paletteName: 'Safelight red', palette: ['#EDEBE4', '#101010', '#C8102E', '#8A8880', '#D9D6CC'], seed: 'dir-ss' },
+  { slug: 'kryss', name: 'Kryss', topic: 'Wayfinding studio', artworkSlug: 'metro', artwork: metro, paletteName: 'Directional green', palette: ['#F4F4F1', '#131416', '#00843D', '#8E9094', '#E2E2DE'], seed: 'dir-ky' },
 ];
