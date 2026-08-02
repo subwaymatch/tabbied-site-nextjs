@@ -1,7 +1,7 @@
 import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
-  taper,
+  taper, windowpane,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -43,4 +43,8 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'linie-nord', name: 'Linie Nord', topic: 'Regional transit', artworkSlug: 'bothways', artwork: bothways, paletteName: 'Signal yellow', palette: ['#F1F1EF', '#17181A', '#FFD400', '#7E858C', '#DCDEDE', '#2A2E33'], seed: 'dir-ln' },
   { slug: 'chronometrie-bex', name: 'Chronométrie Bex', topic: 'Watch manufacture', artworkSlug: 'torsion', artwork: torsion, paletteName: 'Bone and steel', palette: ['#EDEDEB', '#0E0E0E', '#FF5A1F', '#9C9C98', '#DAD9D5', '#3A3A38'], seed: 'dir-cb' },
   { slug: 'bogen-papier', name: 'Bogen Papier', topic: 'Paper merchant', artworkSlug: 'taper', artwork: taper, paletteName: 'Stock green', palette: ['#FAFAF7', '#14150F', '#2E7D4F', '#C9C4B4', '#E7E5DC', '#6B6656'], seed: 'dir-bp' },
+
+  // Pattern-forward Swiss set: full-bleed artwork fields with a transparent
+  // background slot, redrawn on a timer so each page keeps moving.
+  { slug: 'werkraum', name: 'Werkraum', topic: 'Architecture practice', artworkSlug: 'windowpane', artwork: windowpane, paletteName: 'Basel red', palette: ['#F4F3EF', '#16161A', '#D6001C', '#8E8E88', '#C9C8C1'], seed: 'dir-wr' },
 ];

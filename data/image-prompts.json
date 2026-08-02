@@ -109,6 +109,30 @@
         "Sky": "#4C8FBD"
       }
     },
+    "werkraum": {
+      "title": "Werkraum — architecture practice, Basel",
+      "style": "architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F4F3EF", "as": "pale plaster, daylight and drawing paper" },
+        "Ink": { "hex": "#16161A", "as": "window frames, dark steel and deep shadow" },
+        "Red": { "hex": "#D6001C", "as": "one small saturated accent, a door or a marker" },
+        "Grey": { "hex": "#8E8E88", "as": "fair-faced concrete and screed floors" },
+        "Pale": { "hex": "#C9C8C1", "as": "untreated timber and pale render" }
+      }
+    },
+    "nordlicht": {
+      "title": "Nordlicht — cartography and survey, Tromsø",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#FCFCFA", "as": "overcast sky, snow and chart paper" },
+        "Ink": { "hex": "#0E1116", "as": "wet rock, instrument bodies and deep shadow" },
+        "Blue": { "hex": "#1B4DFF", "as": "one small saturated accent on a cable or a case" },
+        "Steel": { "hex": "#8A9098", "as": "brushed aluminium, tripods and grey water" },
+        "Pale": { "hex": "#C3CBD4", "as": "pale water, haze and printed tints" }
+      }
+    },
     "quanta-robotics": {
       "title": "Quanta — robotics laboratory",
       "style": "isometric illustration",
@@ -565,6 +589,26 @@
     { "id": "piquant-crate", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1024",
       "subject": "a small wooden crate piled with mixed chilli peppers" },
 
+    { "id": "werkraum-hero", "project": "werkraum", "slot": "hero", "size": "1536x1024",
+      "subject": "a Swiss housing block in fair-faced concrete under an overcast sky, deep window reveals in a strict grid, one red entrance door" },
+    { "id": "werkraum-room", "project": "werkraum", "slot": "story", "size": "1536x1024",
+      "subject": "a long architecture studio table under north light, rolled drawings, cardboard models and a plotter against the wall, no people" },
+    { "id": "werkraum-school", "project": "werkraum", "slot": "project", "size": "1024x1024",
+      "subject": "a primary school courtyard with a concrete colonnade and pale timber soffits, empty on a grey afternoon" },
+    { "id": "werkraum-bridge", "project": "werkraum", "slot": "project", "size": "1024x1024",
+      "subject": "a slender steel footbridge crossing a river between bare trees, seen straight on from the bank" },
+    { "id": "werkraum-detail", "project": "werkraum", "slot": "project", "size": "1024x1024",
+      "subject": "a close view of a timber-to-concrete junction on a building facade, the joint left visible, rain marks on the concrete" },
+    { "id": "werkraum-model", "project": "werkraum", "slot": "story", "size": "1024x1024",
+      "subject": "a grey cardboard massing model of six housing blocks on a plywood base, lit from one side on a workshop table" },
+    { "id": "nordlicht-coast", "project": "nordlicht", "slot": "hero", "size": "1536x1024",
+      "subject": "a high aerial view of an Arctic coastline under flat overcast light, pale shallow water against dark bare rock and thin snow" },
+    { "id": "nordlicht-plotter", "project": "nordlicht", "slot": "story", "size": "1024x1024",
+      "subject": "a wide-format plotter drawing a contour map in a quiet survey office, the sheet curling into the tray" },
+    { "id": "nordlicht-model", "project": "nordlicht", "slot": "story", "size": "1024x1024",
+      "subject": "a milled physical relief model of a fjord landscape on a plain table, lit from one side to raise the contours" },
+    { "id": "nordlicht-field", "project": "nordlicht", "slot": "field", "size": "1024x1536",
+      "subject": "a survey tripod and total station standing on bare rock high above a fjord, no people, low grey cloud" },
     { "id": "quanta-hero", "project": "quanta-robotics", "slot": "hero",
       "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles" },
     { "id": "quanta-line", "project": "quanta-robotics", "slot": "story",
