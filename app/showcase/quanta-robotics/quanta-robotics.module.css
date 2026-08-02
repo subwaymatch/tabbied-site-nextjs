@@ -53,8 +53,9 @@
   align-items: center;
   gap: 1.5rem;
   padding: 0.6rem clamp(1rem, 3vw, 2rem);
-  background: rgba(11, 14, 20, 0.94);
-  border-bottom: 1px solid var(--line);
+  /* a darker flat band, not a rule, holds the bar off what scrolls under it */
+  background: rgba(5, 7, 11, 0.95);
+  backdrop-filter: blur(6px);
   font-size: 0.8rem;
   letter-spacing: 0.04em;
 }
@@ -140,7 +141,6 @@
 .hero {
   position: relative;
   isolation: isolate;
-  border-bottom: 1px solid var(--line);
 }
 
 .heroPattern {
@@ -220,21 +220,17 @@
   color: rgba(232, 236, 241, 0.82);
 }
 
+/* three columns held apart by gutters and a flat panel field, not cell rules */
 .heroReadout {
   margin: 0 0 2rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border: 1px solid var(--line);
-  background: rgba(26, 34, 48, 0.6);
+  gap: 0.5rem;
 }
 
 .heroReadout > div {
   padding: 0.7rem 0.9rem;
-  border-right: 1px solid var(--line);
-}
-
-.heroReadout > div:last-child {
-  border-right: none;
+  background: rgba(26, 34, 48, 0.82);
 }
 
 .heroReadout dt {
@@ -261,22 +257,26 @@
   background: var(--phosphor);
   color: var(--void);
   font-weight: 600;
-  border: 1px solid var(--phosphor);
   box-shadow: 0 0 18px rgba(37, 224, 200, 0.35);
-  transition: background 120ms ease, color 120ms ease;
+  transition: background 120ms ease, box-shadow 120ms ease;
 }
 
+/* stays filled on hover — with the outline gone, going transparent would
+   have left the label floating with no control around it */
 .cmdPrimary:hover {
-  background: transparent;
-  color: var(--phosphor);
+  background: #63e4d5;
+  color: var(--void);
+  box-shadow: 0 0 26px rgba(37, 224, 200, 0.55);
   text-decoration: none;
 }
 
+/* tinted fill instead of an outline, so the secondary command still reads
+   as a control */
 .cmdSecondary {
   display: inline-block;
   padding: 0.75rem 1.4rem;
   color: var(--indigo);
-  border: 1px solid var(--indigo);
+  background: rgba(122, 136, 255, 0.18);
   transition: background 120ms ease, color 120ms ease;
 }
 
@@ -286,36 +286,12 @@
   text-decoration: none;
 }
 
+/* a flat panel field carries the figure; no frame, no corner brackets */
 .heroViewport {
   margin: 0;
   position: relative;
-  border: 1px solid var(--line);
   padding: 0.75rem;
-  background: rgba(26, 34, 48, 0.5);
-}
-
-/* corner brackets */
-.heroViewport::before,
-.heroViewport::after {
-  content: '';
-  position: absolute;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 2px solid var(--phosphor);
-}
-
-.heroViewport::before {
-  top: -2px;
-  left: -2px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.heroViewport::after {
-  bottom: -2px;
-  right: -2px;
-  border-left: none;
-  border-top: none;
+  background: rgba(26, 34, 48, 0.82);
 }
 
 .heroImg {
@@ -348,13 +324,6 @@
   .heroReadout {
     grid-template-columns: 1fr;
   }
-  .heroReadout > div {
-    border-right: none;
-    border-bottom: 1px solid var(--line);
-  }
-  .heroReadout > div:last-child {
-    border-bottom: none;
-  }
 }
 
 /* ---------------------------------------------------- section headers */
@@ -377,10 +346,10 @@
   text-shadow: 0 0 12px rgba(37, 224, 200, 0.4);
 }
 
+/* flexible spacer, not a rule: it still throws the section name to the right
+   edge of the grid, but draws no line across the top of every section */
 .sectionRule {
   flex: 1;
-  height: 1px;
-  background: var(--line);
   min-width: 1.5rem;
 }
 
@@ -413,9 +382,9 @@
   gap: clamp(1.25rem, 3vw, 2rem);
 }
 
+/* the card is a flat panel field now — no frame, no internal rules */
 .platformCard {
-  border: 1px solid var(--line);
-  background: rgba(26, 34, 48, 0.35);
+  background: rgba(26, 34, 48, 0.62);
   display: flex;
   flex-direction: column;
 }
@@ -425,8 +394,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.8rem 1.1rem;
-  border-bottom: 1px solid var(--line);
+  padding: 0.9rem 1.1rem;
 }
 
 .platformName {
@@ -440,18 +408,19 @@
   color: var(--indigo);
 }
 
+/* tinted chip rather than an outlined one */
 .platformStatus {
   margin: 0;
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   padding: 0.25rem 0.6rem;
-  border: 1px solid var(--phosphor);
+  background: rgba(37, 224, 200, 0.16);
   color: var(--phosphor);
   white-space: nowrap;
 }
 
 .platformStatus[data-status='FIELD TRIALS'] {
-  border-color: var(--indigo);
+  background: rgba(122, 136, 255, 0.2);
   color: var(--indigo);
 }
 
@@ -459,7 +428,6 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-bottom: 1px solid var(--line);
 }
 
 /* a dark pocket punched through the hilbert field so the hardware silhouette
@@ -521,12 +489,18 @@
   padding-bottom: 0.4rem;
 }
 
+/* no cell rules — a faint alternating field keeps the key/value pairs
+   scannable, and monospace alignment does the rest */
 .specTable th,
 .specTable td {
-  border: 1px solid var(--line);
-  padding: 0.35rem 0.6rem;
+  padding: 0.4rem 0.6rem;
   text-align: left;
   font-weight: 400;
+}
+
+.specTable tbody tr:nth-child(odd) th,
+.specTable tbody tr:nth-child(odd) td {
+  background: rgba(232, 236, 241, 0.045);
 }
 
 .specTable th {
@@ -554,19 +528,18 @@
   padding: 0 clamp(1rem, 3vw, 2rem) clamp(2rem, 5vw, 3.5rem);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  gap: clamp(0.75rem, 1.6vw, 1.1rem);
 }
 
+/* tiles held apart by gutters and a flat panel field, not by a rule grid */
 .researchCell {
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: rgba(26, 34, 48, 0.55);
   padding: 1.4rem 1.3rem 1.6rem;
   transition: background 140ms ease;
 }
 
 .researchCell:hover {
-  background: rgba(37, 224, 200, 0.05);
+  background: rgba(37, 224, 200, 0.12);
 }
 
 .researchCode {
@@ -607,8 +580,6 @@
   position: relative;
   isolation: isolate;
   margin-top: clamp(2rem, 5vw, 3.5rem);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   background: var(--void);
 }
 
@@ -658,17 +629,16 @@
   font-weight: 400;
 }
 
+/* real gutters instead of 1px hairline gaps over a line-coloured field */
 .telemetryGrid {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: clamp(0.6rem, 1.2vw, 0.9rem);
 }
 
 .telemetryStat {
-  background: rgba(11, 14, 20, 0.92);
+  background: rgba(26, 34, 48, 0.88);
   padding: 1.2rem 1rem 1.1rem;
   display: flex;
   flex-direction: column;
@@ -723,9 +693,8 @@
 
 .facilityFigure {
   margin: 0;
-  border: 1px solid var(--line);
   padding: 0.75rem;
-  background: rgba(26, 34, 48, 0.5);
+  background: rgba(26, 34, 48, 0.82);
 }
 
 .facilityImg {
@@ -742,15 +711,14 @@
 
 .facilityList {
   list-style: none;
-  margin: 1.25rem 0 0;
+  margin: 1.5rem 0 0;
   padding: 0;
   font-size: 0.85rem;
-  border-top: 1px solid var(--line);
 }
 
+/* the phosphor "+" marker carries the list; no row rules needed */
 .facilityList li {
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--line);
+  padding: 0.4rem 0;
   color: rgba(232, 236, 241, 0.78);
 }
 
@@ -775,17 +743,13 @@
   counter-reset: pub;
 }
 
+/* separated by rhythm and the indigo year column, not by row rules */
 .pubRow {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 1.25rem;
   align-items: baseline;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--line);
-}
-
-.pubRow:last-child {
-  border-bottom: 1px solid var(--line);
+  padding: 1rem 0;
 }
 
 .pubYear {
@@ -848,13 +812,11 @@
   padding: 0 clamp(1rem, 3vw, 2rem) clamp(2rem, 5vw, 3.5rem);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: clamp(0.75rem, 1.6vw, 1.1rem);
 }
 
 .partnerCell {
-  background: var(--void);
+  background: rgba(26, 34, 48, 0.55);
   padding: 1.3rem 1.2rem;
   display: flex;
   flex-direction: column;
@@ -863,7 +825,7 @@
 }
 
 .partnerCell:hover {
-  background: rgba(122, 136, 255, 0.06);
+  background: rgba(122, 136, 255, 0.16);
 }
 
 .partnerName {
@@ -914,17 +876,25 @@
 
 .rolesTable th,
 .rolesTable td {
-  border: 1px solid var(--line);
   padding: 0.7rem 1rem;
   text-align: left;
   white-space: nowrap;
+}
+
+/* the one place rules are kept: this table is 40rem wide and scrolls
+   horizontally on small screens, so a row rule is what lets you track a
+   single role across four columns. Vertical cell rules and the outer frame
+   are gone; the header is separated by a flat field instead. */
+.rolesTable tbody th,
+.rolesTable tbody td {
+  border-bottom: 1px solid var(--line);
 }
 
 .rolesTable thead th {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   color: var(--muted);
-  background: rgba(26, 34, 48, 0.6);
+  background: rgba(26, 34, 48, 0.85);
 }
 
 .rolesTable tbody th {
@@ -953,7 +923,6 @@
 .footer {
   position: relative;
   isolation: isolate;
-  border-top: 1px solid var(--line);
   background: #070a0f;
 }
 
@@ -1022,8 +991,7 @@
 .footerLog {
   grid-column: 1 / -1;
   margin: 0;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--line);
+  padding-top: 2.25rem;
   font-size: 0.75rem;
   line-height: 2;
   color: var(--muted);
