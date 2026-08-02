@@ -1,0 +1,572 @@
+/* ==========================================================================
+   PASSFORM — bespoke tailoring, Hamburg
+   Built like a pattern sheet: a wide left column of numbered stages, an hours
+   column flush right, and nothing centred anywhere. The fields take
+   `transparent` in the background slot so the linen paper reads through the
+   weave rather than behind it.
+   ========================================================================== */
+
+.page {
+  --linen: #f5f1ea;
+  --ink: #191512;
+  --rust: #c1440e;
+  --grey: #9a9086;
+  --pale: #e5dfd4;
+  --gut: clamp(1.15rem, 4vw, 3.25rem);
+  --max: 78rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.013em;
+  background: var(--linen);
+  color: var(--ink);
+  line-height: 1.54;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--linen) 91%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--rust);
+}
+
+.since {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 10vw, 8rem) var(--gut) clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* stitch at a small cell is a run of basting: it reads as texture in the
+   linen rather than as a pattern laid on it. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6.8vw, 5rem);
+  font-weight: 600;
+  line-height: 1.01;
+  letter-spacing: -0.048em;
+}
+
+.hero h1 span {
+  color: var(--grey);
+}
+
+.lede {
+  margin: clamp(1.5rem, 4vw, 2.3rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(0.96rem, 1.55vw, 1.12rem);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.bleed figcaption,
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.bleed figcaption {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 0 var(--gut);
+}
+
+.pair {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.pair figure:last-child img {
+  aspect-ratio: 4 / 3;
+}
+
+.wide {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+/* ----------------------------------------------------------------- numbers */
+
+.numbers {
+  max-width: var(--max);
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.numbers div {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--rust);
+}
+
+.numbers dt {
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.numbers dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.note {
+  margin: -1.2rem 0 2rem;
+  max-width: 36rem;
+  font-size: 0.87rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* --------------------------------------------------------------------- how */
+
+.how,
+.prices {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stages li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 4rem;
+  gap: clamp(0.8rem, 2.5vw, 2rem);
+  padding: 1.1rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.stages li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.stN {
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  color: var(--rust);
+}
+
+.stages h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.stages p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  max-width: 40rem;
+}
+
+.stHrs {
+  font-size: 0.88rem;
+  text-align: right;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+}
+
+/* -------------------------------------------------------------- weave band
+   damier is a checker: at 64 px on a transparent ground it reads as cloth. */
+
+.weaveBand {
+  position: relative;
+  height: clamp(8rem, 19vw, 14rem);
+  overflow: hidden;
+  background: var(--pale);
+}
+
+.weaveField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.92;
+}
+
+/* ------------------------------------------------------------------- cloth */
+
+.cloth {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.clothField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.36;
+}
+
+.clothField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 68% 58% at 50% 32%,
+    var(--linen) 0%,
+    color-mix(in srgb, var(--linen) 62%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.clothInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.clothList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.clothList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(0.6rem, 2vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.cName {
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.cFrom {
+  font-size: 0.86rem;
+  color: var(--rust);
+}
+
+.cNote {
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ------------------------------------------------------------------ prices */
+
+.priceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 56rem;
+}
+
+.priceList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 9rem minmax(0, 1.6fr);
+  gap: clamp(0.6rem, 2vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.priceList li > :first-child {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.pFrom {
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--rust);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.pNote {
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------------- bench */
+
+.bench {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.benchField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.28;
+  mask-image: linear-gradient(90deg, #000 0%, transparent 32%, transparent 68%, #000 100%);
+}
+
+.benchInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.contact div {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.contact dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 0.4rem;
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.contact a {
+  border-bottom: 2px solid var(--rust);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--linen);
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(1.8rem, 4vw, 3rem);
+}
+
+.footField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.footInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid;
+  gap: 1.4rem;
+}
+
+.footMark {
+  margin: 0;
+  font-size: clamp(2.4rem, 11vw, 7.5rem);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+
+.footFine {
+  margin: 0;
+  max-width: 38rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--linen) 62%, transparent);
+}
+
+.footFine a {
+  color: var(--linen);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .numbers,
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .clothList li,
+  .priceList li {
+    grid-template-columns: minmax(0, 1fr) 8rem;
+    row-gap: 0.2rem;
+  }
+
+  .cNote,
+  .pNote {
+    grid-column: 1 / -1;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .numbers,
+  .contact,
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .pair img,
+  .pair figure:last-child img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .stages li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+
+  .stHrs {
+    grid-column: 2;
+    text-align: left;
+  }
+}

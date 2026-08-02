@@ -2,7 +2,7 @@ import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
   taper, windowpane, epicentre, halftone, staple, maelstrom, caltrop,
-  tailoff, tinting, ring, quire,
+  tailoff, tinting, ring, quire, ribline, stitch, damier, plait, chase,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -57,4 +57,9 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'cobalt-works', name: 'Cobalt Works', topic: 'Dry pigment mill', artworkSlug: 'tinting', artwork: tinting, paletteName: 'Cobalt', palette: ['#F6F4EE', '#14161C', '#0033CC', '#7E8494', '#DEDBD0'], seed: 'dir-co' },
   { slug: 'nullpunkt', name: 'Nullpunkt', topic: 'Calibration laboratory', artworkSlug: 'ring', artwork: ring, paletteName: 'One red, four times', palette: ['#FFFFFF', '#0A0A0A', '#E10600', '#9EA2A6', '#DBDBD9'], seed: 'dir-np' },
   { slug: 'sammlung-weiss', name: 'Sammlung Weiss', topic: 'Private art collection', artworkSlug: 'quire', artwork: quire, paletteName: 'Achromatic bone', palette: ['#EFEDE6', '#111111', '#6E6A60', '#CFCBBF', '#EAE7DD'], seed: 'dir-sw' },
+  { slug: 'frequenz', name: 'Frequenz 94,6', topic: 'Free radio station', artworkSlug: 'ribline', artwork: ribline, paletteName: 'On-air amber', palette: ['#121014', '#F2EFE6', '#FFA200', '#6B6560', '#1D1A20'], seed: 'dir-fq' },
+  { slug: 'fonds-aubert', name: 'Fonds Aubert', topic: 'Private records archive', artworkSlug: 'stitch', artwork: stitch, paletteName: 'Archive olive', palette: ['#F0F0E8', '#1A1C18', '#4C6B2F', '#8C8F84', '#DEDAD4'], seed: 'dir-fa' },
+  { slug: 'passform', name: 'Passform', topic: 'Bespoke tailoring', artworkSlug: 'damier', artwork: damier, paletteName: 'Thread rust', palette: ['#F5F1EA', '#191512', '#C1440E', '#9A9086', '#E5DFD4'], seed: 'dir-pf' },
+  { slug: 'meterware', name: 'Meterware', topic: 'Weaving mill', artworkSlug: 'plait', artwork: plait, paletteName: 'Yarn indigo', palette: ['#EFEBE1', '#14161F', '#2B3FAE', '#8E8A7E', '#DCD7C9'], seed: 'dir-mw' },
+  { slug: 'sichtbeton', name: 'Sichtbeton', topic: 'Fair-faced concrete', artworkSlug: 'chase', artwork: chase, paletteName: 'Safety orange', palette: ['#E9E9E6', '#131313', '#FF5A00', '#8B8B87', '#D3D3CE'], seed: 'dir-sb' },
 ];
