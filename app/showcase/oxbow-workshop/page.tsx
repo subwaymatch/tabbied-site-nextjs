@@ -4,9 +4,9 @@ import { Figure } from 'components/Figure';
 import styles from './oxbow-workshop.module.css';
 
 export const metadata = {
-  title: 'Oxbow Workshop — Catalogue № 7, Spring 2026',
+  title: 'Oxbow Workshop · Catalogue № 7, Spring 2026',
   description:
-    'Oxbow is a furniture workshop in the Hudson Valley. Four pieces in oak, walnut and ash — numbered plates, full materials, honest lead times. Commissions open.',
+    'Oxbow is a furniture workshop in the Hudson Valley. Four pieces in oak, walnut and ash: numbered plates, full materials, honest lead times. Commissions open.',
 };
 
 const BONE = '#F5F1E8';
@@ -106,7 +106,7 @@ const MAKERS = [
     slug: 'oxbow-maker-1',
     alt: 'Portrait of Naomi Alcott in a charcoal work apron',
     name: 'Naomi Alcott',
-    role: 'Founder — chairs, weaving',
+    role: 'Founder · chairs, weaving',
     bio: 'Trained as a boatbuilder; still lofts every chair full-scale on the shop floor. Keeps the cane damp and the jokes dry.',
     plate: 'Fig. iv',
   },
@@ -172,7 +172,7 @@ export default function OxbowWorkshopPage() {
         </div>
         <div className={styles.mastScrim} aria-hidden="true" />
         <div className={styles.mastPlate}>
-          <p className={styles.mastLabel}>Catalogue № 7 — Spring 2026</p>
+          <p className={styles.mastLabel}>Catalogue № 7 · Spring 2026</p>
           <h1 className={styles.mastTitle}>OXBOW</h1>
           <p className={styles.mastSub}>Furniture Workshop · Hudson Valley</p>
           <nav className={styles.mastNav} aria-label="Catalogue contents">
@@ -203,7 +203,7 @@ export default function OxbowWorkshopPage() {
               />
             </div>
             <figcaption className={styles.plateCaption}>
-              Fig. i — The workshop at Millbrook Lane, seven in the morning.
+              Fig. i · The workshop at Millbrook Lane, seven in the morning.
             </figcaption>
           </figure>
           <p className={styles.frontisStatement}>
@@ -263,7 +263,7 @@ export default function OxbowWorkshopPage() {
                   />
                 </div>
                 <p className={styles.plateCaption}>
-                  Plate {plate.no} — photographed against the shop wall,
+                  Plate {plate.no} · photographed against the shop wall,
                   unstyled.
                 </p>
               </div>
@@ -308,7 +308,7 @@ export default function OxbowWorkshopPage() {
                 />
               </div>
               <figcaption className={styles.plateCaption}>
-                Fig. ii — Paring a dovetail shoulder. The last two strokes
+                Fig. ii · Paring a dovetail shoulder. The last two strokes
                 matter most.
               </figcaption>
             </figure>
@@ -320,7 +320,7 @@ export default function OxbowWorkshopPage() {
                 its socket as the seat dries around it.
               </p>
               <p>
-                The mortise and tenon is the oldest agreement in woodwork —
+                The mortise and tenon is the oldest agreement in woodwork:
                 one piece gives way so another can enter, and both are
                 stronger for it. The pattern running through this catalogue is
                 that joint, drawn plainly. We chose it over a photograph of
@@ -329,7 +329,7 @@ export default function OxbowWorkshopPage() {
               <p>
                 Wood moves. A tabletop grows and shrinks a few millimetres
                 every year, forever. Good joinery does not fight this; it
-                leaves room. Buttons, slots, elongated holes — the quiet
+                leaves room. Buttons, slots, elongated holes; the quiet
                 allowances are the craft.
               </p>
             </div>
@@ -369,7 +369,7 @@ export default function OxbowWorkshopPage() {
               />
             </div>
             <figcaption className={styles.plateCaption}>
-              Fig. iii — The showroom, one room over from the bench room.
+              Fig. iii · The showroom, one room over from the bench room.
             </figcaption>
           </figure>
           <div className={styles.workshopCols}>
@@ -402,7 +402,7 @@ export default function OxbowWorkshopPage() {
             </div>
             <div>
               <dt>Showroom</dt>
-              <dd>Sat 10—4, or by note</dd>
+              <dd>Sat 10 to 4, or by note</dd>
             </div>
           </dl>
         </section>
@@ -428,7 +428,7 @@ export default function OxbowWorkshopPage() {
                   </div>
                 </div>
                 <p className={styles.plateCaption}>
-                  {m.plate} — at the bench, one window, no styling.
+                  {m.plate} · at the bench, one window, no styling.
                 </p>
                 <h3 className={styles.makerName}>{m.name}</h3>
                 <p className={styles.makerRole}>{m.role}</p>
@@ -461,7 +461,7 @@ export default function OxbowWorkshopPage() {
             </div>
           </header>
           <p className={styles.commissionsLede}>
-            Half of each year’s bench time is kept for commissioned work —
+            Half of each year’s bench time is kept for commissioned work:
             dining tables, benches, the occasional bed. The process has four
             movements and no surprises.
           </p>
@@ -497,7 +497,7 @@ export default function OxbowWorkshopPage() {
                 Dust with a dry cloth. Wipe spills when you notice them, not
                 urgently. Once a year, a coin-sized pool of the oil we send
                 with each piece, spread thin and buffed after twenty minutes.
-                No silicone polish, ever — it cannot be undone.
+                No silicone polish, ever; it cannot be undone.
               </p>
               <p>
                 Walnut lightens toward honey in sunlight; oak deepens. Neither
@@ -533,13 +533,13 @@ export default function OxbowWorkshopPage() {
           <address className={styles.colophonAddress}>
             6 Millbrook Lane · Hudson Valley, New York
             <br />
-            bench@oxbow.example · Showroom Saturdays 10—4
+            bench@oxbow.example · Showroom Saturdays 10 to 4
           </address>
           <p className={styles.colophonNote}>
             Catalogue № 7, set in Cormorant and Mulish. Photography made in the
             workshop with no styling and one window. Two joints are drawn
-            through the book — “Mortise” on the endpapers and “Halving” on the
-            plates and bands — both with{' '}
+            through the book: “Mortise” on the endpapers and “Halving” on the
+            plates and bands, both with{' '}
             <a
               href="https://tabbied.com"
               target="_blank"
@@ -562,7 +562,7 @@ export default function OxbowWorkshopPage() {
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
-        <p className={styles.colophonFinis}>© 2026 Oxbow Workshop — finis.</p>
+        <p className={styles.colophonFinis}>© 2026 Oxbow Workshop · finis.</p>
       </footer>
     </div>
   );

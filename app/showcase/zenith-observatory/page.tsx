@@ -24,7 +24,7 @@ const SHOWS = [
   {
     time: '18:30',
     name: 'First Light',
-    detail: 'Our gentlest show — how eyes adapt to darkness, and what to look for tonight. Recommended before any viewing night.',
+    detail: 'Our gentlest show: how eyes adapt to darkness, and what to look for tonight. Recommended before any viewing night.',
     dur: '35 MIN · ALL AGES',
   },
   {
@@ -42,7 +42,7 @@ const SHOWS = [
 ];
 
 const TONIGHT = [
-  { obj: 'Saturn', coords: 'RA 23h 04m · DEC −07° 41′', note: 'rings tilted 11° — best after 22:30' },
+  { obj: 'Saturn', coords: 'RA 23h 04m · DEC −07° 41′', note: 'rings tilted 11°, best after 22:30' },
   { obj: 'M31 · Andromeda', coords: 'RA 00h 42m · DEC +41° 16′', note: 'naked-eye from the ridge on clear nights' },
   { obj: 'Albireo', coords: 'RA 19h 30m · DEC +27° 57′', note: 'gold-and-sapphire double star, crowd favourite' },
   { obj: 'Waxing Moon', coords: 'RA 14h 11m · DEC −12° 03′', note: 'terminator craters through the 20 cm refractor' },
@@ -53,7 +53,7 @@ const EXHIBITS = [
     slug: 'zenith-planet-cutout',
     alt: 'Model of a ringed gas giant planet',
     name: 'The Ring Room',
-    copy: 'A four-metre ringed giant you can walk beneath. Stand under the ring plane and watch it thin to a knife-edge — the same trick Saturn plays every fifteen years.',
+    copy: 'A four-metre ringed giant you can walk beneath. Stand under the ring plane and watch it thin to a knife-edge, the same trick Saturn plays every fifteen years.',
   },
   {
     slug: 'zenith-comet-cutout',
@@ -65,7 +65,7 @@ const EXHIBITS = [
     slug: 'zenith-moon-cutout',
     alt: 'Crescent moon model showing crater detail along the terminator',
     name: 'Terminator Line',
-    copy: 'A crescent moon two storeys tall, lit by a slow artificial sun. Watch shadows crawl across crater floors — a lunar day compressed into eight minutes.',
+    copy: 'A crescent moon two storeys tall, lit by a slow artificial sun. Watch shadows crawl across crater floors: a lunar day compressed into eight minutes.',
   },
 ];
 
@@ -155,7 +155,7 @@ export default function ZenithObservatoryPage() {
           </p>
 
           <div className={styles.countdown} role="group" aria-label="Time until the next public viewing night">
-            <p className={styles.countLabel}>NEXT PUBLIC VIEWING NIGHT — SAT 09 AUG · GATES 21:00</p>
+            <p className={styles.countLabel}>NEXT PUBLIC VIEWING NIGHT · SAT 09 AUG · GATES 21:00</p>
             <p className={styles.countDigits}>
               <span>
                 08<em>DAYS</em>
@@ -174,7 +174,7 @@ export default function ZenithObservatoryPage() {
               </span>
             </p>
             <a className={styles.cta} href="#visit">
-              Reserve viewing tickets — $6
+              Reserve viewing tickets · $6
             </a>
           </div>
         </div>
@@ -281,7 +281,7 @@ export default function ZenithObservatoryPage() {
                 Our main instrument is a 0.61-metre Cassegrain, installed in
                 1974 and resurfaced twice since. It has watched two comets
                 arrive unannounced, one supernova in a neighbouring galaxy, and
-                roughly four hundred thousand first looks at Saturn — which
+                roughly four hundred thousand first looks at Saturn, which
                 remain, by unanimous staff vote, the best part of the job.
               </p>
               <dl className={styles.scopeSpecs}>
@@ -323,7 +323,7 @@ export default function ZenithObservatoryPage() {
           />
           <blockquote className={styles.panoQuote}>
             <p>&ldquo;The first time the dome opened, our six-year-old whispered. She whispered the whole drive home.&rdquo;</p>
-            <cite>— Visitor log, 22 June 2025</cite>
+            <cite>Visitor log, 22 June 2025</cite>
           </blockquote>
         </section>
 
@@ -376,7 +376,7 @@ export default function ZenithObservatoryPage() {
                 <h3>FINDING US</h3>
                 <p>
                   9 Cinder Ridge Road, forty minutes past the last streetlight.
-                  Use red headlamp mode on the final path — your eyes will
+                  Use red headlamp mode on the final path; your eyes will
                   thank you within the hour. Dress for ten degrees colder than
                   town.
                 </p>
@@ -434,7 +434,7 @@ export default function ZenithObservatoryPage() {
             </h2>
             <p className={styles.schoolCopy}>
               A Zenith school visit is ninety minutes: one planetarium show,
-              one exhibit hall, and — for autumn and winter bookings — ten
+              one exhibit hall, and, for autumn and winter bookings, ten
               minutes of real telescope time per class. Teachers receive a sky
               chart pack keyed to their term. We have hosted 214 schools;
               the record for longest stunned silence is 74 seconds, set by a
@@ -508,7 +508,7 @@ export default function ZenithObservatoryPage() {
             </div>
           </div>
           <p className={styles.footerFine}>
-            © 2026 Zenith Ridge Astronomical Society — a fictional observatory
+            © 2026 Zenith Ridge Astronomical Society · a fictional observatory
             under a real sky.
             <span className={styles.credit}>
               {' '}

@@ -1,6 +1,6 @@
 import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
-  hilbert, linocut, gutter, cascade, crescendo, perforate, bothways, torsion,
+  hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
   taper,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
@@ -19,7 +19,7 @@ export type NewShowcaseSite = {
 };
 
 /**
- * The second showcase collection: seventeen single-page brand
+ * The second showcase collection: sixteen single-page brand
  * sites under /showcase/<slug>/, each designed around one Tabbied artwork and
  * AI-generated imagery (see docs/image-pipeline.md). Listed on /showcase and
  * /showcases; palettes here mirror each page's own constants.
@@ -35,7 +35,6 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'piquant-provisions', name: 'Piquant Provisions', topic: 'Small-batch hot sauce', artworkSlug: 'karst', artwork: karst, paletteName: 'Scoville', palette: ['#0F1A20', '#F4D35E', '#EE964B', '#F95738', '#EFE6DD', '#4C8FBD'], seed: 'dir-pi' },
   { slug: 'quanta-robotics', name: 'Quanta', topic: 'Robotics laboratory', artworkSlug: 'hilbert', artwork: hilbert, paletteName: 'Phosphor', palette: ['#0B0E14', '#25E0C8', '#4A5568', '#E8ECF1', '#7A88FF', '#1A2230'], seed: 'dir-qu' },
   { slug: 'madrigal-strings', name: 'Madrigal', topic: 'Violin atelier', artworkSlug: 'linocut', artwork: linocut, paletteName: 'Varnish', palette: ['#2D132C', '#801336', '#C72C41', '#EE4540', '#F0C419', '#FFE9C7'], seed: 'dir-md' },
-  { slug: 'plumbline-studio', name: 'Plumbline', topic: 'Architecture practice', artworkSlug: 'gutter', artwork: gutter, paletteName: 'Chalk cobalt', palette: ['#F6F5F1', '#17171A', '#2947F0', '#B9B9BE', '#6E6E74', '#DCDCD8'], seed: 'dir-pl' },
   { slug: 'caldera-rail', name: 'Caldera', topic: 'Scenic railway journeys', artworkSlug: 'cascade', artwork: cascade, paletteName: 'Gouache travel', palette: ['#F0EAD6', '#264653', '#2A9D8F', '#E9C46A', '#F4A261', '#E76F51'], seed: 'dir-cl' },
 
   // Swiss-minimal set: one design language, five grids. Inter throughout.

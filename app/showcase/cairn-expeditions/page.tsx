@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './cairn-expeditions.module.css';
 
 export const metadata = {
-  title: 'Cairn Expeditions — IFMGA Alpine Guiding, Valsorde',
+  title: 'Cairn Expeditions · IFMGA Alpine Guiding, Valsorde',
   description:
     'Small rope teams, honest forecasts, seventeen seasons in the Hautes-Cimes. Guided ascents, traverses and ski expeditions with certified alpine guides.',
 };
@@ -22,11 +22,11 @@ const trips = [
     name: 'Aiguille du Verre',
     route: 'North Ridge, integral',
     grade: 'AD',
-    gradeNote: 'Assez difficile — sustained II/III rock, exposed crest',
+    gradeNote: 'Assez difficile: sustained II/III rock, exposed crest',
     elevation: '3,842',
     days: '4 days',
     ratio: '2:1',
-    season: 'Jun — Sep',
+    season: 'Jun to Sep',
     price: '€1,890',
     slug: 'cairn-summit',
     alt: 'Two climbers moving along a narrow snow ridge toward a rocky summit',
@@ -39,11 +39,11 @@ const trips = [
     name: 'Mont Ferrand Traverse',
     route: 'West Arête to Col des Autans',
     grade: 'PD+',
-    gradeNote: 'Peu difficile — glacier travel, short mixed steps',
+    gradeNote: 'Peu difficile: glacier travel, short mixed steps',
     elevation: '4,067',
     days: '6 days',
     ratio: '2:1',
-    season: 'Jul — Sep',
+    season: 'Jul to Sep',
     price: '€2,650',
     slug: 'cairn-valley',
     alt: 'Yellow expedition tents pitched on a rocky moraine below glaciated peaks',
@@ -56,11 +56,11 @@ const trips = [
     name: 'Vallon Blanc',
     route: 'Ski expedition, three cols',
     grade: 'SKI / AD-',
-    gradeNote: 'Ski alpinism — 35° slopes, crevassed terrain',
+    gradeNote: 'Ski alpinism: 35° slopes, crevassed terrain',
     elevation: '3,560',
     days: '5 days',
     ratio: '2:1',
-    season: 'Mar — May',
+    season: 'Mar to May',
     price: '€2,240',
     slug: 'cairn-night',
     alt: 'A glowing tent under a sky full of stars in a snowy mountain valley',
@@ -74,7 +74,7 @@ const principles = [
   {
     n: '01',
     title: 'Acclimatize like it matters',
-    body: 'Every itinerary carries a spare half-day at altitude. Headaches are data, not weakness — we build schedules that listen to them.',
+    body: 'Every itinerary carries a spare half-day at altitude. Headaches are data, not weakness, so we build schedules that listen to them.',
   },
   {
     n: '02',
@@ -96,7 +96,7 @@ const stats = [
 ];
 
 const gearList = [
-  'B2/B3 boots, worn in — not new',
+  'B2/B3 boots, worn in, not new',
   'Crampons, fitted to the boot you bring',
   'Harness with two 120 cm slings',
   'Headtorch plus spare batteries',
@@ -110,7 +110,7 @@ const gearList = [
 
 const rentals = [
   { slug: 'cairn-axe-cutout', alt: 'Classic mountaineering ice axe with steel head and orange grip', name: 'Ice axe', spec: '58 cm · steel head', price: '€9 / day', tall: true },
-  { slug: 'cairn-boots-cutout', alt: 'Pair of rigid grey and orange mountaineering boots', name: 'B3 boots', spec: 'EU 36 — 48 · fitted', price: '€14 / day', tall: false },
+  { slug: 'cairn-boots-cutout', alt: 'Pair of rigid grey and orange mountaineering boots', name: 'B3 boots', spec: 'EU 36 to 48 · fitted', price: '€14 / day', tall: false },
 ];
 
 const guides = [
@@ -135,7 +135,7 @@ const guides = [
 const credentials = [
   {
     title: 'IFMGA / UIAGM certification',
-    body: 'Every Cairn guide holds the full international mountain guide diploma — the highest qualification the profession has.',
+    body: 'Every Cairn guide holds the full international mountain guide diploma, the highest qualification the profession has.',
   },
   {
     title: 'Wilderness First Responder',
@@ -160,7 +160,7 @@ const bookingSteps = [
   {
     n: 'II',
     title: 'Talk to your guide',
-    body: 'A thirty-minute call — not with an office, with the guide who will hold your rope. We match objectives to conditions.',
+    body: 'A thirty-minute call, not with an office but with the guide who will hold your rope. We match objectives to conditions.',
   },
   {
     n: 'III',
@@ -177,7 +177,7 @@ export default function CairnExpeditionsPage() {
       <link
         rel="stylesheet"
         precedence="default"
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:opsz,wght@14..32,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap"
       />
 
       <header className={styles.topbar}>
@@ -221,7 +221,7 @@ export default function CairnExpeditionsPage() {
             </h1>
             <p className={styles.heroLede}>
               Small rope teams, honest forecasts, and seventeen seasons of knowing when to go up
-              — and when to make tea instead.
+              and when to make tea instead.
             </p>
             <div className={styles.heroActions}>
               <a className={styles.btnPrimary} href="#expeditions">
@@ -256,7 +256,7 @@ export default function CairnExpeditionsPage() {
               Three ways up, this season
             </h2>
             <p className={styles.sectionLede}>
-              Set departures with two clients to a rope. Private dates on request — the mountain
+              Set departures with two clients to a rope. Private dates on request; the mountain
               does not mind which calendar you use.
             </p>
           </header>
@@ -336,7 +336,7 @@ export default function CairnExpeditionsPage() {
                 “Nobody remembers a fast ascent. Everybody remembers feeling looked after at
                 4,000 metres.”
               </p>
-              <cite>— the line we hire guides by</cite>
+              <cite>The line we hire guides by</cite>
             </blockquote>
           </div>
         </section>
@@ -444,7 +444,7 @@ export default function CairnExpeditionsPage() {
             ))}
           </div>
           <p className={styles.guideMore}>
-            Four more guides join the roster in high season — you will meet the one holding
+            Four more guides join the roster in high season, and you will meet the one holding
             your rope on the phone, long before the trailhead.
           </p>
         </section>
@@ -470,7 +470,7 @@ export default function CairnExpeditionsPage() {
             ))}
           </div>
           <p className={styles.safetySmall}>
-            Full rescue and repatriation insurance is required on every trip — we will help you
+            Full rescue and repatriation insurance is required on every trip; we will help you
             arrange it, and we read the fine print so you do not have to. Turn-around decisions
             are final and non-refundable; summits are weather permitting, descents are not.
           </p>
@@ -506,7 +506,7 @@ export default function CairnExpeditionsPage() {
             <div className={styles.enquirePanel}>
               <div>
                 <p className={styles.enquireLead}>
-                  Write with your dates and ambitions —<br /> we answer within two working days.
+                  Write with your dates and ambitions,<br /> we answer within two working days.
                 </p>
                 <a className={styles.btnPrimary} href="mailto:bureau@cairn-expeditions.example">
                   bureau@cairn-expeditions.example
@@ -515,7 +515,7 @@ export default function CairnExpeditionsPage() {
               <dl className={styles.enquireMeta}>
                 <div>
                   <dt>Bureau hours</dt>
-                  <dd>Tue — Sat · 09:00 — 17:00</dd>
+                  <dd>Tue to Sat · 09:00 to 17:00</dd>
                 </div>
                 <div>
                   <dt>Telephone</dt>

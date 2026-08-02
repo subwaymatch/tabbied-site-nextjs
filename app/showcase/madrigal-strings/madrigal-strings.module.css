@@ -137,20 +137,6 @@
   );
 }
 
-/* a calm pocket in the middle of a plate so the cut-out on it reads at once,
-   with the engraving still running to the plate's edges */
-.plateVeil {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 48% 56% at 50% 52%,
-    rgba(45, 19, 44, 0.97) 0%,
-    rgba(45, 19, 44, 0.9) 44%,
-    rgba(45, 19, 44, 0.48) 76%,
-    rgba(45, 19, 44, 0) 100%
-  );
-}
-
 .heroArch {
   position: relative;
   width: min(24rem, 82vw);
@@ -158,7 +144,14 @@
   margin: 0 auto 2.5rem;
   border-radius: 50% 50% 0 0 / 32% 32% 0 0;
   overflow: hidden;
-  background: var(--aubergine);
+  /* No engraving behind the instrument: a plain plate, lit from the crown,
+     so the violin is the only figure in the arch. */
+  background: radial-gradient(
+      ellipse 78% 62% at 50% 26%,
+      rgba(240, 196, 25, 0.13) 0%,
+      rgba(240, 196, 25, 0) 72%
+    ),
+    var(--aubergine);
   border: 1px solid var(--hairline);
   outline: 1px solid var(--hairline);
   outline-offset: 7px;
@@ -360,8 +353,38 @@
 
 /* -------------------------------------------------------- instruments */
 
+/* A section-wide engraving printed faint, the same device as the Visiting
+   spread: the artwork runs edge to edge behind the whole section and a scrim
+   holds it far enough back that the text sits on plain aubergine. */
+.sectionField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--aubergine);
+}
+
+.sectionScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      180deg,
+      rgba(45, 19, 44, 0.97) 0%,
+      rgba(45, 19, 44, 0.86) 14%,
+      rgba(45, 19, 44, 0.86) 86%,
+      rgba(45, 19, 44, 0.97) 100%
+    ),
+    radial-gradient(
+      ellipse 62% 74% at 50% 50%,
+      rgba(45, 19, 44, 0.86) 0%,
+      rgba(45, 19, 44, 0.6) 64%,
+      rgba(45, 19, 44, 0) 100%
+    );
+}
+
 .instruments {
-  padding: 0 1.25rem;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
 }
 
 .instrument {
@@ -381,10 +404,21 @@
   order: 2;
 }
 
+/* The plate is bare: the pattern now runs behind the whole section instead,
+   so nothing competes with the instrument standing on it. The gradient is the
+   plate's own light, not an engraving. */
 .pedestal {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  /* Each plate keeps a trace of its instrument's colour, pulled most of the way
+     back to the page's aubergine so three plates read as one set. */
+  background-color: color-mix(in srgb, var(--plate-tint, var(--wine)) 24%, var(--aubergine));
+  background-image: radial-gradient(
+    ellipse 74% 66% at 50% 44%,
+    rgba(240, 196, 25, 0.12) 0%,
+    rgba(240, 196, 25, 0) 74%
+  );
   border: 1px solid var(--hairline);
   outline: 1px solid var(--hairline);
   outline-offset: 6px;
@@ -510,7 +544,9 @@
 /* ------------------------------------------------------------ varnish */
 
 .varnish {
-  padding: 0 1.25rem;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
 }
 
 .varnishSplit {
@@ -561,7 +597,9 @@
 /* --------------------------------------------------------- commission */
 
 .commission {
-  padding: 0 1.25rem;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
 }
 
 .movements {
@@ -835,8 +873,6 @@
   position: relative;
   height: clamp(5rem, 12vw, 8rem);
   background: var(--aubergine);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
   overflow: hidden;
 }
 

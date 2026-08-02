@@ -9,14 +9,12 @@ import {
 import LazyArtwork from './LazyArtwork';
 import { SHOWCASE_SITES } from 'components/showcase/showcaseData';
 import { NEW_SHOWCASE_SITES } from 'lib/showcaseSites';
-import { MOCKUPS } from 'lib/mockups';
-import { Figure } from 'components/Figure';
 import s from './showcases.module.css';
 
 export const metadata: Metadata = {
-  title: 'Made with Tabbied, 22 Websites and 25 Mockups',
+  title: 'Made with Tabbied, 21 Showcase Websites',
   description:
-    'Twenty-two sample websites built with the TabbiedArtwork React component, plus twenty-five mockups showing the same artworks printed on real objects.',
+    'Twenty-one sample websites using Tabbied generative artworks as design accents, each built with the TabbiedArtwork React component.',
 };
 
 const ART: Record<string, ArtworkDefinition> = {
@@ -68,47 +66,6 @@ function Card({ c }: { c: CardData }) {
         </div>
       </div>
     </a>
-  );
-}
-
-/**
- * A mockup card. Unlike a site card the thumbnail is a photograph rather than a
- * live doodle, because the point is the artwork off the screen and on an object.
- */
-function MockupCard({ m, n }: { m: (typeof MOCKUPS)[number]; n: number }) {
-  const vars = { '--accent': m.palette[1] ?? m.palette[0] } as CSSProperties;
-  return (
-    <figure className={`${s.card} ${s.mockCard}`} style={vars}>
-      {/* The thumbnail is cropped to the grid's ratio, so it links out to the
-          committed full-size WebP for anyone who wants to look properly. */}
-      <a
-        className={s.thumb}
-        href={`/images/mockups/${m.id}.webp`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open the full-size image: ${m.title}`}
-      >
-        <Figure slug={m.id} alt={m.alt} className={s.mockImg} />
-        <span className={s.num}>{String(n).padStart(2, '0')}</span>
-        <span className={s.zoom} aria-hidden="true">
-          Full size
-        </span>
-      </a>
-      <figcaption className={s.cbody}>
-        <div className={s.cmain}>
-          <h3>{m.title}</h3>
-          <p>{m.surface}</p>
-        </div>
-        <div className={s.foot}>
-          <div className={s.sw} aria-hidden="true">
-            {m.palette.map((col, i) => (
-              <span key={i} style={{ background: col }} />
-            ))}
-          </div>
-          <div className={s.pn}>{m.design}</div>
-        </div>
-      </figcaption>
-    </figure>
   );
 }
 
@@ -195,18 +152,18 @@ export default function ShowcasesGallery() {
         <div className={s.heroInner}>
           <div className={s.pre}>Made with Tabbied</div>
           <h1>
-            Twenty-two sites,<br />
+            Twenty-one sites,<br />
             <span>one pattern engine</span>
           </h1>
           <p>
             Every site below uses a <strong>Tabbied</strong> generative artwork as its
             main design accent, themed end to end with a single palette.
-            Same component, twenty-two completely different moods.
+            Same component, twenty-one completely different moods.
           </p>
           <dl className={s.facts}>
-            <div><dt>22</dt><dd>sample sites</dd></div>
-            <div><dt>22</dt><dd>palettes</dd></div>
-            <div><dt>22</dt><dd>artworks</dd></div>
+            <div><dt>21</dt><dd>sample sites</dd></div>
+            <div><dt>21</dt><dd>palettes</dd></div>
+            <div><dt>21</dt><dd>artworks</dd></div>
             <div><dt>1</dt><dd>component</dd></div>
           </dl>
         </div>
@@ -233,26 +190,6 @@ export default function ShowcasesGallery() {
           </div>
         </section>
 
-        <section>
-          <GroupHead
-            kicker="02"
-            title="The same artworks, off the screen"
-            body={
-              <>
-                Each object below is printed with a real Tabbied design: the
-                pattern is rendered from the library, then photographed onto the
-                product. See <code>docs/artwork-mockups.md</code> for how.
-              </>
-            }
-            count={MOCKUPS.length}
-            unit="mockups"
-          />
-          <div className={s.mosaic}>
-            {MOCKUPS.map((m, i) => (
-              <MockupCard key={m.id} m={m} n={i + 1} />
-            ))}
-          </div>
-        </section>
       </div>
 
       <footer className={s.footer}>

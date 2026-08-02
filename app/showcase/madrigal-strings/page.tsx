@@ -1,10 +1,11 @@
+import type { CSSProperties } from 'react';
 import { TabbiedArtwork } from 'tabbied/react';
 import { linocut, lunette } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './madrigal-strings.module.css';
 
 export const metadata = {
-  title: 'Madrigal — Atelier di Liuteria, Casteldoro',
+  title: 'Madrigal · Atelier di Liuteria, Casteldoro',
   description:
     'Violins, bows, and cases made in the old manner since 1968. Two benches, one varnish room, and an adjustment year with every instrument.',
 };
@@ -35,7 +36,7 @@ const INSTRUMENTS: Instrument[] = [
     numeral: 'I',
     name: 'The Violin',
     subtitle: 'Modello Casteldoro, after the old Cremonese proportions',
-    copy: 'Each violin begins as two billets chosen by ear from the attic library, split — never sawn — so the grain runs true. The arching is carved to shadow lines Aurelio drew in 1972, and no two tops are graduated alike: the wood decides, the maker listens.',
+    copy: 'Each violin begins as two billets chosen by ear from the attic library, split, never sawn, so the grain runs true. The arching is carved to shadow lines Aurelio drew in 1972, and no two tops are graduated alike: the wood decides, the maker listens.',
     slug: 'madrigal-violin-cutout',
     alt: 'A finished violin standing upright, its amber varnish catching the light',
     seed: 'md-violin',
@@ -73,7 +74,7 @@ const INSTRUMENTS: Instrument[] = [
     numeral: 'III',
     name: 'The Case',
     subtitle: 'A travelling case built like a small instrument',
-    copy: 'The case is made in the same room as the violins, of poplar laminate bent on the old forms. Garnet velvet, a brass hygrometer, and a compartment sized to a rosin cake and a letter — because every instrument that leaves us is expected to write home.',
+    copy: 'The case is made in the same room as the violins, of poplar laminate bent on the old forms. Garnet velvet, a brass hygrometer, and a compartment sized to a rosin cake and a letter, because every instrument that leaves us is expected to write home.',
     slug: 'madrigal-case-cutout',
     alt: 'An open violin case lined with deep red velvet',
     seed: 'md-case',
@@ -129,7 +130,7 @@ const MOVEMENTS = [
     numeral: 'II',
     title: 'Il Legno',
     tempo: 'con cura',
-    copy: 'Wood is chosen from the attic library — tap tones struck, grain read, a billet set aside under your name. Players who visit choose between two or three matched sets. Most close their eyes to decide. This is correct.',
+    copy: 'Wood is chosen from the attic library: tap tones struck, grain read, a billet set aside under your name. Players who visit choose between two or three matched sets. Most close their eyes to decide. This is correct.',
   },
   {
     numeral: 'III',
@@ -209,14 +210,6 @@ export default function MadrigalStringsPage() {
             <div className={styles.heroFieldScrim} aria-hidden="true" />
           </div>
           <div className={styles.heroArch}>
-            <TabbiedArtwork
-              artwork={linocut}
-              palette={[AUBERGINE, WINE, CARMINE, GOLD, PARCHMENT]}
-              seed="md-hero"
-              fit="cover"
-              style={{ position: 'absolute', inset: 0 }}
-            />
-            <span className={styles.plateVeil} aria-hidden="true" />
             <Figure
               slug="madrigal-violin-cutout"
               cutout
@@ -232,7 +225,7 @@ export default function MadrigalStringsPage() {
             <p className={styles.heroLede}>
               Two benches, one varnish room, and fifty-eight years of morning
               light. The Madrigal workshop builds violins, bows, and cases for
-              players who intend to keep them for life — and then leave them to
+              players who intend to keep them for life, and then leave them to
               someone who will.
             </p>
             <p className={styles.heroNote}>
@@ -274,7 +267,7 @@ export default function MadrigalStringsPage() {
               className={styles.framedImg}
             />
             <figcaption className={styles.caption}>
-              The north wall — instruments in the white, waiting on the varnish
+              The north wall, instruments in the white, waiting on the varnish
               room.
             </figcaption>
           </figure>
@@ -292,6 +285,17 @@ export default function MadrigalStringsPage() {
 
         {/* -------------------------------------------------- INSTRUMENTS */}
         <section className={styles.instruments} aria-labelledby="instruments">
+          <div className={styles.sectionField}>
+            <TabbiedArtwork
+              artwork={linocut}
+              palette={[AUBERGINE, WINE, CARMINE, GOLD]}
+              seed="md-instruments-field"
+              fit="grid"
+              cellSize={72}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.sectionScrim} aria-hidden="true" />
+          </div>
           <h2 className={styles.sectionTitle} id="instruments">
             The Instruments
           </h2>
@@ -305,17 +309,8 @@ export default function MadrigalStringsPage() {
             <article key={inst.name} className={styles.instrument}>
               <div
                 className={`${styles.pedestal} ${inst.wide ? styles.pedestalWide : ''}`}
-                style={{ backgroundColor: inst.palette[0] }}
+                style={{ '--plate-tint': inst.palette[0] } as CSSProperties}
               >
-                <TabbiedArtwork
-                  artwork={linocut}
-                  palette={inst.palette}
-                  seed={inst.seed}
-                  fit="grid"
-                  cellSize={34}
-                  style={{ position: 'absolute', inset: 0, opacity: 0.7 }}
-                />
-                <span className={styles.plateVeil} aria-hidden="true" />
                 <Figure
                   slug={inst.slug}
                   cutout
@@ -351,6 +346,17 @@ export default function MadrigalStringsPage() {
 
         {/* ------------------------------------------------------ VARNISH */}
         <section className={styles.varnish} aria-labelledby="varnish">
+          <div className={styles.sectionField}>
+            <TabbiedArtwork
+              artwork={lunette}
+              palette={[AUBERGINE, GOLD, WINE, CARMINE]}
+              seed="md-varnish-field"
+              fit="grid"
+              cellSize={94}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.sectionScrim} aria-hidden="true" />
+          </div>
           <h2 className={styles.sectionTitle} id="varnish">
             The Varnish Room
           </h2>
@@ -374,7 +380,7 @@ export default function MadrigalStringsPage() {
                 thumbprint and give it back.
               </p>
               <p className={styles.prose}>
-                Colour is the wood&rsquo;s decision. We only escort it — a
+                Colour is the wood&rsquo;s decision. We only escort it: a
                 golden ground, then reds laid over like late light on brick.
                 Asked to match a photograph, we decline politely and pour the
                 visitor more coffee.
@@ -384,7 +390,7 @@ export default function MadrigalStringsPage() {
                   &ldquo;Varnish is the part of the violin that keeps arriving
                   after the maker has stopped.&rdquo;
                 </p>
-                <cite>— Aurelio Madrigal, ledger margin, 1989</cite>
+                <cite>Aurelio Madrigal, ledger margin, 1989</cite>
               </blockquote>
             </div>
           </div>
@@ -394,6 +400,17 @@ export default function MadrigalStringsPage() {
 
         {/* --------------------------------------------------- COMMISSION */}
         <section className={styles.commission} aria-labelledby="commission">
+          <div className={styles.sectionField}>
+            <TabbiedArtwork
+              artwork={linocut}
+              palette={[AUBERGINE, CARMINE, GOLD, WINE]}
+              seed="md-commission-field"
+              fit="grid"
+              cellSize={58}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+            <div className={styles.sectionScrim} aria-hidden="true" />
+          </div>
           <h2 className={styles.sectionTitle} id="commission">
             A Commission, in Four Movements
           </h2>
@@ -448,7 +465,7 @@ export default function MadrigalStringsPage() {
             <p className={styles.prose}>
               Ottavio has kept the front bench since 1994 and the glue pot
               since 1979. He trained under his father and, by his own account,
-              under every instrument that came in for repair — &ldquo;the
+              under every instrument that came in for repair: &ldquo;the
               broken ones are the honest teachers.&rdquo; His violins carry the
               house model forward with a slightly fuller lower bout and a
               varnish he will discuss only in the past tense.

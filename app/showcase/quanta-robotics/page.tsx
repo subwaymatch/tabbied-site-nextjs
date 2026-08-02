@@ -1,10 +1,13 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { circuit, hilbert } from 'tabbied/artworks';
+import type { ArtworkDefinition } from 'tabbied';
+import {
+  circuit, hilbert, gimbal, switchback, dotmatrix, metro, isometry, rungs,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import styles from './quanta-robotics.module.css';
 
 export const metadata = {
-  title: 'Quanta Robotics Laboratory — Machines That Learn by Touching',
+  title: 'Quanta Robotics Laboratory · Machines That Learn by Touching',
   description:
     'An independent robotics laboratory in New Arden. Manipulation, locomotion, and fleet learning research on hardware we build ourselves. Status: SYS.OK.',
 };
@@ -108,36 +111,89 @@ const PLATFORMS: Platform[] = [
   },
 ];
 
-const RESEARCH = [
+/**
+ * Six research areas, six spreads. Each carries its own generated plate and its
+ * own artwork, so the six panels never repeat a pattern; the palettes all come
+ * out of the same six site colours, which is what keeps the run coherent.
+ */
+type ResearchArea = {
+  code: string;
+  name: string;
+  copy: string;
+  slug: string;
+  alt: string;
+  art: ArtworkDefinition;
+  seed: string;
+  palette: string[];
+  cell: number;
+};
+
+const RESEARCH: ResearchArea[] = [
   {
     code: 'RA-01',
     name: 'Manipulation',
     copy: 'Grasping things that were not designed to be grasped. Deformables, transparents, the lab mug with the broken handle.',
+    slug: 'quanta-ra-manipulation',
+    alt: 'A robot gripper closing on a folded cloth beside a glass beaker and a chipped mug',
+    art: gimbal,
+    seed: 'qx-ra-01',
+    palette: [PANEL, PHOSPHOR, SLATE, VOID],
+    cell: 78,
   },
   {
     code: 'RA-02',
     name: 'Locomotion',
     copy: 'Wheels where wheels work, legs where they do not. Recovery behaviors trained on 40,000 simulated falls and eleven real ones.',
+    slug: 'quanta-ra-locomotion',
+    alt: 'A four-legged robot mid-stride across a ramp of test blocks, a wheeled unit parked behind it',
+    art: switchback,
+    seed: 'qx-ra-02',
+    palette: [PANEL, INDIGO, PHOSPHOR, VOID],
+    cell: 66,
   },
   {
     code: 'RA-03',
     name: 'Perception & SLAM',
     copy: 'Maps that survive moved furniture. Long-horizon localization without GPS, beacons, or wishful thinking.',
+    slug: 'quanta-ra-perception',
+    alt: 'A rover with a spinning lidar head scanning a room drawn as a floating point cloud',
+    art: dotmatrix,
+    seed: 'qx-ra-03',
+    palette: [PANEL, PHOSPHOR, INDIGO, SLATE],
+    cell: 44,
   },
   {
     code: 'RA-04',
     name: 'Fleet learning',
     copy: 'Every robot’s worst moment becomes every robot’s training data. Nightly consolidation across the whole fleet.',
+    slug: 'quanta-ra-fleet',
+    alt: 'A row of small robots in charging docks, light traces converging into a server cabinet',
+    art: metro,
+    seed: 'qx-ra-04',
+    palette: [PANEL, PHOSPHOR, INDIGO, PAPER],
+    cell: 88,
   },
   {
     code: 'RA-05',
     name: 'Sim-to-real',
     copy: 'Closing the gap between the physics engine and the physics. Domain randomization with a grudge.',
+    slug: 'quanta-ra-simreal',
+    alt: 'The same robot arm twice, once as a simulation wireframe and once as a machine on a bench',
+    art: isometry,
+    seed: 'qx-ra-05',
+    palette: [PANEL, SLATE, PHOSPHOR, INDIGO],
+    cell: 56,
   },
   {
     code: 'RA-06',
     name: 'Human-robot safety',
     copy: 'Force limits, intent signaling, and the hard problem of standing politely in a corridor. Certified before clever.',
+    slug: 'quanta-ra-safety',
+    alt: 'A robot arm slowing as a human hand enters its work cell, a glowing boundary on the floor',
+    art: rungs,
+    seed: 'qx-ra-06',
+    palette: [PANEL, INDIGO, PHOSPHOR, SLATE],
+    cell: 62,
   },
 ];
 
@@ -309,7 +365,7 @@ export default function QuantaRoboticsPage() {
                 className={styles.heroImg}
               />
               <figcaption className={styles.heroCaption}>
-                FIG.0 — LAB FLOOR, BUILDING 4 / 06:10 PERIMETER FLIGHT IN PROGRESS
+                FIG.0 / LAB FLOOR, BUILDING 4 / 06:10 PERIMETER FLIGHT IN PROGRESS
               </figcaption>
             </figure>
           </div>
@@ -373,12 +429,28 @@ export default function QuantaRoboticsPage() {
         {/* --------------------------------------------------- RESEARCH */}
         <section className={styles.research} aria-labelledby="research">
           <SectionHeader index="02" name="RESEARCH AREAS" id="research" />
-          <ul className={styles.researchGrid}>
+          <ul className={styles.researchList}>
             {RESEARCH.map((r) => (
-              <li key={r.code} className={styles.researchCell}>
-                <p className={styles.researchCode}>{r.code}</p>
-                <h3 className={styles.researchName}>{r.name}</h3>
-                <p className={styles.researchCopy}>{r.copy}</p>
+              <li key={r.code} className={styles.researchRow}>
+                <div className={styles.researchShot}>
+                  <Figure slug={r.slug} alt={r.alt} />
+                </div>
+                <div className={styles.researchPanel}>
+                  <TabbiedArtwork
+                    artwork={r.art}
+                    palette={r.palette}
+                    seed={r.seed}
+                    fit="grid"
+                    cellSize={r.cell}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                  <div className={styles.researchScrim} aria-hidden="true" />
+                  <div className={styles.researchText}>
+                    <p className={styles.researchCode}>{r.code}</p>
+                    <h3 className={styles.researchName}>{r.name}</h3>
+                    <p className={styles.researchCopy}>{r.copy}</p>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
@@ -426,7 +498,7 @@ export default function QuantaRoboticsPage() {
                 className={styles.facilityImg}
               />
               <figcaption className={styles.heroCaption}>
-                FIG.3 — ASSEMBLY LINE, EAST BAY. BATCH 7 OF VECTOR REV D.
+                FIG.3 / ASSEMBLY LINE, EAST BAY. BATCH 7 OF VECTOR REV D.
               </figcaption>
             </figure>
             <div className={styles.facilityCopy}>
@@ -571,7 +643,7 @@ export default function QuantaRoboticsPage() {
             </div>
           </dl>
           <p className={styles.footerLog}>
-            &gt; session.end — © 2026 Quanta Robotics Laboratory. Fictional
+            &gt; session.end · © 2026 Quanta Robotics Laboratory. Fictional
             lab; real affection for robots.
             <br />
             &gt; pattern.src ={' '}

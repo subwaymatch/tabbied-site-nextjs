@@ -135,19 +135,6 @@
         "Parchment": { "hex": "#FFE9C7", "as": "spruce tops and aged paper" }
       }
     },
-"plumbline-studio": {
-      "title": "Plumbline — architecture practice",
-      "style": "editorial architectural photograph",
-      "paletteMode": "scene",
-      "palette": {
-        "Chalk": { "hex": "#F6F5F1", "as": "rendered walls and pale concrete" },
-        "Ink": { "hex": "#17171A", "as": "steel frames and shadow gaps" },
-        "Cobalt": { "hex": "#2947F0", "as": "one saturated accent on doors and panels" },
-        "Fog": { "hex": "#B9B9BE", "as": "raw concrete" },
-        "Graphite": { "hex": "#6E6E74", "as": "zinc cladding" },
-        "Putty": { "hex": "#DCDCD8", "as": "limestone and light timber" }
-      }
-    },
 "caldera-rail": {
       "title": "Caldera — scenic railway journeys",
       "style": "gouache travel illustration",
@@ -337,6 +324,10 @@
       "size": "1024x1024",
       "backdrop": "The machine sits alone, centred on a plain flat pale background with nothing else in frame."
     },
+    "quanta-research": {
+      "size": "1024x1024",
+      "backdrop": "One vignette on a very dark near-black lab floor, lit by cool teal instrument light, drawn small and precise with generous empty space around it."
+    },
     "madrigal-instruments": {
       "style": "product photograph",
       "cutout": true,
@@ -346,18 +337,6 @@
         "Burgundy": { "hex": "#801336", "as": "varnish depths and fittings" },
         "Gold": { "hex": "#F0C419", "as": "brass details and highlights" },
         "Parchment": { "hex": "#FFE9C7", "as": "the pale spruce top" }
-      }
-    },
-"plumbline-principals": {
-      "style": "portrait photograph",
-      "size": "1024x1536",
-      "cutout": false,
-      "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a composed, quietly confident expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
-      "backdrop": "Plain chalk-grey studio wall, lit flat and evenly with only the faintest falloff, no props in frame.",
-      "palette": {
-        "Ink": { "hex": "#17171A", "as": "dark tailored clothing and hair" },
-        "Chalk": { "hex": "#F6F5F1", "as": "shirts and bright highlights" },
-        "Cobalt": { "hex": "#2947F0", "as": "one small accent in the clothing" }
       }
     },
 "caldera-props": {
@@ -596,6 +575,18 @@
       "subject": "a four-wheeled research rover with a sensor mast and stubby antenna" },
     { "id": "quanta-drone", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
       "subject": "a quadcopter drone with guarded rotors, hovering slightly tilted" },
+    { "id": "quanta-ra-manipulation", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "a robot gripper closing gently on a folded cloth on a workbench, beside a glass beaker and a chipped mug waiting their turn" },
+    { "id": "quanta-ra-locomotion", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "a four-legged robot mid-stride across a broken ramp of test blocks, one leg raised, a wheeled unit parked on the flat behind it" },
+    { "id": "quanta-ra-perception", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "a rover with a spinning lidar head sweeping a room, the walls and furniture around it drawn as a floating wireframe point cloud" },
+    { "id": "quanta-ra-fleet", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "a row of identical small robots resting in charging docks, thin light traces rising from each and converging into a single server cabinet" },
+    { "id": "quanta-ra-simreal", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "the same robot arm twice side by side, one as a wireframe on a simulation grid and one as a solid machine on a bench, a seam down the middle" },
+    { "id": "quanta-ra-safety", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
+      "subject": "a robot arm slowing to a stop as a human hand enters its work cell, a soft glowing safety boundary drawn on the floor around it" },
     { "id": "quanta-server", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform", "size": "1024x1536",
       "subject": "a tall server rack with rows of blinking teal status lights and neat cable runs" },
 
@@ -617,24 +608,6 @@
       "note": "Head-and-shoulders portrait, subject facing the camera with a calm, focused expression, soft key light from camera left, natural skin texture, 85mm lens look.",
       "backdrop": "Plain warm dark-aubergine studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
       "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt" },
-
-{ "id": "plumbline-hero", "project": "plumbline-studio", "slot": "hero",
-      "subject": "a low concrete-and-glass house at dusk, interior light glowing through full-height glazing, a still reflecting pool in front" },
-    { "id": "plumbline-pavilion", "project": "plumbline-studio", "slot": "work",
-      "subject": "a timber pavilion with a deep cantilevered roof in a meadow, seen straight on in even light" },
-    { "id": "plumbline-library", "project": "plumbline-studio", "slot": "work",
-      "subject": "a brick community library with a sawtooth roof and one cobalt-blue entrance door, three-quarter view" },
-    { "id": "plumbline-stair", "project": "plumbline-studio", "slot": "work", "size": "1024x1024",
-      "subject": "a sculptural concrete spiral stair seen from below, daylight falling through a roof light" },
-    { "id": "plumbline-courtyard", "project": "plumbline-studio", "slot": "work", "size": "1024x1024",
-      "subject": "an internal courtyard with a single tree, limestone pavers and deep window reveals" },
-    { "id": "plumbline-model", "project": "plumbline-studio", "slot": "process", "size": "1024x1024", "cutout": true, "style": "product photograph",
-      "backdrop": "The model stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "subject": "a pale architectural massing model of a stepped building, made of layered card and basswood" },
-    { "id": "plumbline-principal-1", "project": "plumbline-studio", "set": "plumbline-principals", "slot": "about",
-      "subject": "a Korean woman in her forties with a sharp black bob, wearing a collarless ink-black jacket" },
-    { "id": "plumbline-principal-2", "project": "plumbline-studio", "set": "plumbline-principals", "slot": "about",
-      "subject": "a tall man in his fifties with cropped grey hair and rectangular glasses, wearing a chalk-white shirt buttoned to the neck" },
 
 { "id": "caldera-hero", "project": "caldera-rail", "slot": "hero",
       "subject": "a teal-and-cream train crossing a tall stone viaduct over a river canyon, steam trailing, late golden light on the cliffs" },

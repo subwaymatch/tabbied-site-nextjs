@@ -95,6 +95,9 @@ export default function ShowcaseSite({ site, artworks }: Props) {
     '--onC1': onColor(c1),
     '--card': dark ? mix(bg, '#ffffff', 0.07) : mix(bg, '#ffffff', 0.6),
     '--soft': dark ? mix(bg, '#ffffff', 0.04) : mix(bg, '#ffffff', 0.45),
+    // A flat-section site drops the alternating band tone entirely: every
+    // section sits on the page colour, and rhythm comes from spacing alone.
+    ...(site.flatSections ? { '--band': bg } : {}),
     '--display': site.fonts.display,
     '--body': site.fonts.body,
     ...(site.tracking ? { '--tracking': site.tracking } : {}),

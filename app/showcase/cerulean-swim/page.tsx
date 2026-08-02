@@ -4,9 +4,9 @@ import { Figure } from 'components/Figure';
 import styles from './cerulean-swim.module.css';
 
 export const metadata = {
-  title: 'Cerulean — Swimwear for the Long Swim',
+  title: 'Cerulean · Swimwear for the Long Swim',
   description:
-    'Cerulean is a small swimwear label on the Ligurian coast. Regenerated-nylon suits cut for salt and sewn for sun — Collection № 04, Meltemi, is in the water now.',
+    'Cerulean is a small swimwear label on the Ligurian coast. Regenerated-nylon suits cut for salt and sewn for sun. Collection № 04, Meltemi, is in the water now.',
 };
 
 const FOAM = '#F2FBFC';
@@ -21,35 +21,35 @@ const LOOKS = [
     kind: 'photo' as const,
     slug: 'cerulean-beach',
     alt: 'Rows of striped parasols leaning over pale sand at midday',
-    caption: 'Look 01 — parasol lines, Spiaggia di Levante',
+    caption: 'Look 01 · parasol lines, Spiaggia di Levante',
     wide: true,
   },
   {
     kind: 'pattern' as const,
     seed: 'cs-look-a',
     palette: [FOAM, TEAL, AQUA, DEEP],
-    caption: 'Print — “Shorebreak”, four inks',
+    caption: 'Print · “Shorebreak”, four inks',
     wide: false,
   },
   {
     kind: 'photo' as const,
     slug: 'cerulean-dive',
     alt: 'A swimmer gliding underwater through blue light, trailing a ribbon of bubbles',
-    caption: 'Look 02 — the quiet under the surface',
+    caption: 'Look 02 · the quiet under the surface',
     wide: false,
   },
   {
     kind: 'photo' as const,
     slug: 'cerulean-pool',
     alt: 'A sunlit pool corner with a chrome ladder and rippling tiles',
-    caption: 'Look 03 — hotel pool, seven a.m.',
+    caption: 'Look 03 · hotel pool, seven a.m.',
     wide: false,
   },
   {
     kind: 'pattern' as const,
     seed: 'cs-look-b',
     palette: [AQUA, DEEP, TEAL, CORAL],
-    caption: 'Print — “Undertow”, coral thread',
+    caption: 'Print · “Undertow”, coral thread',
     wide: false,
   },
 ];
@@ -98,14 +98,14 @@ const FABRIC_FACTS = [
   { label: 'Elastane', value: '22%' },
   { label: 'Sun protection', value: 'UPF 50+' },
   { label: 'Chlorine tested', value: '240 hrs' },
-  { label: 'Sizes', value: 'XS — 3XL' },
+  { label: 'Sizes', value: 'XS to 3XL' },
   { label: 'Cuts', value: 'Low tide / High tide' },
 ];
 
 const CARE_STEPS = [
   {
     title: 'Rinse before you rest',
-    body: 'Fresh, cool water within the hour — salt and chlorine keep working long after you stop swimming.',
+    body: 'Fresh, cool water within the hour: salt and chlorine keep working long after you stop swimming.',
   },
   {
     title: 'Hands, not machines',
@@ -117,7 +117,7 @@ const CARE_STEPS = [
   },
   {
     title: 'Mind the rough edges',
-    body: 'Pool copings, pier ladders, velcro straps — snags love a fine knit. Sit on the towel; that is what it is for.',
+    body: 'Pool copings, pier ladders, velcro straps: snags love a fine knit. Sit on the towel; that is what it is for.',
   },
   {
     title: 'Let it rest a day',
@@ -180,15 +180,15 @@ export default function CeruleanSwimPage() {
           </div>
           <div className={styles.heroScrim} aria-hidden="true" />
           <div className={styles.heroInner}>
-            <p className={styles.eyebrow}>Collection № 04 — Meltemi</p>
+            <p className={styles.eyebrow}>Collection № 04 · Meltemi</p>
             <h1 id="hero-title" className={styles.heroTitle}>
               Cut for salt.
               <br />
               <em>Sewn for sun.</em>
             </h1>
             <p className={styles.heroLede}>
-              Swimwear made slowly on the Ligurian coast from regenerated nylon
-              — built to outlast summers, tides, and the hotel pool you were not
+              Swimwear made slowly on the Ligurian coast from regenerated nylon,
+              built to outlast summers, tides, and the hotel pool you were not
               strictly a guest of.
             </p>
             <div className={styles.heroFrame}>
@@ -324,10 +324,10 @@ export default function CeruleanSwimPage() {
                 nylon spun from recovered fishing nets and carpet offcuts. It
                 arrives on our cutting tables in Sestri as a dense, matte knit
                 that holds its colour through two hundred and forty hours of
-                chlorine testing — roughly three summers of daily lengths.
+                chlorine testing, roughly three summers of daily lengths.
               </p>
               <p className={styles.fabricBody}>
-                We cut two ways. <strong>Low tide</strong> sits lighter — higher
+                We cut two ways. <strong>Low tide</strong> sits lighter: higher
                 leg, open back, for floating and warm bays.{' '}
                 <strong>High tide</strong> is our training cut: locked seams,
                 full back, straps that stay crossed at the flip turn. Both are
@@ -406,7 +406,7 @@ export default function CeruleanSwimPage() {
             <p className={styles.clubLede}>
               One letter a month: sea temperatures we trust, a swim worth
               travelling for, and first call on new editions. No sales voice,
-              ever — we are usually in the water by eight.
+              ever; we are usually in the water by eight.
             </p>
             <form className={styles.clubForm} aria-label="Join the Water Club">
               <label className={styles.clubLabel} htmlFor="club-email">
@@ -506,7 +506,7 @@ export default function CeruleanSwimPage() {
             </div>
           </div>
           <div className={styles.footerBase}>
-            <p>© 2026 Cerulean Swim S.r.l. — sewn by six people and the sea.</p>
+            <p>© 2026 Cerulean Swim S.r.l. · sewn by six people and the sea.</p>
             <p className={styles.tabbiedCredit}>
               “Wavelet” and “Tidering” patterns by{' '}
               <a

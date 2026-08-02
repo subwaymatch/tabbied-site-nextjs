@@ -44,6 +44,11 @@ export type ShowcaseSite = {
    * ShowcaseSite.module.css (and inherited by the rest). Negative tightens.
    */
   tracking?: string;
+  /**
+   * Lay every section on the page's own background instead of alternating tone
+   * bands, so the site reads as one continuous field.
+   */
+  flatSections?: boolean;
   favicon: string;
   nav: string[];
   eyebrow: string;
@@ -75,6 +80,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
   // 11, Solstice · wellness / yoga retreat · Sunset · lobe
   {
     slug: 'solstice',
+    flatSections: true,
     brand: 'Solstice',
     topic: 'Yoga & wellness retreat',
     artwork: 'lobe',
@@ -84,9 +90,9 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     colors: ['#2b1d3a', '#ff6b6b', '#ffd23e', '#ff3d8b', '#7048e8'],
     layout: 'split',
     fonts: {
-      href: gf('family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500'),
+      href: gf('family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:opsz,wght@14..32,300..700'),
       display: "'Fraunces', Georgia, serif",
-      body: "'Jost', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
     },
     favicon: '🌅',
     nav: ['Retreats', 'Classes', 'Teachers', 'Journal'],
@@ -117,6 +123,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
 // 15, Ember & Oak · wood-fire restaurant · Ember · windowpane
   {
     slug: 'ember-and-oak',
+    flatSections: true,
     brand: 'Ember & Oak',
     topic: 'Wood-fire restaurant',
     artwork: 'windowpane',
@@ -126,9 +133,9 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     colors: ['#1a0f0a', '#e0511f', '#ff9f1c', '#ffe8c7'],
     layout: 'boutique',
     fonts: {
-      href: gf('family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500'),
+      href: gf('family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:opsz,wght@14..32,300..700'),
       display: "'Cormorant Garamond', Georgia, serif",
-      body: "'Jost', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
     },
     favicon: '🔥',
     nav: ['Menu', 'Reservations', 'Private Dining', 'About'],
@@ -154,6 +161,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
 // 19, Facet · fine jewelry · Jewel · prisma
   {
     slug: 'facet',
+    flatSections: true,
     brand: 'Facet',
     topic: 'Fine jewelry brand',
     artwork: 'prisma',
@@ -163,9 +171,9 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     colors: ['#0b1021', '#5b2a86', '#2176ae', '#57b8ff', '#fbb13c'],
     layout: 'boutique',
     fonts: {
-      href: gf('family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500'),
+      href: gf('family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:opsz,wght@14..32,300..700'),
       display: "'Cormorant Garamond', Georgia, serif",
-      body: "'Jost', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
     },
     favicon: '💎',
     nav: ['Collections', 'Bespoke', 'Our Stones', 'Appointments'],
@@ -198,9 +206,9 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     colors: ['#f4faf0', '#2d6a4f', '#95d5b2', '#1b4332'],
     layout: 'split',
     fonts: {
-      href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:opsz,wght@14..32,300..700&display=swap',
       display: "'DM Serif Display', Georgia, serif",
-      body: "'DM Sans', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
     },
     favicon: '🌿',
     nav: ['Shop', 'Care Guides', 'Gifts', 'Studio'],
@@ -224,6 +232,7 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
 
 {
     slug: 'nocturne',
+    flatSections: true,
     brand: 'Nocturne',
     topic: 'Fragrance for the small hours',
     artwork: 'veil',
@@ -233,9 +242,9 @@ export const SHOWCASE_SITES: ShowcaseSite[] = [
     colors: ['#12071f', '#5a189a', '#9d4edd', '#e0aaff'],
     layout: 'boutique',
     fonts: {
-      href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:opsz,wght@14..32,300..700&display=swap',
       display: "'Cormorant Garamond', Georgia, serif",
-      body: "'Jost', system-ui, sans-serif",
+      body: "'Inter', system-ui, sans-serif",
     },
     favicon: '🌙',
     nav: ['Collection', 'The House', 'Discovery Set'],

@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './piquant-provisions.module.css';
 
 export const metadata = {
-  title: 'Piquant Provisions — Small-Batch Hot Sauce',
+  title: 'Piquant Provisions · Small-Batch Hot Sauce',
   description:
     'Fermented, wax-sealed, occasionally unreasonable. Small-batch hot sauce made the slow way in Port Alsey. Three sauces, one waiver.',
 };
@@ -117,7 +117,7 @@ const PROCESS = [
   {
     step: '02',
     title: 'The ferment',
-    copy: 'Three weeks minimum in salt brine, in crocks older than the business. Fermentation does the heavy lifting — depth, funk, the tang that vinegar-only sauces fake.',
+    copy: 'Three weeks minimum in salt brine, in crocks older than the business. Fermentation does the heavy lifting: depth, funk, the tang that vinegar-only sauces fake.',
   },
   {
     step: '03',
@@ -165,7 +165,7 @@ function HeatMeter({ level, label }: { level: number; label: string }) {
     <span
       className={styles.heatMeter}
       role="img"
-      aria-label={`Heat level ${level} of 5 — ${label}`}
+      aria-label={`Heat level ${level} of 5, ${label}`}
     >
       {Array.from({ length: 5 }, (_, i) => (
         <span
@@ -232,7 +232,7 @@ export default function PiquantProvisionsPage() {
               </h1>
               <p className={styles.heroSub}>
                 Fermented three weeks, bottled by hand, sealed in wax. Three
-                sauces, five heat levels, zero apologies — well, one apology,
+                sauces, five heat levels, zero apologies. Well, one apology,
                 but that was about Batch № 03 and we have all agreed to move on.
               </p>
               <div className={styles.heroActions}>
@@ -264,7 +264,7 @@ export default function PiquantProvisionsPage() {
         </section>
 
         <p className={styles.statusStrip}>
-          Batch № 7 bottled Thursday &mdash; 212 cases &mdash; gone by Sunday,
+          Batch № 7 bottled Thursday · 212 cases · gone by Sunday,
           historically speaking
         </p>
 
@@ -565,7 +565,7 @@ export default function PiquantProvisionsPage() {
             <a href="#wholesale">Wholesale</a>
           </nav>
           <p className={styles.footerFine}>
-            &copy; 2026 Piquant Provisions. A fictional brand, sadly &mdash;
+            &copy; 2026 Piquant Provisions. A fictional brand, sadly;
             the tacos were real.{' '}
             <span className={styles.credit}>
               Patterns by{' '}

@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './hopscotch-museum.module.css';
 
 export const metadata = {
-  title: 'Hopscotch — The Children’s Discovery Museum',
+  title: 'Hopscotch · The Children’s Discovery Museum',
   description:
     'Three floors of climbing, splashing, launching and why-ing for ages 0–12. Open Tue–Sun at 88 Marble Run Way. Yes, there is coffee.',
 };
@@ -102,7 +102,7 @@ const exhibits = [
     slug: 'hopscotch-prism-cutout',
     alt: 'Glass prism splitting a beam of light into a rainbow',
     blurb:
-      'A dark room, a bright beam, and prisms on every table. Rainbows on demand — the good kind of screen time (no screens).',
+      'A dark room, a bright beam, and prisms on every table. Rainbows on demand: the good kind of screen time (no screens).',
     tile: 'pattern' as const,
     bg: BLUE,
     seed: 'hop-prism',
@@ -168,7 +168,7 @@ const memberPerks = [
 const faqs = [
   {
     q: 'Do grown-ups need a ticket too?',
-    a: 'Yes — every visitor gets a ticket, sized small or tall. Kids must bring at least one grown-up; grown-ups must bring at least one kid (or their inner one, on First Fridays).',
+    a: 'Yes, every visitor gets a ticket, sized small or tall. Kids must bring at least one grown-up; grown-ups must bring at least one kid (or their inner one, on First Fridays).',
   },
   {
     q: 'Is there somewhere to park the stroller fleet?',
@@ -176,7 +176,7 @@ const faqs = [
   },
   {
     q: 'What about lunch?',
-    a: 'The Snack Orbit café does grilled cheese, fruit rockets and flat whites. You may also bring your own picnic — the lunchroom on Floor 2 has bibs and a very forgiving floor.',
+    a: 'The Snack Orbit café does grilled cheese, fruit rockets and flat whites. You may also bring your own picnic; the lunchroom on Floor 2 has bibs and a very forgiving floor.',
   },
   {
     q: 'Will my kid get wet at River Works?',
@@ -184,7 +184,7 @@ const faqs = [
   },
   {
     q: 'Can we leave and come back the same day?',
-    a: 'Absolutely — your wristband is good all day. Nap, regroup, return for the 3 pm dino story.',
+    a: 'Absolutely. Your wristband is good all day. Nap, regroup, return for the 3 pm dino story.',
   },
 ];
 
@@ -196,7 +196,7 @@ export default function HopscotchMuseumPage() {
       <link
         rel="stylesheet"
         precedence="default"
-        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap"
       />
 
       <header className={styles.header}>
@@ -236,7 +236,7 @@ export default function HopscotchMuseumPage() {
                 Where <span className={styles.underRed}>“don’t touch”</span> isn’t a thing.
               </h1>
               <p className={styles.heroLede}>
-                Three floors of climbing, splashing, launching and why-ing for ages 0–12 — and
+                Three floors of climbing, splashing, launching and why-ing for ages 0–12, and
                 the lucky grown-ups they bring along.
               </p>
               <div className={styles.heroBtns}>
@@ -347,7 +347,7 @@ export default function HopscotchMuseumPage() {
 
         {/* VISIT */}
         <section id="visit" className={styles.visit} aria-labelledby="visit-title">
-          <div className={styles.scallopTopBlue} role="presentation" />
+          <div className={styles.zigTopBlue} role="presentation" />
           <div className={styles.visitBand}>
             <TabbiedArtwork
               artwork={polkadot}
@@ -374,7 +374,7 @@ export default function HopscotchMuseumPage() {
                   ))}
                 </ul>
                 <p className={styles.visitFine}>
-                  Tickets at the door or online — online skips the queue, which on rainy
+                  Tickets at the door or online; online skips the queue, which on rainy
                   Saturdays is a superpower.
                 </p>
               </div>
@@ -409,7 +409,7 @@ export default function HopscotchMuseumPage() {
               </div>
             </div>
           </div>
-          <div className={styles.scallopBottomBlue} role="presentation" />
+          <div className={styles.zigBottomBlue} role="presentation" />
         </section>
 
         {/* BIRTHDAYS */}
@@ -508,10 +508,10 @@ export default function HopscotchMuseumPage() {
               with the rule we are famous for: <em>go ahead, touch it.</em>
             </p>
             <ul className={styles.funList}>
-              <li>$8 per student — chaperones free, 1 per 5 kids</li>
+              <li>$8 per student, chaperones free, 1 per 5 kids</li>
               <li>Science, water, light & simple machines modules</li>
               <li>Reserved lunchroom slot, bus drop-off at the door</li>
-              <li>Scholarship spots every term — just ask</li>
+              <li>Scholarship spots every term, just ask</li>
             </ul>
             <a href="#footer-contact" className={styles.bigBtn}>
               Book a school visit
@@ -551,7 +551,7 @@ export default function HopscotchMuseumPage() {
 
       {/* FOOTER */}
       <footer id="footer-contact" className={styles.footer}>
-        <div className={styles.scallopTopInk} role="presentation" />
+        <div className={styles.zigTopInk} role="presentation" />
         <div className={styles.footerBand}>
           <div className={styles.footerGrid}>
             <div>

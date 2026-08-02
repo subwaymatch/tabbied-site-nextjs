@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './maison-ambre.module.css';
 
 export const metadata = {
-  title: 'Maison Ambre — Parfums composés à Grasse',
+  title: 'Maison Ambre · Parfums composés à Grasse',
   description:
     'Maison Ambre composes perfumes in small numbered editions: three eaux, one nose, and an atelier above the old lavender exchange. Founded 1987.',
 };
@@ -56,7 +56,7 @@ const EAUX = [
     price: '€95',
     slug: 'ambre-bottle-3-cutout',
     alt: 'Slender gold travel atomiser, cap removed',
-    line: 'The bright one. Citrus at altitude, honeyed blossom below — made to be refilled, never finished.',
+    line: 'The bright one. Citrus at altitude, honeyed blossom below, made to be refilled, never finished.',
     notes: {
       tete: 'Yuzu, néroli',
       coeur: 'Orange blossom, acacia honey',
@@ -68,12 +68,12 @@ const EAUX = [
 ];
 
 const INGREDIENTS = [
-  ['Labdanum', 'Crete — resin, sun-split'],
-  ['Vanilla', 'Madagascar — pod, cured 9 months'],
-  ['Iris', 'Tuscany — rhizome, aged 3 years'],
-  ['Rose de mai', 'Grasse — picked before seven'],
-  ['Cedar', 'Atlas — heartwood only'],
-  ['Yuzu', 'Shikoku — cold-pressed peel'],
+  ['Labdanum', 'Crete · resin, sun-split'],
+  ['Vanilla', 'Madagascar · pod, cured 9 months'],
+  ['Iris', 'Tuscany · rhizome, aged 3 years'],
+  ['Rose de mai', 'Grasse · picked before seven'],
+  ['Cedar', 'Atlas · heartwood only'],
+  ['Yuzu', 'Shikoku · cold-pressed peel'],
 ];
 
 const ATELIER_STEPS = [
@@ -90,7 +90,7 @@ const ATELIER_STEPS = [
   {
     numeral: 'III',
     title: 'Glaçage',
-    body: 'Chilled, filtered once through paper, never twice. A perfume over-polished loses its shadow — we keep a little of the dusk in every flacon.',
+    body: 'Chilled, filtered once through paper, never twice. A perfume over-polished loses its shadow, so we keep a little of the dusk in every flacon.',
   },
   {
     numeral: 'IV',
@@ -102,7 +102,7 @@ const ATELIER_STEPS = [
 const STOCKISTS = [
   {
     city: 'Grasse',
-    lines: ['Maison Ambre — Atelier', '7 rue du Miel Doré', 'Tue – Sat · 10h – 18h'],
+    lines: ['Maison Ambre · Atelier', '7 rue du Miel Doré', 'Tue – Sat · 10h – 18h'],
     note: 'Private visits by appointment',
   },
   {
@@ -129,7 +129,7 @@ export default function MaisonAmbrePage() {
       />
 
       <header className={styles.masthead}>
-        <p className={styles.mastheadOrigin}>Grasse — Paris — Kyoto</p>
+        <p className={styles.mastheadOrigin}>Grasse · Paris · Kyoto</p>
         <p className={styles.wordmark}>
           <span className={styles.wordmarkRule} aria-hidden="true" />
           Maison&nbsp;Ambre
@@ -200,7 +200,7 @@ export default function MaisonAmbrePage() {
               </span>
               aison Ambre began in a single rented room above the old lavender exchange in
               Grasse, with a copper still, a north-facing window, and the conviction that a
-              perfume should behave like dusk — arriving slowly, and leaving something behind.
+              perfume should behave like dusk: arriving slowly, and leaving something behind.
             </p>
             <div className={styles.maisonBody}>
               <p>
@@ -210,7 +210,7 @@ export default function MaisonAmbrePage() {
                 and been reversed eight.
               </p>
               <p>
-                What remains of each attempt is kept in the archive — four hundred amber vials
+                What remains of each attempt is kept in the archive, four hundred amber vials
                 we call <i>la mémoire</i>. Visitors may smell them. Nothing in the archive is
                 for sale, which is precisely why it matters.
               </p>
@@ -254,7 +254,7 @@ export default function MaisonAmbrePage() {
               II
             </span>
             <h2 id="eaux-title">Les Trois Eaux</h2>
-            <p className={styles.sectionSub}>The collection entire — nothing else is made</p>
+            <p className={styles.sectionSub}>The collection entire; nothing else is made</p>
           </header>
           <p className={styles.eauxHint} aria-hidden="true">
             Faites glisser <span>⟶</span>
@@ -365,12 +365,12 @@ export default function MaisonAmbrePage() {
                   alt="Portrait of Hélène Verdier, silver chignon, black jacket, photographed against a charcoal wall"
                 />
               </div>
-              <figcaption>Hélène Verdier — atelier, Grasse</figcaption>
+              <figcaption>Hélène Verdier · atelier, Grasse</figcaption>
             </figure>
             <div className={styles.nezText}>
               <blockquote className={styles.nezQuote}>
                 <p>
-                  “A perfume is finished when removing one material ruins it — and not one
+                  “A perfume is finished when removing one material ruins it, and not one
                   moment before. Most of my work is removal.”
                 </p>
               </blockquote>
@@ -382,7 +382,7 @@ export default function MaisonAmbrePage() {
               </p>
               <p>
                 Her rule for the house is unchanged in three decades: <i>one nose, no
-                committees, no focus groups — a perfume is an opinion, not a poll.</i>
+                committees, no focus groups. A perfume is an opinion, not a poll.</i>
               </p>
             </div>
           </div>
@@ -440,7 +440,7 @@ export default function MaisonAmbrePage() {
           <p className={styles.visitesCoda}>
             The atelier receives twelve visitors a week, in pairs, for the archive and a
             reading of the three eaux. Write to{' '}
-            <a href="mailto:visites@maison-ambre.example">visites@maison-ambre.example</a> —
+            <a href="mailto:visites@maison-ambre.example">visites@maison-ambre.example</a>;
             allow us a fortnight to reply; we are few.
           </p>
         </section>
@@ -460,7 +460,7 @@ export default function MaisonAmbrePage() {
         <div className={styles.footerInner}>
           <p className={styles.footerMark}>Maison&nbsp;Ambre</p>
           <p className={styles.footerLine}>
-            MCMLXXXVII — MMXXVI · A fictional house, faithfully imagined
+            MCMLXXXVII to MMXXVI · A fictional house, faithfully imagined
           </p>
           <nav aria-label="Footer" className={styles.footerNav}>
             <a href="#maison">La Maison</a>
@@ -468,7 +468,7 @@ export default function MaisonAmbrePage() {
             <a href="#visites">Visites</a>
           </nav>
           <p className={styles.footerCredit}>
-            Motifs de fumée — patterns by{' '}
+            Motifs de fumée, patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>

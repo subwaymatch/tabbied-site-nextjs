@@ -11,11 +11,14 @@
   --ember: #e8734a;
   --teal: #4e7a8c;
   --mist: #d8e8ef;
-  --display: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --display: 'Oswald', 'Arial Narrow', 'Inter', sans-serif;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
-  --body: system-ui, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 
   font-family: var(--body);
+  /* Inter runs a touch loose at text sizes; the rules below that set their own
+     tracking (the wide mono eyebrows, the condensed display) override this. */
+  letter-spacing: -0.011em;
   background: var(--slate);
   color: var(--snow);
   line-height: 1.6;

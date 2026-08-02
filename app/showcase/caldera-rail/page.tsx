@@ -4,7 +4,7 @@ import { Figure } from 'components/Figure';
 import styles from './caldera-rail.module.css';
 
 export const metadata = {
-  title: 'Caldera — Scenic Railway Journeys Since 1927',
+  title: 'Caldera · Scenic Railway Journeys Since 1927',
   description:
     'The Caldera Railway Company operates three slow, scenic routes across the caldera country: the Coast Cantata, the Alpine Ascent and the Vineyard Arc. Timetables, fares and the dining car await.',
 };
@@ -25,19 +25,19 @@ const routes = [
     name: 'The Coast Cantata',
     img: 'caldera-coast',
     alt: 'Gouache illustration of a teal train tracing a cliffside coastal line above a turquoise sea',
-    path: 'Terra Alta — Port Lumen',
+    path: 'Terra Alta to Port Lumen',
     days: 'Daily',
     duration: '5 h 40 m',
     distance: '148 km',
     fare: 'from €64',
-    note: 'Cliff running from Sienna Gorge to the Lighthouse Curve. Sit seaward — left side going down — and keep your window latch loose for the salt air.',
+    note: 'Cliff running from Sienna Gorge to the Lighthouse Curve. Sit seaward, left side going down, and keep your window latch loose for the salt air.',
   },
   {
     no: 'No. 2',
     name: 'The Alpine Ascent',
     img: 'caldera-alpine',
     alt: 'Gouache illustration of a train climbing a snowy mountain pass between pines',
-    path: 'Terra Alta — Vespergate',
+    path: 'Terra Alta to Vespergate',
     days: 'Tue · Thu · Sat',
     duration: '7 h 05 m',
     distance: '172 km',
@@ -49,8 +49,8 @@ const routes = [
     name: 'The Vineyard Arc',
     img: 'caldera-vineyard',
     alt: 'Gouache illustration of terraced vineyards in autumn colour with a train curving between them',
-    path: 'Casteldoro — Miradora',
-    days: 'Fri — Sun',
+    path: 'Casteldoro to Miradora',
+    days: 'Fri to Sun',
     duration: '4 h 25 m',
     distance: '96 km',
     fare: 'from €52',
@@ -62,7 +62,7 @@ const stops = [
   {
     time: '08:12',
     station: 'Terra Alta Central',
-    detail: 'Departure — platform 2, under the great clock. Elevation 612 m.',
+    detail: 'Departure: platform 2, under the great clock. Elevation 612 m.',
   },
   {
     time: '09:05',
@@ -173,7 +173,7 @@ const timetable = [
     service: '301',
     route: 'Vineyard Arc',
     dir: 'Casteldoro → Miradora',
-    days: 'Fri — Sun',
+    days: 'Fri to Sun',
     dep: '13:05',
     arr: '17:30',
     fare: '€52',
@@ -206,7 +206,7 @@ export default function CalderaRailPage() {
 
       <header className={styles.masthead}>
         <p className={styles.mastheadRule}>
-          Est. 1927 · The Caldera Railway Company · Terra Alta — Port Lumen —
+          Est. 1927 · The Caldera Railway Company · Terra Alta · Port Lumen ·
           Vespergate
         </p>
         <p className={styles.mastheadMark} aria-hidden="true">
@@ -241,7 +241,7 @@ export default function CalderaRailPage() {
 
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
-              <p className={styles.kicker}>Summer service · 12 May — 28 Sept</p>
+              <p className={styles.kicker}>Summer service · 12 May to 28 Sept</p>
               <h1 id="hero-heading" className={styles.heroTitle}>
                 Take the slow way round.
               </h1>
@@ -284,7 +284,7 @@ export default function CalderaRailPage() {
                   />
                 </div>
                 <figcaption className={styles.posterCaption}>
-                  The Viaduct at Sienna Gorge — morning service
+                  The Viaduct at Sienna Gorge, morning service
                 </figcaption>
               </figure>
               <p className={styles.stamp} aria-hidden="true">
@@ -315,8 +315,8 @@ export default function CalderaRailPage() {
             <p className={styles.sectionNo}>Section I</p>
             <h2 id="routes-heading">The Three Routes</h2>
             <p className={styles.sectionLead}>
-              Every ticket is printed on board, punched at the gorge, and — by
-              a habit no one remembers starting — kept forever.
+              Every ticket is printed on board, punched at the gorge, and, by
+              a habit no one remembers starting, kept forever.
             </p>
           </header>
 
@@ -376,7 +376,7 @@ export default function CalderaRailPage() {
 
           <header className={styles.sectionHead}>
             <p className={styles.sectionNo}>Section II</p>
-            <h2 id="line-heading">Down the Line — Service 101</h2>
+            <h2 id="line-heading">Down the Line: Service 101</h2>
             <p className={styles.sectionLead}>
               The Coast Cantata, called stop by stop. Times are kept; views are
               guaranteed by geography.
@@ -419,14 +419,14 @@ export default function CalderaRailPage() {
                 alt="Interior of a restored railway dining car with walnut panelling, brass lamps and white tablecloths"
               />
               <figcaption>
-                The Meridian Car — walnut, brass, and three seatings a day
+                The Meridian Car: walnut, brass, and three seatings a day
               </figcaption>
             </figure>
             <div className={styles.aboardCopy}>
               <h3>The dining car</h3>
               <p>
                 Lunch is cooked in a galley the width of a corridor and tastes
-                like it took the whole valley to make — because it did. Bread
+                like it took the whole valley to make, because it did. Bread
                 from Miradora, trout from the gorge, wine from the Arc. First
                 seating is called at Casteldoro; the last coffee is poured on
                 the Lighthouse Curve, timed to the minute.
@@ -524,7 +524,7 @@ export default function CalderaRailPage() {
             </div>
             <div className={styles.fleetCard}>
               <h3>
-                No. 7 — <em>Vesper</em>
+                No. 7 · <em>Vesper</em>
               </h3>
               <p>
                 Built 1931 at the Harlow &amp; Finch works; oil-fired since
@@ -573,7 +573,7 @@ export default function CalderaRailPage() {
               <blockquote className={styles.quote} key={quote.source}>
                 <p>{quote.text}</p>
                 <footer>
-                  — {quote.source}, {quote.year}
+                  {quote.source}, {quote.year}
                 </footer>
               </blockquote>
             ))}
@@ -590,7 +590,7 @@ export default function CalderaRailPage() {
             <p className={styles.sectionNo}>Section VI</p>
             <h2 id="timetable-heading">Timetable &amp; Booking</h2>
             <p className={styles.sectionLead}>
-              Summer working timetable, 12 May — 28 September. Winter services
+              Summer working timetable, 12 May to 28 September. Winter services
               are published on the feast of St. Alban.
             </p>
           </header>
@@ -632,7 +632,7 @@ export default function CalderaRailPage() {
             <div className={styles.bookingCard}>
               <h3>The Booking Hall</h3>
               <p>
-                Terra Alta Central, 2 Viaduct Approach. Open 07:00 — 19:00
+                Terra Alta Central, 2 Viaduct Approach. Open 07:00 to 19:00
                 daily; the brass grille closes for lunch between 12:30 and
                 13:15, as it has since 1927.
               </p>

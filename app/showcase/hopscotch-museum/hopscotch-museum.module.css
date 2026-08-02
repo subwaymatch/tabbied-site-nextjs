@@ -10,10 +10,13 @@
   --blue: #2e86de;
   --green: #27c093;
   --yellow: #ffc53d;
-  --display: 'Baloo 2', 'Comic Sans MS', system-ui, sans-serif;
-  --body: 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
+  --display: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 
   font-family: var(--body);
+  /* One family throughout, set a touch tight. The rules below that widen their
+     own tracking (the sticker eyebrows, the ticker) still override this. */
+  letter-spacing: -0.011em;
   background: var(--cream);
   color: var(--ink);
   line-height: 1.65;
@@ -545,30 +548,34 @@
   margin: 0;
 }
 
-/* ————— visit band (blue, scalloped) ————— */
+/* ————— visit band (blue, zigzag edges) ————— */
 
 .visit {
   margin-top: clamp(1rem, 3vw, 2rem);
 }
 
-.scallopTopBlue,
-.scallopBottomBlue,
-.scallopTopInk {
-  height: 28px;
+/* Sawtooth edges, cut with one conic gradient per tile: a 90° wedge of
+   transparent from the mid-point of the joining edge, colour everywhere else.
+   Tiled at twice the height, the leftover corners meet across the tile seam and
+   read as one row of triangles. */
+.zigTopBlue,
+.zigBottomBlue,
+.zigTopInk {
+  height: 30px;
   background-repeat: repeat-x;
-  background-size: 56px 28px;
+  background-size: 60px 30px;
 }
 
-.scallopTopBlue {
-  background-image: radial-gradient(circle at 28px 30px, var(--blue) 21px, transparent 22px);
+.zigTopBlue {
+  background-image: conic-gradient(from -45deg at 50% 100%, transparent 90deg, var(--blue) 0);
 }
 
-.scallopBottomBlue {
-  background-image: radial-gradient(circle at 28px -2px, var(--blue) 21px, transparent 22px);
+.zigBottomBlue {
+  background-image: conic-gradient(from 135deg at 50% 0, transparent 90deg, var(--blue) 0);
 }
 
-.scallopTopInk {
-  background-image: radial-gradient(circle at 28px 30px, var(--ink) 21px, transparent 22px);
+.zigTopInk {
+  background-image: conic-gradient(from -45deg at 50% 100%, transparent 90deg, var(--ink) 0);
 }
 
 .visitBand {
@@ -1104,7 +1111,6 @@
   border-radius: 16px;
   overflow: hidden;
   background: var(--ink);
-  border: 2.5px solid color-mix(in srgb, var(--cream) 25%, transparent);
 }
 
 .footerCredit {
