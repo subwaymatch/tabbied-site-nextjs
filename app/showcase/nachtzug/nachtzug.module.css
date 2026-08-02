@@ -276,14 +276,22 @@
 
 .railBand {
   position: relative;
-  height: clamp(7rem, 17vw, 13rem);
+  height: 208px;
   overflow: hidden;
-  background: var(--deep);
+  background: var(--night);
 }
 
 .railField {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (25 × 104px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2600px;
+  height: 208px;
   opacity: 0.9;
 }
 
@@ -760,5 +768,15 @@
   .footGrid,
   .footFine {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .railBand {
+    height: 104px;
+  }
+
+  .railField {
+    height: 104px;
   }
 }

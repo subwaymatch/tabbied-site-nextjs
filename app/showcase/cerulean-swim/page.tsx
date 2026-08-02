@@ -304,7 +304,9 @@ export default function CeruleanSwimPage() {
             seed="cs-ribbon-03"
             fit="grid"
             cellSize={110}
-            style={{ position: 'absolute', inset: 0 }}
+            /* Pinned to an exact multiple of the cell and clipped by the band,
+               so every grid track is a whole pixel at any viewport width. */
+            style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 2640, height: 220 }}
           />
         </div>
 
@@ -464,7 +466,7 @@ export default function CeruleanSwimPage() {
             seed="cs-foot-05"
             fit="grid"
             cellSize={130}
-            style={{ position: 'absolute', inset: 0 }}
+            style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 2600, height: 260 }}
           />
         </div>
         <div className={styles.footerInner}>

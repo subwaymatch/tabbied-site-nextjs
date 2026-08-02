@@ -265,14 +265,22 @@
 
 .grainBand {
   position: relative;
-  height: clamp(8rem, 19vw, 14rem);
+  height: 224px;
   overflow: hidden;
-  background: var(--pale);
+  background: var(--bone);
 }
 
 .grainField {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (24 × 112px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2688px;
+  height: 224px;
   opacity: 0.9;
 }
 
@@ -767,5 +775,15 @@
   .footGrid,
   .footFine {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .grainBand {
+    height: 112px;
+  }
+
+  .grainField {
+    height: 112px;
   }
 }

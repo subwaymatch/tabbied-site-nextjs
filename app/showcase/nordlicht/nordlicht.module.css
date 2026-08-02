@@ -313,14 +313,23 @@
 
 .rule {
   position: relative;
-  height: clamp(7rem, 17vw, 13rem);
+  height: 208px;
   overflow: hidden;
   border-block: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
 .ruleField {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (25 × 104px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2600px;
+  height: 208px;
+  opacity: 0.9;
 }
 
 /* ------------------------------------------------------------------ charts */
@@ -844,5 +853,15 @@
   .footGrid,
   .footFine {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .rule {
+    height: 104px;
+  }
+
+  .ruleField {
+    height: 104px;
   }
 }

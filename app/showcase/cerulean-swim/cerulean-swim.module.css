@@ -439,7 +439,7 @@
 
 .ribbon {
   position: relative;
-  height: clamp(70px, 9vw, 110px);
+  height: 220px;
   overflow: hidden;
   background: var(--aqua);
   border-radius: 100% 100% 0 0 / 3rem 3rem 0 0;
@@ -701,7 +701,7 @@
 
 .footerWave {
   position: relative;
-  height: clamp(80px, 11vw, 130px);
+  height: 260px;
   overflow: hidden;
   border-radius: 0 0 100% 100% / 0 0 3rem 3rem;
   background: var(--foam);
@@ -901,5 +901,16 @@
 
   .productCard:hover {
     transform: none;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .ribbon {
+    height: 110px;
+  }
+
+  .footerWave {
+    height: 130px;
   }
 }
