@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { falloff, radiance, sunray, dimmer, spraydown } from 'tabbied/artworks';
+import {
+  falloff, radiance, sunray, dimmer, spraydown,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './lichtfeld.module.css';
 
@@ -15,6 +17,11 @@ const WHITE = '#FAFAF5';
 const WARM = '#F5E663';
 const GREY = '#6A6A64';
 const PANEL = '#151515';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PANEL;
+
 
 const WORK = [
   { code: 'L-118', name: 'Pinakothek, west stair', kind: 'Interior, public', year: '2026', lux: '80 lx' },
@@ -267,6 +274,132 @@ export default function LichtfeldPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things we will not specify</h2>
+          <p className={s.secNote}>Not taste. Each of these causes a specific, measurable problem we have been called back to fix.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dimmer}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Uplighters</h3>
+                <p className={s.tileBody}>They light the sky, the underside of leaves and the inside of your eye, in that order. Nothing that matters is above the fixture.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={falloff}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Cool white outdoors</h3>
+                <p className={s.tileBody}>Four thousand kelvin outdoors reads as institutional at any level, disturbs insects far more than warm white, and never flatters a facade.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={spraydown}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Above 3 000 K near a bed</h3>
+                <p className={s.tileBody}>It is not about atmosphere. It is about the hour before sleep, and it is the one thing clients thank us for two years later.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">What we hand over</h2>
+          <p className={s.secNote}>At practical completion, on paper and as files. The O&M is written to be read by a caretaker, not a lawyer.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Document</span>
+                <span>Format</span>
+                <span>For</span>
+                <span>Note</span>
+            </li>
+              <li key="Lighting layout">
+                <span>Lighting layout</span>
+                <span>PDF, DWG</span>
+                <span>Installer</span>
+                <span>Aiming angles marked</span>
+              </li>
+              <li key="Schedule">
+                <span>Schedule</span>
+                <span>PDF, XLSX</span>
+                <span>Client</span>
+                <span>With replacement lamps</span>
+              </li>
+              <li key="Control strategy">
+                <span>Control strategy</span>
+                <span>PDF</span>
+                <span>Facilities</span>
+                <span>Scenes, times, overrides</span>
+              </li>
+              <li key="Commissioning record">
+                <span>Commissioning record</span>
+                <span>PDF</span>
+                <span>Client</span>
+                <span>Measured, not designed, levels</span>
+              </li>
+              <li key="O&M">
+                <span>O&M</span>
+                <span>PDF, paper</span>
+                <span>Caretaker</span>
+                <span>Twelve pages, plain language</span>
+              </li>
+              <li key="Spares list">
+                <span>Spares list</span>
+                <span>PDF</span>
+                <span>Facilities</span>
+                <span>Ten years of availability</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions from clients</h2>
+          <dl className={s.faqList}>
+              <div key="Why do you insist on a m">
+                <dt>Why do you insist on a mock-up?</dt>
+                <dd>Because everybody, including us, is wrong about light on paper. A fortnight of mock-up has saved every project we have run it on.</dd>
+              </div>
+              <div key="Is LED still improving?">
+                <dt>Is LED still improving?</dt>
+                <dd>The chips, marginally. The drivers and the optics, considerably. We specify for the driver being replaceable, which most fittings still do not allow.</dd>
+              </div>
+              <div key="Can you work with our el">
+                <dt>Can you work with our electrical engineer?</dt>
+                <dd>Always. We do the design intent and the aiming; they do the distribution and the compliance. It only goes wrong when nobody says which is which.</dd>
+              </div>
+              <div key="What does it cost?">
+                <dt>What does it cost?</dt>
+                <dd>Percentage or lump sum, and commissioning is always inside it. A scheme we do not commission is a scheme we did not design.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

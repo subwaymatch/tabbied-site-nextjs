@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { quire, stitch, subdivide, dotfield, chain } from 'tabbied/artworks';
+import {
+  quire, stitch, subdivide, dotfield, chain,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './fonds-aubert.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#1A1C18';
 const OLIVE = '#4C6B2F';
 const GREY = '#8C8F84';
 const PALE = '#DEDED4';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const FONDS = [
   { ref: 'FA 001', name: 'Aubert et Fils, négoce', span: '1861 to 1974', extent: '312 m', state: 'Catalogued' },
@@ -280,6 +287,132 @@ export default function FondsAubertPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three enemies of paper</h2>
+          <p className={s.secNote}>What the repository is actually built to keep out. None of them is dramatic and all of them are slow.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={quire}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Water</h3>
+                <p className={s.tileBody}>Not floods. Humidity above sixty per cent, held for a season, which is enough for mould to start and impossible to reverse afterwards.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={subdivide}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Light</h3>
+                <p className={s.tileBody}>Cumulative and irreversible. There is no daylight anywhere in the repository and the reading room lamps are metered.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotfield}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Ourselves</h3>
+                <p className={s.tileBody}>Handling causes more damage than any environmental factor. Foam, weights, pencils, and a limit of five boxes on a desk.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Reading room equipment</h2>
+          <p className={s.secNote}>On every desk, provided, because asking people to bring their own guarantees they will not.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Item</span>
+                <span>Per desk</span>
+                <span>Detail</span>
+                <span>Note</span>
+            </li>
+              <li key="Foam supports">
+                <span>Foam supports</span>
+                <span>2</span>
+                <span>Adjustable wedge</span>
+                <span>For bound volumes</span>
+              </li>
+              <li key="Snake weights">
+                <span>Snake weights</span>
+                <span>4</span>
+                <span>Cotton covered</span>
+                <span>Never on ink</span>
+              </li>
+              <li key="Pencils">
+                <span>Pencils</span>
+                <span>Supplied</span>
+                <span>HB, unsharpened tips</span>
+                <span>Pens are not permitted</span>
+              </li>
+              <li key="Book cushion">
+                <span>Book cushion</span>
+                <span>1</span>
+                <span>Beanbag</span>
+                <span>On request</span>
+              </li>
+              <li key="Copy stand">
+                <span>Copy stand</span>
+                <span>Shared</span>
+                <span>Overhead, no flash</span>
+                <span>For private study</span>
+              </li>
+              <li key="Gloves">
+                <span>Gloves</span>
+                <span>On request</span>
+                <span>Nitrile</span>
+                <span>For photographs only</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Depositing and access</h2>
+          <dl className={s.faqList}>
+              <div key="What will you not accept">
+                <dt>What will you not accept?</dt>
+                <dd>Anything already in a public archive, anything with no connection to the canton, and most of what people bring us, which we say kindly and in person.</dd>
+              </div>
+              <div key="Can I close my records f">
+                <dt>Can I close my records for a period?</dt>
+                <dd>Yes, up to fifty years, agreed in writing at deposit. We have never broken a closure and would not be able to explain ourselves if we did.</dd>
+              </div>
+              <div key="How long until my deposi">
+                <dt>How long until my deposit is usable?</dt>
+                <dd>Catalogued in eighteen months to four years depending on extent. Uncatalogued material is accessible in principle and unfindable in practice.</dd>
+              </div>
+              <div key="Do you digitise on reque">
+                <dt>Do you digitise on request?</dt>
+                <dd>Up to two hundred images a year, free, for research. Beyond that we quote, and we would rather you came and sat at a desk.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

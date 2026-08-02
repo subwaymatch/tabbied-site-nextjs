@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { ortho, gimbal, ring, dipole, protractor } from 'tabbied/artworks';
+import {
+  ortho, gimbal, ring, dipole, protractor,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './nullpunkt.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#0A0A0A';
 const RED = '#E10600';
 const GREY = '#9EA2A6';
 const PALE = '#DBDBD9';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const SERVICES = [
   { q: 'Length', range: '0.5 mm to 1 000 mm', unc: '± (0.05 + L/2000) µm', kit: 'Gauge blocks, CMM, interferometer' },
@@ -269,6 +276,132 @@ export default function NullpunktPage() {
             </figure>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three sources of uncertainty</h2>
+          <p className={s.secNote}>Every certificate states these. The budget is published in full with each result.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={ring}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The reference</h3>
+                <p className={s.tileBody}>How well the standard itself is known, and how long since it was compared upward. This is usually the smallest term and the hardest to improve.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={gimbal}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The environment</h3>
+                <p className={s.tileBody}>Temperature, and then temperature again. Twenty degrees is a definition, not a room, and holding it to a tenth costs more than the instrument.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={protractor}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The operator</h3>
+                <p className={s.tileBody}>Repeatability across three runs and two people. If the operator term dominates, the method is wrong, not the person.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Reference standards held</h2>
+          <p className={s.secNote}>What sits at the top of our chain, and when each was last compared upward.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Standard</span>
+                <span>Quantity</span>
+                <span>Traceable to</span>
+                <span>Last compared</span>
+            </li>
+              <li key="Gauge block set, grade K">
+                <span>Gauge block set, grade K</span>
+                <span>Length</span>
+                <span>PTB</span>
+                <span>Sep 2025</span>
+              </li>
+              <li key="E1 mass set, 1 mg to 20 kg">
+                <span>E1 mass set, 1 mg to 20 kg</span>
+                <span>Mass</span>
+                <span>PTB</span>
+                <span>Jun 2025</span>
+              </li>
+              <li key="SPRT with fixed points">
+                <span>SPRT with fixed points</span>
+                <span>Temperature</span>
+                <span>PTB</span>
+                <span>Mar 2025</span>
+              </li>
+              <li key="Caesium standard">
+                <span>Caesium standard</span>
+                <span>Frequency</span>
+                <span>PTB via GNSS</span>
+                <span>Continuous</span>
+              </li>
+              <li key="Piston gauge, two ranges">
+                <span>Piston gauge, two ranges</span>
+                <span>Pressure</span>
+                <span>PTB</span>
+                <span>Nov 2025</span>
+              </li>
+              <li key="Josephson array">
+                <span>Josephson array</span>
+                <span>Voltage</span>
+                <span>PTB</span>
+                <span>Apr 2025</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Before you send an instrument</h2>
+          <dl className={s.faqList}>
+              <div key="How should it be packed?">
+                <dt>How should it be packed?</dt>
+                <dd>In its own case, in a box, with the case not touching the box. Most damage we see happens in transit and none of it is dramatic.</dd>
+              </div>
+              <div key="Will you adjust it as we">
+                <dt>Will you adjust it as well as calibrate it?</dt>
+                <dd>Only if you ask in writing. Calibration and adjustment are different jobs, and an adjusted instrument has no history.</dd>
+              </div>
+              <div key="What if it is out of tol">
+                <dt>What if it is out of tolerance?</dt>
+                <dd>The certificate says so on the first line and we telephone you the same day, because the interesting question is what you measured with it last month.</dd>
+              </div>
+              <div key="Can I watch?">
+                <dt>Can I watch?</dt>
+                <dd>Yes. Ask when you book. Most people stay twenty minutes and leave with a better feel for why it takes fifteen days.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

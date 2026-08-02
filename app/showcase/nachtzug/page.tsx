@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { rungs, bothways, dotfield, sliver, streaking } from 'tabbied/artworks';
+import {
+  rungs, bothways, dotfield, sliver, streaking,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './nachtzug.module.css';
 
@@ -15,6 +17,11 @@ const BONE = '#EDE8DA';
 const GOLD = '#E0A83C';
 const STEEL = '#545C74';
 const DEEP = '#141827';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = DEEP;
+
 
 const LINES = [
   { no: 'NZ 401', from: 'Wien Hbf', to: 'Roma Termini', dep: '19.42', arr: '09.12', nights: '1', runs: 'Daily' },
@@ -250,6 +257,132 @@ export default function NachtzugPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three reasons the night train survived</h2>
+          <p className={s.secNote}>It was written off four times between 1998 and 2016. Here is what kept it running.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotfield}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The bed</h3>
+                <p className={s.tileBody}>A night on a train is a night of accommodation. Costed that way, the sleeper stops looking expensive and starts looking obvious.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={sliver}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The border</h3>
+                <p className={s.tileBody}>Nobody wakes you. Schengen did more for the sleeper than any marketing campaign, and a whole generation has never been asked for a passport at 03.00.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={rungs}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The arithmetic</h3>
+                <p className={s.tileBody}>Twelve hours that would otherwise be spent awake, in an airport, being processed. The train is slower and the day is longer.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Rolling stock</h2>
+          <p className={s.secNote}>Everything is owned and maintained at Wien Simmering. Ages are honest.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Type</span>
+                <span>Built</span>
+                <span>Refit</span>
+                <span>In service</span>
+            </li>
+              <li key="Sleeping car, WLABmz">
+                <span>Sleeping car, WLABmz</span>
+                <span>1988</span>
+                <span>2019</span>
+                <span>24</span>
+              </li>
+              <li key="Couchette, Bcmz">
+                <span>Couchette, Bcmz</span>
+                <span>1991</span>
+                <span>2021</span>
+                <span>31</span>
+              </li>
+              <li key="Seating, Bmz">
+                <span>Seating, Bmz</span>
+                <span>1986</span>
+                <span>2017</span>
+                <span>12</span>
+              </li>
+              <li key="Dining, WRmz">
+                <span>Dining, WRmz</span>
+                <span>1978</span>
+                <span>2015</span>
+                <span>6</span>
+              </li>
+              <li key="Van, Dms">
+                <span>Van, Dms</span>
+                <span>1994</span>
+                <span>2020</span>
+                <span>8</span>
+              </li>
+              <li key="Locomotive, hired">
+                <span>Locomotive, hired</span>
+                <span>n/a</span>
+                <span>n/a</span>
+                <span>Per section</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Before you board</h2>
+          <dl className={s.faqList}>
+              <div key="Is there a shower?">
+                <dt>Is there a shower?</dt>
+                <dd>In the two-berth and single sleepers, yes, at the end of the carriage. In couchettes, a washbasin in the compartment and nothing else.</dd>
+              </div>
+              <div key="Can I book a compartment">
+                <dt>Can I book a compartment to myself?</dt>
+                <dd>Yes, at the whole-compartment rate, which is less than the sum of the berths. Most solo travellers who have tried it never go back.</dd>
+              </div>
+              <div key="What if I miss my connec">
+                <dt>What if I miss my connection?</dt>
+                <dd>Our tickets are through-ticketed, so the next service is on us. This is not generosity; it is the rule the whole network runs on.</dd>
+              </div>
+              <div key="Does the window really o">
+                <dt>Does the window really open?</dt>
+                <dd>Twelve centimetres, in every sleeper and every couchette. We have replaced entire carriages and kept the mechanism.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

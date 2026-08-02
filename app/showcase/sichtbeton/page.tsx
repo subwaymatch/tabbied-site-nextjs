@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { subdivide, chase, keyway, gritfield, recession } from 'tabbied/artworks';
+import {
+  subdivide, chase, keyway, gritfield, recession,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './sichtbeton.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#131313';
 const ORANGE = '#FF5A00';
 const STEEL = '#8B8B87';
 const PALE = '#D3D3CE';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = PALE;
+
 
 const CLASSES = [
   { c: 'SB 1', use: 'Basements, plant rooms', form: 'Any', tol: 'Joints ± 20 mm', trial: 'None' },
@@ -269,6 +276,132 @@ export default function SichtbetonPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things that show on a finished wall</h2>
+          <p className={s.secNote}>Invisible in the specification, unmissable in daylight, permanent either way.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={gritfield}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The joint</h3>
+                <p className={s.tileBody}>Day joints and panel joints are the drawing. Set them out with the architect at 1:20 and they read as intent rather than as an accident.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={keyway}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The pour</h3>
+                <p className={s.tileBody}>Rate, vibration and lift height. Most blowholes and most colour variation are decided in the ninety minutes the concrete is moving.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={subdivide}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The cure</h3>
+                <p className={s.tileBody}>Seven days minimum, and the wall is finished in the first three. Strip early and you get a lighter, chalkier surface nobody can fix later.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Typical mix, SB 4</h2>
+          <p className={s.secNote}>One example, published because clients ask what a fair-faced specification actually contains.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Constituent</span>
+                <span>Quantity</span>
+                <span>Source</span>
+                <span>Note</span>
+            </li>
+              <li key="CEM I 42,5 N">
+                <span>CEM I 42,5 N</span>
+                <span>340 kg/m³</span>
+                <span>Single works</span>
+                <span>No change mid-project</span>
+              </li>
+              <li key="Aggregate, 0/16">
+                <span>Aggregate, 0/16</span>
+                <span>1 810 kg/m³</span>
+                <span>Single quarry</span>
+                <span>Washed, graded</span>
+              </li>
+              <li key="Water">
+                <span>Water</span>
+                <span>153 l/m³</span>
+                <span>Mains</span>
+                <span>w/c 0.45</span>
+              </li>
+              <li key="Plasticiser">
+                <span>Plasticiser</span>
+                <span>1.2 %</span>
+                <span>One supplier</span>
+                <span>No retarder</span>
+              </li>
+              <li key="Air content">
+                <span>Air content</span>
+                <span>2.0 %</span>
+                <span>Measured</span>
+                <span>Every load</span>
+              </li>
+              <li key="Slump class">
+                <span>Slump class</span>
+                <span>F4</span>
+                <span>Measured</span>
+                <span>Every load</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions from contractors</h2>
+          <dl className={s.faqList}>
+              <div key="Can we reuse the formwor">
+                <dt>Can we reuse the formwork more than four times?</dt>
+                <dd>Not on a visible face. Panel wear shows as a progressive lightening across a facade and there is no remedy short of replacement.</dd>
+              </div>
+              <div key="What if the trial panel ">
+                <dt>What if the trial panel is rejected?</dt>
+                <dd>We cast another. Two panels are in the price precisely so that rejecting the first is a normal outcome and not an argument.</dd>
+              </div>
+              <div key="Do you accept a photogra">
+                <dt>Do you accept a photographic sample?</dt>
+                <dd>No. Concrete is a local material; a photograph of somebody else’s wall tells us nothing about your aggregate or your crew.</dd>
+              </div>
+              <div key="Can defects be repaired?">
+                <dt>Can defects be repaired?</dt>
+                <dd>Small blowholes, sometimes, by a specialist, on a sample first. Colour variation across a lift, no. That one is permanent.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

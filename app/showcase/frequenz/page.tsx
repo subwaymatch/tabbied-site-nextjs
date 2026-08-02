@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { flux, ribline, streaking, dotwash, rungs } from 'tabbied/artworks';
+import {
+  flux, ribline, streaking, dotwash, rungs,
+  spraydown,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './frequenz.module.css';
 
@@ -15,6 +18,11 @@ const CREAM = '#F2EFE6';
 const AMBER = '#FFA200';
 const GREY = '#6B6560';
 const PANEL = '#1D1A20';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PANEL;
+
 
 const NOW = { time: '14.00', show: 'Zwischenspiel', host: 'Ruth Padberg', kind: 'New music, no talking over the intro' };
 
@@ -270,6 +278,132 @@ export default function FrequenzPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three rules of the desk</h2>
+          <p className={s.secNote}>Pinned above the fader panel since 1984 and never once revised.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={spraydown}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Do not talk over the intro</h3>
+                <p className={s.tileBody}>If the piece has a beginning, let it begin. The listener came for the music and can read the time on their own phone.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotwash}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Silence is allowed</h3>
+                <p className={s.tileBody}>Four seconds of nothing is not dead air. It is four seconds. The transmitter is fine and so is everybody listening.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={ribline}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Say what it was</h3>
+                <p className={s.tileBody}>Every track, back-announced, with the label. Somebody is always trying to find it again and we are the only record.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Technical</h2>
+          <p className={s.secNote}>What the station runs on. Most of it is older than most of the presenters.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Item</span>
+                <span>Detail</span>
+                <span>Since</span>
+                <span>State</span>
+            </li>
+              <li key="Transmitter, Schöckl">
+                <span>Transmitter, Schöckl</span>
+                <span>300 W ERP, 94.6 MHz</span>
+                <span>1979</span>
+                <span>Rebuilt 2011</span>
+              </li>
+              <li key="Studio desk 1">
+                <span>Studio desk 1</span>
+                <span>Analogue, 24 channel</span>
+                <span>1998</span>
+                <span>Channel 7 crackles</span>
+              </li>
+              <li key="Studio desk 2">
+                <span>Studio desk 2</span>
+                <span>Analogue, 16 channel</span>
+                <span>1991</span>
+                <span>Spare, and fine</span>
+              </li>
+              <li key="Playout">
+                <span>Playout</span>
+                <span>Own software, on Linux</span>
+                <span>2007</span>
+                <span>Nobody understands it</span>
+              </li>
+              <li key="Archive, tape">
+                <span>Archive, tape</span>
+                <span>11 000 hours</span>
+                <span>1979</span>
+                <span>Digitising, slowly</span>
+              </li>
+              <li key="Stream">
+                <span>Stream</span>
+                <span>Ogg and AAC, self hosted</span>
+                <span>2004</span>
+                <span>Same audio as air</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Getting involved</h2>
+          <dl className={s.faqList}>
+              <div key="How do I propose a progr">
+                <dt>How do I propose a programme?</dt>
+                <dd>Come to the open desk on the first Monday of the month with an idea and, ideally, twenty minutes of something you have already made.</dd>
+              </div>
+              <div key="Will I be paid?">
+                <dt>Will I be paid?</dt>
+                <dd>No. Nobody here is, including the people who have been doing it since the eighties. The membership pays the transmitter and the licence.</dd>
+              </div>
+              <div key="Do I need experience?">
+                <dt>Do I need experience?</dt>
+                <dd>No. You will be shown the desk twice, then left alone with it at three in the morning, which is how everybody learned.</dd>
+              </div>
+              <div key="Can I play whatever I wa">
+                <dt>Can I play whatever I want?</dt>
+                <dd>Within the licence, yes. Nobody vets a running order and nobody ever has.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

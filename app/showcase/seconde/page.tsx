@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { fadedbar, tailoff, taper, dotset, bothways } from 'tabbied/artworks';
+import {
+  fadedbar, tailoff, taper, dotset, bothways,
+  dotmatrix, ring,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './seconde.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#101010';
 const MAGENTA = '#FF0059';
 const GREY = '#8E8E8E';
 const PALE = '#D6D6D2';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const SYSTEMS = [
   { code: 'PF-4', name: 'Photo finish', res: '1 / 10 000 s', body: 'A 10,000 fps line-scan camera on the finish plane, levelled to 0.2 mm over 8 metres. The image is the result; everything else is a convenience.' },
@@ -275,6 +283,132 @@ export default function SecondePage() {
             </div>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Where a hundredth actually goes</h2>
+          <p className={s.secNote}>Three places a result is won or lost before anybody runs.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotmatrix}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The finish plane</h3>
+                <p className={s.tileBody}>Levelled to 0.2 mm over eight metres. A finish line that is two millimetres out of plumb is worth more than most tailwinds.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={ring}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The start</h3>
+                <p className={s.tileBody}>Force-sensing blocks at 1 kHz. We keep the trace for every start, contested or not, and hand it over on request.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={fadedbar}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Synchronisation</h3>
+                <p className={s.tileBody}>One clock, distributed by cable, never by wireless. Two clocks agreeing is not the same as one clock being right.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">What we bring</h2>
+          <p className={s.secNote}>One van, two crew, and the list below. Venues supply power and a flat place to put it.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Item</span>
+                <span>Count</span>
+                <span>Detail</span>
+                <span>Weight</span>
+            </li>
+              <li key="Line-scan camera">
+                <span>Line-scan camera</span>
+                <span>2</span>
+                <span>10 000 fps, twin plane</span>
+                <span>14 kg</span>
+              </li>
+              <li key="Timing console">
+                <span>Timing console</span>
+                <span>2</span>
+                <span>Primary and hot spare</span>
+                <span>22 kg</span>
+              </li>
+              <li key="Start blocks, sensing">
+                <span>Start blocks, sensing</span>
+                <span>8</span>
+                <span>1 kHz force trace</span>
+                <span>96 kg</span>
+              </li>
+              <li key="Transponder loops">
+                <span>Transponder loops</span>
+                <span>6</span>
+                <span>Surface or buried</span>
+                <span>40 kg</span>
+              </li>
+              <li key="Light gates">
+                <span>Light gates</span>
+                <span>12</span>
+                <span>Twin beam</span>
+                <span>18 kg</span>
+              </li>
+              <li key="Cable, distribution">
+                <span>Cable, distribution</span>
+                <span>1 200 m</span>
+                <span>Fibre and copper</span>
+                <span>140 kg</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Asked by organisers</h2>
+          <dl className={s.faqList}>
+              <div key="How long do you need on ">
+                <dt>How long do you need on site?</dt>
+                <dd>Half a day before the first event for a track, a full day for a road course. Most of it is surveying the finish, not plugging things in.</dd>
+              </div>
+              <div key="Can we use our own score">
+                <dt>Can we use our own scoreboard?</dt>
+                <dd>Yes, if it speaks a protocol from this century. We will test it the day before, not on the morning.</dd>
+              </div>
+              <div key="What happens if a system">
+                <dt>What happens if a system fails?</dt>
+                <dd>Two of everything, hot. The photo finish and the transponders are independent chains, so losing one never loses the meeting.</dd>
+              </div>
+              <div key="Do you publish results y">
+                <dt>Do you publish results yourselves?</dt>
+                <dd>To your board and your feed, four seconds after the last athlete. What happens after that is your press officer, not us.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

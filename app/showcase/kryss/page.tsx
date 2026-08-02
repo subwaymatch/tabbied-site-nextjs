@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { caltrop, metro, bothways, trigram, staple } from 'tabbied/artworks';
+import {
+  caltrop, metro, bothways, trigram, staple,
+  dotmatrix,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './kryss.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#131416';
 const GREEN = '#00843D';
 const GREY = '#8E9094';
 const PALE = '#E2E2DE';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const PROJECTS = [
   { code: 'K-46', client: 'Bergen Sentralstasjon', kind: 'Rail interchange', pts: '212', year: '2026' },
@@ -271,6 +279,132 @@ export default function KryssPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three ways a sign fails</h2>
+          <p className={s.secNote}>Almost never legibility. These three account for most of what we are called in to fix.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={staple}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>It is not at a decision</h3>
+                <p className={s.tileBody}>A sign twenty metres past the fork is worse than no sign, because it confirms a choice already made. We map the forks first and hang signs only there.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={trigram}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>It uses the wrong name</h3>
+                <p className={s.tileBody}>The org chart says Department of Ambulatory Services. Everybody says the day unit. The sign that says both is the sign that works.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotmatrix}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>It arrives too late</h3>
+                <p className={s.tileBody}>Read at thirty metres, twelve metres and two metres, in that order, with a different amount of information at each. Most systems only design the last one.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Typography and materials</h2>
+          <p className={s.secNote}>The house specification. Deviating from it needs a reason written down.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Element</span>
+                <span>Specification</span>
+                <span>Minimum</span>
+                <span>Note</span>
+            </li>
+              <li key="Primary destination">
+                <span>Primary destination</span>
+                <span>Inter, 500</span>
+                <span>35 mm cap</span>
+                <span>At 12 m reading distance</span>
+              </li>
+              <li key="Secondary">
+                <span>Secondary</span>
+                <span>Inter, 400</span>
+                <span>22 mm cap</span>
+                <span>Never more than four per panel</span>
+              </li>
+              <li key="Arrow">
+                <span>Arrow</span>
+                <span>Drawn, house</span>
+                <span>Cap height</span>
+                <span>Leading edge aligns to type</span>
+              </li>
+              <li key="Panel">
+                <span>Panel</span>
+                <span>Anodised aluminium</span>
+                <span>3 mm</span>
+                <span>Powder coat on the reverse</span>
+              </li>
+              <li key="Contrast">
+                <span>Contrast</span>
+                <span>70 % minimum</span>
+                <span>LRV difference</span>
+                <span>Measured, not judged</span>
+              </li>
+              <li key="Mounting">
+                <span>Mounting</span>
+                <span>Suspended or post</span>
+                <span>2 100 mm</span>
+                <span>Clear headroom</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions from clients</h2>
+          <dl className={s.faqList}>
+              <div key="Can you just do the sign">
+                <dt>Can you just do the signs?</dt>
+                <dd>We can, and it will not work. If the corridor lies, no sign fixes it. We would rather tell you that in week one than in year two.</dd>
+              </div>
+              <div key="How long does a scheme t">
+                <dt>How long does a scheme take?</dt>
+                <dd>Four to nine months depending on size. Testing is six weeks of it and it is not the part to compress.</dd>
+              </div>
+              <div key="Do you handle fabricatio">
+                <dt>Do you handle fabrication?</dt>
+                <dd>No. We specify, tender and inspect. Keeping the design and the fabrication separate is how we can reject a batch.</dd>
+              </div>
+              <div key="What if the building cha">
+                <dt>What if the building changes?</dt>
+                <dd>The system is drawn so panels can be replaced individually. Nobody has ever regretted that and several clients have regretted the alternative.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

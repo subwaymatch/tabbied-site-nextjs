@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { weave, plait, corduroy, damier, thickset } from 'tabbied/artworks';
+import {
+  weave, plait, corduroy, damier, thickset,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './meterware.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#14161F';
 const INDIGO = '#2B3FAE';
 const GREY = '#8E8A7E';
 const PALE = '#DCD7C9';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const QUALITIES = [
   { art: '1104', name: 'Zwirnköper', comp: 'Cotton 100 %', weight: '340 g/m²', width: '150 cm', price: '€28 / m' },
@@ -270,6 +277,132 @@ export default function MeterwarePage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three decisions before the loom</h2>
+          <p className={s.secNote}>By the time the shuttle moves, the cloth has already been decided.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={weave}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The yarn</h3>
+                <p className={s.tileBody}>Count, twist and origin. A high-twist cotton and a low-twist cotton at the same weight make two completely different cloths.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={plait}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The dye</h3>
+                <p className={s.tileBody}>Yarn dyed, in the house, before warping. It costs more and it is the only way to get an indigo that goes grey rather than patchy.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={thickset}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The sett</h3>
+                <p className={s.tileBody}>Ends per centimetre. Too open and it grins; too close and it boards. This is the number that takes the longest to get right.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Finishing</h2>
+          <p className={s.secNote}>What happens after the loom. Every article is finished the same way every time, which is why repeat orders match.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Step</span>
+                <span>Method</span>
+                <span>Duration</span>
+                <span>Effect</span>
+            </li>
+              <li key="Mending">
+                <span>Mending</span>
+                <span>By hand, on a frame</span>
+                <span>2 h per 30 m</span>
+                <span>Faults marked and repaired</span>
+              </li>
+              <li key="Scour">
+                <span>Scour</span>
+                <span>Warm, mild</span>
+                <span>40 min</span>
+                <span>Removes size and oil</span>
+              </li>
+              <li key="Full">
+                <span>Full</span>
+                <span>Mechanical, wool only</span>
+                <span>20 to 90 min</span>
+                <span>Density and handle</span>
+              </li>
+              <li key="Dry">
+                <span>Dry</span>
+                <span>Frame, no tension</span>
+                <span>12 h</span>
+                <span>Stable width</span>
+              </li>
+              <li key="Press">
+                <span>Press</span>
+                <span>Steam, one pass</span>
+                <span>15 min</span>
+                <span>Surface only</span>
+              </li>
+              <li key="Measure">
+                <span>Measure</span>
+                <span>Twice, by two people</span>
+                <span>n/a</span>
+                <span>Printed on the ticket</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Ordering questions</h2>
+          <dl className={s.faqList}>
+              <div key="Will the next roll match">
+                <dt>Will the next roll match?</dt>
+                <dd>Within a batch, yes. Across batches there is a shade difference we will show you before shipping. Order the whole quantity at once if it matters.</dd>
+              </div>
+              <div key="Do you sell to the trade">
+                <dt>Do you sell to the trade?</dt>
+                <dd>There is no trade price and no retail price. There is a price, and it is the one on the list.</dd>
+              </div>
+              <div key="Can you weave my design?">
+                <dt>Can you weave my design?</dt>
+                <dd>Above four hundred metres, yes, on 150 cm. Below that it is our book or another mill, and we will tell you which mill.</dd>
+              </div>
+              <div key="Will it shrink?">
+                <dt>Will it shrink?</dt>
+                <dd>Everything is finished before sale, so about one per cent. Wash the sample we send you before you cut forty metres.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

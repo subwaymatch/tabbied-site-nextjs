@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { stitch, damier, bias, taper, thickset } from 'tabbied/artworks';
+import {
+  stitch, damier, bias, taper, thickset,
+  corduroy,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './passform.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#191512';
 const RUST = '#C1440E';
 const GREY = '#9A9086';
 const PALE = '#E5DFD4';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const STAGES = [
   { n: 'I', t: 'Measure', hrs: '2 h', d: 'Twenty-eight measurements, taken twice, and a long look at how you actually stand rather than how you stand when being measured.' },
@@ -276,6 +284,132 @@ export default function PassformPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things a machine cannot do</h2>
+          <p className={s.secNote}>Not romance. Three specific operations that decide whether a coat hangs.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={damier}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>The shoulder</h3>
+                <p className={s.tileBody}>Pad stitched by hand so the canvas and the cloth move independently. A fused shoulder is flat on the hanger and flat on you.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={bias}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>The canvas</h3>
+                <p className={s.tileBody}>Floating, not glued. It takes the shape of your chest over about a year, which is a feature and cannot be simulated.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={corduroy}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>The second fitting</h3>
+                <p className={s.tileBody}>Where the coat stops being a size and starts being yours. Nothing measured at the start survives it unchanged.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">What we make besides suits</h2>
+          <p className={s.secNote}>Same bench, same pattern, smaller commitment. All prices before cloth.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Garment</span>
+                <span>Hours</span>
+                <span>Fittings</span>
+                <span>From</span>
+            </li>
+              <li key="Overcoat">
+                <span>Overcoat</span>
+                <span>70</span>
+                <span>4</span>
+                <span>€5,100</span>
+              </li>
+              <li key="Odd jacket">
+                <span>Odd jacket</span>
+                <span>44</span>
+                <span>3</span>
+                <span>€3,200</span>
+              </li>
+              <li key="Trousers, alone">
+                <span>Trousers, alone</span>
+                <span>16</span>
+                <span>2</span>
+                <span>€1,150</span>
+              </li>
+              <li key="Waistcoat">
+                <span>Waistcoat</span>
+                <span>14</span>
+                <span>2</span>
+                <span>€980</span>
+              </li>
+              <li key="Dinner suit">
+                <span>Dinner suit</span>
+                <span>68</span>
+                <span>4</span>
+                <span>€5,400</span>
+              </li>
+              <li key="Alteration, our work">
+                <span>Alteration, our work</span>
+                <span>n/a</span>
+                <span>As needed</span>
+                <span>Free</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Before your first appointment</h2>
+          <dl className={s.faqList}>
+              <div key="What should I bring?">
+                <dt>What should I bring?</dt>
+                <dd>The shoes you will wear with it, and a jacket you already like, even if you like it for reasons you cannot articulate. Especially then.</dd>
+              </div>
+              <div key="How long does it take?">
+                <dt>How long does it take?</dt>
+                <dd>Fourteen weeks to the first fitting, and about six months to delivery. Repeat orders are half that because the pattern already exists.</dd>
+              </div>
+              <div key="Can I supply my own clot">
+                <dt>Can I supply my own cloth?</dt>
+                <dd>Yes, and we will tell you honestly if it is not enough or not suitable. Three and a half metres for a two-piece, more if it has a check.</dd>
+              </div>
+              <div key="What if I change shape?">
+                <dt>What if I change shape?</dt>
+                <dd>We alter our own work free, for as long as the garment lasts. Bodies change; the pattern is still in the drawer.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

@@ -1,5 +1,8 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { glazing, tinting, scumble, drybrush, bokeh } from 'tabbied/artworks';
+import {
+  glazing, tinting, scumble, drybrush, bokeh,
+  grainfield,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './cobalt-works.module.css';
 
@@ -15,6 +18,11 @@ const INK = '#14161C';
 const BLUE = '#0033CC';
 const STEEL = '#7E8494';
 const PALE = '#DEDBD0';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = PALE;
+
 
 const PIGMENTS = [
   { ref: 'PB 28', name: 'Cobalt Blue', family: 'Blue', origin: 'Synthetic oxide', grind: '4 µm', price: '£142 / kg' },
@@ -273,6 +281,132 @@ export default function CobaltWorksPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three ways a pigment goes wrong</h2>
+          <p className={s.secNote}>Not adulteration, which is rare. These are the everyday faults that make a batch unusable.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={bokeh}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Grind drift</h3>
+                <p className={s.tileBody}>Two microns coarser and the same pigment reads paler and chalkier. Grind is measured on every batch and printed on the tin.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={grainfield}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Moisture</h3>
+                <p className={s.tileBody}>Earths take up water and cake. Warehouse bays are checked weekly and anything above six per cent goes back through the dryer.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={glazing}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Settling</h3>
+                <p className={s.tileBody}>A tinted mix separates in the tin. That is the pigment behaving, not failing, and it is why we sell dry and let you bind it.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Binders we stock</h2>
+          <p className={s.secNote}>Sold alongside the pigment because people ask, and because the wrong binder wastes good colour.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Binder</span>
+                <span>For</span>
+                <span>Unit</span>
+                <span>Price</span>
+            </li>
+              <li key="Linseed, cold pressed">
+                <span>Linseed, cold pressed</span>
+                <span>Oil paint</span>
+                <span>1 L</span>
+                <span>£24</span>
+              </li>
+              <li key="Stand oil">
+                <span>Stand oil</span>
+                <span>Glazes</span>
+                <span>500 ml</span>
+                <span>£19</span>
+              </li>
+              <li key="Gum arabic, solution">
+                <span>Gum arabic, solution</span>
+                <span>Watercolour</span>
+                <span>500 ml</span>
+                <span>£16</span>
+              </li>
+              <li key="Rabbit skin glue">
+                <span>Rabbit skin glue</span>
+                <span>Distemper, size</span>
+                <span>1 kg</span>
+                <span>£31</span>
+              </li>
+              <li key="Casein powder">
+                <span>Casein powder</span>
+                <span>Limewash, secco</span>
+                <span>1 kg</span>
+                <span>£28</span>
+              </li>
+              <li key="Acrylic dispersion">
+                <span>Acrylic dispersion</span>
+                <span>Modern media</span>
+                <span>1 L</span>
+                <span>£22</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Ordering questions</h2>
+          <dl className={s.faqList}>
+              <div key="Is one kilo really the m">
+                <dt>Is one kilo really the minimum?</dt>
+                <dd>Yes, and it always has been. A cutting quantity is how people find out whether they want twenty-five.</dd>
+              </div>
+              <div key="Can you match a historic">
+                <dt>Can you match a historic colour?</dt>
+                <dd>Send a chip or a fragment. We will mill against it and send three drawdowns, with a note on what we think the original was.</dd>
+              </div>
+              <div key="Are your earths natural?">
+                <dt>Are your earths natural?</dt>
+                <dd>The ones marked natural are washed and levigated only. The synthetics say so on the label, with the maker named.</dd>
+              </div>
+              <div key="Do you ship abroad?">
+                <dt>Do you ship abroad?</dt>
+                <dd>Within Europe, yes, up to 25 kg a parcel. Some pigments are restricted in some countries and we check before taking money.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

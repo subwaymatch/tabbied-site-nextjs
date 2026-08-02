@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { halftone, grainfield, dustfall, peppering, misprint } from 'tabbied/artworks';
+import {
+  halftone, grainfield, dustfall, peppering, misprint,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './silbersalz.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#101010';
 const RED = '#C8102E';
 const GREY = '#8A8880';
 const PALE = '#D9D6CC';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = GREY;
+const TILE_B = PALE;
+
 
 const DEVELOP = [
   { fmt: '135', proc: 'B&W, hand tank', dev: 'ID-11, 1+1', turn: '3 days', price: '€9' },
@@ -270,6 +277,132 @@ export default function SilbersalzPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things that ruin a negative</h2>
+          <p className={s.secNote}>None of them happens in the camera, and all of them are avoidable.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={peppering}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Heat in transit</h3>
+                <p className={s.tileBody}>A film left in a car in July shifts before it is ever developed. Post it, or bring it; do not leave it on the parcel shelf for a fortnight.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dustfall}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Time in the tank</h3>
+                <p className={s.tileBody}>Thirty seconds either way at twenty degrees is nothing. Three minutes is a different film. This is why we do one at a time.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={halftone}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Water</h3>
+                <p className={s.tileBody}>Drying marks are the single most common fault we see on home-developed film, and they are permanent. Final rinse, wetting agent, hang, leave it.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">What we stock at the counter</h2>
+          <p className={s.secNote}>Small quantities, at roughly what we pay, because a lab with no film in it is a strange place.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Stock</span>
+                <span>Format</span>
+                <span>Speed</span>
+                <span>Price</span>
+            </li>
+              <li key="HP5 Plus">
+                <span>HP5 Plus</span>
+                <span>135-36, 120</span>
+                <span>400</span>
+                <span>€7.50</span>
+              </li>
+              <li key="FP4 Plus">
+                <span>FP4 Plus</span>
+                <span>135-36, 120</span>
+                <span>125</span>
+                <span>€7.20</span>
+              </li>
+              <li key="Delta 3200">
+                <span>Delta 3200</span>
+                <span>135-36</span>
+                <span>3200</span>
+                <span>€10.90</span>
+              </li>
+              <li key="Portra 400">
+                <span>Portra 400</span>
+                <span>135-36, 120</span>
+                <span>400</span>
+                <span>€14.80</span>
+              </li>
+              <li key="Ektachrome E100">
+                <span>Ektachrome E100</span>
+                <span>135-36</span>
+                <span>100</span>
+                <span>€18.40</span>
+              </li>
+              <li key="Ilford MG fibre">
+                <span>Ilford MG fibre</span>
+                <span>24 × 30, 50 sheets</span>
+                <span>n/a</span>
+                <span>€96</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Sending film in</h2>
+          <dl className={s.faqList}>
+              <div key="How should I post it?">
+                <dt>How should I post it?</dt>
+                <dd>A padded envelope, canisters in a freezer bag, and a note with your name in the bag rather than only on the outside.</dd>
+              </div>
+              <div key="Do you push and pull?">
+                <dt>Do you push and pull?</dt>
+                <dd>Two stops either way on black and white, one on colour negative. Tell us on the note; we cannot tell by looking.</dd>
+              </div>
+              <div key="Will you scan as well?">
+                <dt>Will you scan as well?</dt>
+                <dd>Yes, at two sizes, but we would rather make you a print. A scan is a proposal; a print is a decision.</dd>
+              </div>
+              <div key="What happens to a blank ">
+                <dt>What happens to a blank roll?</dt>
+                <dd>We tell you, we do not charge you, and we say what we think went wrong. It is nearly always the film not catching on the take-up spool.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

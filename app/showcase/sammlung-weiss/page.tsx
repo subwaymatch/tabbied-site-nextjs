@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { lantern, windowpane, quire, recession, veil } from 'tabbied/artworks';
+import {
+  lantern, windowpane, quire, recession, veil,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './sammlung-weiss.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#111111';
 const STONE = '#6E6A60';
 const PALE = '#CFCBBF';
 const LIGHT = '#EAE7DD';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STONE;
+const TILE_B = PALE;
+
 
 const ROOMS = [
   { n: 'I', name: 'The long room', hangs: '14 works', note: 'North light, no artificial source. Closed on days when the meter reads under 180 lux at noon.' },
@@ -276,6 +283,132 @@ export default function SammlungWeissPage() {
             </figure>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three conditions the works live under</h2>
+          <p className={s.secNote}>Not policy for its own sake. Each of these is the reason something has survived seventy years.</p>
+          <div className={s.tileGrid}>
+              <article key="I">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={veil}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>I</p>
+                <h3>Light</h3>
+                <p className={s.tileBody}>Fifty lux on works on paper, a hundred and fifty on paintings, and eleven days of opening a year. The store is the default state; display is the exception.</p>
+              </article>
+              <article key="II">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={lantern}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>II</p>
+                <h3>Air</h3>
+                <p className={s.tileBody}>Nineteen degrees, fifty per cent, moved slowly. The plant is oversized so it never has to work hard, which is also why it has never failed.</p>
+              </article>
+              <article key="III">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={recession}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>III</p>
+                <h3>Handling</h3>
+                <p className={s.tileBody}>Two people, cotton, no jewellery, and a written condition report before and after every movement, including the ones inside the building.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Conservation record</h2>
+          <p className={s.secNote}>Treatments carried out since 2015, listed because the deed requires it and because researchers ask.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Year</span>
+                <span>Work</span>
+                <span>Treatment</span>
+                <span>Conservator</span>
+            </li>
+              <li key="2025">
+                <span>2025</span>
+                <span>Painting, FA 118</span>
+                <span>Consolidation, local</span>
+                <span>R. Frei, Basel</span>
+              </li>
+              <li key="2024">
+                <span>2024</span>
+                <span>Works on paper, 14 items</span>
+                <span>Rehousing, deacidification</span>
+                <span>M. Bähler, Bern</span>
+              </li>
+              <li key="2023">
+                <span>2023</span>
+                <span>Sculpture, FA 019</span>
+                <span>Surface clean, wax</span>
+                <span>Studio Lang, Zürich</span>
+              </li>
+              <li key="2021">
+                <span>2021</span>
+                <span>Painting, FA 072</span>
+                <span>Varnish removal</span>
+                <span>R. Frei, Basel</span>
+              </li>
+              <li key="2019">
+                <span>2019</span>
+                <span>Photographs, 27 items</span>
+                <span>Cold storage, rehoused</span>
+                <span>In house</span>
+              </li>
+              <li key="2016">
+                <span>2016</span>
+                <span>Painting, FA 004</span>
+                <span>Structural, tear repair</span>
+                <span>R. Frei, Basel</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Practical questions</h2>
+          <dl className={s.faqList}>
+              <div key="How does the ballot work">
+                <dt>How does the ballot work?</dt>
+                <dd>One entry per person per day, by post or by mail, closing six weeks ahead. Twelve names are drawn and answered by post. There is no waiting list.</dd>
+              </div>
+              <div key="Can I see a specific wor">
+                <dt>Can I see a specific work?</dt>
+                <dd>If it is catalogued and not on display, yes, twice a year, in writing, with a reason. Uncatalogued material we cannot retrieve reliably and we say so.</dd>
+              </div>
+              <div key="Why is entry free?">
+                <dt>Why is entry free?</dt>
+                <dd>Because the deed says so. Elsa Weiss thought charging for a private collection was a category error and left no mechanism to reverse it.</dd>
+              </div>
+              <div key="Do you lend?">
+                <dt>Do you lend?</dt>
+                <dd>Two loans a year, to public institutions, for exhibitions with a catalogue. Nothing travels in January or August.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>

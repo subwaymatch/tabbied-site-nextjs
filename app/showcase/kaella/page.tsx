@@ -1,5 +1,7 @@
 import { TabbiedArtwork } from 'tabbied/react';
-import { ripplering, tidering, lagoon, dotwash, curl } from 'tabbied/artworks';
+import {
+  ripplering, tidering, lagoon, dotwash, curl,
+} from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './kaella.module.css';
 
@@ -15,6 +17,11 @@ const INK = '#0F1A1D';
 const AQUA = '#00A6A6';
 const STEEL = '#7E9296';
 const MIST = '#DCE7E7';
+/* The two inks the decorative tiles draw with: always the quiet pair, so a
+   tile reads as a sample rather than as another headline. */
+const TILE_A = STEEL;
+const TILE_B = MIST;
+
 
 const TODAY = [
   { p: 'Hardness', v: '5.8', u: '°dH', note: 'Medium soft' },
@@ -260,6 +267,132 @@ export default function KaellaPage() {
             </dl>
           </div>
         </section>
+        {/* ---------------------------------------------------------- TILES */}
+        <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
+          <h2 id="tiles-h">Three things we test for that nobody asks about</h2>
+          <p className={s.secNote}>The parameters on the front page are the ones people know. These are the ones that actually keep the supply safe.</p>
+          <div className={s.tileGrid}>
+              <article key="01">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={ripplering}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={78}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>01</p>
+                <h3>Coliforms</h3>
+                <p className={s.tileBody}>Ninety-four samples a week, six from taps chosen at random across the network. A single positive closes a zone until three consecutive clears.</p>
+              </article>
+              <article key="02">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={dotwash}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={64}
+                    redrawInterval={6200}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>02</p>
+                <h3>Trihalomethanes</h3>
+                <p className={s.tileBody}>A by-product of chlorination, which is one of several reasons we do not chlorinate in normal operation. Measured anyway, monthly.</p>
+              </article>
+              <article key="03">
+                <div className={s.tilePlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={lagoon}
+                    palette={['transparent', TILE_A, TILE_B]}
+                    fit="grid"
+                    cellSize={92}
+                    redrawInterval={4800}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.tileN}>03</p>
+                <h3>Pressure</h3>
+                <p className={s.tileBody}>Not a quality parameter, but a low-pressure event is how contamination gets into a main. Logged continuously at forty points.</p>
+              </article>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------- INDEX */}
+        <section id="index" className={s.idx} aria-labelledby="idx-h">
+          <h2 id="idx-h">Network</h2>
+          <p className={s.secNote}>What the nine hundred and forty kilometres are actually made of, oldest first.</p>
+          <ol className={s.idxList}>
+            <li className={s.idxHead} aria-hidden="true">
+                <span>Material</span>
+                <span>Length</span>
+                <span>Laid</span>
+                <span>Replacement</span>
+            </li>
+              <li key="Cast iron">
+                <span>Cast iron</span>
+                <span>118 km</span>
+                <span>1876 to 1955</span>
+                <span>Priority, 4 km a year</span>
+              </li>
+              <li key="Asbestos cement">
+                <span>Asbestos cement</span>
+                <span>96 km</span>
+                <span>1950 to 1974</span>
+                <span>Priority, on failure</span>
+              </li>
+              <li key="Ductile iron">
+                <span>Ductile iron</span>
+                <span>341 km</span>
+                <span>1970 to 2000</span>
+                <span>As required</span>
+              </li>
+              <li key="PE 100">
+                <span>PE 100</span>
+                <span>372 km</span>
+                <span>1995 onward</span>
+                <span>None expected</span>
+              </li>
+              <li key="Steel, trunk">
+                <span>Steel, trunk</span>
+                <span>13 km</span>
+                <span>1962</span>
+                <span>Relined 2018</span>
+              </li>
+              <li key="Service pipes">
+                <span>Service pipes</span>
+                <span>n/a</span>
+                <span>Various</span>
+                <span>Lead: none remaining</span>
+              </li>
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ FAQ */}
+        <section id="faq" className={s.faq} aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions from households</h2>
+          <dl className={s.faqList}>
+              <div key="Why is my water cloudy?">
+                <dt>Why is my water cloudy?</dt>
+                <dd>Almost always air, not dirt. Fill a glass and leave it for two minutes; if it clears from the bottom up it was air and there is nothing wrong.</dd>
+              </div>
+              <div key="Do I need a filter?">
+                <dt>Do I need a filter?</dt>
+                <dd>No. If you dislike the taste, a jug in the fridge for an hour does more than any filter, and costs nothing.</dd>
+              </div>
+              <div key="Is it hard water?">
+                <dt>Is it hard water?</dt>
+                <dd>Five point eight degrees, which is medium soft. You will use less detergent here than almost anywhere else in the country.</dd>
+              </div>
+              <div key="Why does it taste differ">
+                <dt>Why does it taste different in summer?</dt>
+                <dd>Slightly warmer at the tap and slightly longer in the main. Same water, same source, different residence time.</dd>
+              </div>
+          </dl>
+        </section>
+
       </main>
 
       <footer className={s.footer}>
