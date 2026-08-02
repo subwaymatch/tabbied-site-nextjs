@@ -1,0 +1,552 @@
+/* ==========================================================================
+   SAMMLUNG WEISS — private collection, Winterthur
+   The quietest page in the batch: no accent colour at all, a narrow measure,
+   very generous leading, and more empty space than content. The pattern fields
+   are the only figure on the page, which is the point — they take
+   `transparent` in the background slot and read as light on a wall.
+   ========================================================================== */
+
+.page {
+  --bone: #efede6;
+  --ink: #111111;
+  --stone: #6e6a60;
+  --pale: #cfcbbf;
+  --light: #eae7dd;
+  --gut: clamp(1.15rem, 4vw, 3.5rem);
+  --max: 74rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.012em;
+  background: var(--bone);
+  color: var(--ink);
+  line-height: 1.62;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gut);
+  padding: 1rem var(--gut);
+  background: color-mix(in srgb, var(--bone) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.bar nav {
+  display: flex;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--stone);
+}
+
+.bar nav a:hover {
+  color: var(--ink);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 14vw, 11rem) var(--gut) clamp(3rem, 9vw, 7rem);
+}
+
+/* lantern is sparse and architectural; it runs at full strength here because
+   there is nothing else on the page to compete with. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.8;
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.6rem, 5vw, 3.5rem);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4.4rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+}
+
+.lede {
+  margin: clamp(1.8rem, 4vw, 2.8rem) 0 0;
+  max-width: 30rem;
+  font-size: clamp(0.98rem, 1.5vw, 1.1rem);
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+}
+
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+}
+
+.pair {
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(1.2rem, 3.5vw, 2.5rem);
+  align-items: end;
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.pair figure:last-child img {
+  aspect-ratio: 4 / 3;
+}
+
+.wide {
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 5 / 2;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.note {
+  margin: -1.4rem 0 2.4rem;
+  max-width: 34rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------------------- collection */
+
+.collection,
+.visiting {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 10vw, 7rem) var(--gut);
+}
+
+.colGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.holdings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.holdings li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.5rem;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.hKind {
+  font-size: 0.9rem;
+}
+
+.hN {
+  text-align: right;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.hSpan {
+  grid-column: 1 / -1;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+}
+
+.big {
+  margin: 0 0 1.3rem;
+  font-size: clamp(1.1rem, 2.1vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.42;
+  letter-spacing: -0.026em;
+}
+
+.colText p {
+  margin: 0 0 1.1rem;
+  font-size: 0.94rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+  max-width: 34rem;
+}
+
+/* --------------------------------------------------------------- hang band
+   The single loud gesture on an otherwise silent page: windowpane at full
+   strength on a transparent ground, reading as a wall of frames. */
+
+.hangBand {
+  position: relative;
+  height: clamp(9rem, 22vw, 17rem);
+  overflow: hidden;
+  background: var(--light);
+}
+
+.hangField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+}
+
+/* ------------------------------------------------------------------- rooms */
+
+.rooms {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 10vw, 7rem) 0;
+}
+
+.roomsField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.42;
+}
+
+.roomsField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 64% 58% at 46% 30%,
+    var(--bone) 0%,
+    color-mix(in srgb, var(--bone) 60%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.roomsInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.roomList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.roomList li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 6rem;
+  gap: clamp(0.8rem, 2.5vw, 2rem);
+  padding: 1.2rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.roomList li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.rN {
+  font-size: 0.86rem;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+}
+
+.roomList h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.roomList p {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  max-width: 36rem;
+}
+
+.rHangs {
+  font-size: 0.84rem;
+  text-align: right;
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- visiting */
+
+.days {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 48rem;
+}
+
+.days li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.dDate {
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.dWhat {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.dBallot {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--stone);
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- research */
+
+.research {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 10vw, 7rem) 0;
+}
+
+.resField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 38%, transparent 62%, #000 100%);
+}
+
+.resInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.resGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.resGrid dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.resGrid dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 0.35rem;
+}
+
+.resGrid dd {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+.resGrid a {
+  border-bottom: 1px solid var(--stone);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bone);
+  padding: clamp(3rem, 8vw, 5rem) 0 clamp(1.8rem, 4vw, 3rem);
+}
+
+.footField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.footInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid;
+  gap: 1.6rem;
+}
+
+.footMark {
+  margin: 0;
+  font-size: clamp(1.9rem, 8vw, 5.4rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.footFine {
+  margin: 0;
+  max-width: 38rem;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--bone) 62%, transparent);
+}
+
+.footFine a {
+  color: var(--bone);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .colGrid,
+  .resGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .pair img,
+  .pair figure:last-child img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .roomList li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+
+  .rHangs {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .days li {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    row-gap: 0.15rem;
+  }
+
+  .dBallot {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .resGrid dl {
+    grid-template-columns: 1fr;
+  }
+}

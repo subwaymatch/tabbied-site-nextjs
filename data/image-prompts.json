@@ -229,6 +229,126 @@
         "Light": { "hex": "#FBFAF6", "as": "the brightest wall under a skylight" }
       }
     },
+    "frequenz": {
+      "title": "Frequenz — public radio station",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Dark": { "hex": "#121014", "as": "the darkened studio and deep shadow" },
+        "Cream": { "hex": "#F2EFE6", "as": "paper, acoustic panels and lamp light" },
+        "Amber": { "hex": "#FFA200", "as": "the on-air lamp and warm indicator light" },
+        "Grey": { "hex": "#6B6560", "as": "equipment housings and cable" },
+        "Panel": { "hex": "#1D1A20", "as": "dark timber and rack fronts" }
+      }
+    },
+    "fonds-aubert": {
+      "title": "Fonds Aubert — records archive",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F0F0E8", "as": "daylight, paper and pale plaster" },
+        "Ink": { "hex": "#1A1C18", "as": "dark shelving, shadow and bindings" },
+        "Olive": { "hex": "#4C6B2F", "as": "one muted accent on a box label or a door" },
+        "Grey": { "hex": "#8C8F84", "as": "steel shelving and grey board" },
+        "Pale": { "hex": "#DEDED4", "as": "archive boxes and folder card" }
+      }
+    },
+    "passform": {
+      "title": "Passform — bespoke tailoring",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Linen": { "hex": "#F5F1EA", "as": "daylight, calico and pattern paper" },
+        "Ink": { "hex": "#191512", "as": "dark cloth, shadow and the cutting table" },
+        "Rust": { "hex": "#C1440E", "as": "one accent on thread, chalk or a pin cushion" },
+        "Grey": { "hex": "#9A9086", "as": "steel shears and grey worsted" },
+        "Pale": { "hex": "#E5DFD4", "as": "brown paper patterns and tailor's canvas" }
+      }
+    },
+    "meterware": {
+      "title": "Meterware — textile mill",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Ecru": { "hex": "#EFEBE1", "as": "raw cloth, daylight and mill walls" },
+        "Ink": { "hex": "#14161F", "as": "machine frames and deep shadow" },
+        "Indigo": { "hex": "#2B3FAE", "as": "the dyed yarn and one painted machine panel" },
+        "Grey": { "hex": "#8E8A7E", "as": "steel machinery and concrete" },
+        "Pale": { "hex": "#DCD7C9", "as": "undyed yarn and pale cloth" }
+      }
+    },
+    "sichtbeton": {
+      "title": "Sichtbeton — concrete engineering",
+      "style": "architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Grey": { "hex": "#E9E9E6", "as": "fair-faced concrete and overcast daylight" },
+        "Ink": { "hex": "#131313", "as": "formwork ties, shadow and dark steel" },
+        "Orange": { "hex": "#FF5A00", "as": "one safety accent on tape, a helmet or a marker" },
+        "Steel": { "hex": "#8B8B87", "as": "rebar, props and grey machinery" },
+        "Pale": { "hex": "#D3D3CE", "as": "pale board-marked surfaces" }
+      }
+    },
+    "kaella": {
+      "title": "Källa — municipal water utility",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Pale": { "hex": "#F2F6F6", "as": "daylight, mist and pale tile" },
+        "Ink": { "hex": "#0F1A1D", "as": "dark water, shadow and pipe interiors" },
+        "Aqua": { "hex": "#00A6A6", "as": "one accent on painted pipework and valve wheels" },
+        "Steel": { "hex": "#7E9296", "as": "stainless pipework and concrete" },
+        "Mist": { "hex": "#DCE7E7", "as": "still water surfaces and pale sky" }
+      }
+    },
+    "nachtzug": {
+      "title": "Nachtzug — sleeper train operator",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Night": { "hex": "#0B0E1A", "as": "the night sky, dark livery and deep shadow" },
+        "Bone": { "hex": "#EDE8DA", "as": "bed linen, lamp light and platform signage" },
+        "Gold": { "hex": "#E0A83C", "as": "the warm reading lamps and brass fittings" },
+        "Steel": { "hex": "#545C74", "as": "carriage steel and cold platform light" },
+        "Deep": { "hex": "#141827", "as": "tunnel dark and window reflections" }
+      }
+    },
+    "lichtfeld": {
+      "title": "Lichtfeld — lighting design",
+      "style": "architectural photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Dark": { "hex": "#0A0A0A", "as": "the unlit surfaces and night sky" },
+        "White": { "hex": "#FAFAF5", "as": "the lit plane and bright surfaces" },
+        "Warm": { "hex": "#F5E663", "as": "the warm light itself, lamps and pools of glow" },
+        "Grey": { "hex": "#6A6A64", "as": "concrete and metal in half light" },
+        "Panel": { "hex": "#151515", "as": "dark ceilings and deep shadow" }
+      }
+    },
+    "silbersalz": {
+      "title": "Silbersalz — photographic laboratory",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": { "hex": "#EDEBE4", "as": "print paper, light table glow and pale walls" },
+        "Ink": { "hex": "#101010", "as": "the darkroom, film base and deep shadow" },
+        "Red": { "hex": "#C8102E", "as": "the safelight and one red accent" },
+        "Grey": { "hex": "#8A8880", "as": "stainless tanks and enlarger bodies" },
+        "Pale": { "hex": "#D9D6CC", "as": "dry mounted prints and paper stock" }
+      }
+    },
+    "kryss": {
+      "title": "Kryss — wayfinding studio",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Paper": { "hex": "#F4F4F1", "as": "concourse surfaces, daylight and sign faces" },
+        "Ink": { "hex": "#131416", "as": "sign type, dark frames and shadow" },
+        "Green": { "hex": "#00843D", "as": "the directional accent on signs and floor graphics" },
+        "Grey": { "hex": "#8E9094", "as": "brushed aluminium and concrete" },
+        "Pale": { "hex": "#E2E2DE", "as": "pale walls and glazing" }
+      }
+    },
     "quanta-robotics": {
       "title": "Quanta — robotics laboratory",
       "style": "isometric illustration",
@@ -769,6 +889,86 @@
       "subject": "sliding storage racks holding framed works in a windowless art store" },
     { "id": "weiss-plinth", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
       "subject": "a rough grey stone sculpture on a plain white plinth in a bare room" },
+    { "id": "frequenz-studio", "project": "frequenz", "slot": "hero", "size": "1536x1024",
+      "subject": "a radio broadcast studio at night, a large microphone on a boom over a desk, an amber on-air lamp glowing, no people" },
+    { "id": "frequenz-mast", "project": "frequenz", "slot": "story", "size": "1024x1536",
+      "subject": "a lattice transmitter mast against a deep dusk sky, a single warning light near the top" },
+    { "id": "frequenz-archive", "project": "frequenz", "slot": "story", "size": "1024x1024",
+      "subject": "shelves of tape reels and record sleeves in a station archive, lit by one lamp" },
+    { "id": "frequenz-desk", "project": "frequenz", "slot": "story", "size": "1024x1024",
+      "subject": "a close view of a broadcast mixing desk, faders and amber meter lamps in the dark" },
+    { "id": "aubert-stacks", "project": "fonds-aubert", "slot": "hero", "size": "1536x1024",
+      "subject": "long rows of grey archive boxes on steel shelving in a quiet repository, receding into the distance" },
+    { "id": "aubert-reading", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
+      "subject": "an empty reading room desk with a single open document, foam supports and weights, north light" },
+    { "id": "aubert-bench", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
+      "subject": "a paper conservation bench with tools, a scalpel and a sheet under repair, no people" },
+    { "id": "aubert-door", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
+      "subject": "a heavy steel strongroom door standing ajar in a plain corridor" },
+    { "id": "passform-table", "project": "passform", "slot": "hero", "size": "1536x1024",
+      "subject": "a long tailor's cutting table covered with brown paper pattern pieces, shears and chalk, seen from above" },
+    { "id": "passform-stand", "project": "passform", "slot": "story", "size": "1024x1536",
+      "subject": "a half-made jacket in canvas basted onto a tailor's dress stand in a workroom" },
+    { "id": "passform-threads", "project": "passform", "slot": "story", "size": "1024x1024",
+      "subject": "a wall of thread spools arranged by shade in a tailoring workroom" },
+    { "id": "passform-chalk", "project": "passform", "slot": "story", "size": "1024x1024",
+      "subject": "a close view of chalk marks and basting stitches on dark wool cloth" },
+    { "id": "meterware-loom", "project": "meterware", "slot": "hero", "size": "1536x1024",
+      "subject": "a wide industrial loom mid-weave in a mill, warp threads stretched under even light" },
+    { "id": "meterware-rolls", "project": "meterware", "slot": "story", "size": "1024x1024",
+      "subject": "rolls of woven cloth stacked on end in a mill store, ends facing the camera" },
+    { "id": "meterware-creel", "project": "meterware", "slot": "story", "size": "1024x1024",
+      "subject": "a warping creel filled with cones of indigo and undyed yarn" },
+    { "id": "meterware-swatch", "project": "meterware", "slot": "story", "size": "1024x1024",
+      "subject": "an open swatch book of woven cloth samples on a plain table" },
+    { "id": "sichtbeton-wall", "project": "sichtbeton", "slot": "hero", "size": "1536x1024",
+      "subject": "a large board-marked fair-faced concrete wall filling the frame, tie holes in a regular grid, raking light" },
+    { "id": "sichtbeton-formwork", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
+      "subject": "timber formwork panels stacked and braced on a construction site" },
+    { "id": "sichtbeton-rebar", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
+      "subject": "a dense reinforcement cage tied and waiting for a pour, seen from above" },
+    { "id": "sichtbeton-cylinder", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
+      "subject": "concrete test cylinders standing on a laboratory bench beside a compression machine" },
+    { "id": "kaella-basin", "project": "kaella", "slot": "hero", "size": "1536x1024",
+      "subject": "a still rectangular water treatment basin seen from the walkway at dawn, mist on the surface" },
+    { "id": "kaella-valves", "project": "kaella", "slot": "story", "size": "1024x1024",
+      "subject": "a valve hall of large painted pipework and hand wheels, evenly lit, no people" },
+    { "id": "kaella-reservoir", "project": "kaella", "slot": "story", "size": "1024x1024",
+      "subject": "an open service reservoir at first light, flat water and a low concrete edge" },
+    { "id": "kaella-sample", "project": "kaella", "slot": "story", "size": "1024x1024",
+      "subject": "a rack of clear water sample bottles on a laboratory bench" },
+    { "id": "nachtzug-compartment", "project": "nachtzug", "slot": "hero", "size": "1536x1024",
+      "subject": "a sleeper compartment at night, made-up bunk, a warm reading lamp and a dark window, no people" },
+    { "id": "nachtzug-platform", "project": "nachtzug", "slot": "story", "size": "1024x1536",
+      "subject": "a long sleeper train standing at a lit platform late at night, seen down the side" },
+    { "id": "nachtzug-dining", "project": "nachtzug", "slot": "story", "size": "1024x1024",
+      "subject": "an empty dining car set for breakfast, lamps lit, night outside the windows" },
+    { "id": "nachtzug-corridor", "project": "nachtzug", "slot": "story", "size": "1024x1024",
+      "subject": "the narrow corridor of a sleeping car at night, warm lamps receding" },
+    { "id": "lichtfeld-stair", "project": "lichtfeld", "slot": "hero", "size": "1536x1024",
+      "subject": "a concrete stair at night lit only by a continuous recessed line of warm light along one edge" },
+    { "id": "lichtfeld-mockup", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
+      "subject": "a lighting mock-up room with several fixtures aimed at a sample wall, cables on the floor" },
+    { "id": "lichtfeld-fixture", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
+      "subject": "a single machined luminaire on a plain workbench, lit from the side" },
+    { "id": "lichtfeld-facade", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
+      "subject": "a building facade at dusk washed with warm light from below" },
+    { "id": "silbersalz-darkroom", "project": "silbersalz", "slot": "hero", "size": "1536x1024",
+      "subject": "a darkroom under a red safelight, developing trays in a row, an enlarger at the end of the bench, no people" },
+    { "id": "silbersalz-contacts", "project": "silbersalz", "slot": "story", "size": "1024x1024",
+      "subject": "contact sheets spread on a glowing light table with a loupe and a chinagraph pencil" },
+    { "id": "silbersalz-drying", "project": "silbersalz", "slot": "story", "size": "1024x1024",
+      "subject": "strips of developed film hanging to dry from a line with weighted clips" },
+    { "id": "silbersalz-enlarger", "project": "silbersalz", "slot": "story", "size": "1024x1024",
+      "subject": "a large format enlarger standing on a bench, lens and bellows lit from one side" },
+    { "id": "kryss-sign", "project": "kryss", "slot": "hero", "size": "1536x1024",
+      "subject": "a large blank suspended wayfinding sign panel in a bright station concourse, seen straight on, no lettering" },
+    { "id": "kryss-totem", "project": "kryss", "slot": "story", "size": "1024x1536",
+      "subject": "a tall blank freestanding sign totem outdoors on a paved plaza, overcast light, no lettering" },
+    { "id": "kryss-model", "project": "kryss", "slot": "story", "size": "1024x1024",
+      "subject": "a small scale model of a station concourse with miniature blank sign panels on a studio table" },
+    { "id": "kryss-floor", "project": "kryss", "slot": "story", "size": "1024x1024",
+      "subject": "a painted green directional stripe running across a pale concrete floor, seen from above, no lettering" },
     { "id": "quanta-hero", "project": "quanta-robotics", "slot": "hero",
       "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles" },
     { "id": "quanta-line", "project": "quanta-robotics", "slot": "story",

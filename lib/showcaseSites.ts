@@ -2,7 +2,7 @@ import {
   gasket, spark, gloaming, ridgeline, glyph, wavelet, mortise, karst,
   hilbert, linocut, cascade, crescendo, perforate, bothways, torsion,
   taper, windowpane, epicentre, halftone, staple, maelstrom, caltrop,
-  tailoff, tinting,
+  tailoff, tinting, ring, quire,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -55,4 +55,6 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'mesura', name: 'Mesura', topic: 'Structural engineering', artworkSlug: 'caltrop', artwork: caltrop, paletteName: 'Primer orange', palette: ['#F2F1ED', '#15171A', '#FF6A00', '#8C9096', '#D9D8D2'], seed: 'dir-me' },
   { slug: 'seconde', name: 'Seconde', topic: 'Sports timing', artworkSlug: 'tailoff', artwork: tailoff, paletteName: 'Finish magenta', palette: ['#F7F7F5', '#101010', '#FF0059', '#8E8E8E', '#D6D6D2'], seed: 'dir-se' },
   { slug: 'cobalt-works', name: 'Cobalt Works', topic: 'Dry pigment mill', artworkSlug: 'tinting', artwork: tinting, paletteName: 'Cobalt', palette: ['#F6F4EE', '#14161C', '#0033CC', '#7E8494', '#DEDBD0'], seed: 'dir-co' },
+  { slug: 'nullpunkt', name: 'Nullpunkt', topic: 'Calibration laboratory', artworkSlug: 'ring', artwork: ring, paletteName: 'One red, four times', palette: ['#FFFFFF', '#0A0A0A', '#E10600', '#9EA2A6', '#DBDBD9'], seed: 'dir-np' },
+  { slug: 'sammlung-weiss', name: 'Sammlung Weiss', topic: 'Private art collection', artworkSlug: 'quire', artwork: quire, paletteName: 'Achromatic bone', palette: ['#EFEDE6', '#111111', '#6E6A60', '#CFCBBF', '#EAE7DD'], seed: 'dir-sw' },
 ];
