@@ -143,7 +143,7 @@ export default function SichtbetonPage() {
               artwork={chase}
               palette={['transparent', INK, ORANGE, STEEL]}
               fit="grid"
-              cellSize={82}
+              cellSize={120}
               redrawInterval={3800}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -272,24 +272,60 @@ export default function SichtbetonPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={recession}
-            palette={['transparent', ORANGE, STEEL]}
-            fit="grid"
-            cellSize={132}
-            redrawInterval={6800}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Sichtbeton</p>
+            <p className={s.footTag}>Betontechnologie, Hardturmstrasse 260, Zürich, seit 1996.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Advice</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#classes">Four classes</a>
+              </li>
+              <li>
+                <a href="#checks">What decides the wall</a>
+              </li>
+              <li>
+                <a href="#trials">Trial panels</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Engagement</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#office">Engaging us</a>
+              </li>
+              <li>
+                <a href="#office">Site work</a>
+              </li>
+              <li>
+                <a href="#classes">Tolerances</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Hardturmstrasse 260
+              <br />
+              8005 Zürich
+              <br />
+              beton@sichtbeton.example
+              <br />
+              Engage at concept design
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Sichtbeton</p>
-          <p className={s.footFine}>
-            A fictional consultancy. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional consultancy. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

@@ -148,7 +148,7 @@ export default function CobaltWorksPage() {
               artwork={tinting}
               palette={['transparent', BLUE, STEEL, PALE]}
               fit="grid"
-              cellSize={110}
+              cellSize={136}
               redrawInterval={3400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -276,24 +276,60 @@ export default function CobaltWorksPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={bokeh}
-            palette={['transparent', BLUE, PALE]}
-            fit="grid"
-            cellSize={92}
-            redrawInterval={6600}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Cobalt Works</p>
+            <p className={s.footTag}>Dry pigment milled at Effingham Lane, Sheffield, since 1911.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Pigment</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#stock">In stock</a>
+              </li>
+              <li>
+                <a href="#making">How it is made</a>
+              </li>
+              <li>
+                <a href="#matching">Matching</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Trade</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#order">Ordering</a>
+              </li>
+              <li>
+                <a href="#order">Counter hours</a>
+              </li>
+              <li>
+                <a href="#order">Post and carriage</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Effingham Lane, Attercliffe
+              <br />
+              Sheffield S9 2QP
+              <br />
+              mill@cobaltworks.example
+              <br />
+              Mon to Thu, 08.00 to 16.00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Cobalt Works</p>
-          <p className={s.footFine}>
-            A fictional pigment mill. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional pigment mill. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork drawn on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

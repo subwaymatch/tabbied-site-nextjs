@@ -151,7 +151,7 @@ export default function KryssPage() {
               artwork={metro}
               palette={['transparent', GREEN, INK, GREY]}
               fit="grid"
-              cellSize={96}
+              cellSize={120}
               redrawInterval={3200}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -274,24 +274,60 @@ export default function KryssPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={staple}
-            palette={['transparent', GREEN, GREY]}
-            fit="grid"
-            cellSize={72}
-            redrawInterval={6600}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Kryss</p>
+            <p className={s.footTag}>Skiltdesign, Youngstorget 3, Oslo, siden 2011.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Practice</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#method">Four steps</a>
+              </li>
+              <li>
+                <a href="#work">Recent schemes</a>
+              </li>
+              <li>
+                <a href="#testing">Testing</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Studio</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#studio">Youngstorget 3</a>
+              </li>
+              <li>
+                <a href="#studio">Engage us</a>
+              </li>
+              <li>
+                <a href="#studio">The team</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Youngstorget 3
+              <br />
+              0181 Oslo
+              <br />
+              skilt@kryss.example
+              <br />
+              Seven people
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Kryss</p>
-          <p className={s.footFine}>
-            A fictional wayfinding studio. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional wayfinding studio. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

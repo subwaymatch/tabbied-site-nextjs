@@ -136,7 +136,7 @@ export default function SilbersalzPage() {
               artwork={grainfield}
               palette={['transparent', INK, RED, GREY]}
               fit="grid"
-              cellSize={64}
+              cellSize={112}
               redrawInterval={2400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -273,24 +273,60 @@ export default function SilbersalzPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={misprint}
-            palette={['transparent', RED, GREY]}
-            fit="grid"
-            cellSize={76}
-            redrawInterval={6400}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Silbersalz</p>
+            <p className={s.footTag}>Fotolabor, Karl-Liebknecht-Str. 62, Leipzig, seit 1998.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Services</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#develop">Developing</a>
+              </li>
+              <li>
+                <a href="#print">Silver gelatin prints</a>
+              </li>
+              <li>
+                <a href="#house">House rules</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Counter</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#counter">The counter</a>
+              </li>
+              <li>
+                <a href="#counter">Send film by post</a>
+              </li>
+              <li>
+                <a href="#develop">Turnarounds</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Karl-Liebknecht-Str. 62
+              <br />
+              04275 Leipzig
+              <br />
+              labor@silbersalz.example
+              <br />
+              Tue to Fri 11.00 to 18.00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Silbersalz</p>
-          <p className={s.footFine}>
-            A fictional photographic lab. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional photographic lab. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

@@ -182,7 +182,7 @@ export default function KlangwerkPage() {
               artwork={spark}
               palette={['transparent', GREEN, PALE, STEEL]}
               fit="grid"
-              cellSize={70}
+              cellSize={120}
               redrawInterval={2600}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -300,24 +300,60 @@ export default function KlangwerkPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={ripplering}
-            palette={['transparent', STEEL, GREEN]}
-            fit="grid"
-            cellSize={128}
-            redrawInterval={6800}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Klangwerk</p>
+            <p className={s.footTag}>Studio für elektroakustische Musik, Karl-Heine-Str. 41, Leipzig.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Rooms</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#rooms">Studio Eins</a>
+              </li>
+              <li>
+                <a href="#rooms">Studio Zwei</a>
+              </li>
+              <li>
+                <a href="#rooms">Anechoic chamber</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Programme</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#residencies">Residencies</a>
+              </li>
+              <li>
+                <a href="#series">Reihe 41</a>
+              </li>
+              <li>
+                <a href="#apply">Ask for a room</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Karl-Heine-Str. 41, Halle 4
+              <br />
+              04229 Leipzig
+              <br />
+              raum@klangwerk.example
+              <br />
+              Day rate from €60
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Klangwerk</p>
-          <p className={s.footFine}>
-            A fictional studio. Every pattern here is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional studio. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawing on its own timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

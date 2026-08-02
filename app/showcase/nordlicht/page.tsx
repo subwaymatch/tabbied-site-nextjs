@@ -166,7 +166,7 @@ export default function NordlichtPage() {
               artwork={epicentre}
               palette={['transparent', BLUE, INK, STEEL]}
               fit="grid"
-              cellSize={128}
+              cellSize={104}
               redrawInterval={3800}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -346,24 +346,60 @@ export default function NordlichtPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={dipole}
-            palette={['transparent', BLUE, STEEL]}
-            fit="grid"
-            cellSize={110}
-            redrawInterval={7200}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Nordlicht</p>
+            <p className={s.footTag}>Survey and cartography from Storgata 62, Tromsø, since 1998.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Survey</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#survey">What we do</a>
+              </li>
+              <li>
+                <a href="#terrain">Terrain models</a>
+              </li>
+              <li>
+                <a href="#field">Field stations</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Sheets</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#charts">Published sheets</a>
+              </li>
+              <li>
+                <a href="#office">Buy over the counter</a>
+              </li>
+              <li>
+                <a href="#office">By post</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Storgata 62
+              <br />
+              9008 Tromsø
+              <br />
+              post@nordlicht.example
+              <br />
+              +47 00 00 00 00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Nordlicht</p>
-          <p className={s.footNote}>
-            A fictional survey office. Every pattern on this page is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional survey office. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork with a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

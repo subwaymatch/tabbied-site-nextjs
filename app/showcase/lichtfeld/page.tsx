@@ -141,7 +141,7 @@ export default function LichtfeldPage() {
               artwork={radiance}
               palette={['transparent', WARM, WHITE, GREY]}
               fit="grid"
-              cellSize={128}
+              cellSize={136}
               redrawInterval={3400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -270,24 +270,60 @@ export default function LichtfeldPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={spraydown}
-            palette={['transparent', WARM, GREY]}
-            fit="grid"
-            cellSize={58}
-            redrawInterval={6800}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Lichtfeld</p>
+            <p className={s.footTag}>Lichtplanung, Baaderstrasse 18, München, seit 2006.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Work</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#work">Recent schemes</a>
+              </li>
+              <li>
+                <a href="#positions">Four positions</a>
+              </li>
+              <li>
+                <a href="#method">How a scheme happens</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Studio</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#studio">Baaderstrasse 18</a>
+              </li>
+              <li>
+                <a href="#studio">Fees</a>
+              </li>
+              <li>
+                <a href="#studio">Appointments after dark</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Baaderstrasse 18, Rgb.
+              <br />
+              80469 München
+              <br />
+              licht@lichtfeld.example
+              <br />
+              House warm white, 2 700 K
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Lichtfeld</p>
-          <p className={s.footFine}>
-            A fictional lighting practice. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional lighting practice. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

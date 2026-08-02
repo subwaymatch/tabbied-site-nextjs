@@ -145,7 +145,7 @@ export default function FrequenzPage() {
               artwork={ribline}
               palette={['transparent', AMBER, CREAM, GREY]}
               fit="grid"
-              cellSize={74}
+              cellSize={104}
               redrawInterval={2200}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -273,24 +273,60 @@ export default function FrequenzPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={rungs}
-            palette={['transparent', AMBER, GREY]}
-            fit="grid"
-            cellSize={62}
-            redrawInterval={6000}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Frequenz 94,6</p>
+            <p className={s.footTag}>Freies Radio Graz, Lendkai 94, on air since 1979.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>On air</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#schedule">Today</a>
+              </li>
+              <li>
+                <a href="#strands">What we do</a>
+              </li>
+              <li>
+                <a href="#studio">Open desk</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Support</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#support">Membership</a>
+              </li>
+              <li>
+                <a href="#support">Our accounts</a>
+              </li>
+              <li>
+                <a href="#studio">Come in</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Lendkai 94, Hof
+              <br />
+              8020 Graz
+              <br />
+              studio@frequenz946.example
+              <br />
+              +43 316 000 000
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>94,6</p>
-          <p className={s.footFine}>
-            A fictional radio station. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional radio station. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

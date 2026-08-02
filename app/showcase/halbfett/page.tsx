@@ -264,24 +264,62 @@ export default function HalbfettPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={stitch}
-            palette={['transparent', RED, GREY]}
-            fit="grid"
-            cellSize={54}
-            redrawInterval={6400}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Halbfett</p>
+            <p className={s.footTag}>A type foundry at Rämistrasse 40, Zürich, since 2016.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Library</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#library">The library</a>
+              </li>
+              <li>
+                <a href="#specimen">Weight ladder</a>
+              </li>
+              <li>
+                <a href="#licences">Trial fonts</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Licensing</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#licences">Desktop and web</a>
+              </li>
+              <li>
+                <a href="#licences">App and broadcast</a>
+              </li>
+              <li>
+                <a href="#studio">Custom work</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Rämistrasse 40
+              <br />
+              8001 Zürich
+              <br />
+              post@halbfett.example
+              <br />
+              By appointment
+            </p>
+          </div>
         </div>
-        <p className={s.footWord}>Halbfett</p>
-        <p className={s.footFine}>
-          A fictional type foundry. Patterns are live{' '}
-          <a href="https://tabbied.com" rel="noopener">
-            Tabbied
-          </a>{' '}
-          artworks with a transparent ground, redrawn every few seconds. © 2026.
-        </p>
+        <div className={s.footFine}>
+          <p>A fictional type foundry. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
+            <a href="https://tabbied.com" rel="noopener">
+              Tabbied
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
+          </p>
+        </div>
       </footer>
     </div>
   );

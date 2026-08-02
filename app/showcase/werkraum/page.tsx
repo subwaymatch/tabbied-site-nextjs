@@ -219,7 +219,7 @@ export default function WerkraumPage() {
               artwork={windowpane}
               palette={['transparent', INK, RED, GREY]}
               fit="grid"
-              cellSize={96}
+              cellSize={144}
               redrawInterval={4400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -399,24 +399,60 @@ export default function WerkraumPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={gravure}
-            palette={['transparent', GREY, PALE]}
-            fit="grid"
-            cellSize={72}
-            redrawInterval={7000}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Werkraum</p>
+            <p className={s.footTag}>An architecture practice at Klybeckstrasse 191, Basel, since 2009.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Practice</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#work">Selected work</a>
+              </li>
+              <li>
+                <a href="#method">Working rules</a>
+              </li>
+              <li>
+                <a href="#people">Eleven people</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Office</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#office">Klybeckstrasse 191</a>
+              </li>
+              <li>
+                <a href="#office">Applications</a>
+              </li>
+              <li>
+                <a href="#practice">About the practice</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Klybeckstrasse 191
+              <br />
+              4057 Basel
+              <br />
+              buero@werkraum.example
+              <br />
+              +41 61 000 00 00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Werkraum</p>
-          <p className={s.footFine}>
-            A fictional architecture practice. Patterns drawn live by{' '}
+        <div className={s.footFine}>
+          <p>A fictional architecture practice. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
-            , redrawn every few seconds in the page colour. © 2026.
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

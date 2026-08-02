@@ -145,7 +145,7 @@ export default function SammlungWeissPage() {
               artwork={windowpane}
               palette={['transparent', INK, STONE, PALE]}
               fit="grid"
-              cellSize={128}
+              cellSize={136}
               redrawInterval={5000}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -279,24 +279,60 @@ export default function SammlungWeissPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={veil}
-            palette={['transparent', STONE, PALE]}
-            fit="grid"
-            cellSize={96}
-            redrawInterval={6800}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Sammlung Weiss</p>
+            <p className={s.footTag}>A private collection of 411 works at Rychenbergstrasse 210, Winterthur.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Collection</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#collection">What is here</a>
+              </li>
+              <li>
+                <a href="#rooms">Four rooms</a>
+              </li>
+              <li>
+                <a href="#research">Research</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Visiting</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#visiting">Eleven days</a>
+              </li>
+              <li>
+                <a href="#visiting">The ballot</a>
+              </li>
+              <li>
+                <a href="#research">Loans</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Rychenbergstrasse 210
+              <br />
+              8400 Winterthur
+              <br />
+              stiftung@sammlung-weiss.example
+              <br />
+              Entry free, by ballot
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Sammlung Weiss</p>
-          <p className={s.footFine}>
-            A fictional foundation. Every pattern here is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional foundation. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork drawn on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

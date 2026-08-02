@@ -169,7 +169,7 @@ export default function HafenSechsPage() {
               artwork={staple}
               palette={['transparent', YELLOW, BONE, STEEL]}
               fit="grid"
-              cellSize={86}
+              cellSize={120}
               redrawInterval={3400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -300,24 +300,60 @@ export default function HafenSechsPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={gravure}
-            palette={['transparent', STEEL, YELLOW]}
-            fit="grid"
-            cellSize={64}
-            redrawInterval={7000}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Hafen Sechs</p>
+            <p className={s.footTag}>Container Terminal 6, Bremerhaven. Six berths, 1,980 m of quay.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Operations</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#berths">Berth register</a>
+              </li>
+              <li>
+                <a href="#schedule">Expected this week</a>
+              </li>
+              <li>
+                <a href="#gate">Gate and hinterland</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Shipping</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#contact">Berth booking</a>
+              </li>
+              <li>
+                <a href="#gate">Rail and barge</a>
+              </li>
+              <li>
+                <a href="#gate">Reefer plugs</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Senator-Borttscheller-Str. 6
+              <br />
+              27568 Bremerhaven
+              <br />
+              berth@hafen-sechs.example
+              <br />
+              +49 471 000 000, 24 h
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Hafen Sechs</p>
-          <p className={s.footFine}>
-            A fictional container terminal. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional container terminal. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork drawn on a transparent ground and redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

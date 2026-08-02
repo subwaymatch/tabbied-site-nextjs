@@ -133,7 +133,7 @@ export default function MesuraPage() {
               artwork={caltrop}
               palette={['transparent', INK, ORANGE, STEEL]}
               fit="grid"
-              cellSize={94}
+              cellSize={120}
               redrawInterval={3600}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -298,24 +298,60 @@ export default function MesuraPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={doublebar}
-            palette={['transparent', ORANGE, STEEL]}
-            fit="grid"
-            cellSize={58}
-            redrawInterval={6600}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Mesura</p>
+            <p className={s.footTag}>Structural engineering at Carrer de Pujades 118, Barcelona, since 2004.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Engineering</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#what">Capabilities</a>
+              </li>
+              <li>
+                <a href="#work">Recent work</a>
+              </li>
+              <li>
+                <a href="#method">How work is checked</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Practice</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#office">Carrer de Pujades 118</a>
+              </li>
+              <li>
+                <a href="#office">Hiring</a>
+              </li>
+              <li>
+                <a href="#what">Expert witness</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Carrer de Pujades 118, 3r
+              <br />
+              08005 Barcelona
+              <br />
+              calcul@mesura.example
+              <br />
+              +34 900 000 000
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Mesura</p>
-          <p className={s.footFine}>
-            A fictional engineering office. Patterns are live{' '}
+        <div className={s.footFine}>
+          <p>A fictional engineering office. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artworks on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

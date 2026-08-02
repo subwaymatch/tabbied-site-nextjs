@@ -157,7 +157,7 @@ export default function FondsAubertPage() {
               artwork={stitch}
               palette={['transparent', INK, OLIVE, GREY]}
               fit="grid"
-              cellSize={58}
+              cellSize={104}
               redrawInterval={4600}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -283,24 +283,60 @@ export default function FondsAubertPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={chain}
-            palette={['transparent', OLIVE, GREY]}
-            fit="grid"
-            cellSize={70}
-            redrawInterval={7000}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Fonds Aubert</p>
+            <p className={s.footTag}>Archives privées, Chemin des Croix-Rouges 14, Lausanne, depuis 1974.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Holdings</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#holdings">Selected fonds</a>
+              </li>
+              <li>
+                <a href="#services">What we do</a>
+              </li>
+              <li>
+                <a href="#reading">Reading room</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Depositing</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#deposit">Depositing records</a>
+              </li>
+              <li>
+                <a href="#deposit">Appraisal</a>
+              </li>
+              <li>
+                <a href="#deposit">Terms and closure</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Chemin des Croix-Rouges 14
+              <br />
+              1007 Lausanne
+              <br />
+              depot@fonds-aubert.example
+              <br />
+              Tue to Fri, 09.00 to 17.00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Fonds Aubert</p>
-          <p className={s.footFine}>
-            A fictional archive. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional archive. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

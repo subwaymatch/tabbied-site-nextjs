@@ -143,7 +143,7 @@ export default function KaellaPage() {
               artwork={tidering}
               palette={['transparent', AQUA, INK, STEEL]}
               fit="grid"
-              cellSize={104}
+              cellSize={120}
               redrawInterval={3000}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -263,24 +263,60 @@ export default function KaellaPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={curl}
-            palette={['transparent', AQUA, STEEL]}
-            fit="grid"
-            cellSize={100}
-            redrawInterval={6400}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Källa</p>
+            <p className={s.footTag}>Kommunalt vatten, Kungsängsvägen 27, Uppsala, sedan 1876.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Water</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#today">This morning</a>
+              </li>
+              <li>
+                <a href="#chain">Well to tap</a>
+              </li>
+              <li>
+                <a href="#works">Three works</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Customers</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#contact">Report a fault</a>
+              </li>
+              <li>
+                <a href="#contact">Discoloured water</a>
+              </li>
+              <li>
+                <a href="#today">The archive</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Kungsängsvägen 27
+              <br />
+              753 23 Uppsala
+              <br />
+              vatten@kaella.example
+              <br />
+              018 000 000, 24 h
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Källa</p>
-          <p className={s.footFine}>
-            A fictional water utility. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional water utility. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

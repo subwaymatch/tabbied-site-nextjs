@@ -153,7 +153,7 @@ export default function PassformPage() {
               artwork={damier}
               palette={['transparent', INK, RUST, GREY]}
               fit="grid"
-              cellSize={64}
+              cellSize={112}
               redrawInterval={3800}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -279,24 +279,60 @@ export default function PassformPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={thickset}
-            palette={['transparent', RUST, GREY]}
-            fit="grid"
-            cellSize={110}
-            redrawInterval={6600}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Passform</p>
+            <p className={s.footTag}>Maßschneiderei, Neuer Wall 44, Hamburg, seit 1972.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Making</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#how">Five stages</a>
+              </li>
+              <li>
+                <a href="#cloth">Cloth on the shelf</a>
+              </li>
+              <li>
+                <a href="#prices">Prices</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Customers</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#bench">Be measured</a>
+              </li>
+              <li>
+                <a href="#prices">Alterations</a>
+              </li>
+              <li>
+                <a href="#bench">Waiting list</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Neuer Wall 44, Hinterhof
+              <br />
+              20354 Hamburg
+              <br />
+              mass@passform.example
+              <br />
+              Tue to Fri, by appointment
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Passform</p>
-          <p className={s.footFine}>
-            A fictional tailoring house. Every pattern here is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional tailoring house. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

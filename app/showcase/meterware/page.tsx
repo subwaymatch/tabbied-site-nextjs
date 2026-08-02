@@ -144,7 +144,7 @@ export default function MeterwarePage() {
               artwork={plait}
               palette={['transparent', INDIGO, INK, GREY]}
               fit="grid"
-              cellSize={68}
+              cellSize={112}
               redrawInterval={3600}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -273,24 +273,60 @@ export default function MeterwarePage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={thickset}
-            palette={['transparent', INDIGO, GREY]}
-            fit="grid"
-            cellSize={116}
-            redrawInterval={6800}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Meterware</p>
+            <p className={s.footTag}>Weberei seit 1908, Achstrasse 8, Bezau, Vorarlberg.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Cloth</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#book">Six from the book</a>
+              </li>
+              <li>
+                <a href="#house">House rules</a>
+              </li>
+              <li>
+                <a href="#mill">The mill</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Ordering</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#order">Ordering</a>
+              </li>
+              <li>
+                <a href="#order">Swatch book</a>
+              </li>
+              <li>
+                <a href="#order">Lead times</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Achstrasse 8
+              <br />
+              6870 Bezau, Vorarlberg
+              <br />
+              weberei@meterware.example
+              <br />
+              Minimum order one metre
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Meterware</p>
-          <p className={s.footFine}>
-            A fictional weaving mill. Every pattern here is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional weaving mill. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

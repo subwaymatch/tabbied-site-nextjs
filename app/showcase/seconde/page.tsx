@@ -161,7 +161,7 @@ export default function SecondePage() {
               artwork={tailoff}
               palette={['transparent', MAGENTA, INK, GREY]}
               fit="grid"
-              cellSize={80}
+              cellSize={104}
               redrawInterval={2400}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -278,24 +278,60 @@ export default function SecondePage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={bothways}
-            palette={['transparent', MAGENTA, GREY]}
-            fit="grid"
-            cellSize={72}
-            redrawInterval={6200}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Seconde</p>
+            <p className={s.footTag}>Chronométrage sportif, Avenue de Rhodanie 12, Lausanne, depuis 1991.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Timing</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#systems">Four systems</a>
+              </li>
+              <li>
+                <a href="#results">Live results</a>
+              </li>
+              <li>
+                <a href="#season">Season 2026</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Organisers</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#book">Book the timing</a>
+              </li>
+              <li>
+                <a href="#book">Day rates</a>
+              </li>
+              <li>
+                <a href="#systems">Start detection</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Avenue de Rhodanie 12
+              <br />
+              1007 Lausanne
+              <br />
+              chrono@seconde.example
+              <br />
+              +41 21 000 00 00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Seconde</p>
-          <p className={s.footFine}>
-            A fictional timing company. Patterns are live{' '}
+        <div className={s.footFine}>
+          <p>A fictional timing company. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artworks on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

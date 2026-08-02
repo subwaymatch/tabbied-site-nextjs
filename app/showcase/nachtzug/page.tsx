@@ -140,7 +140,7 @@ export default function NachtzugPage() {
               artwork={bothways}
               palette={['transparent', GOLD, BONE, STEEL]}
               fit="grid"
-              cellSize={88}
+              cellSize={104}
               redrawInterval={3200}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -253,24 +253,60 @@ export default function NachtzugPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={streaking}
-            palette={['transparent', GOLD, STEEL]}
-            fit="grid"
-            cellSize={108}
-            redrawInterval={6600}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Nachtzug</p>
+            <p className={s.footTag}>Schlafwagen quer durch Europa, six lines, since 1994.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Travel</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#lines">The six lines</a>
+              </li>
+              <li>
+                <a href="#berths">Four kinds of berth</a>
+              </li>
+              <li>
+                <a href="#aboard">Aboard</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Booking</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#book">Reservations</a>
+              </li>
+              <li>
+                <a href="#book">Whole carriage</a>
+              </li>
+              <li>
+                <a href="#aboard">Bicycles and dogs</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Reservations, 07.00 to 21.00
+              <br />
+              schlafwagen@nachtzug.example
+              <br />
+              +43 1 000 000
+              <br />
+              Opens six months ahead
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Nachtzug</p>
-          <p className={s.footFine}>
-            A fictional sleeper operator. Every pattern is a live{' '}
+        <div className={s.footFine}>
+          <p>A fictional sleeper operator. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artwork on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>

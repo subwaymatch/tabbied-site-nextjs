@@ -303,7 +303,7 @@ export default function CeruleanSwimPage() {
             palette={[AQUA, FOAM, TEAL]}
             seed="cs-ribbon-03"
             fit="grid"
-            cellSize={96}
+            cellSize={110}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>
@@ -463,7 +463,7 @@ export default function CeruleanSwimPage() {
             palette={[FOAM, AQUA, TEAL]}
             seed="cs-foot-05"
             fit="grid"
-            cellSize={92}
+            cellSize={130}
             style={{ position: 'absolute', inset: 0 }}
           />
         </div>

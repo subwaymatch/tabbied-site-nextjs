@@ -135,7 +135,7 @@ export default function NullpunktPage() {
               artwork={ring}
               palette={['transparent', INK, RED, GREY]}
               fit="grid"
-              cellSize={92}
+              cellSize={112}
               redrawInterval={4000}
               style={{ position: 'absolute', inset: 0 }}
             />
@@ -272,24 +272,60 @@ export default function NullpunktPage() {
       </main>
 
       <footer className={s.footer}>
-        <div className={s.footField} aria-hidden="true">
-          <TabbiedArtwork
-            artwork={protractor}
-            palette={['transparent', RED, GREY]}
-            fit="grid"
-            cellSize={100}
-            redrawInterval={6400}
-            style={{ position: 'absolute', inset: 0 }}
-          />
+        <div className={s.footGrid}>
+          <div className={s.footBrand}>
+            <p className={s.footName}>Nullpunkt</p>
+            <p className={s.footTag}>Institut für Messtechnik, Bundesallee 100, Braunschweig.</p>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Calibration</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#scope">Scope of accreditation</a>
+              </li>
+              <li>
+                <a href="#turnaround">Turnaround</a>
+              </li>
+              <li>
+                <a href="#principles">Principles</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Laboratory</h2>
+            <ul className={s.footLinks}>
+              <li>
+                <a href="#lab">Bundesallee 100</a>
+              </li>
+              <li>
+                <a href="#lab">Goods in</a>
+              </li>
+              <li>
+                <a href="#lab">Certificates</a>
+              </li>
+            </ul>
+          </div>
+          <div className={s.footCol}>
+            <h2 className={s.footHead}>Contact</h2>
+            <p className={s.footAddr}>
+              Bundesallee 100
+              <br />
+              38116 Braunschweig
+              <br />
+              kalibrierung@nullpunkt.example
+              <br />
+              D-K-00000-00-00
+            </p>
+          </div>
         </div>
-        <div className={s.footInner}>
-          <p className={s.footMark}>Nullpunkt</p>
-          <p className={s.footFine}>
-            A fictional calibration laboratory. Patterns are live{' '}
+        <div className={s.footFine}>
+          <p>A fictional calibration laboratory. Prices and times are invented.</p>
+          <p>
+            Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">
               Tabbied
-            </a>{' '}
-            artworks on a transparent ground, redrawn on a timer. © 2026.
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
           </p>
         </div>
       </footer>
