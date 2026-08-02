@@ -347,3 +347,16 @@
 .footer a:hover {
   text-decoration: underline;
 }
+
+/* ── Mockup card ─────────────────────────────────────────────────────────── */
+/* Shares the site card's shell; only the thumbnail differs, because here the
+   photograph is the content rather than a live doodle. */
+.mockCard {
+  margin: 0;
+}
+.mockImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
