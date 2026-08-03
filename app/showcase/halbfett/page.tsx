@@ -294,6 +294,7 @@ export default function HalbfettPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="halbfett-tile-sorts-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Spacing, at text size</h3>
@@ -316,6 +317,7 @@ export default function HalbfettPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="halbfett-tile-stick-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Hinting and rendering</h3>
@@ -338,6 +340,7 @@ export default function HalbfettPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="halbfett-tile-specimen-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The awkward pairs</h3>

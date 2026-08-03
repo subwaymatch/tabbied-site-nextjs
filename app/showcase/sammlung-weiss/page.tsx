@@ -309,6 +309,7 @@ export default function SammlungWeissPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sammlung-weiss-tile-frame-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>I</p>
                 <h3>Light</h3>
@@ -331,6 +332,7 @@ export default function SammlungWeissPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sammlung-weiss-tile-logger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>II</p>
                 <h3>Air</h3>
@@ -353,6 +355,7 @@ export default function SammlungWeissPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sammlung-weiss-tile-gloves-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>III</p>
                 <h3>Handling</h3>

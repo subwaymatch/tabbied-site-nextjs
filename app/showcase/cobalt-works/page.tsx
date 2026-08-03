@@ -306,6 +306,7 @@ export default function CobaltWorksPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="cobalt-works-tile-grind-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Grind drift</h3>
@@ -328,6 +329,7 @@ export default function CobaltWorksPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="cobalt-works-tile-moisture-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Moisture</h3>
@@ -350,6 +352,7 @@ export default function CobaltWorksPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="cobalt-works-tile-settling-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Settling</h3>

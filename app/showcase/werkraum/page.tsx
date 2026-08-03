@@ -92,9 +92,9 @@ const PEOPLE = [
 ];
 
 const MATERIALS = [
-  { n: 'A', name: 'Fair-faced concrete', art: 'chase', body: 'Board-marked where it is touched, plain where it is not. We draw the tie grid ourselves and it is always on the drawing before tender.' },
-  { n: 'B', name: 'Untreated timber', art: 'mortise', body: 'Silver-fir cladding, left to grey. Clients are shown a five-year-old sample and asked to agree to it in writing.' },
-  { n: 'C', name: 'Screed and terrazzo', art: 'quire', body: 'Poured on site, ground twice. The aggregate comes from within forty kilometres, which is a constraint and also the whole idea.' },
+  { n: 'A', name: 'Fair-faced concrete', art: 'chase', body: 'Board-marked where it is touched, plain where it is not. We draw the tie grid ourselves and it is always on the drawing before tender.', img: 'werkraum-tile-concrete-cutout' },
+  { n: 'B', name: 'Untreated timber', art: 'mortise', body: 'Silver-fir cladding, left to grey. Clients are shown a five-year-old sample and asked to agree to it in writing.', img: 'werkraum-tile-timber-cutout' },
+  { n: 'C', name: 'Screed and terrazzo', art: 'quire', body: 'Poured on site, ground twice. The aggregate comes from within forty kilometres, which is a constraint and also the whole idea.', img: 'werkraum-tile-terrazzo-cutout' },
 ];
 
 const AWARDS = [
@@ -404,6 +404,7 @@ export default function WerkraumPage() {
                       height: TILE_BOX,
                     }}
                     />
+                    <Figure slug={m.img} alt="" cutout className={s.tileObject} />
                   </div>
                   <p className={s.matN}>{m.n}</p>
                   <h3>{m.name}</h3>

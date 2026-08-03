@@ -302,6 +302,7 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sichtbeton-tile-cube-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The joint</h3>
@@ -324,6 +325,7 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sichtbeton-tile-cone-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The pour</h3>
@@ -346,6 +348,7 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="sichtbeton-tile-cylinder-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The cure</h3>

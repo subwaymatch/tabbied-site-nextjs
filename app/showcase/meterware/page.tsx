@@ -303,6 +303,7 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="meterware-tile-cone-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The yarn</h3>
@@ -325,6 +326,7 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="meterware-tile-skein-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The dye</h3>
@@ -347,6 +349,7 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="meterware-tile-cloth-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The sett</h3>

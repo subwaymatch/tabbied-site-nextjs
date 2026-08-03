@@ -328,6 +328,7 @@ export default function MesuraPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="mesura-tile-rule-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Serviceability, not strength</h3>
@@ -350,6 +351,7 @@ export default function MesuraPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="mesura-tile-beam-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The connection, not the member</h3>
@@ -372,6 +374,7 @@ export default function MesuraPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="mesura-tile-calipers-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Time</h3>

@@ -303,6 +303,7 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="frequenz-tile-mic-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Do not talk over the intro</h3>
@@ -325,6 +326,7 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="frequenz-tile-cans-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Silence is allowed</h3>
@@ -347,6 +349,7 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="frequenz-tile-fader-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Say what it was</h3>

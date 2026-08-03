@@ -304,6 +304,7 @@ export default function KryssPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kryss-tile-arrow-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>It is not at a decision</h3>
@@ -326,6 +327,7 @@ export default function KryssPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kryss-tile-plate-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>It uses the wrong name</h3>
@@ -348,6 +350,7 @@ export default function KryssPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kryss-tile-totem-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>It arrives too late</h3>

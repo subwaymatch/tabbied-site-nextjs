@@ -308,6 +308,7 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="seconde-tile-watch-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The finish plane</h3>
@@ -330,6 +331,7 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="seconde-tile-block-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The start</h3>
@@ -352,6 +354,7 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="seconde-tile-chip-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Synchronisation</h3>

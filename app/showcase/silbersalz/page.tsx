@@ -303,6 +303,7 @@ export default function SilbersalzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="silbersalz-tile-film-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Heat in transit</h3>
@@ -325,6 +326,7 @@ export default function SilbersalzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="silbersalz-tile-tank-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Time in the tank</h3>
@@ -347,6 +349,7 @@ export default function SilbersalzPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="silbersalz-tile-reel-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Water</h3>

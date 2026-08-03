@@ -309,6 +309,7 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="passform-tile-hanger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The shoulder</h3>
@@ -331,6 +332,7 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="passform-tile-canvas-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The canvas</h3>
@@ -353,6 +355,7 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="passform-tile-tape-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The second fitting</h3>

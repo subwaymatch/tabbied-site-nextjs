@@ -302,6 +302,7 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nullpunkt-tile-mass-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The reference</h3>
@@ -324,6 +325,7 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nullpunkt-tile-logger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The environment</h3>
@@ -346,6 +348,7 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nullpunkt-tile-tweezers-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The operator</h3>

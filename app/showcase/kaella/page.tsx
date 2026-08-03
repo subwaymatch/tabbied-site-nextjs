@@ -294,6 +294,7 @@ export default function KaellaPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kaella-tile-petri-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Coliforms</h3>
@@ -316,6 +317,7 @@ export default function KaellaPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kaella-tile-bottle-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Trihalomethanes</h3>
@@ -338,6 +340,7 @@ export default function KaellaPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="kaella-tile-gauge-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Pressure</h3>

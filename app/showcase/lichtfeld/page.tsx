@@ -300,6 +300,7 @@ export default function LichtfeldPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="lichtfeld-tile-uplighter-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Uplighters</h3>
@@ -322,6 +323,7 @@ export default function LichtfeldPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="lichtfeld-tile-bollard-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Cool white outdoors</h3>
@@ -344,6 +346,7 @@ export default function LichtfeldPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="lichtfeld-tile-lamp-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Above 3 000 K near a bed</h3>

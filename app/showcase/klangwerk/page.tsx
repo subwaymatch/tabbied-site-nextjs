@@ -330,6 +330,7 @@ export default function KlangwerkPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="klangwerk-tile-monitor-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>I</p>
                 <h3>Hearing in space</h3>
@@ -352,6 +353,7 @@ export default function KlangwerkPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="klangwerk-tile-cans-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>II</p>
                 <h3>Hearing without a room</h3>
@@ -374,6 +376,7 @@ export default function KlangwerkPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="klangwerk-tile-tape-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>III</p>
                 <h3>Hearing on tape</h3>

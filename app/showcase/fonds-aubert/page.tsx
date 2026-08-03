@@ -313,6 +313,7 @@ export default function FondsAubertPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="fonds-aubert-tile-box-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Water</h3>
@@ -335,6 +336,7 @@ export default function FondsAubertPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="fonds-aubert-tile-folders-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Light</h3>
@@ -357,6 +359,7 @@ export default function FondsAubertPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="fonds-aubert-tile-gloves-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Ourselves</h3>

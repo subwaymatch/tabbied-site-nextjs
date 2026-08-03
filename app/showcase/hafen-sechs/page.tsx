@@ -330,6 +330,7 @@ export default function HafenSechsPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="hafen-sechs-tile-container-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Wind on the boxes</h3>
@@ -352,6 +353,7 @@ export default function HafenSechsPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="hafen-sechs-tile-cleat-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Draught and tide</h3>
@@ -374,6 +376,7 @@ export default function HafenSechsPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="hafen-sechs-tile-clipboard-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Documentation</h3>

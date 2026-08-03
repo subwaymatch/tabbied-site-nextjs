@@ -283,6 +283,7 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nachtzug-tile-bed-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>The bed</h3>
@@ -305,6 +306,7 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nachtzug-tile-border-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>The border</h3>
@@ -327,6 +329,7 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nachtzug-tile-ticket-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>The arithmetic</h3>

@@ -1347,6 +1347,566 @@
           "as": "the darkest ink"
         }
       }
+    },
+    "cobalt-works-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Bone": {
+          "hex": "#F6F4EE",
+          "as": "paper, plaster walls and daylight"
+        },
+        "Ink": {
+          "hex": "#14161C",
+          "as": "dark machinery and deep shadow"
+        },
+        "Blue": {
+          "hex": "#0033CC",
+          "as": "the pigment itself, saturated and dry"
+        },
+        "Steel": {
+          "hex": "#7E8494",
+          "as": "mill housings and steel drums"
+        },
+        "Pale": {
+          "hex": "#E3E1D8",
+          "as": "dusty pale surfaces"
+        }
+      }
+    },
+    "fonds-aubert-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#F0F0E8",
+          "as": "daylight, paper and pale plaster"
+        },
+        "Ink": {
+          "hex": "#1A1C18",
+          "as": "dark shelving, shadow and bindings"
+        },
+        "Olive": {
+          "hex": "#4C6B2F",
+          "as": "one muted accent on a box label or a door"
+        },
+        "Grey": {
+          "hex": "#8C8F84",
+          "as": "steel shelving and grey board"
+        },
+        "Pale": {
+          "hex": "#DEDED4",
+          "as": "archive boxes and folder card"
+        }
+      }
+    },
+    "frequenz-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Dark": {
+          "hex": "#121014",
+          "as": "the darkened studio and deep shadow"
+        },
+        "Cream": {
+          "hex": "#F2EFE6",
+          "as": "paper, acoustic panels and lamp light"
+        },
+        "Amber": {
+          "hex": "#FFA200",
+          "as": "the on-air lamp and warm indicator light"
+        },
+        "Grey": {
+          "hex": "#6B6560",
+          "as": "equipment housings and cable"
+        },
+        "Panel": {
+          "hex": "#1D1A20",
+          "as": "dark timber and rack fronts"
+        }
+      }
+    },
+    "hafen-sechs-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Dark": {
+          "hex": "#101215",
+          "as": "night sky, shadow and painted steel"
+        },
+        "Bone": {
+          "hex": "#F0EFEA",
+          "as": "floodlight, painted markings and mist"
+        },
+        "Yellow": {
+          "hex": "#FFD400",
+          "as": "crane structures, hi-vis and deck markings"
+        },
+        "Steel": {
+          "hex": "#6E747C",
+          "as": "weathered steel and concrete quay"
+        },
+        "Deep": {
+          "hex": "#1C2026",
+          "as": "dark water and container shadow"
+        }
+      }
+    },
+    "halbfett-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "bright studio walls and printing paper"
+        },
+        "Ink": {
+          "hex": "#000000",
+          "as": "printed type, dark presses and deep shadow"
+        },
+        "Vermilion": {
+          "hex": "#FF3B14",
+          "as": "one saturated accent on a proof mark or a machine"
+        },
+        "Grey": {
+          "hex": "#9A9A9A",
+          "as": "brushed steel and grey card"
+        },
+        "Pale": {
+          "hex": "#EDEDED",
+          "as": "pale shelving and diffuse light"
+        }
+      }
+    },
+    "kaella-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Pale": {
+          "hex": "#F2F6F6",
+          "as": "daylight, mist and pale tile"
+        },
+        "Ink": {
+          "hex": "#0F1A1D",
+          "as": "dark water, shadow and pipe interiors"
+        },
+        "Aqua": {
+          "hex": "#00A6A6",
+          "as": "one accent on painted pipework and valve wheels"
+        },
+        "Steel": {
+          "hex": "#7E9296",
+          "as": "stainless pipework and concrete"
+        },
+        "Mist": {
+          "hex": "#DCE7E7",
+          "as": "still water surfaces and pale sky"
+        }
+      }
+    },
+    "klangwerk-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Void": {
+          "hex": "#08090B",
+          "as": "the darkened room and deep shadow"
+        },
+        "Pale": {
+          "hex": "#E9E9E4",
+          "as": "monitor light, paper and pale acoustic foam"
+        },
+        "Green": {
+          "hex": "#00E58A",
+          "as": "a single accent from a meter or an indicator lamp"
+        },
+        "Steel": {
+          "hex": "#5A6068",
+          "as": "equipment housings and cable"
+        },
+        "Panel": {
+          "hex": "#14161A",
+          "as": "dark timber panelling and racks"
+        }
+      }
+    },
+    "kryss-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#F4F4F1",
+          "as": "concourse surfaces, daylight and sign faces"
+        },
+        "Ink": {
+          "hex": "#131416",
+          "as": "sign type, dark frames and shadow"
+        },
+        "Green": {
+          "hex": "#00843D",
+          "as": "the directional accent on signs and floor graphics"
+        },
+        "Grey": {
+          "hex": "#8E9094",
+          "as": "brushed aluminium and concrete"
+        },
+        "Pale": {
+          "hex": "#E2E2DE",
+          "as": "pale walls and glazing"
+        }
+      }
+    },
+    "lichtfeld-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Dark": {
+          "hex": "#0A0A0A",
+          "as": "the unlit surfaces and night sky"
+        },
+        "White": {
+          "hex": "#FAFAF5",
+          "as": "the lit plane and bright surfaces"
+        },
+        "Warm": {
+          "hex": "#F5E663",
+          "as": "the warm light itself, lamps and pools of glow"
+        },
+        "Grey": {
+          "hex": "#6A6A64",
+          "as": "concrete and metal in half light"
+        },
+        "Panel": {
+          "hex": "#151515",
+          "as": "dark ceilings and deep shadow"
+        }
+      }
+    },
+    "mesura-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#F2F1ED",
+          "as": "overcast daylight and drawing paper"
+        },
+        "Ink": {
+          "hex": "#15171A",
+          "as": "dark steel and deep shadow"
+        },
+        "Orange": {
+          "hex": "#FF6A00",
+          "as": "one saturated accent on primer paint or a helmet"
+        },
+        "Steel": {
+          "hex": "#8C9096",
+          "as": "galvanised steel and concrete"
+        },
+        "Pale": {
+          "hex": "#E1E0DA",
+          "as": "pale sky and bare concrete"
+        }
+      }
+    },
+    "meterware-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Ecru": {
+          "hex": "#EFEBE1",
+          "as": "raw cloth, daylight and mill walls"
+        },
+        "Ink": {
+          "hex": "#14161F",
+          "as": "machine frames and deep shadow"
+        },
+        "Indigo": {
+          "hex": "#2B3FAE",
+          "as": "the dyed yarn and one painted machine panel"
+        },
+        "Grey": {
+          "hex": "#8E8A7E",
+          "as": "steel machinery and concrete"
+        },
+        "Pale": {
+          "hex": "#DCD7C9",
+          "as": "undyed yarn and pale cloth"
+        }
+      }
+    },
+    "nachtzug-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Night": {
+          "hex": "#0B0E1A",
+          "as": "the night sky, dark livery and deep shadow"
+        },
+        "Bone": {
+          "hex": "#EDE8DA",
+          "as": "bed linen, lamp light and platform signage"
+        },
+        "Gold": {
+          "hex": "#E0A83C",
+          "as": "the warm reading lamps and brass fittings"
+        },
+        "Steel": {
+          "hex": "#545C74",
+          "as": "carriage steel and cold platform light"
+        },
+        "Deep": {
+          "hex": "#141827",
+          "as": "tunnel dark and window reflections"
+        }
+      }
+    },
+    "nordlicht-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#FCFCFA",
+          "as": "overcast sky, snow and chart paper"
+        },
+        "Ink": {
+          "hex": "#0E1116",
+          "as": "wet rock, instrument bodies and deep shadow"
+        },
+        "Blue": {
+          "hex": "#1B4DFF",
+          "as": "one small saturated accent on a cable or a case"
+        },
+        "Steel": {
+          "hex": "#8A9098",
+          "as": "brushed aluminium, tripods and grey water"
+        },
+        "Pale": {
+          "hex": "#C3CBD4",
+          "as": "pale water, haze and printed tints"
+        }
+      }
+    },
+    "nullpunkt-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "laboratory surfaces and even daylight"
+        },
+        "Ink": {
+          "hex": "#0A0A0A",
+          "as": "instrument housings and deep shadow"
+        },
+        "Red": {
+          "hex": "#E10600",
+          "as": "one small saturated accent on a switch or a label"
+        },
+        "Grey": {
+          "hex": "#9EA2A6",
+          "as": "polished steel and aluminium"
+        },
+        "Pale": {
+          "hex": "#F0F0EE",
+          "as": "pale walls and diffuse highlights"
+        }
+      }
+    },
+    "passform-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Linen": {
+          "hex": "#F5F1EA",
+          "as": "daylight, calico and pattern paper"
+        },
+        "Ink": {
+          "hex": "#191512",
+          "as": "dark cloth, shadow and the cutting table"
+        },
+        "Rust": {
+          "hex": "#C1440E",
+          "as": "one accent on thread, chalk or a pin cushion"
+        },
+        "Grey": {
+          "hex": "#9A9086",
+          "as": "steel shears and grey worsted"
+        },
+        "Pale": {
+          "hex": "#E5DFD4",
+          "as": "brown paper patterns and tailor's canvas"
+        }
+      }
+    },
+    "sammlung-weiss-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Bone": {
+          "hex": "#EFEDE6",
+          "as": "gallery walls, daylight and plaster"
+        },
+        "Ink": {
+          "hex": "#111111",
+          "as": "door frames, deep shadow and dark stone"
+        },
+        "Stone": {
+          "hex": "#6E6A60",
+          "as": "grey stone, crates and shadow"
+        },
+        "Pale": {
+          "hex": "#D8D5CA",
+          "as": "pale timber floor and raw canvas"
+        },
+        "Light": {
+          "hex": "#FBFAF6",
+          "as": "the brightest wall under a skylight"
+        }
+      }
+    },
+    "seconde-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#F7F7F5",
+          "as": "stadium concrete, daylight and paper"
+        },
+        "Ink": {
+          "hex": "#101010",
+          "as": "dark equipment housings and shadow"
+        },
+        "Magenta": {
+          "hex": "#FF0059",
+          "as": "one saturated accent on a timing beam or a lane marker"
+        },
+        "Grey": {
+          "hex": "#8E8E8E",
+          "as": "aluminium tripods and cabling"
+        },
+        "Pale": {
+          "hex": "#E4E4E1",
+          "as": "pale track surface and overcast sky"
+        }
+      }
+    },
+    "sichtbeton-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Grey": {
+          "hex": "#E9E9E6",
+          "as": "fair-faced concrete and overcast daylight"
+        },
+        "Ink": {
+          "hex": "#131313",
+          "as": "formwork ties, shadow and dark steel"
+        },
+        "Orange": {
+          "hex": "#FF5A00",
+          "as": "one safety accent on tape, a helmet or a marker"
+        },
+        "Steel": {
+          "hex": "#8B8B87",
+          "as": "rebar, props and grey machinery"
+        },
+        "Pale": {
+          "hex": "#D3D3CE",
+          "as": "pale board-marked surfaces"
+        }
+      }
+    },
+    "silbersalz-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Bone": {
+          "hex": "#EDEBE4",
+          "as": "print paper, light table glow and pale walls"
+        },
+        "Ink": {
+          "hex": "#101010",
+          "as": "the darkroom, film base and deep shadow"
+        },
+        "Red": {
+          "hex": "#C8102E",
+          "as": "the safelight and one red accent"
+        },
+        "Grey": {
+          "hex": "#8A8880",
+          "as": "stainless tanks and enlarger bodies"
+        },
+        "Pale": {
+          "hex": "#D9D6CC",
+          "as": "dry mounted prints and paper stock"
+        }
+      }
+    },
+    "werkraum-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Paper": {
+          "hex": "#F4F3EF",
+          "as": "pale plaster, daylight and drawing paper"
+        },
+        "Ink": {
+          "hex": "#16161A",
+          "as": "window frames, dark steel and deep shadow"
+        },
+        "Red": {
+          "hex": "#D6001C",
+          "as": "one small saturated accent, a door or a marker"
+        },
+        "Grey": {
+          "hex": "#8E8E88",
+          "as": "fair-faced concrete and screed floors"
+        },
+        "Pale": {
+          "hex": "#C9C8C1",
+          "as": "untreated timber and pale render"
+        }
+      }
     }
   },
   "prompts": [
@@ -2857,6 +3417,426 @@
       "set": "bogen-people",
       "slot": "people",
       "subject": "a man in his forties with close-cropped ginger hair and freckles, wearing an olive work shirt"
+    },
+    {
+      "id": "cobalt-works-tile-grind",
+      "project": "cobalt-works",
+      "set": "cobalt-works-tile",
+      "slot": "tile",
+      "subject": "a low conical heap of loose ultramarine pigment powder"
+    },
+    {
+      "id": "cobalt-works-tile-moisture",
+      "project": "cobalt-works",
+      "set": "cobalt-works-tile",
+      "slot": "tile",
+      "subject": "a squat glass jar of dry blue pigment stoppered with a cork"
+    },
+    {
+      "id": "cobalt-works-tile-settling",
+      "project": "cobalt-works",
+      "set": "cobalt-works-tile",
+      "slot": "tile",
+      "subject": "a tall glass measuring cylinder of blue pigment settled under clear water"
+    },
+    {
+      "id": "fonds-aubert-tile-box",
+      "project": "fonds-aubert",
+      "set": "fonds-aubert-tile",
+      "slot": "tile",
+      "subject": "a grey archival document box, lid on, seen three-quarters"
+    },
+    {
+      "id": "fonds-aubert-tile-folders",
+      "project": "fonds-aubert",
+      "set": "fonds-aubert-tile",
+      "slot": "tile",
+      "subject": "three folded document folders stacked and tied with cotton tape"
+    },
+    {
+      "id": "fonds-aubert-tile-gloves",
+      "project": "fonds-aubert",
+      "set": "fonds-aubert-tile",
+      "slot": "tile",
+      "subject": "a pair of white cotton archival gloves laid flat, one slightly overlapping the other"
+    },
+    {
+      "id": "frequenz-tile-mic",
+      "project": "frequenz",
+      "set": "frequenz-tile",
+      "slot": "tile",
+      "subject": "a broadcast condenser microphone on a short desk stand"
+    },
+    {
+      "id": "frequenz-tile-cans",
+      "project": "frequenz",
+      "set": "frequenz-tile",
+      "slot": "tile",
+      "subject": "a pair of closed-back studio headphones, folded"
+    },
+    {
+      "id": "frequenz-tile-fader",
+      "project": "frequenz",
+      "set": "frequenz-tile",
+      "slot": "tile",
+      "subject": "a short section of a broadcast mixing desk with four channel faders"
+    },
+    {
+      "id": "hafen-sechs-tile-container",
+      "project": "hafen-sechs",
+      "set": "hafen-sechs-tile",
+      "slot": "tile",
+      "subject": "a single shipping container seen three-quarters, doors closed"
+    },
+    {
+      "id": "hafen-sechs-tile-cleat",
+      "project": "hafen-sechs",
+      "set": "hafen-sechs-tile",
+      "slot": "tile",
+      "subject": "a heavy cast steel mooring cleat"
+    },
+    {
+      "id": "hafen-sechs-tile-clipboard",
+      "project": "hafen-sechs",
+      "set": "hafen-sechs-tile",
+      "slot": "tile",
+      "subject": "a metal clipboard holding a blank printed manifest"
+    },
+    {
+      "id": "halbfett-tile-sorts",
+      "project": "halbfett",
+      "set": "halbfett-tile",
+      "slot": "tile",
+      "subject": "three pieces of metal type standing upright in a row"
+    },
+    {
+      "id": "halbfett-tile-stick",
+      "project": "halbfett",
+      "set": "halbfett-tile",
+      "slot": "tile",
+      "subject": "a printer’s composing stick holding a line of set metal type"
+    },
+    {
+      "id": "halbfett-tile-specimen",
+      "project": "halbfett",
+      "set": "halbfett-tile",
+      "slot": "tile",
+      "subject": "a single plain type specimen card, corner slightly lifted"
+    },
+    {
+      "id": "kaella-tile-petri",
+      "project": "kaella",
+      "set": "kaella-tile",
+      "slot": "tile",
+      "subject": "a clean empty glass petri dish with its lid resting askew"
+    },
+    {
+      "id": "kaella-tile-bottle",
+      "project": "kaella",
+      "set": "kaella-tile",
+      "slot": "tile",
+      "subject": "a clear glass water sample bottle with a screw cap"
+    },
+    {
+      "id": "kaella-tile-gauge",
+      "project": "kaella",
+      "set": "kaella-tile",
+      "slot": "tile",
+      "subject": "a round brass pressure gauge with a plain unmarked dial"
+    },
+    {
+      "id": "klangwerk-tile-monitor",
+      "project": "klangwerk",
+      "set": "klangwerk-tile",
+      "slot": "tile",
+      "subject": "a single nearfield studio monitor loudspeaker"
+    },
+    {
+      "id": "klangwerk-tile-cans",
+      "project": "klangwerk",
+      "set": "klangwerk-tile",
+      "slot": "tile",
+      "subject": "a pair of open-back studio headphones"
+    },
+    {
+      "id": "klangwerk-tile-tape",
+      "project": "klangwerk",
+      "set": "klangwerk-tile",
+      "slot": "tile",
+      "subject": "a reel of quarter-inch magnetic tape on a metal spool"
+    },
+    {
+      "id": "kryss-tile-arrow",
+      "project": "kryss",
+      "set": "kryss-tile",
+      "slot": "tile",
+      "subject": "a blank directional arrow sign panel on a short post"
+    },
+    {
+      "id": "kryss-tile-plate",
+      "project": "kryss",
+      "set": "kryss-tile",
+      "slot": "tile",
+      "subject": "a small blank enamel sign plate with rounded corners"
+    },
+    {
+      "id": "kryss-tile-totem",
+      "project": "kryss",
+      "set": "kryss-tile",
+      "slot": "tile",
+      "subject": "a slim blank wayfinding totem post"
+    },
+    {
+      "id": "lichtfeld-tile-uplighter",
+      "project": "lichtfeld",
+      "set": "lichtfeld-tile",
+      "slot": "tile",
+      "subject": "a floor-standing uplighter fixture, unlit"
+    },
+    {
+      "id": "lichtfeld-tile-bollard",
+      "project": "lichtfeld",
+      "set": "lichtfeld-tile",
+      "slot": "tile",
+      "subject": "a short cylindrical outdoor bollard light, unlit"
+    },
+    {
+      "id": "lichtfeld-tile-lamp",
+      "project": "lichtfeld",
+      "set": "lichtfeld-tile",
+      "slot": "tile",
+      "subject": "a small bedside table lamp with a plain shade"
+    },
+    {
+      "id": "mesura-tile-rule",
+      "project": "mesura",
+      "set": "mesura-tile",
+      "slot": "tile",
+      "subject": "an engineer’s triangular scale rule beside a sharpened pencil"
+    },
+    {
+      "id": "mesura-tile-beam",
+      "project": "mesura",
+      "set": "mesura-tile",
+      "slot": "tile",
+      "subject": "a short offcut of a steel I-beam standing on end"
+    },
+    {
+      "id": "mesura-tile-calipers",
+      "project": "mesura",
+      "set": "mesura-tile",
+      "slot": "tile",
+      "subject": "a pair of vernier calipers, jaws slightly open"
+    },
+    {
+      "id": "meterware-tile-cone",
+      "project": "meterware",
+      "set": "meterware-tile",
+      "slot": "tile",
+      "subject": "a full cone of wound yarn standing upright"
+    },
+    {
+      "id": "meterware-tile-skein",
+      "project": "meterware",
+      "set": "meterware-tile",
+      "slot": "tile",
+      "subject": "a twisted skein of dyed yarn"
+    },
+    {
+      "id": "meterware-tile-cloth",
+      "project": "meterware",
+      "set": "meterware-tile",
+      "slot": "tile",
+      "subject": "a folded length of woven cloth with a visible selvedge"
+    },
+    {
+      "id": "nachtzug-tile-bed",
+      "project": "nachtzug",
+      "set": "nachtzug-tile",
+      "slot": "tile",
+      "subject": "a folded wool blanket with a pillow squared on top"
+    },
+    {
+      "id": "nachtzug-tile-border",
+      "project": "nachtzug",
+      "set": "nachtzug-tile",
+      "slot": "tile",
+      "subject": "a closed passport-sized travel document, plain cover"
+    },
+    {
+      "id": "nachtzug-tile-ticket",
+      "project": "nachtzug",
+      "set": "nachtzug-tile",
+      "slot": "tile",
+      "subject": "a single printed rail ticket, slightly curled"
+    },
+    {
+      "id": "nordlicht-tile-chart",
+      "project": "nordlicht",
+      "set": "nordlicht-tile",
+      "slot": "tile",
+      "subject": "a rolled nautical chart tied with a cord"
+    },
+    {
+      "id": "nordlicht-tile-theodolite",
+      "project": "nordlicht",
+      "set": "nordlicht-tile",
+      "slot": "tile",
+      "subject": "a surveyor’s theodolite head on its tribrach"
+    },
+    {
+      "id": "nordlicht-tile-compass",
+      "project": "nordlicht",
+      "set": "nordlicht-tile",
+      "slot": "tile",
+      "subject": "a brass pocket compass, lid open"
+    },
+    {
+      "id": "nullpunkt-tile-mass",
+      "project": "nullpunkt",
+      "set": "nullpunkt-tile",
+      "slot": "tile",
+      "subject": "a cylindrical calibration mass weight with a knurled knob"
+    },
+    {
+      "id": "nullpunkt-tile-logger",
+      "project": "nullpunkt",
+      "set": "nullpunkt-tile",
+      "slot": "tile",
+      "subject": "a small benchtop temperature and humidity logger with a blank display"
+    },
+    {
+      "id": "nullpunkt-tile-tweezers",
+      "project": "nullpunkt",
+      "set": "nullpunkt-tile",
+      "slot": "tile",
+      "subject": "a pair of fine precision tweezers"
+    },
+    {
+      "id": "passform-tile-hanger",
+      "project": "passform",
+      "set": "passform-tile",
+      "slot": "tile",
+      "subject": "a broad shaped wooden coat hanger"
+    },
+    {
+      "id": "passform-tile-canvas",
+      "project": "passform",
+      "set": "passform-tile",
+      "slot": "tile",
+      "subject": "a part-unrolled roll of tailor’s canvas interlining"
+    },
+    {
+      "id": "passform-tile-tape",
+      "project": "passform",
+      "set": "passform-tile",
+      "slot": "tile",
+      "subject": "a cloth tape measure loosely coiled"
+    },
+    {
+      "id": "sammlung-weiss-tile-frame",
+      "project": "sammlung-weiss",
+      "set": "sammlung-weiss-tile",
+      "slot": "tile",
+      "subject": "an empty plain wooden picture frame, front on"
+    },
+    {
+      "id": "sammlung-weiss-tile-logger",
+      "project": "sammlung-weiss",
+      "set": "sammlung-weiss-tile",
+      "slot": "tile",
+      "subject": "a small white humidity data logger"
+    },
+    {
+      "id": "sammlung-weiss-tile-gloves",
+      "project": "sammlung-weiss",
+      "set": "sammlung-weiss-tile",
+      "slot": "tile",
+      "subject": "a pair of white cotton handling gloves laid flat"
+    },
+    {
+      "id": "seconde-tile-watch",
+      "project": "seconde",
+      "set": "seconde-tile",
+      "slot": "tile",
+      "subject": "a handheld stopwatch with a plain unmarked dial"
+    },
+    {
+      "id": "seconde-tile-block",
+      "project": "seconde",
+      "set": "seconde-tile",
+      "slot": "tile",
+      "subject": "a single athletics starting block"
+    },
+    {
+      "id": "seconde-tile-chip",
+      "project": "seconde",
+      "set": "seconde-tile",
+      "slot": "tile",
+      "subject": "a small timing transponder on an ankle strap"
+    },
+    {
+      "id": "sichtbeton-tile-cube",
+      "project": "sichtbeton",
+      "set": "sichtbeton-tile",
+      "slot": "tile",
+      "subject": "a 150 mm concrete test cube"
+    },
+    {
+      "id": "sichtbeton-tile-cone",
+      "project": "sichtbeton",
+      "set": "sichtbeton-tile",
+      "slot": "tile",
+      "subject": "a steel formwork tie cone"
+    },
+    {
+      "id": "sichtbeton-tile-cylinder",
+      "project": "sichtbeton",
+      "set": "sichtbeton-tile",
+      "slot": "tile",
+      "subject": "a cast concrete test cylinder standing on end"
+    },
+    {
+      "id": "silbersalz-tile-film",
+      "project": "silbersalz",
+      "set": "silbersalz-tile",
+      "slot": "tile",
+      "subject": "a 35 mm film cassette with a short tongue of film out"
+    },
+    {
+      "id": "silbersalz-tile-tank",
+      "project": "silbersalz",
+      "set": "silbersalz-tile",
+      "slot": "tile",
+      "subject": "a stainless steel film developing tank with its lid"
+    },
+    {
+      "id": "silbersalz-tile-reel",
+      "project": "silbersalz",
+      "set": "silbersalz-tile",
+      "slot": "tile",
+      "subject": "a stainless steel film spiral reel"
+    },
+    {
+      "id": "werkraum-tile-concrete",
+      "project": "werkraum",
+      "set": "werkraum-tile",
+      "slot": "tile",
+      "subject": "a square sample tile of fair-faced concrete"
+    },
+    {
+      "id": "werkraum-tile-timber",
+      "project": "werkraum",
+      "set": "werkraum-tile",
+      "slot": "tile",
+      "subject": "a square sample block of untreated timber"
+    },
+    {
+      "id": "werkraum-tile-terrazzo",
+      "project": "werkraum",
+      "set": "werkraum-tile",
+      "slot": "tile",
+      "subject": "a square sample tile of pale terrazzo"
     }
   ]
 }

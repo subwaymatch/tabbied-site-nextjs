@@ -376,6 +376,7 @@ export default function NordlichtPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nordlicht-tile-chart-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>01</p>
                 <h3>Water and depth</h3>
@@ -398,6 +399,7 @@ export default function NordlichtPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nordlicht-tile-theodolite-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>02</p>
                 <h3>Relief and slope</h3>
@@ -420,6 +422,7 @@ export default function NordlichtPage() {
                       height: TILE_BOX,
                     }}
                   />
+                  <Figure slug="nordlicht-tile-compass-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p className={s.tileN}>03</p>
                 <h3>Culture and route</h3>
