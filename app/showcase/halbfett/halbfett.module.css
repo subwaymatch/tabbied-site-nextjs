@@ -116,7 +116,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red);
+  color: color-mix(in srgb, var(--red) 85%, var(--ink));
 }
 
 .hero1 {
@@ -128,7 +128,9 @@
 }
 
 .hero1 span {
-  color: var(--grey);
+  /* The muted second line sits over the hero pattern; plain
+     var(--grey) measured under AA on the glyph pixels. */
+  color: color-mix(in srgb, var(--grey) 75%, var(--ink));
 }
 
 .heroLede {

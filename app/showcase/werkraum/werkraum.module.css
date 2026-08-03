@@ -126,7 +126,7 @@
   font-size: 0.74rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--grey);
+  color: color-mix(in srgb, var(--grey) 66%, var(--ink));
 }
 
 .heroTitle {

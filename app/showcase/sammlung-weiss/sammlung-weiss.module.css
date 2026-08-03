@@ -106,7 +106,8 @@
   font-weight: 400;
   letter-spacing: 0.19em;
   text-transform: uppercase;
-  color: var(--stone);
+  /* 11px over the hero pattern; plain var(--stone) measured under AA. */
+  color: color-mix(in srgb, var(--stone) 80%, var(--ink));
 }
 
 .hero h1 {

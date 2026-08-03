@@ -113,7 +113,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: color-mix(in srgb, var(--orange) 62%, var(--ink));
 }
 
 .hero h1 {
@@ -124,8 +124,10 @@
   letter-spacing: -0.05em;
 }
 
-.hero h1 span {
-  color: var(--steel);
+.hero /* The muted second line sits over the hero pattern; plain
+     var(--steel) measured under AA on the glyph pixels. */
+  h1 span {
+  color: color-mix(in srgb, var(--steel) 75%, var(--ink));
 }
 
 .lede {

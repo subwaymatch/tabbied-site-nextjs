@@ -127,8 +127,10 @@
   letter-spacing: -0.048em;
 }
 
-.hero h1 span {
-  color: var(--grey);
+.hero /* The muted second line sits over the hero pattern; plain
+     var(--grey) measured under AA on the glyph pixels. */
+  h1 span {
+  color: color-mix(in srgb, var(--grey) 75%, var(--ink));
 }
 
 .lede {

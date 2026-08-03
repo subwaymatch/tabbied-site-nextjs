@@ -133,7 +133,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--aqua);
+  color: color-mix(in srgb, var(--aqua) 68%, var(--ink));
 }
 
 .hero h1 {
