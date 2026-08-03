@@ -954,6 +954,98 @@
           "as": "timber racking"
         }
       }
+    },
+    "ember-and-oak": {
+      "title": "Ember & Oak — wood-fire restaurant",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Char": {
+          "hex": "#1A0F0A",
+          "as": "the dark of the room and deep shadow"
+        },
+        "Ember": {
+          "hex": "#E0511F",
+          "as": "live coals and firelight"
+        },
+        "Flame": {
+          "hex": "#FF9F1C",
+          "as": "the warm glow across faces and surfaces"
+        },
+        "Cream": {
+          "hex": "#FFE8C7",
+          "as": "plates, linen and lit skin"
+        }
+      }
+    },
+    "facet": {
+      "title": "Facet — fine jewellery",
+      "style": "macro product photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Night": {
+          "hex": "#0B1021",
+          "as": "the deep ground the work sits on"
+        },
+        "Violet": {
+          "hex": "#5B2A86",
+          "as": "a cool cast in the shadows"
+        },
+        "Steel": {
+          "hex": "#2176AE",
+          "as": "polished metal and cool reflections"
+        },
+        "Gold": {
+          "hex": "#FBB13C",
+          "as": "warm metal and lamp light"
+        }
+      }
+    },
+    "nocturne": {
+      "title": "Nocturne — fragrance",
+      "style": "still-life photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Ink": {
+          "hex": "#12071F",
+          "as": "the dark ground"
+        },
+        "Plum": {
+          "hex": "#5A189A",
+          "as": "deep violet glass and petals"
+        },
+        "Orchid": {
+          "hex": "#9D4EDD",
+          "as": "mid violets"
+        },
+        "Bloom": {
+          "hex": "#E0AAFF",
+          "as": "the palest highlights"
+        }
+      }
+    },
+    "solstice": {
+      "title": "Solstice — yoga & wellness retreat",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Dusk": {
+          "hex": "#2B1D3A",
+          "as": "twilight sky and deep shadow"
+        },
+        "Coral": {
+          "hex": "#FF6B6B",
+          "as": "warm skin and textiles"
+        },
+        "Amber": {
+          "hex": "#FFD23E",
+          "as": "low sun and candlelight"
+        },
+        "Rose": {
+          "hex": "#FF3D8B",
+          "as": "a saturated accent in cloth"
+        }
+      }
     }
   },
   "sets": {
@@ -3837,6 +3929,83 @@
       "set": "werkraum-tile",
       "slot": "tile",
       "subject": "a square sample tile of pale terrazzo"
+    },
+    {
+      "id": "eo-team-0",
+      "project": "ember-and-oak",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a woman in her fifties with grey curls pinned up and sleeves pushed back, in chef whites, standing in the open kitchen of a wood-fired restaurant, turned slightly to camera, the hearth burning out of focus behind her. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "eo-team-1",
+      "project": "ember-and-oak",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a Black man in his forties with a shaved head and a heavy canvas apron, standing by the coals of a wood-fired kitchen, the hearth out of focus behind him. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "eo-team-2",
+      "project": "ember-and-oak",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a Japanese woman in her thirties with straight hair under a bandana, in pastry whites, at a bench in a wood-fired restaurant kitchen, hands resting on the bench. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "eo-team-3",
+      "project": "ember-and-oak",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a man in his forties in a dark shirt, front of house of a wood-fired restaurant, relaxed and unhurried, the hearth out of focus behind him. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "eo-alt-1",
+      "project": "ember-and-oak",
+      "slot": "showcase",
+      "size": "1536x1024",
+      "subject": "a chef plating a dish on the pass of a fire-lit restaurant kitchen, seen from the side, head and upper body fully in frame, hands working over the plate. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "facet-about-0",
+      "project": "facet",
+      "slot": "showcase",
+      "size": "1536x1024",
+      "subject": "a jeweller at the bench examining a plain gold band through a loupe held to the eye, the other hand steadying the ring on a bench peg with fine tweezers, seen over the shoulder. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "nocturne-about-0",
+      "project": "nocturne",
+      "slot": "showcase",
+      "size": "1536x1024",
+      "subject": "a perfumer’s bench with amber dropper bottles and one finished flacon, a hand reaching in from the right to set a bottle down. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "nocturne-gallery-3",
+      "project": "nocturne",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a fine mist leaving the atomiser of a violet glass perfume bottle, a hand pressing the sprayer, caught against a dark ground. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "solstice-alt-0",
+      "project": "solstice",
+      "slot": "showcase",
+      "size": "1536x1024",
+      "subject": "three people seated cross-legged on mats on a wooden deck at sunrise facing the sea, seen from behind, calm and evenly spaced. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "solstice-gallery-2",
+      "project": "solstice",
+      "slot": "showcase",
+      "size": "1536x1024",
+      "subject": "five people silhouetted against a dusk sky seated on a headland, clearly separated from one another, each figure distinct. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "solstice-gallery-3",
+      "project": "solstice",
+      "slot": "showcase",
+      "size": "1024x1024",
+      "subject": "a simple retreat breakfast on a weathered table: a poached egg on sourdough toast, a bowl of sliced mango and a small dish of beetroot slaw, seen from above. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
     }
   ]
 }
