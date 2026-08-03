@@ -109,9 +109,9 @@ const POLICY = [
 
 const NUMBERS = [
   ['128', 'Stations held'],
-  ['11 034 m', 'Deepest dive'],
-  ['16 000 h', 'Seabed video, public'],
-  ['12 mo', 'Embargo, maximum'],
+  ['11 034', 'Metres, deepest dive'],
+  ['16 000', 'Hours of seabed video, public'],
+  ['12', 'Months, maximum embargo'],
 ];
 
 export default function TiefseePage() {
