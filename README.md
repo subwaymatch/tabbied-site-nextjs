@@ -7,6 +7,8 @@
   <a href="https://www.codacy.com/gh/subwaymatch/tabbied/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=subwaymatch/tabbied&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/40c0ce7aab95429aa5660d0db16fe353"/></a>
 </p>
 
+⚠️ **Note:** The Tabbied project is undergoing modernization and redesign. The API may change over the next few months.
+
 Tabbied lets you easily create timeless and beautifully generated patterns or artwork to use for wall art, websites, print materials and more. Under the hood, Tabbied uses <a href="https://css-doodle.com/">&lt;css-doodle /&gt;</a> to generate the artworks.
 
 Try it at **[tabbied.com](https://tabbied.com)**.
