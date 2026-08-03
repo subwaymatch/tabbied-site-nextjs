@@ -297,7 +297,7 @@ export default function ChronometrieBexPage() {
         <div className={styles.band}>
           <TabbiedArtwork
             artwork={gravure}
-            palette={[INK, STEEL, PALE]}
+            palette={['transparent', STEEL, PALE]}
             seed="cb-band-02"
             options={{ grid: '4x6', frequency: 0.9 }}
             fit="grid"

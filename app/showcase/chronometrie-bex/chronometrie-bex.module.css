@@ -263,7 +263,10 @@
 .band {
   position: relative;
   height: clamp(5rem, 9vw, 8.5rem);
-  background: var(--ink);
+  /* The page colour, not ink: the artwork runs on a transparent ground so the
+     band reads as the page carrying a pattern rather than a black slab cut
+     into it. */
+  background: var(--bone);
   overflow: hidden;
 }
 
