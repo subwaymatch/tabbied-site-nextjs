@@ -54,6 +54,33 @@ const LOOKS = [
   },
 ];
 
+// Water temperatures are the club letter's whole premise, so the swims get a
+// table of their own rather than prose.
+const SWIMS = [
+  { place: 'Baia dei Saraceni', where: 'Finale Ligure', temp: '19–24°C', season: 'May to October', note: 'Flat by seven, busy by ten. Enter off the left-hand rocks.' },
+  { place: 'Punta Chiappa', where: 'Camogli', temp: '17–23°C', season: 'June to September', note: 'Deep straight off the shelf. The current runs west after noon.' },
+  { place: 'Lido di Sestri', where: 'Sestri Levante', temp: '18–25°C', season: 'May to October', note: 'Our own bay. Two buoys, four hundred metres apart.' },
+  { place: 'Cala Cipolla', where: 'Sardinia', temp: '20–26°C', season: 'June to October', note: 'Warmest water we publish. Shallow for a long way out.' },
+  { place: 'Bagni Blu', where: 'Genova Nervi', temp: '16–22°C', season: 'All year, if you insist', note: 'The winter swim. Somebody is always already in.' },
+];
+
+const SIZES = [
+  { size: 'XS', bust: '78–82', waist: '60–64', hip: '86–90', torso: '58' },
+  { size: 'S', bust: '82–86', waist: '64–68', hip: '90–94', torso: '60' },
+  { size: 'M', bust: '86–92', waist: '68–74', hip: '94–100', torso: '62' },
+  { size: 'L', bust: '92–98', waist: '74–80', hip: '100–106', torso: '64' },
+  { size: 'XL', bust: '98–106', waist: '80–88', hip: '106–114', torso: '66' },
+  { size: 'XXL', bust: '106–114', waist: '88–96', hip: '114–122', torso: '68' },
+];
+
+const QUESTIONS = [
+  { q: 'Which cut should I order?', a: 'If you swim lengths or race, take High tide and your usual size. If you swim to float, read a book and get wet, take Low tide. Between the two, the torso length is the thing that changes, not the width.' },
+  { q: 'What happens between sizes?', a: 'Size down for a training fit, up for comfort. The knit gives about a centimetre in the water and takes it back when it dries.' },
+  { q: 'Will chlorine finish it?', a: 'Eventually, as it finishes everything. Aqualith holds colour through two hundred and forty hours of testing, which is about three summers of daily lengths. Rinse cold and it will outlast that.' },
+  { q: 'Do you take returns?', a: 'Thirty days, unworn, hygiene strip intact. Post it back in the bag it came in; the bag is the return envelope, which is why it looks like that.' },
+  { q: 'Do you make anything for men?', a: 'Trunks in the same two cuts, from spring. The waistband took eleven goes and is still not right.' },
+];
+
 const PRODUCTS = [
   {
     slug: 'cerulean-suit-1-cutout',
@@ -158,6 +185,7 @@ export default function CeruleanSwimPage() {
           <p className={styles.logo}>Cerulean</p>
           <div className={`${styles.navSide} ${styles.navSideRight}`}>
             <a href="#fabric">Fabric</a>
+            <a href="#swims">Swims</a>
             <a href="#club" className={styles.navPill}>
               The Water Club
             </a>
@@ -373,6 +401,146 @@ export default function CeruleanSwimPage() {
             </div>
           </section>
         </div>
+
+        {/* WHERE WE SWIM — the club letter's premise, given a table */}
+        <section
+          id="swims"
+          className={styles.section}
+          aria-labelledby="swims-title"
+        >
+          <header className={styles.secHead}>
+            <h2 id="swims-title" className={styles.secTitle}>
+              Where we <em>swim</em>
+            </h2>
+            <p className={styles.secLede}>
+              Five stretches of water we know well enough to publish. The
+              temperatures are what we measured, not what the tourist board
+              would like them to be.
+            </p>
+          </header>
+          <div className={styles.swimTable}>
+            <div className={`${styles.swimRow} ${styles.swimHead}`} aria-hidden="true">
+              <span>Water</span>
+              <span>Where</span>
+              <span>Temperature</span>
+              <span>Season</span>
+            </div>
+            {SWIMS.map((w) => (
+              <article key={w.place} className={styles.swimRow}>
+                <span className={styles.swimPlace}>{w.place}</span>
+                <span className={styles.swimWhere}>{w.where}</span>
+                <span className={styles.swimTemp}>{w.temp}</span>
+                <span className={styles.swimSeason}>{w.season}</span>
+                <p className={styles.swimNote}>{w.note}</p>
+              </article>
+            ))}
+          </div>
+          <figure className={styles.swimShot}>
+            <Figure
+              slug="cerulean-swimspot"
+              alt="A stone jetty running into flat clear sea at first light, a marker buoy offshore"
+              className={styles.coverImg}
+            />
+            <figcaption>Lido di Sestri, 06.40. The near buoy is two hundred metres.</figcaption>
+          </figure>
+        </section>
+
+        {/* MADE IN SESTRI */}
+        <section
+          id="atelier"
+          className={styles.section}
+          aria-labelledby="atelier-title"
+        >
+          <div className={styles.atelierCols}>
+            <figure className={styles.atelierShot}>
+              <Figure
+                slug="cerulean-atelier"
+                alt="A machinist running a flatlock seam in teal swim jersey in a bright coastal workroom"
+                className={styles.coverImg}
+              />
+            </figure>
+            <div>
+              <h2 id="atelier-title" className={styles.secTitle}>
+                Made in <em>Sestri</em>
+              </h2>
+              <p className={styles.fabricBody}>
+                Eleven people in a first-floor room above a chandlery, four
+                streets back from the water. Every suit is cut, sewn and
+                finished here, which is slower than the alternative and the
+                reason we only manage two collections a year.
+              </p>
+              <p className={styles.fabricBody}>
+                The seams are flatlocked rather than overlocked: the join sits
+                flush with the cloth instead of standing proud of it, so there
+                is nothing to rub at kilometre three. It takes about four times
+                as long and it is the only part of the process we will not
+                move.
+              </p>
+              <p className={styles.fabricFine}>
+                Open to visitors on the first Saturday of the month, if you ring first.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* SIZE & FIT */}
+        <section
+          id="sizing"
+          className={styles.section}
+          aria-labelledby="sizing-title"
+        >
+          <header className={styles.secHead}>
+            <h2 id="sizing-title" className={styles.secTitle}>
+              Size &amp; <em>fit</em>
+            </h2>
+            <p className={styles.secLede}>
+              Measurements in centimetres, taken on the body rather than on the
+              garment. Torso is the loop from shoulder, through, and back.
+            </p>
+          </header>
+          <div className={styles.sizeTable} role="table" aria-label="Size chart in centimetres">
+            <div className={`${styles.sizeRow} ${styles.sizeHead}`} role="row">
+              <span role="columnheader">Size</span>
+              <span role="columnheader">Bust</span>
+              <span role="columnheader">Waist</span>
+              <span role="columnheader">Hip</span>
+              <span role="columnheader">Torso</span>
+            </div>
+            {SIZES.map((r) => (
+              <div key={r.size} className={styles.sizeRow} role="row">
+                <span className={styles.sizeName} role="cell">{r.size}</span>
+                <span role="cell">{r.bust}</span>
+                <span role="cell">{r.waist}</span>
+                <span role="cell">{r.hip}</span>
+                <span role="cell">{r.torso}</span>
+              </div>
+            ))}
+          </div>
+          <p className={styles.fabricFine}>
+            Between two sizes, size down for High tide and up for Low tide.
+          </p>
+        </section>
+
+        {/* QUESTIONS */}
+        <section
+          id="questions"
+          className={styles.section}
+          aria-labelledby="questions-title"
+        >
+          <header className={styles.secHead}>
+            <h2 id="questions-title" className={styles.secTitle}>
+              Before you <em>order</em>
+            </h2>
+          </header>
+          <div className={styles.qaList}>
+            {QUESTIONS.map((x) => (
+              <article key={x.q} className={styles.qaItem}>
+                <h3 className={styles.qaQ}>{x.q}</h3>
+                <p className={styles.qaA}>{x.a}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         {/* WATER CLUB */}
         <section id="club" className={styles.club} aria-labelledby="club-title">

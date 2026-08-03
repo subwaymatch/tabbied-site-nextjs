@@ -2353,6 +2353,20 @@
       "subject": "swimwear jersey printed with the same interlocking quarter-circle arc repeat but weighted darker, with scattered arcs picked out in bright coral so the accent reads as a fifth ink"
     },
     {
+      "id": "cerulean-atelier",
+      "project": "cerulean-swim",
+      "slot": "story",
+      "size": "1536x1024",
+      "subject": "a bright coastal sewing workroom: a machinist at an industrial flatlock machine running a seam in teal swim jersey, bolts of cloth stacked behind, sea light through tall windows. Photographed on a real camera with natural depth of field and true skin texture. Hands are anatomically correct with five fingers and a plausible grip on anything held."
+    },
+    {
+      "id": "cerulean-swimspot",
+      "project": "cerulean-swim",
+      "slot": "story",
+      "size": "1536x1024",
+      "subject": "an early-morning open-water swim start: a stone jetty running into flat clear sea, a marker buoy a little way out, nobody in the water yet"
+    },
+    {
       "id": "oxbow-hero",
       "project": "oxbow-workshop",
       "slot": "hero",
