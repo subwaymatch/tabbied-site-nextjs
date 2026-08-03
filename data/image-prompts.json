@@ -1,24 +1,46 @@
 {
   "meta": {
     "model": "gpt-image-2",
-    "defaults": { "size": "1536x1024", "quality": "low", "paletteMode": "hex", "cutout": false }
+    "defaults": {
+      "size": "1536x1024",
+      "quality": "low",
+      "paletteMode": "hex",
+      "cutout": false
+    }
   },
-
   "projects": {
     "mistral-cycles": {
       "title": "Mistral Cycles — handbuilt bicycle frames",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
-        "Navy": { "hex": "#0D1B2A", "as": "the workshop's shadowed walls and deep backgrounds" },
-        "Blue": { "hex": "#1B98E0", "as": "frame paint and anodised accents" },
-        "Ice": { "hex": "#E0FBFC", "as": "polished alloy and bright highlights" },
-        "Orange": { "hex": "#FF7B00", "as": "accent panels, cable housing and small details" },
-        "Yellow": { "hex": "#FFD23F", "as": "an occasional flash on tools and tape" },
-        "Grey": { "hex": "#EAEAEA", "as": "brushed steel and the concrete floor" }
+        "Navy": {
+          "hex": "#0D1B2A",
+          "as": "the workshop's shadowed walls and deep backgrounds"
+        },
+        "Blue": {
+          "hex": "#1B98E0",
+          "as": "frame paint and anodised accents"
+        },
+        "Ice": {
+          "hex": "#E0FBFC",
+          "as": "polished alloy and bright highlights"
+        },
+        "Orange": {
+          "hex": "#FF7B00",
+          "as": "accent panels, cable housing and small details"
+        },
+        "Yellow": {
+          "hex": "#FFD23F",
+          "as": "an occasional flash on tools and tape"
+        },
+        "Grey": {
+          "hex": "#EAEAEA",
+          "as": "brushed steel and the concrete floor"
+        }
       }
     },
-"zenith-observatory": {
+    "zenith-observatory": {
       "title": "Zenith — public observatory and planetarium",
       "style": "flat vector illustration",
       "paletteMode": "hex",
@@ -31,17 +53,35 @@
         "Pale": "#FFD6FF"
       }
     },
-"maison-ambre": {
+    "maison-ambre": {
       "title": "Maison Ambre — perfume house",
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
-        "Ink": { "hex": "#141210", "as": "black lacquer and deep shadow" },
-        "Gold": { "hex": "#C9A227", "as": "foil trim, amber liquid and metallic caps" },
-        "Champagne": { "hex": "#E8D9B0", "as": "warm highlights on glass" },
-        "Bronze": { "hex": "#8C6A2F", "as": "aged brass and amber resin" },
-        "Ivory": { "hex": "#FBF6EA", "as": "the soft key light" },
-        "Umber": { "hex": "#5A4632", "as": "smoked oak and dark linen" }
+        "Ink": {
+          "hex": "#141210",
+          "as": "black lacquer and deep shadow"
+        },
+        "Gold": {
+          "hex": "#C9A227",
+          "as": "foil trim, amber liquid and metallic caps"
+        },
+        "Champagne": {
+          "hex": "#E8D9B0",
+          "as": "warm highlights on glass"
+        },
+        "Bronze": {
+          "hex": "#8C6A2F",
+          "as": "aged brass and amber resin"
+        },
+        "Ivory": {
+          "hex": "#FBF6EA",
+          "as": "the soft key light"
+        },
+        "Umber": {
+          "hex": "#5A4632",
+          "as": "smoked oak and dark linen"
+        }
       }
     },
     "cairn-expeditions": {
@@ -49,12 +89,30 @@
       "style": "editorial mountain landscape photograph",
       "paletteMode": "scene",
       "palette": {
-        "Slate": { "hex": "#10222E", "as": "the pre-dawn sky and wet rock" },
-        "Ice": { "hex": "#A8CEDE", "as": "glacier ice and shadowed snow" },
-        "Snow": { "hex": "#F2F7F9", "as": "snowfields and clouds" },
-        "Ember": { "hex": "#E8734A", "as": "shell jackets, tents and rope accents" },
-        "Storm": { "hex": "#4E7A8C", "as": "distant ridgelines" },
-        "Pale": { "hex": "#D8E8EF", "as": "high-altitude haze" }
+        "Slate": {
+          "hex": "#10222E",
+          "as": "the pre-dawn sky and wet rock"
+        },
+        "Ice": {
+          "hex": "#A8CEDE",
+          "as": "glacier ice and shadowed snow"
+        },
+        "Snow": {
+          "hex": "#F2F7F9",
+          "as": "snowfields and clouds"
+        },
+        "Ember": {
+          "hex": "#E8734A",
+          "as": "shell jackets, tents and rope accents"
+        },
+        "Storm": {
+          "hex": "#4E7A8C",
+          "as": "distant ridgelines"
+        },
+        "Pale": {
+          "hex": "#D8E8EF",
+          "as": "high-altitude haze"
+        }
       }
     },
     "hopscotch-museum": {
@@ -70,17 +128,35 @@
         "Sun": "#FFC53D"
       }
     },
-"cerulean-swim": {
+    "cerulean-swim": {
       "title": "Cerulean — swimwear label",
       "style": "editorial fashion photograph",
       "paletteMode": "scene",
       "palette": {
-        "Foam": { "hex": "#F2FBFC", "as": "pale sky and sea foam" },
-        "Lagoon": { "hex": "#0FA3B1", "as": "pool water and swimsuit fabric" },
-        "Mist": { "hex": "#B5E2E8", "as": "shallow water and tiles" },
-        "Coral": { "hex": "#FF8266", "as": "swimsuit accents and towels" },
-        "Sand": { "hex": "#FFD97D", "as": "sunlit sand" },
-        "Deep": { "hex": "#134D57", "as": "deep water" }
+        "Foam": {
+          "hex": "#F2FBFC",
+          "as": "pale sky and sea foam"
+        },
+        "Lagoon": {
+          "hex": "#0FA3B1",
+          "as": "pool water and swimsuit fabric"
+        },
+        "Mist": {
+          "hex": "#B5E2E8",
+          "as": "shallow water and tiles"
+        },
+        "Coral": {
+          "hex": "#FF8266",
+          "as": "swimsuit accents and towels"
+        },
+        "Sand": {
+          "hex": "#FFD97D",
+          "as": "sunlit sand"
+        },
+        "Deep": {
+          "hex": "#134D57",
+          "as": "deep water"
+        }
       }
     },
     "oxbow-workshop": {
@@ -88,12 +164,30 @@
       "style": "furniture product photograph",
       "paletteMode": "scene",
       "palette": {
-        "Bone": { "hex": "#F5F1E8", "as": "plaster walls and pale upholstery" },
-        "Char": { "hex": "#2E2A25", "as": "blackened steel frames" },
-        "Oak": { "hex": "#A9713C", "as": "oiled white oak" },
-        "Walnut": { "hex": "#6B4F35", "as": "dark walnut" },
-        "Sage": { "hex": "#9AA69B", "as": "muted textile accents" },
-        "Sand": { "hex": "#C7BBA5", "as": "raw canvas and cord" }
+        "Bone": {
+          "hex": "#F5F1E8",
+          "as": "plaster walls and pale upholstery"
+        },
+        "Char": {
+          "hex": "#2E2A25",
+          "as": "blackened steel frames"
+        },
+        "Oak": {
+          "hex": "#A9713C",
+          "as": "oiled white oak"
+        },
+        "Walnut": {
+          "hex": "#6B4F35",
+          "as": "dark walnut"
+        },
+        "Sage": {
+          "hex": "#9AA69B",
+          "as": "muted textile accents"
+        },
+        "Sand": {
+          "hex": "#C7BBA5",
+          "as": "raw canvas and cord"
+        }
       }
     },
     "piquant-provisions": {
@@ -114,11 +208,26 @@
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F4F3EF", "as": "pale plaster, daylight and drawing paper" },
-        "Ink": { "hex": "#16161A", "as": "window frames, dark steel and deep shadow" },
-        "Red": { "hex": "#D6001C", "as": "one small saturated accent, a door or a marker" },
-        "Grey": { "hex": "#8E8E88", "as": "fair-faced concrete and screed floors" },
-        "Pale": { "hex": "#C9C8C1", "as": "untreated timber and pale render" }
+        "Paper": {
+          "hex": "#F4F3EF",
+          "as": "pale plaster, daylight and drawing paper"
+        },
+        "Ink": {
+          "hex": "#16161A",
+          "as": "window frames, dark steel and deep shadow"
+        },
+        "Red": {
+          "hex": "#D6001C",
+          "as": "one small saturated accent, a door or a marker"
+        },
+        "Grey": {
+          "hex": "#8E8E88",
+          "as": "fair-faced concrete and screed floors"
+        },
+        "Pale": {
+          "hex": "#C9C8C1",
+          "as": "untreated timber and pale render"
+        }
       }
     },
     "nordlicht": {
@@ -126,11 +235,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#FCFCFA", "as": "overcast sky, snow and chart paper" },
-        "Ink": { "hex": "#0E1116", "as": "wet rock, instrument bodies and deep shadow" },
-        "Blue": { "hex": "#1B4DFF", "as": "one small saturated accent on a cable or a case" },
-        "Steel": { "hex": "#8A9098", "as": "brushed aluminium, tripods and grey water" },
-        "Pale": { "hex": "#C3CBD4", "as": "pale water, haze and printed tints" }
+        "Paper": {
+          "hex": "#FCFCFA",
+          "as": "overcast sky, snow and chart paper"
+        },
+        "Ink": {
+          "hex": "#0E1116",
+          "as": "wet rock, instrument bodies and deep shadow"
+        },
+        "Blue": {
+          "hex": "#1B4DFF",
+          "as": "one small saturated accent on a cable or a case"
+        },
+        "Steel": {
+          "hex": "#8A9098",
+          "as": "brushed aluminium, tripods and grey water"
+        },
+        "Pale": {
+          "hex": "#C3CBD4",
+          "as": "pale water, haze and printed tints"
+        }
       }
     },
     "halbfett": {
@@ -138,11 +262,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "White": { "hex": "#FFFFFF", "as": "bright studio walls and printing paper" },
-        "Ink": { "hex": "#000000", "as": "printed type, dark presses and deep shadow" },
-        "Vermilion": { "hex": "#FF3B14", "as": "one saturated accent on a proof mark or a machine" },
-        "Grey": { "hex": "#9A9A9A", "as": "brushed steel and grey card" },
-        "Pale": { "hex": "#EDEDED", "as": "pale shelving and diffuse light" }
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "bright studio walls and printing paper"
+        },
+        "Ink": {
+          "hex": "#000000",
+          "as": "printed type, dark presses and deep shadow"
+        },
+        "Vermilion": {
+          "hex": "#FF3B14",
+          "as": "one saturated accent on a proof mark or a machine"
+        },
+        "Grey": {
+          "hex": "#9A9A9A",
+          "as": "brushed steel and grey card"
+        },
+        "Pale": {
+          "hex": "#EDEDED",
+          "as": "pale shelving and diffuse light"
+        }
       }
     },
     "hafen-sechs": {
@@ -150,11 +289,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Dark": { "hex": "#101215", "as": "night sky, shadow and painted steel" },
-        "Bone": { "hex": "#F0EFEA", "as": "floodlight, painted markings and mist" },
-        "Yellow": { "hex": "#FFD400", "as": "crane structures, hi-vis and deck markings" },
-        "Steel": { "hex": "#6E747C", "as": "weathered steel and concrete quay" },
-        "Deep": { "hex": "#1C2026", "as": "dark water and container shadow" }
+        "Dark": {
+          "hex": "#101215",
+          "as": "night sky, shadow and painted steel"
+        },
+        "Bone": {
+          "hex": "#F0EFEA",
+          "as": "floodlight, painted markings and mist"
+        },
+        "Yellow": {
+          "hex": "#FFD400",
+          "as": "crane structures, hi-vis and deck markings"
+        },
+        "Steel": {
+          "hex": "#6E747C",
+          "as": "weathered steel and concrete quay"
+        },
+        "Deep": {
+          "hex": "#1C2026",
+          "as": "dark water and container shadow"
+        }
       }
     },
     "klangwerk": {
@@ -162,11 +316,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Void": { "hex": "#08090B", "as": "the darkened room and deep shadow" },
-        "Pale": { "hex": "#E9E9E4", "as": "monitor light, paper and pale acoustic foam" },
-        "Green": { "hex": "#00E58A", "as": "a single accent from a meter or an indicator lamp" },
-        "Steel": { "hex": "#5A6068", "as": "equipment housings and cable" },
-        "Panel": { "hex": "#14161A", "as": "dark timber panelling and racks" }
+        "Void": {
+          "hex": "#08090B",
+          "as": "the darkened room and deep shadow"
+        },
+        "Pale": {
+          "hex": "#E9E9E4",
+          "as": "monitor light, paper and pale acoustic foam"
+        },
+        "Green": {
+          "hex": "#00E58A",
+          "as": "a single accent from a meter or an indicator lamp"
+        },
+        "Steel": {
+          "hex": "#5A6068",
+          "as": "equipment housings and cable"
+        },
+        "Panel": {
+          "hex": "#14161A",
+          "as": "dark timber panelling and racks"
+        }
       }
     },
     "mesura": {
@@ -174,11 +343,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F2F1ED", "as": "overcast daylight and drawing paper" },
-        "Ink": { "hex": "#15171A", "as": "dark steel and deep shadow" },
-        "Orange": { "hex": "#FF6A00", "as": "one saturated accent on primer paint or a helmet" },
-        "Steel": { "hex": "#8C9096", "as": "galvanised steel and concrete" },
-        "Pale": { "hex": "#E1E0DA", "as": "pale sky and bare concrete" }
+        "Paper": {
+          "hex": "#F2F1ED",
+          "as": "overcast daylight and drawing paper"
+        },
+        "Ink": {
+          "hex": "#15171A",
+          "as": "dark steel and deep shadow"
+        },
+        "Orange": {
+          "hex": "#FF6A00",
+          "as": "one saturated accent on primer paint or a helmet"
+        },
+        "Steel": {
+          "hex": "#8C9096",
+          "as": "galvanised steel and concrete"
+        },
+        "Pale": {
+          "hex": "#E1E0DA",
+          "as": "pale sky and bare concrete"
+        }
       }
     },
     "seconde": {
@@ -186,11 +370,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F7F7F5", "as": "stadium concrete, daylight and paper" },
-        "Ink": { "hex": "#101010", "as": "dark equipment housings and shadow" },
-        "Magenta": { "hex": "#FF0059", "as": "one saturated accent on a timing beam or a lane marker" },
-        "Grey": { "hex": "#8E8E8E", "as": "aluminium tripods and cabling" },
-        "Pale": { "hex": "#E4E4E1", "as": "pale track surface and overcast sky" }
+        "Paper": {
+          "hex": "#F7F7F5",
+          "as": "stadium concrete, daylight and paper"
+        },
+        "Ink": {
+          "hex": "#101010",
+          "as": "dark equipment housings and shadow"
+        },
+        "Magenta": {
+          "hex": "#FF0059",
+          "as": "one saturated accent on a timing beam or a lane marker"
+        },
+        "Grey": {
+          "hex": "#8E8E8E",
+          "as": "aluminium tripods and cabling"
+        },
+        "Pale": {
+          "hex": "#E4E4E1",
+          "as": "pale track surface and overcast sky"
+        }
       }
     },
     "cobalt-works": {
@@ -198,11 +397,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Bone": { "hex": "#F6F4EE", "as": "paper, plaster walls and daylight" },
-        "Ink": { "hex": "#14161C", "as": "dark machinery and deep shadow" },
-        "Blue": { "hex": "#0033CC", "as": "the pigment itself, saturated and dry" },
-        "Steel": { "hex": "#7E8494", "as": "mill housings and steel drums" },
-        "Pale": { "hex": "#E3E1D8", "as": "dusty pale surfaces" }
+        "Bone": {
+          "hex": "#F6F4EE",
+          "as": "paper, plaster walls and daylight"
+        },
+        "Ink": {
+          "hex": "#14161C",
+          "as": "dark machinery and deep shadow"
+        },
+        "Blue": {
+          "hex": "#0033CC",
+          "as": "the pigment itself, saturated and dry"
+        },
+        "Steel": {
+          "hex": "#7E8494",
+          "as": "mill housings and steel drums"
+        },
+        "Pale": {
+          "hex": "#E3E1D8",
+          "as": "dusty pale surfaces"
+        }
       }
     },
     "nullpunkt": {
@@ -210,11 +424,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "White": { "hex": "#FFFFFF", "as": "laboratory surfaces and even daylight" },
-        "Ink": { "hex": "#0A0A0A", "as": "instrument housings and deep shadow" },
-        "Red": { "hex": "#E10600", "as": "one small saturated accent on a switch or a label" },
-        "Grey": { "hex": "#9EA2A6", "as": "polished steel and aluminium" },
-        "Pale": { "hex": "#F0F0EE", "as": "pale walls and diffuse highlights" }
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "laboratory surfaces and even daylight"
+        },
+        "Ink": {
+          "hex": "#0A0A0A",
+          "as": "instrument housings and deep shadow"
+        },
+        "Red": {
+          "hex": "#E10600",
+          "as": "one small saturated accent on a switch or a label"
+        },
+        "Grey": {
+          "hex": "#9EA2A6",
+          "as": "polished steel and aluminium"
+        },
+        "Pale": {
+          "hex": "#F0F0EE",
+          "as": "pale walls and diffuse highlights"
+        }
       }
     },
     "sammlung-weiss": {
@@ -222,11 +451,26 @@
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
-        "Bone": { "hex": "#EFEDE6", "as": "gallery walls, daylight and plaster" },
-        "Ink": { "hex": "#111111", "as": "door frames, deep shadow and dark stone" },
-        "Stone": { "hex": "#6E6A60", "as": "grey stone, crates and shadow" },
-        "Pale": { "hex": "#D8D5CA", "as": "pale timber floor and raw canvas" },
-        "Light": { "hex": "#FBFAF6", "as": "the brightest wall under a skylight" }
+        "Bone": {
+          "hex": "#EFEDE6",
+          "as": "gallery walls, daylight and plaster"
+        },
+        "Ink": {
+          "hex": "#111111",
+          "as": "door frames, deep shadow and dark stone"
+        },
+        "Stone": {
+          "hex": "#6E6A60",
+          "as": "grey stone, crates and shadow"
+        },
+        "Pale": {
+          "hex": "#D8D5CA",
+          "as": "pale timber floor and raw canvas"
+        },
+        "Light": {
+          "hex": "#FBFAF6",
+          "as": "the brightest wall under a skylight"
+        }
       }
     },
     "frequenz": {
@@ -234,11 +478,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Dark": { "hex": "#121014", "as": "the darkened studio and deep shadow" },
-        "Cream": { "hex": "#F2EFE6", "as": "paper, acoustic panels and lamp light" },
-        "Amber": { "hex": "#FFA200", "as": "the on-air lamp and warm indicator light" },
-        "Grey": { "hex": "#6B6560", "as": "equipment housings and cable" },
-        "Panel": { "hex": "#1D1A20", "as": "dark timber and rack fronts" }
+        "Dark": {
+          "hex": "#121014",
+          "as": "the darkened studio and deep shadow"
+        },
+        "Cream": {
+          "hex": "#F2EFE6",
+          "as": "paper, acoustic panels and lamp light"
+        },
+        "Amber": {
+          "hex": "#FFA200",
+          "as": "the on-air lamp and warm indicator light"
+        },
+        "Grey": {
+          "hex": "#6B6560",
+          "as": "equipment housings and cable"
+        },
+        "Panel": {
+          "hex": "#1D1A20",
+          "as": "dark timber and rack fronts"
+        }
       }
     },
     "fonds-aubert": {
@@ -246,11 +505,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F0F0E8", "as": "daylight, paper and pale plaster" },
-        "Ink": { "hex": "#1A1C18", "as": "dark shelving, shadow and bindings" },
-        "Olive": { "hex": "#4C6B2F", "as": "one muted accent on a box label or a door" },
-        "Grey": { "hex": "#8C8F84", "as": "steel shelving and grey board" },
-        "Pale": { "hex": "#DEDED4", "as": "archive boxes and folder card" }
+        "Paper": {
+          "hex": "#F0F0E8",
+          "as": "daylight, paper and pale plaster"
+        },
+        "Ink": {
+          "hex": "#1A1C18",
+          "as": "dark shelving, shadow and bindings"
+        },
+        "Olive": {
+          "hex": "#4C6B2F",
+          "as": "one muted accent on a box label or a door"
+        },
+        "Grey": {
+          "hex": "#8C8F84",
+          "as": "steel shelving and grey board"
+        },
+        "Pale": {
+          "hex": "#DEDED4",
+          "as": "archive boxes and folder card"
+        }
       }
     },
     "passform": {
@@ -258,11 +532,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Linen": { "hex": "#F5F1EA", "as": "daylight, calico and pattern paper" },
-        "Ink": { "hex": "#191512", "as": "dark cloth, shadow and the cutting table" },
-        "Rust": { "hex": "#C1440E", "as": "one accent on thread, chalk or a pin cushion" },
-        "Grey": { "hex": "#9A9086", "as": "steel shears and grey worsted" },
-        "Pale": { "hex": "#E5DFD4", "as": "brown paper patterns and tailor's canvas" }
+        "Linen": {
+          "hex": "#F5F1EA",
+          "as": "daylight, calico and pattern paper"
+        },
+        "Ink": {
+          "hex": "#191512",
+          "as": "dark cloth, shadow and the cutting table"
+        },
+        "Rust": {
+          "hex": "#C1440E",
+          "as": "one accent on thread, chalk or a pin cushion"
+        },
+        "Grey": {
+          "hex": "#9A9086",
+          "as": "steel shears and grey worsted"
+        },
+        "Pale": {
+          "hex": "#E5DFD4",
+          "as": "brown paper patterns and tailor's canvas"
+        }
       }
     },
     "meterware": {
@@ -270,11 +559,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Ecru": { "hex": "#EFEBE1", "as": "raw cloth, daylight and mill walls" },
-        "Ink": { "hex": "#14161F", "as": "machine frames and deep shadow" },
-        "Indigo": { "hex": "#2B3FAE", "as": "the dyed yarn and one painted machine panel" },
-        "Grey": { "hex": "#8E8A7E", "as": "steel machinery and concrete" },
-        "Pale": { "hex": "#DCD7C9", "as": "undyed yarn and pale cloth" }
+        "Ecru": {
+          "hex": "#EFEBE1",
+          "as": "raw cloth, daylight and mill walls"
+        },
+        "Ink": {
+          "hex": "#14161F",
+          "as": "machine frames and deep shadow"
+        },
+        "Indigo": {
+          "hex": "#2B3FAE",
+          "as": "the dyed yarn and one painted machine panel"
+        },
+        "Grey": {
+          "hex": "#8E8A7E",
+          "as": "steel machinery and concrete"
+        },
+        "Pale": {
+          "hex": "#DCD7C9",
+          "as": "undyed yarn and pale cloth"
+        }
       }
     },
     "sichtbeton": {
@@ -282,11 +586,26 @@
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
-        "Grey": { "hex": "#E9E9E6", "as": "fair-faced concrete and overcast daylight" },
-        "Ink": { "hex": "#131313", "as": "formwork ties, shadow and dark steel" },
-        "Orange": { "hex": "#FF5A00", "as": "one safety accent on tape, a helmet or a marker" },
-        "Steel": { "hex": "#8B8B87", "as": "rebar, props and grey machinery" },
-        "Pale": { "hex": "#D3D3CE", "as": "pale board-marked surfaces" }
+        "Grey": {
+          "hex": "#E9E9E6",
+          "as": "fair-faced concrete and overcast daylight"
+        },
+        "Ink": {
+          "hex": "#131313",
+          "as": "formwork ties, shadow and dark steel"
+        },
+        "Orange": {
+          "hex": "#FF5A00",
+          "as": "one safety accent on tape, a helmet or a marker"
+        },
+        "Steel": {
+          "hex": "#8B8B87",
+          "as": "rebar, props and grey machinery"
+        },
+        "Pale": {
+          "hex": "#D3D3CE",
+          "as": "pale board-marked surfaces"
+        }
       }
     },
     "kaella": {
@@ -294,11 +613,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Pale": { "hex": "#F2F6F6", "as": "daylight, mist and pale tile" },
-        "Ink": { "hex": "#0F1A1D", "as": "dark water, shadow and pipe interiors" },
-        "Aqua": { "hex": "#00A6A6", "as": "one accent on painted pipework and valve wheels" },
-        "Steel": { "hex": "#7E9296", "as": "stainless pipework and concrete" },
-        "Mist": { "hex": "#DCE7E7", "as": "still water surfaces and pale sky" }
+        "Pale": {
+          "hex": "#F2F6F6",
+          "as": "daylight, mist and pale tile"
+        },
+        "Ink": {
+          "hex": "#0F1A1D",
+          "as": "dark water, shadow and pipe interiors"
+        },
+        "Aqua": {
+          "hex": "#00A6A6",
+          "as": "one accent on painted pipework and valve wheels"
+        },
+        "Steel": {
+          "hex": "#7E9296",
+          "as": "stainless pipework and concrete"
+        },
+        "Mist": {
+          "hex": "#DCE7E7",
+          "as": "still water surfaces and pale sky"
+        }
       }
     },
     "nachtzug": {
@@ -306,11 +640,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Night": { "hex": "#0B0E1A", "as": "the night sky, dark livery and deep shadow" },
-        "Bone": { "hex": "#EDE8DA", "as": "bed linen, lamp light and platform signage" },
-        "Gold": { "hex": "#E0A83C", "as": "the warm reading lamps and brass fittings" },
-        "Steel": { "hex": "#545C74", "as": "carriage steel and cold platform light" },
-        "Deep": { "hex": "#141827", "as": "tunnel dark and window reflections" }
+        "Night": {
+          "hex": "#0B0E1A",
+          "as": "the night sky, dark livery and deep shadow"
+        },
+        "Bone": {
+          "hex": "#EDE8DA",
+          "as": "bed linen, lamp light and platform signage"
+        },
+        "Gold": {
+          "hex": "#E0A83C",
+          "as": "the warm reading lamps and brass fittings"
+        },
+        "Steel": {
+          "hex": "#545C74",
+          "as": "carriage steel and cold platform light"
+        },
+        "Deep": {
+          "hex": "#141827",
+          "as": "tunnel dark and window reflections"
+        }
       }
     },
     "lichtfeld": {
@@ -318,11 +667,26 @@
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
-        "Dark": { "hex": "#0A0A0A", "as": "the unlit surfaces and night sky" },
-        "White": { "hex": "#FAFAF5", "as": "the lit plane and bright surfaces" },
-        "Warm": { "hex": "#F5E663", "as": "the warm light itself, lamps and pools of glow" },
-        "Grey": { "hex": "#6A6A64", "as": "concrete and metal in half light" },
-        "Panel": { "hex": "#151515", "as": "dark ceilings and deep shadow" }
+        "Dark": {
+          "hex": "#0A0A0A",
+          "as": "the unlit surfaces and night sky"
+        },
+        "White": {
+          "hex": "#FAFAF5",
+          "as": "the lit plane and bright surfaces"
+        },
+        "Warm": {
+          "hex": "#F5E663",
+          "as": "the warm light itself, lamps and pools of glow"
+        },
+        "Grey": {
+          "hex": "#6A6A64",
+          "as": "concrete and metal in half light"
+        },
+        "Panel": {
+          "hex": "#151515",
+          "as": "dark ceilings and deep shadow"
+        }
       }
     },
     "silbersalz": {
@@ -330,11 +694,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Bone": { "hex": "#EDEBE4", "as": "print paper, light table glow and pale walls" },
-        "Ink": { "hex": "#101010", "as": "the darkroom, film base and deep shadow" },
-        "Red": { "hex": "#C8102E", "as": "the safelight and one red accent" },
-        "Grey": { "hex": "#8A8880", "as": "stainless tanks and enlarger bodies" },
-        "Pale": { "hex": "#D9D6CC", "as": "dry mounted prints and paper stock" }
+        "Bone": {
+          "hex": "#EDEBE4",
+          "as": "print paper, light table glow and pale walls"
+        },
+        "Ink": {
+          "hex": "#101010",
+          "as": "the darkroom, film base and deep shadow"
+        },
+        "Red": {
+          "hex": "#C8102E",
+          "as": "the safelight and one red accent"
+        },
+        "Grey": {
+          "hex": "#8A8880",
+          "as": "stainless tanks and enlarger bodies"
+        },
+        "Pale": {
+          "hex": "#D9D6CC",
+          "as": "dry mounted prints and paper stock"
+        }
       }
     },
     "kryss": {
@@ -342,11 +721,26 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F4F4F1", "as": "concourse surfaces, daylight and sign faces" },
-        "Ink": { "hex": "#131416", "as": "sign type, dark frames and shadow" },
-        "Green": { "hex": "#00843D", "as": "the directional accent on signs and floor graphics" },
-        "Grey": { "hex": "#8E9094", "as": "brushed aluminium and concrete" },
-        "Pale": { "hex": "#E2E2DE", "as": "pale walls and glazing" }
+        "Paper": {
+          "hex": "#F4F4F1",
+          "as": "concourse surfaces, daylight and sign faces"
+        },
+        "Ink": {
+          "hex": "#131416",
+          "as": "sign type, dark frames and shadow"
+        },
+        "Green": {
+          "hex": "#00843D",
+          "as": "the directional accent on signs and floor graphics"
+        },
+        "Grey": {
+          "hex": "#8E9094",
+          "as": "brushed aluminium and concrete"
+        },
+        "Pale": {
+          "hex": "#E2E2DE",
+          "as": "pale walls and glazing"
+        }
       }
     },
     "quanta-robotics": {
@@ -367,15 +761,33 @@
       "style": "editorial still-life photograph",
       "paletteMode": "scene",
       "palette": {
-        "Aubergine": { "hex": "#2D132C", "as": "the dark ground and deep shadow" },
-        "Burgundy": { "hex": "#801336", "as": "velvet linings and varnish depths" },
-        "Crimson": { "hex": "#C72C41", "as": "warm varnish mid-tones" },
-        "Vermilion": { "hex": "#EE4540", "as": "an accent in silk and ribbon" },
-        "Gold": { "hex": "#F0C419", "as": "brass fittings and rosin glow" },
-        "Parchment": { "hex": "#FFE9C7", "as": "spruce tops and aged paper" }
+        "Aubergine": {
+          "hex": "#2D132C",
+          "as": "the dark ground and deep shadow"
+        },
+        "Burgundy": {
+          "hex": "#801336",
+          "as": "velvet linings and varnish depths"
+        },
+        "Crimson": {
+          "hex": "#C72C41",
+          "as": "warm varnish mid-tones"
+        },
+        "Vermilion": {
+          "hex": "#EE4540",
+          "as": "an accent in silk and ribbon"
+        },
+        "Gold": {
+          "hex": "#F0C419",
+          "as": "brass fittings and rosin glow"
+        },
+        "Parchment": {
+          "hex": "#FFE9C7",
+          "as": "spruce tops and aged paper"
+        }
       }
     },
-"caldera-rail": {
+    "caldera-rail": {
       "title": "Caldera — scenic railway journeys",
       "style": "gouache travel illustration",
       "paletteMode": "hex",
@@ -388,17 +800,35 @@
         "Rust": "#E76F51"
       }
     },
-"konzerthaus-halden": {
+    "konzerthaus-halden": {
       "title": "Konzerthaus Halden — concert hall",
       "style": "architectural photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#F2F1EE", "as": "pale plaster, programme paper and daylight" },
-        "Ink": { "hex": "#111111", "as": "the stage void, dark suits and deep shadow" },
-        "Red": { "hex": "#E1261C", "as": "the seating upholstery and signage" },
-        "Grey": { "hex": "#8C8C88", "as": "fair-faced concrete and acoustic panels" },
-        "Pale": { "hex": "#D8D7D2", "as": "pale oak cladding" },
-        "Warm": { "hex": "#B9B4A8", "as": "warm reflected light off timber" }
+        "Paper": {
+          "hex": "#F2F1EE",
+          "as": "pale plaster, programme paper and daylight"
+        },
+        "Ink": {
+          "hex": "#111111",
+          "as": "the stage void, dark suits and deep shadow"
+        },
+        "Red": {
+          "hex": "#E1261C",
+          "as": "the seating upholstery and signage"
+        },
+        "Grey": {
+          "hex": "#8C8C88",
+          "as": "fair-faced concrete and acoustic panels"
+        },
+        "Pale": {
+          "hex": "#D8D7D2",
+          "as": "pale oak cladding"
+        },
+        "Warm": {
+          "hex": "#B9B4A8",
+          "as": "warm reflected light off timber"
+        }
       }
     },
     "institut-vollmer": {
@@ -406,12 +836,30 @@
       "style": "documentary photograph",
       "paletteMode": "scene",
       "palette": {
-        "White": { "hex": "#FFFFFF", "as": "laboratory surfaces and even daylight" },
-        "Ink": { "hex": "#1A1A1A", "as": "instrument housings and deep shadow" },
-        "Blue": { "hex": "#0B4EE0", "as": "a single saturated accent on equipment and doors" },
-        "Steel": { "hex": "#9AA0A6", "as": "brushed stainless and aluminium" },
-        "Pale": { "hex": "#E9EBEE", "as": "pale walls and glassware highlights" },
-        "Graphite": { "hex": "#4A4F55", "as": "mid greys in the machinery" }
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "laboratory surfaces and even daylight"
+        },
+        "Ink": {
+          "hex": "#1A1A1A",
+          "as": "instrument housings and deep shadow"
+        },
+        "Blue": {
+          "hex": "#0B4EE0",
+          "as": "a single saturated accent on equipment and doors"
+        },
+        "Steel": {
+          "hex": "#9AA0A6",
+          "as": "brushed stainless and aluminium"
+        },
+        "Pale": {
+          "hex": "#E9EBEE",
+          "as": "pale walls and glassware highlights"
+        },
+        "Graphite": {
+          "hex": "#4A4F55",
+          "as": "mid greys in the machinery"
+        }
       }
     },
     "linie-nord": {
@@ -419,12 +867,30 @@
       "style": "documentary transport photograph",
       "paletteMode": "scene",
       "palette": {
-        "Concrete": { "hex": "#F1F1EF", "as": "platform concrete and overcast sky" },
-        "Ink": { "hex": "#17181A", "as": "rolling stock livery and deep shadow" },
-        "Signal": { "hex": "#FFD400", "as": "the signal-yellow train fronts and platform markings" },
-        "Steel": { "hex": "#7E858C", "as": "rails, catenary and steel canopies" },
-        "Pale": { "hex": "#DCDEDE", "as": "pale render and glazing" },
-        "Dark": { "hex": "#2A2E33", "as": "tunnel mouths and undercarriage" }
+        "Concrete": {
+          "hex": "#F1F1EF",
+          "as": "platform concrete and overcast sky"
+        },
+        "Ink": {
+          "hex": "#17181A",
+          "as": "rolling stock livery and deep shadow"
+        },
+        "Signal": {
+          "hex": "#FFD400",
+          "as": "the signal-yellow train fronts and platform markings"
+        },
+        "Steel": {
+          "hex": "#7E858C",
+          "as": "rails, catenary and steel canopies"
+        },
+        "Pale": {
+          "hex": "#DCDEDE",
+          "as": "pale render and glazing"
+        },
+        "Dark": {
+          "hex": "#2A2E33",
+          "as": "tunnel mouths and undercarriage"
+        }
       }
     },
     "chronometrie-bex": {
@@ -432,12 +898,30 @@
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
-        "Bone": { "hex": "#EDEDEB", "as": "the bench surface and even studio light" },
-        "Ink": { "hex": "#0E0E0E", "as": "dials, leather and deep shadow" },
-        "Orange": { "hex": "#FF5A1F", "as": "a single accent on a strap or a tool handle" },
-        "Steel": { "hex": "#9C9C98", "as": "polished steel cases and tooling" },
-        "Pale": { "hex": "#DAD9D5", "as": "brushed metal highlights" },
-        "Shadow": { "hex": "#3A3A38", "as": "mid greys in the movement" }
+        "Bone": {
+          "hex": "#EDEDEB",
+          "as": "the bench surface and even studio light"
+        },
+        "Ink": {
+          "hex": "#0E0E0E",
+          "as": "dials, leather and deep shadow"
+        },
+        "Orange": {
+          "hex": "#FF5A1F",
+          "as": "a single accent on a strap or a tool handle"
+        },
+        "Steel": {
+          "hex": "#9C9C98",
+          "as": "polished steel cases and tooling"
+        },
+        "Pale": {
+          "hex": "#DAD9D5",
+          "as": "brushed metal highlights"
+        },
+        "Shadow": {
+          "hex": "#3A3A38",
+          "as": "mid greys in the movement"
+        }
       }
     },
     "bogen-papier": {
@@ -445,26 +929,55 @@
       "style": "product photograph",
       "paletteMode": "scene",
       "palette": {
-        "Paper": { "hex": "#FAFAF7", "as": "sheet stock and bright even light" },
-        "Ink": { "hex": "#14150F", "as": "print, dark shelving and shadow" },
-        "Green": { "hex": "#2E7D4F", "as": "a single accent on banding and labels" },
-        "Warm": { "hex": "#C9C4B4", "as": "kraft board and unbleached stock" },
-        "Pale": { "hex": "#E7E5DC", "as": "pale grey card" },
-        "Umber": { "hex": "#6B6656", "as": "timber racking" }
+        "Paper": {
+          "hex": "#FAFAF7",
+          "as": "sheet stock and bright even light"
+        },
+        "Ink": {
+          "hex": "#14150F",
+          "as": "print, dark shelving and shadow"
+        },
+        "Green": {
+          "hex": "#2E7D4F",
+          "as": "a single accent on banding and labels"
+        },
+        "Warm": {
+          "hex": "#C9C4B4",
+          "as": "kraft board and unbleached stock"
+        },
+        "Pale": {
+          "hex": "#E7E5DC",
+          "as": "pale grey card"
+        },
+        "Umber": {
+          "hex": "#6B6656",
+          "as": "timber racking"
+        }
       }
     }
   },
-
   "sets": {
     "mistral-gear": {
       "style": "product photograph",
       "cutout": true,
       "backdrop": "The product stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Navy": { "hex": "#0D1B2A", "as": "deep shadow inside the object" },
-        "Blue": { "hex": "#1B98E0", "as": "the frame paint and anodised parts" },
-        "Ice": { "hex": "#E0FBFC", "as": "polished alloy highlights" },
-        "Orange": { "hex": "#FF7B00", "as": "accent panels and small details" }
+        "Navy": {
+          "hex": "#0D1B2A",
+          "as": "deep shadow inside the object"
+        },
+        "Blue": {
+          "hex": "#1B98E0",
+          "as": "the frame paint and anodised parts"
+        },
+        "Ice": {
+          "hex": "#E0FBFC",
+          "as": "polished alloy highlights"
+        },
+        "Orange": {
+          "hex": "#FF7B00",
+          "as": "accent panels and small details"
+        }
       }
     },
     "mistral-team": {
@@ -474,25 +987,49 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain steel-grey studio wall, softly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Navy": { "hex": "#0D1B2A", "as": "workwear and shadow" },
-        "Blue": { "hex": "#1B98E0", "as": "an occasional accent in clothing" },
-        "Ice": { "hex": "#E0FBFC", "as": "bright highlights" },
-        "Grey": { "hex": "#EAEAEA", "as": "warm neutral tones in the clothing" }
+        "Navy": {
+          "hex": "#0D1B2A",
+          "as": "workwear and shadow"
+        },
+        "Blue": {
+          "hex": "#1B98E0",
+          "as": "an occasional accent in clothing"
+        },
+        "Ice": {
+          "hex": "#E0FBFC",
+          "as": "bright highlights"
+        },
+        "Grey": {
+          "hex": "#EAEAEA",
+          "as": "warm neutral tones in the clothing"
+        }
       }
     },
-"zenith-objects": {
+    "zenith-objects": {
       "cutout": true,
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
     },
-"ambre-flacons": {
+    "ambre-flacons": {
       "cutout": true,
       "backdrop": "The bottle stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Ink": { "hex": "#141210", "as": "the lacquered cap and deep glass shadow" },
-        "Gold": { "hex": "#C9A227", "as": "the amber liquid and metallic trim" },
-        "Champagne": { "hex": "#E8D9B0", "as": "warm highlights through the glass" },
-        "Bronze": { "hex": "#8C6A2F", "as": "deeper amber tones" }
+        "Ink": {
+          "hex": "#141210",
+          "as": "the lacquered cap and deep glass shadow"
+        },
+        "Gold": {
+          "hex": "#C9A227",
+          "as": "the amber liquid and metallic trim"
+        },
+        "Champagne": {
+          "hex": "#E8D9B0",
+          "as": "warm highlights through the glass"
+        },
+        "Bronze": {
+          "hex": "#8C6A2F",
+          "as": "deeper amber tones"
+        }
       }
     },
     "cairn-gear": {
@@ -500,9 +1037,18 @@
       "cutout": true,
       "backdrop": "The gear stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Ember": { "hex": "#E8734A", "as": "the shell fabric and webbing accents" },
-        "Slate": { "hex": "#10222E", "as": "dark technical fabric and rubber" },
-        "Ice": { "hex": "#A8CEDE", "as": "buckles and zip pulls" }
+        "Ember": {
+          "hex": "#E8734A",
+          "as": "the shell fabric and webbing accents"
+        },
+        "Slate": {
+          "hex": "#10222E",
+          "as": "dark technical fabric and rubber"
+        },
+        "Ice": {
+          "hex": "#A8CEDE",
+          "as": "buckles and zip pulls"
+        }
       }
     },
     "cairn-guides": {
@@ -512,9 +1058,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, weathered, friendly expression. Soft overcast daylight, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain cool slate-grey studio wall, evenly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Ember": { "hex": "#E8734A", "as": "a shell jacket accent" },
-        "Slate": { "hex": "#10222E", "as": "fleece layers and shadow" },
-        "Snow": { "hex": "#F2F7F9", "as": "bright highlights" }
+        "Ember": {
+          "hex": "#E8734A",
+          "as": "a shell jacket accent"
+        },
+        "Slate": {
+          "hex": "#10222E",
+          "as": "fleece layers and shadow"
+        },
+        "Snow": {
+          "hex": "#F2F7F9",
+          "as": "bright highlights"
+        }
       }
     },
     "hopscotch-props": {
@@ -522,25 +1077,46 @@
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat pale background with nothing else in frame."
     },
-"cerulean-flatlay": {
+    "cerulean-flatlay": {
       "style": "product flat-lay photograph",
       "size": "1024x1024",
       "cutout": true,
       "backdrop": "The product lies flat, alone, on a plain neutral light-grey seamless backdrop, photographed from directly above, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Lagoon": { "hex": "#0FA3B1", "as": "the main fabric colour" },
-        "Coral": { "hex": "#FF8266", "as": "trim and accent details" },
-        "Deep": { "hex": "#134D57", "as": "dark linings" }
+        "Lagoon": {
+          "hex": "#0FA3B1",
+          "as": "the main fabric colour"
+        },
+        "Coral": {
+          "hex": "#FF8266",
+          "as": "trim and accent details"
+        },
+        "Deep": {
+          "hex": "#134D57",
+          "as": "dark linings"
+        }
       }
     },
     "oxbow-pieces": {
       "cutout": true,
       "backdrop": "The piece stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Oak": { "hex": "#A9713C", "as": "oiled white oak surfaces" },
-        "Walnut": { "hex": "#6B4F35", "as": "dark walnut surfaces" },
-        "Char": { "hex": "#2E2A25", "as": "blackened steel legs and frames" },
-        "Sand": { "hex": "#C7BBA5", "as": "woven cane and canvas" }
+        "Oak": {
+          "hex": "#A9713C",
+          "as": "oiled white oak surfaces"
+        },
+        "Walnut": {
+          "hex": "#6B4F35",
+          "as": "dark walnut surfaces"
+        },
+        "Char": {
+          "hex": "#2E2A25",
+          "as": "blackened steel legs and frames"
+        },
+        "Sand": {
+          "hex": "#C7BBA5",
+          "as": "woven cane and canvas"
+        }
       }
     },
     "oxbow-makers": {
@@ -550,9 +1126,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a relaxed, friendly expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain bone-white plaster wall, warmly lit with a soft falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Char": { "hex": "#2E2A25", "as": "work aprons and hair" },
-        "Bone": { "hex": "#F5F1E8", "as": "shirts and warm highlights on skin" },
-        "Oak": { "hex": "#A9713C", "as": "a warm accent in clothing" }
+        "Char": {
+          "hex": "#2E2A25",
+          "as": "work aprons and hair"
+        },
+        "Bone": {
+          "hex": "#F5F1E8",
+          "as": "shirts and warm highlights on skin"
+        },
+        "Oak": {
+          "hex": "#A9713C",
+          "as": "a warm accent in clothing"
+        }
       }
     },
     "piquant-cutouts": {
@@ -573,27 +1158,48 @@
       "cutout": true,
       "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Crimson": { "hex": "#C72C41", "as": "the warm varnish" },
-        "Burgundy": { "hex": "#801336", "as": "varnish depths and fittings" },
-        "Gold": { "hex": "#F0C419", "as": "brass details and highlights" },
-        "Parchment": { "hex": "#FFE9C7", "as": "the pale spruce top" }
+        "Crimson": {
+          "hex": "#C72C41",
+          "as": "the warm varnish"
+        },
+        "Burgundy": {
+          "hex": "#801336",
+          "as": "varnish depths and fittings"
+        },
+        "Gold": {
+          "hex": "#F0C419",
+          "as": "brass details and highlights"
+        },
+        "Parchment": {
+          "hex": "#FFE9C7",
+          "as": "the pale spruce top"
+        }
       }
     },
-"caldera-props": {
+    "caldera-props": {
       "cutout": true,
       "size": "1024x1024",
       "backdrop": "The subject sits alone, centred on a plain flat parchment-coloured background with nothing else in frame."
     },
-"halden-people": {
+    "halden-people": {
       "style": "portrait photograph",
       "size": "1024x1536",
       "cutout": false,
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a composed expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain pale plaster wall, evenly lit with a gentle falloff into shadow behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Ink": { "hex": "#111111", "as": "concert blacks and hair" },
-        "Paper": { "hex": "#F2F1EE", "as": "the wall and bright highlights on skin" },
-        "Red": { "hex": "#E1261C", "as": "an occasional accent in clothing" }
+        "Ink": {
+          "hex": "#111111",
+          "as": "concert blacks and hair"
+        },
+        "Paper": {
+          "hex": "#F2F1EE",
+          "as": "the wall and bright highlights on skin"
+        },
+        "Red": {
+          "hex": "#E1261C",
+          "as": "an occasional accent in clothing"
+        }
       }
     },
     "vollmer-people": {
@@ -603,9 +1209,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a calm, direct expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain cool white wall, lit flat and evenly with only the faintest falloff, no props in frame.",
       "palette": {
-        "Ink": { "hex": "#1A1A1A", "as": "hair and dark clothing" },
-        "White": { "hex": "#FFFFFF", "as": "lab coats, the wall and bright highlights on skin" },
-        "Blue": { "hex": "#0B4EE0", "as": "a small accent in the clothing" }
+        "Ink": {
+          "hex": "#1A1A1A",
+          "as": "hair and dark clothing"
+        },
+        "White": {
+          "hex": "#FFFFFF",
+          "as": "lab coats, the wall and bright highlights on skin"
+        },
+        "Blue": {
+          "hex": "#0B4EE0",
+          "as": "a small accent in the clothing"
+        }
       }
     },
     "linie-people": {
@@ -615,9 +1230,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a friendly, workmanlike expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain cool grey wall, evenly lit with a gentle falloff behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Ink": { "hex": "#17181A", "as": "uniform jackets and hair" },
-        "Concrete": { "hex": "#F1F1EF", "as": "the wall and bright highlights on skin" },
-        "Signal": { "hex": "#FFD400", "as": "a high-visibility accent on the uniform" }
+        "Ink": {
+          "hex": "#17181A",
+          "as": "uniform jackets and hair"
+        },
+        "Concrete": {
+          "hex": "#F1F1EF",
+          "as": "the wall and bright highlights on skin"
+        },
+        "Signal": {
+          "hex": "#FFD400",
+          "as": "a high-visibility accent on the uniform"
+        }
       }
     },
     "bex-people": {
@@ -627,9 +1251,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with a quiet, focused expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain warm bone-grey wall, evenly lit with a soft falloff behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Ink": { "hex": "#0E0E0E", "as": "hair and dark clothing" },
-        "Bone": { "hex": "#EDEDEB", "as": "the wall, work coats and highlights on skin" },
-        "Orange": { "hex": "#FF5A1F", "as": "a small accent in the clothing" }
+        "Ink": {
+          "hex": "#0E0E0E",
+          "as": "hair and dark clothing"
+        },
+        "Bone": {
+          "hex": "#EDEDEB",
+          "as": "the wall, work coats and highlights on skin"
+        },
+        "Orange": {
+          "hex": "#FF5A1F",
+          "as": "a small accent in the clothing"
+        }
       }
     },
     "bogen-people": {
@@ -639,9 +1272,18 @@
       "description": "Head-and-shoulders portrait, framed at the same distance, subject facing the camera with an open, practical expression. Soft large-source key light from camera left, gentle fill, natural skin texture, 85mm lens look with a shallow depth of field.",
       "backdrop": "Plain warm off-white wall, evenly lit with a soft falloff behind the subject's shoulders, no props in frame.",
       "palette": {
-        "Ink": { "hex": "#14150F", "as": "hair and dark clothing" },
-        "Paper": { "hex": "#FAFAF7", "as": "the wall, shirts and highlights on skin" },
-        "Green": { "hex": "#2E7D4F", "as": "a small accent in the clothing" }
+        "Ink": {
+          "hex": "#14150F",
+          "as": "hair and dark clothing"
+        },
+        "Paper": {
+          "hex": "#FAFAF7",
+          "as": "the wall, shirts and highlights on skin"
+        },
+        "Green": {
+          "hex": "#2E7D4F",
+          "as": "a small accent in the clothing"
+        }
       }
     },
     "bex-pieces": {
@@ -649,9 +1291,18 @@
       "size": "1024x1024",
       "backdrop": "The watch stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame. The dial is completely blank, with no numerals, markings or branding of any kind.",
       "palette": {
-        "Ink": { "hex": "#0E0E0E", "as": "the dial and leather" },
-        "Steel": { "hex": "#9C9C98", "as": "the polished case and bracelet" },
-        "Orange": { "hex": "#FF5A1F", "as": "a single accent on the strap" }
+        "Ink": {
+          "hex": "#0E0E0E",
+          "as": "the dial and leather"
+        },
+        "Steel": {
+          "hex": "#9C9C98",
+          "as": "the polished case and bracelet"
+        },
+        "Orange": {
+          "hex": "#FF5A1F",
+          "as": "a single accent on the strap"
+        }
       }
     },
     "bogen-stock": {
@@ -659,458 +1310,1553 @@
       "size": "1024x1024",
       "backdrop": "The stock stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
       "palette": {
-        "Paper": { "hex": "#FAFAF7", "as": "the sheet stock" },
-        "Warm": { "hex": "#C9C4B4", "as": "kraft board and unbleached stock" },
-        "Green": { "hex": "#2E7D4F", "as": "the banding" }
+        "Paper": {
+          "hex": "#FAFAF7",
+          "as": "the sheet stock"
+        },
+        "Warm": {
+          "hex": "#C9C4B4",
+          "as": "kraft board and unbleached stock"
+        },
+        "Green": {
+          "hex": "#2E7D4F",
+          "as": "the banding"
+        }
+      }
+    },
+    "cerulean-print": {
+      "style": "product detail photograph",
+      "size": "1024x1024",
+      "cutout": false,
+      "backdrop": "A close square crop of printed swimwear jersey filling the whole frame, shot from directly above under soft even daylight, with a few gentle folds catching the light. Only fabric is in frame: no garment shape, no model, no hands, no props, no backdrop showing.",
+      "palette": {
+        "Foam": {
+          "hex": "#F2FBFC",
+          "as": "the palest ink in the print"
+        },
+        "Mist": {
+          "hex": "#B5E2E8",
+          "as": "the light mid ink"
+        },
+        "Lagoon": {
+          "hex": "#0FA3B1",
+          "as": "the dominant ink"
+        },
+        "Deep": {
+          "hex": "#134D57",
+          "as": "the darkest ink"
+        }
       }
     }
   },
-
   "prompts": [
-    { "id": "mistral-hero", "project": "mistral-cycles", "slot": "hero",
-      "subject": "a frame-builder's workshop wall hung with three unpainted steel bicycle frames, a workbench with brazing torches below, moody side light raking across the scene" },
-    { "id": "mistral-workshop", "project": "mistral-cycles", "slot": "story",
-      "subject": "a builder in a leather apron brazing a bicycle frame lug in a jig, sparks of torchlight, seen from a respectful middle distance" },
-    { "id": "mistral-lug", "project": "mistral-cycles", "slot": "detail", "size": "1024x1024",
-      "subject": "an extreme close-up of a polished lugged bicycle frame joint with hand-filed edges, shallow depth of field" },
-    { "id": "mistral-frame", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product",
-      "subject": "a complete lugged steel bicycle frame painted deep blue, three-quarter view" },
-    { "id": "mistral-bike", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product",
-      "subject": "a finished randonneur bicycle in blue with polished alloy fenders and a small front rack, full side profile view" },
-    { "id": "mistral-saddle", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
-      "subject": "a hand-stitched leather bicycle saddle with copper rivets, three-quarter view" },
-    { "id": "mistral-helmet", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
-      "subject": "a matte navy cycling helmet with an orange strap, three-quarter view" },
-    { "id": "mistral-toolroll", "project": "mistral-cycles", "set": "mistral-gear", "slot": "product", "size": "1024x1024",
-      "subject": "an unrolled waxed-canvas bicycle tool roll holding a neat row of chrome wrenches, seen from above" },
-    { "id": "mistral-founder-1", "project": "mistral-cycles", "set": "mistral-team", "slot": "about",
-      "subject": "a woman in her forties with short cropped dark hair, wearing a navy work shirt with rolled sleeves" },
-    { "id": "mistral-founder-2", "project": "mistral-cycles", "set": "mistral-team", "slot": "about",
-      "subject": "a South Asian man in his thirties with a trimmed beard and tied-back hair, wearing a grey canvas apron over a white tee" },
-
-{ "id": "zenith-hero", "project": "zenith-observatory", "slot": "hero",
-      "subject": "an observatory dome on a dark hilltop under a swirling star field, a beam of warm light spilling from the open slit, tiny visitors on the path below" },
-    { "id": "zenith-panorama", "project": "zenith-observatory", "slot": "story",
-      "subject": "a wide night-sky panorama with a band of milky way, layered silhouetted hills, and a scatter of constellations joined by thin lines" },
-    { "id": "zenith-telescope", "project": "zenith-observatory", "set": "zenith-objects", "slot": "visit", "size": "1024x1536",
-      "subject": "a brass refractor telescope on a wooden tripod, tilted toward the upper left" },
-    { "id": "zenith-planet", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
-      "subject": "a ringed gas planet with soft banded stripes, tilted at a jaunty angle" },
-    { "id": "zenith-comet", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
-      "subject": "a comet with a bright head and two sweeping tail streams" },
-    { "id": "zenith-moon", "project": "zenith-observatory", "set": "zenith-objects", "slot": "exhibit",
-      "subject": "a crescent moon with simple crater marks" },
-    { "id": "zenith-dome", "project": "zenith-observatory", "set": "zenith-objects", "slot": "visit",
-      "subject": "a small observatory building with a hemispherical dome and an open viewing slit" },
-
-{ "id": "ambre-hero", "project": "maison-ambre", "slot": "hero",
-      "subject": "a faceted amber glass perfume bottle standing on dark veined marble, a wisp of smoke curling behind it, one warm shaft of light from the left" },
-    { "id": "ambre-ingredients", "project": "maison-ambre", "slot": "notes",
-      "subject": "a still life of raw perfume ingredients on dark linen: lumps of amber resin, vanilla pods, dried orange slices and jasmine sprigs, low warm light" },
-    { "id": "ambre-atelier", "project": "maison-ambre", "slot": "story",
-      "subject": "a perfumer's organ: tiered rows of small tincture bottles rising around an empty blending desk, warm lamplight" },
-    { "id": "ambre-bottle-1", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1536",
-      "subject": "a tall slender rectangular perfume flacon of amber glass with a black lacquered cap" },
-    { "id": "ambre-bottle-2", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1024",
-      "subject": "a round shouldered perfume flacon of smoked glass with a gold collar and stopper" },
-    { "id": "ambre-bottle-3", "project": "maison-ambre", "set": "ambre-flacons", "slot": "product", "size": "1024x1024",
-      "subject": "a small cylindrical travel atomiser in brushed gold" },
-    { "id": "ambre-nose", "project": "maison-ambre", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": false,
+    {
+      "id": "mistral-hero",
+      "project": "mistral-cycles",
+      "slot": "hero",
+      "subject": "a frame-builder's workshop wall hung with three unpainted steel bicycle frames, a workbench with brazing torches below, moody side light raking across the scene"
+    },
+    {
+      "id": "mistral-workshop",
+      "project": "mistral-cycles",
+      "slot": "story",
+      "subject": "a builder in a leather apron brazing a bicycle frame lug in a jig, sparks of torchlight, seen from a respectful middle distance"
+    },
+    {
+      "id": "mistral-lug",
+      "project": "mistral-cycles",
+      "slot": "detail",
+      "size": "1024x1024",
+      "subject": "an extreme close-up of a polished lugged bicycle frame joint with hand-filed edges, shallow depth of field"
+    },
+    {
+      "id": "mistral-frame",
+      "project": "mistral-cycles",
+      "set": "mistral-gear",
+      "slot": "product",
+      "subject": "a complete lugged steel bicycle frame painted deep blue, three-quarter view"
+    },
+    {
+      "id": "mistral-bike",
+      "project": "mistral-cycles",
+      "set": "mistral-gear",
+      "slot": "product",
+      "subject": "a finished randonneur bicycle in blue with polished alloy fenders and a small front rack, full side profile view"
+    },
+    {
+      "id": "mistral-saddle",
+      "project": "mistral-cycles",
+      "set": "mistral-gear",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a hand-stitched leather bicycle saddle with copper rivets, three-quarter view"
+    },
+    {
+      "id": "mistral-helmet",
+      "project": "mistral-cycles",
+      "set": "mistral-gear",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a matte navy cycling helmet with an orange strap, three-quarter view"
+    },
+    {
+      "id": "mistral-toolroll",
+      "project": "mistral-cycles",
+      "set": "mistral-gear",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "an unrolled waxed-canvas bicycle tool roll holding a neat row of chrome wrenches, seen from above"
+    },
+    {
+      "id": "mistral-founder-1",
+      "project": "mistral-cycles",
+      "set": "mistral-team",
+      "slot": "about",
+      "subject": "a woman in her forties with short cropped dark hair, wearing a navy work shirt with rolled sleeves"
+    },
+    {
+      "id": "mistral-founder-2",
+      "project": "mistral-cycles",
+      "set": "mistral-team",
+      "slot": "about",
+      "subject": "a South Asian man in his thirties with a trimmed beard and tied-back hair, wearing a grey canvas apron over a white tee"
+    },
+    {
+      "id": "zenith-hero",
+      "project": "zenith-observatory",
+      "slot": "hero",
+      "subject": "an observatory dome on a dark hilltop under a swirling star field, a beam of warm light spilling from the open slit, tiny visitors on the path below"
+    },
+    {
+      "id": "zenith-panorama",
+      "project": "zenith-observatory",
+      "slot": "story",
+      "subject": "a wide night-sky panorama with a band of milky way, layered silhouetted hills, and a scatter of constellations joined by thin lines"
+    },
+    {
+      "id": "zenith-telescope",
+      "project": "zenith-observatory",
+      "set": "zenith-objects",
+      "slot": "visit",
+      "size": "1024x1536",
+      "subject": "a brass refractor telescope on a wooden tripod, tilted toward the upper left"
+    },
+    {
+      "id": "zenith-planet",
+      "project": "zenith-observatory",
+      "set": "zenith-objects",
+      "slot": "exhibit",
+      "subject": "a ringed gas planet with soft banded stripes, tilted at a jaunty angle"
+    },
+    {
+      "id": "zenith-comet",
+      "project": "zenith-observatory",
+      "set": "zenith-objects",
+      "slot": "exhibit",
+      "subject": "a comet with a bright head and two sweeping tail streams"
+    },
+    {
+      "id": "zenith-moon",
+      "project": "zenith-observatory",
+      "set": "zenith-objects",
+      "slot": "exhibit",
+      "subject": "a crescent moon with simple crater marks"
+    },
+    {
+      "id": "zenith-dome",
+      "project": "zenith-observatory",
+      "set": "zenith-objects",
+      "slot": "visit",
+      "subject": "a small observatory building with a hemispherical dome and an open viewing slit"
+    },
+    {
+      "id": "ambre-hero",
+      "project": "maison-ambre",
+      "slot": "hero",
+      "subject": "a faceted amber glass perfume bottle standing on dark veined marble, a wisp of smoke curling behind it, one warm shaft of light from the left"
+    },
+    {
+      "id": "ambre-ingredients",
+      "project": "maison-ambre",
+      "slot": "notes",
+      "subject": "a still life of raw perfume ingredients on dark linen: lumps of amber resin, vanilla pods, dried orange slices and jasmine sprigs, low warm light"
+    },
+    {
+      "id": "ambre-atelier",
+      "project": "maison-ambre",
+      "slot": "story",
+      "subject": "a perfumer's organ: tiered rows of small tincture bottles rising around an empty blending desk, warm lamplight"
+    },
+    {
+      "id": "ambre-bottle-1",
+      "project": "maison-ambre",
+      "set": "ambre-flacons",
+      "slot": "product",
+      "size": "1024x1536",
+      "subject": "a tall slender rectangular perfume flacon of amber glass with a black lacquered cap"
+    },
+    {
+      "id": "ambre-bottle-2",
+      "project": "maison-ambre",
+      "set": "ambre-flacons",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a round shouldered perfume flacon of smoked glass with a gold collar and stopper"
+    },
+    {
+      "id": "ambre-bottle-3",
+      "project": "maison-ambre",
+      "set": "ambre-flacons",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a small cylindrical travel atomiser in brushed gold"
+    },
+    {
+      "id": "ambre-nose",
+      "project": "maison-ambre",
+      "slot": "about",
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
       "note": "Head-and-shoulders portrait, subject facing the camera with a composed expression, soft key light from camera left, natural skin texture, 85mm lens look.",
       "backdrop": "Plain deep charcoal studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
-      "subject": "a French woman in her fifties with silver hair in a low chignon, wearing a black high-collared jacket" },
-
-    { "id": "cairn-hero", "project": "cairn-expeditions", "slot": "hero",
-      "subject": "a rope team of three climbers crossing a glacier at dawn, headlamps still on, pink alpenglow on the peak above them" },
-    { "id": "cairn-valley", "project": "cairn-expeditions", "slot": "trip",
-      "subject": "two orange tents pitched on a rocky moraine shelf above a braided glacial valley, evening light" },
-    { "id": "cairn-summit", "project": "cairn-expeditions", "slot": "trip",
-      "subject": "a narrow snow ridge leading to a summit, one roped climber silhouetted against blowing spindrift" },
-    { "id": "cairn-night", "project": "cairn-expeditions", "slot": "trip",
-      "subject": "a lone glowing tent under a sweep of stars, the dark mass of a mountain behind" },
-    { "id": "cairn-axe", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1536",
-      "subject": "a modern ice axe with an orange shaft, upright, slight three-quarter view" },
-    { "id": "cairn-boots", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1024",
-      "subject": "a pair of grey mountaineering boots with orange laces, one slightly ahead of the other" },
-    { "id": "cairn-pack", "project": "cairn-expeditions", "set": "cairn-gear", "slot": "kit", "size": "1024x1536",
-      "subject": "a slim orange alpine climbing backpack with an ice axe loop, front three-quarter view" },
-    { "id": "cairn-guide-1", "project": "cairn-expeditions", "set": "cairn-guides", "slot": "about",
-      "subject": "a woman in her forties with sun-lined skin and a short blonde braid, wearing a dark orange shell jacket" },
-    { "id": "cairn-guide-2", "project": "cairn-expeditions", "set": "cairn-guides", "slot": "about",
-      "subject": "an Indigenous Andean man in his fifties with short black hair and deep smile lines, wearing a slate-blue fleece" },
-
-    { "id": "hopscotch-hero", "project": "hopscotch-museum", "slot": "hero",
-      "subject": "a bright museum hall where small children orbit a huge suspended model solar system, one child reaching up from a step ladder" },
-    { "id": "hopscotch-water", "project": "hopscotch-museum", "slot": "exhibit-scene",
-      "subject": "children in rolled sleeves steering little boats through a winding elevated water channel exhibit" },
-    { "id": "hopscotch-rocket", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit", "size": "1024x1536",
-      "subject": "a friendly striped toy rocket with round porthole windows, standing on three fins" },
-    { "id": "hopscotch-dino", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
-      "subject": "a cheerful long-necked dinosaur skeleton on a wheeled museum base" },
-    { "id": "hopscotch-gears", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
-      "subject": "a cluster of three interlocking gears with a small crank handle" },
-    { "id": "hopscotch-magnifier", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
-      "subject": "an oversized magnifying glass with a ladybird sitting on the lens" },
-    { "id": "hopscotch-prism", "project": "hopscotch-museum", "set": "hopscotch-props", "slot": "exhibit",
-      "subject": "a triangular prism splitting a single beam into a fanned rainbow of flat colour bands" },
-
-{ "id": "cerulean-hero", "project": "cerulean-swim", "slot": "hero",
-      "subject": "a swimmer floating on her back in clear turquoise water, photographed from directly above, arms spread, small ripples radiating" },
-    { "id": "cerulean-beach", "project": "cerulean-swim", "slot": "story",
-      "subject": "a row of leaning striped parasols on pale sand, midday light, no people close to camera" },
-    { "id": "cerulean-dive", "project": "cerulean-swim", "slot": "story",
-      "subject": "an underwater view of a swimmer gliding through sun rays, bubbles trailing from her fingertips" },
-    { "id": "cerulean-pool", "project": "cerulean-swim", "slot": "story", "size": "1024x1024",
-      "subject": "the corner of a tiled pool with a chrome ladder and sharp morning shadows" },
-    { "id": "cerulean-suit-1", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop", "size": "1024x1536",
-      "subject": "a teal one-piece swimsuit with coral piping, laid perfectly flat" },
-    { "id": "cerulean-suit-2", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
-      "subject": "a two-piece swimsuit in a small wave-stripe print, top and bottom arranged together" },
-    { "id": "cerulean-goggles", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
-      "subject": "a pair of swimming goggles with mirrored teal lenses, strap coiled neatly" },
-    { "id": "cerulean-towel", "project": "cerulean-swim", "set": "cerulean-flatlay", "slot": "shop",
-      "subject": "a rolled striped beach towel tied with a cord" },
-
-    { "id": "oxbow-hero", "project": "oxbow-workshop", "slot": "hero",
-      "subject": "a sunlit joinery workshop with two long benches, curls of wood shavings, clamped panels and hand planes hung on the back wall" },
-    { "id": "oxbow-hands", "project": "oxbow-workshop", "slot": "story", "size": "1024x1024",
-      "subject": "a close-up of two hands paring a walnut dovetail joint with a chisel, shavings lifting" },
-    { "id": "oxbow-showroom", "project": "oxbow-workshop", "slot": "space",
-      "subject": "a spare gallery-like showroom: one oak table under a skylight, a black steel chair beside it, bare plaster walls" },
-    { "id": "oxbow-chair", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1024",
-      "subject": "a low lounge chair with an oiled oak frame and woven cane back, three-quarter view" },
-    { "id": "oxbow-credenza", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1536x1024",
-      "subject": "a long walnut credenza with fluted doors on slim blackened-steel legs, straight front view" },
-    { "id": "oxbow-stool", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1024",
-      "subject": "a three-legged oak workshop stool with a saddle-carved seat" },
-    { "id": "oxbow-lamp", "project": "oxbow-workshop", "set": "oxbow-pieces", "slot": "collection", "size": "1024x1536",
-      "subject": "a slender floor lamp with a blackened-steel stem and a pleated paper shade" },
-    { "id": "oxbow-maker-1", "project": "oxbow-workshop", "set": "oxbow-makers", "slot": "about",
-      "subject": "a Black woman in her thirties with close-cropped hair and small gold earrings, wearing a charcoal work apron over a bone-white tee" },
-    { "id": "oxbow-maker-2", "project": "oxbow-workshop", "set": "oxbow-makers", "slot": "about",
-      "subject": "a broad-shouldered man in his fifties with a grey beard and cropped hair, wearing a rust-brown chore coat" },
-
-    { "id": "piquant-hero", "project": "piquant-provisions", "slot": "hero",
-      "subject": "a crowded market stall stacked with crates of chilli peppers under a striped awning, strings of dried chillies hanging from the frame" },
-    { "id": "piquant-kitchen", "project": "piquant-provisions", "slot": "story",
-      "subject": "a bubbling stock pot of red sauce on a stove, steam swirling up, a wooden spoon resting across the rim" },
-    { "id": "piquant-bottle-1", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1536",
-      "subject": "a tall hot sauce bottle with a blank label and a dripping wax-sealed cap" },
-    { "id": "piquant-bottle-2", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1536",
-      "subject": "a squat round hot sauce jar with a blank label and a knotted twine collar" },
-    { "id": "piquant-chili", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1024",
-      "subject": "a single curling chilli pepper with its stem" },
-    { "id": "piquant-taco", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "recipe", "size": "1024x1024",
-      "subject": "an overstuffed taco dripping one bead of sauce" },
-    { "id": "piquant-crate", "project": "piquant-provisions", "set": "piquant-cutouts", "slot": "product", "size": "1024x1024",
-      "subject": "a small wooden crate piled with mixed chilli peppers" },
-
-    { "id": "werkraum-hero", "project": "werkraum", "slot": "hero", "size": "1536x1024",
-      "subject": "a Swiss housing block in fair-faced concrete under an overcast sky, deep window reveals in a strict grid, one red entrance door" },
-    { "id": "werkraum-room", "project": "werkraum", "slot": "story", "size": "1536x1024",
-      "subject": "a long architecture studio table under north light, rolled drawings, cardboard models and a plotter against the wall, no people" },
-    { "id": "werkraum-school", "project": "werkraum", "slot": "project", "size": "1024x1024",
-      "subject": "a primary school courtyard with a concrete colonnade and pale timber soffits, empty on a grey afternoon" },
-    { "id": "werkraum-bridge", "project": "werkraum", "slot": "project", "size": "1024x1024",
-      "subject": "a slender steel footbridge crossing a river between bare trees, seen straight on from the bank" },
-    { "id": "werkraum-detail", "project": "werkraum", "slot": "project", "size": "1024x1024",
-      "subject": "a close view of a timber-to-concrete junction on a building facade, the joint left visible, rain marks on the concrete" },
-    { "id": "werkraum-model", "project": "werkraum", "slot": "story", "size": "1024x1024",
-      "subject": "a grey cardboard massing model of six housing blocks on a plywood base, lit from one side on a workshop table" },
-    { "id": "nordlicht-coast", "project": "nordlicht", "slot": "hero", "size": "1536x1024",
-      "subject": "a high aerial view of an Arctic coastline under flat overcast light, pale shallow water against dark bare rock and thin snow" },
-    { "id": "nordlicht-plotter", "project": "nordlicht", "slot": "story", "size": "1024x1024",
-      "subject": "a wide-format plotter drawing a contour map in a quiet survey office, the sheet curling into the tray" },
-    { "id": "nordlicht-model", "project": "nordlicht", "slot": "story", "size": "1024x1024",
-      "subject": "a milled physical relief model of a fjord landscape on a plain table, lit from one side to raise the contours" },
-    { "id": "nordlicht-field", "project": "nordlicht", "slot": "field", "size": "1024x1536",
-      "subject": "a survey tripod and total station standing on bare rock high above a fjord, no people, low grey cloud" },
-    { "id": "halbfett-wall", "project": "halbfett", "slot": "hero", "size": "1536x1024",
-      "subject": "a studio wall pinned edge to edge with large printed type specimen sheets, seen straight on in flat light" },
-    { "id": "halbfett-sorts", "project": "halbfett", "slot": "story", "size": "1024x1024",
-      "subject": "a close overhead view of loose metal type sorts spilled on a steel surface" },
-    { "id": "halbfett-proof", "project": "halbfett", "slot": "story", "size": "1024x1024",
-      "subject": "a designer's desk with proof sheets, a loupe and a red marker, no people" },
-    { "id": "halbfett-press", "project": "halbfett", "slot": "story", "size": "1024x1024",
-      "subject": "a proofing press in a bright workshop with a fresh black print still on the bed" },
-    { "id": "hafen-stacks", "project": "hafen-sechs", "slot": "hero", "size": "1536x1024",
-      "subject": "stacked shipping containers at a port at dusk under floodlights, seen from a low angle" },
-    { "id": "hafen-crane", "project": "hafen-sechs", "slot": "story", "size": "1024x1536",
-      "subject": "a tall yellow gantry crane photographed straight on against a dark evening sky" },
-    { "id": "hafen-control", "project": "hafen-sechs", "slot": "story", "size": "1024x1024",
-      "subject": "a dim port control room at night, monitors and a wide window onto the lit quay, no people" },
-    { "id": "hafen-bollard", "project": "hafen-sechs", "slot": "story", "size": "1024x1024",
-      "subject": "a close view of a heavy mooring rope over a steel bollard on a wet concrete quay" },
-    { "id": "klangwerk-desk", "project": "klangwerk", "slot": "hero", "size": "1536x1024",
-      "subject": "a large analogue mixing desk in a darkened studio, faders catching a single green indicator glow, no people" },
-    { "id": "klangwerk-modular", "project": "klangwerk", "slot": "story", "size": "1024x1024",
-      "subject": "a wall of modular synthesiser panels with patch cables, lit low" },
-    { "id": "klangwerk-chamber", "project": "klangwerk", "slot": "story", "size": "1024x1024",
-      "subject": "the interior of an anechoic chamber, wedge foam on every surface, one small light" },
-    { "id": "klangwerk-tape", "project": "klangwerk", "slot": "story", "size": "1024x1024",
-      "subject": "a reel-to-reel tape machine on a rack in a dark control room, reels loaded" },
-    { "id": "mesura-truss", "project": "mesura", "slot": "hero", "size": "1536x1024",
-      "subject": "a steel roof truss under construction against an overcast sky, bolted joints in orange primer" },
-    { "id": "mesura-testrig", "project": "mesura", "slot": "story", "size": "1024x1024",
-      "subject": "a laboratory load test rig pressing a concrete beam to failure, dial gauges attached" },
-    { "id": "mesura-drawings", "project": "mesura", "slot": "story", "size": "1024x1024",
-      "subject": "structural drawings and a scale rule laid out on a plain table, no people" },
-    { "id": "mesura-bearing", "project": "mesura", "slot": "story", "size": "1024x1024",
-      "subject": "a close view of a large steel bridge bearing between concrete abutment and deck" },
-    { "id": "seconde-gate", "project": "seconde", "slot": "hero", "size": "1536x1024",
-      "subject": "a photo-finish timing gate at the end of an empty athletics track, seen straight down the lanes" },
-    { "id": "seconde-console", "project": "seconde", "slot": "story", "size": "1024x1024",
-      "subject": "a timing console with cables and a small screen on a folding table beside a track" },
-    { "id": "seconde-lane", "project": "seconde", "slot": "story", "size": "1024x1024",
-      "subject": "a close overhead view of painted lane numbers on a running track surface" },
-    { "id": "seconde-board", "project": "seconde", "slot": "story", "size": "1024x1024",
-      "subject": "a large blank stadium scoreboard against an overcast sky, seen from below" },
-    { "id": "cobalt-powder", "project": "cobalt-works", "slot": "hero", "size": "1536x1024",
-      "subject": "heaps of intense dry blue pigment powder on a pale worktop, one heap disturbed by a scoop" },
-    { "id": "cobalt-mill", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
-      "subject": "an industrial roller mill grinding blue pigment in a workshop" },
-    { "id": "cobalt-chips", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
-      "subject": "a fan of painted colour chip cards ranging from pale to deep blue on a plain surface" },
-    { "id": "cobalt-drums", "project": "cobalt-works", "slot": "story", "size": "1024x1024",
-      "subject": "rows of sealed steel drums on pallets in a bright warehouse" },
-    { "id": "nullpunkt-gauges", "project": "nullpunkt", "slot": "hero", "size": "1536x1024",
-      "subject": "a fitted case of precision steel gauge blocks opened on a white laboratory bench" },
-    { "id": "nullpunkt-cmm", "project": "nullpunkt", "slot": "story", "size": "1024x1536",
-      "subject": "a coordinate measuring machine with a probe over a metal part in a clean laboratory" },
-    { "id": "nullpunkt-lab", "project": "nullpunkt", "slot": "story", "size": "1024x1024",
-      "subject": "an empty temperature-controlled measurement laboratory, white surfaces and one red switch" },
-    { "id": "nullpunkt-artefact", "project": "nullpunkt", "slot": "story", "size": "1024x1024",
-      "subject": "a polished metal cylinder standing under a glass bell jar on a black granite table" },
-    { "id": "weiss-room", "project": "sammlung-weiss", "slot": "hero", "size": "1536x1024",
-      "subject": "an empty gallery room under a skylight, bare walls, pale timber floor, one doorway to another room" },
-    { "id": "weiss-crate", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
-      "subject": "a plywood art crate standing closed in an empty white room" },
-    { "id": "weiss-racks", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
-      "subject": "sliding storage racks holding framed works in a windowless art store" },
-    { "id": "weiss-plinth", "project": "sammlung-weiss", "slot": "story", "size": "1024x1024",
-      "subject": "a rough grey stone sculpture on a plain white plinth in a bare room" },
-    { "id": "frequenz-studio", "project": "frequenz", "slot": "hero", "size": "1536x1024",
-      "subject": "a radio broadcast studio at night, a large microphone on a boom over a desk, an amber on-air lamp glowing, no people" },
-    { "id": "frequenz-mast", "project": "frequenz", "slot": "story", "size": "1024x1536",
-      "subject": "a lattice transmitter mast against a deep dusk sky, a single warning light near the top" },
-    { "id": "frequenz-archive", "project": "frequenz", "slot": "story", "size": "1024x1024",
-      "subject": "shelves of tape reels and record sleeves in a station archive, lit by one lamp" },
-    { "id": "frequenz-desk", "project": "frequenz", "slot": "story", "size": "1024x1024",
-      "subject": "a close view of a broadcast mixing desk, faders and amber meter lamps in the dark" },
-    { "id": "aubert-stacks", "project": "fonds-aubert", "slot": "hero", "size": "1536x1024",
-      "subject": "long rows of grey archive boxes on steel shelving in a quiet repository, receding into the distance" },
-    { "id": "aubert-reading", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
-      "subject": "an empty reading room desk with a single open document, foam supports and weights, north light" },
-    { "id": "aubert-bench", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
-      "subject": "a paper conservation bench with tools, a scalpel and a sheet under repair, no people" },
-    { "id": "aubert-door", "project": "fonds-aubert", "slot": "story", "size": "1024x1024",
-      "subject": "a heavy steel strongroom door standing ajar in a plain corridor" },
-    { "id": "passform-table", "project": "passform", "slot": "hero", "size": "1536x1024",
-      "subject": "a long tailor's cutting table covered with brown paper pattern pieces, shears and chalk, seen from above" },
-    { "id": "passform-stand", "project": "passform", "slot": "story", "size": "1024x1536",
-      "subject": "a half-made jacket in canvas basted onto a tailor's dress stand in a workroom" },
-    { "id": "passform-threads", "project": "passform", "slot": "story", "size": "1024x1024",
-      "subject": "a wall of thread spools arranged by shade in a tailoring workroom" },
-    { "id": "passform-chalk", "project": "passform", "slot": "story", "size": "1024x1024",
-      "subject": "a close view of chalk marks and basting stitches on dark wool cloth" },
-    { "id": "meterware-loom", "project": "meterware", "slot": "hero", "size": "1536x1024",
-      "subject": "a wide industrial loom mid-weave in a mill, warp threads stretched under even light" },
-    { "id": "meterware-rolls", "project": "meterware", "slot": "story", "size": "1024x1024",
-      "subject": "rolls of woven cloth stacked on end in a mill store, ends facing the camera" },
-    { "id": "meterware-creel", "project": "meterware", "slot": "story", "size": "1024x1024",
-      "subject": "a warping creel filled with cones of indigo and undyed yarn" },
-    { "id": "meterware-swatch", "project": "meterware", "slot": "story", "size": "1024x1024",
-      "subject": "an open swatch book of woven cloth samples on a plain table" },
-    { "id": "sichtbeton-wall", "project": "sichtbeton", "slot": "hero", "size": "1536x1024",
-      "subject": "a large board-marked fair-faced concrete wall filling the frame, tie holes in a regular grid, raking light" },
-    { "id": "sichtbeton-formwork", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
-      "subject": "timber formwork panels stacked and braced on a construction site" },
-    { "id": "sichtbeton-rebar", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
-      "subject": "a dense reinforcement cage tied and waiting for a pour, seen from above" },
-    { "id": "sichtbeton-cylinder", "project": "sichtbeton", "slot": "story", "size": "1024x1024",
-      "subject": "concrete test cylinders standing on a laboratory bench beside a compression machine" },
-    { "id": "kaella-basin", "project": "kaella", "slot": "hero", "size": "1536x1024",
-      "subject": "a still rectangular water treatment basin seen from the walkway at dawn, mist on the surface" },
-    { "id": "kaella-valves", "project": "kaella", "slot": "story", "size": "1024x1024",
-      "subject": "a valve hall of large painted pipework and hand wheels, evenly lit, no people" },
-    { "id": "kaella-reservoir", "project": "kaella", "slot": "story", "size": "1024x1024",
-      "subject": "an open service reservoir at first light, flat water and a low concrete edge" },
-    { "id": "kaella-sample", "project": "kaella", "slot": "story", "size": "1024x1024",
-      "subject": "a rack of clear water sample bottles on a laboratory bench" },
-    { "id": "nachtzug-compartment", "project": "nachtzug", "slot": "hero", "size": "1536x1024",
-      "subject": "a sleeper compartment at night, made-up bunk, a warm reading lamp and a dark window, no people" },
-    { "id": "nachtzug-platform", "project": "nachtzug", "slot": "story", "size": "1024x1536",
-      "subject": "a long sleeper train standing at a lit platform late at night, seen down the side" },
-    { "id": "nachtzug-dining", "project": "nachtzug", "slot": "story", "size": "1024x1024",
-      "subject": "an empty dining car set for breakfast, lamps lit, night outside the windows" },
-    { "id": "nachtzug-corridor", "project": "nachtzug", "slot": "story", "size": "1024x1024",
-      "subject": "the narrow corridor of a sleeping car at night, warm lamps receding" },
-    { "id": "lichtfeld-stair", "project": "lichtfeld", "slot": "hero", "size": "1536x1024",
-      "subject": "a concrete stair at night lit only by a continuous recessed line of warm light along one edge" },
-    { "id": "lichtfeld-mockup", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
-      "subject": "a lighting mock-up room with several fixtures aimed at a sample wall, cables on the floor" },
-    { "id": "lichtfeld-fixture", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
-      "subject": "a single machined luminaire on a plain workbench, lit from the side" },
-    { "id": "lichtfeld-facade", "project": "lichtfeld", "slot": "story", "size": "1024x1024",
-      "subject": "a building facade at dusk washed with warm light from below" },
-    { "id": "silbersalz-darkroom", "project": "silbersalz", "slot": "hero", "size": "1536x1024",
-      "subject": "a darkroom under a red safelight, developing trays in a row, an enlarger at the end of the bench, no people" },
-    { "id": "silbersalz-contacts", "project": "silbersalz", "slot": "story", "size": "1024x1024",
-      "subject": "contact sheets spread on a glowing light table with a loupe and a chinagraph pencil" },
-    { "id": "silbersalz-drying", "project": "silbersalz", "slot": "story", "size": "1024x1024",
-      "subject": "strips of developed film hanging to dry from a line with weighted clips" },
-    { "id": "silbersalz-enlarger", "project": "silbersalz", "slot": "story", "size": "1024x1024",
-      "subject": "a large format enlarger standing on a bench, lens and bellows lit from one side" },
-    { "id": "kryss-sign", "project": "kryss", "slot": "hero", "size": "1536x1024",
-      "subject": "a large blank suspended wayfinding sign panel in a bright station concourse, seen straight on, no lettering" },
-    { "id": "kryss-totem", "project": "kryss", "slot": "story", "size": "1024x1536",
-      "subject": "a tall blank freestanding sign totem outdoors on a paved plaza, overcast light, no lettering" },
-    { "id": "kryss-model", "project": "kryss", "slot": "story", "size": "1024x1024",
-      "subject": "a small scale model of a station concourse with miniature blank sign panels on a studio table" },
-    { "id": "kryss-floor", "project": "kryss", "slot": "story", "size": "1024x1024",
-      "subject": "a painted green directional stripe running across a pale concrete floor, seen from above, no lettering" },
-    { "id": "quanta-hero", "project": "quanta-robotics", "slot": "hero",
-      "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles" },
-    { "id": "quanta-line", "project": "quanta-robotics", "slot": "story",
-      "subject": "a compact automated assembly line where a conveyor carries modules between two robot arms and a scanning gantry" },
-    { "id": "quanta-arm", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
-      "subject": "a six-axis robot arm with teal joint rings, poised holding a small cube" },
-    { "id": "quanta-rover", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
-      "subject": "a four-wheeled research rover with a sensor mast and stubby antenna" },
-    { "id": "quanta-drone", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform",
-      "subject": "a quadcopter drone with guarded rotors, hovering slightly tilted" },
-    { "id": "quanta-ra-manipulation", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "a robot gripper closing gently on a folded cloth on a workbench, beside a glass beaker and a chipped mug waiting their turn" },
-    { "id": "quanta-ra-locomotion", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "a four-legged robot mid-stride across a broken ramp of test blocks, one leg raised, a wheeled unit parked on the flat behind it" },
-    { "id": "quanta-ra-perception", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "a rover with a spinning lidar head sweeping a room, the walls and furniture around it drawn as a floating wireframe point cloud" },
-    { "id": "quanta-ra-fleet", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "a row of identical small robots resting in charging docks, thin light traces rising from each and converging into a single server cabinet" },
-    { "id": "quanta-ra-simreal", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "the same robot arm twice side by side, one as a wireframe on a simulation grid and one as a solid machine on a bench, a seam down the middle" },
-    { "id": "quanta-ra-safety", "project": "quanta-robotics", "set": "quanta-research", "slot": "research",
-      "subject": "a robot arm slowing to a stop as a human hand enters its work cell, a soft glowing safety boundary drawn on the floor around it" },
-    { "id": "quanta-server", "project": "quanta-robotics", "set": "quanta-units", "slot": "platform", "size": "1024x1536",
-      "subject": "a tall server rack with rows of blinking teal status lights and neat cable runs" },
-
-    { "id": "madrigal-hero", "project": "madrigal-strings", "slot": "hero",
-      "subject": "a violin resting on a cluttered luthier's workbench among gouges, curled maple shavings and a jar of amber varnish, warm window light from the left" },
-    { "id": "madrigal-workshop", "project": "madrigal-strings", "slot": "story",
-      "subject": "a wall of luthier's tools and hanging unfinished violin bodies in pale raw wood, one finished instrument glowing among them" },
-    { "id": "madrigal-varnish", "project": "madrigal-strings", "slot": "detail", "size": "1024x1024",
-      "subject": "a close-up of a brush laying amber varnish onto a violin's spruce top, the grain flaring through the wet coat" },
-    { "id": "madrigal-concert", "project": "madrigal-strings", "slot": "story",
-      "subject": "a string quartet on a dark stage lit by a single warm spotlight, seen from the back of the hall" },
-    { "id": "madrigal-violin", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1024x1536",
-      "subject": "a finished violin standing upright, deep red-amber varnish, facing forward" },
-    { "id": "madrigal-bow", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1024x1536",
-      "subject": "a violin bow held vertically, pernambuco stick and pale horsehair, silver winding at the frog" },
-    { "id": "madrigal-case", "project": "madrigal-strings", "set": "madrigal-instruments", "slot": "instrument", "size": "1536x1024",
-      "subject": "an open oblong violin case lined with burgundy velvet, empty, lid raised" },
-    { "id": "madrigal-luthier", "project": "madrigal-strings", "slot": "about", "style": "portrait photograph", "size": "1024x1536", "cutout": false,
+      "subject": "a French woman in her fifties with silver hair in a low chignon, wearing a black high-collared jacket"
+    },
+    {
+      "id": "cairn-hero",
+      "project": "cairn-expeditions",
+      "slot": "hero",
+      "subject": "a rope team of three climbers crossing a glacier at dawn, headlamps still on, pink alpenglow on the peak above them"
+    },
+    {
+      "id": "cairn-valley",
+      "project": "cairn-expeditions",
+      "slot": "trip",
+      "subject": "two orange tents pitched on a rocky moraine shelf above a braided glacial valley, evening light"
+    },
+    {
+      "id": "cairn-summit",
+      "project": "cairn-expeditions",
+      "slot": "trip",
+      "subject": "a narrow snow ridge leading to a summit, one roped climber silhouetted against blowing spindrift"
+    },
+    {
+      "id": "cairn-night",
+      "project": "cairn-expeditions",
+      "slot": "trip",
+      "subject": "a lone glowing tent under a sweep of stars, the dark mass of a mountain behind"
+    },
+    {
+      "id": "cairn-axe",
+      "project": "cairn-expeditions",
+      "set": "cairn-gear",
+      "slot": "kit",
+      "size": "1024x1536",
+      "subject": "a modern ice axe with an orange shaft, upright, slight three-quarter view"
+    },
+    {
+      "id": "cairn-boots",
+      "project": "cairn-expeditions",
+      "set": "cairn-gear",
+      "slot": "kit",
+      "size": "1024x1024",
+      "subject": "a pair of grey mountaineering boots with orange laces, one slightly ahead of the other"
+    },
+    {
+      "id": "cairn-pack",
+      "project": "cairn-expeditions",
+      "set": "cairn-gear",
+      "slot": "kit",
+      "size": "1024x1536",
+      "subject": "a slim orange alpine climbing backpack with an ice axe loop, front three-quarter view"
+    },
+    {
+      "id": "cairn-guide-1",
+      "project": "cairn-expeditions",
+      "set": "cairn-guides",
+      "slot": "about",
+      "subject": "a woman in her forties with sun-lined skin and a short blonde braid, wearing a dark orange shell jacket"
+    },
+    {
+      "id": "cairn-guide-2",
+      "project": "cairn-expeditions",
+      "set": "cairn-guides",
+      "slot": "about",
+      "subject": "an Indigenous Andean man in his fifties with short black hair and deep smile lines, wearing a slate-blue fleece"
+    },
+    {
+      "id": "hopscotch-hero",
+      "project": "hopscotch-museum",
+      "slot": "hero",
+      "subject": "a bright museum hall where small children orbit a huge suspended model solar system, one child reaching up from a step ladder"
+    },
+    {
+      "id": "hopscotch-water",
+      "project": "hopscotch-museum",
+      "slot": "exhibit-scene",
+      "subject": "children in rolled sleeves steering little boats through a winding elevated water channel exhibit"
+    },
+    {
+      "id": "hopscotch-rocket",
+      "project": "hopscotch-museum",
+      "set": "hopscotch-props",
+      "slot": "exhibit",
+      "size": "1024x1536",
+      "subject": "a friendly striped toy rocket with round porthole windows, standing on three fins"
+    },
+    {
+      "id": "hopscotch-dino",
+      "project": "hopscotch-museum",
+      "set": "hopscotch-props",
+      "slot": "exhibit",
+      "subject": "a cheerful long-necked dinosaur skeleton on a wheeled museum base"
+    },
+    {
+      "id": "hopscotch-gears",
+      "project": "hopscotch-museum",
+      "set": "hopscotch-props",
+      "slot": "exhibit",
+      "subject": "a cluster of three interlocking gears with a small crank handle"
+    },
+    {
+      "id": "hopscotch-magnifier",
+      "project": "hopscotch-museum",
+      "set": "hopscotch-props",
+      "slot": "exhibit",
+      "subject": "an oversized magnifying glass with a ladybird sitting on the lens"
+    },
+    {
+      "id": "hopscotch-prism",
+      "project": "hopscotch-museum",
+      "set": "hopscotch-props",
+      "slot": "exhibit",
+      "subject": "a triangular prism splitting a single beam into a fanned rainbow of flat colour bands"
+    },
+    {
+      "id": "cerulean-hero",
+      "project": "cerulean-swim",
+      "slot": "hero",
+      "subject": "a swimmer floating on her back in clear turquoise water, photographed from directly above, arms spread, small ripples radiating"
+    },
+    {
+      "id": "cerulean-beach",
+      "project": "cerulean-swim",
+      "slot": "story",
+      "subject": "a row of leaning striped parasols on pale sand, midday light, no people close to camera"
+    },
+    {
+      "id": "cerulean-dive",
+      "project": "cerulean-swim",
+      "slot": "story",
+      "subject": "an underwater view of a swimmer gliding through sun rays, bubbles trailing from her fingertips"
+    },
+    {
+      "id": "cerulean-pool",
+      "project": "cerulean-swim",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "the corner of a tiled pool with a chrome ladder and sharp morning shadows"
+    },
+    {
+      "id": "cerulean-suit-1",
+      "project": "cerulean-swim",
+      "set": "cerulean-flatlay",
+      "slot": "shop",
+      "size": "1024x1536",
+      "subject": "a teal one-piece swimsuit with coral piping, laid perfectly flat"
+    },
+    {
+      "id": "cerulean-suit-2",
+      "project": "cerulean-swim",
+      "set": "cerulean-flatlay",
+      "slot": "shop",
+      "subject": "a two-piece swimsuit in a small wave-stripe print, top and bottom arranged together"
+    },
+    {
+      "id": "cerulean-goggles",
+      "project": "cerulean-swim",
+      "set": "cerulean-flatlay",
+      "slot": "shop",
+      "subject": "a pair of swimming goggles with mirrored teal lenses, strap coiled neatly"
+    },
+    {
+      "id": "cerulean-towel",
+      "project": "cerulean-swim",
+      "set": "cerulean-flatlay",
+      "slot": "shop",
+      "subject": "a rolled striped beach towel tied with a cord"
+    },
+    {
+      "id": "cerulean-print-shorebreak",
+      "project": "cerulean-swim",
+      "set": "cerulean-print",
+      "slot": "story",
+      "subject": "swimwear jersey printed with a bold geometric repeat of interlocking quarter-circle arcs and rounded bars that join into continuous ribbons, printed flat in four inks with crisp edges and no shading"
+    },
+    {
+      "id": "cerulean-print-undertow",
+      "project": "cerulean-swim",
+      "set": "cerulean-print",
+      "slot": "story",
+      "subject": "swimwear jersey printed with the same interlocking quarter-circle arc repeat but weighted darker, with scattered arcs picked out in bright coral so the accent reads as a fifth ink"
+    },
+    {
+      "id": "oxbow-hero",
+      "project": "oxbow-workshop",
+      "slot": "hero",
+      "subject": "a sunlit joinery workshop with two long benches, curls of wood shavings, clamped panels and hand planes hung on the back wall"
+    },
+    {
+      "id": "oxbow-hands",
+      "project": "oxbow-workshop",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close-up of two hands paring a walnut dovetail joint with a chisel, shavings lifting"
+    },
+    {
+      "id": "oxbow-showroom",
+      "project": "oxbow-workshop",
+      "slot": "space",
+      "subject": "a spare gallery-like showroom: one oak table under a skylight, a black steel chair beside it, bare plaster walls"
+    },
+    {
+      "id": "oxbow-chair",
+      "project": "oxbow-workshop",
+      "set": "oxbow-pieces",
+      "slot": "collection",
+      "size": "1024x1024",
+      "subject": "a low lounge chair with an oiled oak frame and woven cane back, three-quarter view"
+    },
+    {
+      "id": "oxbow-credenza",
+      "project": "oxbow-workshop",
+      "set": "oxbow-pieces",
+      "slot": "collection",
+      "size": "1536x1024",
+      "subject": "a long walnut credenza with fluted doors on slim blackened-steel legs, straight front view"
+    },
+    {
+      "id": "oxbow-stool",
+      "project": "oxbow-workshop",
+      "set": "oxbow-pieces",
+      "slot": "collection",
+      "size": "1024x1024",
+      "subject": "a three-legged oak workshop stool with a saddle-carved seat"
+    },
+    {
+      "id": "oxbow-lamp",
+      "project": "oxbow-workshop",
+      "set": "oxbow-pieces",
+      "slot": "collection",
+      "size": "1024x1536",
+      "subject": "a slender floor lamp with a blackened-steel stem and a pleated paper shade"
+    },
+    {
+      "id": "oxbow-maker-1",
+      "project": "oxbow-workshop",
+      "set": "oxbow-makers",
+      "slot": "about",
+      "subject": "a Black woman in her thirties with close-cropped hair and small gold earrings, wearing a charcoal work apron over a bone-white tee"
+    },
+    {
+      "id": "oxbow-maker-2",
+      "project": "oxbow-workshop",
+      "set": "oxbow-makers",
+      "slot": "about",
+      "subject": "a broad-shouldered man in his fifties with a grey beard and cropped hair, wearing a rust-brown chore coat"
+    },
+    {
+      "id": "piquant-hero",
+      "project": "piquant-provisions",
+      "slot": "hero",
+      "subject": "a crowded market stall stacked with crates of chilli peppers under a striped awning, strings of dried chillies hanging from the frame"
+    },
+    {
+      "id": "piquant-kitchen",
+      "project": "piquant-provisions",
+      "slot": "story",
+      "subject": "a bubbling stock pot of red sauce on a stove, steam swirling up, a wooden spoon resting across the rim"
+    },
+    {
+      "id": "piquant-bottle-1",
+      "project": "piquant-provisions",
+      "set": "piquant-cutouts",
+      "slot": "product",
+      "size": "1024x1536",
+      "subject": "a tall hot sauce bottle with a blank label and a dripping wax-sealed cap"
+    },
+    {
+      "id": "piquant-bottle-2",
+      "project": "piquant-provisions",
+      "set": "piquant-cutouts",
+      "slot": "product",
+      "size": "1024x1536",
+      "subject": "a squat round hot sauce jar with a blank label and a knotted twine collar"
+    },
+    {
+      "id": "piquant-chili",
+      "project": "piquant-provisions",
+      "set": "piquant-cutouts",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a single curling chilli pepper with its stem"
+    },
+    {
+      "id": "piquant-taco",
+      "project": "piquant-provisions",
+      "set": "piquant-cutouts",
+      "slot": "recipe",
+      "size": "1024x1024",
+      "subject": "an overstuffed taco dripping one bead of sauce"
+    },
+    {
+      "id": "piquant-crate",
+      "project": "piquant-provisions",
+      "set": "piquant-cutouts",
+      "slot": "product",
+      "size": "1024x1024",
+      "subject": "a small wooden crate piled with mixed chilli peppers"
+    },
+    {
+      "id": "werkraum-hero",
+      "project": "werkraum",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a Swiss housing block in fair-faced concrete under an overcast sky, deep window reveals in a strict grid, one red entrance door"
+    },
+    {
+      "id": "werkraum-room",
+      "project": "werkraum",
+      "slot": "story",
+      "size": "1536x1024",
+      "subject": "a long architecture studio table under north light, rolled drawings, cardboard models and a plotter against the wall, no people"
+    },
+    {
+      "id": "werkraum-school",
+      "project": "werkraum",
+      "slot": "project",
+      "size": "1024x1024",
+      "subject": "a primary school courtyard with a concrete colonnade and pale timber soffits, empty on a grey afternoon"
+    },
+    {
+      "id": "werkraum-bridge",
+      "project": "werkraum",
+      "slot": "project",
+      "size": "1024x1024",
+      "subject": "a slender steel footbridge crossing a river between bare trees, seen straight on from the bank"
+    },
+    {
+      "id": "werkraum-detail",
+      "project": "werkraum",
+      "slot": "project",
+      "size": "1024x1024",
+      "subject": "a close view of a timber-to-concrete junction on a building facade, the joint left visible, rain marks on the concrete"
+    },
+    {
+      "id": "werkraum-model",
+      "project": "werkraum",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a grey cardboard massing model of six housing blocks on a plywood base, lit from one side on a workshop table"
+    },
+    {
+      "id": "nordlicht-coast",
+      "project": "nordlicht",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a high aerial view of an Arctic coastline under flat overcast light, pale shallow water against dark bare rock and thin snow"
+    },
+    {
+      "id": "nordlicht-plotter",
+      "project": "nordlicht",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a wide-format plotter drawing a contour map in a quiet survey office, the sheet curling into the tray"
+    },
+    {
+      "id": "nordlicht-model",
+      "project": "nordlicht",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a milled physical relief model of a fjord landscape on a plain table, lit from one side to raise the contours"
+    },
+    {
+      "id": "nordlicht-field",
+      "project": "nordlicht",
+      "slot": "field",
+      "size": "1024x1536",
+      "subject": "a survey tripod and total station standing on bare rock high above a fjord, no people, low grey cloud"
+    },
+    {
+      "id": "halbfett-wall",
+      "project": "halbfett",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a studio wall pinned edge to edge with large printed type specimen sheets, seen straight on in flat light"
+    },
+    {
+      "id": "halbfett-sorts",
+      "project": "halbfett",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close overhead view of loose metal type sorts spilled on a steel surface"
+    },
+    {
+      "id": "halbfett-proof",
+      "project": "halbfett",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a designer's desk with proof sheets, a loupe and a red marker, no people"
+    },
+    {
+      "id": "halbfett-press",
+      "project": "halbfett",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a proofing press in a bright workshop with a fresh black print still on the bed"
+    },
+    {
+      "id": "hafen-stacks",
+      "project": "hafen-sechs",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "stacked shipping containers at a port at dusk under floodlights, seen from a low angle"
+    },
+    {
+      "id": "hafen-crane",
+      "project": "hafen-sechs",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a tall yellow gantry crane photographed straight on against a dark evening sky"
+    },
+    {
+      "id": "hafen-control",
+      "project": "hafen-sechs",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a dim port control room at night, monitors and a wide window onto the lit quay, no people"
+    },
+    {
+      "id": "hafen-bollard",
+      "project": "hafen-sechs",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close view of a heavy mooring rope over a steel bollard on a wet concrete quay"
+    },
+    {
+      "id": "klangwerk-desk",
+      "project": "klangwerk",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a large analogue mixing desk in a darkened studio, faders catching a single green indicator glow, no people"
+    },
+    {
+      "id": "klangwerk-modular",
+      "project": "klangwerk",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a wall of modular synthesiser panels with patch cables, lit low"
+    },
+    {
+      "id": "klangwerk-chamber",
+      "project": "klangwerk",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "the interior of an anechoic chamber, wedge foam on every surface, one small light"
+    },
+    {
+      "id": "klangwerk-tape",
+      "project": "klangwerk",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a reel-to-reel tape machine on a rack in a dark control room, reels loaded"
+    },
+    {
+      "id": "mesura-truss",
+      "project": "mesura",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a steel roof truss under construction against an overcast sky, bolted joints in orange primer"
+    },
+    {
+      "id": "mesura-testrig",
+      "project": "mesura",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a laboratory load test rig pressing a concrete beam to failure, dial gauges attached"
+    },
+    {
+      "id": "mesura-drawings",
+      "project": "mesura",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "structural drawings and a scale rule laid out on a plain table, no people"
+    },
+    {
+      "id": "mesura-bearing",
+      "project": "mesura",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close view of a large steel bridge bearing between concrete abutment and deck"
+    },
+    {
+      "id": "seconde-gate",
+      "project": "seconde",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a photo-finish timing gate at the end of an empty athletics track, seen straight down the lanes"
+    },
+    {
+      "id": "seconde-console",
+      "project": "seconde",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a timing console with cables and a small screen on a folding table beside a track"
+    },
+    {
+      "id": "seconde-lane",
+      "project": "seconde",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close overhead view of painted lane numbers on a running track surface"
+    },
+    {
+      "id": "seconde-board",
+      "project": "seconde",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a large blank stadium scoreboard against an overcast sky, seen from below"
+    },
+    {
+      "id": "cobalt-powder",
+      "project": "cobalt-works",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "heaps of intense dry blue pigment powder on a pale worktop, one heap disturbed by a scoop"
+    },
+    {
+      "id": "cobalt-mill",
+      "project": "cobalt-works",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an industrial roller mill grinding blue pigment in a workshop"
+    },
+    {
+      "id": "cobalt-chips",
+      "project": "cobalt-works",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a fan of painted colour chip cards ranging from pale to deep blue on a plain surface"
+    },
+    {
+      "id": "cobalt-drums",
+      "project": "cobalt-works",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "rows of sealed steel drums on pallets in a bright warehouse"
+    },
+    {
+      "id": "nullpunkt-gauges",
+      "project": "nullpunkt",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a fitted case of precision steel gauge blocks opened on a white laboratory bench"
+    },
+    {
+      "id": "nullpunkt-cmm",
+      "project": "nullpunkt",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a coordinate measuring machine with a probe over a metal part in a clean laboratory"
+    },
+    {
+      "id": "nullpunkt-lab",
+      "project": "nullpunkt",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an empty temperature-controlled measurement laboratory, white surfaces and one red switch"
+    },
+    {
+      "id": "nullpunkt-artefact",
+      "project": "nullpunkt",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a polished metal cylinder standing under a glass bell jar on a black granite table"
+    },
+    {
+      "id": "weiss-room",
+      "project": "sammlung-weiss",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "an empty gallery room under a skylight, bare walls, pale timber floor, one doorway to another room"
+    },
+    {
+      "id": "weiss-crate",
+      "project": "sammlung-weiss",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a plywood art crate standing closed in an empty white room"
+    },
+    {
+      "id": "weiss-racks",
+      "project": "sammlung-weiss",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "sliding storage racks holding framed works in a windowless art store"
+    },
+    {
+      "id": "weiss-plinth",
+      "project": "sammlung-weiss",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a rough grey stone sculpture on a plain white plinth in a bare room"
+    },
+    {
+      "id": "frequenz-studio",
+      "project": "frequenz",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a radio broadcast studio at night, a large microphone on a boom over a desk, an amber on-air lamp glowing, no people"
+    },
+    {
+      "id": "frequenz-mast",
+      "project": "frequenz",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a lattice transmitter mast against a deep dusk sky, a single warning light near the top"
+    },
+    {
+      "id": "frequenz-archive",
+      "project": "frequenz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "shelves of tape reels and record sleeves in a station archive, lit by one lamp"
+    },
+    {
+      "id": "frequenz-desk",
+      "project": "frequenz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close view of a broadcast mixing desk, faders and amber meter lamps in the dark"
+    },
+    {
+      "id": "aubert-stacks",
+      "project": "fonds-aubert",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "long rows of grey archive boxes on steel shelving in a quiet repository, receding into the distance"
+    },
+    {
+      "id": "aubert-reading",
+      "project": "fonds-aubert",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an empty reading room desk with a single open document, foam supports and weights, north light"
+    },
+    {
+      "id": "aubert-bench",
+      "project": "fonds-aubert",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a paper conservation bench with tools, a scalpel and a sheet under repair, no people"
+    },
+    {
+      "id": "aubert-door",
+      "project": "fonds-aubert",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a heavy steel strongroom door standing ajar in a plain corridor"
+    },
+    {
+      "id": "passform-table",
+      "project": "passform",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a long tailor's cutting table covered with brown paper pattern pieces, shears and chalk, seen from above"
+    },
+    {
+      "id": "passform-stand",
+      "project": "passform",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a half-made jacket in canvas basted onto a tailor's dress stand in a workroom"
+    },
+    {
+      "id": "passform-threads",
+      "project": "passform",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a wall of thread spools arranged by shade in a tailoring workroom"
+    },
+    {
+      "id": "passform-chalk",
+      "project": "passform",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a close view of chalk marks and basting stitches on dark wool cloth"
+    },
+    {
+      "id": "meterware-loom",
+      "project": "meterware",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a wide industrial loom mid-weave in a mill, warp threads stretched under even light"
+    },
+    {
+      "id": "meterware-rolls",
+      "project": "meterware",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "rolls of woven cloth stacked on end in a mill store, ends facing the camera"
+    },
+    {
+      "id": "meterware-creel",
+      "project": "meterware",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a warping creel filled with cones of indigo and undyed yarn"
+    },
+    {
+      "id": "meterware-swatch",
+      "project": "meterware",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an open swatch book of woven cloth samples on a plain table"
+    },
+    {
+      "id": "sichtbeton-wall",
+      "project": "sichtbeton",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a large board-marked fair-faced concrete wall filling the frame, tie holes in a regular grid, raking light"
+    },
+    {
+      "id": "sichtbeton-formwork",
+      "project": "sichtbeton",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "timber formwork panels stacked and braced on a construction site"
+    },
+    {
+      "id": "sichtbeton-rebar",
+      "project": "sichtbeton",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a dense reinforcement cage tied and waiting for a pour, seen from above"
+    },
+    {
+      "id": "sichtbeton-cylinder",
+      "project": "sichtbeton",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "concrete test cylinders standing on a laboratory bench beside a compression machine"
+    },
+    {
+      "id": "kaella-basin",
+      "project": "kaella",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a still rectangular water treatment basin seen from the walkway at dawn, mist on the surface"
+    },
+    {
+      "id": "kaella-valves",
+      "project": "kaella",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a valve hall of large painted pipework and hand wheels, evenly lit, no people"
+    },
+    {
+      "id": "kaella-reservoir",
+      "project": "kaella",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an open service reservoir at first light, flat water and a low concrete edge"
+    },
+    {
+      "id": "kaella-sample",
+      "project": "kaella",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a rack of clear water sample bottles on a laboratory bench"
+    },
+    {
+      "id": "nachtzug-compartment",
+      "project": "nachtzug",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a sleeper compartment at night, made-up bunk, a warm reading lamp and a dark window, no people"
+    },
+    {
+      "id": "nachtzug-platform",
+      "project": "nachtzug",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a long sleeper train standing at a lit platform late at night, seen down the side"
+    },
+    {
+      "id": "nachtzug-dining",
+      "project": "nachtzug",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "an empty dining car set for breakfast, lamps lit, night outside the windows"
+    },
+    {
+      "id": "nachtzug-corridor",
+      "project": "nachtzug",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "the narrow corridor of a sleeping car at night, warm lamps receding"
+    },
+    {
+      "id": "lichtfeld-stair",
+      "project": "lichtfeld",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a concrete stair at night lit only by a continuous recessed line of warm light along one edge"
+    },
+    {
+      "id": "lichtfeld-mockup",
+      "project": "lichtfeld",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a lighting mock-up room with several fixtures aimed at a sample wall, cables on the floor"
+    },
+    {
+      "id": "lichtfeld-fixture",
+      "project": "lichtfeld",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a single machined luminaire on a plain workbench, lit from the side"
+    },
+    {
+      "id": "lichtfeld-facade",
+      "project": "lichtfeld",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a building facade at dusk washed with warm light from below"
+    },
+    {
+      "id": "silbersalz-darkroom",
+      "project": "silbersalz",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a darkroom under a red safelight, developing trays in a row, an enlarger at the end of the bench, no people"
+    },
+    {
+      "id": "silbersalz-contacts",
+      "project": "silbersalz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "contact sheets spread on a glowing light table with a loupe and a chinagraph pencil"
+    },
+    {
+      "id": "silbersalz-drying",
+      "project": "silbersalz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "strips of developed film hanging to dry from a line with weighted clips"
+    },
+    {
+      "id": "silbersalz-enlarger",
+      "project": "silbersalz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a large format enlarger standing on a bench, lens and bellows lit from one side"
+    },
+    {
+      "id": "kryss-sign",
+      "project": "kryss",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a large blank suspended wayfinding sign panel in a bright station concourse, seen straight on, no lettering"
+    },
+    {
+      "id": "kryss-totem",
+      "project": "kryss",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a tall blank freestanding sign totem outdoors on a paved plaza, overcast light, no lettering"
+    },
+    {
+      "id": "kryss-model",
+      "project": "kryss",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a small scale model of a station concourse with miniature blank sign panels on a studio table"
+    },
+    {
+      "id": "kryss-floor",
+      "project": "kryss",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a painted green directional stripe running across a pale concrete floor, seen from above, no lettering"
+    },
+    {
+      "id": "quanta-hero",
+      "project": "quanta-robotics",
+      "slot": "hero",
+      "subject": "a robotics laboratory floor: workstations with articulated arms, a small rover on a test track, glowing status monitors, tiny engineers at consoles"
+    },
+    {
+      "id": "quanta-line",
+      "project": "quanta-robotics",
+      "slot": "story",
+      "subject": "a compact automated assembly line where a conveyor carries modules between two robot arms and a scanning gantry"
+    },
+    {
+      "id": "quanta-arm",
+      "project": "quanta-robotics",
+      "set": "quanta-units",
+      "slot": "platform",
+      "subject": "a six-axis robot arm with teal joint rings, poised holding a small cube"
+    },
+    {
+      "id": "quanta-rover",
+      "project": "quanta-robotics",
+      "set": "quanta-units",
+      "slot": "platform",
+      "subject": "a four-wheeled research rover with a sensor mast and stubby antenna"
+    },
+    {
+      "id": "quanta-drone",
+      "project": "quanta-robotics",
+      "set": "quanta-units",
+      "slot": "platform",
+      "subject": "a quadcopter drone with guarded rotors, hovering slightly tilted"
+    },
+    {
+      "id": "quanta-ra-manipulation",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "a robot gripper closing gently on a folded cloth on a workbench, beside a glass beaker and a chipped mug waiting their turn"
+    },
+    {
+      "id": "quanta-ra-locomotion",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "a four-legged robot mid-stride across a broken ramp of test blocks, one leg raised, a wheeled unit parked on the flat behind it"
+    },
+    {
+      "id": "quanta-ra-perception",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "a rover with a spinning lidar head sweeping a room, the walls and furniture around it drawn as a floating wireframe point cloud"
+    },
+    {
+      "id": "quanta-ra-fleet",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "a row of identical small robots resting in charging docks, thin light traces rising from each and converging into a single server cabinet"
+    },
+    {
+      "id": "quanta-ra-simreal",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "the same robot arm twice side by side, one as a wireframe on a simulation grid and one as a solid machine on a bench, a seam down the middle"
+    },
+    {
+      "id": "quanta-ra-safety",
+      "project": "quanta-robotics",
+      "set": "quanta-research",
+      "slot": "research",
+      "subject": "a robot arm slowing to a stop as a human hand enters its work cell, a soft glowing safety boundary drawn on the floor around it"
+    },
+    {
+      "id": "quanta-server",
+      "project": "quanta-robotics",
+      "set": "quanta-units",
+      "slot": "platform",
+      "size": "1024x1536",
+      "subject": "a tall server rack with rows of blinking teal status lights and neat cable runs"
+    },
+    {
+      "id": "madrigal-hero",
+      "project": "madrigal-strings",
+      "slot": "hero",
+      "subject": "a violin resting on a cluttered luthier's workbench among gouges, curled maple shavings and a jar of amber varnish, warm window light from the left"
+    },
+    {
+      "id": "madrigal-workshop",
+      "project": "madrigal-strings",
+      "slot": "story",
+      "subject": "a wall of luthier's tools and hanging unfinished violin bodies in pale raw wood, one finished instrument glowing among them"
+    },
+    {
+      "id": "madrigal-varnish",
+      "project": "madrigal-strings",
+      "slot": "detail",
+      "size": "1024x1024",
+      "subject": "a close-up of a brush laying amber varnish onto a violin's spruce top, the grain flaring through the wet coat"
+    },
+    {
+      "id": "madrigal-concert",
+      "project": "madrigal-strings",
+      "slot": "story",
+      "subject": "a string quartet on a dark stage lit by a single warm spotlight, seen from the back of the hall"
+    },
+    {
+      "id": "madrigal-violin",
+      "project": "madrigal-strings",
+      "set": "madrigal-instruments",
+      "slot": "instrument",
+      "size": "1024x1536",
+      "subject": "a finished violin standing upright, deep red-amber varnish, facing forward"
+    },
+    {
+      "id": "madrigal-bow",
+      "project": "madrigal-strings",
+      "set": "madrigal-instruments",
+      "slot": "instrument",
+      "size": "1024x1536",
+      "subject": "a violin bow held vertically, pernambuco stick and pale horsehair, silver winding at the frog"
+    },
+    {
+      "id": "madrigal-case",
+      "project": "madrigal-strings",
+      "set": "madrigal-instruments",
+      "slot": "instrument",
+      "size": "1536x1024",
+      "subject": "an open oblong violin case lined with burgundy velvet, empty, lid raised"
+    },
+    {
+      "id": "madrigal-luthier",
+      "project": "madrigal-strings",
+      "slot": "about",
+      "style": "portrait photograph",
+      "size": "1024x1536",
+      "cutout": false,
       "note": "Head-and-shoulders portrait, subject facing the camera with a calm, focused expression, soft key light from camera left, natural skin texture, 85mm lens look.",
       "backdrop": "Plain warm dark-aubergine studio wall, lit low and warm with the light falling off steeply behind the subject, no props in frame.",
-      "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt" },
-
-{ "id": "caldera-hero", "project": "caldera-rail", "slot": "hero",
-      "subject": "a teal-and-cream train crossing a tall stone viaduct over a river canyon, steam trailing, late golden light on the cliffs" },
-    { "id": "caldera-coast", "project": "caldera-rail", "slot": "route",
-      "subject": "a train hugging a cliffside track above a cove of turquoise water, gulls wheeling below the rails" },
-    { "id": "caldera-alpine", "project": "caldera-rail", "slot": "route",
-      "subject": "a train winding through a snowy mountain pass between tall pines, warm windows glowing" },
-    { "id": "caldera-vineyard", "project": "caldera-rail", "slot": "route",
-      "subject": "a train running along terraced vineyard hills at harvest, rows striping the slopes down to a lake" },
-    { "id": "caldera-dining", "project": "caldera-rail", "slot": "aboard",
-      "subject": "a vintage dining car interior with white tablecloths, brass lamps and big landscape windows" },
-    { "id": "caldera-locomotive", "project": "caldera-rail", "set": "caldera-props", "slot": "fleet", "size": "1536x1024",
-      "subject": "a streamlined teal locomotive with cream trim, full side profile view" },
-    { "id": "caldera-suitcase", "project": "caldera-rail", "set": "caldera-props", "slot": "aboard",
-      "subject": "a vintage leather suitcase with travel-worn corners and a striped strap" },
-    { "id": "caldera-watch", "project": "caldera-rail", "set": "caldera-props", "slot": "aboard",
-      "subject": "a conductor's brass pocket watch on a short chain, face blank" },
-
-{ "id": "halden-hero", "project": "konzerthaus-halden", "slot": "hero",
-      "subject": "a concert auditorium seen from the rear stalls, empty, house lights up, rows of red seating sweeping toward a pale timber stage" },
-    { "id": "halden-orchestra", "project": "konzerthaus-halden", "slot": "season",
-      "subject": "a full symphony orchestra mid-performance seen from the first balcony, warm stage light against the dark hall" },
-    { "id": "halden-foyer", "project": "konzerthaus-halden", "slot": "visit",
-      "subject": "the foyer at night, board-marked concrete columns behind a full-height glazed wall, a few figures at the bar" },
-    { "id": "halden-rehearsal", "project": "konzerthaus-halden", "slot": "season", "size": "1024x1024",
-      "subject": "a string section rehearsing in flat daylight, music stands arranged in a shallow curve" },
-    { "id": "halden-organ", "project": "konzerthaus-halden", "slot": "hall", "size": "1024x1536",
-      "subject": "the hall's pipe organ rising above the stage, photographed straight on and symmetrically" },
-    { "id": "halden-cello", "project": "konzerthaus-halden", "slot": "hall", "size": "1024x1536", "cutout": true,
+      "subject": "an Italian man in his sixties with round spectacles and swept-back white hair, wearing a burgundy canvas apron over a collarless shirt"
+    },
+    {
+      "id": "caldera-hero",
+      "project": "caldera-rail",
+      "slot": "hero",
+      "subject": "a teal-and-cream train crossing a tall stone viaduct over a river canyon, steam trailing, late golden light on the cliffs"
+    },
+    {
+      "id": "caldera-coast",
+      "project": "caldera-rail",
+      "slot": "route",
+      "subject": "a train hugging a cliffside track above a cove of turquoise water, gulls wheeling below the rails"
+    },
+    {
+      "id": "caldera-alpine",
+      "project": "caldera-rail",
+      "slot": "route",
+      "subject": "a train winding through a snowy mountain pass between tall pines, warm windows glowing"
+    },
+    {
+      "id": "caldera-vineyard",
+      "project": "caldera-rail",
+      "slot": "route",
+      "subject": "a train running along terraced vineyard hills at harvest, rows striping the slopes down to a lake"
+    },
+    {
+      "id": "caldera-dining",
+      "project": "caldera-rail",
+      "slot": "aboard",
+      "subject": "a vintage dining car interior with white tablecloths, brass lamps and big landscape windows"
+    },
+    {
+      "id": "caldera-locomotive",
+      "project": "caldera-rail",
+      "set": "caldera-props",
+      "slot": "fleet",
+      "size": "1536x1024",
+      "subject": "a streamlined teal locomotive with cream trim, full side profile view"
+    },
+    {
+      "id": "caldera-suitcase",
+      "project": "caldera-rail",
+      "set": "caldera-props",
+      "slot": "aboard",
+      "subject": "a vintage leather suitcase with travel-worn corners and a striped strap"
+    },
+    {
+      "id": "caldera-watch",
+      "project": "caldera-rail",
+      "set": "caldera-props",
+      "slot": "aboard",
+      "subject": "a conductor's brass pocket watch on a short chain, face blank"
+    },
+    {
+      "id": "halden-hero",
+      "project": "konzerthaus-halden",
+      "slot": "hero",
+      "subject": "a concert auditorium seen from the rear stalls, empty, house lights up, rows of red seating sweeping toward a pale timber stage"
+    },
+    {
+      "id": "halden-orchestra",
+      "project": "konzerthaus-halden",
+      "slot": "season",
+      "subject": "a full symphony orchestra mid-performance seen from the first balcony, warm stage light against the dark hall"
+    },
+    {
+      "id": "halden-foyer",
+      "project": "konzerthaus-halden",
+      "slot": "visit",
+      "subject": "the foyer at night, board-marked concrete columns behind a full-height glazed wall, a few figures at the bar"
+    },
+    {
+      "id": "halden-rehearsal",
+      "project": "konzerthaus-halden",
+      "slot": "season",
+      "size": "1024x1024",
+      "subject": "a string section rehearsing in flat daylight, music stands arranged in a shallow curve"
+    },
+    {
+      "id": "halden-organ",
+      "project": "konzerthaus-halden",
+      "slot": "hall",
+      "size": "1024x1536",
+      "subject": "the hall's pipe organ rising above the stage, photographed straight on and symmetrically"
+    },
+    {
+      "id": "halden-cello",
+      "project": "konzerthaus-halden",
+      "slot": "hall",
+      "size": "1024x1536",
+      "cutout": true,
       "style": "product photograph",
       "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "subject": "a cello standing upright on its endpin, front view" },
-    { "id": "halden-conductor", "project": "konzerthaus-halden", "set": "halden-people", "slot": "people",
-      "subject": "a woman in her fifties with cropped silver hair, wearing a black high-collared jacket" },
-    { "id": "halden-soloist", "project": "konzerthaus-halden", "set": "halden-people", "slot": "people",
-      "subject": "a Black man in his thirties with short twists and a trimmed beard, wearing a charcoal roll-neck" },
-
-    { "id": "vollmer-hero", "project": "institut-vollmer", "slot": "hero",
-      "subject": "a long white laboratory bench under even daylight, glassware and sample racks arranged in strict rows" },
-    { "id": "vollmer-microscopy", "project": "institut-vollmer", "slot": "research",
-      "subject": "a researcher in a white coat seated at a large electron microscope in a bright, spare laboratory" },
-    { "id": "vollmer-building", "project": "institut-vollmer", "slot": "institute",
-      "subject": "a modernist concrete and glass research building photographed straight on in flat overcast light" },
-    { "id": "vollmer-samples", "project": "institut-vollmer", "slot": "research", "size": "1024x1024", "cutout": true,
+      "subject": "a cello standing upright on its endpin, front view"
+    },
+    {
+      "id": "halden-conductor",
+      "project": "konzerthaus-halden",
+      "set": "halden-people",
+      "slot": "people",
+      "subject": "a woman in her fifties with cropped silver hair, wearing a black high-collared jacket"
+    },
+    {
+      "id": "halden-soloist",
+      "project": "konzerthaus-halden",
+      "set": "halden-people",
+      "slot": "people",
+      "subject": "a Black man in his thirties with short twists and a trimmed beard, wearing a charcoal roll-neck"
+    },
+    {
+      "id": "halden-poster",
+      "project": "konzerthaus-halden",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a large printed season poster mounted flat on a pale plaster foyer wall, photographed straight on in raking daylight, the paper showing a fine printed texture, its typography too small and soft to read"
+    },
+    {
+      "id": "vollmer-hero",
+      "project": "institut-vollmer",
+      "slot": "hero",
+      "subject": "a long white laboratory bench under even daylight, glassware and sample racks arranged in strict rows"
+    },
+    {
+      "id": "vollmer-microscopy",
+      "project": "institut-vollmer",
+      "slot": "research",
+      "subject": "a researcher in a white coat seated at a large electron microscope in a bright, spare laboratory"
+    },
+    {
+      "id": "vollmer-building",
+      "project": "institut-vollmer",
+      "slot": "institute",
+      "subject": "a modernist concrete and glass research building photographed straight on in flat overcast light"
+    },
+    {
+      "id": "vollmer-samples",
+      "project": "institut-vollmer",
+      "slot": "research",
+      "size": "1024x1024",
+      "cutout": true,
       "backdrop": "The samples sit alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "subject": "a neat row of five small polished material sample discs in different metals and ceramics" },
-    { "id": "vollmer-instrument", "project": "institut-vollmer", "slot": "research", "size": "1024x1024", "cutout": true,
+      "subject": "a neat row of five small polished material sample discs in different metals and ceramics"
+    },
+    {
+      "id": "vollmer-instrument",
+      "project": "institut-vollmer",
+      "slot": "research",
+      "size": "1024x1024",
+      "cutout": true,
       "backdrop": "The instrument stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame.",
-      "subject": "a precision benchtop measuring instrument with a blank display panel and a single dial" },
-    { "id": "vollmer-researcher-1", "project": "institut-vollmer", "set": "vollmer-people", "slot": "people",
-      "subject": "an East Asian woman in her forties with a short bob, wearing a white lab coat over a navy shirt" },
-    { "id": "vollmer-researcher-2", "project": "institut-vollmer", "set": "vollmer-people", "slot": "people",
-      "subject": "a man in his sixties with a shaved head and wire-rimmed glasses, wearing a white lab coat" },
-
-    { "id": "linie-hero", "project": "linie-nord", "slot": "hero",
-      "subject": "a suburban station platform at dawn, a signal-yellow-fronted regional train drawing in beneath a long steel canopy" },
-    { "id": "linie-interior", "project": "linie-nord", "slot": "network",
-      "subject": "the interior of a modern regional train carriage, empty, seats in strict rows, flat morning light through large windows" },
-    { "id": "linie-viaduct", "project": "linie-nord", "slot": "network",
-      "subject": "a regional train crossing a slender concrete viaduct over farmland, seen from a distance in overcast light" },
-    { "id": "linie-depot", "project": "linie-nord", "slot": "operations",
-      "subject": "a maintenance depot at night, four trains standing in a row under overhead work lights" },
-    { "id": "linie-validator", "project": "linie-nord", "slot": "tickets", "size": "1024x1536", "cutout": true,
+      "subject": "a precision benchtop measuring instrument with a blank display panel and a single dial"
+    },
+    {
+      "id": "vollmer-researcher-1",
+      "project": "institut-vollmer",
+      "set": "vollmer-people",
+      "slot": "people",
+      "subject": "an East Asian woman in her forties with a short bob, wearing a white lab coat over a navy shirt"
+    },
+    {
+      "id": "vollmer-researcher-2",
+      "project": "institut-vollmer",
+      "set": "vollmer-people",
+      "slot": "people",
+      "subject": "a man in his sixties with a shaved head and wire-rimmed glasses, wearing a white lab coat"
+    },
+    {
+      "id": "vollmer-porosity",
+      "project": "institut-vollmer",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a polished metal cross-section at high magnification, greyscale, scattered with small dark irregular pores of varying size and roundness across a finely mottled matrix. The micrograph fills the entire frame edge to edge: no monitor, screen, bezel, instrument, room, desk or person anywhere in the image, and no scale bar",
+      "style": "scientific micrograph"
+    },
+    {
+      "id": "vollmer-team",
+      "project": "institut-vollmer",
+      "slot": "story",
+      "size": "1536x1024",
+      "subject": "four researchers in white coats grouped around a laboratory bench in conversation, seen from a short distance in even daylight, faces turned away from camera towards the work"
+    },
+    {
+      "id": "linie-hero",
+      "project": "linie-nord",
+      "slot": "hero",
+      "subject": "a suburban station platform at dawn, a signal-yellow-fronted regional train drawing in beneath a long steel canopy"
+    },
+    {
+      "id": "linie-interior",
+      "project": "linie-nord",
+      "slot": "network",
+      "subject": "the interior of a modern regional train carriage, empty, seats in strict rows, flat morning light through large windows"
+    },
+    {
+      "id": "linie-viaduct",
+      "project": "linie-nord",
+      "slot": "network",
+      "subject": "a regional train crossing a slender concrete viaduct over farmland, seen from a distance in overcast light"
+    },
+    {
+      "id": "linie-depot",
+      "project": "linie-nord",
+      "slot": "operations",
+      "subject": "a maintenance depot at night, four trains standing in a row under overhead work lights"
+    },
+    {
+      "id": "linie-validator",
+      "project": "linie-nord",
+      "slot": "tickets",
+      "size": "1024x1536",
+      "cutout": true,
       "style": "product photograph",
       "backdrop": "The unit stands alone on a plain neutral light-grey seamless backdrop, evenly lit, with no cast shadow and nothing else in frame. Every panel and screen is completely blank.",
-      "subject": "a freestanding ticket validator column with a blank screen and a plain reader panel" },
-    { "id": "linie-driver", "project": "linie-nord", "set": "linie-people", "slot": "people",
-      "subject": "a woman in her thirties with dark hair tied back, wearing a navy uniform jacket with a high-visibility shoulder stripe" },
-    { "id": "linie-controller", "project": "linie-nord", "set": "linie-people", "slot": "people",
-      "subject": "a South Asian man in his fifties with grey at the temples, wearing a navy uniform jacket" },
-
-    { "id": "bex-hero", "project": "chronometrie-bex", "slot": "hero",
-      "subject": "a watchmaker's bench under a single task lamp, a loupe, fine tweezers and movement plates laid out in order on a bone-coloured mat" },
-    { "id": "bex-movement", "project": "chronometrie-bex", "slot": "movement", "size": "1024x1024",
-      "subject": "an extreme macro of a mechanical watch movement showing bridges, jewels and a balance wheel" },
-    { "id": "bex-atelier", "project": "chronometrie-bex", "slot": "manufacture",
-      "subject": "an assembly atelier with white benches in a row under north light, each with a lamp and a stool" },
-    { "id": "bex-watch-1", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection",
-      "subject": "a slim steel dress watch on a black leather strap with a completely blank dial, three-quarter view" },
-    { "id": "bex-watch-2", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection",
-      "subject": "a steel field watch on a woven fabric strap with a completely blank dial, three-quarter view" },
-    { "id": "bex-watch-3", "project": "chronometrie-bex", "set": "bex-pieces", "slot": "collection", "size": "1024x1536",
-      "subject": "an open steel pocket watch lying on its chain with a completely blank dial, seen from above" },
-    { "id": "bex-watchmaker", "project": "chronometrie-bex", "set": "bex-people", "slot": "people",
-      "subject": "a woman in her forties with dark hair in a low bun, wearing a bone-coloured work coat" },
-
-    { "id": "bogen-hero", "project": "bogen-papier", "slot": "hero",
-      "subject": "stacks of paper reams on high timber racking in a bright warehouse, aisles receding in even light" },
-    { "id": "bogen-mill", "project": "bogen-papier", "slot": "mill",
-      "subject": "a paper mill machine hall with a wide continuous web of paper running between steel rollers" },
-    { "id": "bogen-sheets", "project": "bogen-papier", "slot": "stock", "size": "1024x1024",
-      "subject": "an extreme close-up of the cut edges of a stack of sheets, showing the fibre and slight colour variation" },
-    { "id": "bogen-swatches", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock",
-      "subject": "a fanned deck of paper swatches in pale neutral tones, held open in an arc" },
-    { "id": "bogen-ream", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock",
-      "subject": "a wrapped ream of paper with a plain unprinted band around it" },
-    { "id": "bogen-roll", "project": "bogen-papier", "set": "bogen-stock", "slot": "stock", "size": "1024x1536",
-      "subject": "a standing roll of paper on end, the loose leading edge curling slightly" },
-    { "id": "bogen-merchant", "project": "bogen-papier", "set": "bogen-people", "slot": "people",
-      "subject": "a man in his forties with close-cropped ginger hair and freckles, wearing an olive work shirt" }
+      "subject": "a freestanding ticket validator column with a blank screen and a plain reader panel"
+    },
+    {
+      "id": "linie-driver",
+      "project": "linie-nord",
+      "set": "linie-people",
+      "slot": "people",
+      "subject": "a woman in her thirties with dark hair tied back, wearing a navy uniform jacket with a high-visibility shoulder stripe"
+    },
+    {
+      "id": "linie-controller",
+      "project": "linie-nord",
+      "set": "linie-people",
+      "slot": "people",
+      "subject": "a South Asian man in his fifties with grey at the temples, wearing a navy uniform jacket"
+    },
+    {
+      "id": "bex-hero",
+      "project": "chronometrie-bex",
+      "slot": "hero",
+      "subject": "a watchmaker's bench under a single task lamp, a loupe, fine tweezers and movement plates laid out in order on a bone-coloured mat"
+    },
+    {
+      "id": "bex-movement",
+      "project": "chronometrie-bex",
+      "slot": "movement",
+      "size": "1024x1024",
+      "subject": "an extreme macro of a mechanical watch movement showing bridges, jewels and a balance wheel"
+    },
+    {
+      "id": "bex-atelier",
+      "project": "chronometrie-bex",
+      "slot": "manufacture",
+      "subject": "an assembly atelier with white benches in a row under north light, each with a lamp and a stool"
+    },
+    {
+      "id": "bex-watch-1",
+      "project": "chronometrie-bex",
+      "set": "bex-pieces",
+      "slot": "collection",
+      "subject": "a slim steel dress watch on a black leather strap with a completely blank dial, three-quarter view"
+    },
+    {
+      "id": "bex-watch-2",
+      "project": "chronometrie-bex",
+      "set": "bex-pieces",
+      "slot": "collection",
+      "subject": "a steel field watch on a woven fabric strap with a completely blank dial, three-quarter view"
+    },
+    {
+      "id": "bex-watch-3",
+      "project": "chronometrie-bex",
+      "set": "bex-pieces",
+      "slot": "collection",
+      "size": "1024x1536",
+      "subject": "an open steel pocket watch lying on its chain with a completely blank dial, seen from above"
+    },
+    {
+      "id": "bex-watchmaker",
+      "project": "chronometrie-bex",
+      "set": "bex-people",
+      "slot": "people",
+      "subject": "a woman in her forties with dark hair in a low bun, wearing a bone-coloured work coat"
+    },
+    {
+      "id": "bogen-hero",
+      "project": "bogen-papier",
+      "slot": "hero",
+      "subject": "stacks of paper reams on high timber racking in a bright warehouse, aisles receding in even light"
+    },
+    {
+      "id": "bogen-mill",
+      "project": "bogen-papier",
+      "slot": "mill",
+      "subject": "a paper mill machine hall with a wide continuous web of paper running between steel rollers"
+    },
+    {
+      "id": "bogen-sheets",
+      "project": "bogen-papier",
+      "slot": "stock",
+      "size": "1024x1024",
+      "subject": "an extreme close-up of the cut edges of a stack of sheets, showing the fibre and slight colour variation"
+    },
+    {
+      "id": "bogen-swatches",
+      "project": "bogen-papier",
+      "set": "bogen-stock",
+      "slot": "stock",
+      "subject": "a fanned deck of paper swatches in pale neutral tones, held open in an arc"
+    },
+    {
+      "id": "bogen-ream",
+      "project": "bogen-papier",
+      "set": "bogen-stock",
+      "slot": "stock",
+      "subject": "a wrapped ream of paper with a plain unprinted band around it"
+    },
+    {
+      "id": "bogen-roll",
+      "project": "bogen-papier",
+      "set": "bogen-stock",
+      "slot": "stock",
+      "size": "1024x1536",
+      "subject": "a standing roll of paper on end, the loose leading edge curling slightly"
+    },
+    {
+      "id": "bogen-merchant",
+      "project": "bogen-papier",
+      "set": "bogen-people",
+      "slot": "people",
+      "subject": "a man in his forties with close-cropped ginger hair and freckles, wearing an olive work shirt"
+    }
   ]
 }

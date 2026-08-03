@@ -257,6 +257,13 @@
   grid-column: 8 / 13;
   display: grid;
   gap: calc(var(--u) * 2);
+  margin: 0;
+}
+
+/* The hero figure holds the season-poster photograph; the pattern that used
+   to stand in for it now only appears as decoration elsewhere. */
+.heroArt .photo {
+  aspect-ratio: 4 / 5;
 }
 
 .artField {
@@ -1006,7 +1013,7 @@
     max-width: none;
   }
 
-  .heroArt .artField,
+  .heroArt .photo,
   .seasonArt .artField {
     aspect-ratio: 3 / 2;
   }

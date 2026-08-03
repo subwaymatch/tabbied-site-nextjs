@@ -25,9 +25,9 @@ const LOOKS = [
     wide: true,
   },
   {
-    kind: 'pattern' as const,
-    seed: 'cs-look-a',
-    palette: [FOAM, TEAL, AQUA, DEEP],
+    kind: 'photo' as const,
+    slug: 'cerulean-print-shorebreak',
+    alt: 'Swim jersey printed with the Shorebreak repeat, folded so the arcs bend across the cloth',
     caption: 'Print · “Shorebreak”, four inks',
     wide: false,
   },
@@ -46,9 +46,9 @@ const LOOKS = [
     wide: false,
   },
   {
-    kind: 'pattern' as const,
-    seed: 'cs-look-b',
-    palette: [AQUA, DEEP, TEAL, CORAL],
+    kind: 'photo' as const,
+    slug: 'cerulean-print-undertow',
+    alt: 'The darker Undertow colourway of the same repeat, with occasional arcs in coral',
     caption: 'Print · “Undertow”, coral thread',
     wide: false,
   },
@@ -228,29 +228,13 @@ export default function CeruleanSwimPage() {
                 key={look.caption}
                 className={`${styles.lookCard} ${look.wide ? styles.lookWide : ''}`}
               >
-                {look.kind === 'photo' ? (
-                  <div className={styles.lookMedia}>
-                    <Figure
-                      slug={look.slug}
-                      alt={look.alt}
-                      className={styles.coverImg}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className={styles.lookMedia}
-                    style={{ backgroundColor: look.palette[0] }}
-                  >
-                    <TabbiedArtwork
-                      artwork={wavelet}
-                      palette={look.palette}
-                      seed={look.seed}
-                      fit="grid"
-                      cellSize={46}
-                      style={{ position: 'absolute', inset: 0 }}
-                    />
-                  </div>
-                )}
+                <div className={styles.lookMedia}>
+                  <Figure
+                    slug={look.slug}
+                    alt={look.alt}
+                    className={styles.coverImg}
+                  />
+                </div>
                 <figcaption>{look.caption}</figcaption>
               </figure>
             ))}

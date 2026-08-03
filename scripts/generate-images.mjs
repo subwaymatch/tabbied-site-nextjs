@@ -44,7 +44,13 @@ import { loadPromptData, selectPrompts } from "./lib/prompts.mjs";
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_FILE = join(ROOT, "data", "image-prompts.json");
 const API_BASE = "https://api.openai.com/v1";
+// Two spellings of the same endpoint, and they are not interchangeable.
+// `IMAGES_ENDPOINT` goes inside the Batch API's JSONL and create call, which
+// wants an absolute API path. `IMAGES_PATH` is for direct calls through api(),
+// which prepends API_BASE — already ending in /v1, so passing the other one
+// there asks for /v1/v1/... and 404s.
 const IMAGES_ENDPOINT = "/v1/images/generations";
+const IMAGES_PATH = "/images/generations";
 
 const COMMANDS = new Set(["dry-run", "submit", "status", "download", "sync"]);
 const SIZES = new Set(["1536x1024", "1024x1536", "1024x1024"]);
@@ -330,7 +336,7 @@ async function cmdSync(entries, opts, model, key) {
     while (i < todo.length) {
       const e = todo[i++];
       try {
-        const res = await api(IMAGES_ENDPOINT, { method: "POST", key, json: requestBody(e, opts, model) });
+        const res = await api(IMAGES_PATH, { method: "POST", key, json: requestBody(e, opts, model) });
         writeFileSync(join(opts.out, `${e.id}.${ext}`), decodeImage(await res.json()));
         ok++; console.log(`  ✓ ${e.id}.${ext}`);
       } catch (err) { failed++; console.error(`  ✗ ${e.id}: ${err.message}`); }

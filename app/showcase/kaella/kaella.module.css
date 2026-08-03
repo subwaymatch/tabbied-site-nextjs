@@ -100,11 +100,30 @@
   position: absolute;
   inset: -20% -30vw;
   z-index: -1;
-  opacity: 0.6;
+  /* The rings are large and high-contrast; at 0.6 they competed with the
+     headline sitting on top of them. */
+  opacity: 0.3;
   mask-image: linear-gradient(180deg, #000 0%, #000 52%, transparent 100%);
 }
 
+/* A wash of the page colour under the copy. The pattern still reads at the
+   margins, but the headline and lede sit on close-to-flat paper — the rings
+   are busiest exactly where the second headline line falls. */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--pale) 88%, transparent) 0%,
+    color-mix(in srgb, var(--pale) 74%, transparent) 62%,
+    transparent 100%
+  );
+}
+
 .heroInner {
+  position: relative;
   max-width: var(--max);
   margin: 0 auto;
 }
@@ -126,7 +145,9 @@
 }
 
 .hero h1 span {
-  color: var(--steel);
+  /* Plain --steel on the pale ground is about 2.9:1 — under AA even for
+     display sizes, and this line falls across the busiest part of the rings. */
+  color: color-mix(in srgb, var(--steel) 72%, var(--ink));
 }
 
 .lede {

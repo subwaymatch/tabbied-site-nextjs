@@ -329,22 +329,17 @@ export default function KonzerthausHaldenPage() {
                   </a>
                 </p>
               </div>
-              <div className={s.heroArt}>
-                <div className={`${s.artField} ${s.fieldPaper}`} aria-hidden="true">
-                  <TabbiedArtwork
-                    artwork={crescendo}
-                    palette={FIELD_HERO}
-                    seed="kh-hero-1"
-                    fit="cover"
-                    options={{ grid: '8x12' }}
-                    style={{ position: 'absolute', inset: 0 }}
-                  />
-                </div>
-                <p className={s.caption}>
-                  Fig. 1. Dynamic ramp, pianissimo at the top left to fortissimo
-                  at the foot. Printed on every season poster since 2019.
-                </p>
-              </div>
+              <figure className={s.heroArt}>
+                <Figure
+                  slug="halden-poster"
+                  alt="The season poster mounted on a pale foyer wall in raking daylight"
+                  className={s.photo}
+                />
+                <figcaption className={s.caption}>
+                  Fig. 1. The season poster in the foyer. The same dynamic ramp,
+                  pianissimo to fortissimo, has run on every one since 2019.
+                </figcaption>
+              </figure>
             </div>
           </div>
           <div className={s.heroImage}>

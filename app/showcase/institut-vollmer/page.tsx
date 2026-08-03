@@ -423,26 +423,21 @@ export default function InstitutVollmerPage() {
                   className={s.photo}
                 />
                 <figcaption className={s.caption}>
-                  Fig. 1. Fracture surface of a 316L specimen after 4.1 million
-                  cycles, imaged at 15 kV.
+                  Fig. 1. The scanning electron microscope in Hall B. A 316L
+                  specimen goes on the stage at 15 kV after 4.1 million cycles.
                 </figcaption>
               </figure>
-              <div className={s.researchArt}>
-                <div className={`${s.artField} ${s.fieldWhite}`} aria-hidden="true">
-                  <TabbiedArtwork
-                    artwork={perforate}
-                    palette={FIELD_RESEARCH}
-                    seed="iv-research-2"
-                    fit="cover"
-                    options={{ grid: '8x12', frequency: 0.9 }}
-                    style={{ position: 'absolute', inset: 0 }}
-                  />
-                </div>
-                <p className={s.caption}>
-                  Fig. 2. Porosity map, one mark per detected void, plotted on a
-                  square pitch of 250 µm.
-                </p>
-              </div>
+              <figure className={s.researchArt}>
+                <Figure
+                  slug="vollmer-porosity"
+                  alt="A greyscale micrograph of a polished cross-section scattered with dark pores"
+                  className={s.photo}
+                />
+                <figcaption className={s.caption}>
+                  Fig. 2. Porosity in the same specimen, imaged after sectioning.
+                  Every dark mark is a void.
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>
@@ -567,22 +562,17 @@ export default function InstitutVollmerPage() {
                   <p>{p.body}</p>
                 </article>
               ))}
-              <div className={s.peopleArt}>
-                <div className={`${s.artField} ${s.fieldWhite}`} aria-hidden="true">
-                  <TabbiedArtwork
-                    artwork={dotmatrix}
-                    palette={FIELD_PEOPLE}
-                    seed="iv-people-4"
-                    fit="cover"
-                    options={{ grid: '6x9', frequency: 0.5 }}
-                    style={{ position: 'absolute', inset: 0 }}
-                  />
-                </div>
-                <p className={s.caption}>
-                  Fig. 3. Staff by programme, one square per person. Ninety-two
-                  of the 148 are shown; the remainder work across all four.
-                </p>
-              </div>
+              <figure className={s.peopleArt}>
+                <Figure
+                  slug="vollmer-team"
+                  alt="Four researchers in white coats in conversation around a laboratory bench"
+                  className={s.photo}
+                />
+                <figcaption className={s.caption}>
+                  Fig. 3. The fatigue group at the Tuesday bench review. Ninety-two
+                  of the 148 staff sit in one programme; the rest work across all four.
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>

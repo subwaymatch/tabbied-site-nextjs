@@ -93,6 +93,7 @@ export default function KaellaPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
+          <div className={s.heroScrim} aria-hidden="true" />
           <div className={s.heroInner}>
             <p className={s.eyebrow}>Uppsala vatten / sedan 1876</p>
             <h1>
