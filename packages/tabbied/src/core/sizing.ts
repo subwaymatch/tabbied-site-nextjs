@@ -271,16 +271,31 @@ export function deriveGridForBox(
  * fluid container is almost never divisible by its derived track count, the
  * default `fit: "grid"` in a page layout hits this nearly every time.
  *
- * The returned span overflows the box by less than one cell, which the host
+ * The cell is snapped to a whole multiple of `cellMultiple`, not merely to a
+ * whole pixel. A design that subdivides its cell puts a boundary at
+ * `cell / n`, and an indivisible cell lands that boundary on a fraction of a
+ * pixel — which seams however exact the outer grid is. Sichtbeton's hero was
+ * a clean 8 × 180 across and 3 × 197 down, and 197 halves to 98.5.
+ *
+ * The default of 2 covers centred rules and strokes; the three designs that
+ * mask with a nested `@doodle` declare their own (see `ArtworkSizing`).
+ *
+ * The returned span overflows the box by less than two cells, which the host
  * clips. Rounding *down* instead would leave a strip of the container
  * uncovered, which is far more visible on a background field.
  */
-export function snapSpanToTracks(span: number, tracks: number): number {
+export function snapSpanToTracks(
+  span: number,
+  tracks: number,
+  cellMultiple = 2
+): number {
   if (!(span > 0) || !(tracks > 0)) {
     return Math.max(0, Math.ceil(span));
   }
 
-  return Math.ceil(span / tracks) * tracks;
+  const unit = tracks * Math.max(1, Math.round(cellMultiple));
+
+  return Math.ceil(span / unit) * unit;
 }
 
 // Parse a "colsxrows" grid option value (e.g. "6x9").

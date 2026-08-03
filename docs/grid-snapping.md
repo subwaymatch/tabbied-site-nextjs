@@ -33,20 +33,48 @@ full-section background fields.
 ## The fix
 
 `applyGridSnap` in `core/createArtwork.ts` sets the canvas inline to
-`snapSpanToTracks(hostSpan, tracks)` on each axis — the smallest multiple of
-the track count that still covers the box:
+`snapSpanToTracks(hostSpan, tracks, cellMultiple)` on each axis — the smallest
+span that both covers the box and divides into cells of a whole, divisible
+size:
 
 ```ts
-Math.ceil(span / tracks) * tracks
+const unit = tracks * cellMultiple;
+Math.ceil(span / unit) * unit;
 ```
 
 Three properties matter, and `test/sizing.test.mjs` pins all three:
 
-- every track is a whole pixel (`snapped % tracks === 0`);
+- every track is a whole pixel (`snapped % tracks === 0`), and the cell is a
+  whole multiple of `cellMultiple`;
 - the canvas still **covers** the host (`snapped >= span`), so no strip of the
   container shows through;
-- the overflow is under one cell (`snapped - span < tracks`), which the host
-  clips via `overflow: hidden`.
+- the overflow is under `cellMultiple` cells, which the host clips via
+  `overflow: hidden`.
+
+### Why a whole pixel is not enough
+
+A design that subdivides its cell puts a boundary at `cell / n`, and an
+indivisible cell lands *that* boundary on a fraction of a pixel — which the
+browser seams however exact the outer grid is.
+
+Sichtbeton's hero was the case that proved it: 8 × 180px across and 3 × 197px
+down, every outer track exact, and still visibly gapped. `subdivide` masks
+each cell with a nested `@doodle(@grid: 2)`, and 197 halves to **98.5**.
+
+`ArtworkSizing.cellMultiple` carries the divisor. It defaults to 2 — which
+also keeps centred rules and strokes off half-pixels — and only three designs
+in the catalogue need more, the three that mask with a nested `@doodle`:
+
+| Design | Nested grid | `cellMultiple` |
+|---|---|---|
+| `subdivide` | 2 × 2 | 2 |
+| `fractal` | 3 × 3 | 3 |
+| `matryoshka` | 4 × 4 | 4 |
+
+An even cell divides by 2 but not by 3 or 4, so a blanket "make it even" rule
+fixes `subdivide` and leaves the other two seaming. Snapping everything to a
+multiple of 12 would cover all three but throws away up to 12 cells' worth of
+overflow on every field. Per-design metadata costs neither.
 
 Rounding *down* would satisfy the first property too, but would leave up to a
 full cell of the container uncovered — far more visible on a background field

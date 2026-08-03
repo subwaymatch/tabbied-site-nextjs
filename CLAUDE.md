@@ -47,6 +47,12 @@ smallest multiple of the track count that still covers the box) and the host
 clips the sub-cell overflow with `overflow: hidden`. Don't "simplify" that
 back to `width: 100%`.
 
+The cell is snapped to a whole multiple of `sizing.cellMultiple` (default 2),
+not merely to a whole pixel: a design that subdivides its cell seams at
+`cell / n` if the cell doesn't divide, however exact the outer track is. Only
+`subdivide` (2), `fractal` (3) and `matryoshka` (4) — the three that mask with
+a nested `@doodle` — declare their own.
+
 The snap is an inline style on the `<css-doodle>` element, *not* a change to
 `@size` in the generated source — the source feeds SVG export and the 254
 definitions' `${width}`/`${height}` substitution, and neither should move

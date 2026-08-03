@@ -62,6 +62,15 @@ export type ArtworkSizing = {
   default?: FitMode;
   minCellPx?: number;
   maxCellPx?: number;
+  /**
+   * The cell must be a whole multiple of this. A design that subdivides its
+   * cell puts a boundary at `cell / n`, and an indivisible cell lands that
+   * boundary on a fraction of a pixel — which the browser seams, however
+   * exact the outer grid is. Only the three designs that mask with a nested
+   * `@doodle` need it: subdivide (2), fractal (3), matryoshka (4). Defaults
+   * to 2, which also keeps centred rules and strokes off half-pixels.
+   */
+  cellMultiple?: number;
   /** Render resolution (and optional top-crop) for the cover/contain fits. */
   coverRender?: { width: number; height: number; cropTop?: number };
 };

@@ -13,16 +13,16 @@ import {
 
 test('snapSpanToTracks returns whole tracks', async (t) => {
   await t.test('leaves an already-divisible span alone', () => {
-    assert.equal(snapSpanToTracks(1440, 12), 1440);
-    assert.equal(snapSpanToTracks(648, 9), 648);
+    assert.equal(snapSpanToTracks(1440, 12), 1440); // cell 120, even
+    assert.equal(snapSpanToTracks(648, 9), 648); // cell 72, even
   });
 
-  await t.test('rounds up to the next whole multiple', () => {
-    assert.equal(snapSpanToTracks(1441, 12), 1452);
-    assert.equal(snapSpanToTracks(1000, 7), 1001);
+  await t.test('rounds up to the next even-celled multiple', () => {
+    assert.equal(snapSpanToTracks(1441, 12), 1464);
+    assert.equal(snapSpanToTracks(1000, 7), 1008);
   });
 
-  await t.test('every track is a whole pixel', () => {
+  await t.test('every track is a whole, even number of pixels', () => {
     for (let span = 1; span <= 2000; span += 7) {
       for (const tracks of [1, 3, 7, 12, 22, 36, 64]) {
         const snapped = snapSpanToTracks(span, tracks);
@@ -33,9 +33,15 @@ test('snapSpanToTracks returns whole tracks', async (t) => {
           `${span}/${tracks} -> ${snapped} is not a whole number of tracks`
         );
         assert.ok(snapped >= span, `${snapped} must still cover ${span}`);
+        assert.equal(
+          (snapped / tracks) % 2,
+          0,
+          `${span}/${tracks} -> cell ${snapped / tracks} must be even so a ` +
+            'design that halves its cell lands on a whole pixel'
+        );
         assert.ok(
-          snapped - span < tracks,
-          `overflow ${snapped - span} must stay under one cell (${tracks} tracks)`
+          snapped - span < tracks * 2,
+          `overflow ${snapped - span} must stay under two cells (${tracks} tracks)`
         );
       }
     }
@@ -64,8 +70,8 @@ test('a snapped box divides evenly by its derived grid', () => {
     for (const cell of [36, 48, 72, 104, 120, 144]) {
       const { cols, rows } = deriveGridForBox(width, height, cell);
 
-      assert.equal(snapSpanToTracks(width, cols) % cols, 0);
-      assert.equal(snapSpanToTracks(height, rows) % rows, 0);
+      assert.equal((snapSpanToTracks(width, cols) / cols) % 2, 0);
+      assert.equal((snapSpanToTracks(height, rows) / rows) % 2, 0);
     }
   }
 });

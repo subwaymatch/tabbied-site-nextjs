@@ -378,8 +378,10 @@ export function createArtwork(
       resolved.definition.sizing
     );
 
-    element.style.width = `${snapSpanToTracks(hostSize.width, cols)}px`;
-    element.style.height = `${snapSpanToTracks(hostSize.height, rows)}px`;
+    const cellMultiple = resolved.definition.sizing?.cellMultiple;
+
+    element.style.width = `${snapSpanToTracks(hostSize.width, cols, cellMultiple)}px`;
+    element.style.height = `${snapSpanToTracks(hostSize.height, rows, cellMultiple)}px`;
   };
 
   const applyTransform = (resolved: ResolvedConfig) => {
