@@ -22,6 +22,23 @@ const cellCount = (page: Page, hostSelector: string) =>
     return el?.shadowRoot?.querySelectorAll('cssd-cell').length ?? 0;
   }, hostSelector);
 
+// The laid-out track sizes of the shadow grid, in CSS px. Fractional tracks
+// are what draw a hairline seam at every cell edge.
+const gridTrackPx = (page: Page, hostSelector: string) =>
+  page.evaluate((selector) => {
+    const el = document.querySelector(`${selector} css-doodle`);
+    const grid = el?.shadowRoot?.querySelector('cssd-grid');
+
+    if (!grid) return { cols: [] as number[], rows: [] as number[] };
+
+    const cs = getComputedStyle(grid);
+
+    return {
+      cols: cs.gridTemplateColumns.split(' ').map(parseFloat),
+      rows: cs.gridTemplateRows.split(' ').map(parseFloat),
+    };
+  }, hostSelector);
+
 test.describe('tabbied package (component test page)', () => {
   test('fit="grid" adapts the cell grid to the container size', async ({
     page,
@@ -33,12 +50,37 @@ test.describe('tabbied package (component test page)', () => {
     const doodle = page.locator('#fit-grid [data-artwork="radius"] css-doodle');
     await expect(doodle).toBeAttached({ timeout: 15000 });
 
-    // The canvas fills its host box (`@size: 100% 100%`).
+    // The canvas covers its host box and is snapped up to a whole number of
+    // grid tracks, so no cell boundary lands on a sub-pixel (which would draw
+    // a hairline seam at every cell edge). The overflow is under one cell and
+    // the host clips it.
     const host = page.locator('#fit-grid [data-artwork="radius"]');
     const hostBox = (await host.boundingBox())!;
     const doodleBox = (await doodle.boundingBox())!;
-    expect(Math.abs(doodleBox.width - hostBox.width)).toBeLessThan(2);
-    expect(Math.abs(doodleBox.height - hostBox.height)).toBeLessThan(2);
+    const {
+      cols: cols_px,
+      rows: rows_px,
+    } = await gridTrackPx(page, '#fit-grid [data-artwork="radius"]');
+    const cols = cols_px.length;
+    const rows = rows_px.length;
+
+    expect(doodleBox.width).toBeGreaterThanOrEqual(hostBox.width - 1);
+    expect(doodleBox.height).toBeGreaterThanOrEqual(hostBox.height - 1);
+    // The cell is even (designs that halve their cell land on whole pixels)
+    // and square (a quarter-turn rotation of an oblong swaps its axes and
+    // leaves a strip of the cell uncovered).
+    expect((doodleBox.width / cols) % 2).toBeCloseTo(0, 1);
+    expect((doodleBox.height / rows) % 2).toBeCloseTo(0, 1);
+    expect(doodleBox.width / cols).toBeCloseTo(doodleBox.height / rows, 1);
+    await expect(page.locator('#fit-grid [data-artwork="radius"]')).toHaveCSS(
+      'overflow',
+      'hidden'
+    );
+
+    // Every track is a whole pixel — the property the snap exists to hold.
+    for (const px of [...cols_px, ...rows_px]) {
+      expect(Math.abs(px - Math.round(px))).toBeLessThan(0.01);
+    }
 
     // ~36px target cells: a ~1152×320 box must get a clearly 2-D grid, and
     // the pattern must actually paint.
@@ -73,13 +115,33 @@ test.describe('tabbied package (component test page)', () => {
       .poll(() => paintedCells(page, selector), { timeout: 10000 })
       .toBeGreaterThan(1);
 
-    // The adapted render matches the host's aspect ratio, so the scaled
-    // canvas fills the wide box exactly instead of overflowing vertically
-    // (the old fixed 800×800 render was ~72% cropped at this shape).
+    // The adapted render matches the host's aspect ratio, so the scaled canvas
+    // covers the wide box instead of overflowing vertically (the old fixed
+    // 800×800 render was ~72% cropped at this shape). It overshoots by under
+    // one scaled cell: the scale is quantised so a cell lands on a whole
+    // device pixel, which rounds up and is what cover crops for.
     const hostBox = (await page.locator(selector).boundingBox())!;
     const doodleBox = (await doodle.boundingBox())!;
-    expect(Math.abs(doodleBox.width - hostBox.width)).toBeLessThan(2);
-    expect(Math.abs(doodleBox.height - hostBox.height)).toBeLessThan(2);
+    const { cell, scale } = await page.evaluate((sel) => {
+      const d = document.querySelector(`${sel} css-doodle`)!;
+      const grid = d.shadowRoot!.querySelector('cssd-grid')!;
+      return {
+        cell: parseFloat(getComputedStyle(grid).gridTemplateColumns),
+        scale: new DOMMatrixReadOnly(getComputedStyle(d).transform).a,
+      };
+    }, selector);
+
+    expect(doodleBox.width).toBeGreaterThanOrEqual(hostBox.width - 1);
+    expect(doodleBox.height).toBeGreaterThanOrEqual(hostBox.height - 1);
+    expect(doodleBox.width - hostBox.width).toBeLessThan(cell * scale);
+    expect(doodleBox.height - hostBox.height).toBeLessThan(cell * scale);
+
+    // The invariant the quantisation exists for: a cell edge lands on a whole
+    // pixel after the transform. Snapping the render box alone does not give
+    // this — an isolated test measured 6 interior seams with integral tracks
+    // under a fractional scale, and 0 once the scale was quantised.
+    const scaledCell = cell * scale;
+    expect(Math.abs(scaledCell - Math.round(scaledCell))).toBeLessThan(0.02);
 
     // And the cells it is tiled with stay near-square (the on-screen cell
     // rect includes the cover scaling transform).

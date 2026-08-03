@@ -261,6 +261,43 @@ export function deriveGridForBox(
   return { cols: best.cols, rows: best.rows };
 }
 
+/**
+ * The canvas span that makes every grid track a whole pixel: the smallest
+ * multiple of the track count that still covers the box.
+ *
+ * css-doodle lays its grid out as `repeat(n, 1fr)` (see `get_basic_styles` in
+ * the component), so a box that isn't divisible by n puts every cell boundary
+ * on a sub-pixel — and the browser draws a hairline seam at each one. Since a
+ * fluid container is almost never divisible by its derived track count, the
+ * default `fit: "grid"` in a page layout hits this nearly every time.
+ *
+ * The cell is snapped to a whole multiple of `cellMultiple`, not merely to a
+ * whole pixel. A design that subdivides its cell puts a boundary at
+ * `cell / n`, and an indivisible cell lands that boundary on a fraction of a
+ * pixel — which seams however exact the outer grid is. Sichtbeton's hero was
+ * a clean 8 × 180 across and 3 × 197 down, and 197 halves to 98.5.
+ *
+ * The default of 2 covers centred rules and strokes; the three designs that
+ * mask with a nested `@doodle` declare their own (see `ArtworkSizing`).
+ *
+ * The returned span overflows the box by less than two cells, which the host
+ * clips. Rounding *down* instead would leave a strip of the container
+ * uncovered, which is far more visible on a background field.
+ */
+export function snapSpanToTracks(
+  span: number,
+  tracks: number,
+  cellMultiple = 2
+): number {
+  if (!(span > 0) || !(tracks > 0)) {
+    return Math.max(0, Math.ceil(span));
+  }
+
+  const unit = tracks * Math.max(1, Math.round(cellMultiple));
+
+  return Math.ceil(span / unit) * unit;
+}
+
 // Parse a "colsxrows" grid option value (e.g. "6x9").
 export function parseGridValue(
   value: string
@@ -329,21 +366,44 @@ export function fitRenderToBox(
   hostWidth: number,
   hostHeight: number,
   render: CoverRender,
-  mode: 'cover' | 'contain'
+  mode: 'cover' | 'contain',
+  cellPx?: number
 ): { scale: number; translateX: number; translateY: number } {
   const cropTop = render.cropTop ?? 1;
   const visibleHeight = render.height * cropTop;
-  const scale =
+  let scale =
     mode === 'cover'
       ? Math.max(hostWidth / render.width, hostHeight / visibleHeight)
       : Math.min(hostWidth / render.width, hostHeight / render.height);
 
+  // Land every cell edge on a whole pixel *after* the transform. Snapping the
+  // render box is not enough on its own: a scaled canvas maps exact layout
+  // tracks onto fractional device pixels, and the browser seams there. An
+  // isolated test — same grid, same colour in every cell — measured 6 interior
+  // seams both with fractional tracks and with integral ones under a 1.44
+  // scale, and 0 once the scale was quantised so `cell * scale` was a whole
+  // number. Cover rounds the scale up (it crops anyway); contain rounds down,
+  // since it must stay inside the box, and the ratio is unaffected either way.
+  if (cellPx && cellPx > 0 && Number.isFinite(scale)) {
+    const scaledCell = cellPx * scale;
+    const quantised = mode === 'cover'
+      ? Math.ceil(scaledCell)
+      : Math.floor(scaledCell);
+
+    if (quantised >= 1) {
+      scale = quantised / cellPx;
+    }
+  }
+
+  // The offset has to be whole too — half a pixel of translation puts every
+  // boundary back on a fraction, which is the thing the quantised scale just
+  // bought.
   return {
     scale,
-    translateX: (hostWidth - render.width * scale) / 2,
+    translateX: Math.round((hostWidth - render.width * scale) / 2),
     translateY:
       mode === 'cover' && cropTop < 1
         ? 0
-        : (hostHeight - render.height * scale) / 2,
+        : Math.round((hostHeight - render.height * scale) / 2),
   };
 }

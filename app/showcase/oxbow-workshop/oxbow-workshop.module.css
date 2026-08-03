@@ -1,0 +1,808 @@
+/* ————————————————————————————————————————————————————————————————
+   OXBOW WORKSHOP — gallery catalogue
+   bone ground / enormous margins / numbered plates / thin keylines
+   ———————————————————————————————————————————————————————————————— */
+
+.page {
+  --bone: #f5f1e8;
+  --ink: #2e2a25;
+  --oak: #a9713c;
+  --walnut: #6b4f35;
+  --sage: #9aa69b;
+  --sand: #c7bba5;
+  --keyline: 1px solid rgba(46, 42, 37, 0.28);
+  --serif: 'Cormorant', 'Times New Roman', serif;
+  --sans: 'Mulish', 'Helvetica Neue', Arial, sans-serif;
+
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.page ::selection {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.page a {
+  color: var(--walnut);
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--oak);
+  outline-offset: 4px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ————— small-caps label utility styles ————— */
+
+.mastLabel,
+.chapterLabel,
+.plateNo,
+.plateCaption,
+.mastNav a,
+.careHead {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* ————— masthead ————— */
+
+.masthead {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+  padding: clamp(2.5rem, 7vw, 5.5rem) 1.5rem clamp(3rem, 8vw, 6rem);
+  overflow: hidden;
+}
+
+/* front endpaper — the joint drawn at full sheet size */
+.mastField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--bone);
+  overflow: hidden;
+}
+
+.mastScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 72% 62% at 50% 48%,
+    rgba(245, 241, 232, 0.62) 0%,
+    rgba(245, 241, 232, 0.34) 52%,
+    rgba(245, 241, 232, 0.08) 82%,
+    rgba(245, 241, 232, 0) 100%
+  );
+}
+
+/* the label pasted on it */
+.mastPlate {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+  margin: 0 auto;
+  background: rgba(245, 241, 232, 0.95);
+  border: var(--keyline);
+  padding: clamp(1.75rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 2.75rem)
+    clamp(1.75rem, 4vw, 2.75rem);
+  box-shadow: 0 18px 40px -26px rgba(46, 42, 37, 0.55);
+}
+
+.mastLabel {
+  margin: 0 0 1.5rem;
+  color: var(--walnut);
+}
+
+.mastTitle {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.8rem, 9vw, 7rem);
+  letter-spacing: 0.34em;
+  text-indent: 0.34em; /* balance the tracked caps */
+  line-height: 1;
+}
+
+.mastSub {
+  margin: 1.1rem 0 0;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: var(--walnut);
+}
+
+.mastNav {
+  margin: 2.25rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  color: var(--sand);
+}
+
+.mastNav a {
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+
+.mastNav a:hover {
+  border-bottom-color: var(--oak);
+  color: var(--walnut);
+}
+
+/* ————— frontispiece ————— */
+
+.frontis {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) 1.5rem 0;
+}
+
+.frontisFigure {
+  margin: 0;
+}
+
+.frontisFrame {
+  border: var(--keyline);
+  padding: clamp(0.6rem, 1.5vw, 1rem);
+  background: #fdfbf6;
+}
+
+.frontisFrame > :global(img),
+.coverImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.plateCaption {
+  margin: 0.9rem 0 0;
+  letter-spacing: 0.18em;
+  color: rgba(46, 42, 37, 0.62);
+  text-align: center;
+}
+
+.frontisStatement {
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  max-width: 24em;
+  text-align: center;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ————— chapter heads ————— */
+
+.chapterHead {
+  text-align: center;
+  padding-top: clamp(4rem, 9vw, 7rem);
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.chapterLabel {
+  margin: 0 0 0.9rem;
+  color: var(--oak);
+}
+
+.chapterTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.chapterTitle::after {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  border-bottom: var(--keyline);
+  margin: 1.4rem auto 0;
+}
+
+/* ————— plates ————— */
+
+.collection {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.plate {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-top: var(--keyline);
+}
+
+.plate:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.plateFlip {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+}
+
+.plateFlip .plateMedia {
+  order: 2;
+}
+
+.plateFlip .plateText {
+  order: 1;
+}
+
+.plateMedia {
+  min-width: 0;
+}
+
+.plateField {
+  position: relative;
+  border: var(--keyline);
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plateFieldWide {
+  aspect-ratio: 4 / 3;
+}
+
+.fieldSage {
+  background: var(--sage);
+}
+
+.fieldSand {
+  background: var(--sand);
+}
+
+/* a calm pocket of the bone ground punched through the joinery pattern, so the
+   cut-out's silhouette reads at a glance while the drawing runs to the keyline */
+.plateVeil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 58% at 50% 52%,
+    rgba(245, 241, 232, 0.96) 0%,
+    rgba(245, 241, 232, 0.9) 42%,
+    rgba(245, 241, 232, 0.44) 70%,
+    rgba(245, 241, 232, 0.08) 88%,
+    rgba(245, 241, 232, 0) 100%
+  );
+}
+
+.plateImg {
+  position: relative;
+  z-index: 2;
+  max-width: 80%;
+  max-height: 84%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 26px rgba(46, 42, 37, 0.34))
+    drop-shadow(0 3px 7px rgba(46, 42, 37, 0.24));
+}
+
+.plateText {
+  min-width: 0;
+}
+
+.plateNo {
+  margin: 0 0 0.6rem;
+  color: var(--oak);
+}
+
+.plateTitle {
+  margin: 0 0 1rem;
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+
+.platePara {
+  margin: 0 0 1.6rem;
+  max-width: 34em;
+}
+
+.specSheet {
+  margin: 0;
+  border-top: var(--keyline);
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 0.8fr) 1.6fr;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: var(--keyline);
+  align-items: baseline;
+}
+
+.specRow dt {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(46, 42, 37, 0.6);
+}
+
+.specRow dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.specRow:last-child dd {
+  font-weight: 700;
+  color: var(--walnut);
+}
+
+/* ————— joinery ————— */
+
+.joinery {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem clamp(3rem, 7vw, 5rem);
+}
+
+.joineryCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.joineryFigure {
+  margin: 0;
+}
+
+.joineryFrame {
+  border: var(--keyline);
+  padding: clamp(0.6rem, 1.5vw, 1rem);
+  background: #fdfbf6;
+}
+
+.joineryText p {
+  margin: 0 0 1.2rem;
+  max-width: 36em;
+}
+
+.joineryText p:first-child::first-letter {
+  font-size: 3.4em;
+  font-weight: 600;
+  float: left;
+  line-height: 0.78;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--oak);
+}
+
+.joineryText p:last-child {
+  margin-bottom: 0;
+}
+
+/* ————— tailband divider ————— */
+
+/* full-width band between the chapters */
+.tailband {
+  position: relative;
+  height: clamp(110px, 15vw, 200px);
+  margin: clamp(2rem, 5vw, 3.5rem) 0;
+  overflow: hidden;
+  border-top: var(--keyline);
+  border-bottom: var(--keyline);
+  background: var(--sand);
+}
+
+/* ————— workshop ————— */
+
+.workshop {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.workshop .chapterHead {
+  padding-top: 0;
+}
+
+.workshopFigure {
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+}
+
+.workshopFrame {
+  border: var(--keyline);
+  padding: clamp(0.6rem, 1.5vw, 1rem);
+  background: #fdfbf6;
+}
+
+.workshopCols {
+  columns: 2;
+  column-gap: clamp(2rem, 5vw, 3.5rem);
+  column-rule: var(--keyline);
+}
+
+.workshopCols p {
+  margin: 0 0 1.2rem;
+  break-inside: avoid;
+}
+
+.workshopFacts {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: var(--keyline);
+  border-bottom: var(--keyline);
+}
+
+.workshopFacts > div {
+  padding: 1.1rem 1rem;
+  text-align: center;
+}
+
+.workshopFacts > div + div {
+  border-left: var(--keyline);
+}
+
+.workshopFacts dt {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(46, 42, 37, 0.6);
+}
+
+.workshopFacts dd {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+}
+
+/* ————— makers ————— */
+
+.makers {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.makerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.makerCard {
+  text-align: center;
+}
+
+/* the portraits are opaque plates, matted and keylined like every other
+   figure in the catalogue — no pattern behind a face */
+.makerMat {
+  border: var(--keyline);
+  padding: clamp(0.6rem, 1.5vw, 1rem);
+  background: #fdfbf6;
+}
+
+.makerFrame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+.makerFrame .makerImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+}
+
+.makerName {
+  margin: 1.1rem 0 0;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  letter-spacing: 0.04em;
+}
+
+.makerRole {
+  margin: 0.2rem 0 0.7rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--oak);
+}
+
+.makerBio {
+  margin: 0 auto;
+  max-width: 26em;
+  font-size: 1rem;
+}
+
+/* ————— commissions ————— */
+
+.commissions {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.ornament {
+  position: relative;
+  width: 5.5rem;
+  height: 2.75rem;
+  margin: 1.6rem auto 0;
+  overflow: hidden;
+  border: var(--keyline);
+  background: var(--bone);
+}
+
+.commissionsLede {
+  margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+  max-width: 32em;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  font-style: italic;
+}
+
+.movementList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 5vw, 4rem);
+  text-align: left;
+}
+
+.movement {
+  border-top: var(--keyline);
+  padding-top: 1.2rem;
+}
+
+.movementNumeral {
+  display: block;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--sand);
+}
+
+.movementTitle {
+  margin: 0.5rem 0 0.5rem;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  letter-spacing: 0.05em;
+}
+
+.movementBody {
+  margin: 0;
+  font-size: 1rem;
+  max-width: 30em;
+}
+
+.commissionsNote {
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+/* ————— care & delivery ————— */
+
+.care {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem clamp(3rem, 7vw, 5rem);
+}
+
+.careCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.careHead {
+  margin: 0 0 1rem;
+  letter-spacing: 0.24em;
+  color: var(--walnut);
+  border-bottom: var(--keyline);
+  padding-bottom: 0.6rem;
+}
+
+.careCols p {
+  margin: 0 0 1.2rem;
+  font-size: 1.02rem;
+  max-width: 36em;
+}
+
+.careCols p:last-child {
+  margin-bottom: 0;
+}
+
+/* ————— colophon ————— */
+
+.colophon {
+  text-align: center;
+  padding: 0 0 clamp(2rem, 4vw, 3rem);
+}
+
+.colophonInner {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.colophonRule {
+  border-top: var(--keyline);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.colophonMark {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.colophonAddress {
+  margin: 1rem 0 0;
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: var(--walnut);
+}
+
+.colophonNote {
+  margin: 1.6rem auto 0;
+  max-width: 34em;
+  font-size: 0.95rem;
+  color: rgba(46, 42, 37, 0.75);
+}
+
+.tabbiedCredit {
+  color: var(--walnut);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(107, 79, 53, 0.5);
+}
+
+.tabbiedCredit:hover {
+  color: var(--oak);
+  border-bottom-color: var(--oak);
+}
+
+/* back endpaper */
+.colophonTail {
+  position: relative;
+  height: clamp(120px, 16vw, 210px);
+  margin: clamp(2.5rem, 5vw, 3.75rem) 0 1.75rem;
+  overflow: hidden;
+  border-top: var(--keyline);
+  border-bottom: var(--keyline);
+  background: var(--ink);
+}
+
+.colophonFinis {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(46, 42, 37, 0.55);
+}
+
+/* ————— responsive ————— */
+
+@media (max-width: 900px) {
+  .plate,
+  .plateFlip {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .plateFlip .plateMedia {
+    order: 1;
+  }
+
+  .plateFlip .plateText {
+    order: 2;
+  }
+
+  .joineryCols {
+    grid-template-columns: 1fr;
+  }
+
+  .workshopCols {
+    columns: 1;
+  }
+
+  .workshopFacts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .workshopFacts > div {
+    border-top: var(--keyline);
+  }
+
+  .workshopFacts > div:nth-child(-n + 2) {
+    border-top: none;
+  }
+
+  .workshopFacts > div:nth-child(3) {
+    border-left: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    font-size: 1.05rem;
+  }
+
+  .mastTitle {
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+  }
+
+  .mastNav {
+    gap: 0.7rem;
+  }
+
+  .makerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .movementList {
+    grid-template-columns: 1fr;
+  }
+
+  .careCols {
+    grid-template-columns: 1fr;
+  }
+
+  .specRow {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .workshopFacts {
+    grid-template-columns: 1fr 1fr;
+  }
+}

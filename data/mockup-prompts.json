@@ -1,0 +1,545 @@
+{
+  "meta": {
+    "model": "gpt-image-2",
+    "defaults": {
+      "size": "1024x1024",
+      "quality": "low"
+    },
+    "note": "Each entry renders `artwork` to PNG first, then sends that PNG to the images EDITS endpoint as the reference the model must reproduce on the object. See docs/artwork-mockups.md."
+  },
+  "mockups": [
+    {
+      "id": "mockup-poster-gallery",
+      "title": "Exhibition poster, gallery wall",
+      "surface": "flat",
+      "size": "1024x1536",
+      "artwork": {
+        "design": "bauhaus",
+        "seed": "mk-poster",
+        "width": 1024,
+        "height": 1536,
+        "fit": "grid",
+        "palette": [
+          "#F2E9DC",
+          "#E63329",
+          "#1D3D8F",
+          "#F0C02E",
+          "#1A1A1A"
+        ]
+      },
+      "subject": "a large framed exhibition poster hanging on a white gallery wall, photographed straight on, a pale concrete floor and a low bench just visible at the bottom of the frame, even museum lighting"
+    },
+    {
+      "id": "mockup-compact-cosmetics",
+      "title": "Pressed-powder compact",
+      "surface": "curved",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "fluting",
+        "seed": "mk-compact",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 64,
+        "palette": [
+          "#FFF9F5",
+          "#FF8FB8",
+          "#FFC2D4",
+          "#FF8A5C",
+          "#D89FFF",
+          "#F5C542"
+        ]
+      },
+      "subject": "a round pressed-powder compact with a polished enamel lid, closed, standing at a three-quarter angle on a plain neutral light-grey seamless backdrop, soft even studio light"
+    },
+    {
+      "id": "mockup-van-wrap",
+      "title": "Delivery van livery",
+      "surface": "large-curved",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "ziggy",
+        "seed": "mk-van",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 96,
+        "palette": [
+          "#F5DD32",
+          "#232529",
+          "#FF3D8B",
+          "#3E8BFF",
+          "#FFFFFF",
+          "#1B4075"
+        ]
+      },
+      "subject": "a compact modern delivery van photographed in three-quarter view on a plain asphalt forecourt against a plain pale wall, overcast daylight, the whole side and rear panel visible"
+    },
+    {
+      "id": "mockup-tote-textile",
+      "title": "Printed canvas tote",
+      "surface": "fabric",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "lattice",
+        "seed": "mk-tote",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 72,
+        "palette": [
+          "#FFFFFF",
+          "#3E8BFF",
+          "#1B4075",
+          "#3EECFF",
+          "#FF3D8B",
+          "#3FFFB2"
+        ]
+      },
+      "subject": "a printed canvas tote bag hanging from a simple hook against a plain pale wall, the front face of the bag turned to the camera with a few soft natural folds in the fabric"
+    },
+    {
+      "id": "mockup-tin-packaging",
+      "title": "Coffee tin, cylindrical label",
+      "surface": "cylinder",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "annulus",
+        "seed": "mk-tin",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 80,
+        "palette": [
+          "#FFF4E6",
+          "#3D348B",
+          "#7678ED",
+          "#F7B801",
+          "#F18701",
+          "#F35B04"
+        ]
+      },
+      "subject": "a cylindrical coffee tin with a brushed metal lid standing on a pale stone counter, photographed straight on at eye level, soft even light, the label wrapping around the visible face of the can"
+    },
+    {
+      "id": "mockup-poster-triptych",
+      "title": "Exhibition triptych, museum wall",
+      "surface": "flat",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "ziggurat",
+        "seed": "mk-poster-triptych",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 96,
+        "palette": [
+          "#F2F1EE",
+          "#E1261C",
+          "#111111",
+          "#8C8C88"
+        ]
+      },
+      "subject": "three large frameless printed panels hung in a row on a white museum wall, photographed straight on, a polished concrete floor below"
+    },
+    {
+      "id": "mockup-tote-canvas-shop",
+      "title": "Museum shop tote",
+      "surface": "fabric",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "dogtooth",
+        "seed": "mk-tote-canvas-shop",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 80,
+        "palette": [
+          "#111111",
+          "#FFD400",
+          "#F2F2F0",
+          "#5A5A56"
+        ]
+      },
+      "subject": "a heavy canvas tote bag standing upright on a pale plywood shelf, front face square to the camera, its handles falling naturally"
+    },
+    {
+      "id": "mockup-mug-enamel",
+      "title": "Enamel camp mug",
+      "surface": "cylinder",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "damier",
+        "seed": "mk-mug-enamel",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 72,
+        "palette": [
+          "#F2F1EE",
+          "#E1261C",
+          "#111111",
+          "#8C8C88"
+        ]
+      },
+      "subject": "a white enamel camp mug with a rolled rim standing on a pale grey studio sweep, handle turned to the right, soft even light"
+    },
+    {
+      "id": "mockup-notebook-cover",
+      "title": "Bound notebook, printed board",
+      "surface": "flat",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "weave",
+        "seed": "mk-notebook-cover",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 68,
+        "palette": [
+          "#F3F5F0",
+          "#1F5C3D",
+          "#101410",
+          "#B7C2B4"
+        ]
+      },
+      "subject": "a hardbound A5 notebook lying closed and flat on a pale oak desk, photographed from directly above, an elastic closure across it"
+    },
+    {
+      "id": "mockup-skateboard-deck",
+      "title": "Skate deck underside",
+      "surface": "flat",
+      "size": "1024x1536",
+      "artwork": {
+        "design": "cleat",
+        "seed": "mk-skateboard-deck",
+        "width": 1024,
+        "height": 1536,
+        "fit": "grid",
+        "cell": 90,
+        "palette": [
+          "#FFFFFF",
+          "#FF5A1F",
+          "#141414",
+          "#C9C6BF"
+        ]
+      },
+      "subject": "a skateboard deck standing on its tail against a plain concrete wall, underside facing the camera, trucks and wheels visible at the foot"
+    },
+    {
+      "id": "mockup-tin-biscuit",
+      "title": "Confectionery tin",
+      "surface": "cylinder",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "octagon",
+        "seed": "mk-tin-biscuit",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 76,
+        "palette": [
+          "#EAF3F3",
+          "#0F7C77",
+          "#0C1414",
+          "#9CBDBA"
+        ]
+      },
+      "subject": "a shallow round confectionery tin with a lifted lid resting beside it, standing on a pale marble counter, soft even light"
+    },
+    {
+      "id": "mockup-scarf-silk",
+      "title": "Printed silk scarf",
+      "surface": "fabric",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "vitrail",
+        "seed": "mk-scarf-silk",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 84,
+        "palette": [
+          "#F4EFF4",
+          "#6B2D5B",
+          "#150F14",
+          "#B79FB1"
+        ]
+      },
+      "subject": "a large silk scarf loosely draped over a pale wooden rail, falling in soft folds, plain studio wall behind"
+    },
+    {
+      "id": "mockup-vinyl-sleeve",
+      "title": "Record sleeve",
+      "surface": "flat",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "tesserae",
+        "seed": "mk-vinyl-sleeve",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 82,
+        "palette": [
+          "#101323",
+          "#2947F0",
+          "#F5F6FA",
+          "#7A82A8"
+        ]
+      },
+      "subject": "a twelve inch record sleeve propped upright against a plain pale wall on a wooden floor, the record half drawn out of it"
+    },
+    {
+      "id": "mockup-tram-livery",
+      "title": "City tram livery",
+      "surface": "large-curved",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "bias",
+        "seed": "mk-tram-livery",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 120,
+        "palette": [
+          "#EEF1F4",
+          "#0B4EE0",
+          "#16181C",
+          "#9AA0A6"
+        ]
+      },
+      "subject": "a modern low-floor city tram standing at a plain platform photographed in three-quarter view, its full flank visible, overcast daylight"
+    },
+    {
+      "id": "mockup-wall-tiles",
+      "title": "Glazed wall tiling",
+      "surface": "flat",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "scramble",
+        "seed": "mk-wall-tiles",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 64,
+        "palette": [
+          "#F6EFE6",
+          "#C4502A",
+          "#1B1512",
+          "#A98F72"
+        ]
+      },
+      "subject": "a tiled section of wall behind a plain white basin in a spare bathroom, photographed straight on, soft daylight from the left"
+    },
+    {
+      "id": "mockup-cushion-linen",
+      "title": "Linen floor cushion",
+      "surface": "fabric",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "quilt",
+        "seed": "mk-cushion-linen",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 78,
+        "palette": [
+          "#F6EFE6",
+          "#C4502A",
+          "#1B1512",
+          "#A98F72"
+        ]
+      },
+      "subject": "a large square linen floor cushion resting on a pale oak floor against a plain plaster wall, corners softly rounded by the stuffing"
+    },
+    {
+      "id": "mockup-umbrella-canopy",
+      "title": "Golf umbrella canopy",
+      "surface": "large-curved",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "northstar",
+        "seed": "mk-umbrella-canopy",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 88,
+        "palette": [
+          "#101323",
+          "#2947F0",
+          "#F5F6FA",
+          "#7A82A8"
+        ]
+      },
+      "subject": "an open golf umbrella held upright against a plain pale sky, canopy filling most of the frame, seen slightly from below"
+    },
+    {
+      "id": "mockup-packaging-carton",
+      "title": "Folding carton",
+      "surface": "flat",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "chain",
+        "seed": "mk-packaging-carton",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 70,
+        "palette": [
+          "#F3F5F0",
+          "#1F5C3D",
+          "#101410",
+          "#B7C2B4"
+        ]
+      },
+      "subject": "a rectangular folding carton standing closed on a pale seamless sweep at a three-quarter angle, so two faces and the top are visible"
+    },
+    {
+      "id": "mockup-helmet-cycling",
+      "title": "Cycling helmet shell",
+      "surface": "curved",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "caltrop",
+        "seed": "mk-helmet-cycling",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 74,
+        "palette": [
+          "#FFFFFF",
+          "#FF5A1F",
+          "#141414",
+          "#C9C6BF"
+        ]
+      },
+      "subject": "a modern road cycling helmet resting on a pale concrete plinth, three-quarter view, its shell catching soft studio light"
+    },
+    {
+      "id": "mockup-kite-sail",
+      "title": "Delta kite sail",
+      "surface": "fabric",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "sliver",
+        "seed": "mk-kite-sail",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 92,
+        "palette": [
+          "#111111",
+          "#FFD400",
+          "#F2F2F0",
+          "#5A5A56"
+        ]
+      },
+      "subject": "a large delta kite lying flat on dry sand, sail spread taut and square to the camera, photographed from directly above"
+    },
+    {
+      "id": "mockup-bookjacket-hard",
+      "title": "Hardback book jacket",
+      "surface": "flat",
+      "size": "1024x1024",
+      "artwork": {
+        "design": "merlon",
+        "seed": "mk-bookjacket-hard",
+        "width": 1024,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 66,
+        "palette": [
+          "#F4F4F2",
+          "#141414",
+          "#8E8E88",
+          "#D3D3CE"
+        ]
+      },
+      "subject": "a hardback book lying closed on a pale linen surface photographed from directly above, its printed jacket wrapping the spine"
+    },
+    {
+      "id": "mockup-awning-cafe",
+      "title": "Cafe awning",
+      "surface": "flat",
+      "size": "1536x1024",
+      "artwork": {
+        "design": "battlement",
+        "seed": "mk-awning-cafe",
+        "width": 1536,
+        "height": 1024,
+        "fit": "grid",
+        "cell": 100,
+        "palette": [
+          "#F2F1EE",
+          "#E1261C",
+          "#111111",
+          "#8C8C88"
+        ]
+      },
+      "subject": "a fabric awning extended over the front of a plain white cafe facade, photographed from the pavement looking up slightly, flat daylight"
+    },
+    {
+      "id": "mockup-luggage-shell",
+      "title": "Hard-shell cabin case",
+      "surface": "large-curved",
+      "size": "1024x1536",
+      "artwork": {
+        "design": "isocube",
+        "seed": "mk-luggage-shell",
+        "width": 1024,
+        "height": 1536,
+        "fit": "grid",
+        "cell": 86,
+        "palette": [
+          "#F4EFF4",
+          "#6B2D5B",
+          "#150F14",
+          "#B79FB1"
+        ]
+      },
+      "subject": "an upright hard-shell cabin suitcase standing on a pale terrazzo floor, three-quarter view, its ribbed shell catching soft light"
+    },
+    {
+      "id": "mockup-apron-workwear",
+      "title": "Work apron",
+      "surface": "fabric",
+      "size": "1024x1536",
+      "artwork": {
+        "design": "hurdle",
+        "seed": "mk-apron-workwear",
+        "width": 1024,
+        "height": 1536,
+        "fit": "grid",
+        "cell": 76,
+        "palette": [
+          "#EAF3F3",
+          "#0F7C77",
+          "#0C1414",
+          "#9CBDBA"
+        ]
+      },
+      "subject": "a canvas work apron hanging from a simple peg against a plain plaster wall, its ties falling loose at the sides"
+    },
+    {
+      "id": "mockup-signage-panel",
+      "title": "Wayfinding panel",
+      "surface": "flat",
+      "size": "1024x1536",
+      "artwork": {
+        "design": "spandrel",
+        "seed": "mk-signage-panel",
+        "width": 1024,
+        "height": 1536,
+        "fit": "grid",
+        "cell": 72,
+        "palette": [
+          "#EEF1F4",
+          "#0B4EE0",
+          "#16181C",
+          "#9AA0A6"
+        ]
+      },
+      "subject": "a tall freestanding wayfinding panel on a slim steel post in a plain paved courtyard, face square to the camera, overcast light"
+    }
+  ]
+}

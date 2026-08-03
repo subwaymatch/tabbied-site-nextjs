@@ -1,0 +1,878 @@
+/* ==========================================================================
+   SECONDE — sports timing, Lausanne
+   A results-board page. Everything is a ranked row; the type scale is narrow
+   and the only voice raised is the magenta. Pattern fields run full width with
+   `transparent` in the background slot and are timed fast, because the whole
+   subject is elapsed time.
+   ========================================================================== */
+
+.page {
+  --paper: #f7f7f5;
+  --ink: #101010;
+  --magenta: #ff0059;
+  --grey: #8e8e8e;
+  --pale: #d6d6d2;
+  --gut: clamp(1.15rem, 4vw, 3.25rem);
+  --max: 78rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.014em;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.48;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--magenta);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.75rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.mark {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--magenta);
+}
+
+.clock {
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 10vw, 7.5rem) var(--gut) clamp(2.5rem, 6vw, 4rem);
+}
+
+/* fadedbar is a ramp of horizontal rules: it reads as lane markings behind the
+   headline, so it runs strong and stops before the lede. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+  mask-image: linear-gradient(180deg, #000 0%, #000 44%, transparent 96%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--magenta) 79%, var(--ink));
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7vw, 5.2rem);
+  font-weight: 650;
+  line-height: 0.99;
+  letter-spacing: -0.05em;
+}
+
+.hero /* The muted second line sits over the hero pattern; plain
+     var(--grey) measured under AA on the glyph pixels. */
+  h1 span {
+  color: color-mix(in srgb, var(--grey) 75%, var(--ink));
+}
+
+.lede {
+  margin: clamp(1.4rem, 4vw, 2.3rem) 0 0;
+  max-width: 32rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.14rem);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.strip {
+  margin: 0;
+}
+
+.strip img {
+  aspect-ratio: 12 / 5;
+  object-fit: cover;
+}
+
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.pair {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.wide {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+/* ------------------------------------------------------------------- facts */
+
+.facts {
+  max-width: var(--max);
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.facts div {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--magenta);
+}
+
+.facts dt {
+  font-size: clamp(1.3rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.facts dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.note {
+  margin: -1rem 0 1.8rem;
+  max-width: 38rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------------- systems */
+
+.systems,
+.season {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.sysList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sysList li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) 8rem;
+  gap: clamp(0.8rem, 2.5vw, 2rem);
+  padding: 1.1rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.sysList li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.sysCode {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  color: var(--magenta);
+}
+
+.sysList h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.sysList p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  max-width: 40rem;
+}
+
+.sysRes {
+  font-size: 0.86rem;
+  text-align: right;
+  color: var(--ink);
+  font-weight: 550;
+}
+
+/* --------------------------------------------------------------- lane band
+   Full-width, no copy, the fastest redraw on the page. */
+
+.laneBand {
+  position: relative;
+  height: 208px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.laneField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (25 × 104px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2600px;
+  height: 208px;
+  opacity: 0.95;
+}
+
+/* ----------------------------------------------------------------- results */
+
+.results {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.resField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.resField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--paper) 14%,
+    var(--paper) 86%,
+    transparent 100%
+  );
+}
+
+.resInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1.6fr) minmax(0, 1.2fr) 6rem 5rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.table li:first-child {
+  border-top: 3px solid var(--ink);
+}
+
+.table li:first-child .time,
+.table li:first-child .athlete {
+  color: var(--magenta);
+}
+
+.pos {
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--grey);
+}
+
+.athlete {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.club {
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+.time {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  text-align: right;
+}
+
+.gap {
+  font-size: 0.84rem;
+  color: var(--grey);
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ season */
+
+.dates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dates li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1.4fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(0.6rem, 2vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  transition: background 130ms ease;
+}
+
+.dates li:hover {
+  background: color-mix(in srgb, var(--magenta) 7%, transparent);
+}
+
+.dDate {
+  font-weight: 650;
+  color: var(--magenta);
+  font-size: 0.95rem;
+}
+
+.dName {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.dKind,
+.dPlace {
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.dPlace {
+  text-align: right;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- book */
+
+.book {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.bookField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 44%, transparent 56%, #000 100%);
+}
+
+.bookInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.bookGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height: 1.34;
+  letter-spacing: -0.03em;
+  max-width: 26rem;
+}
+
+.bookGrid dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.bookGrid dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 0.3rem;
+}
+
+.bookGrid dd {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.bookGrid a {
+  border-bottom: 2px solid var(--magenta);
+}
+
+/* ------------------------------------------------------- expansion sections
+   The tiles are Tabbied artworks rather than photographs: each sits on a
+   transparent ground in a box with a fixed aspect ratio, so the derived grid
+   stays square and the motif is never stretched. */
+
+.tiles,
+.idx,
+.faq {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.tiles h2,
+.idx h2,
+.faq h2 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.secNote {
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.tilePlate {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 55%, var(--paper));
+  margin-bottom: 0.9rem;
+}
+
+.tileN {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--magenta);
+  font-variant-numeric: tabular-nums;
+}
+
+.tileGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.03rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.tileBody {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.idxList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.idxList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.6vw, 1.3rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.idxHead {
+  border-top: 0 !important;
+  font-size: 0.64rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.idxList li > :first-child {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.96rem;
+}
+
+.idxList li > :last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+.faqList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.faqList dt {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  margin-bottom: 0.5rem;
+  font-size: 0.99rem;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+
+.faqList dd {
+  margin: 0;
+  font-size: 0.89rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+@media (max-width: 900px) {
+  .tileGrid,
+  .faqList {
+    grid-template-columns: 1fr;
+  }
+
+  .idxList li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .idxHead {
+    display: none !important;
+  }
+
+  .idxList li > :nth-child(3) {
+    grid-column: 1 / -1;
+    font-size: 0.83rem;
+  }
+}
+
+/* ------------------------------------------------------------------ footer
+   Quiet by design: no wordmark at display size and no pattern field. Four
+   columns of plain links on one flat surface, with the fine print under a
+   hairline. The patterns have had the whole page to speak already. */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--magenta);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--paper) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--magenta);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .bookGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table li {
+    grid-template-columns: 2.2rem minmax(0, 1fr) 5.5rem 4rem;
+    row-gap: 0.2rem;
+  }
+
+  .club {
+    grid-column: 2 / -1;
+  }
+
+  .dates li {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .dKind,
+  .dPlace {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .sysList li {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+
+  .sysRes {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .strip img {
+    aspect-ratio: 3 / 2;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .bookGrid dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .laneBand {
+    height: 104px;
+  }
+
+  .laneField {
+    height: 104px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
+  }
+}
+
+/* -------------------------------------------------------------- tile object
+   The cut-out sits on top of the tile's pattern rather than replacing it:
+   the artwork stays the ground, the object becomes the subject. */
+
+.tileObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.3));
+}

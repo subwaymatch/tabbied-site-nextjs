@@ -86,7 +86,14 @@ export default function ShowcaseSite({ site, artworks }: Props) {
   const c1 = colors[1] ?? bg;
   const dark = luminance(bg) < 0.5;
   const darkest = [...colors].sort((a, b) => luminance(a) - luminance(b))[0];
-  const ink = dark ? '#f5f3ef' : luminance(darkest) < 0.4 ? darkest : '#1c1e24';
+  // A near-white tinted by the page itself, not a fixed warm off-white:
+  // #f5f3ef is a cream, and on Facet's navy or Nocturne's violet it read as
+  // a foreign colour in the menu and body copy rather than the page's own.
+  const ink = dark
+    ? mix(bg, '#ffffff', 0.93)
+    : luminance(darkest) < 0.4
+      ? darkest
+      : '#1c1e24';
 
   const vars: Record<string, string> = {
     '--bg': bg,
@@ -95,7 +102,9 @@ export default function ShowcaseSite({ site, artworks }: Props) {
     '--onC1': onColor(c1),
     '--card': dark ? mix(bg, '#ffffff', 0.07) : mix(bg, '#ffffff', 0.6),
     '--soft': dark ? mix(bg, '#ffffff', 0.04) : mix(bg, '#ffffff', 0.45),
-    '--line': dark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.12)',
+    // A flat-section site drops the alternating band tone entirely: every
+    // section sits on the page colour, and rhythm comes from spacing alone.
+    ...(site.flatSections ? { '--band': bg } : {}),
     '--display': site.fonts.display,
     '--body': site.fonts.body,
     ...(site.tracking ? { '--tracking': site.tracking } : {}),

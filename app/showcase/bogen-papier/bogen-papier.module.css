@@ -1,0 +1,960 @@
+/* ================================================================
+   BOGEN PAPIER, paper merchant, Winterthur.
+   International Typographic Style: Inter only, one 12 column grid,
+   flush left setting, no borders, green as the single accent.
+   Vertical rhythm is a multiple of --u (8px) throughout.
+   ================================================================ */
+
+.page {
+  /* ground, ink and the one accent */
+  --paper: #fafaf7;
+  --ink: #14150f;
+  --green: #2e7d4f;
+  --warm: #c9c4b4;
+  --pale: #e7e5dc;
+  --umber: #6b6656;
+
+  /* re-pointed per section so veils and quiet text follow the ground */
+  --ground: var(--paper);
+  --muted: var(--umber);
+
+  /* the grid */
+  --cols: 12;
+  --gutter: clamp(12px, 1.6vw, 24px);
+  --margin: clamp(20px, 4.6vw, 72px);
+  --maxw: 1440px;
+
+  /* the rhythm unit */
+  --u: 8px;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Arial, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  line-height: 1.55;
+  letter-spacing: -0.011em;
+  overflow-x: hidden;
+}
+
+.page :where(a) { color: inherit; }
+.page :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.page ::selection { background: var(--green); color: var(--paper); }
+
+/* ---------------- container and grid primitives ---------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--margin);
+}
+
+/* every block below is placed on these twelve columns, never on ad-hoc flex */
+.grid,
+.swatchLegendRow,
+.swatchGrid,
+.rampScale,
+.specimenGrid,
+.specimenItem,
+.figureRow,
+.stepRow,
+.zoneHead,
+.zoneRow {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+.grid { align-items: start; }
+
+.swatchGrid,
+.rampScale,
+.specimenList,
+.figureRow,
+.stepRow,
+.principles,
+.navList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------- small caps labels ----------------
+   Tracking out is correct at 10 to 12px; the tightening rule
+   applies to text and display sizes, not to these. */
+
+.kicker,
+.wordmarkSub,
+.sectionLabel,
+.factTerm,
+.specTerm,
+.swatchRefInside,
+.swatchLegendLabel,
+.millTerm,
+.rampUnit,
+.principleNo,
+.stepNo,
+.quoteAttr,
+.zoneHeadCell,
+.footSub {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.factTerm,
+.zoneHeadCell,
+.rampUnit { font-size: 0.625rem; }
+
+.specTerm,
+.swatchRefInside { font-size: 0.5625rem; }
+
+/* figures are set as tables wherever they line up in a column */
+.factValue,
+.millValue,
+.specValue,
+.rampGsm,
+.rampCaliper,
+.figureValue,
+.specimenNo,
+.specimenYear,
+.stepNo,
+.zoneTable,
+.hoursTime,
+.footLine,
+.sectionNo { font-variant-numeric: tabular-nums; }
+
+/* ---------------- shared type ---------------- */
+
+.kicker { grid-column: 1 / 13; margin-bottom: calc(var(--u) * 4); }
+
+.h2 {
+  margin: 0 0 calc(var(--u) * 3);
+  font-size: clamp(1.625rem, 1rem + 2.4vw, 2.875rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+}
+
+.h3 {
+  margin: 0 0 calc(var(--u) * 1.5);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.body { margin: 0 0 calc(var(--u) * 2); max-width: 60ch; }
+.body:last-child { margin-bottom: 0; }
+
+.caption {
+  margin: calc(var(--u) * 1.5) 0 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 44ch;
+}
+
+/* ---------------- masthead ---------------- */
+
+.masthead { padding-top: calc(var(--u) * 3); }
+.mastMark { grid-column: 1 / 5; }
+.mastNav { grid-column: 5 / 10; }
+.mastPhone { grid-column: 10 / 13; }
+
+.wordmark {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.wordmarkSub { margin-top: 2px; font-weight: 500; }
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--u) * 3);
+}
+
+.navLink {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.005em;
+}
+
+.navLink:hover { color: var(--green); }
+
+.mastPhone {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* the two permitted hairlines, drawn as flat 1px fields, never as edges */
+.hairline {
+  height: 1px;
+  margin-top: calc(var(--u) * 3);
+  background: var(--green);
+}
+
+.hairlineFoot {
+  height: 1px;
+  margin-bottom: calc(var(--u) * 6);
+  background: color-mix(in srgb, var(--warm) 45%, transparent);
+}
+
+/* ---------------- hero ---------------- */
+
+.hero { padding-top: calc(var(--u) * 10); }
+
+.heroTitle {
+  grid-column: 1 / 10;
+  margin: 0 0 calc(var(--u) * 6);
+  font-size: clamp(2.25rem, 1rem + 5.4vw, 5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+}
+
+.heroLede {
+  grid-column: 1 / 6;
+  margin: 0;
+  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.1875rem);
+  line-height: 1.5;
+}
+
+.heroFacts {
+  grid-column: 7 / 13;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: calc(var(--u) * 3);
+}
+
+.factRow { min-width: 0; }
+.factTerm { margin-bottom: 4px; }
+
+.factValue {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+/* the 5 / 7 split: pattern as a flat field, the floor as a photograph */
+.heroSplit {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  margin-top: calc(var(--u) * 10);
+}
+
+.heroField,
+.heroPhoto {
+  position: relative;
+  min-height: clamp(220px, 34vw, 520px);
+  overflow: hidden;
+}
+
+.heroField { background: var(--paper); }
+.heroPhoto { background: var(--pale); }
+
+/* ---------------- section shells ---------------- */
+
+.section { padding-block: clamp(56px, 8vw, 128px); }
+
+.sectionPale { --ground: var(--pale); background: var(--pale); }
+
+/* The range gets its own ground, warmer than any shade in the grid, so that
+   B.01 Natur and B.02 Kreide read as rectangles and not as holes. */
+.sectionRange {
+  --ground: color-mix(in srgb, var(--warm) 26%, var(--paper));
+  background: color-mix(in srgb, var(--warm) 26%, var(--paper));
+}
+
+.sectionInk {
+  --ground: var(--ink);
+  --muted: color-mix(in srgb, var(--warm) 72%, var(--umber));
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.sectionMark { grid-column: 1 / 4; padding-bottom: calc(var(--u) * 3); }
+
+.sectionNo {
+  margin: 0;
+  font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--green);
+}
+
+.sectionLabel { margin-top: calc(var(--u) * 1.5); }
+
+/* ---------------- 01 the merchant ---------------- */
+
+.statementBody { grid-column: 4 / 13; }
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: calc(var(--u) * 3);
+  margin-top: calc(var(--u) * 6);
+  max-width: 74ch;
+}
+
+.principle { display: grid; row-gap: var(--u); }
+.principleText { font-size: 0.875rem; line-height: 1.5; }
+
+/* ---------------- 02 the range ---------------- */
+
+.rangeIntro { grid-column: 5 / 12; }
+
+.rampBand { margin-top: clamp(40px, 6vw, 88px); }
+
+.rampField {
+  position: relative;
+  height: clamp(112px, 15vw, 208px);
+  background: var(--pale);
+  overflow: hidden;
+}
+
+.rampScale { row-gap: calc(var(--u) * 3); margin-top: calc(var(--u) * 3); }
+
+/* five steps across ten of the twelve columns: the two spare columns
+   on the right are the asymmetry, not an accident */
+.rampStep { grid-column: span 2; min-width: 0; }
+
+.rampGsm {
+  margin: 0;
+  font-size: clamp(1.125rem, 0.9rem + 0.8vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.rampUnit { margin-left: 4px; }
+
+.rampCaliper {
+  margin: var(--u) 0 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.rampUse {
+  margin: calc(var(--u) * 0.5) 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* ----- the swatch grid: this page's signature block ----- */
+
+.swatchLegendRow {
+  margin-top: clamp(48px, 7vw, 104px);
+  margin-bottom: calc(var(--u) * 4);
+}
+
+.swatchLegendLabel { grid-column: 1 / 4; }
+
+.swatchLegend {
+  grid-column: 4 / 10;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.swatchGrid { row-gap: calc(var(--u) * 7); }
+.swatchCell { grid-column: span 3; min-width: 0; }
+
+.swatchField,
+.patternField {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.swatchField { background: var(--tone); }
+.patternField { background: var(--paper); --on-tone: var(--umber); }
+
+.swatchRefInside {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  color: var(--on-tone);
+  opacity: 0.85;
+}
+
+.swatchMeta { padding-top: calc(var(--u) * 2); }
+
+.swatchName {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+}
+
+.swatchGloss {
+  margin: calc(var(--u) * 0.75) 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.swatchSpecs {
+  display: grid;
+  grid-template-columns: minmax(0, 4.25rem) minmax(0, 1fr);
+  column-gap: var(--u);
+  row-gap: 5px;
+  margin-top: calc(var(--u) * 2);
+}
+
+.specTerm { padding-top: 2px; }
+
+.specValue {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* the eleven stocked shades, every tone mixed from the six palette colours */
+.t1 { --tone: var(--paper); --on-tone: var(--umber); }
+.t2 { --tone: var(--pale); --on-tone: var(--umber); }
+.t3 { --tone: color-mix(in srgb, var(--warm) 45%, var(--paper)); --on-tone: var(--umber); }
+.t4 { --tone: var(--warm); --on-tone: var(--ink); }
+.t5 { --tone: color-mix(in srgb, var(--umber) 42%, var(--warm)); --on-tone: var(--ink); }
+.t6 { --tone: var(--umber); --on-tone: var(--paper); }
+.t7 { --tone: color-mix(in srgb, var(--ink) 62%, var(--umber)); --on-tone: var(--paper); }
+.t8 { --tone: var(--ink); --on-tone: var(--paper); }
+.t9 { --tone: color-mix(in srgb, var(--ink) 11%, var(--pale)); --on-tone: var(--umber); }
+.t10 { --tone: var(--green); --on-tone: var(--paper); }
+.t11 { --tone: color-mix(in srgb, var(--umber) 66%, var(--ink)); --on-tone: var(--paper); }
+
+.rangeNote {
+  grid-column: 1 / 7;
+  margin: clamp(40px, 6vw, 88px) 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.rangeCut {
+  grid-column: 9 / 13;
+  margin-top: clamp(40px, 6vw, 88px);
+  display: grid;
+  justify-items: start;
+}
+
+/* ---------------- 03 the mill ---------------- */
+
+.millBody { grid-column: 4 / 10; }
+
+.millFacts { margin: calc(var(--u) * 5) 0 0; display: grid; row-gap: calc(var(--u) * 2); }
+
+.millRow,
+.teamRow {
+  display: grid;
+  column-gap: var(--gutter);
+  align-items: baseline;
+}
+
+.millRow { grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); }
+.teamRow { grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); }
+
+.millValue {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+.millPhoto { grid-column: 1 / 9; margin: clamp(40px, 6vw, 88px) 0 0; }
+.millCut { grid-column: 9 / 13; margin-top: clamp(40px, 6vw, 88px); }
+
+.millPhotoFrame,
+.millCutField,
+.orderCutField,
+.specimenPhoto {
+  position: relative;
+  overflow: hidden;
+}
+
+.millPhotoFrame { aspect-ratio: 3 / 2; background: var(--pale); }
+
+.millCutField {
+  --ground: var(--pale);
+  aspect-ratio: 3 / 4;
+  background: var(--pale);
+  display: grid;
+  place-items: center;
+}
+
+/* ---------------- 04 specimens ---------------- */
+
+.specimenIntro { grid-column: 4 / 11; }
+
+.specimenGrid {
+  row-gap: clamp(32px, 5vw, 72px);
+  margin-top: clamp(40px, 6vw, 88px);
+}
+
+.specimenPhoto {
+  grid-column: 1 / 8;
+  grid-row: 1;
+  aspect-ratio: 3 / 2;
+  background: var(--warm);
+}
+
+.specimenPattern {
+  grid-column: 8 / 13;
+  grid-row: 1;
+  position: relative;
+  background: var(--paper);
+  overflow: hidden;
+  min-height: 180px;
+}
+
+.specimenList {
+  grid-column: 1 / 13;
+  grid-row: 2;
+  display: grid;
+  row-gap: calc(var(--u) * 4);
+}
+
+.specimenItem { align-items: start; padding-block: var(--u); }
+.specimenNo { grid-column: 1 / 2; margin: 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; }
+.specimenText { grid-column: 2 / 9; }
+.specimenYear { grid-column: 10 / 13; margin: 0; font-size: 0.8125rem; font-weight: 500; color: var(--muted); }
+
+.specimenTitle {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+}
+
+.specimenStock { margin: var(--u) 0 0; font-size: 0.8125rem; font-weight: 500; }
+.specimenDetail { margin: 2px 0 0; font-size: 0.8125rem; color: var(--muted); }
+
+/* ---------------- 05 figures ---------------- */
+
+.figuresIntro { grid-column: 4 / 11; }
+
+.figureRow {
+  row-gap: clamp(32px, 5vw, 64px);
+  margin-top: clamp(40px, 6vw, 88px);
+}
+
+.figureCell { grid-column: span 3; min-width: 0; }
+
+.figureValue {
+  margin: 0;
+  font-size: clamp(2.75rem, 1.4rem + 4.6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  color: var(--green);
+}
+
+.figureUnit {
+  margin-left: 2px;
+  font-size: 0.34em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  vertical-align: super;
+}
+
+.figureLabel {
+  margin: calc(var(--u) * 2.5) 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.figureNote {
+  margin: var(--u) 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* ---------------- 06 ordering ---------------- */
+
+.orderIntro { grid-column: 4 / 9; }
+.orderCut { grid-column: 10 / 13; }
+
+.orderActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--u) * 3);
+  margin: calc(var(--u) * 5) 0 0;
+}
+
+/* filled, never outlined */
+.buttonFilled {
+  display: inline-block;
+  padding: 14px 22px;
+  background: var(--green);
+  color: var(--paper);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.buttonFilled:hover { background: color-mix(in srgb, var(--green) 82%, var(--paper)); }
+
+.buttonPlain,
+.footLink {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.orderCutField {
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--paper) 8%, var(--ink));
+  display: grid;
+  place-items: center;
+}
+
+.stepRow {
+  row-gap: clamp(32px, 5vw, 56px);
+  margin-top: clamp(48px, 7vw, 96px);
+}
+
+.step { grid-column: span 3; min-width: 0; }
+.stepNo { margin-bottom: calc(var(--u) * 2); text-transform: none; }
+
+.stepTitle {
+  margin: 0 0 calc(var(--u) * 1.5);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+}
+
+.stepBody { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
+
+/* ---------------- 07 the counter ---------------- */
+
+.portraitFrame { grid-column: 4 / 7; margin: 0; }
+.peopleBody { grid-column: 8 / 13; }
+
+.quote { margin: 0 0 calc(var(--u) * 5); padding: 0; }
+
+.quoteText {
+  margin: 0;
+  font-size: clamp(1.0625rem, 0.95rem + 0.7vw, 1.375rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.024em;
+  max-width: 34ch;
+}
+
+.quoteAttr { margin-top: calc(var(--u) * 2); }
+
+.teamList { margin: 0; display: grid; row-gap: calc(var(--u) * 2); }
+.teamName { margin: 0; font-size: 0.875rem; font-weight: 600; letter-spacing: -0.015em; }
+.teamRole { margin: 0; font-size: 0.8125rem; color: var(--muted); }
+
+/* ---------------- 08 delivery ---------------- */
+
+.deliveryIntro { grid-column: 4 / 11; }
+.zoneTable { margin-top: clamp(40px, 6vw, 80px); }
+
+.zoneHead,
+.zoneRow {
+  align-items: baseline;
+  padding-block: calc(var(--u) * 2);
+}
+
+.zoneHead { padding-bottom: var(--u); }
+
+/* alternating flat fields do the work a rule would otherwise do */
+.zoneRow:nth-child(even) { background: color-mix(in srgb, var(--warm) 34%, transparent); }
+
+.zoneHeadCell:nth-child(1) { grid-column: 1 / 2; }
+.zoneHeadCell:nth-child(2) { grid-column: 2 / 6; }
+.zoneHeadCell:nth-child(3) { grid-column: 6 / 8; }
+.zoneHeadCell:nth-child(4) { grid-column: 8 / 11; }
+.zoneHeadCell:nth-child(5) { grid-column: 11 / 13; }
+
+.zoneCode { grid-column: 1 / 2; margin: 0; font-size: 0.875rem; font-weight: 700; letter-spacing: -0.01em; }
+.zoneArea { grid-column: 2 / 6; margin: 0; font-size: 0.875rem; font-weight: 500; letter-spacing: -0.015em; }
+.zoneNum { margin: 0; font-size: 0.8125rem; font-weight: 500; }
+.zoneNum:nth-child(3) { grid-column: 6 / 8; }
+.zoneNum:nth-child(5) { grid-column: 11 / 13; }
+.zoneCell { grid-column: 8 / 11; margin: 0; font-size: 0.8125rem; color: var(--muted); }
+
+.hoursList {
+  grid-column: 1 / 5;
+  margin: clamp(40px, 6vw, 80px) 0 0;
+  display: grid;
+  row-gap: calc(var(--u) * 1.5);
+}
+
+.hoursRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  column-gap: calc(var(--u) * 2);
+  align-items: baseline;
+}
+
+.hoursDay { margin: 0; font-size: 0.8125rem; font-weight: 500; }
+.hoursTime { margin: 0; font-size: 0.8125rem; color: var(--muted); }
+
+.findUs { grid-column: 6 / 11; margin-top: clamp(40px, 6vw, 80px); }
+
+/* ---------------- colophon ---------------- */
+
+.footer {
+  position: relative;
+  background: var(--ink);
+  color: var(--paper);
+  --muted: color-mix(in srgb, var(--warm) 72%, var(--umber));
+  overflow: hidden;
+}
+
+.footField { position: absolute; inset: 0; background: var(--ink); opacity: 0.5; }
+.footInner { position: relative; padding-block: clamp(56px, 8vw, 112px); }
+
+.footMark { grid-column: 1 / 4; }
+.footAddress { grid-column: 4 / 7; margin: 0; font-style: normal; font-size: 0.8125rem; line-height: 1.7; }
+.footContact { grid-column: 7 / 10; }
+.colophon { grid-column: 10 / 13; margin: 0; font-size: 0.6875rem; line-height: 1.6; color: var(--muted); }
+
+.footWord { margin: 0; font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.025em; }
+.footSub { margin-top: var(--u); font-weight: 500; line-height: 1.7; }
+.footLine { margin: 0; font-size: 0.8125rem; line-height: 1.7; }
+.footLink { text-underline-offset: 3px; text-decoration-color: var(--green); }
+
+/* ---------------- images ---------------- */
+
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 28%;
+  background: var(--pale);
+}
+
+.cut,
+.cutTall {
+  display: block;
+  position: relative;
+  height: auto;
+  filter: drop-shadow(0 18px 26px rgb(20 21 15 / 0.22));
+}
+
+.cut { width: 100%; max-width: 320px; }
+.cutTall { width: auto; max-width: 74%; max-height: 82%; }
+
+/* a radial veil of the ground so a cut-out separates from the pattern */
+.veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    62% 58% at 50% 54%,
+    var(--ground) 0%,
+    color-mix(in srgb, var(--ground) 62%, transparent) 58%,
+    transparent 100%
+  );
+}
+
+/* ---------------- responsive ---------------- */
+
+@media (max-width: 1180px) {
+  .heroLede { grid-column: 1 / 7; }
+  .heroFacts { grid-column: 8 / 13; }
+
+  .statementBody,
+  .rangeIntro,
+  .millBody,
+  .specimenIntro,
+  .figuresIntro,
+  .deliveryIntro { grid-column: 4 / 13; }
+
+  .orderIntro { grid-column: 4 / 10; }
+  .swatchLegend { grid-column: 4 / 13; }
+
+  .footMark { grid-column: 1 / 5; }
+  .footAddress { grid-column: 5 / 9; }
+  .footContact { grid-column: 9 / 13; }
+  .colophon { grid-column: 1 / 8; margin-top: calc(var(--u) * 5); }
+}
+
+@media (max-width: 980px) {
+  .mastNav { grid-column: 5 / 13; }
+  .mastPhone { grid-column: 1 / 6; margin-top: calc(var(--u) * 3); }
+  .heroTitle { grid-column: 1 / 13; }
+
+  .swatchCell { grid-column: span 4; }
+  .rampStep { grid-column: span 4; }
+  .figureCell,
+  .step { grid-column: span 6; }
+
+  .portraitFrame { grid-column: 4 / 8; }
+  .peopleBody { grid-column: 4 / 13; margin-top: calc(var(--u) * 5); }
+
+  .specimenText { grid-column: 2 / 11; }
+  .specimenYear { grid-column: 11 / 13; }
+
+  .hoursList { grid-column: 1 / 6; }
+  .findUs { grid-column: 7 / 13; }
+
+  .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .page { --gutter: 12px; }
+
+  .mastMark,
+  .mastNav,
+  .mastPhone,
+  .heroLede,
+  .heroFacts,
+  .sectionMark,
+  .statementBody,
+  .rangeIntro,
+  .rangeNote,
+  .rangeCut,
+  .specimenIntro,
+  .figuresIntro,
+  .deliveryIntro,
+  .orderIntro,
+  .orderCut,
+  .millBody,
+  .millPhoto,
+  .millCut,
+  .portraitFrame,
+  .peopleBody,
+  .hoursList,
+  .findUs,
+  .footMark,
+  .footAddress,
+  .footContact,
+  .colophon,
+  .swatchLegendLabel,
+  .swatchLegend { grid-column: 1 / -1; }
+
+  .mastNav { margin-top: calc(var(--u) * 3); }
+
+  .heroFacts,
+  .peopleBody,
+  .findUs,
+  .millCut,
+  .orderCut,
+  .millPhoto,
+  .rangeCut,
+  .rangeNote,
+  .hoursList { margin-top: calc(var(--u) * 5); }
+
+  .sectionMark {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: calc(var(--u) * 2);
+    align-items: baseline;
+    padding-bottom: calc(var(--u) * 4);
+  }
+
+  .sectionLabel { margin-top: 0; }
+
+  .heroSplit { grid-template-columns: minmax(0, 1fr); }
+  .heroField { min-height: 148px; }
+  .heroPhoto { min-height: 0; aspect-ratio: 3 / 2; }
+
+  .specimenPhoto,
+  .specimenPattern,
+  .specimenList { grid-column: 1 / -1; grid-row: auto; }
+
+  .specimenPattern { min-height: 132px; aspect-ratio: 5 / 2; }
+
+  .swatchLegend { margin-top: calc(var(--u) * 1.5); }
+
+  .portraitFrame { max-width: 320px; }
+  .orderCutField { max-width: 340px; }
+  .millCutField { max-width: 300px; }
+
+  /* the zone table becomes stacked records, still placed on the grid */
+  .zoneHead { display: none; }
+
+  .zoneRow {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    row-gap: calc(var(--u) * 0.5);
+    padding-inline: calc(var(--u) * 1.5);
+    margin-inline: calc(var(--u) * -1.5);
+  }
+
+  .zoneCode { grid-column: 1 / 2; }
+  .zoneArea { grid-column: 2 / 7; }
+  .zoneNum:nth-child(3) { grid-column: 2 / 4; }
+  .zoneCell { grid-column: 4 / 7; }
+  .zoneNum:nth-child(5) { grid-column: 2 / 7; }
+}
+
+@media (max-width: 560px) {
+  .swatchCell { grid-column: span 6; }
+
+  .figureCell,
+  .step,
+  .rampStep { grid-column: span 12; }
+
+  .principles { grid-template-columns: minmax(0, 1fr); }
+  .heroFacts { row-gap: calc(var(--u) * 2.5); }
+
+  .millRow,
+  .teamRow { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
+
+  .swatchSpecs { grid-template-columns: minmax(0, 1fr); row-gap: 1px; }
+  .specTerm { padding-top: 6px; }
+  .specTerm:first-child { padding-top: 0; }
+
+  .rampScale { row-gap: calc(var(--u) * 2.5); }
+
+  .rampStep {
+    display: grid;
+    grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr);
+    column-gap: calc(var(--u) * 2);
+    align-items: baseline;
+  }
+
+  .rampCaliper { margin-top: 2px; grid-column: 1; }
+  .rampUse { grid-column: 2; grid-row: 1 / 3; margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

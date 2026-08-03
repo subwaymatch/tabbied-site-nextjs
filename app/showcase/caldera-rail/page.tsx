@@ -1,0 +1,717 @@
+import { TabbiedArtwork } from 'tabbied/react';
+import { baste, cascade, lunette } from 'tabbied/artworks';
+import { Figure } from 'components/Figure';
+import styles from './caldera-rail.module.css';
+
+export const metadata = {
+  title: 'Caldera · Scenic Railway Journeys Since 1927',
+  description:
+    'The Caldera Railway Company operates three slow, scenic routes across the caldera country: the Coast Cantata, the Alpine Ascent and the Vineyard Arc. Timetables, fares and the dining car await.',
+};
+
+// Site palette — parchment first, then inks.
+const PARCHMENT = '#F0EAD6';
+const NAVY = '#264653';
+const TEAL = '#2A9D8F';
+const GOLD = '#E9C46A';
+const APRICOT = '#F4A261';
+const EMBER = '#E76F51';
+
+const FULL = [PARCHMENT, NAVY, TEAL, GOLD, APRICOT, EMBER];
+
+const routes = [
+  {
+    no: 'No. 1',
+    name: 'The Coast Cantata',
+    img: 'caldera-coast',
+    alt: 'Gouache illustration of a teal train tracing a cliffside coastal line above a turquoise sea',
+    path: 'Terra Alta to Port Lumen',
+    days: 'Daily',
+    duration: '5 h 40 m',
+    distance: '148 km',
+    fare: 'from €64',
+    note: 'Cliff running from Sienna Gorge to the Lighthouse Curve. Sit seaward, left side going down, and keep your window latch loose for the salt air.',
+  },
+  {
+    no: 'No. 2',
+    name: 'The Alpine Ascent',
+    img: 'caldera-alpine',
+    alt: 'Gouache illustration of a train climbing a snowy mountain pass between pines',
+    path: 'Terra Alta to Vespergate',
+    days: 'Tue · Thu · Sat',
+    duration: '7 h 05 m',
+    distance: '172 km',
+    fare: 'from €78',
+    note: 'Up and over the Col du Miroir on a one-in-forty grade. Blankets in every parlour car from October; the summit halt serves chocolate at 1,940 metres.',
+  },
+  {
+    no: 'No. 3',
+    name: 'The Vineyard Arc',
+    img: 'caldera-vineyard',
+    alt: 'Gouache illustration of terraced vineyards in autumn colour with a train curving between them',
+    path: 'Casteldoro to Miradora',
+    days: 'Fri to Sun',
+    duration: '4 h 25 m',
+    distance: '96 km',
+    fare: 'from €52',
+    note: 'A gentle arc through the terraces, timed for the low afternoon light. Autumn services include a tasting tray from the Casteldoro co-operative.',
+  },
+];
+
+const stops = [
+  {
+    time: '08:12',
+    station: 'Terra Alta Central',
+    detail: 'Departure: platform 2, under the great clock. Elevation 612 m.',
+  },
+  {
+    time: '09:05',
+    station: 'Sienna Gorge Viaduct',
+    detail: 'Slow crossing at walking pace. Photographs from the open gallery.',
+  },
+  {
+    time: '10:20',
+    station: 'Miradora',
+    detail: 'Twenty-minute halt. Coffee and almond pastry on platform 1.',
+  },
+  {
+    time: '11:48',
+    station: 'The Salt Tunnels',
+    detail: 'Eleven bores cut in 1907. Lamps dimmed by tradition.',
+  },
+  {
+    time: '12:30',
+    station: 'Casteldoro',
+    detail: 'First seating in the dining car is called on departure.',
+  },
+  {
+    time: '13:55',
+    station: 'Lighthouse Curve',
+    detail: 'The sea appears all at once. The driver sounds one long note.',
+  },
+  {
+    time: '14:52',
+    station: 'Port Lumen Harbour',
+    detail: 'Arrival at sea level, alongside the evening fishing fleet.',
+  },
+];
+
+const cabins = [
+  {
+    name: 'Parlour Seat',
+    fare: 'included',
+    desc: 'Wide armchairs in pairs, fold-down writing tables, windows that open to the elbow.',
+  },
+  {
+    name: 'Observation Gallery',
+    fare: '+ €18',
+    desc: 'The glazed rear car. Unreserved benches, a brass rail, and nothing between you and the view.',
+  },
+  {
+    name: 'Sleeper Berth',
+    fare: '+ €46',
+    desc: 'For the Night Vespers service only. Two berths, wool blankets, a basin, and dawn over the pass.',
+  },
+];
+
+const quotes = [
+  {
+    text: 'Five hours and forty minutes, and I begrudged the journey not one of them. The Cantata is the rare timetable that reads like a poem.',
+    source: 'The Meridian Traveller',
+    year: '1962',
+  },
+  {
+    text: 'Other railways get you somewhere. Caldera returns you to yourself, somewhat saltier, entirely on schedule.',
+    source: 'Slow Roads Quarterly',
+    year: '2019',
+  },
+  {
+    text: 'My grandfather proposed on the Lighthouse Curve. My father was a fireman on the Vesper. I simply buy a ticket every June.',
+    source: 'A passenger, Miradora',
+    year: '2024',
+  },
+];
+
+const timetable = [
+  {
+    service: '101',
+    route: 'Coast Cantata',
+    dir: 'Terra Alta → Port Lumen',
+    days: 'Daily',
+    dep: '08:12',
+    arr: '14:52',
+    fare: '€64',
+  },
+  {
+    service: '102',
+    route: 'Coast Cantata',
+    dir: 'Port Lumen → Terra Alta',
+    days: 'Daily',
+    dep: '15:40',
+    arr: '22:18',
+    fare: '€64',
+  },
+  {
+    service: '201',
+    route: 'Alpine Ascent',
+    dir: 'Terra Alta → Vespergate',
+    days: 'Tue · Thu · Sat',
+    dep: '07:35',
+    arr: '14:40',
+    fare: '€78',
+  },
+  {
+    service: '202',
+    route: 'Alpine Ascent',
+    dir: 'Vespergate → Terra Alta',
+    days: 'Wed · Fri · Sun',
+    dep: '09:10',
+    arr: '16:15',
+    fare: '€78',
+  },
+  {
+    service: '301',
+    route: 'Vineyard Arc',
+    dir: 'Casteldoro → Miradora',
+    days: 'Fri to Sun',
+    dep: '13:05',
+    arr: '17:30',
+    fare: '€52',
+  },
+  {
+    service: '901',
+    route: 'Night Vespers',
+    dir: 'Terra Alta → Vespergate',
+    days: 'Fri only',
+    dep: '21:50',
+    arr: '06:05',
+    fare: '€96',
+  },
+];
+
+export default function CalderaRailPage() {
+  return (
+    <div className={styles.page}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:ital,wght@0,300..700;1,300..700&display=swap"
+      />
+
+      <header className={styles.masthead}>
+        <p className={styles.mastheadRule}>
+          Est. 1927 · The Caldera Railway Company · Terra Alta · Port Lumen ·
+          Vespergate
+        </p>
+        <p className={styles.mastheadMark} aria-hidden="true">
+          ✦
+        </p>
+        <p className={styles.brand}>Caldera</p>
+        <p className={styles.tagline}>Scenic railway journeys, kept slow on purpose</p>
+        <nav className={styles.nav} aria-label="Sections">
+          <a href="#routes">The Routes</a>
+          <a href="#line">The Line</a>
+          <a href="#aboard">Aboard</a>
+          <a href="#fleet">The Fleet</a>
+          <a href="#journal">Journal</a>
+          <a href="#timetable">Timetable</a>
+        </nav>
+      </header>
+
+      <main>
+        {/* ————— Hero ————— */}
+        <section className={styles.hero} aria-labelledby="hero-heading">
+          {/* Full-bleed arcade of arches behind the whole hero — the viaduct
+              motif the railway is built on, scrimmed back where type sits. */}
+          <div className={styles.heroPattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={lunette}
+              palette={FULL}
+              seed="caldera-arcade-1927"
+              fit="cover"
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <p className={styles.kicker}>Summer service · 12 May to 28 Sept</p>
+              <h1 id="hero-heading" className={styles.heroTitle}>
+                Take the slow way round.
+              </h1>
+              <p className={styles.heroLead}>
+                Three routes cross the caldera country: along the cliffs, over
+                the pass, and through the terraces. Each one runs to the minute
+                and never faster than the view deserves.
+              </p>
+              <div className={styles.heroActions}>
+                <a className={styles.btnSolid} href="#timetable">
+                  Consult the timetable
+                </a>
+                <a className={styles.btnGhost} href="#routes">
+                  The three routes
+                </a>
+              </div>
+              <dl className={styles.heroFacts}>
+                <div>
+                  <dt>Routes</dt>
+                  <dd>3 + night car</dd>
+                </div>
+                <div>
+                  <dt>Viaducts</dt>
+                  <dd>17 crossed</dd>
+                </div>
+                <div>
+                  <dt>Punctuality</dt>
+                  <dd>98.4% (1927–)</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className={styles.posterStack}>
+              <figure className={styles.posterFrame}>
+                <div className={styles.posterImage}>
+                  <Figure
+                    slug="caldera-hero"
+                    alt="Gouache travel-poster illustration of a teal locomotive crossing a tall stone viaduct at golden hour"
+                    priority
+                  />
+                </div>
+                <figcaption className={styles.posterCaption}>
+                  The Viaduct at Sienna Gorge, morning service
+                </figcaption>
+              </figure>
+              <p className={styles.stamp} aria-hidden="true">
+                <span>Caldera Rly Co · Est 1927 ·</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className={styles.dividerBand} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={cascade}
+            palette={[PARCHMENT, TEAL, GOLD, EMBER]}
+            seed="caldera-band-a"
+            fit="grid"
+            cellSize={28}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+
+        {/* ————— Routes ————— */}
+        <section
+          id="routes"
+          className={styles.section}
+          aria-labelledby="routes-heading"
+        >
+          <header className={styles.sectionHead}>
+            <p className={styles.sectionNo}>Section I</p>
+            <h2 id="routes-heading">The Three Routes</h2>
+            <p className={styles.sectionLead}>
+              Every ticket is printed on board, punched at the gorge, and, by
+              a habit no one remembers starting, kept forever.
+            </p>
+          </header>
+
+          <div className={styles.ticketRow}>
+            {routes.map((route) => (
+              <article className={styles.ticket} key={route.no}>
+                <div className={styles.ticketHead}>
+                  <span className={styles.ticketNo}>{route.no}</span>
+                  <span className={styles.ticketDays}>{route.days}</span>
+                </div>
+                <h3 className={styles.ticketName}>{route.name}</h3>
+                <p className={styles.ticketPath}>{route.path}</p>
+                <div className={styles.ticketImage}>
+                  <Figure slug={route.img} alt={route.alt} />
+                </div>
+                <div className={styles.perforation} aria-hidden="true" />
+                <div className={styles.ticketStub}>
+                  <dl className={styles.ticketFacts}>
+                    <div>
+                      <dt>Duration</dt>
+                      <dd>{route.duration}</dd>
+                    </div>
+                    <div>
+                      <dt>Distance</dt>
+                      <dd>{route.distance}</dd>
+                    </div>
+                    <div>
+                      <dt>Fare</dt>
+                      <dd className={styles.fare}>{route.fare}</dd>
+                    </div>
+                  </dl>
+                  <p className={styles.ticketNote}>{route.note}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ————— Route timeline ————— */}
+        <section
+          id="line"
+          className={`${styles.sectionAlt} ${styles.lineSection}`}
+          aria-labelledby="line-heading"
+        >
+          {/* Sleeper-dashes running the length of the section, quiet enough
+              to sit under the called stops. */}
+          <div className={styles.linePattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={baste}
+              palette={[PARCHMENT, NAVY, TEAL, GOLD, EMBER]}
+              seed="caldera-sleepers-101"
+              fit="grid"
+              cellSize={96}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+
+          <header className={styles.sectionHead}>
+            <p className={styles.sectionNo}>Section II</p>
+            <h2 id="line-heading">Down the Line: Service 101</h2>
+            <p className={styles.sectionLead}>
+              The Coast Cantata, called stop by stop. Times are kept; views are
+              guaranteed by geography.
+            </p>
+          </header>
+
+          <ol className={styles.timeline}>
+            {stops.map((stop) => (
+              <li className={styles.stop} key={stop.time}>
+                <span className={styles.stopTime}>{stop.time}</span>
+                <span className={styles.stopDot} aria-hidden="true" />
+                <span className={styles.stopBody}>
+                  <span className={styles.stopStation}>{stop.station}</span>
+                  <span className={styles.stopDetail}>{stop.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ————— Aboard ————— */}
+        <section
+          id="aboard"
+          className={styles.section}
+          aria-labelledby="aboard-heading"
+        >
+          <header className={styles.sectionHead}>
+            <p className={styles.sectionNo}>Section III</p>
+            <h2 id="aboard-heading">Aboard</h2>
+            <p className={styles.sectionLead}>
+              The train is the destination’s first act. Everything on board is
+              original, restored, or made by the same hands that restore.
+            </p>
+          </header>
+
+          <div className={styles.aboardGrid}>
+            <figure className={styles.diningFigure}>
+              <Figure
+                slug="caldera-dining"
+                alt="Interior of a restored railway dining car with walnut panelling, brass lamps and white tablecloths"
+              />
+              <figcaption>
+                The Meridian Car: walnut, brass, and three seatings a day
+              </figcaption>
+            </figure>
+            <div className={styles.aboardCopy}>
+              <h3>The dining car</h3>
+              <p>
+                Lunch is cooked in a galley the width of a corridor and tastes
+                like it took the whole valley to make, because it did. Bread
+                from Miradora, trout from the gorge, wine from the Arc. First
+                seating is called at Casteldoro; the last coffee is poured on
+                the Lighthouse Curve, timed to the minute.
+              </p>
+              <h3>Cabins &amp; seating</h3>
+              <ul className={styles.cabinList}>
+                {cabins.map((cabin) => (
+                  <li key={cabin.name}>
+                    <span className={styles.cabinName}>
+                      {cabin.name}
+                      <span className={styles.cabinFare}>{cabin.fare}</span>
+                    </span>
+                    <span className={styles.cabinDesc}>{cabin.desc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className={styles.vignettes}>
+            <figure className={styles.vignette}>
+              <div className={styles.vignettePattern}>
+                <TabbiedArtwork
+                  artwork={cascade}
+                  palette={[GOLD, NAVY, EMBER, TEAL]}
+                  seed="caldera-luggage-3"
+                  fit="grid"
+                  cellSize={44}
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+                <Figure
+                  slug="caldera-suitcase-cutout"
+                  cutout
+                  alt="Vintage leather suitcase with travel labels"
+                  className={styles.vignetteCutout}
+                />
+              </div>
+              <figcaption>
+                Left luggage, kept lovingly. Porters at every staffed halt.
+              </figcaption>
+            </figure>
+            <figure className={styles.vignette}>
+              <div className={styles.vignettePattern}>
+                <TabbiedArtwork
+                  artwork={cascade}
+                  palette={[TEAL, NAVY, GOLD, PARCHMENT]}
+                  seed="caldera-watch-9"
+                  fit="grid"
+                  cellSize={44}
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+                <Figure
+                  slug="caldera-watch-cutout"
+                  cutout
+                  alt="Brass pocket watch, open, showing ten past eight"
+                  className={styles.vignetteCutout}
+                />
+              </div>
+              <figcaption>
+                Company time. Every guard’s watch is set against the great
+                clock at Terra Alta.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* ————— Fleet ————— */}
+        <section
+          id="fleet"
+          className={styles.fleet}
+          aria-labelledby="fleet-heading"
+        >
+          <div className={styles.fleetPattern} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={cascade}
+              palette={[NAVY, TEAL, GOLD, APRICOT, EMBER]}
+              seed="caldera-fleet-7"
+              fit="cover"
+              density={2}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={styles.fleetInner}>
+            <header className={styles.fleetHead}>
+              <p className={styles.sectionNoLight}>Section IV</p>
+              <h2 id="fleet-heading">The Fleet</h2>
+            </header>
+            <div className={styles.fleetLoco}>
+              <Figure
+                slug="caldera-locomotive-cutout"
+                cutout
+                alt="Side profile of a teal steam locomotive with gold lining, number 7"
+                className={styles.locoCutout}
+              />
+            </div>
+            <div className={styles.fleetCard}>
+              <h3>
+                No. 7 · <em>Vesper</em>
+              </h3>
+              <p>
+                Built 1931 at the Harlow &amp; Finch works; oil-fired since
+                1974; returned to steam after a nut-and-bolt restoration in
+                2019. She takes the Cantata six days a week and the Night
+                Vespers on the seventh, which the crews consider a holiday.
+              </p>
+              <dl className={styles.fleetSpecs}>
+                <div>
+                  <dt>Arrangement</dt>
+                  <dd>4-6-2 “Pacific”</dd>
+                </div>
+                <div>
+                  <dt>Line speed</dt>
+                  <dd>96 km/h, rarely used</dd>
+                </div>
+                <div>
+                  <dt>Livery</dt>
+                  <dd>Caldera teal, gold lining</dd>
+                </div>
+                <div>
+                  <dt>Whistle</dt>
+                  <dd>One long note, at the Curve</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        {/* ————— Journal ————— */}
+        <section
+          id="journal"
+          className={styles.section}
+          aria-labelledby="journal-heading"
+        >
+          <header className={styles.sectionHead}>
+            <p className={styles.sectionNo}>Section V</p>
+            <h2 id="journal-heading">From the Journal</h2>
+            <p className={styles.sectionLead}>
+              Ninety-eight years of margin notes, press clippings and letters
+              to the stationmaster.
+            </p>
+          </header>
+          <div className={styles.quoteRow}>
+            {quotes.map((quote) => (
+              <blockquote className={styles.quote} key={quote.source}>
+                <p>{quote.text}</p>
+                <footer>
+                  {quote.source}, {quote.year}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
+        {/* ————— Timetable & booking ————— */}
+        <section
+          id="timetable"
+          className={styles.sectionAlt}
+          aria-labelledby="timetable-heading"
+        >
+          <header className={styles.sectionHead}>
+            <p className={styles.sectionNo}>Section VI</p>
+            <h2 id="timetable-heading">Timetable &amp; Booking</h2>
+            <p className={styles.sectionLead}>
+              Summer working timetable, 12 May to 28 September. Winter services
+              are published on the feast of St. Alban.
+            </p>
+          </header>
+
+          <div className={styles.tableScroll} tabIndex={0}>
+            <table className={styles.table}>
+              <caption className={styles.tableCaption}>
+                All services convey the dining car unless marked. Children
+                under 12 travel at half fare; dogs and bicycles at a quarter.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                  <th scope="col">Route</th>
+                  <th scope="col">Direction</th>
+                  <th scope="col">Days</th>
+                  <th scope="col">Dep.</th>
+                  <th scope="col">Arr.</th>
+                  <th scope="col">Fare</th>
+                </tr>
+              </thead>
+              <tbody>
+                {timetable.map((row) => (
+                  <tr key={row.service}>
+                    <td className={styles.mono}>{row.service}</td>
+                    <td>{row.route}</td>
+                    <td>{row.dir}</td>
+                    <td>{row.days}</td>
+                    <td className={styles.mono}>{row.dep}</td>
+                    <td className={styles.mono}>{row.arr}</td>
+                    <td className={styles.mono}>{row.fare}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className={styles.bookingRow}>
+            <div className={styles.bookingCard}>
+              <h3>The Booking Hall</h3>
+              <p>
+                Terra Alta Central, 2 Viaduct Approach. Open 07:00 to 19:00
+                daily; the brass grille closes for lunch between 12:30 and
+                13:15, as it has since 1927.
+              </p>
+            </div>
+            <div className={styles.bookingCard}>
+              <h3>By wire or telephone</h3>
+              <p>
+                Telephone (0)55 214 88, or write to reservations@caldera.rail.
+                Reserved fares hold for seven days; the seat map is drawn by
+                hand and honoured absolutely.
+              </p>
+            </div>
+            <div className={styles.bookingCard}>
+              <h3>Fair-weather promise</h3>
+              <p>
+                If cloud sits below the Col du Miroir for your whole Ascent,
+                your next mountain ticket is half price. The guard’s word is
+                final and generously given.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* ————— Footer ————— */}
+      <footer className={styles.footer}>
+        <div className={styles.footerBand} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={cascade}
+            palette={[NAVY, TEAL, GOLD, EMBER]}
+            seed="caldera-footer-12"
+            fit="grid"
+            cellSize={26}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+        <div className={styles.footerInner}>
+          <div className={styles.footerCols}>
+            <div>
+              <p className={styles.footerBrand}>Caldera</p>
+              <p className={styles.footerSmall}>
+                The Caldera Railway Company, incorporated 1927. Three routes,
+                one timetable, no hurry.
+              </p>
+            </div>
+            <div>
+              <h3 className={styles.footerHead}>Principal stations</h3>
+              <ul className={styles.footerList}>
+                <li>Terra Alta Central</li>
+                <li>Miradora</li>
+                <li>Casteldoro</li>
+                <li>Vespergate</li>
+                <li>Port Lumen Harbour</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className={styles.footerHead}>Correspondence</h3>
+              <ul className={styles.footerList}>
+                <li>2 Viaduct Approach, Terra Alta</li>
+                <li>Telephone (0)55 214 88</li>
+                <li>reservations@caldera.rail</li>
+              </ul>
+            </div>
+          </div>
+          <div className={styles.footerRule}>
+            <p>
+              A fictional railway, set entirely in gouache. ·{' '}
+              <a
+                className={styles.credit}
+                href="https://tabbied.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Patterns by Tabbied
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

@@ -1,0 +1,1259 @@
+/* ============================================================
+   PIQUANT PROVISIONS — loud riso-print zine
+   ink #0F1A20 · yolk #F4D35E · marigold #EE964B · flame #F95738
+   bone #EFE6DD · pool #4C8FBD
+   ============================================================ */
+
+.page {
+  --ink: #0f1a20;
+  --yolk: #f4d35e;
+  --marigold: #ee964b;
+  --flame: #f95738;
+  --bone: #efe6dd;
+  --pool: #4c8fbd;
+  --display: 'Archivo Black', 'Arial Black', sans-serif;
+  --body: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+.page a {
+  color: inherit;
+}
+
+.page :focus-visible {
+  outline: 3px solid var(--yolk);
+  outline-offset: 3px;
+}
+
+.page section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ------------------------------------------------------------ topbar */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--ink);
+  border-bottom: 3px solid var(--yolk);
+}
+
+.brand {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bone);
+}
+
+.brandDot {
+  color: var(--flame);
+}
+
+.nav {
+  display: flex;
+  gap: 1.25rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0;
+  border-bottom: 3px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--yolk);
+  border-bottom-color: var(--flame);
+}
+
+.topbarCta {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  background: var(--flame);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--yolk);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.topbarCta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--yolk);
+}
+
+@media (max-width: 767px) {
+  .nav {
+    display: none;
+  }
+  .topbarCta {
+    margin-left: auto;
+  }
+}
+
+/* -------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}
+
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 32% 45%,
+    rgba(15, 26, 32, 0.94) 0%,
+    rgba(15, 26, 32, 0.75) 45%,
+    rgba(15, 26, 32, 0.35) 100%
+  );
+}
+
+.heroInner {
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.heroKicker {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.8rem;
+  color: var(--yolk);
+  margin: 0 0 1.25rem;
+}
+
+.heroTitle {
+  font-family: var(--display);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.6rem, 7vw, 5.4rem);
+  display: grid;
+}
+
+.heroLine1 {
+  color: var(--bone);
+}
+
+.heroLine2 {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--yolk);
+}
+
+.heroLine3 {
+  color: var(--flame);
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
+
+.heroSub {
+  max-width: 34rem;
+  font-size: 1.1rem;
+  margin: 0 0 2rem;
+  color: rgba(239, 230, 221, 0.88);
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-block;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  background: var(--yolk);
+  color: var(--ink);
+  padding: 0.9rem 1.6rem;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--flame);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.btnPrimary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--flame);
+}
+
+.btnGhost {
+  display: inline-block;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--bone);
+  padding: 0.9rem 1.6rem;
+  border: 3px solid var(--bone);
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.btnGhost:hover {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.heroBottle {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 30rem);
+}
+
+/* a calm ink pocket so the bottle's silhouette detaches from the pattern */
+.heroBottleVeil {
+  position: absolute;
+  inset: -14% -20%;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 52% 50% at 50% 52%,
+    rgba(15, 26, 32, 0.9) 0%,
+    rgba(15, 26, 32, 0.72) 42%,
+    rgba(15, 26, 32, 0.32) 72%,
+    rgba(15, 26, 32, 0) 100%
+  );
+}
+
+.heroBottleImg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.7));
+}
+
+/* stickers */
+
+.sticker {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  padding: 0.55rem 0.9rem;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  max-width: 9rem;
+  text-align: center;
+}
+
+.sticker strong {
+  display: block;
+  font-size: 1.15rem;
+}
+
+.stickerBatch {
+  top: 4%;
+  right: 0;
+  background: var(--flame);
+  color: var(--ink);
+  transform: rotate(8deg);
+  border-radius: 999px;
+  padding: 1rem 1.1rem;
+}
+
+.stickerFerment {
+  bottom: 10%;
+  left: -2%;
+  background: var(--pool);
+  color: var(--ink);
+  transform: rotate(-7deg);
+}
+
+.stickerTaco {
+  bottom: 6%;
+  right: 4%;
+  background: var(--yolk);
+  color: var(--ink);
+  transform: rotate(-6deg);
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+}
+
+@media (max-width: 900px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+  .heroBottle {
+    width: min(80%, 22rem);
+  }
+  .hero {
+    min-height: 0;
+  }
+}
+
+/* ------------------------------------------------------- status strip */
+
+.statusStrip {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  background: var(--yolk);
+  color: var(--ink);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  text-align: center;
+  border-top: 3px dashed var(--ink);
+  border-bottom: 3px dashed var(--ink);
+}
+
+/* --------------------------------------------------- shared sections */
+
+.sectionHead {
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+}
+
+.sectionKicker {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.78rem;
+  color: var(--marigold);
+  margin: 0 0 0.75rem;
+}
+
+.sectionTitle {
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 4.4vw, 3rem);
+  line-height: 1.05;
+  margin: 0 0 2.5rem;
+  color: var(--bone);
+}
+
+/* ------------------------------------------------------------- lineup */
+
+.lineup {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(3rem, 7vw, 5.5rem);
+}
+
+.sauceGrid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  width: min(72rem, 100%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.sauceCard {
+  display: flex;
+  flex-direction: column;
+  background: #16242c;
+  border: 3px solid var(--bone);
+  box-shadow: 8px 8px 0 rgba(244, 211, 94, 0.25);
+}
+
+.sauceCard:nth-child(2) {
+  transform: rotate(0.6deg);
+}
+
+.sauceCard:nth-child(3) {
+  transform: rotate(-0.6deg);
+}
+
+.sauceArt {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border-bottom: 3px solid var(--bone);
+}
+
+/* the pattern still reads at the tile edges, but the middle goes quiet so the
+   bottle/jar/chilli silhouette is instantly legible */
+.sauceVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 58% at 50% 56%,
+    rgba(239, 230, 221, 0.95) 0%,
+    rgba(239, 230, 221, 0.74) 38%,
+    rgba(239, 230, 221, 0.22) 68%,
+    rgba(239, 230, 221, 0) 100%
+  );
+}
+
+.sauceCutout {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  transform: translateX(-50%);
+  height: 92%;
+  width: auto;
+  max-width: none;
+  filter: drop-shadow(0 16px 18px rgba(15, 26, 32, 0.45))
+    drop-shadow(0 2px 3px rgba(15, 26, 32, 0.5));
+}
+
+.saucePrice {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.1rem;
+  background: var(--ink);
+  color: var(--yolk);
+  padding: 0.35rem 0.7rem;
+  border: 2px solid var(--yolk);
+  transform: rotate(4deg);
+}
+
+.sauceBody {
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.sauceNum {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  color: var(--pool);
+}
+
+.sauceName {
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--yolk);
+}
+
+.sauceTag {
+  margin: 0;
+  font-style: italic;
+  color: var(--marigold);
+}
+
+.sauceDesc {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(239, 230, 221, 0.85);
+}
+
+.sauceHeatRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.sauceHeatLabel {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--flame);
+}
+
+.sauceMeta {
+  margin: 0.75rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 2px dashed rgba(239, 230, 221, 0.3);
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.sauceMeta dt {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--pool);
+}
+
+.sauceMeta dd {
+  margin: 0.1rem 0 0;
+  color: rgba(239, 230, 221, 0.85);
+}
+
+@media (max-width: 900px) {
+  .sauceGrid {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+  }
+  .sauceCard:nth-child(2),
+  .sauceCard:nth-child(3) {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------- heat meter */
+
+.heatMeter {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.pip {
+  width: 0.95rem;
+  height: 1.1rem;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  background: rgba(239, 230, 221, 0.22);
+}
+
+.pipOn {
+  background: linear-gradient(180deg, var(--yolk) 0%, var(--flame) 75%);
+}
+
+/* --------------------------------------------------------- heat scale */
+
+.heat {
+  background: var(--bone);
+  color: var(--ink);
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+  clip-path: polygon(
+    0% 18px, 4% 6px, 9% 16px, 15% 4px, 21% 15px, 28% 5px, 34% 17px, 41% 4px,
+    48% 14px, 55% 6px, 62% 16px, 69% 4px, 76% 15px, 83% 6px, 90% 16px, 96% 5px,
+    100% 14px, 100% 100%, 0% 100%
+  );
+}
+
+.heatInner {
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.heatIntro {
+  position: sticky;
+  top: 6rem;
+}
+
+.heatIntro .sectionKicker {
+  color: var(--flame);
+}
+
+.heatIntro .sectionTitle {
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.heatLede {
+  margin: 0 0 2rem;
+  max-width: 26rem;
+  color: rgba(15, 26, 32, 0.8);
+}
+
+/* a riso-dot medallion, with a calm centre so the chilli reads clean on it */
+.heatChili {
+  position: relative;
+  width: min(100%, 17rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.heatChiliArt {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bone);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 rgba(249, 87, 56, 0.85);
+}
+
+.heatChiliVeil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 46% 44% at 50% 50%,
+    rgba(239, 230, 221, 0.94) 0%,
+    rgba(239, 230, 221, 0.72) 46%,
+    rgba(239, 230, 221, 0.16) 78%,
+    rgba(239, 230, 221, 0) 100%
+  );
+}
+
+.heatChiliImg {
+  position: relative;
+  z-index: 1;
+  width: 62%;
+  height: auto;
+  transform: rotate(-10deg);
+  filter: drop-shadow(0 14px 14px rgba(15, 26, 32, 0.38))
+    drop-shadow(0 2px 2px rgba(15, 26, 32, 0.35));
+}
+
+.heatChiliStamp {
+  position: absolute;
+  z-index: 2;
+  bottom: 4%;
+  right: -6%;
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  background: var(--yolk);
+  color: var(--ink);
+  padding: 0.45rem 0.8rem;
+  border: 3px solid var(--ink);
+  transform: rotate(-6deg);
+}
+
+.heatList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.heatRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.4rem 0;
+  border-bottom: 3px solid var(--ink);
+}
+
+.heatRow:first-child {
+  border-top: 3px solid var(--ink);
+}
+
+.heatLevel {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--flame);
+  min-width: 2.2ch;
+  text-align: center;
+}
+
+.heatRowTop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.heatName {
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.heatRow .pip {
+  background: rgba(15, 26, 32, 0.15);
+}
+
+.heatRow .pipOn {
+  background: linear-gradient(180deg, var(--marigold) 0%, var(--flame) 75%);
+}
+
+.heatCopy {
+  margin: 0.4rem 0 0;
+  color: rgba(15, 26, 32, 0.8);
+  font-size: 0.98rem;
+  max-width: 34rem;
+}
+
+@media (max-width: 900px) {
+  .heatInner {
+    grid-template-columns: 1fr;
+  }
+  .heatIntro {
+    position: static;
+  }
+  .heatChili {
+    width: min(70%, 13rem);
+  }
+}
+
+/* ------------------------------------------------------------ process */
+
+.process {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 9vw, 7rem);
+}
+
+/* full-bleed riso misprint field carrying the whole section */
+.processPattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+.processScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 26, 32, 0.94) 0%,
+    rgba(15, 26, 32, 0.86) 15%,
+    rgba(15, 26, 32, 0.26) 27%,
+    rgba(15, 26, 32, 0.3) 52%,
+    rgba(15, 26, 32, 0.82) 63%,
+    rgba(15, 26, 32, 0.92) 72%,
+    rgba(15, 26, 32, 0.97) 92%,
+    rgba(15, 26, 32, 1) 100%
+  );
+}
+
+.processCollage {
+  position: relative;
+  width: min(72rem, 100%);
+  margin: 0 auto 3rem;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.processCollage figure {
+  margin: 0;
+}
+
+/* an ink chip so the caption stays readable over the linocut field */
+.processCollage figcaption {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pool);
+}
+
+.processFigureA {
+  transform: rotate(-1deg);
+}
+
+.processFigureB {
+  transform: rotate(1.2deg);
+}
+
+.processImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--bone);
+  box-shadow: 8px 8px 0 rgba(238, 150, 75, 0.35);
+}
+
+.processCrate {
+  position: absolute;
+  right: clamp(0.5rem, 3vw, 3rem);
+  bottom: -2.5rem;
+  width: clamp(7rem, 16vw, 12rem);
+  z-index: 2;
+}
+
+.processCrateVeil {
+  position: absolute;
+  inset: -30% -34%;
+  background: radial-gradient(
+    ellipse 46% 44% at 50% 54%,
+    rgba(15, 26, 32, 0.95) 0%,
+    rgba(15, 26, 32, 0.85) 42%,
+    rgba(15, 26, 32, 0.4) 72%,
+    rgba(15, 26, 32, 0) 100%
+  );
+}
+
+.processCrateImg {
+  position: relative;
+  width: 100%;
+  height: auto;
+  transform: rotate(5deg);
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.65))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+/* keep the caption clear of the crate that sits over this figure's corner */
+.processFigureB figcaption {
+  padding-right: clamp(0rem, 15vw, 11rem);
+}
+
+.processSteps {
+  list-style: none;
+  counter-reset: none;
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem) 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.processStep {
+  border-top: 3px solid var(--yolk);
+  padding-top: 1rem;
+}
+
+.processNum {
+  font-family: var(--display);
+  font-size: 2rem;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--yolk);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.processTitle {
+  margin: 0 0 0.5rem;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  color: var(--bone);
+}
+
+.processCopy {
+  margin: 0;
+  font-size: 0.93rem;
+  color: rgba(239, 230, 221, 0.82);
+}
+
+@media (max-width: 900px) {
+  .processCollage {
+    grid-template-columns: 1fr;
+  }
+  .processSteps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .processCrate {
+    bottom: -1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .processSteps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------- recipe */
+
+.recipe {
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2.5rem)
+    clamp(3.5rem, 8vw, 6.5rem);
+}
+
+/* the taco lives on the stage, not inside the card — the card's torn-paper
+   clip-path would otherwise slice the cut-out and its sticker in half */
+.recipeStage {
+  position: relative;
+  width: min(66rem, 100%);
+  margin: 0 auto;
+}
+
+.recipeCard {
+  position: relative;
+  width: 100%;
+  background: var(--bone);
+  color: var(--ink);
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(2.5rem, 5vw, 3.5rem);
+  clip-path: polygon(
+    0% 16px, 5% 5px, 11% 15px, 18% 4px, 25% 14px, 32% 5px, 39% 16px, 46% 4px,
+    53% 13px, 60% 6px, 67% 15px, 74% 4px, 81% 14px, 88% 5px, 95% 15px,
+    100% 6px, 100% calc(100% - 14px), 94% calc(100% - 4px),
+    87% calc(100% - 15px), 80% calc(100% - 5px), 73% calc(100% - 14px),
+    66% calc(100% - 4px), 59% calc(100% - 16px), 52% calc(100% - 5px),
+    45% calc(100% - 13px), 38% calc(100% - 6px), 31% calc(100% - 15px),
+    24% calc(100% - 4px), 17% calc(100% - 14px), 10% calc(100% - 5px),
+    4% calc(100% - 15px), 0% calc(100% - 6px)
+  );
+}
+
+.recipeHead {
+  max-width: 40rem;
+}
+
+.recipeHead .sectionKicker {
+  color: var(--flame);
+}
+
+.recipeTitle {
+  margin: 0 0 0.6rem;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+}
+
+.recipeMeta {
+  margin: 0 0 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: rgba(15, 26, 32, 0.65);
+}
+
+.recipeBody {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  max-width: 46rem;
+}
+
+.recipeSubhead {
+  margin: 0 0 0.8rem;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1rem;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.4rem;
+}
+
+.recipeIngredients ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95rem;
+}
+
+.recipeIngredients li {
+  padding: 0.45rem 0 0.45rem 1.4rem;
+  position: relative;
+  border-bottom: 1px dashed rgba(15, 26, 32, 0.3);
+}
+
+.recipeIngredients li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: var(--flame);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+}
+
+.recipeSteps ol {
+  margin: 0;
+  padding: 0 0 0 1.4rem;
+  font-size: 0.98rem;
+}
+
+.recipeSteps li {
+  padding: 0.4rem 0;
+}
+
+.recipeSteps li::marker {
+  font-family: var(--display);
+  color: var(--flame);
+}
+
+.recipeTaco {
+  position: absolute;
+  right: clamp(-1rem, 1vw, 2rem);
+  bottom: -2rem;
+  width: clamp(10rem, 24vw, 18rem);
+}
+
+.recipeTacoImg {
+  width: 100%;
+  height: auto;
+  transform: rotate(-7deg);
+  filter: drop-shadow(0 18px 20px rgba(15, 26, 32, 0.4));
+}
+
+@media (max-width: 900px) {
+  .recipeBody {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  .recipeTaco {
+    position: static;
+    width: min(60%, 14rem);
+    margin: 1.5rem auto 0;
+  }
+}
+
+/* ---------------------------------------------------------- stockists */
+
+.stockists {
+  padding: 0 0 clamp(3.5rem, 8vw, 6.5rem);
+}
+
+.stockistGrid {
+  list-style: none;
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stockistCard {
+  border: 2px solid rgba(239, 230, 221, 0.35);
+  padding: 1.1rem 1.2rem 1.2rem;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.stockistCard:hover {
+  border-color: var(--yolk);
+  transform: translateY(-3px);
+}
+
+.stockistShop {
+  margin: 0 0 0.2rem;
+  font-family: var(--display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.stockistCity {
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  color: var(--pool);
+}
+
+.stockistNote {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(239, 230, 221, 0.75);
+}
+
+.stockistFoot {
+  width: min(72rem, 100%);
+  margin: 2rem auto 0;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  font-size: 0.92rem;
+  color: rgba(239, 230, 221, 0.75);
+}
+
+.stockistFoot a {
+  color: var(--yolk);
+  text-decoration-color: var(--flame);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .stockistGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .stockistGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------- wholesale */
+
+.wholesale {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1rem, 4vw, 2.5rem);
+  clip-path: polygon(
+    0% 16px, 5% 4px, 12% 15px, 19% 5px, 26% 16px, 33% 4px, 40% 14px, 47% 5px,
+    54% 16px, 61% 4px, 68% 15px, 75% 5px, 82% 16px, 89% 4px, 96% 14px,
+    100% 6px, 100% 100%, 0% 100%
+  );
+}
+
+.wholesalePattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+/* dark where the copy sits, thin at the edges so the misprint still shows */
+.wholesaleScrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 92% at 50% 50%,
+    rgba(15, 26, 32, 0.95) 0%,
+    rgba(15, 26, 32, 0.91) 48%,
+    rgba(15, 26, 32, 0.58) 80%,
+    rgba(15, 26, 32, 0.24) 100%
+  );
+}
+
+.wholesaleInner {
+  width: min(46rem, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wholesaleTitle {
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  margin: 0 0 1.25rem;
+  color: var(--bone);
+  text-shadow: 4px 4px 0 rgba(76, 143, 189, 0.5);
+}
+
+.wholesaleCopy {
+  margin: 0 auto 2rem;
+  max-width: 36rem;
+  color: rgba(239, 230, 221, 0.9);
+}
+
+.wholesaleFine {
+  margin: 1.25rem 0 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--pool);
+}
+
+/* ------------------------------------------------------------- footer */
+
+.footer {
+  background: #0a1318;
+  border-top: 3px solid var(--flame);
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 2.5rem) 2rem;
+}
+
+.footerInner {
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.footerBrand {
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: var(--bone);
+}
+
+.footerBlurb {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  color: rgba(239, 230, 221, 0.75);
+}
+
+.footerNav {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(239, 230, 221, 0.2);
+  border-bottom: 1px solid rgba(239, 230, 221, 0.2);
+}
+
+.footerNav a {
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: rgba(239, 230, 221, 0.8);
+}
+
+.footerNav a:hover {
+  color: var(--yolk);
+}
+
+.footerFine {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(239, 230, 221, 0.55);
+}
+
+.credit {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--flame);
+}
+
+.credit a {
+  color: var(--yolk);
+  text-decoration: underline;
+  text-decoration-color: var(--flame);
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    scroll-behavior: auto;
+  }
+  .topbarCta,
+  .btnPrimary,
+  .stockistCard {
+    transition: none;
+  }
+}

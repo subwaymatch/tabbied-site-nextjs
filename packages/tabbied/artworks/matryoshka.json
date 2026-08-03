@@ -46,5 +46,8 @@
   "code": {
     "style": "--rule: ( @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: @doodle(@grid: 4 / 100%; background: @p(#000, #000, #0000);); mask: @doodle(@grid: 4 / 100%; background: @p(#000, #000, #0000);); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  },
+  "sizing": {
+    "cellMultiple": 4
   }
 }

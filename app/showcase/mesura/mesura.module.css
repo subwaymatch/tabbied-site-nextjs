@@ -1,0 +1,853 @@
+/* ==========================================================================
+   MESURA — structural engineering, Barcelona
+   A load-path page: everything hangs off a six-column module, headings are
+   flush left against a hard orange rule, and the numeric columns are the
+   ornament. Pattern fields run the full width with `transparent` in the
+   background slot so the paper carries through.
+   ========================================================================== */
+
+.page {
+  --paper: #f2f1ed;
+  --ink: #15171a;
+  --orange: #ff6a00;
+  --steel: #8c9096;
+  --pale: #d9d8d2;
+  --gut: clamp(1.15rem, 4vw, 3.25rem);
+  --max: 80rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.014em;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut) 0.7rem;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--ink);
+}
+
+.mark {
+  display: grid;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.mark i {
+  font-style: normal;
+  margin-top: 0.3rem;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.bar nav {
+  display: flex;
+  gap: clamp(0.85rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--orange);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 10vw, 8rem) var(--gut) clamp(2.5rem, 6vw, 4rem);
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.44;
+  mask-image: linear-gradient(180deg, #000 0%, #000 52%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--orange) 66%, var(--ink));
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7vw, 5.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.048em;
+}
+
+.hero /* The muted second line sits over the hero pattern; plain
+     var(--steel) measured under AA on the glyph pixels. */
+  h1 span {
+  color: color-mix(in srgb, var(--steel) 75%, var(--ink));
+}
+
+.lede {
+  margin: clamp(1.5rem, 4vw, 2.4rem) 0 0;
+  max-width: 33rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.14rem);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.numbers {
+  max-width: var(--max);
+  margin: clamp(2.4rem, 6vw, 4.5rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.numbers div {
+  padding-top: 0.8rem;
+  border-top: 3px solid var(--orange);
+}
+
+.numbers dt {
+  font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.numbers dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.bleed figcaption,
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.bleed figcaption {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 0 var(--gut);
+}
+
+.pair {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.wide {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(1.6rem, 4vw, 2.6rem);
+  padding-top: 0.7rem;
+  border-top: 3px solid var(--ink);
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+/* ------------------------------------------------------------ capabilities */
+
+.what,
+.work {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.caps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 2.8rem);
+}
+
+.caps li {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.capN {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.caps h3 {
+  margin: 0;
+  font-size: 1.04rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.caps p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* --------------------------------------------------------------- load band
+   Full-width, no copy: caltrop reads as a diagram of forces meeting. */
+
+.loadBand {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.loadField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (22 × 120px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2640px;
+  height: 240px;
+  opacity: 0.92;
+}
+
+/* -------------------------------------------------------------------- work */
+
+.projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.projects li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1.7fr) 5.5rem minmax(0, 1.2fr) minmax(0, 1fr) 4rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.projHead {
+  border-top: 0 !important;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.pCode {
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.pName {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.98rem;
+}
+
+.pSpan,
+.pYear {
+  font-variant-numeric: tabular-nums;
+}
+
+.pYear {
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ method */
+
+.method {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.methodField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+}
+
+.methodField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 64% at 50% 42%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 62%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.methodInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.methodGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0 0 1rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+  line-height: 1.32;
+  letter-spacing: -0.03em;
+  max-width: 26rem;
+}
+
+.small {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.steps li span {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--orange);
+}
+
+.steps h3 {
+  margin: 0 0 0.25rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ------------------------------------------------------------------ office */
+
+.office {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+/* hilbert is a dense line design: pushed well back and cut to the outer bands
+   so the contact block reads on clean paper. */
+.officeField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+  mask-image: linear-gradient(90deg, #000 0%, transparent 34%, transparent 66%, #000 100%);
+}
+
+.officeInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.contact div {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.contact dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 0.4rem;
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.contact a {
+  border-bottom: 2px solid var(--orange);
+}
+
+/* ------------------------------------------------------- expansion sections
+   The tiles are Tabbied artworks rather than photographs: each sits on a
+   transparent ground in a box with a fixed aspect ratio, so the derived grid
+   stays square and the motif is never stretched. */
+
+.tiles,
+.idx,
+.faq {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.tiles h2,
+.idx h2,
+.faq h2 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.secNote {
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.tilePlate {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 55%, var(--paper));
+  margin-bottom: 0.9rem;
+}
+
+.tileN {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.tileGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.03rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.tileBody {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.idxList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.idxList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.6vw, 1.3rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.idxHead {
+  border-top: 0 !important;
+  font-size: 0.64rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.idxList li > :first-child {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.96rem;
+}
+
+.idxList li > :last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--steel);
+}
+
+.faqList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.faqList dt {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  margin-bottom: 0.5rem;
+  font-size: 0.99rem;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+
+.faqList dd {
+  margin: 0;
+  font-size: 0.89rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+@media (max-width: 900px) {
+  .tileGrid,
+  .faqList {
+    grid-template-columns: 1fr;
+  }
+
+  .idxList li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .idxHead {
+    display: none !important;
+  }
+
+  .idxList li > :nth-child(3) {
+    grid-column: 1 / -1;
+    font-size: 0.83rem;
+  }
+}
+
+/* ------------------------------------------------------------------ footer
+   Quiet by design: no wordmark at display size and no pattern field. Four
+   columns of plain links on one flat surface, with the fine print under a
+   hairline. The patterns have had the whole page to speak already. */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--orange);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--paper) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--orange);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .caps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .numbers,
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .methodGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects li {
+    grid-template-columns: 4.5rem minmax(0, 1fr) 4rem;
+    row-gap: 0.2rem;
+  }
+
+  .projHead {
+    display: none !important;
+  }
+
+  .projects li > :nth-child(4),
+  .projects li > :nth-child(5) {
+    grid-column: 2 / 4;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .caps,
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 900px) {
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .loadBand {
+    height: 120px;
+  }
+
+  .loadField {
+    height: 120px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
+  }
+}
+
+/* -------------------------------------------------------------- tile object
+   The cut-out sits on top of the tile's pattern rather than replacing it:
+   the artwork stays the ground, the object becomes the subject. */
+
+.tileObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.3));
+}

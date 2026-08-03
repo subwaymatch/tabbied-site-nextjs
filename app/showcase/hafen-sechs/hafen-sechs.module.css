@@ -1,0 +1,932 @@
+/* ==========================================================================
+   HAFEN SECHS — container terminal, Bremerhaven
+   Dark, operational, data-first. The page reads like a berth board: rows of
+   tabular figures, a single signal yellow, and pattern fields that behave like
+   deck markings. Every field takes `transparent` in its background slot so the
+   night colour of the page carries through the gaps.
+   ========================================================================== */
+
+.page {
+  --dark: #101215;
+  --bone: #f0efea;
+  --yellow: #ffd400;
+  --steel: #6e747c;
+  --deep: #1c2026;
+  --gut: clamp(1.1rem, 4vw, 3.25rem);
+  --max: 82rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.012em;
+  font-variant-numeric: tabular-nums;
+  background: var(--dark);
+  color: var(--bone);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.7rem var(--gut);
+  background: color-mix(in srgb, var(--dark) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.brandNo {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--yellow);
+  color: var(--dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.brand > span:last-child {
+  display: grid;
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.brand i {
+  font-style: normal;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-top: 0.16rem;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.4vw, 2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--bone) 78%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--yellow);
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.live span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 10vw, 8rem) var(--gut) clamp(2.5rem, 7vw, 5rem);
+}
+
+.heroField {
+  position: absolute;
+  inset: -20% -50vw;
+  z-index: -1;
+  opacity: 0.24;
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 92%);
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 7.5vw, 5.6rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.048em;
+}
+
+.hero h1 span {
+  /* The muted second line sits over the hero pattern; plain
+     var(--steel) measured under AA on the glyph pixels. */
+  color: color-mix(in srgb, var(--steel) 75%, var(--bone));
+}
+
+.lede {
+  margin: clamp(1.5rem, 4vw, 2.4rem) 0 0;
+  max-width: 33rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.15rem);
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+}
+
+.moves {
+  margin: clamp(2.4rem, 6vw, 4.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem var(--gut);
+}
+
+.moves div {
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--yellow);
+}
+
+.moves dt {
+  font-size: clamp(1.4rem, 3.4vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.moves dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* ---------------------------------------------------------- bleed plates */
+
+.bleedTall {
+  margin: 0;
+  position: relative;
+}
+
+.bleedTall img {
+  aspect-ratio: 16 / 9;
+  max-height: 88vh;
+  object-fit: cover;
+}
+
+.bleedTall figcaption,
+.wide figcaption,
+.pair figcaption {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-top: 0.55rem;
+}
+
+.bleedTall figcaption {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 0 var(--gut);
+}
+
+.wide {
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+.pair {
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.pair figure:last-child img {
+  aspect-ratio: 4 / 3;
+}
+
+/* ------------------------------------------------------------ section head */
+
+.secHead {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
+}
+
+.secHead span {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.note {
+  margin: -0.8rem 0 1.8rem;
+  max-width: 38rem;
+  font-size: 0.85rem;
+  color: var(--steel);
+}
+
+/* ------------------------------------------------------------------ berths */
+
+.berths,
+.gate {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.berthList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.berthList li {
+  display: grid;
+  grid-template-columns: 4rem repeat(4, minmax(0, 1fr)) 8rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 12%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bone) 72%, transparent);
+}
+
+.berthHead {
+  border-top: 0 !important;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.bNo {
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--bone);
+  letter-spacing: -0.03em;
+}
+
+.free,
+.busy,
+.maint {
+  justify-self: start;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+}
+
+.free {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+.busy {
+  background: color-mix(in srgb, var(--bone) 14%, transparent);
+  color: var(--bone);
+}
+
+.maint {
+  background: transparent;
+  color: var(--steel);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* ------------------------------------------------------------- crane band
+   A full-width pattern band standing in for the crane rail: no copy, run at
+   nearly full strength. */
+
+.craneBand {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+.craneField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (22 × 120px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2640px;
+  height: 240px;
+  opacity: 0.95;
+}
+
+/* ---------------------------------------------------------------- schedule */
+
+.schedule {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.scheduleField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.scheduleField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 62% at 50% 40%,
+    var(--dark) 0%,
+    color-mix(in srgb, var(--dark) 62%, transparent) 62%,
+    transparent 100%
+  );
+}
+
+.scheduleInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.calls {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.calls li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr) 9rem 9rem 3rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 12%, transparent);
+}
+
+.calls li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--bone) 12%, transparent);
+}
+
+.vessel {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.service {
+  font-size: 0.84rem;
+  color: var(--steel);
+}
+
+.time {
+  font-size: 0.84rem;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+.time i {
+  display: block;
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--steel);
+  margin-bottom: 0.15rem;
+}
+
+.berthTag {
+  justify-self: end;
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--yellow);
+}
+
+/* -------------------------------------------------------------------- gate */
+
+.gateList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gateList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1.6fr);
+  gap: clamp(0.6rem, 2vw, 1.6rem);
+  align-items: baseline;
+  padding: 1rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 12%, transparent);
+}
+
+.gWhat {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.gWhen {
+  font-size: 0.88rem;
+  color: var(--yellow);
+}
+
+.gNote {
+  font-size: 0.86rem;
+  color: var(--steel);
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+  background: var(--dark);
+}
+
+/* dotmatrix at a small cell reads as a deck stencil; kept faint and cut to a
+   band so the contact block stays clean. */
+.contactField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 40%, transparent 60%, #000 100%);
+}
+
+.contactInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.contactInner h2 {
+  margin: 0 0 clamp(1.4rem, 4vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.contactInner dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.2rem);
+}
+
+.contactInner dl div {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 22%, transparent);
+}
+
+.contactInner dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 0.4rem;
+}
+
+.contactInner dd {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.contactInner a:hover {
+  color: var(--yellow);
+}
+
+/* ------------------------------------------------------- expansion sections
+   The tiles are Tabbied artworks rather than photographs: each sits on a
+   transparent ground in a box with a fixed aspect ratio, so the derived grid
+   stays square and the motif is never stretched. */
+
+.tiles,
+.idx,
+.faq {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.tiles h2,
+.idx h2,
+.faq h2 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.secNote {
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--bone) 68%, transparent);
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.tilePlate {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--deep);
+  margin-bottom: 0.9rem;
+}
+
+.tileN {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+  font-variant-numeric: tabular-nums;
+}
+
+.tileGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.03rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.tileBody {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+.idxList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.idxList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.6vw, 1.3rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+}
+
+.idxHead {
+  border-top: 0 !important;
+  font-size: 0.64rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.idxList li > :first-child {
+  color: var(--bone);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.96rem;
+}
+
+.idxList li > :last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--steel);
+}
+
+.faqList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.faqList dt {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 20%, transparent);
+  margin-bottom: 0.5rem;
+  font-size: 0.99rem;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+
+.faqList dd {
+  margin: 0;
+  font-size: 0.89rem;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+@media (max-width: 900px) {
+  .tileGrid,
+  .faqList {
+    grid-template-columns: 1fr;
+  }
+
+  .idxList li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .idxHead {
+    display: none !important;
+  }
+
+  .idxList li > :nth-child(3) {
+    grid-column: 1 / -1;
+    font-size: 0.83rem;
+  }
+}
+
+/* ------------------------------------------------------------------ footer
+   Quiet by design: no wordmark at display size and no pattern field. Four
+   columns of plain links on one flat surface, with the fine print under a
+   hairline. The patterns have had the whole page to speak already. */
+
+/* Page and footer were within 1.15:1 of each other — near enough that the
+   seam read as a mistake, so the footer takes the page colour exactly.
+   The light-page sites keep their dark footers: that contrast is the design. */
+.footer {
+  background: var(--dark);
+  color: var(--bone);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bone) 52%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--bone) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--yellow);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--bone) 88%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--bone) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--bone) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--bone) 80%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--yellow);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .moves,
+  .contactInner dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .berthList li {
+    grid-template-columns: 3.5rem repeat(2, minmax(0, 1fr)) 7rem;
+    row-gap: 0.25rem;
+  }
+
+  .berthHead {
+    display: none !important;
+  }
+
+  .berthList li > :nth-child(4),
+  .berthList li > :nth-child(5) {
+    grid-column: 2 / 4;
+    font-size: 0.8rem;
+  }
+
+  .calls li {
+    grid-template-columns: minmax(0, 1fr) 7.5rem 3rem;
+    row-gap: 0.25rem;
+  }
+
+  .calls li > :nth-child(2) {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+
+  .gateList li {
+    grid-template-columns: 1fr;
+    row-gap: 0.2rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .pair img,
+  .pair figure:last-child img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 900px) {
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .craneBand {
+    height: 120px;
+  }
+
+  .craneField {
+    height: 120px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--dark);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
+  }
+}
+
+/* -------------------------------------------------------------- tile object
+   The cut-out sits on top of the tile's pattern rather than replacing it:
+   the artwork stays the ground, the object becomes the subject. */
+
+.tileObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.3));
+}

@@ -19,6 +19,7 @@ import {
   fitRenderToBox,
   hasGridOption,
   resolveFitMode,
+  snapSpanToTracks,
   type CoverRender,
 } from './sizing.js';
 import type { SvgExportOptions, SvgExportResult } from './svgExport.js';
@@ -211,6 +212,8 @@ export function createArtwork(
     doodleCode: string;
     seed: string;
     renderBox: CoverRender | null;
+    /** Layout cell size of a cover/contain render, for scale quantisation. */
+    cellPx: number | null;
   } | null = null;
 
   const resolve = (): ResolvedConfig => {
@@ -283,14 +286,16 @@ export function createArtwork(
     let height: string;
     let optionValues = resolved.optionValues;
     let renderBox: CoverRender | null = null;
+    let renderCellPx: number | null = null;
 
     if (fit === 'fixed') {
       width = `${resolved.fixedWidth}px`;
       height = `${resolved.fixedHeight}px`;
     } else if (fit === 'cover' || fit === 'contain') {
       renderBox = resolveRenderBox(resolved);
-      width = `${renderBox.width}px`;
-      height = `${renderBox.height}px`;
+      // width/height are filled in below, after any render-box snapping.
+      width = '';
+      height = '';
     } else {
       // grid fills the host; the pattern only depends on seed + grid, so
       // percentage sizing renders identically at any container size.
@@ -337,7 +342,25 @@ export function createArtwork(
         definition.sizing
       );
 
+      // Snap the render box the same way a grid canvas is snapped: whole,
+      // divisible, square cells. On its own this does nothing for a scaled
+      // canvas (measured: 6 seams either way), but it is what gives
+      // fitRenderToBox a whole `cell` to quantise the scale against, and the
+      // pair together take the seams to zero.
+      const multiple = definition.sizing?.cellMultiple;
+      const cell = Math.max(
+        snapSpanToTracks(renderBox.width, cols, multiple) / cols,
+        snapSpanToTracks(renderBox.height, rows, multiple) / rows
+      );
+
+      renderBox = { ...renderBox, width: cols * cell, height: rows * cell };
+      renderCellPx = cell;
       optionValues = overrideGrid(cols, rows);
+    }
+
+    if (renderBox) {
+      width = `${renderBox.width}px`;
+      height = `${renderBox.height}px`;
     }
 
     return {
@@ -350,7 +373,49 @@ export function createArtwork(
         height,
       }),
       renderBox,
+      cellPx: renderCellPx,
     };
+  };
+
+  // Size a `grid` canvas so every track lands on a whole pixel.
+  //
+  // The grid fills the host, and `repeat(cols, 1fr)` over a container that
+  // isn't divisible by cols puts every cell boundary on a sub-pixel, which
+  // paints a hairline seam at each one. Overriding the canvas inline (the
+  // source still says 100%, so the generated pattern and its SVG export are
+  // untouched) rounds each axis up to a whole multiple of its track count;
+  // the host clips the sub-cell overflow.
+  //
+  // Pure arithmetic, so it runs on every resize tick — between debounced grid
+  // steps the canvas keeps covering the host at whole tracks, where plain
+  // percentage sizing would drift back onto sub-pixels.
+  const applyGridSnap = (resolved: ResolvedConfig) => {
+    if (!element || !hostSize || resolved.fit !== 'grid') {
+      return;
+    }
+
+    const { cols, rows } = deriveGridForBox(
+      hostSize.width,
+      hostSize.height,
+      resolved.targetCellPx,
+      resolved.definition.sizing
+    );
+
+    const cellMultiple = resolved.definition.sizing?.cellMultiple;
+    const cellW = snapSpanToTracks(hostSize.width, cols, cellMultiple) / cols;
+    const cellH = snapSpanToTracks(hostSize.height, rows, cellMultiple) / rows;
+
+    // Square the cell. 146 of the 254 designs rotate their cell by a quarter
+    // turn (`transform: rotate(@pick(0deg, 90deg, ...))`), and a quarter turn
+    // of an oblong swaps its axes: a 120x124 cell paints 124x120 once rotated,
+    // leaving 2px uncovered top and bottom. That reads as a seam between
+    // blocks even though every track is exact. Taking the larger of the two
+    // keeps the canvas covering the host, and both are already multiples of
+    // cellMultiple so the max is too.
+    const cell = Math.max(cellW, cellH);
+
+    element.style.width = `${cols * cell}px`;
+    element.style.height = `${rows * cell}px`;
   };
 
   const applyTransform = (resolved: ResolvedConfig) => {
@@ -366,7 +431,8 @@ export function createArtwork(
       hostSize.width,
       hostSize.height,
       rendered?.renderBox ?? resolved.coverRender,
-      resolved.fit
+      resolved.fit,
+      rendered?.cellPx ?? undefined
     );
 
     element.style.transformOrigin = 'top left';
@@ -390,7 +456,7 @@ export function createArtwork(
   // Mount the <style> + <css-doodle> pair for the current config. css-doodle
   // renders its text content on mount, so the source is set before appending.
   const mountElement = (resolved: ResolvedConfig) => {
-    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox, cellPx } = buildSource(resolved);
 
     styleEl = document.createElement('style');
     styleEl.textContent = `css-doodle[data-tabbied="${uid}"] { ${styleCode} }`;
@@ -407,12 +473,18 @@ export function createArtwork(
       doodleCode,
       seed,
       renderBox,
+      cellPx,
     };
 
-    if (resolved.fit === 'cover' || resolved.fit === 'contain') {
-      // Fixed-resolution render scaled into the host (which clips overflow).
-      // Positioning is set before append so the oversized canvas never
-      // affects layout.
+    if (
+      resolved.fit === 'cover' ||
+      resolved.fit === 'contain' ||
+      resolved.fit === 'grid'
+    ) {
+      // An oversized canvas scaled or snapped into the host (which clips the
+      // overflow): a fixed-resolution render for cover/contain, a whole
+      // number of grid tracks for grid. Positioning is set before append so
+      // the oversized canvas never affects layout.
       const hostStyle = getComputedStyle(host);
       hostStyleBackup ??= {
         position: host.style.position,
@@ -425,6 +497,7 @@ export function createArtwork(
       element.style.position = 'absolute';
       element.style.top = '0';
       element.style.left = '0';
+      applyGridSnap(resolved);
       applyTransform(resolved);
     }
 
@@ -464,7 +537,7 @@ export function createArtwork(
   const applyUpdate = (resolved: ResolvedConfig) => {
     if (!element || !rendered) return;
 
-    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox, cellPx } = buildSource(resolved);
     const styleChanged = styleCode !== rendered.styleCode;
     const seedChanged = seed !== rendered.seed;
     const doodleChanged = doodleCode !== rendered.doodleCode;
@@ -484,7 +557,7 @@ export function createArtwork(
     }
 
     element.update(doodleCode);
-    rendered = { ...rendered, styleCode, doodleCode, seed, renderBox };
+    rendered = { ...rendered, styleCode, doodleCode, seed, renderBox, cellPx };
   };
 
   // Full reconcile after a config change: re-create on structural changes,
@@ -544,6 +617,13 @@ export function createArtwork(
       }
     }
 
+    if (resolved.fit === 'grid') {
+      // Re-snapping the already-rendered canvas is arithmetic — apply on
+      // every tick, so it keeps covering the host at whole tracks while the
+      // re-render below waits out the debounce.
+      applyGridSnap(resolved);
+    }
+
     if ((resolved.fit === 'grid' || resolved.fit === 'cover') && previous) {
       // Between grid steps the canvas stretches via CSS; only a changed
       // derived grid re-renders, debounced so a drag-resize settles first.
@@ -554,6 +634,7 @@ export function createArtwork(
 
         const next = resolve();
         applyUpdate(next);
+        applyGridSnap(next);
         applyTransform(next);
       }, GRID_RESIZE_DEBOUNCE_MS);
     }
