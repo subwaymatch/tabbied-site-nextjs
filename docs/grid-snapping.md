@@ -76,6 +76,20 @@ fixes `subdivide` and leaves the other two seaming. Snapping everything to a
 multiple of 12 would cover all three but throws away up to 12 cells' worth of
 overflow on every field. Per-design metadata costs neither.
 
+### And why an exact cell is still not enough
+
+The cell also has to be **square**. 146 of the 254 designs rotate their cell
+by a quarter turn (`transform: rotate(@pick(0deg, 90deg, 180deg, 270deg))`),
+and a quarter turn of an oblong swaps its axes: a 120 × 124 cell paints
+124 × 120 once rotated, leaving 2px uncovered top and bottom. That reads as a
+seam between blocks even though every track is exact and every cell divides.
+
+Cobalt Works' coda band was the case that proved it — 12 × 120px across,
+2 × 124px down, both exact, and visibly lined. `applyGridSnap` takes the
+larger of the two snapped cells and uses it on both axes; both are already
+multiples of `cellMultiple`, so the max is too, and the canvas still covers
+the host because the cell only ever grows.
+
 Rounding *down* would satisfy the first property too, but would leave up to a
 full cell of the container uncovered — far more visible on a background field
 than a sub-cell crop.

@@ -379,9 +379,20 @@ export function createArtwork(
     );
 
     const cellMultiple = resolved.definition.sizing?.cellMultiple;
+    const cellW = snapSpanToTracks(hostSize.width, cols, cellMultiple) / cols;
+    const cellH = snapSpanToTracks(hostSize.height, rows, cellMultiple) / rows;
 
-    element.style.width = `${snapSpanToTracks(hostSize.width, cols, cellMultiple)}px`;
-    element.style.height = `${snapSpanToTracks(hostSize.height, rows, cellMultiple)}px`;
+    // Square the cell. 146 of the 254 designs rotate their cell by a quarter
+    // turn (`transform: rotate(@pick(0deg, 90deg, ...))`), and a quarter turn
+    // of an oblong swaps its axes: a 120x124 cell paints 124x120 once rotated,
+    // leaving 2px uncovered top and bottom. That reads as a seam between
+    // blocks even though every track is exact. Taking the larger of the two
+    // keeps the canvas covering the host, and both are already multiples of
+    // cellMultiple so the max is too.
+    const cell = Math.max(cellW, cellH);
+
+    element.style.width = `${cols * cell}px`;
+    element.style.height = `${rows * cell}px`;
   };
 
   const applyTransform = (resolved: ResolvedConfig) => {

@@ -66,12 +66,12 @@ test.describe('tabbied package (component test page)', () => {
 
     expect(doodleBox.width).toBeGreaterThanOrEqual(hostBox.width - 1);
     expect(doodleBox.height).toBeGreaterThanOrEqual(hostBox.height - 1);
-    // Under two cells: the snap targets an EVEN cell so designs that halve
-    // their cell (a nested @doodle mask, a centred rule) land on whole pixels.
-    expect(doodleBox.width - hostBox.width).toBeLessThan(cols * 2);
-    expect(doodleBox.height - hostBox.height).toBeLessThan(rows * 2);
+    // The cell is even (designs that halve their cell land on whole pixels)
+    // and square (a quarter-turn rotation of an oblong swaps its axes and
+    // leaves a strip of the cell uncovered).
     expect((doodleBox.width / cols) % 2).toBeCloseTo(0, 1);
     expect((doodleBox.height / rows) % 2).toBeCloseTo(0, 1);
+    expect(doodleBox.width / cols).toBeCloseTo(doodleBox.height / rows, 1);
     await expect(page.locator('#fit-grid [data-artwork="radius"]')).toHaveCSS(
       'overflow',
       'hidden'

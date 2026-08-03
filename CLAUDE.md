@@ -53,6 +53,11 @@ not merely to a whole pixel: a design that subdivides its cell seams at
 `subdivide` (2), `fractal` (3) and `matryoshka` (4) — the three that mask with
 a nested `@doodle` — declare their own.
 
+The cell is also **squared** — `applyGridSnap` uses the larger of the two
+snapped cells on both axes. 146 of the 254 designs rotate a cell by a quarter
+turn, which swaps an oblong's axes and leaves a strip uncovered (a 120×124
+cell paints 124×120 rotated). Cobalt Works' coda seamed on exactly that.
+
 The snap is an inline style on the `<css-doodle>` element, *not* a change to
 `@size` in the generated source — the source feeds SVG export and the 254
 definitions' `${width}`/`${height}` substitution, and neither should move
