@@ -812,7 +812,6 @@
   height: clamp(132px, 20vw, 248px);
   overflow: hidden;
   background: var(--white);
-  border-top: 1px solid color-mix(in srgb, var(--grey) 26%, transparent);
 }
 
 .codaField {

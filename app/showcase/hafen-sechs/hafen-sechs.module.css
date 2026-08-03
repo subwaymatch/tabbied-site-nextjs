@@ -504,7 +504,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3rem, 8vw, 6rem) 0;
-  background: var(--deep);
+  background: var(--dark);
 }
 
 /* dotmatrix at a small cell reads as a deck stencil; kept faint and cut to a
@@ -901,7 +901,6 @@
   height: clamp(132px, 20vw, 248px);
   overflow: hidden;
   background: var(--dark);
-  border-top: 1px solid color-mix(in srgb, var(--steel) 26%, transparent);
 }
 
 .codaField {
