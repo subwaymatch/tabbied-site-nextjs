@@ -86,7 +86,14 @@ export default function ShowcaseSite({ site, artworks }: Props) {
   const c1 = colors[1] ?? bg;
   const dark = luminance(bg) < 0.5;
   const darkest = [...colors].sort((a, b) => luminance(a) - luminance(b))[0];
-  const ink = dark ? '#f5f3ef' : luminance(darkest) < 0.4 ? darkest : '#1c1e24';
+  // A near-white tinted by the page itself, not a fixed warm off-white:
+  // #f5f3ef is a cream, and on Facet's navy or Nocturne's violet it read as
+  // a foreign colour in the menu and body copy rather than the page's own.
+  const ink = dark
+    ? mix(bg, '#ffffff', 0.93)
+    : luminance(darkest) < 0.4
+      ? darkest
+      : '#1c1e24';
 
   const vars: Record<string, string> = {
     '--bg': bg,

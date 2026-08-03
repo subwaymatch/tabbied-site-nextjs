@@ -1270,20 +1270,19 @@
   margin: 0 auto;
   padding: var(--sp) var(--pad-x);
 }
-/* A key/value table still has to be scannable across a long row, which is the
-   one place row rules earn their keep. It gets banding instead: the tint runs
-   the full row, so the eye tracks from key to value without a line, and the
-   negative margin keeps the text aligned to the section head above it. */
+/* A key/value table, ruled rather than banded. Zebra striping turned every
+   other row into a slab of tint, which competes with the pattern fields
+   elsewhere on the page; a hairline separates the rows and leaves the ground
+   alone. No inset padding or radius now that there is no pill to draw, so the
+   keys align to the section head above them. */
 .specRow {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 2fr);
   gap: 8px clamp(24px, 5vw, 72px);
-  padding: 20px 18px;
-  margin: 0 -18px;
-  border-radius: 10px;
+  padding: 18px 0;
 }
-.specRow:nth-child(odd) {
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
+.specRow + .specRow {
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
 }
 .specK {
   font-family: var(--display);
