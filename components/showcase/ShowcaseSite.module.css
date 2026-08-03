@@ -1011,6 +1011,13 @@
   text-align: center;
   background: var(--band);
 }
+/* The manifesto carries a full-bleed pattern of its own, and on the boutique
+   layouts it follows a hero that does too — two fields meeting on a hard edge
+   with nothing between them. A band of page colour separates them so each
+   reads as its own gesture. */
+header + .manifesto {
+  margin-top: clamp(72px, 10vw, 150px);
+}
 .manifestoInner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
 .manifestoInner p {
   font-family: var(--display);
