@@ -379,9 +379,11 @@ export default function CeruleanSwimPage() {
           <div className={styles.clubField} aria-hidden="true">
             <TabbiedArtwork
               artwork={wavelet}
-              palette={[DEEP, AQUA, TEAL, SUN]}
+              palette={['transparent', TEAL, AQUA, SUN]}
               seed="cs-club-09"
-              fit="cover"
+              fit="grid"
+              cellSize={132}
+              redrawInterval={5600}
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>

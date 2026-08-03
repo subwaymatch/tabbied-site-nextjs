@@ -549,25 +549,29 @@
   position: relative;
   margin: clamp(3rem, 7vw, 5.5rem) 0 0;
   padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 4vw, 3rem);
-  background: var(--deep);
+  /* The page colour, so the artwork's transparent ground blends into the
+     section either side of it rather than reading as a slab dropped in. */
+  background: var(--foam);
   overflow: hidden;
 }
 
 .clubField {
   position: absolute;
   inset: 0;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .clubCard {
   position: relative;
   max-width: 38rem;
   margin: 0 auto;
-  background: rgba(242, 251, 252, 0.96);
+  background: rgba(242, 251, 252, 0.94);
   border-radius: clamp(1.5rem, 4vw, 2.5rem);
   padding: clamp(2rem, 5vw, 3.25rem);
   text-align: center;
-  box-shadow: 0 30px 60px -20px rgba(6, 32, 38, 0.6);
+  /* Re-weighted for a pale ground: the old shadow was tuned to lift the card
+     off a deep teal slab and reads as soot on foam. */
+  box-shadow: 0 18px 44px -22px rgba(19, 77, 87, 0.34);
 }
 
 .clubTitle {
