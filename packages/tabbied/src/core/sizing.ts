@@ -366,21 +366,44 @@ export function fitRenderToBox(
   hostWidth: number,
   hostHeight: number,
   render: CoverRender,
-  mode: 'cover' | 'contain'
+  mode: 'cover' | 'contain',
+  cellPx?: number
 ): { scale: number; translateX: number; translateY: number } {
   const cropTop = render.cropTop ?? 1;
   const visibleHeight = render.height * cropTop;
-  const scale =
+  let scale =
     mode === 'cover'
       ? Math.max(hostWidth / render.width, hostHeight / visibleHeight)
       : Math.min(hostWidth / render.width, hostHeight / render.height);
 
+  // Land every cell edge on a whole pixel *after* the transform. Snapping the
+  // render box is not enough on its own: a scaled canvas maps exact layout
+  // tracks onto fractional device pixels, and the browser seams there. An
+  // isolated test — same grid, same colour in every cell — measured 6 interior
+  // seams both with fractional tracks and with integral ones under a 1.44
+  // scale, and 0 once the scale was quantised so `cell * scale` was a whole
+  // number. Cover rounds the scale up (it crops anyway); contain rounds down,
+  // since it must stay inside the box, and the ratio is unaffected either way.
+  if (cellPx && cellPx > 0 && Number.isFinite(scale)) {
+    const scaledCell = cellPx * scale;
+    const quantised = mode === 'cover'
+      ? Math.ceil(scaledCell)
+      : Math.floor(scaledCell);
+
+    if (quantised >= 1) {
+      scale = quantised / cellPx;
+    }
+  }
+
+  // The offset has to be whole too — half a pixel of translation puts every
+  // boundary back on a fraction, which is the thing the quantised scale just
+  // bought.
   return {
     scale,
-    translateX: (hostWidth - render.width * scale) / 2,
+    translateX: Math.round((hostWidth - render.width * scale) / 2),
     translateY:
       mode === 'cover' && cropTop < 1
         ? 0
-        : (hostHeight - render.height * scale) / 2,
+        : Math.round((hostHeight - render.height * scale) / 2),
   };
 }

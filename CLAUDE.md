@@ -66,6 +66,13 @@ set the box (`resolveBoxStyle` writes width/height inline on the wrapper, so a
 class loses), and css-doodle caps grids at 64×64, so a box implying more
 columns than that silently rescales the cell and puts the seams back.
 
+`cover`/`contain` scale their render box with a transform, so snapping alone
+does nothing there — measured: 6 interior seams with integral tracks under a
+fractional scale, 0 once `fitRenderToBox` quantised the scale so
+`cell × scale` is whole (up for cover, down for contain, translate rounded).
+Both halves are required; the render-box snap only exists to give the
+quantiser a whole cell.
+
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
 The native SVG exporter (`packages/tabbied/src/core/svgExport.ts`) converts

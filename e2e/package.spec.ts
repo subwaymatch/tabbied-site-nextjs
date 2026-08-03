@@ -115,13 +115,33 @@ test.describe('tabbied package (component test page)', () => {
       .poll(() => paintedCells(page, selector), { timeout: 10000 })
       .toBeGreaterThan(1);
 
-    // The adapted render matches the host's aspect ratio, so the scaled
-    // canvas fills the wide box exactly instead of overflowing vertically
-    // (the old fixed 800×800 render was ~72% cropped at this shape).
+    // The adapted render matches the host's aspect ratio, so the scaled canvas
+    // covers the wide box instead of overflowing vertically (the old fixed
+    // 800×800 render was ~72% cropped at this shape). It overshoots by under
+    // one scaled cell: the scale is quantised so a cell lands on a whole
+    // device pixel, which rounds up and is what cover crops for.
     const hostBox = (await page.locator(selector).boundingBox())!;
     const doodleBox = (await doodle.boundingBox())!;
-    expect(Math.abs(doodleBox.width - hostBox.width)).toBeLessThan(2);
-    expect(Math.abs(doodleBox.height - hostBox.height)).toBeLessThan(2);
+    const { cell, scale } = await page.evaluate((sel) => {
+      const d = document.querySelector(`${sel} css-doodle`)!;
+      const grid = d.shadowRoot!.querySelector('cssd-grid')!;
+      return {
+        cell: parseFloat(getComputedStyle(grid).gridTemplateColumns),
+        scale: new DOMMatrixReadOnly(getComputedStyle(d).transform).a,
+      };
+    }, selector);
+
+    expect(doodleBox.width).toBeGreaterThanOrEqual(hostBox.width - 1);
+    expect(doodleBox.height).toBeGreaterThanOrEqual(hostBox.height - 1);
+    expect(doodleBox.width - hostBox.width).toBeLessThan(cell * scale);
+    expect(doodleBox.height - hostBox.height).toBeLessThan(cell * scale);
+
+    // The invariant the quantisation exists for: a cell edge lands on a whole
+    // pixel after the transform. Snapping the render box alone does not give
+    // this — an isolated test measured 6 interior seams with integral tracks
+    // under a fractional scale, and 0 once the scale was quantised.
+    const scaledCell = cell * scale;
+    expect(Math.abs(scaledCell - Math.round(scaledCell))).toBeLessThan(0.02);
 
     // And the cells it is tiled with stay near-square (the on-screen cell
     // rect includes the cover scaling transform).

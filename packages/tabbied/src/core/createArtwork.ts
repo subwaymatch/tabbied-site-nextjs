@@ -212,6 +212,8 @@ export function createArtwork(
     doodleCode: string;
     seed: string;
     renderBox: CoverRender | null;
+    /** Layout cell size of a cover/contain render, for scale quantisation. */
+    cellPx: number | null;
   } | null = null;
 
   const resolve = (): ResolvedConfig => {
@@ -284,14 +286,16 @@ export function createArtwork(
     let height: string;
     let optionValues = resolved.optionValues;
     let renderBox: CoverRender | null = null;
+    let renderCellPx: number | null = null;
 
     if (fit === 'fixed') {
       width = `${resolved.fixedWidth}px`;
       height = `${resolved.fixedHeight}px`;
     } else if (fit === 'cover' || fit === 'contain') {
       renderBox = resolveRenderBox(resolved);
-      width = `${renderBox.width}px`;
-      height = `${renderBox.height}px`;
+      // width/height are filled in below, after any render-box snapping.
+      width = '';
+      height = '';
     } else {
       // grid fills the host; the pattern only depends on seed + grid, so
       // percentage sizing renders identically at any container size.
@@ -338,7 +342,25 @@ export function createArtwork(
         definition.sizing
       );
 
+      // Snap the render box the same way a grid canvas is snapped: whole,
+      // divisible, square cells. On its own this does nothing for a scaled
+      // canvas (measured: 6 seams either way), but it is what gives
+      // fitRenderToBox a whole `cell` to quantise the scale against, and the
+      // pair together take the seams to zero.
+      const multiple = definition.sizing?.cellMultiple;
+      const cell = Math.max(
+        snapSpanToTracks(renderBox.width, cols, multiple) / cols,
+        snapSpanToTracks(renderBox.height, rows, multiple) / rows
+      );
+
+      renderBox = { ...renderBox, width: cols * cell, height: rows * cell };
+      renderCellPx = cell;
       optionValues = overrideGrid(cols, rows);
+    }
+
+    if (renderBox) {
+      width = `${renderBox.width}px`;
+      height = `${renderBox.height}px`;
     }
 
     return {
@@ -351,6 +373,7 @@ export function createArtwork(
         height,
       }),
       renderBox,
+      cellPx: renderCellPx,
     };
   };
 
@@ -408,7 +431,8 @@ export function createArtwork(
       hostSize.width,
       hostSize.height,
       rendered?.renderBox ?? resolved.coverRender,
-      resolved.fit
+      resolved.fit,
+      rendered?.cellPx ?? undefined
     );
 
     element.style.transformOrigin = 'top left';
@@ -432,7 +456,7 @@ export function createArtwork(
   // Mount the <style> + <css-doodle> pair for the current config. css-doodle
   // renders its text content on mount, so the source is set before appending.
   const mountElement = (resolved: ResolvedConfig) => {
-    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox, cellPx } = buildSource(resolved);
 
     styleEl = document.createElement('style');
     styleEl.textContent = `css-doodle[data-tabbied="${uid}"] { ${styleCode} }`;
@@ -449,6 +473,7 @@ export function createArtwork(
       doodleCode,
       seed,
       renderBox,
+      cellPx,
     };
 
     if (
@@ -512,7 +537,7 @@ export function createArtwork(
   const applyUpdate = (resolved: ResolvedConfig) => {
     if (!element || !rendered) return;
 
-    const { styleCode, doodleCode, renderBox } = buildSource(resolved);
+    const { styleCode, doodleCode, renderBox, cellPx } = buildSource(resolved);
     const styleChanged = styleCode !== rendered.styleCode;
     const seedChanged = seed !== rendered.seed;
     const doodleChanged = doodleCode !== rendered.doodleCode;
@@ -532,7 +557,7 @@ export function createArtwork(
     }
 
     element.update(doodleCode);
-    rendered = { ...rendered, styleCode, doodleCode, seed, renderBox };
+    rendered = { ...rendered, styleCode, doodleCode, seed, renderBox, cellPx };
   };
 
   // Full reconcile after a config change: re-create on structural changes,

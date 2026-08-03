@@ -117,12 +117,47 @@ lands at or under the cap.
 the debounced re-render. Without that, the canvas would hold its old pixel
 size through a drag and either gap or over-cover the host.
 
+## `fit: "cover"` and `"contain"`: snapping is not enough
+
+These derive a render box and then *scale* it into the host with a transform,
+which makes them a different problem: the transform maps exact layout tracks
+onto fractional device pixels, and the browser seams there.
+
+An isolated test settles it. Seven cells, every one the same colour, so any
+column that is not that colour is a seam and nothing else:
+
+| Case | Interior seams | Worst delta |
+|---|---|---|
+| No transform, fractional tracks | **0** | 0 |
+| `scale(1.44)`, fractional tracks | 6 | 87 |
+| `scale(1.44)`, integral tracks | 6 | 87 |
+| `scale(1.4444…)`, `cell × scale = 143` | **0** | 0 |
+
+Two things fall out of that. Without a transform the browser abuts identical
+neighbours cleanly even on fractional boundaries — so the grid fix works
+because there is no transform, not because layout rounding is inherently
+fatal. And snapping the render box *on its own does nothing*: six seams
+either way, same severity. Only quantising the scale removes them.
+
+So both halves are needed, and `applyGridSnap`'s work is the enabler rather
+than the fix:
+
+1. The adaptive cover render box is snapped to whole, divisible, square cells
+   — which is what gives step 2 a whole `cell` to quantise against.
+2. `fitRenderToBox` quantises the scale so `cell × scale` is a whole number,
+   rounding **up** for cover (which crops anyway) and **down** for contain
+   (which must stay inside its box). The ratio is untouched either way, so
+   contain still letterboxes at the authored ratio.
+
+The translate is rounded too — half a pixel of offset puts every boundary
+back on a fraction and undoes the quantised scale.
+
+The cost is a slightly larger crop. On the package test page the canvas
+overshoots its host by 3px across and 10px down on a 1152 × 320 box, under
+4% and well inside one scaled cell.
+
 ## What this does not cover
 
-- **`fit: "cover"` / `"contain"`** derive a render box and then *scale* it with
-  a transform. Fractional device-pixel boundaries reappear after scaling, so
-  snapping the render box would not fix them. A short full-width band that
-  shows seams under `cover` is usually better served by `grid`.
 - **`fit: "fixed"`** sizes the canvas to an explicit width/height that the
   caller chose; the editor's 364×546 preview at a 6×9 grid gives 60.66px cells
   by construction. `docs/svg-export.md` ("Cell boundaries: integer vs

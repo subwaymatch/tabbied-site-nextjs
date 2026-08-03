@@ -59,3 +59,6 @@ yarn-error.log*
 # GPT Image 2 output from scripts/generate-images.mjs — candidates only.
 # Only the promoted public/images/sites/*.webp is committed.
 generated-images/
+
+# Sandbox-only Playwright override (chromium build mismatch); never committed.
+playwright.local.config.ts
