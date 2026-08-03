@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  flux, ribline, streaking, dotwash, rungs,
-  spraydown,
+  comet, dotwash, flux, ribline, rungs, spraydown, streaking,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './frequenz.module.css';
@@ -430,6 +429,22 @@ export default function FrequenzPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={comet}
+              palette={['transparent', CREAM, GREY]}
+              fit="grid"
+              cellSize={114}
+              redrawInterval={4998}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

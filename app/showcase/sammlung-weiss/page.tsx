@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  lantern, windowpane, quire, recession, veil,
+  lantern, quire, recession, tesserae, veil, windowpane,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './sammlung-weiss.module.css';
@@ -435,6 +435,22 @@ export default function SammlungWeissPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={tesserae}
+              palette={['transparent', PALE, STONE]}
+              fit="grid"
+              cellSize={100}
+              redrawInterval={4900}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

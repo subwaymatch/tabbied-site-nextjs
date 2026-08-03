@@ -670,8 +670,11 @@
    columns of plain links on one flat surface, with the fine print under a
    hairline. The patterns have had the whole page to speak already. */
 
+/* Page and footer were within 1.15:1 of each other — near enough that the
+   seam read as a mistake, so the footer takes the page colour exactly.
+   The light-page sites keep their dark footers: that contrast is the design. */
 .footer {
-  background: var(--panel);
+  background: var(--void);
   color: var(--pale);
   padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
 }
@@ -850,5 +853,31 @@
 
   .toneField {
     height: 120px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--void);
+  border-top: 1px solid color-mix(in srgb, var(--steel) 26%, transparent);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
   }
 }

@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  weave, plait, corduroy, damier, thickset,
+  corduroy, damier, plait, quilt, thickset, weave,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './meterware.module.css';
@@ -429,6 +429,22 @@ export default function MeterwarePage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={quilt}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={108}
+              redrawInterval={4956}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

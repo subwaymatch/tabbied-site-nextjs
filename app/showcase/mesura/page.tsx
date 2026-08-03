@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  trigram, caltrop, fulcrum, hilbert, doublebar,
-  recession,
+  abutment, caltrop, doublebar, fulcrum, hilbert, recession, trigram,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './mesura.module.css';
@@ -455,6 +454,22 @@ export default function MesuraPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={abutment}
+              palette={['transparent', PALE, STEEL]}
+              fit="grid"
+              cellSize={104}
+              redrawInterval={4928}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

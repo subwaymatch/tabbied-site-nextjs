@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  terrain, epicentre, northstar, maze, dipole,
-  glazing, protractor, stipplefade,
+  dipole, epicentre, glazing, gyre, maze, northstar, protractor, stipplefade, terrain,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './nordlicht.module.css';
@@ -503,6 +502,22 @@ export default function NordlichtPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={gyre}
+              palette={['transparent', PALE, STEEL]}
+              fit="grid"
+              cellSize={116}
+              redrawInterval={5012}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  ortho, windowpane, keyway, subdivide, gravure, mortise, chase, quire,
+  chase, gravure, keyway, mortise, ortho, quire, spandrel, subdivide, windowpane,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './werkraum.module.css';
@@ -513,6 +513,22 @@ export default function WerkraumPage() {
           </div>
         </section>
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={spandrel}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={104}
+              redrawInterval={4928}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

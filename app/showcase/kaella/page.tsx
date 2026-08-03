@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  ripplering, tidering, lagoon, dotwash, curl,
+  curl, dotwash, lagoon, pebble, ripplering, tidering,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './kaella.module.css';
@@ -420,6 +420,22 @@ export default function KaellaPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={pebble}
+              palette={['transparent', MIST, STEEL]}
+              fit="grid"
+              cellSize={106}
+              redrawInterval={4942}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

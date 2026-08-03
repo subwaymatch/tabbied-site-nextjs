@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  dotmatrix, halftone, ortho, thickset, stitch,
-  dotset, misprint, peppering,
+  dotmatrix, dotset, halftone, kern, misprint, ortho, peppering, stitch, thickset,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './halbfett.module.css';
@@ -421,6 +420,22 @@ export default function HalbfettPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={kern}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={120}
+              redrawInterval={5040}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

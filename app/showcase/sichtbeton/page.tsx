@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  subdivide, chase, keyway, gritfield, recession,
+  chase, dieblock, gritfield, keyway, recession, subdivide,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './sichtbeton.module.css';
@@ -428,6 +428,22 @@ export default function SichtbetonPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={dieblock}
+              palette={['transparent', PALE, STEEL]}
+              fit="grid"
+              cellSize={112}
+              redrawInterval={4984}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

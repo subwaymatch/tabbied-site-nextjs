@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  stitch, damier, bias, taper, thickset,
-  corduroy,
+  bias, corduroy, damier, dogtooth, stitch, taper, thickset,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './passform.module.css';
@@ -436,6 +435,22 @@ export default function PassformPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={dogtooth}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={4914}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

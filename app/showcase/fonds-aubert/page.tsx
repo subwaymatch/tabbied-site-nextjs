@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  quire, stitch, subdivide, dotfield, chain,
+  chain, dotfield, matryoshka, quire, stitch, subdivide,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './fonds-aubert.module.css';
@@ -439,6 +439,22 @@ export default function FondsAubertPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={matryoshka}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={120}
+              redrawInterval={5040}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

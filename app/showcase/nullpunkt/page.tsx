@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  ortho, gimbal, ring, dipole, protractor,
+  dipole, gimbal, nutation, ortho, protractor, ring,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './nullpunkt.module.css';
@@ -428,6 +428,22 @@ export default function NullpunktPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={nutation}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={106}
+              redrawInterval={4942}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

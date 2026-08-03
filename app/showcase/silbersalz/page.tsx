@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  halftone, grainfield, dustfall, peppering, misprint,
+  dustfall, grain, grainfield, halftone, misprint, peppering,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './silbersalz.module.css';
@@ -429,6 +429,22 @@ export default function SilbersalzPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={grain}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={104}
+              redrawInterval={4928}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

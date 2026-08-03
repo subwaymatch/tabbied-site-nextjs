@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  flux, spark, curl, maelstrom, ripplering,
-  dotwash, streaking,
+  curl, dotwash, flux, maelstrom, neon, ripplering, spark, streaking,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './klangwerk.module.css';
@@ -457,6 +456,22 @@ export default function KlangwerkPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={neon}
+              palette={['transparent', PALE, STEEL]}
+              fit="grid"
+              cellSize={112}
+              redrawInterval={4984}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

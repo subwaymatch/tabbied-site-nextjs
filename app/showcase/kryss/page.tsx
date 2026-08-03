@@ -1,7 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  caltrop, metro, bothways, trigram, staple,
-  dotmatrix,
+  bothways, caltrop, dotmatrix, ell, metro, staple, trigram,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './kryss.module.css';
@@ -431,6 +430,22 @@ export default function KryssPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={ell}
+              palette={['transparent', PALE, GREY]}
+              fit="grid"
+              cellSize={108}
+              redrawInterval={4956}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>

@@ -1,6 +1,6 @@
 import { TabbiedArtwork } from 'tabbied/react';
 import {
-  falloff, radiance, sunray, dimmer, spraydown,
+  beamspread, dimmer, falloff, radiance, spraydown, sunray,
 } from 'tabbied/artworks';
 import { Figure } from 'components/Figure';
 import s from './lichtfeld.module.css';
@@ -426,6 +426,22 @@ export default function LichtfeldPage() {
         </section>
 
       </main>
+
+
+        {/* A coda: the last thing before the footer is the pattern itself, at
+            working size and with nothing to read. Purely decorative. */}
+        <section className={s.coda} aria-hidden="true">
+          <div className={s.codaField}>
+            <TabbiedArtwork
+              artwork={beamspread}
+              palette={['transparent', WHITE, GREY]}
+              fit="grid"
+              cellSize={116}
+              redrawInterval={5012}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+        </section>
 
       <footer className={s.footer}>
         <div className={s.footGrid}>
