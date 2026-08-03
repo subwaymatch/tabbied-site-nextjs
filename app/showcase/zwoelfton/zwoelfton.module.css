@@ -53,7 +53,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -118,7 +118,7 @@
   font-size: clamp(3.8rem, 20vw, 22rem);
   font-weight: 800;
   line-height: 0.8;
-  letter-spacing: -0.068em;
+  letter-spacing: -0.051em;
 }
 
 .heroType span:last-child {
@@ -196,7 +196,7 @@
   font-size: clamp(0.9rem, 2.2vw, 2.2rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .rowPitch {
@@ -218,7 +218,7 @@
   font-size: clamp(1.7rem, 5vw, 4.8rem);
   font-weight: 600;
   line-height: 1.04;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   text-wrap: pretty;
 }
 
@@ -237,7 +237,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -290,7 +290,7 @@
   font-size: clamp(2rem, 6.4vw, 6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .nDate span {
@@ -359,7 +359,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.038em;
 }
 
 .rBody {
@@ -413,7 +413,7 @@
   font-size: clamp(1.2rem, 2.6vw, 2.4rem);
   font-weight: 650;
   line-height: 1.05;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .pInst {
@@ -429,8 +429,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--bone);
-  color: var(--night);
   overflow: hidden;
 }
 
@@ -440,7 +438,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.55;
+  opacity: 0.36;
   mask-image: radial-gradient(
     ellipse 46% 62% at 50% 50%,
     transparent 0%,
@@ -462,7 +460,7 @@
   font-size: clamp(1.7rem, 5.4vw, 5rem);
   font-weight: 700;
   line-height: 0.98;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
   text-wrap: balance;
 }
 
@@ -474,7 +472,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--night) 60%, transparent);
+  color: color-mix(in srgb, var(--bone) 55%, transparent);
 }
 
 /* ------------------------------------------------- long tables, borderless */
@@ -512,7 +510,7 @@
 .tWho {
   font-size: clamp(1rem, 1.5vw, 1.35rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tWhat {
@@ -556,7 +554,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
   max-width: 18ch;
 }
 
@@ -573,7 +571,7 @@
   font-size: clamp(1.25rem, 2.6vw, 2.4rem);
   font-weight: 600;
   line-height: 1.12;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .wCols > div p {
@@ -591,7 +589,16 @@
 
 .visit {
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--deep);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
 }
 
 .visit h2 {
@@ -599,7 +606,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .visitList {
@@ -647,7 +654,7 @@
   font-size: clamp(1.4rem, 7.6vw, 7.2rem);
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
   word-break: break-word;
 }
 
@@ -673,7 +680,6 @@
 
 .footer {
   padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
-  background: var(--deep);
 }
 
 .footMark {
@@ -681,7 +687,7 @@
   font-size: clamp(6rem, 26vw, 28rem);
   font-weight: 800;
   line-height: 0.72;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.056em;
   color: color-mix(in srgb, var(--acid) 22%, transparent);
 }
 

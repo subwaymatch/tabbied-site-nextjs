@@ -149,6 +149,25 @@ const VISIT = [
   ['Photography', 'Yes, without flash, and not during Zwischenraum'],
 ];
 
+/* Day, hours, and whether the desk is shut — the third slot is
+   omitted on the days it is open. */
+const HOURS: [string, string, boolean?][] = [
+  ['Monday', 'Shut', true],
+  ['Tuesday', '10 – 16'],
+  ['Wednesday', '10 – 16'],
+  ['Thursday', '10 – 16'],
+  ['Friday', '10 – 16'],
+  ['Performance days', 'Until curtain'],
+  ['Sunday', 'Shut', true],
+];
+
+/* When, what, and where — the footer dateline. */
+const NEXT_UP: [string, string, string][] = [
+  ['12.04', 'Kessel — first night, with the full company', 'Grosse Halle'],
+  ['26.04', 'Kessel — played to a live score', 'Grosse Halle'],
+  ['17.05', 'Studio showing, no set and no lights', 'Probebühne 2'],
+];
+
 export default function SalzhausPage() {
   return (
     <div className={s.page}>
@@ -281,6 +300,16 @@ export default function SalzhausPage() {
               <p className={s.figKey}>{k}</p>
             </div>
           ))}
+          <div className={s.figuresField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={hourglass}
+              palette={['transparent', GREY, PALE]}
+              fit="grid"
+              cellSize={96}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
         </section>
 
         {/* ------------------------------------------------------------ WORK */}
@@ -429,6 +458,16 @@ export default function SalzhausPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={foldback}
+              palette={['transparent', GREY, PALE]}
+              fit="grid"
+              cellSize={104}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="visit-h">Coming to the Salzhaus</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v]) => (
@@ -441,15 +480,32 @@ export default function SalzhausPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Write to us</p>
-          <a className={s.contactMail} href="mailto:halle@salzhaus.example">
-            halle@salzhaus.example
-          </a>
-          <p className={s.contactFine}>
-            Uferstrasse 90, 4057 Basel. The office answers between 10 and 16,
-            and nobody answers during a technical rehearsal.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>Box office</p>
+            <a id="contact-h" className={s.deskTel} href="tel:+41610009090">
+              +41 61 000 90 90
+            </a>
+            <p className={s.contactFine}>
+              Uferstrasse 90, 4057 Basel. The office answers between 10 and 16,
+              and nobody answers during a technical rehearsal, which is most of
+              the afternoon before a première.
+            </p>
+          </div>
+          <div>
+            <dl className={s.hours}>
+              {HOURS.map(([d, h, shut]) => (
+                <div key={d} className={shut ? s.hoursShut : undefined}>
+                  <dt>{d}</dt>
+                  <dd>{h}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className={s.hoursNote}>
+              Returns go back on sale an hour before curtain, at the hall, for
+              cash, to whoever is standing there.
+            </p>
+          </div>
         </section>
       </main>
 
@@ -466,7 +522,15 @@ export default function SalzhausPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>Salzhaus</p>
+        <ol className={s.footNext} aria-label="Next performances">
+          {NEXT_UP.map(([when, what, tag]) => (
+            <li key={when}>
+              <span className={s.fnWhen}>{when}</span>
+              <span className={s.fnWhat}>{what}</span>
+              <span className={s.fnTag}>{tag}</span>
+            </li>
+          ))}
+        </ol>
         <div className={s.footGrid}>
           <div>
             <h2>Season</h2>

@@ -391,6 +391,16 @@ export default function ZwoelftonPage() {
 
         {/* ------------------------------------------------------------ VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={stepramp}
+              palette={['transparent', GREY, DEEP]}
+              fit="grid"
+              cellSize={100}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="visit-h">Coming to hear it</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v]) => (

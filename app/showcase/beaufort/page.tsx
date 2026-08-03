@@ -99,6 +99,13 @@ const VISIT = [
   ['Guarantee', 'Five years on our stitching, and the cloth-maker warrants the cloth.'],
 ];
 
+/* When, what, and where — the footer dateline. */
+const NEXT_UP: [string, string, string][] = [
+  ['08.03', 'Mainsail, Class 40 — three panels recut', 'On the floor'],
+  ['22.03', 'Genoa for a Bermudan 38, measured in February', 'Cut'],
+  ['04.04', 'Storm jib for a delivery crew who asked twice', 'Sewn'],
+];
+
 export default function BeaufortPage() {
   return (
     <div className={s.page}>
@@ -321,7 +328,7 @@ export default function BeaufortPage() {
           <div className={s.visitField} aria-hidden="true">
             <TabbiedArtwork
               artwork={angleoff}
-              palette={['transparent', DEEP, GREY]}
+              palette={['transparent', GREEN, GREY]}
               fit="grid"
               cellSize={112}
               redrawInterval={6400}
@@ -342,15 +349,58 @@ export default function BeaufortPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Measure, quote, argue</p>
-          <a className={s.contactMail} href="mailto:plancher@beaufort.example">
-            plancher@beaufort.example
-          </a>
-          <p className={s.contactFine}>
-            Quai des Indes 9, 56100 Lorient. Somebody is on the floor from seven
-            in the morning; the telephone is answered from nine.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>Measure, quote, argue</p>
+            <h2 id="contact-h" className={s.formTitle}>Start a sail</h2>
+            <p className={s.contactFine}>
+              Quai des Indes 9, 56100 Lorient. Somebody is on the floor from
+              seven in the morning; the telephone is answered from nine, and a
+              quote takes about a fortnight because we would rather measure
+              twice.
+            </p>
+          </div>
+          <form className={s.form}>
+            <p className={s.field}>
+              <label htmlFor="boat">Boat</label>
+              <input id="boat" name="boat" type="text" placeholder="Class, or length overall" />
+            </p>
+            <p className={s.field}>
+              <label htmlFor="sail">Sail</label>
+              <select id="sail" name="sail" defaultValue="">
+                <option value="" disabled>
+                  Choose
+                </option>
+                <option>Mainsail</option>
+                <option>Genoa</option>
+                <option>Staysail</option>
+                <option>Spinnaker</option>
+                <option>Storm jib</option>
+              </select>
+            </p>
+            <p className={s.field}>
+              <label htmlFor="rig">Rig measurements</label>
+              <select id="rig" name="rig" defaultValue="">
+                <option value="" disabled>
+                  Choose
+                </option>
+                <option>I have a current survey</option>
+                <option>Please come and measure</option>
+                <option>Copy the sail I have</option>
+              </select>
+            </p>
+            <p className={s.field}>
+              <label htmlFor="when">Wanted by</label>
+              <input id="when" name="when" type="text" placeholder="A month is enough" />
+            </p>
+            <p className={`${s.field} ${s.fieldWide}`}>
+              <label htmlFor="notes">What it is for</label>
+              <textarea id="notes" name="notes" placeholder="Cruising, racing, delivery, or something you have not told a sailmaker before" />
+            </p>
+            <button type="submit" className={s.submit}>
+              Send it over
+            </button>
+          </form>
         </section>
       </main>
 
@@ -366,7 +416,15 @@ export default function BeaufortPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>4</p>
+        <ol className={s.footNext} aria-label="On the floor">
+          {NEXT_UP.map(([when, what, tag]) => (
+            <li key={when}>
+              <span className={s.fnWhen}>{when}</span>
+              <span className={s.fnWhat}>{what}</span>
+              <span className={s.fnTag}>{tag}</span>
+            </li>
+          ))}
+        </ol>
         <div className={s.footGrid}>
           <div>
             <h2>Loft</h2>

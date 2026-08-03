@@ -369,15 +369,50 @@ export default function FalzbogenPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Dummies, surveys, quotations</p>
-          <a className={s.contactMail} href="mailto:bogen@falzbogen.example">
-            bogen@falzbogen.example
-          </a>
-          <p className={s.contactFine}>
-            Nonnenstrasse 17, 04229 Leipzig. Post a dummy and we will send it
-            back bound, once, at no charge, which settles most arguments.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>Dummies, surveys, quotations</p>
+            <h2 id="contact-h" className={s.formTitle}>Quote a binding</h2>
+            <p className={s.contactFine}>
+              Nonnenstrasse 17, 04229 Leipzig. Post a dummy and we will send
+              it back bound, once, at no charge, which settles most
+              arguments faster than a specification does.
+            </p>
+          </div>
+          <form className={s.form}>
+            <p className={s.field}>
+              <label htmlFor="edition">Edition</label>
+              <input id="edition" name="edition" type="text" placeholder="How many copies" />
+            </p>
+            <p className={s.field}>
+              <label htmlFor="trim">Trim size</label>
+              <input id="trim" name="trim" type="text" placeholder="170 × 240 mm" />
+            </p>
+            <p className={s.field}>
+              <label htmlFor="binding">Binding</label>
+              <select id="binding" name="binding" defaultValue="">
+                <option value="" disabled>
+                  Choose
+                </option>
+                <option>Section-sewn case</option>
+                <option>Otabind</option>
+                <option>Swiss brochure</option>
+                <option>Quarter cloth</option>
+                <option>Come and tell us</option>
+              </select>
+            </p>
+            <p className={s.field}>
+              <label htmlFor="extent">Extent</label>
+              <input id="extent" name="extent" type="text" placeholder="Pages, including plates" />
+            </p>
+            <p className={`${s.field} ${s.fieldWide}`}>
+              <label htmlFor="notes">Stock, endpapers, foil</label>
+              <textarea id="notes" name="notes" placeholder="And whether it has to lie flat, which changes everything" />
+            </p>
+            <button type="submit" className={s.submit}>
+              Send it over
+            </button>
+          </form>
         </section>
       </main>
 
@@ -393,15 +428,22 @@ export default function FalzbogenPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>16</p>
+        <nav className={s.footIndex} aria-label="Sections">
+          <a href="#work">What we bind</a>
+          <a href="#structures">Structures</a>
+          <a href="#folds">Four folds</a>
+          <a href="#shop">Working with us</a>
+        </nav>
         <div className={s.footGrid}>
           <div>
-            <h2>Bindery</h2>
-            <ul>
-              <li><a href="#work">What we bind</a></li>
-              <li><a href="#structures">Structures</a></li>
-              <li><a href="#recent">Off the bench</a></li>
-            </ul>
+            <h2>On the bench</h2>
+            <p>
+              Six benches, three of them older than the firm
+              <br />
+              Two thread-sewing machines, one hand frame
+              <br />
+              A nipping press of 1911, still the fastest way
+            </p>
           </div>
           <div>
             <h2>Craft</h2>

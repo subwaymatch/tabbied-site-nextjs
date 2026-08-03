@@ -349,6 +349,16 @@ export default function KupferwalzPage() {
 
         {/* -------------------------------------------------------- ORDERING */}
         <section id="ordering" className={s.visit} aria-labelledby="ordering-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={roundcut}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="ordering-h">Buying from a small mill</h2>
           <dl className={s.visitList}>
             {ORDERING.map(([k, v]) => (
@@ -361,15 +371,50 @@ export default function KupferwalzPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Quotations, specials, scrap</p>
-          <a className={s.contactMail} href="mailto:walzwerk@kupferwalz.example">
-            walzwerk@kupferwalz.example
-          </a>
-          <p className={s.contactFine}>
-            Quai des Ardennes 60, 4020 Liège. The weighbridge is open from six;
-            the office, sensibly, is not.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>Quotations, specials, scrap</p>
+            <h2 id="contact-h" className={s.formTitle}>Ask for a price</h2>
+            <p className={s.contactFine}>
+              Quai des Ardennes 60, 4020 Liège. The weighbridge is open from
+              six; the office, sensibly, is not. Quotes go out the day after
+              the mill has looked at the schedule.
+            </p>
+          </div>
+          <form className={s.form}>
+            <p className={s.field}>
+              <label htmlFor="alloy">Alloy</label>
+              <select id="alloy" name="alloy" defaultValue="">
+                <option value="" disabled>
+                  Choose
+                </option>
+                <option>Cu-ETP</option>
+                <option>Cu-DHP</option>
+                <option>CuZn37 brass</option>
+                <option>CuSn6 bronze</option>
+                <option>Not sure yet</option>
+              </select>
+            </p>
+            <p className={s.field}>
+              <label htmlFor="gauge">Finished gauge</label>
+              <input id="gauge" name="gauge" type="text" placeholder="0.30 mm" />
+            </p>
+            <p className={s.field}>
+              <label htmlFor="width">Width</label>
+              <input id="width" name="width" type="text" placeholder="620 mm" />
+            </p>
+            <p className={s.field}>
+              <label htmlFor="tonnes">Quantity</label>
+              <input id="tonnes" name="tonnes" type="text" placeholder="Tonnes, or a coil count" />
+            </p>
+            <p className={`${s.field} ${s.fieldWide}`}>
+              <label htmlFor="notes">Temper, finish, anything unusual</label>
+              <textarea id="notes" name="notes" placeholder="Half hard, mill finish, interleaved — tell us what happens to it next" />
+            </p>
+            <button type="submit" className={s.submit}>
+              Send it over
+            </button>
+          </form>
         </section>
       </main>
 
@@ -385,7 +430,22 @@ export default function KupferwalzPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>0.05</p>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={decay}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={76}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="kupferwalz-tile-micrometer-cutout" alt="A deep-throat sheet micrometer for measuring rolled copper strip" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>A hundredth of a millimetre either way is the whole of this trade.</p>
+        </div>
         <div className={s.footGrid}>
           <div>
             <h2>Mill</h2>

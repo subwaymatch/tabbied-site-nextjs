@@ -117,6 +117,18 @@ const SUPPORT = [
   ['Report', 'Published every March, with the budget, in full, as one PDF.'],
 ];
 
+/* Day, hours, and whether the desk is shut — the third slot is
+   omitted on the days it is open. */
+const HOURS: [string, string, boolean?][] = [
+  ['Monday', 'Shut', true],
+  ['Tuesday', '11 – 18'],
+  ['Wednesday', '11 – 18'],
+  ['Thursday', '11 – 21'],
+  ['Friday', '11 – 18'],
+  ['Saturday', '10 – 18'],
+  ['Sunday', '10 – 18'],
+];
+
 export default function KubusPage() {
   return (
     <div className={s.page}>
@@ -212,6 +224,16 @@ export default function KubusPage() {
 
         {/* --------------------------------------------------------- NUMBERS */}
         <section className={s.numbers} aria-label="The kunsthalle in numbers">
+          <div className={s.numbersField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={housing}
+              palette={['transparent', GREY, MID]}
+              fit="grid"
+              cellSize={94}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           {NUMBERS.map(([v, k]) => (
             <div key={k}>
               <p className={s.nVal}>{v}</p>
@@ -354,15 +376,32 @@ export default function KubusPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Proposals, press, the annual report</p>
-          <a className={s.contactMail} href="mailto:halle@kubus.example">
-            halle@kubus.example
-          </a>
-          <p className={s.contactFine}>
-            Depotstrasse 4. Proposals are read twice a year, in March and in
-            September, and answered inside six weeks either way.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>The desk, and when it is there</p>
+            <a id="contact-h" className={s.deskTel} href="tel:+41610000400">
+              +41 61 000 04 00
+            </a>
+            <p className={s.contactFine}>
+              Depotstrasse 4. Proposals are read twice a year, in March and in
+              September, and answered inside six weeks either way — the desk
+              cannot tell you anything the letter will not.
+            </p>
+          </div>
+          <div>
+            <dl className={s.hours}>
+              {HOURS.map(([d, h, shut]) => (
+                <div key={d} className={shut ? s.hoursShut : undefined}>
+                  <dt>{d}</dt>
+                  <dd>{h}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className={s.hoursNote}>
+              Thursday evenings are free after 18, and the building is emptier
+              at 20 than at any other hour of the week.
+            </p>
+          </div>
         </section>
       </main>
 
@@ -378,15 +417,22 @@ export default function KubusPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>Kubus</p>
+        <nav className={s.footIndex} aria-label="Sections">
+          <a href="#shows">Exhibitions</a>
+          <a href="#rooms">The rooms</a>
+          <a href="#support">Funding</a>
+          <a href="#visit">Hours</a>
+        </nav>
         <div className={s.footGrid}>
           <div>
-            <h2>Programme</h2>
-            <ul>
-              <li><a href="#shows">Exhibitions</a></li>
-              <li><a href="#programme">Talks and tours</a></li>
-              <li><a href="#rooms">The rooms</a></li>
-            </ul>
+            <h2>The building</h2>
+            <p>
+              A goods depot of 1908, four rooms, no wall moved
+              <br />
+              Nine metres to the trusses in the long room
+              <br />
+              Daylight only, north-facing, no blinds
+            </p>
           </div>
           <div>
             <h2>Kunsthalle</h2>

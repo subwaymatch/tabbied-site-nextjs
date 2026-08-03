@@ -156,7 +156,7 @@
   font-size: clamp(2.3rem, 7.5vw, 5.6rem);
   font-weight: 650;
   line-height: 0.98;
-  letter-spacing: -0.048em;
+  letter-spacing: -0.041em;
 }
 
 .hero h1 span {
@@ -187,7 +187,7 @@
 .moves dt {
   font-size: clamp(1.4rem, 3.4vw, 2.5rem);
   font-weight: 650;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   line-height: 1;
 }
 
@@ -278,7 +278,7 @@
   margin: 0;
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 650;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .note {
@@ -527,7 +527,7 @@
   margin: 0 0 clamp(1.4rem, 4vw, 2.4rem);
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 650;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .contactInner dl {
@@ -578,7 +578,7 @@
   margin: 0 0 0.7rem;
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .secNote {

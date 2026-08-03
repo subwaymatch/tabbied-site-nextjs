@@ -54,7 +54,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -131,7 +131,7 @@
   font-size: clamp(3.4rem, 16vw, 18rem);
   font-weight: 800;
   line-height: 0.82;
-  letter-spacing: -0.064em;
+  letter-spacing: -0.049em;
 }
 
 .heroType span:last-child {
@@ -212,7 +212,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -238,7 +238,7 @@
   font-size: clamp(2.2rem, 7.4vw, 6.8rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -302,7 +302,7 @@
   font-size: clamp(1.8rem, 5.2vw, 4.6rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .rowSub {
@@ -322,7 +322,7 @@
   text-align: right;
   font-size: clamp(1rem, 1.6vw, 1.45rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 /* ------------------------------------------------------------- band, coda */
@@ -369,7 +369,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .pBody {
@@ -414,7 +414,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -432,8 +432,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
   overflow: hidden;
 }
 
@@ -441,7 +439,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.3;
   mask-image: radial-gradient(
     ellipse 48% 60% at 50% 50%,
     transparent 0%,
@@ -462,7 +460,7 @@
   font-size: clamp(1.6rem, 4.8vw, 4.4rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   text-wrap: balance;
 }
 
@@ -474,7 +472,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 72%, transparent);
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
 }
 
 /* --------------------------------------------------------------------- faq */
@@ -491,7 +489,7 @@
   font-size: clamp(1.05rem, 1.7vw, 1.5rem);
   font-weight: 700;
   line-height: 1.06;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.038em;
 }
 
 .faqList dd {
@@ -503,9 +501,101 @@
 
 /* ----------------------------------------------------------------- contact */
 
+/* The field is the headline's equal here, so its label is carried by the
+   heading above it and the <label> itself is only for a screen reader. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+}
+
+.signupTitle {
+  margin: 0 0 clamp(1.6rem, 3.6vw, 3rem);
+  max-width: 16ch;
+  font-size: clamp(2.4rem, 8vw, 7.4rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+}
+
+/* One field the width of the page: the strip is the section, so it gets the
+   measure the display type would otherwise have taken. */
+.signup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  max-width: 58rem;
+}
+
+.signup input {
+  font: inherit;
+  font-size: clamp(1rem, 1.8vw, 1.6rem);
+  color: inherit;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: clamp(0.9rem, 1.8vw, 1.5rem) clamp(1rem, 2vw, 1.7rem);
+}
+
+.signup input::placeholder {
+  color: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+
+.signup input:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+
+.signup button {
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--pink);
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  padding: 0 clamp(1.6rem, 3vw, 2.8rem);
+  cursor: pointer;
+}
+
+.signupMeta {
+  margin: clamp(1.6rem, 3.5vw, 2.8rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  max-width: 58rem;
+}
+
+.signupMeta div {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+}
+
+.signupMeta dt {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+
+.signupMeta dd {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
 }
 
 .contactPre {
@@ -517,21 +607,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.4rem, 7.8vw, 7.4rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--pink);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 48ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--ink) 66%, transparent);
@@ -545,13 +623,25 @@
   color: var(--paper);
 }
 
-.footMark {
-  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
-  font-size: clamp(6rem, 26vw, 28rem);
+/* Instead of one big glyph, the sections themselves at display size: the first
+   thing the footer offers is a way back out of it. */
+.footIndex {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  gap: 0.06em;
+  justify-items: start;
+}
+
+.footIndex a {
+  font-size: clamp(1.8rem, 6vw, 5.4rem);
   font-weight: 800;
-  line-height: 0.72;
-  letter-spacing: -0.08em;
-  color: color-mix(in srgb, var(--pink) 55%, transparent);
+  line-height: 0.94;
+  letter-spacing: -0.046em;
+  color: color-mix(in srgb, var(--paper) 26%, transparent);
+}
+
+.footIndex a:hover {
+  color: var(--ink);
 }
 
 .footGrid {
@@ -692,6 +782,18 @@
   .faqList,
   .footGrid,
   .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .signup {
+    grid-template-columns: 1fr;
+  }
+
+  .signup button {
+    padding: 1.1rem 2.4rem;
+  }
+
+  .signupMeta {
     grid-template-columns: 1fr;
   }
 }

@@ -343,6 +343,16 @@ export default function OrgelwerkPage() {
 
         {/* ------------------------------------------------------------ CARE */}
         <section id="care" className={s.visit} aria-labelledby="care-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={arris}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="care-h">Living with one</h2>
           <dl className={s.visitList}>
             {CARE.map(([k, v]) => (
@@ -379,7 +389,22 @@ export default function OrgelwerkPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>16′</p>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={mutule}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={74}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="orgelwerk-tile-cone-cutout" alt="A brass organ tuning cone with a turned wooden handle" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>Nothing in an organ is finished until it has been listened to in the room.</p>
+        </div>
         <div className={s.footGrid}>
           <div>
             <h2>Workshop</h2>

@@ -101,6 +101,15 @@ const REUSE = [
   ['Citation', 'Every series page carries a citation string with the exact revision.'],
 ];
 
+/* x and y are percentages of the locator box, not coordinates —
+   the schematic is a diagram of relative position, nothing more. */
+const OFFICES = [
+  { city: 'Genève', role: 'Head office', addr: 'Rue du Recensement 4, 1204', fix: '+41 22 000 04 00', x: 27, y: 62, head: true },
+  { city: 'Lausanne', role: 'Household survey', addr: 'Avenue de Rumine 21, 1005', fix: '+41 21 000 21 00', x: 39, y: 46 },
+  { city: 'Sion', role: 'Alpine register', addr: 'Rue de Lausanne 63, 1950', fix: '+41 27 000 63 00', x: 57, y: 74 },
+  { city: 'Neuchâtel', role: 'Methods and revisions', addr: 'Espace de l\'Europe 10, 2000', fix: '+41 32 000 10 00', x: 68, y: 28 },
+];
+
 export default function BureauVektorPage() {
   const max = Math.max(...SERIES_2026.map(([, v]) => Number(v)));
 
@@ -163,6 +172,16 @@ export default function BureauVektorPage() {
             Four figures at poster size on the blue ground. The change of
             ground does the separating; there is not a rule on the page. */}
         <section id="indicators" className={s.indicators} aria-label="Headline indicators">
+          <div className={s.indicatorsField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={lattice}
+              palette={['transparent', GREY, PALE]}
+              fit="grid"
+              cellSize={92}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           {HEADLINE.map((h) => (
             <div key={h.k}>
               <p className={s.iVal}>{h.v}</p>
@@ -350,6 +369,16 @@ export default function BureauVektorPage() {
 
         {/* ----------------------------------------------------------- REUSE */}
         <section id="reuse" className={s.reuse} aria-labelledby="reuse-h">
+          <div className={s.reuseField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={blindfold}
+              palette={['transparent', GREY, PALE]}
+              fit="grid"
+              cellSize={104}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="reuse-h">Take it and use it</h2>
           <dl className={s.reuseList}>
             {REUSE.map(([k, v]) => (
@@ -362,15 +391,46 @@ export default function BureauVektorPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Corrections, queries, freedom-of-information</p>
-          <a className={s.contactMail} href="mailto:tabellen@vektor.example">
-            tabellen@vektor.example
-          </a>
+          <h2 id="contact-h" className={s.officesHead}>Four offices, one series</h2>
+          <div className={s.officeCols}>
+            <ul className={s.offices}>
+              {OFFICES.map((o) => (
+                <li key={o.city}>
+                  <p className={s.oCity}>{o.city}</p>
+                  <p className={s.oRole}>{o.role}</p>
+                  <p className={s.oAddr}>{o.addr}</p>
+                  <p className={s.oFix}>{o.fix}</p>
+                </li>
+              ))}
+            </ul>
+            <div className={s.locator} aria-hidden="true">
+              <div className={s.locatorField}>
+                <TabbiedArtwork
+                  artwork={blindfold}
+                  palette={['transparent', GREY, BLUE]}
+                  fit="grid"
+                  cellSize={132}
+                  redrawInterval={6200}
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+              </div>
+              {OFFICES.map((o) => (
+                <span
+                  key={o.city}
+                  className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
+                  style={{ left: `${o.x}%`, top: `${o.y}%` }}
+                >
+                  <span className={s.pinDot} />
+                  <span>{o.city}</span>
+                </span>
+              ))}
+            </div>
+          </div>
           <p className={s.contactFine}>
-            Rue du Recensement 4, 1204 Genève. A correction request is answered
-            within five working days, and if we were wrong the correction is
-            published, not quietly applied.
+            A correction request is answered within five working days, and if
+            we were wrong the correction is published, not quietly applied.
           </p>
         </section>
       </main>
@@ -387,7 +447,9 @@ export default function BureauVektorPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>Vektor</p>
+        <p className={s.footStatement}>
+          Every table on this site can be downloaded, reused and <em>argued with</em>.
+        </p>
         <div className={s.footGrid}>
           <div>
             <h2>Data</h2>

@@ -53,7 +53,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -116,7 +116,7 @@
   font-size: clamp(3rem, 13vw, 14.5rem);
   font-weight: 800;
   line-height: 0.84;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .heroType span:nth-child(2) {
@@ -177,7 +177,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -235,7 +235,7 @@
   font-size: clamp(1.6rem, 5.5vw, 5.5rem);
   font-weight: 800;
   line-height: 0.8;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .sheetNote {
@@ -260,7 +260,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -318,7 +318,7 @@
   font-size: clamp(1.7rem, 4.6vw, 4.1rem);
   font-weight: 700;
   line-height: 0.96;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .rowSub {
@@ -385,7 +385,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .fBody {
@@ -430,7 +430,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -448,8 +448,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
   overflow: hidden;
 }
 
@@ -457,7 +455,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.3;
   mask-image: radial-gradient(
     ellipse 50% 62% at 50% 50%,
     transparent 0%,
@@ -478,7 +476,7 @@
   font-size: clamp(1.5rem, 4.4vw, 4.1rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   text-wrap: balance;
 }
 
@@ -490,7 +488,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 62%, transparent);
+  color: color-mix(in srgb, var(--ink) 58%, transparent);
 }
 
 /* -------------------------------------------------------------------- shop */
@@ -499,7 +497,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--pale);
+  overflow: hidden;
 }
 
 .shopField {
@@ -515,7 +513,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .shopList {
@@ -546,7 +544,89 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.formTitle {
+  margin: 0 0 clamp(1.1rem, 2.4vw, 2rem);
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+/* Inputs are filled rather than ruled: the batch avoids lines, so the field is
+   a tint of the page ink and the focus ring is the only edge it ever draws. */
+.field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: inherit;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: 0.85rem 0.95rem;
+  appearance: none;
+}
+
+.field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--ink) 34%, transparent);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--paper);
+  border: 0;
+  border-radius: 0;
+  padding: 1.1rem 2.4rem;
+  cursor: pointer;
 }
 
 .contactPre {
@@ -558,21 +638,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.4rem, 7.6vw, 7.2rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--red);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 48ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--ink) 66%, transparent);
@@ -586,13 +654,25 @@
   color: var(--paper);
 }
 
-.footMark {
-  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
-  font-size: clamp(5rem, 24vw, 26rem);
+/* Instead of one big glyph, the sections themselves at display size: the first
+   thing the footer offers is a way back out of it. */
+.footIndex {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  gap: 0.06em;
+  justify-items: start;
+}
+
+.footIndex a {
+  font-size: clamp(1.8rem, 6vw, 5.4rem);
   font-weight: 800;
-  line-height: 0.74;
-  letter-spacing: -0.08em;
-  color: color-mix(in srgb, var(--red) 62%, transparent);
+  line-height: 0.94;
+  letter-spacing: -0.046em;
+  color: color-mix(in srgb, var(--paper) 26%, transparent);
+}
+
+.footIndex a:hover {
+  color: var(--ink);
 }
 
 .footGrid {
@@ -698,6 +778,10 @@
   .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
   .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
   .tEnd { grid-area: end; align-self: center; }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {
@@ -730,6 +814,10 @@
   .shopList,
   .footGrid,
   .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
     grid-template-columns: 1fr;
   }
 }

@@ -66,7 +66,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -131,7 +131,7 @@
   font-size: clamp(2.8rem, 11.5vw, 13rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .heroType span:last-child {
@@ -268,7 +268,7 @@
   font-size: clamp(1.1rem, 2.4vw, 2.2rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .pealMeta {
@@ -308,7 +308,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -334,7 +334,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -404,7 +404,7 @@
   font-size: clamp(1.6rem, 4.4vw, 4rem);
   font-weight: 700;
   line-height: 0.96;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .rowSub {
@@ -468,7 +468,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .pBody {
@@ -513,7 +513,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -527,24 +527,28 @@
 
 /* ------------------------------------------------------------------- quote */
 
+/* No ground of its own: the band sits on the page colour and is separated
+   from its neighbours by the pattern alone, which is drawn on a transparent
+   slot so the page shows straight through it. */
 .quote {
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--ground);
   overflow: hidden;
 }
 
+/* Held well down and cleared through the middle: the page colour is what
+   shows through the pattern, so it reads as a texture on the ground rather
+   than as a panel laid over it, and the words sit on clean paper. */
 .quoteField {
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.45;
+  opacity: 0.34;
   mask-image: radial-gradient(
-    ellipse 50% 62% at 50% 50%,
+    ellipse 52% 64% at 50% 50%,
     transparent 0%,
-    rgb(0 0 0 / 0.4) 58%,
+    rgb(0 0 0 / 0.3) 56%,
     #000 100%
   );
 }
@@ -562,7 +566,7 @@
   font-size: clamp(1.5rem, 4.4vw, 4.1rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   text-wrap: balance;
 }
 
@@ -574,14 +578,26 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--ground) 58%, transparent);
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
 }
 
 /* ------------------------------------------------------------------- visit */
 
 .visit {
+  position: relative;
+  isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--panel);
+  overflow: hidden;
+}
+
+/* Was a panel-coloured slab. Now the page ground with a pattern held well
+   down, so the column grid reads against a texture rather than a change of
+   surface. */
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.22;
 }
 
 .visit h2 {
@@ -589,7 +605,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .visitList {
@@ -620,7 +636,82 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+}
+
+.datesTitle {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  max-width: 18ch;
+  font-size: clamp(2.4rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+}
+
+.dates {
+  list-style: none;
+  margin: 0 0 clamp(1.8rem, 4vw, 3rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.slot {
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: clamp(0.9rem, 1.8vw, 1.4rem);
+  cursor: pointer;
+  display: grid;
+  gap: 0.35rem;
+  color: inherit;
+}
+
+.slot:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--ground);
+}
+
+.slot:hover:not(:disabled) .slotState {
+  color: inherit;
+}
+
+.slot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.slot:disabled {
+  cursor: not-allowed;
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+  color: var(--grey);
+}
+
+.slot:disabled .slotState {
+  color: inherit;
+}
+
+.slotDay {
+  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.slotMonth {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.slotState {
+  font-size: 0.68rem;
+  color: var(--accent);
 }
 
 .contactPre {
@@ -632,21 +723,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.4rem, 7.4vw, 7rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--accent);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 48ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--ink) 62%, transparent);
@@ -656,16 +735,49 @@
 
 .footer {
   padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
-  background: var(--panel);
 }
 
-.footMark {
-  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
-  font-size: clamp(4rem, 21vw, 23rem);
-  font-weight: 800;
-  line-height: 0.76;
-  letter-spacing: -0.075em;
-  color: color-mix(in srgb, var(--accent) 30%, transparent);
+/* The footer opens with an object rather than a numeral. It sits on a pattern
+   plate — the page's own device for a cut-out — drawn on a transparent slot so
+   the plate is texture on the page rather than a panel laid over it. */
+.footObject {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.footPlate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: clamp(150px, 19vw, 268px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.footPlateField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.footCut {
+  width: 80%;
+  height: auto;
+}
+
+.footLine {
+  margin: 0;
+  max-width: 19ch;
+  font-size: clamp(1.45rem, 3.4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.036em;
+  text-wrap: balance;
 }
 
 .footGrid {
@@ -772,6 +884,10 @@
   .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
   .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
   .tEnd { grid-area: end; }
+
+  .dates {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 860px) {
@@ -816,5 +932,14 @@
   .footGrid,
   .footFine {
     grid-template-columns: 1fr;
+  }
+
+  .dates {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footObject {
+    grid-template-columns: 1fr;
+    justify-items: start;
   }
 }

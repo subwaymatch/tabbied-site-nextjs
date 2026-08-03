@@ -95,6 +95,22 @@ const SERVICE = [
   ['Archive', 'Daily observations back to 1867, digitised from the ledgers by hand.'],
 ];
 
+/* x and y are percentages of the locator box, not coordinates —
+   the schematic is a diagram of relative position, nothing more. */
+const OFFICES = [
+  { city: 'Bergen', role: 'Forecast desk, staffed always', addr: 'Allégaten 70, 5007', fix: '60.39 N  5.32 E', x: 22, y: 68, head: true },
+  { city: 'Ålesund', role: 'Coastal radar', addr: 'Nedre Strandgate 8, 6002', fix: '62.47 N  6.15 E', x: 38, y: 48 },
+  { city: 'Tromsø', role: 'Northern synoptic', addr: 'Kirkegata 2, 9008', fix: '69.65 N  18.96 E', x: 66, y: 18 },
+  { city: 'Bjørnøya', role: 'Automatic, visited twice a year', addr: 'Herwighamna', fix: '74.50 N  19.00 E', x: 52, y: 8 },
+];
+
+/* When, what, and where — the footer dateline. */
+const NEXT_UP: [string, string, string][] = [
+  ['04:00', 'Coastal waters, twelve hours ahead', 'Daily'],
+  ['11:00', 'Offshore and open sea, thirty-six hours', 'Daily'],
+  ['16:00', 'Warnings, only when there are any', 'As required'],
+];
+
 export default function IsobarPage() {
   const lo = Math.min(...NORMALS.map(([, v]) => Number(v)));
   const hi = Math.max(...NORMALS.map(([, v]) => Number(v)));
@@ -357,14 +373,46 @@ export default function IsobarPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Observations, data, corrections</p>
-          <a className={s.contactMail} href="mailto:varsel@isobar.example">
-            varsel@isobar.example
-          </a>
+          <h2 id="contact-h" className={s.officesHead}>Four stations on the watch</h2>
+          <div className={s.officeCols}>
+            <ul className={s.offices}>
+              {OFFICES.map((o) => (
+                <li key={o.city}>
+                  <p className={s.oCity}>{o.city}</p>
+                  <p className={s.oRole}>{o.role}</p>
+                  <p className={s.oAddr}>{o.addr}</p>
+                  <p className={s.oFix}>{o.fix}</p>
+                </li>
+              ))}
+            </ul>
+            <div className={s.locator} aria-hidden="true">
+              <div className={s.locatorField}>
+                <TabbiedArtwork
+                  artwork={ringfield}
+                  palette={['transparent', GREY, VIOLET]}
+                  fit="grid"
+                  cellSize={128}
+                  redrawInterval={6200}
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+              </div>
+              {OFFICES.map((o) => (
+                <span
+                  key={o.city}
+                  className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
+                  style={{ left: `${o.x}%`, top: `${o.y}%` }}
+                >
+                  <span className={s.pinDot} />
+                  <span>{o.city}</span>
+                </span>
+              ))}
+            </div>
+          </div>
           <p className={s.contactFine}>
-            Allégaten 70, 5007 Bergen. The forecast desk is staffed at all
-            hours; everybody else answers between eight and four.
+            The forecast desk is staffed at all hours; everybody else answers
+            between eight and four, and the archive answers when it can.
           </p>
         </section>
       </main>
@@ -381,7 +429,15 @@ export default function IsobarPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>Isobar</p>
+        <ol className={s.footNext} aria-label="Issue times">
+          {NEXT_UP.map(([when, what, tag]) => (
+            <li key={when}>
+              <span className={s.fnWhen}>{when}</span>
+              <span className={s.fnWhat}>{what}</span>
+              <span className={s.fnTag}>{tag}</span>
+            </li>
+          ))}
+        </ol>
         <div className={s.footGrid}>
           <div>
             <h2>Forecast</h2>

@@ -101,6 +101,16 @@ const VISIT = [
   ['Recasting', 'We will recast a cracked bell using its own metal, and we will tell you honestly whether it is worth it.'],
 ];
 
+/* Dates offered, and which of them have gone. */
+const SLOTS = [
+  { day: '07', month: 'March', state: 'Full', full: true },
+  { day: '18', month: 'April', state: 'Six places' },
+  { day: '23', month: 'May', state: 'Places left' },
+  { day: '11', month: 'July', state: 'Full', full: true },
+  { day: '19', month: 'Sept', state: 'Places left' },
+  { day: '14', month: 'Nov', state: 'Two places' },
+];
+
 export default function GlockenhofPage() {
   const widest = Math.max(...PEAL.map((b) => b.mm));
 
@@ -353,6 +363,16 @@ export default function GlockenhofPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={scotia}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="visit-h">Coming to a pour</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v]) => (
@@ -365,14 +385,25 @@ export default function GlockenhofPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Commissions, recasts, tuning reports</p>
-          <a className={s.contactMail} href="mailto:guss@glockenhof.example">
-            guss@glockenhof.example
-          </a>
+          <h2 id="contact-h" className={s.datesTitle}>Stand at the edge of a pour</h2>
+          <ul className={s.dates}>
+            {SLOTS.map((d) => (
+              <li key={`${d.day}-${d.month}`}>
+                <button type="button" className={s.slot} disabled={d.full}>
+                  <span className={s.slotDay}>{d.day}</span>
+                  <span className={s.slotMonth}>{d.month}</span>
+                  <span className={s.slotState}>{d.state}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
           <p className={s.contactFine}>
-            Höttinger Au 41, 6020 Innsbruck. The office answers between eight
-            and four, and nobody answers on the morning of a pour.
+            Höttinger Au 41, 6020 Innsbruck. Twelve people, closed shoes, and
+            an hour of nothing happening before the ninety seconds that matter.
+            The office answers between eight and four, and nobody answers on
+            the morning of a pour.
           </p>
         </section>
       </main>
@@ -389,7 +420,22 @@ export default function GlockenhofPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>1782</p>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={bangle}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={78}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="glockenhof-tile-fork-cutout" alt="A polished steel tuning fork standing on its stem" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>A bell is tuned by removing metal, so every decision it contains is final.</p>
+        </div>
         <div className={s.footGrid}>
           <div>
             <h2>Foundry</h2>

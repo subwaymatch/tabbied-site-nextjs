@@ -55,7 +55,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -122,7 +122,7 @@
   font-size: clamp(4rem, 20vw, 22rem);
   font-weight: 800;
   line-height: 0.8;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.051em;
 }
 
 .heroType span:last-child {
@@ -201,7 +201,7 @@
   font-size: clamp(2.2rem, 5.4vw, 5.2rem);
   font-weight: 800;
   line-height: 0.84;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .dTemp span {
@@ -279,7 +279,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -305,7 +305,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -350,7 +350,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .mBody {
@@ -420,7 +420,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -453,7 +453,7 @@
   font-size: clamp(0.8rem, 1.7vw, 1.7rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .stripK {
@@ -474,7 +474,7 @@
   font-size: clamp(1.6rem, 4vw, 3.6rem);
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .records dd {
@@ -492,8 +492,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
   overflow: hidden;
 }
 
@@ -501,7 +499,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.45;
+  opacity: 0.32;
   mask-image: radial-gradient(
     ellipse 48% 60% at 50% 50%,
     transparent 0%,
@@ -522,7 +520,7 @@
   font-size: clamp(1.6rem, 4.8vw, 4.4rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   text-wrap: balance;
 }
 
@@ -534,7 +532,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 60%, transparent);
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
 }
 
 /* ----------------------------------------------------------------- service */
@@ -543,7 +541,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--pale);
+  overflow: hidden;
 }
 
 .serviceField {
@@ -559,7 +557,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .serviceList {
@@ -590,7 +588,105 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+}
+
+.officesHead {
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 6.4vw, 5.6rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.046em;
+}
+
+.officeCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.offices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.4vw, 3rem);
+}
+
+.oCity {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.024em;
+}
+
+.oRole {
+  margin: 0 0 0.7rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.oAddr {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.oFix {
+  margin: 0;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+/* A locator, not a map: the pattern stands in for the ground and the offices
+   are plotted on it by percentage, which is as much as a schematic owes. */
+.locator {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.locatorField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.pinDot {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+.pinHead .pinDot {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.pin span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .contactPre {
@@ -602,21 +698,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.4rem, 7.8vw, 7.4rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--violet);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 48ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--ink) 66%, transparent);
@@ -630,13 +714,45 @@
   color: var(--paper);
 }
 
-.footMark {
-  margin: 0 0 clamp(2rem, 5vw, 4rem);
-  font-size: clamp(3.5rem, 19vw, 21rem);
+/* Three entries instead of a monogram: the last thing the page says is what
+   happens next, which is more use than the house initial. */
+.footNext {
+  list-style: none;
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.fnWhen {
+  display: block;
+  font-size: clamp(1.7rem, 4.8vw, 4.2rem);
   font-weight: 800;
-  line-height: 0.78;
-  letter-spacing: -0.075em;
-  color: color-mix(in srgb, var(--violet) 72%, transparent);
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnWhat {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 26ch;
+  /* Two lines reserved, so the tag under each entry lands on one line. */
+  min-height: 2.8em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.fnTag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
 }
 
 .footGrid {
@@ -727,6 +843,10 @@
   .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.84rem; }
   .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.84rem; }
   .tEnd { grid-area: end; align-self: center; }
+
+  .officeCols {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 980px) {
@@ -778,5 +898,17 @@
   .footGrid,
   .footFine {
     grid-template-columns: 1fr;
+  }
+
+  .offices {
+    grid-template-columns: 1fr;
+  }
+
+  .footNext {
+    grid-template-columns: 1fr;
+  }
+
+  .fnWhat {
+    min-height: 0;
   }
 }

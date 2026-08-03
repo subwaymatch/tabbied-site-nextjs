@@ -157,6 +157,13 @@ const FAQ = [
   ['Do you ship?', 'Rolled in a tube anywhere, flat in a crate within the Benelux. Editions over B1 travel flat or not at all.'],
 ];
 
+/* What the letter is, answered before anyone has to ask. */
+const SIGNUP_META: [string, string][] = [
+  ['How often', 'Whenever an edition dries, which is roughly monthly.'],
+  ['What is in it', 'One print, the separations behind it, and the price.'],
+  ['Leaving', 'One link, bottom of every letter, no questions asked.'],
+];
+
 export default function PresseNeunPage() {
   return (
     <div className={s.page}>
@@ -402,15 +409,29 @@ export default function PresseNeunPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Bring us a file</p>
-          <a className={s.contactMail} href="mailto:bed@presseneun.example">
-            bed@presseneun.example
-          </a>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <p className={s.contactPre}>Bring us a file — or just watch</p>
+          <h2 id="contact-h" className={s.signupTitle}>Editions, as they come off the bed</h2>
+          <form className={s.signup}>
+            <label className={s.srOnly} htmlFor="signup-mail">
+              Email address
+            </label>
+            <input id="signup-mail" name="email" type="email" placeholder="you@example.com" />
+            <button type="submit">Put me on it</button>
+          </form>
+          <dl className={s.signupMeta}>
+            {SIGNUP_META.map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
           <p className={s.contactFine}>
             Maashaven Oostzijde 9, 3072 Rotterdam. The workshop is open to
             visitors on Thursdays, and to clients whenever their job is on the
-            bed.
+            bed — write to bed@presseneun.example if you would rather not wait
+            for a letter.
           </p>
         </section>
       </main>
@@ -427,15 +448,22 @@ export default function PresseNeunPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>9</p>
+        <nav className={s.footIndex} aria-label="Sections">
+          <a href="#work">What we print</a>
+          <a href="#process">Four stages</a>
+          <a href="#editions">Editions</a>
+          <a href="#prices">Prices</a>
+        </nav>
         <div className={s.footGrid}>
           <div>
-            <h2>Workshop</h2>
-            <ul>
-              <li><a href="#work">What we print</a></li>
-              <li><a href="#process">Four stages</a></li>
-              <li><a href="#prices">Price list</a></li>
-            </ul>
+            <h2>On the floor</h2>
+            <p>
+              A 1974 Heidelberg KORD, still on its original bed
+              <br />
+              Two flatbed proofing presses
+              <br />
+              A Vandercook of 1953 that nobody is allowed to move
+            </p>
           </div>
           <div>
             <h2>Imprint</h2>

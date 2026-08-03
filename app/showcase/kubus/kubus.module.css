@@ -53,7 +53,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -119,7 +119,7 @@
   font-size: clamp(4.5rem, 26vw, 29rem);
   font-weight: 800;
   line-height: 0.76;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.054em;
 }
 
 .heroFoot {
@@ -168,7 +168,7 @@
   font-size: clamp(2.2rem, 7.4vw, 6.8rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .secHead p {
@@ -236,7 +236,7 @@
   font-size: clamp(1.6rem, 4.4vw, 4rem);
   font-weight: 700;
   line-height: 0.96;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
 }
 
 .sWho {
@@ -284,7 +284,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -304,8 +304,16 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(3rem, 7vw, 7rem) var(--edge);
-  background: var(--white);
-  color: var(--black);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.numbersField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.4;
 }
 
 .numbers > div {
@@ -318,7 +326,7 @@
   font-size: clamp(2.4rem, 7.4vw, 7.4rem);
   font-weight: 800;
   line-height: 0.82;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .nKey {
@@ -327,7 +335,7 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--black) 52%, transparent);
+  color: color-mix(in srgb, var(--white) 52%, transparent);
 }
 
 /* -------------------------------------------------------------- principles */
@@ -359,7 +367,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .pBody {
@@ -413,7 +421,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tDim {
@@ -439,8 +447,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--white);
-  color: var(--black);
   overflow: hidden;
 }
 
@@ -448,7 +454,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.28;
+  opacity: 0.26;
   mask-image: radial-gradient(
     ellipse 50% 62% at 50% 50%,
     transparent 0%,
@@ -469,7 +475,7 @@
   font-size: clamp(1.7rem, 5.4vw, 5rem);
   font-weight: 700;
   line-height: 0.98;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
   text-wrap: balance;
 }
 
@@ -481,7 +487,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--black) 56%, transparent);
+  color: color-mix(in srgb, var(--white) 54%, transparent);
 }
 
 /* ----------------------------------------------------------------- support */
@@ -490,7 +496,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--mid);
+  overflow: hidden;
 }
 
 .supportField {
@@ -506,7 +512,7 @@
   font-size: clamp(2.2rem, 7.4vw, 6.8rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .supportList,
@@ -547,7 +553,7 @@
   font-size: clamp(2.2rem, 7.4vw, 6.8rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .visitList {
@@ -559,7 +565,63 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.deskTel {
+  display: block;
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(1.7rem, 3.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.042em;
+  font-variant-numeric: tabular-nums;
+}
+
+.deskTel:hover {
+  color: var(--white);
+}
+
+.hours {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.hours > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.hours dt {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 700;
+}
+
+.hours dd {
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--white) 74%, transparent);
+}
+
+.hoursShut dt,
+.hoursShut dd {
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.hoursNote {
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--grey);
 }
 
 .contactPre {
@@ -571,21 +633,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.6rem, 8.6vw, 8.2rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--grey);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 48ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--white) 60%, transparent);
@@ -595,16 +645,27 @@
 
 .footer {
   padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
-  background: var(--mid);
 }
 
-.footMark {
-  margin: 0 0 clamp(2rem, 5vw, 4rem);
-  font-size: clamp(3.5rem, 20vw, 22rem);
+/* Instead of one big glyph, the sections themselves at display size: the first
+   thing the footer offers is a way back out of it. */
+.footIndex {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  gap: 0.06em;
+  justify-items: start;
+}
+
+.footIndex a {
+  font-size: clamp(1.8rem, 6vw, 5.4rem);
   font-weight: 800;
-  line-height: 0.78;
-  letter-spacing: -0.075em;
-  color: color-mix(in srgb, var(--white) 16%, transparent);
+  line-height: 0.94;
+  letter-spacing: -0.046em;
+  color: color-mix(in srgb, var(--white) 26%, transparent);
+}
+
+.footIndex a:hover {
+  color: var(--white);
 }
 
 .footGrid {
@@ -700,6 +761,10 @@
   .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
   .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
   .tEnd { grid-area: end; }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {

@@ -97,6 +97,13 @@ const VISIT = [
   ['Data', 'Every record since 1909 is public. The paper ledgers are digitised to 1962 so far.'],
 ];
 
+/* What the letter is, answered before anyone has to ask. */
+const SIGNUP_META: [string, string][] = [
+  ['How often', 'Twice a season, and once more if something odd lands.'],
+  ['What is in it', 'Totals, recoveries, and the birds we did not expect.'],
+  ['Found a ring?', 'Send the number to fang@ringmark.example instead.'],
+];
+
 export default function RingmarkPage() {
   return (
     <div className={s.page}>
@@ -338,6 +345,16 @@ export default function RingmarkPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={baste}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="visit-h">Coming up the hill</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v]) => (
@@ -350,15 +367,29 @@ export default function RingmarkPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Placements, recoveries, data requests</p>
-          <a className={s.contactMail} href="mailto:fang@ringmark.example">
-            fang@ringmark.example
-          </a>
+          <h2 id="contact-h" className={s.signupTitle}>The ringing report</h2>
+          <form className={s.signup}>
+            <label className={s.srOnly} htmlFor="signup-mail">
+              Email address
+            </label>
+            <input id="signup-mail" name="email" type="email" placeholder="you@example.com" />
+            <button type="submit">Put me on it</button>
+          </form>
+          <dl className={s.signupMeta}>
+            {SIGNUP_META.map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
           <p className={s.contactFine}>
             Am Fallberg, 27498 Helgoland. If you have found one of our rings,
             send the number and the place and we will tell you where the bird
-            has been.
+            has been — that is a letter, not a newsletter, and it is always
+            answered.
           </p>
         </section>
       </main>
@@ -375,7 +406,22 @@ export default function RingmarkPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>1909</p>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={curl}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={72}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="ringmark-tile-logbook-cutout" alt="A weathered field logbook with a pencil under its elastic loop" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>A ring is only worth the line somebody wrote down beside it.</p>
+        </div>
         <div className={s.footGrid}>
           <div>
             <h2>Station</h2>

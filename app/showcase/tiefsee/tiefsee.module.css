@@ -54,7 +54,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -117,7 +117,7 @@
   font-size: clamp(2.8rem, 12vw, 13.5rem);
   font-weight: 800;
   line-height: 0.85;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .heroType span:nth-child(2) {
@@ -199,7 +199,7 @@
   font-size: clamp(1.6rem, 3.4vw, 3.1rem);
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   color: var(--cyan);
 }
 
@@ -218,7 +218,7 @@
   font-size: clamp(2.2rem, 6.4vw, 6rem);
   font-weight: 800;
   line-height: 0.88;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .zLatin {
@@ -249,7 +249,7 @@
   font-size: clamp(1.2rem, 2.4vw, 2.1rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .zFacts dd {
@@ -277,7 +277,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -295,8 +295,16 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(3rem, 7vw, 7rem) var(--edge);
-  background: var(--cyan);
-  color: var(--water);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.numbersField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
 }
 
 .numbers > div {
@@ -309,7 +317,8 @@
   font-size: clamp(2rem, 5.6vw, 5.6rem);
   font-weight: 800;
   line-height: 0.84;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
+  color: var(--cyan);
 }
 
 .nKey {
@@ -318,7 +327,7 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--water) 62%, transparent);
+  color: color-mix(in srgb, var(--bone) 60%, transparent);
 }
 
 /* ------------------------------------------------------- section headings */
@@ -336,7 +345,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .secHead p {
@@ -386,7 +395,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -404,7 +413,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: #000;
   overflow: hidden;
 }
 
@@ -412,7 +420,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.55;
+  opacity: 0.34;
   mask-image: radial-gradient(
     ellipse 50% 62% at 50% 50%,
     transparent 0%,
@@ -433,7 +441,7 @@
   font-size: clamp(1.6rem, 4.8vw, 4.4rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   text-wrap: balance;
 }
 
@@ -454,7 +462,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--deep);
+  overflow: hidden;
 }
 
 .policyField {
@@ -470,7 +478,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .policyList {
@@ -501,8 +509,105 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
-  background: var(--water);
+}
+
+.officesHead {
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 6.4vw, 5.6rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.046em;
+}
+
+.officeCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.offices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.4vw, 3rem);
+}
+
+.oCity {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.024em;
+}
+
+.oRole {
+  margin: 0 0 0.7rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.oAddr {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+.oFix {
+  margin: 0;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+/* A locator, not a map: the pattern stands in for the ground and the offices
+   are plotted on it by percentage, which is as much as a schematic owes. */
+.locator {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.locatorField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.pinDot {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.pinHead .pinDot {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.pin span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .contactPre {
@@ -514,21 +619,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.5rem, 8vw, 7.6rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.062em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--cyan);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 50ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--bone) 60%, transparent);
@@ -540,21 +633,30 @@
   position: relative;
   height: clamp(130px, 20vw, 300px);
   overflow: hidden;
-  background: #000;
 }
 
 .footer {
   padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
-  background: var(--deep);
 }
 
-.footMark {
-  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
-  font-size: clamp(3rem, 17vw, 19rem);
-  font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.075em;
-  color: color-mix(in srgb, var(--cyan) 26%, transparent);
+/* A sentence at the size the monogram used to be. It is the one claim the
+   whole page is built to support, so it gets the space. */
+.footStatement {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  max-width: 22ch;
+  font-size: clamp(1.7rem, 4.4vw, 4rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+  color: color-mix(in srgb, var(--bone) 44%, transparent);
+}
+
+/* The emphasis is the sentence coming up to full strength, not a change of
+   hue — an accent this size would outshout the column grid below it. */
+.footStatement em {
+  font-style: normal;
+  color: var(--bone);
 }
 
 .footGrid {
@@ -651,6 +753,10 @@
   .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
   .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
   .tEnd { grid-area: end; text-align: left; font-size: 0.86rem; }
+
+  .officeCols {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {
@@ -685,6 +791,10 @@
   }
 
   .zFacts {
+    grid-template-columns: 1fr;
+  }
+
+  .offices {
     grid-template-columns: 1fr;
   }
 }

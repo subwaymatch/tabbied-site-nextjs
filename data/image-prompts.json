@@ -4602,6 +4602,41 @@
       "set": "purpurhaus-tile",
       "slot": "tile",
       "subject": "a long wooden dye paddle stained deep purple at one end"
+    },
+    {
+      "id": "glockenhof-tile-fork",
+      "project": "glockenhof",
+      "set": "glockenhof-tile",
+      "slot": "tile",
+      "subject": "a large polished steel tuning fork of the kind used to check a bell strike note, held upright by its stem"
+    },
+    {
+      "id": "orgelwerk-tile-cone",
+      "project": "orgelwerk",
+      "set": "orgelwerk-tile",
+      "slot": "tile",
+      "subject": "a brass organ tuning cone with a wooden handle, cone at one end and a flared socket at the other"
+    },
+    {
+      "id": "kupferwalz-tile-micrometer",
+      "project": "kupferwalz",
+      "set": "kupferwalz-tile",
+      "slot": "tile",
+      "subject": "a machinist's deep-throat sheet micrometer for measuring rolled copper strip, thimble showing a reading"
+    },
+    {
+      "id": "ringmark-tile-logbook",
+      "project": "ringmark",
+      "set": "ringmark-tile",
+      "slot": "tile",
+      "subject": "a small weathered field logbook, closed, a stub of pencil held under its elastic loop"
+    },
+    {
+      "id": "purpurhaus-tile-swatch",
+      "project": "purpurhaus",
+      "set": "purpurhaus-tile",
+      "slot": "tile",
+      "subject": "a fan of dyed wool swatch cards riveted together at one corner and spread open"
     }
   ]
 }

@@ -114,6 +114,15 @@ const NUMBERS = [
   ['12', 'Months, maximum embargo'],
 ];
 
+/* x and y are percentages of the locator box, not coordinates —
+   the schematic is a diagram of relative position, nothing more. */
+const OFFICES = [
+  { city: 'Kiel', role: 'Shore office and archive', addr: 'Schwentinestrasse 12, 24149', fix: '54.33 N  10.14 E', x: 30, y: 22, head: true },
+  { city: 'Las Palmas', role: 'Refit and northern turn', addr: 'Muelle Grande, 35008', fix: '28.14 N  15.42 W', x: 24, y: 58 },
+  { city: 'Walvis Bay', role: 'Southern turn', addr: 'Third Street East, 13013', fix: '22.96 S  14.51 E', x: 58, y: 82 },
+  { city: 'At sea', role: 'Two hundred days a year', addr: 'Wherever the transect is', fix: 'Iridium, when it feels like it', x: 70, y: 44 },
+];
+
 export default function TiefseePage() {
   return (
     <div className={s.page}>
@@ -235,6 +244,16 @@ export default function TiefseePage() {
 
         {/* --------------------------------------------------------- NUMBERS */}
         <section className={s.numbers} aria-label="The programme in numbers">
+          <div className={s.numbersField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={sandfield}
+              palette={['transparent', GREY, DEEP]}
+              fit="grid"
+              cellSize={92}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           {NUMBERS.map(([v, k]) => (
             <div key={k}>
               <p className={s.nVal}>{v}</p>
@@ -325,11 +344,43 @@ export default function TiefseePage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Berths, data, collaboration</p>
-          <a className={s.contactMail} href="mailto:station@tiefsee.example">
-            station@tiefsee.example
-          </a>
+          <h2 id="contact-h" className={s.officesHead}>A shore office and two turns</h2>
+          <div className={s.officeCols}>
+            <ul className={s.offices}>
+              {OFFICES.map((o) => (
+                <li key={o.city}>
+                  <p className={s.oCity}>{o.city}</p>
+                  <p className={s.oRole}>{o.role}</p>
+                  <p className={s.oAddr}>{o.addr}</p>
+                  <p className={s.oFix}>{o.fix}</p>
+                </li>
+              ))}
+            </ul>
+            <div className={s.locator} aria-hidden="true">
+              <div className={s.locatorField}>
+                <TabbiedArtwork
+                  artwork={bowl}
+                  palette={['transparent', GREY, CYAN]}
+                  fit="grid"
+                  cellSize={124}
+                  redrawInterval={6200}
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+              </div>
+              {OFFICES.map((o) => (
+                <span
+                  key={o.city}
+                  className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
+                  style={{ left: `${o.x}%`, top: `${o.y}%` }}
+                >
+                  <span className={s.pinDot} />
+                  <span>{o.city}</span>
+                </span>
+              ))}
+            </div>
+          </div>
           <p className={s.contactFine}>
             The ship is at sea about two hundred days a year and the shore
             office answers within a week, faster if the request is for data
@@ -350,7 +401,9 @@ export default function TiefseePage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>11 034</p>
+        <p className={s.footStatement}>
+          Data goes public twelve months after the cruise, <em>whether or not</em> we have written about it.
+        </p>
         <div className={s.footGrid}>
           <div>
             <h2>Science</h2>

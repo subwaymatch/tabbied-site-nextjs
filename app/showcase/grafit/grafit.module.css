@@ -53,7 +53,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -116,7 +116,7 @@
   font-size: clamp(3rem, 12.5vw, 14rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
 }
 
 .heroType span:last-child {
@@ -195,7 +195,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-wrap: pretty;
 }
 
@@ -213,8 +213,16 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(3rem, 7vw, 7rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.factsField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.14;
 }
 
 .facts > div {
@@ -227,7 +235,7 @@
   font-size: clamp(2.2rem, 6.4vw, 6.4rem);
   font-weight: 800;
   line-height: 0.84;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
 }
 
 .facts div:nth-child(2) .fVal,
@@ -241,7 +249,7 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 56%, transparent);
+  color: color-mix(in srgb, var(--ink) 54%, transparent);
 }
 
 /* ------------------------------------------------------- section headings */
@@ -259,7 +267,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .secHead p {
@@ -321,7 +329,7 @@
   font-size: clamp(1.8rem, 5vw, 4.4rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .rowSub {
@@ -341,7 +349,7 @@
   text-align: right;
   font-size: clamp(1rem, 1.6vw, 1.45rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 /* ------------------------------------------------------------- band, coda */
@@ -387,7 +395,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .mBody {
@@ -432,7 +440,7 @@
 .tMain {
   font-size: clamp(1rem, 1.5vw, 1.32rem);
   font-weight: 650;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.036em;
 }
 
 .tMid {
@@ -453,8 +461,6 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
   overflow: hidden;
 }
 
@@ -462,7 +468,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.34;
+  opacity: 0.28;
   mask-image: radial-gradient(
     ellipse 50% 62% at 50% 50%,
     transparent 0%,
@@ -483,7 +489,7 @@
   font-size: clamp(1.5rem, 4.4vw, 4.1rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   text-wrap: balance;
 }
 
@@ -504,7 +510,7 @@
   position: relative;
   isolation: isolate;
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--pale);
+  overflow: hidden;
 }
 
 .shopField {
@@ -520,7 +526,7 @@
   font-size: clamp(2.2rem, 7.2vw, 6.6rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .shopList {
@@ -568,7 +574,7 @@
   font-size: clamp(1.6rem, 8.6vw, 8.2rem);
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.048em;
   word-break: break-word;
 }
 
@@ -596,7 +602,7 @@
   font-size: clamp(5rem, 22vw, 24rem);
   font-weight: 800;
   line-height: 0.74;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.056em;
   color: color-mix(in srgb, var(--ochre) 42%, transparent);
 }
 

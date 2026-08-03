@@ -92,6 +92,18 @@ const BUYING = [
   ['Teaching', 'Four people at a time, three days, twice a year. It is mostly washing.'],
 ];
 
+/* Day, hours, and whether the desk is shut — the third slot is
+   omitted on the days it is open. */
+const HOURS: [string, string, boolean?][] = [
+  ['Monday', 'Vats down', true],
+  ['Tuesday', '09 – 17'],
+  ['Wednesday', '09 – 17'],
+  ['Thursday', '09 – 17'],
+  ['Friday', '09 – 15'],
+  ['Saturday', 'By arrangement'],
+  ['Sunday', 'Shut', true],
+];
+
 export default function PurpurhausPage() {
   return (
     <div className={s.page}>
@@ -346,6 +358,16 @@ export default function PurpurhausPage() {
 
         {/* ---------------------------------------------------------- BUYING */}
         <section id="buying" className={s.visit} aria-labelledby="buying-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={evolute}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="buying-h">Buying and learning</h2>
           <dl className={s.visitList}>
             {BUYING.map(([k, v]) => (
@@ -358,15 +380,31 @@ export default function PurpurhausPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
-          <p className={s.contactPre}>Orders, commissions, the recipe book</p>
-          <a className={s.contactMail} href="mailto:cuba@purpurhaus.example">
-            cuba@purpurhaus.example
-          </a>
-          <p className={s.contactFine}>
-            Rua de Miragaia 88, 4050 Porto. The recipe book is a PDF, it is
-            free, and it is the only thing we send out the same day.
-          </p>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>The dye house</p>
+            <a id="contact-h" className={s.deskTel} href="tel:+351220008800">
+              +351 22 000 88 00
+            </a>
+            <p className={s.contactFine}>
+              Rua de Miragaia 88, 4050 Porto. The recipe book is a PDF, it is
+              free, and it is the only thing we send out the same day.
+            </p>
+          </div>
+          <div>
+            <dl className={s.hours}>
+              {HOURS.map(([d, h, shut]) => (
+                <div key={d} className={shut ? s.hoursShut : undefined}>
+                  <dt>{d}</dt>
+                  <dd>{h}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className={s.hoursNote}>
+              An indigo vat is fed on Monday and left alone; anything dipped
+              that day comes out the colour of an apology.
+            </p>
+          </div>
         </section>
       </main>
 
@@ -382,7 +420,22 @@ export default function PurpurhausPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>14</p>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedArtwork
+                artwork={spiralblock}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={76}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="purpurhaus-tile-swatch-cutout" alt="A fan of dyed wool swatch cards spread open" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>Every colour here can be named, sourced and made again next year.</p>
+        </div>
         <div className={s.footGrid}>
           <div>
             <h2>Dye house</h2>

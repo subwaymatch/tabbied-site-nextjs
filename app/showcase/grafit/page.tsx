@@ -199,6 +199,16 @@ export default function GrafitPage() {
               <p className={s.fKey}>{k}</p>
             </div>
           ))}
+          <div className={s.factsField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={bevelset}
+              palette={['transparent', GREY, PALE]}
+              fit="grid"
+              cellSize={96}
+              redrawInterval={5600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
         </section>
 
         {/* ----------------------------------------------------------- LINES */}

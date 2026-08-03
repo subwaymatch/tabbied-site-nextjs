@@ -67,7 +67,7 @@
 .mark {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .bar nav {
@@ -133,7 +133,7 @@
   font-size: clamp(3.4rem, 15.5vw, 17rem);
   font-weight: 800;
   line-height: 0.83;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
   text-wrap: balance;
 }
 
@@ -193,7 +193,7 @@
   width: max-content;
   font-size: clamp(1.6rem, 4.6vw, 4.4rem);
   font-weight: 700;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   line-height: 1;
   animation: slide 42s linear infinite;
 }
@@ -234,7 +234,7 @@
   font-size: clamp(1.5rem, 3.5vw, 3.4rem);
   font-weight: 550;
   line-height: 1.08;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.038em;
   text-wrap: pretty;
 }
 
@@ -280,7 +280,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
 }
 
 .secHead p {
@@ -353,7 +353,7 @@
   font-size: clamp(1.8rem, 5.6vw, 5rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
 }
 
 .rowSub {
@@ -397,8 +397,16 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(3rem, 7vw, 7rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.figuresField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.13;
 }
 
 .figVal {
@@ -406,7 +414,7 @@
   font-size: clamp(2.6rem, 8vw, 8rem);
   font-weight: 800;
   line-height: 0.82;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.047em;
 }
 
 .figures div:nth-child(2) .figVal,
@@ -420,7 +428,7 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 56%, transparent);
+  color: color-mix(in srgb, var(--ink) 54%, transparent);
 }
 
 /* -------------------------------------------------------------------- work */
@@ -460,7 +468,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
   max-width: 16ch;
 }
 
@@ -476,7 +484,7 @@
   font-size: clamp(1.25rem, 2.6vw, 2.4rem);
   font-weight: 550;
   line-height: 1.14;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
   max-width: 22ch;
 }
 
@@ -520,7 +528,7 @@
   font-size: clamp(1.15rem, 2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.038em;
 }
 
 .pBody {
@@ -536,17 +544,23 @@
   position: relative;
   isolation: isolate;
   padding: clamp(4rem, 12vw, 12rem) var(--edge);
-  background: var(--ink);
-  color: var(--paper);
   overflow: hidden;
 }
 
+/* The mask used to run the pattern up the middle, behind a scrim. With the
+   slab gone the words sit directly on the page, so it is inverted: strong at
+   the edges, cleared where the quote is. */
 .quoteField {
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.5;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 26%, #000 74%, transparent 100%);
+  opacity: 0.34;
+  mask-image: radial-gradient(
+    ellipse 52% 64% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.3) 56%,
+    #000 100%
+  );
 }
 
 .quote blockquote {
@@ -563,7 +577,7 @@
   font-size: clamp(1.7rem, 5.4vw, 5rem);
   font-weight: 700;
   line-height: 0.96;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   text-wrap: balance;
 }
 
@@ -596,7 +610,7 @@
   font-size: clamp(1.5rem, 4.4vw, 4rem);
   font-weight: 650;
   line-height: 1.06;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.044em;
   color: color-mix(in srgb, var(--ink) 88%, transparent);
   transition: color 0.15s ease;
 }
@@ -664,7 +678,16 @@
 
 .visit {
   padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
-  background: var(--pale);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.12;
 }
 
 .visit h2 {
@@ -672,7 +695,7 @@
   font-size: clamp(2.2rem, 7.6vw, 7rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.046em;
 }
 
 .visitList {
@@ -703,7 +726,63 @@
 
 .contact {
   padding: clamp(4rem, 11vw, 11rem) var(--edge);
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.deskTel {
+  display: block;
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(1.7rem, 3.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.042em;
+  font-variant-numeric: tabular-nums;
+}
+
+.deskTel:hover {
+  color: var(--red);
+}
+
+.hours {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.hours > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.hours dt {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 700;
+}
+
+.hours dd {
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.hoursShut dt,
+.hoursShut dd {
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.hoursNote {
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--grey);
 }
 
 .contactPre {
@@ -715,21 +794,9 @@
   color: var(--grey);
 }
 
-.contactMail {
-  display: block;
-  font-size: clamp(1.5rem, 8.4vw, 8rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.06em;
-  word-break: break-word;
-}
-
-.contactMail:hover {
-  color: var(--red);
-}
 
 .contactFine {
-  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
   max-width: 46ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: color-mix(in srgb, var(--ink) 66%, transparent);
@@ -743,13 +810,45 @@
   color: var(--paper);
 }
 
-.footMark {
-  margin: 0 0 clamp(2rem, 5vw, 4rem);
-  font-size: clamp(3rem, 17vw, 19rem);
+/* Three entries instead of a monogram: the last thing the page says is what
+   happens next, which is more use than the house initial. */
+.footNext {
+  list-style: none;
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.fnWhen {
+  display: block;
+  font-size: clamp(1.7rem, 4.8vw, 4.2rem);
   font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.07em;
-  color: color-mix(in srgb, var(--paper) 14%, transparent);
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnWhat {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 26ch;
+  /* Two lines reserved, so the tag under each entry lands on one line. */
+  min-height: 2.8em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.fnTag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
 }
 
 .footGrid {
@@ -840,6 +939,10 @@
   .sideLabel {
     display: none;
   }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {
@@ -897,5 +1000,13 @@
 
   .rowWhen {
     padding-top: 0.3rem;
+  }
+
+  .footNext {
+    grid-template-columns: 1fr;
+  }
+
+  .fnWhat {
+    min-height: 0;
   }
 }

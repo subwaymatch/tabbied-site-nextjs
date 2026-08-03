@@ -58,7 +58,7 @@
 .mark {
   font-size: 1rem;
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .bar nav {
@@ -118,7 +118,7 @@
   font-size: clamp(2.2rem, 7.2vw, 5.4rem);
   font-weight: 600;
   line-height: 0.99;
-  letter-spacing: -0.048em;
+  letter-spacing: -0.041em;
 }
 
 .hero /* The muted second line sits over the hero pattern; plain
@@ -207,7 +207,7 @@
   margin: 0;
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .note {
@@ -479,7 +479,7 @@
   margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .applyGrid {
@@ -538,7 +538,7 @@
   margin: 0 0 0.7rem;
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .secNote {

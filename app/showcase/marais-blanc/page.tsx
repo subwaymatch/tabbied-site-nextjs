@@ -95,6 +95,16 @@ const VISIT = [
   ['Weather', 'A wet August is a bad year and there is nothing to be done about it.'],
 ];
 
+/* Dates offered, and which of them have gone. */
+const SLOTS = [
+  { day: '14', month: 'June', state: 'Places left' },
+  { day: '28', month: 'June', state: 'Places left' },
+  { day: '12', month: 'July', state: 'Full', full: true },
+  { day: '26', month: 'July', state: 'Two places' },
+  { day: '09', month: 'Aug', state: 'Full', full: true },
+  { day: '06', month: 'Sept', state: 'Places left' },
+];
+
 export default function MaraisBlancPage() {
   const strongest = Math.max(...PANS.flat());
 
@@ -350,6 +360,16 @@ export default function MaraisBlancPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={snipcorner}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
           <h2 id="visit-h">Coming out to the pans</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v]) => (
@@ -362,14 +382,25 @@ export default function MaraisBlancPage() {
         </section>
 
         {/* --------------------------------------------------------- CONTACT */}
-        <section className={s.contact}>
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <p className={s.contactPre}>Orders, restaurants, visits</p>
-          <a className={s.contactMail} href="mailto:oeillet@maraisblanc.example">
-            oeillet@maraisblanc.example
-          </a>
+          <h2 id="contact-h" className={s.datesTitle}>Walk the pans with a saunier</h2>
+          <ul className={s.dates}>
+            {SLOTS.map((d) => (
+              <li key={`${d.day}-${d.month}`}>
+                <button type="button" className={s.slot} disabled={d.full}>
+                  <span className={s.slotDay}>{d.day}</span>
+                  <span className={s.slotMonth}>{d.month}</span>
+                  <span className={s.slotState}>{d.state}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
           <p className={s.contactFine}>
-            Route des Marais, 44350 Guérande. From June to September nobody
-            reads mail before dark, and in August nobody reads it at all.
+            Route des Marais, 44350 Guérande. Two hours, flat, no shade, and
+            it is called off without ceremony if it rains. From June to
+            September nobody reads mail before dark, and in August nobody
+            reads it at all — so book a date rather than write.
           </p>
         </section>
       </main>
