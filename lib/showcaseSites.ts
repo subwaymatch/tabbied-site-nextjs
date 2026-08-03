@@ -6,6 +6,7 @@ import {
   tidering, radiance, grainfield, metro, rungs,
   pivot, raking, gutter, swapcut, annulus, sail, reeding, miura, lintel,
   dipole,
+  cupola, battlement, clipcorner, birdsmouth, rolloff, prismfold,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -85,4 +86,16 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'falzbogen', name: 'Falzbogen', topic: 'Trade bookbindery', artworkSlug: 'miura', artwork: miura, paletteName: 'Bookcloth crimson', palette: ['#F2EEE4', '#171310', '#B0003A', '#8B857A', '#E0DACB'], seed: 'bold-fb' },
   { slug: 'kubus', name: 'Kubus', topic: 'Kunsthalle', artworkSlug: 'lintel', artwork: lintel, paletteName: 'Achromatic', palette: ['#080808', '#FAFAF8', '#8A8A86', '#1C1C1C'], seed: 'bold-kb' },
   { slug: 'tiefsee', name: 'Tiefsee', topic: 'Deep-sea research programme', artworkSlug: 'dipole', artwork: dipole, paletteName: 'Bioluminescent cyan', palette: ['#04121A', '#E6EEF0', '#00D2E0', '#5D7480', '#0A1F2B'], seed: 'bold-ts' },
+
+  // Swiss-bold, with photography: the same full-bleed grid and poster type as
+  // the set above, but each page also carries generated imagery. Scenes run
+  // full-bleed with the pattern bands beside them; only the cut-out objects
+  // are composited, onto a pattern plate drawn on a transparent ground.
+  // Page palette and data/image-prompts.json project palette are the same hexes.
+  { slug: 'glockenhof', name: 'Glockenhof', topic: 'Bell foundry', artworkSlug: 'cupola', artwork: cupola, paletteName: 'Bronze, night', palette: ['#141210', '#F0EAD8', '#C89B3C', '#7C736A', '#221D18'], seed: 'img-gh' },
+  { slug: 'orgelwerk', name: 'Orgelwerk', topic: 'Pipe organ builders', artworkSlug: 'battlement', artwork: battlement, paletteName: 'Organ pine', palette: ['#F1EFE7', '#141614', '#1D6F5C', '#87887F', '#DFDCD0'], seed: 'img-ow' },
+  { slug: 'marais-blanc', name: 'Marais Blanc', topic: 'Sea salt works', artworkSlug: 'clipcorner', artwork: clipcorner, paletteName: 'Salt-pan rose', palette: ['#FBFAF7', '#171519', '#C2456B', '#8C8A90', '#E4E1DC'], seed: 'img-mb' },
+  { slug: 'ringmark', name: 'Ringmark', topic: 'Bird observatory', artworkSlug: 'birdsmouth', artwork: birdsmouth, paletteName: 'Dune lichen', palette: ['#EFEDE3', '#16180F', '#6B7F1E', '#8C8B7C', '#DEDCCE'], seed: 'img-rm' },
+  { slug: 'kupferwalz', name: 'Kupferwalz', topic: 'Copper rolling mill', artworkSlug: 'rolloff', artwork: rolloff, paletteName: 'Copper, mill night', palette: ['#15100E', '#EFE7DE', '#B4552D', '#7A736D', '#231A16'], seed: 'img-kw' },
+  { slug: 'purpurhaus', name: 'Purpurhaus', topic: 'Natural dye works', artworkSlug: 'prismfold', artwork: prismfold, paletteName: 'Cochineal plum', palette: ['#F4F0E6', '#191317', '#5E2750', '#8B8279', '#E2DBCB'], seed: 'img-ph' },
 ];

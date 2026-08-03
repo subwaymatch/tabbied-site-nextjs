@@ -1046,6 +1046,168 @@
           "as": "a saturated accent in cloth"
         }
       }
+    },
+    "glockenhof": {
+      "title": "Glockenhof — bell foundry",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Night": {
+          "hex": "#141210",
+          "as": "the unlit depth of the casting hall and the mould pit"
+        },
+        "Paper": {
+          "hex": "#F0EAD8",
+          "as": "daylight from the high windows and pale foundry sand"
+        },
+        "Bronze": {
+          "hex": "#C89B3C",
+          "as": "cast bronze, molten metal glow and polished bell lips"
+        },
+        "Grey": {
+          "hex": "#7C736A",
+          "as": "soot-darkened brick, iron fixtures and gantries"
+        },
+        "Deep": {
+          "hex": "#221D18",
+          "as": "loam moulds and the shadowed roof structure"
+        }
+      }
+    },
+    "orgelwerk": {
+      "title": "Orgelwerk — pipe organ builders",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Bone": {
+          "hex": "#F1EFE7",
+          "as": "limewashed workshop walls and window daylight"
+        },
+        "Ink": {
+          "hex": "#141614",
+          "as": "oak casework in shadow and forged iron tools"
+        },
+        "Pine": {
+          "hex": "#1D6F5C",
+          "as": "the painted green of an organ case and the workshop doors"
+        },
+        "Grey": {
+          "hex": "#87887F",
+          "as": "tin-lead pipe metal and zinc"
+        },
+        "Pale": {
+          "hex": "#DFDCD0",
+          "as": "planed softwood, shavings and paper drawings"
+        }
+      }
+    },
+    "marais-blanc": {
+      "title": "Marais Blanc — sea salt works",
+      "style": "landscape photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "White": {
+          "hex": "#FBFAF7",
+          "as": "salt crystals, drying mounds and bright overcast sky"
+        },
+        "Ink": {
+          "hex": "#171519",
+          "as": "wet clay bunds and the shadowed sides of the pans"
+        },
+        "Rose": {
+          "hex": "#C2456B",
+          "as": "the pink of the brine standing in the crystallising pans"
+        },
+        "Grey": {
+          "hex": "#8C8A90",
+          "as": "weathered wood, tools and flat sea light"
+        },
+        "Pale": {
+          "hex": "#E4E1DC",
+          "as": "dried clay paths, canvas and sacking"
+        }
+      }
+    },
+    "ringmark": {
+      "title": "Ringmark — bird observatory and ringing station",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Sand": {
+          "hex": "#EFEDE3",
+          "as": "dune sand and pale render in low sun"
+        },
+        "Ink": {
+          "hex": "#16180F",
+          "as": "the dark timber of the trap and deep shadow"
+        },
+        "Lichen": {
+          "hex": "#6B7F1E",
+          "as": "dune vegetation and the painted green of the trap frames"
+        },
+        "Grey": {
+          "hex": "#8C8B7C",
+          "as": "weathered netting poles and overcast sea light"
+        },
+        "Pale": {
+          "hex": "#DEDCCE",
+          "as": "the observatory hut’s whitewashed walls and dry grass"
+        }
+      }
+    },
+    "kupferwalz": {
+      "title": "Kupferwalz — copper rolling mill",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Night": {
+          "hex": "#15100E",
+          "as": "the unlit depth of the mill hall"
+        },
+        "Paper": {
+          "hex": "#EFE7DE",
+          "as": "daylight through the roof lights and hanging dust"
+        },
+        "Copper": {
+          "hex": "#B4552D",
+          "as": "hot and polished copper sheet, the colour the whole mill takes"
+        },
+        "Grey": {
+          "hex": "#7A736D",
+          "as": "steel rolls, gantries and concrete"
+        },
+        "Deep": {
+          "hex": "#231A16",
+          "as": "oil-darkened machinery and pits"
+        }
+      }
+    },
+    "purpurhaus": {
+      "title": "Purpurhaus — natural dye works",
+      "style": "documentary photograph",
+      "paletteMode": "scene",
+      "palette": {
+        "Cream": {
+          "hex": "#F4F0E6",
+          "as": "undyed linen, plaster walls and daylight"
+        },
+        "Ink": {
+          "hex": "#191317",
+          "as": "the dark of the dye house and the iron vats"
+        },
+        "Plum": {
+          "hex": "#5E2750",
+          "as": "the dye itself: skeins, vat surface and stained timber"
+        },
+        "Grey": {
+          "hex": "#8B8279",
+          "as": "weathered beams, zinc and stone"
+        },
+        "Pale": {
+          "hex": "#E2DBCB",
+          "as": "raw wool and the drying racks"
+        }
+      }
     }
   },
   "sets": {
@@ -1997,6 +2159,174 @@
         "Pale": {
           "hex": "#C9C8C1",
           "as": "untreated timber and pale render"
+        }
+      }
+    },
+    "glockenhof-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Night": {
+          "hex": "#141210",
+          "as": "the unlit depth of the casting hall and the mould pit"
+        },
+        "Paper": {
+          "hex": "#F0EAD8",
+          "as": "daylight from the high windows and pale foundry sand"
+        },
+        "Bronze": {
+          "hex": "#C89B3C",
+          "as": "cast bronze, molten metal glow and polished bell lips"
+        },
+        "Grey": {
+          "hex": "#7C736A",
+          "as": "soot-darkened brick, iron fixtures and gantries"
+        },
+        "Deep": {
+          "hex": "#221D18",
+          "as": "loam moulds and the shadowed roof structure"
+        }
+      }
+    },
+    "orgelwerk-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Bone": {
+          "hex": "#F1EFE7",
+          "as": "limewashed workshop walls and window daylight"
+        },
+        "Ink": {
+          "hex": "#141614",
+          "as": "oak casework in shadow and forged iron tools"
+        },
+        "Pine": {
+          "hex": "#1D6F5C",
+          "as": "the painted green of an organ case and the workshop doors"
+        },
+        "Grey": {
+          "hex": "#87887F",
+          "as": "tin-lead pipe metal and zinc"
+        },
+        "Pale": {
+          "hex": "#DFDCD0",
+          "as": "planed softwood, shavings and paper drawings"
+        }
+      }
+    },
+    "marais-blanc-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "White": {
+          "hex": "#FBFAF7",
+          "as": "salt crystals, drying mounds and bright overcast sky"
+        },
+        "Ink": {
+          "hex": "#171519",
+          "as": "wet clay bunds and the shadowed sides of the pans"
+        },
+        "Rose": {
+          "hex": "#C2456B",
+          "as": "the pink of the brine standing in the crystallising pans"
+        },
+        "Grey": {
+          "hex": "#8C8A90",
+          "as": "weathered wood, tools and flat sea light"
+        },
+        "Pale": {
+          "hex": "#E4E1DC",
+          "as": "dried clay paths, canvas and sacking"
+        }
+      }
+    },
+    "ringmark-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Sand": {
+          "hex": "#EFEDE3",
+          "as": "dune sand and pale render in low sun"
+        },
+        "Ink": {
+          "hex": "#16180F",
+          "as": "the dark timber of the trap and deep shadow"
+        },
+        "Lichen": {
+          "hex": "#6B7F1E",
+          "as": "dune vegetation and the painted green of the trap frames"
+        },
+        "Grey": {
+          "hex": "#8C8B7C",
+          "as": "weathered netting poles and overcast sea light"
+        },
+        "Pale": {
+          "hex": "#DEDCCE",
+          "as": "the observatory hut’s whitewashed walls and dry grass"
+        }
+      }
+    },
+    "kupferwalz-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Night": {
+          "hex": "#15100E",
+          "as": "the unlit depth of the mill hall"
+        },
+        "Paper": {
+          "hex": "#EFE7DE",
+          "as": "daylight through the roof lights and hanging dust"
+        },
+        "Copper": {
+          "hex": "#B4552D",
+          "as": "hot and polished copper sheet, the colour the whole mill takes"
+        },
+        "Grey": {
+          "hex": "#7A736D",
+          "as": "steel rolls, gantries and concrete"
+        },
+        "Deep": {
+          "hex": "#231A16",
+          "as": "oil-darkened machinery and pits"
+        }
+      }
+    },
+    "purpurhaus-tile": {
+      "style": "product photograph",
+      "size": "1024x1024",
+      "cutout": true,
+      "backdrop": "The object sits alone on a plain neutral light-grey seamless backdrop, photographed straight on, evenly lit, with no cast shadow, no hands, no props and nothing else whatsoever in frame.",
+      "palette": {
+        "Cream": {
+          "hex": "#F4F0E6",
+          "as": "undyed linen, plaster walls and daylight"
+        },
+        "Ink": {
+          "hex": "#191317",
+          "as": "the dark of the dye house and the iron vats"
+        },
+        "Plum": {
+          "hex": "#5E2750",
+          "as": "the dye itself: skeins, vat surface and stained timber"
+        },
+        "Grey": {
+          "hex": "#8B8279",
+          "as": "weathered beams, zinc and stone"
+        },
+        "Pale": {
+          "hex": "#E2DBCB",
+          "as": "raw wool and the drying racks"
         }
       }
     }
@@ -4020,6 +4350,258 @@
       "slot": "showcase",
       "size": "1024x1024",
       "subject": "a simple retreat breakfast on a weathered table: a poached egg on sourdough toast, a bowl of sliced mango and a small dish of beetroot slaw, seen from above. Photographed on a real camera with natural depth of field and true skin texture: visible pores, stray hairs, small asymmetries. Hands are anatomically correct with five fingers, natural joints and a plausible grip on anything held."
+    },
+    {
+      "id": "glockenhof-hall",
+      "project": "glockenhof",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "the casting hall of a bell foundry seen from a gantry, a row of loam bell moulds set into a sand floor, high windows throwing daylight across it"
+    },
+    {
+      "id": "glockenhof-pour",
+      "project": "glockenhof",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "molten bronze running from a tilted crucible into a mould in a dark foundry, sparks lifting"
+    },
+    {
+      "id": "glockenhof-lathe",
+      "project": "glockenhof",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a large plain bronze bell mounted mouth-up on a tuning lathe in a workshop, metal shavings on the bed"
+    },
+    {
+      "id": "glockenhof-tile-bell",
+      "project": "glockenhof",
+      "set": "glockenhof-tile",
+      "slot": "tile",
+      "subject": "a small plain cast bronze bell with an unmarked waist"
+    },
+    {
+      "id": "glockenhof-tile-clapper",
+      "project": "glockenhof",
+      "set": "glockenhof-tile",
+      "slot": "tile",
+      "subject": "a forged bronze bell clapper hanging from a short leather strap"
+    },
+    {
+      "id": "glockenhof-tile-strickle",
+      "project": "glockenhof",
+      "set": "glockenhof-tile",
+      "slot": "tile",
+      "subject": "a wooden strickle board used to sweep a bell mould, worn at the edge"
+    },
+    {
+      "id": "orgelwerk-rack",
+      "project": "orgelwerk",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "ranks of polished tin organ pipes standing upright in a wooden rack in a tall workshop, daylight from a side window"
+    },
+    {
+      "id": "orgelwerk-voicing",
+      "project": "orgelwerk",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "an organ builder’s voicing bench with a single pipe standing on a small windchest and hand tools laid out beside it"
+    },
+    {
+      "id": "orgelwerk-case",
+      "project": "orgelwerk",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "the upper case of a pipe organ in a church loft seen from below, plain unmarked panels and a rank of front pipes"
+    },
+    {
+      "id": "orgelwerk-tile-pipe",
+      "project": "orgelwerk",
+      "set": "orgelwerk-tile",
+      "slot": "tile",
+      "subject": "a single tin organ pipe with a soldered foot and a plain mouth"
+    },
+    {
+      "id": "orgelwerk-tile-stopper",
+      "project": "orgelwerk",
+      "set": "orgelwerk-tile",
+      "slot": "tile",
+      "subject": "a wooden organ pipe stopper block with a leather-faced plug"
+    },
+    {
+      "id": "orgelwerk-tile-knife",
+      "project": "orgelwerk",
+      "set": "orgelwerk-tile",
+      "slot": "tile",
+      "subject": "a small hand-forged voicing knife with a wooden handle"
+    },
+    {
+      "id": "marais-blanc-pans",
+      "project": "marais-blanc",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "sea salt pans seen from directly above, a grid of shallow clay basins holding pink brine, divided by narrow earth paths"
+    },
+    {
+      "id": "marais-blanc-rake",
+      "project": "marais-blanc",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a long-handled wooden salt rake resting across a clay bund beside a shallow brine pan"
+    },
+    {
+      "id": "marais-blanc-mound",
+      "project": "marais-blanc",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a conical mound of freshly harvested white sea salt on a clay path, drying in flat light"
+    },
+    {
+      "id": "marais-blanc-tile-scoop",
+      "project": "marais-blanc",
+      "set": "marais-blanc-tile",
+      "slot": "tile",
+      "subject": "a shallow wooden salt scoop, worn smooth"
+    },
+    {
+      "id": "marais-blanc-tile-sack",
+      "project": "marais-blanc",
+      "set": "marais-blanc-tile",
+      "slot": "tile",
+      "subject": "a small linen sack of coarse sea salt, open at the top"
+    },
+    {
+      "id": "marais-blanc-tile-stake",
+      "project": "marais-blanc",
+      "set": "marais-blanc-tile",
+      "slot": "tile",
+      "subject": "a single weathered wooden bund stake with a squared head"
+    },
+    {
+      "id": "ringmark-trap",
+      "project": "ringmark",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a large timber and netting Heligoland funnel trap running away through low dune scrub, seen from its wide end"
+    },
+    {
+      "id": "ringmark-hut",
+      "project": "ringmark",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a small whitewashed bird observatory hut standing among dunes under a pale sky"
+    },
+    {
+      "id": "ringmark-bench",
+      "project": "ringmark",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a ringing bench seen from directly above with calipers, a spring balance and small paper bags laid out on it"
+    },
+    {
+      "id": "ringmark-tile-rings",
+      "project": "ringmark",
+      "set": "ringmark-tile",
+      "slot": "tile",
+      "subject": "a small coil of plain unmarked aluminium bird rings threaded on a wire loop"
+    },
+    {
+      "id": "ringmark-tile-pliers",
+      "project": "ringmark",
+      "set": "ringmark-tile",
+      "slot": "tile",
+      "subject": "a pair of brass bird-ringing pliers"
+    },
+    {
+      "id": "ringmark-tile-balance",
+      "project": "ringmark",
+      "set": "ringmark-tile",
+      "slot": "tile",
+      "subject": "a slim spring balance with a hook at one end"
+    },
+    {
+      "id": "kupferwalz-hall",
+      "project": "kupferwalz",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "the interior of a copper rolling mill, a wide sheet of copper running between two steel rolls, roof lights high above"
+    },
+    {
+      "id": "kupferwalz-coil",
+      "project": "kupferwalz",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "a tall coil of rolled copper sheet standing on end on a mill floor"
+    },
+    {
+      "id": "kupferwalz-stack",
+      "project": "kupferwalz",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "a stack of cut copper sheets on a pallet seen from a low angle"
+    },
+    {
+      "id": "kupferwalz-tile-offcut",
+      "project": "kupferwalz",
+      "set": "kupferwalz-tile",
+      "slot": "tile",
+      "subject": "a small rolled copper sheet offcut, slightly curled at one edge"
+    },
+    {
+      "id": "kupferwalz-tile-billet",
+      "project": "kupferwalz",
+      "set": "kupferwalz-tile",
+      "slot": "tile",
+      "subject": "a short copper billet with clean sawn ends"
+    },
+    {
+      "id": "kupferwalz-tile-roll",
+      "project": "kupferwalz",
+      "set": "kupferwalz-tile",
+      "slot": "tile",
+      "subject": "a heavy steel mill roll segment with polished faces"
+    },
+    {
+      "id": "purpurhaus-vats",
+      "project": "purpurhaus",
+      "slot": "hero",
+      "size": "1536x1024",
+      "subject": "a row of open dye vats in a whitewashed dye house holding deep purple liquid, steam rising, dyed skeins hanging on a beam above"
+    },
+    {
+      "id": "purpurhaus-drying",
+      "project": "purpurhaus",
+      "slot": "story",
+      "size": "1024x1536",
+      "subject": "skeins of freshly dyed purple yarn hanging on a wooden drying rack in daylight"
+    },
+    {
+      "id": "purpurhaus-pigment",
+      "project": "purpurhaus",
+      "slot": "story",
+      "size": "1024x1024",
+      "subject": "small heaps of dry dye pigment on a stone bench, seen from directly above"
+    },
+    {
+      "id": "purpurhaus-tile-skein",
+      "project": "purpurhaus",
+      "set": "purpurhaus-tile",
+      "slot": "tile",
+      "subject": "a single thick skein of deep purple dyed yarn"
+    },
+    {
+      "id": "purpurhaus-tile-jar",
+      "project": "purpurhaus",
+      "set": "purpurhaus-tile",
+      "slot": "tile",
+      "subject": "a clear glass jar of dry purple dye pigment with a cork stopper"
+    },
+    {
+      "id": "purpurhaus-tile-paddle",
+      "project": "purpurhaus",
+      "set": "purpurhaus-tile",
+      "slot": "tile",
+      "subject": "a long wooden dye paddle stained deep purple at one end"
     }
   ]
 }
