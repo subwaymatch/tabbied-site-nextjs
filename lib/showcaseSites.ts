@@ -4,6 +4,8 @@ import {
   taper, windowpane, epicentre, halftone, staple, maelstrom, caltrop,
   tailoff, tinting, ring, quire, ribline, stitch, damier, plait, chase,
   tidering, radiance, grainfield, metro, rungs,
+  pivot, raking, gutter, swapcut, annulus, sail, reeding, miura, lintel,
+  dipole,
 } from 'tabbied/artworks';
 import type { ArtworkDefinition } from 'tabbied';
 
@@ -68,4 +70,19 @@ export const NEW_SHOWCASE_SITES: NewShowcaseSite[] = [
   { slug: 'lichtfeld', name: 'Lichtfeld', topic: 'Lighting design', artworkSlug: 'radiance', artwork: radiance, paletteName: 'Warm white', palette: ['#0A0A0A', '#FAFAF5', '#F5E663', '#6A6A64', '#151515'], seed: 'dir-lf' },
   { slug: 'silbersalz', name: 'Silbersalz', topic: 'Photographic laboratory', artworkSlug: 'grainfield', artwork: grainfield, paletteName: 'Safelight red', palette: ['#EDEBE4', '#101010', '#C8102E', '#8A8880', '#D9D6CC'], seed: 'dir-ss' },
   { slug: 'kryss', name: 'Kryss', topic: 'Wayfinding studio', artworkSlug: 'metro', artwork: metro, paletteName: 'Directional green', palette: ['#F4F4F1', '#131416', '#00843D', '#8E9094', '#E2E2DE'], seed: 'dir-ky' },
+
+  // Swiss-bold set: the same grid discipline turned up. Display type at
+  // poster size, the full width of the viewport used as the measure, no
+  // photography, and no rules — sections are divided by a change of ground
+  // or by a full-bleed pattern field. Longer pages than anything above.
+  { slug: 'salzhaus', name: 'Salzhaus', topic: 'Contemporary dance company', artworkSlug: 'pivot', artwork: pivot, paletteName: 'Basel scarlet', palette: ['#F3F1EC', '#101014', '#FF2D00', '#8B8B85', '#DEDCD4'], seed: 'bold-sz' },
+  { slug: 'zwoelfton', name: 'Zwölfton', topic: 'New-music ensemble', artworkSlug: 'raking', artwork: raking, paletteName: 'Acid yellow, night', palette: ['#0B0B0F', '#EFEEE7', '#E8FF00', '#6D6D66', '#22222A'], seed: 'bold-zt' },
+  { slug: 'bureau-vektor', name: 'Bureau Vektor', topic: 'Public statistics office', artworkSlug: 'gutter', artwork: gutter, paletteName: 'Ultramarine', palette: ['#FFFFFF', '#0C0D10', '#1F3CFF', '#8A8F99', '#E8EAF0'], seed: 'bold-bv' },
+  { slug: 'presse-neun', name: 'Presse Neun', topic: 'Screenprint workshop', artworkSlug: 'swapcut', artwork: swapcut, paletteName: 'Fluoro pink', palette: ['#F4F2EA', '#141210', '#FF2D78', '#8C8A82', '#E2DFD4'], seed: 'bold-p9' },
+  { slug: 'isobar', name: 'Isobar', topic: 'Meteorological service', artworkSlug: 'annulus', artwork: annulus, paletteName: 'Storm violet', palette: ['#E9EDF0', '#0D1418', '#6B2BE0', '#7C8792', '#D3DAE1'], seed: 'bold-ib' },
+  { slug: 'beaufort', name: 'Ateliers Beaufort', topic: 'Sail loft', artworkSlug: 'sail', artwork: sail, paletteName: 'Sea green, navy', palette: ['#0B1B2B', '#EFEAE0', '#00B37A', '#6E808F', '#14293D'], seed: 'bold-bf' },
+  { slug: 'grafit', name: 'Grafit', topic: 'Pencil works', artworkSlug: 'reeding', artwork: reeding, paletteName: 'Pencil ochre', palette: ['#EEEDE7', '#131313', '#E5A000', '#8A887F', '#DCDAD0'], seed: 'bold-gf' },
+  { slug: 'falzbogen', name: 'Falzbogen', topic: 'Trade bookbindery', artworkSlug: 'miura', artwork: miura, paletteName: 'Bookcloth crimson', palette: ['#F2EEE4', '#171310', '#B0003A', '#8B857A', '#E0DACB'], seed: 'bold-fb' },
+  { slug: 'kubus', name: 'Kubus', topic: 'Kunsthalle', artworkSlug: 'lintel', artwork: lintel, paletteName: 'Achromatic', palette: ['#080808', '#FAFAF8', '#8A8A86', '#1C1C1C'], seed: 'bold-kb' },
+  { slug: 'tiefsee', name: 'Tiefsee', topic: 'Deep-sea research programme', artworkSlug: 'dipole', artwork: dipole, paletteName: 'Bioluminescent cyan', palette: ['#04121A', '#E6EEF0', '#00D2E0', '#5D7480', '#0A1F2B'], seed: 'bold-ts' },
 ];

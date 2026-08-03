@@ -27,8 +27,9 @@ export default function ShowcaseIndexPage() {
         <p>
           Each of these fictional brand sites is designed around a different{' '}
           <a href="/artworks">Tabbied generative artwork</a>, used for hero
-          backdrops, section bands, and surfaces for cut-out imagery. Every
-          tile below is the live pattern, drawn in the site's own palette.
+          backdrops, section bands, and surfaces for cut-out imagery — and, in
+          the newest ten, as the only image on the page. Every tile below is
+          the live pattern, drawn in the site's own palette.
         </p>
       </header>
       <div className={s.grid}>
@@ -52,8 +53,8 @@ export default function ShowcaseIndexPage() {
         ))}
       </div>
       <p className={s.foot}>
-        Patterns by <a href="https://tabbied.com">Tabbied</a> · imagery
-        generated with GPT Image 2.
+        Patterns by <a href="https://tabbied.com">Tabbied</a> · imagery, where
+        a site uses any, generated with GPT Image 2.
       </p>
     </main>
   );

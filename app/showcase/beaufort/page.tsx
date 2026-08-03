@@ -1,0 +1,411 @@
+import { TabbiedArtwork } from 'tabbied/react';
+import {
+  angleoff, fanned, gnomonwedge, mitre, overbar, quoinwedge, sail, skewback,
+} from 'tabbied/artworks';
+import s from './beaufort.module.css';
+
+export const metadata = {
+  title: 'Ateliers Beaufort: Sailmakers, Lorient',
+  description:
+    'A loft on the Blavet cutting sails by hand and by machine. Cruising, racing and classic wardrobes, cut for the wind you actually get.',
+};
+
+/* Night navy, bone, one sea green. Every field takes `transparent` in the
+   background slot so the water of the page runs through the pattern. */
+const BONE = '#efeae0';
+const GREEN = '#00b37a';
+const GREY = '#6e808f';
+const DEEP = '#14293d';
+
+/* The scale the loft is named after, and the spine of the whole page. Every
+   row is one force, and the cut note is what it means for a sail. */
+const SCALE = [
+  ['0', 'Calm', '< 1', 'Sea like a mirror', 'Nothing we make will help you'],
+  ['1', 'Light air', '1 – 3', 'Ripples, no foam', 'Code zero, and patience'],
+  ['2', 'Light breeze', '4 – 6', 'Small wavelets', 'Full main, light genoa'],
+  ['3', 'Gentle breeze', '7 – 10', 'Crests begin to break', 'The wardrobe is happy'],
+  ['4', 'Moderate breeze', '11 – 16', 'Fairly frequent white horses', 'Where we cut for'],
+  ['5', 'Fresh breeze', '17 – 21', 'Moderate waves, many white horses', 'First reef, no drama'],
+  ['6', 'Strong breeze', '22 – 27', 'Large waves, spray', 'Second reef, working jib'],
+  ['7', 'Near gale', '28 – 33', 'Sea heaps up, foam in streaks', 'Third reef, staysail'],
+  ['8', 'Gale', '34 – 40', 'Moderately high waves, edges break', 'Storm jib and honesty'],
+  ['9', 'Strong gale', '41 – 47', 'High waves, dense foam', 'Trysail. This is the cloth test'],
+  ['10', 'Storm', '48 – 55', 'Very high waves, sea white', 'Nothing set that we did not triple-stitch'],
+  ['11', 'Violent storm', '56 – 63', 'Exceptionally high waves', 'Everything below, everything lashed'],
+  ['12', 'Hurricane', '64 +', 'Air filled with foam and spray', 'The loft would like a word'],
+];
+
+const WORK = [
+  { n: '01', t: 'Cruising', d: 'Cross-cut and radial wardrobes in Dacron and laminate, cut to be reefed', lead: '6 weeks', from: '€ 3 400' },
+  { n: '02', t: 'Racing', d: 'Membrane mains and headsails, moulded on our own floor', lead: '9 weeks', from: '€ 7 900' },
+  { n: '03', t: 'Classic', d: 'Cotton and flax for boats that predate synthetics, hand-roped', lead: '14 weeks', from: '€ 9 200' },
+  { n: '04', t: 'Repair', d: 'Anything, including sails we did not make and would not have made', lead: '4 days', from: '€ 90' },
+  { n: '05', t: 'Covers', d: 'Stack packs, sprayhoods, winch and wheel covers in acrylic', lead: '3 weeks', from: '€ 640' },
+];
+
+const CLOTH = [
+  ['Dacron HTP', '280 g/m²', 'Cross-cut cruising', '8 – 12 years', 'Held'],
+  ['Dacron HTP', '380 g/m²', 'Heavy cruising, charter', '10 – 15 years', 'Held'],
+  ['Hydra Net Radial', '340 g/m²', 'Radial cruising', '10 – 14 years', 'Held'],
+  ['Laminate, Pentex', '295 g/m²', 'Fast cruising', '6 – 8 years', 'Held'],
+  ['Membrane, Aramid', '240 g/m²', 'Racing, inshore', '3 – 5 seasons', 'Made here'],
+  ['Membrane, Carbon', '210 g/m²', 'Racing, offshore', '2 – 4 seasons', 'Made here'],
+  ['Nylon, 0.75 oz', '25 g/m²', 'Spinnaker, light', '5 – 8 years', 'Held'],
+  ['Nylon, 1.5 oz', '50 g/m²', 'Spinnaker, all round', '6 – 10 years', 'Held'],
+  ['Flax, No. 4', '410 g/m²', 'Classic, gaff rig', '20 years +', 'To order'],
+  ['Cotton duck', '460 g/m²', 'Classic, museum work', '20 years +', 'To order'],
+  ['Acrylic, solution dyed', '305 g/m²', 'Covers', '10 years', 'Held'],
+  ['Your own cloth', '—', 'We will cut it, once', '—', '—'],
+];
+
+const BUILT = [
+  ['2026', 'Aïda', 'Sloop, 14 m', 'Full cruising wardrobe', '6 sails'],
+  ['2026', 'Kerlouan', 'Ketch, 19 m', 'Main, mizzen, staysail', '3 sails'],
+  ['2025', 'Marie-Jeanne', 'Sinagot, 1928', 'Flax, hand-roped, museum spec', '2 sails'],
+  ['2025', 'Rafale IV', 'Class 40', 'Membrane inventory, offshore', '9 sails'],
+  ['2025', 'Petit Nord', 'Cutter, 11 m', 'Radial main and yankee', '4 sails'],
+  ['2024', 'Bélouga', 'Sloop, 8 m', 'Dacron cruising pair', '2 sails'],
+  ['2024', 'Tabarly', 'Classic yawl, 1964', 'Restoration, matched to plans', '7 sails'],
+  ['2024', 'Grain de Sel', 'Catamaran, 12 m', 'Square-top main, self-tacker', '3 sails'],
+  ['2023', 'Ouessant', 'Pilot cutter, 1911', 'Flax throughout', '5 sails'],
+  ['2023', 'Vent Debout', 'Figaro 3', 'One-design, class measured', '4 sails'],
+];
+
+const CRAFT = [
+  {
+    art: gnomonwedge,
+    n: 'I',
+    t: 'Measured on the boat',
+    d: 'Nobody cuts from a drawing. We come with a laser and a ladder, take the rig standing and loaded, and photograph the mast bend under sail before a panel is designed.',
+  },
+  {
+    art: fanned,
+    n: 'II',
+    t: 'Cut on the floor',
+    d: 'Eight hundred square metres of flat floor, which is the whole reason the loft is where it is. Panels are broadseamed by eye and checked against the plot before they are joined.',
+  },
+  {
+    art: overbar,
+    n: 'III',
+    t: 'Finished by hand',
+    d: 'Corners, rings and reef points are hand-worked, because the machine is faster and the hand is right. A classic gets hand-roping all the way round and takes three weeks longer.',
+  },
+];
+
+const VISIT = [
+  ['Loft', 'Quai des Indes 9, 56100 Lorient. Ring the bell on the water side.'],
+  ['Season', 'Booked out from March. Repairs go in front of everything in July.'],
+  ['Pick-up', 'Delivered to your berth in Brittany, freighted anywhere else.'],
+  ['Guarantee', 'Five years on our stitching, and the cloth-maker warrants the cloth.'],
+];
+
+export default function BeaufortPage() {
+  return (
+    <div className={s.page}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..900&display=swap"
+      />
+
+      <header className={s.bar}>
+        <a className={s.mark} href="#top">Ateliers Beaufort</a>
+        <nav aria-label="Sections">
+          <a href="#scale">The scale</a>
+          <a href="#work">Work</a>
+          <a href="#cloth">Cloth</a>
+          <a href="#built">Built here</a>
+        </nav>
+        <span className={s.now}>Voilerie / Lorient</span>
+      </header>
+
+      <main id="top">
+        {/* ------------------------------------------------------------ HERO */}
+        <section className={s.hero}>
+          <div className={s.heroField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={sail}
+              palette={['transparent', DEEP, GREY, GREEN]}
+              fit="grid"
+              cellSize={158}
+              redrawInterval={5800}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <p className={s.heroKicker}>Sailmakers / Lorient / since 1971</p>
+          <h1 className={s.heroType}>
+            <span>Cut for</span>
+            <span>force</span>
+            <span className={s.green}>four.</span>
+          </h1>
+          <div className={s.heroFoot}>
+            <p>
+              A sail cut for the wind you get, not the wind in the brochure.
+              Eight hundred square metres of floor on the Blavet and fifty-five
+              years of doing it here.
+            </p>
+            <a className={s.cta} href="#work">
+              What we make
+            </a>
+          </div>
+        </section>
+
+        {/* ----------------------------------------------------------- SCALE
+            Thirteen rows, force nought to twelve, each one a full-width
+            band with the number set as large as the row is tall. This is the
+            spine of the page and the reason it is as long as it is. */}
+        <section id="scale" className={s.scale} aria-labelledby="scale-h">
+          <div className={s.secHead}>
+            <h2 id="scale-h">Nought to twelve</h2>
+            <p>
+              The scale Admiral Beaufort wrote down in 1805, and what each force
+              means on our floor. Force four is where a cruising wardrobe should
+              be at its best.
+            </p>
+          </div>
+          <ol className={s.scaleList}>
+            {SCALE.map((f) => (
+              <li key={f[0]} data-key={f[0] === '4' ? 'yes' : 'no'}>
+                <span className={s.fN}>{f[0]}</span>
+                <div className={s.fBody}>
+                  <h3>{f[1]}</h3>
+                  <p className={s.fSea}>{f[3]}</p>
+                </div>
+                <span className={s.fKt}>{f[2]} kt</span>
+                <span className={s.fCut}>{f[4]}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------- STATEMENT */}
+        <section className={s.statement}>
+          <p className={s.big}>
+            Most sails are designed for the wind a brochure photograph is taken
+            in. We ask what you actually sail in, which is usually less wind,
+            more chop and shorter-handed than anybody admits, and we cut for
+            that.
+          </p>
+          <div className={s.statementMeta}>
+            <p>
+              The loft has been on the Quai des Indes since 1971 and on the same
+              floor since 1988. Eleven of us: six on the floor, two on the
+              machines, one in the rigging and two who do everything else.
+            </p>
+            <p>
+              We make membrane sails here rather than buying them in, which is
+              unusual for a loft this size and is the single most expensive
+              decision the business has ever taken.
+            </p>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ WORK */}
+        <section id="work" className={s.work} aria-labelledby="work-h">
+          <div className={s.secHead}>
+            <h2 id="work-h">What we make</h2>
+            <p>Lead times are from the day we measure, not the day you call.</p>
+          </div>
+          <ol className={s.rows}>
+            {WORK.map((x) => (
+              <li key={x.n}>
+                <span className={s.rowN}>{x.n}</span>
+                <h3 className={s.rowTitle}>{x.t}</h3>
+                <span className={s.rowSub}>{x.d}</span>
+                <span className={s.rowLead}>{x.lead}</span>
+                <span className={s.rowFrom}>{x.from}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------------ BAND */}
+        <div className={s.band} aria-hidden="true">
+          <TabbiedArtwork
+            artwork={quoinwedge}
+            palette={['transparent', GREEN, DEEP, GREY]}
+            fit="grid"
+            cellSize={118}
+            redrawInterval={4200}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+
+        {/* ----------------------------------------------------------- CRAFT */}
+        <section id="craft" className={s.craft} aria-labelledby="craft-h">
+          <div className={s.secHead}>
+            <h2 id="craft-h">Three habits</h2>
+            <p>None of them fast, all of them the reason a sail lasts a decade.</p>
+          </div>
+          <div className={s.cGrid}>
+            {CRAFT.map((c) => (
+              <article key={c.n}>
+                <div className={s.cPlate} aria-hidden="true">
+                  <TabbiedArtwork
+                    artwork={c.art}
+                    palette={['transparent', GREY, GREEN]}
+                    fit="grid"
+                    cellSize={66}
+                    redrawInterval={5400}
+                    style={{ position: 'absolute', inset: 0 }}
+                  />
+                </div>
+                <p className={s.cN}>{c.n}</p>
+                <h3>{c.t}</h3>
+                <p className={s.cBody}>{c.d}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ----------------------------------------------------------- CLOTH */}
+        <section id="cloth" className={s.listing} aria-labelledby="cloth-h">
+          <div className={s.secHead}>
+            <h2 id="cloth-h">Cloth on the shelf</h2>
+            <p>Held means it is in the building. Made here means it is laid up on our own floor.</p>
+          </div>
+          <ol className={s.table}>
+            {CLOTH.map((r, i) => (
+              <li key={i}>
+                <span className={s.tKey}>{r[1]}</span>
+                <span className={s.tMain}>{r[0]}</span>
+                <span className={s.tMid}>{r[2]}</span>
+                <span className={s.tMid}>{r[3]}</span>
+                <span className={s.tEnd}>{r[4]}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------- QUOTE BAND */}
+        <section className={s.quote}>
+          <div className={s.quoteField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={mitre}
+              palette={['transparent', GREEN, GREY]}
+              fit="grid"
+              cellSize={124}
+              redrawInterval={4600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <blockquote>
+            <p>A sail is a wing you have to fold up and put in a bag. Everything difficult about it comes from the second half of that sentence.</p>
+            <cite>Yann Le Guillou, master sailmaker</cite>
+          </blockquote>
+        </section>
+
+        {/* ----------------------------------------------------------- BUILT */}
+        <section id="built" className={s.listing} aria-labelledby="built-h">
+          <div className={s.secHead}>
+            <h2 id="built-h">Built here</h2>
+            <p>Recent wardrobes. Owners who asked not to appear are not on the list, which is why it is short.</p>
+          </div>
+          <ol className={s.table}>
+            {BUILT.map((r) => (
+              <li key={r[1]}>
+                <span className={s.tKey}>{r[0]}</span>
+                <span className={s.tMain}>{r[1]}</span>
+                <span className={s.tMid}>{r[2]}</span>
+                <span className={s.tMid}>{r[3]}</span>
+                <span className={s.tEnd}>{r[4]}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ----------------------------------------------------------- VISIT */}
+        <section id="visit" className={s.visit} aria-labelledby="visit-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedArtwork
+              artwork={angleoff}
+              palette={['transparent', DEEP, GREY]}
+              fit="grid"
+              cellSize={112}
+              redrawInterval={6400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <div className={s.visitInner}>
+            <h2 id="visit-h">Coming to the loft</h2>
+            <dl className={s.visitList}>
+              {VISIT.map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        {/* --------------------------------------------------------- CONTACT */}
+        <section className={s.contact}>
+          <p className={s.contactPre}>Measure, quote, argue</p>
+          <a className={s.contactMail} href="mailto:plancher@beaufort.example">
+            plancher@beaufort.example
+          </a>
+          <p className={s.contactFine}>
+            Quai des Indes 9, 56100 Lorient. Somebody is on the floor from seven
+            in the morning; the telephone is answered from nine.
+          </p>
+        </section>
+      </main>
+
+      <div className={s.coda} aria-hidden="true">
+        <TabbiedArtwork
+          artwork={skewback}
+          palette={['transparent', GREEN, DEEP, GREY]}
+          fit="grid"
+          cellSize={108}
+          redrawInterval={5000}
+          style={{ position: 'absolute', inset: 0 }}
+        />
+      </div>
+
+      <footer className={s.footer}>
+        <p className={s.footMark}>4</p>
+        <div className={s.footGrid}>
+          <div>
+            <h2>Loft</h2>
+            <ul>
+              <li><a href="#work">What we make</a></li>
+              <li><a href="#cloth">Cloth</a></li>
+              <li><a href="#built">Built here</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Reference</h2>
+            <ul>
+              <li><a href="#scale">The scale</a></li>
+              <li><a href="#craft">Three habits</a></li>
+              <li><a href="#visit">Visiting</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Here</h2>
+            <p>
+              Quai des Indes 9
+              <br />
+              56100 Lorient
+              <br />
+              plancher@beaufort.example
+            </p>
+          </div>
+        </div>
+        <div className={s.footFine}>
+          <p>A fictional sail loft. Boats, prices and cloth weights are invented.</p>
+          <p>
+            Patterns by{' '}
+            <a href="https://tabbied.com" rel="noopener">
+              Tabbied
+            </a>
+            , drawn live on a transparent ground and redrawn on a timer.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}

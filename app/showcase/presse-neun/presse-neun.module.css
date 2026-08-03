@@ -1,0 +1,697 @@
+/* ==========================================================================
+   PRESSE NEUN — hand screenprint workshop, Rotterdam
+   The overprint page. Two pattern fields sit on top of each other in
+   `multiply`, which is literally what a second colour does to a sheet that
+   is already printed, and the ink rack runs the full width as nine flat
+   blocks with nothing drawn round them. Inter, tracked in.
+   ========================================================================== */
+
+.page {
+  --paper: #f4f2ea;
+  --ink: #141210;
+  --pink: #ff2d78;
+  --grey: #8c8a82;
+  --pale: #e2dfd4;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--pink);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(90svh, 58rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroStack {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 98%);
+}
+
+.heroLayer {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+
+/* The second pull. Multiply is the whole point: where the two fields cross,
+   a third colour appears that neither screen carries. */
+.heroLayerTwo {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  /* Ink, not pink: the kicker sits on top of a pink field and would vanish
+     into it. The wordmark below can afford the colour; six-point caps can't. */
+  color: var(--ink);
+}
+
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(3.4rem, 16vw, 18rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.064em;
+}
+
+.heroType span:last-child {
+  padding-left: 0.18em;
+}
+
+.pink {
+  color: var(--pink);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--pink);
+  color: #fff !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------------- inks
+   Nine flat blocks, full width, no gap and no rule. This is the ink rack,
+   and it is also the only place the page is allowed to be colourful. */
+
+.inks {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.inks div {
+  aspect-ratio: 1 / 1.5;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(0.5rem, 1vw, 1rem);
+}
+
+.inks span {
+  font-size: clamp(0.55rem, 0.78vw, 0.74rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.4vw, 6.8rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.06em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 42ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* -------------------------------------------------------------------- work */
+
+.work,
+.process,
+.listing,
+.faq {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 8fr) minmax(0, 8fr) 7rem 7rem;
+  align-items: center;
+  column-gap: var(--gap);
+  padding: clamp(0.9rem, 2vw, 1.6rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rows li:nth-child(odd) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.rows li:hover {
+  background: var(--pink);
+  color: #fff;
+}
+
+.rows li:hover .rowN,
+.rows li:hover .rowSub,
+.rows li:hover .rowLead {
+  color: color-mix(in srgb, #fff 82%, transparent);
+}
+
+.rowN {
+  align-self: start;
+  padding-top: 0.6em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pink);
+}
+
+.rowTitle {
+  margin: 0;
+  font-size: clamp(1.8rem, 5.2vw, 4.6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.rowSub {
+  font-size: clamp(0.86rem, 1.15vw, 1.05rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.rowLead {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.rowFrom {
+  text-align: right;
+  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+/* ------------------------------------------------------------- band, coda */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 26vw, 380px);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 300px);
+  background: var(--paper);
+}
+
+/* ---------------------------------------------------------------- process */
+
+.pGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 3rem);
+}
+
+.pPlate {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 70%, var(--paper));
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.pN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--pink);
+}
+
+.pGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.pBody {
+  margin: 0;
+  max-width: 40ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 2.4fr) minmax(0, 1.6fr) minmax(0, 1.4fr) 8rem;
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--pink) 12%, transparent);
+}
+
+.tKey {
+  font-weight: 700;
+  color: var(--pink);
+}
+
+.tMain {
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+  font-weight: 650;
+  letter-spacing: -0.038em;
+}
+
+.tMid {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.tEnd {
+  text-align: right;
+  font-weight: 650;
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.4;
+  mask-image: radial-gradient(
+    ellipse 48% 60% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.4) 58%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Measure on the paragraph: `ch` resolves against the display size there. */
+.quote p {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-size: clamp(1.6rem, 4.8vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+/* --------------------------------------------------------------------- faq */
+
+.faqList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.4rem);
+}
+
+.faqList dt {
+  margin-bottom: 0.6rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.042em;
+}
+
+.faqList dd {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  text-align: center;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.contactMail {
+  display: block;
+  font-size: clamp(1.4rem, 7.8vw, 7.4rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.062em;
+  word-break: break-word;
+}
+
+.contactMail:hover {
+  color: var(--pink);
+}
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  max-width: 48ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.footMark {
+  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(6rem, 26vw, 28rem);
+  font-weight: 800;
+  line-height: 0.72;
+  letter-spacing: -0.08em;
+  color: color-mix(in srgb, var(--pink) 55%, transparent);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--pink);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1200px) {
+  .pGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faqList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .statement,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .rows li {
+    grid-template-columns: 3rem minmax(0, 1fr) 7rem;
+    grid-template-areas: 'n title from' 'n sub from' 'n lead from';
+    row-gap: 0.3rem;
+  }
+
+  .rowN { grid-area: n; }
+  .rowTitle { grid-area: title; }
+  .rowSub { grid-area: sub; }
+  .rowLead { grid-area: lead; }
+  .rowFrom { grid-area: from; align-self: center; }
+
+  .table li {
+    grid-template-columns: 7rem minmax(0, 1fr) 7rem;
+    grid-template-areas: 'key main end' 'key mid1 end' 'key mid2 end';
+    row-gap: 0.1rem;
+  }
+
+  .tKey { grid-area: key; }
+  .tMain { grid-area: main; }
+  .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.84rem; }
+  .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.84rem; }
+  .tEnd { grid-area: end; align-self: center; }
+}
+
+@media (max-width: 860px) {
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+
+  /* The rack folds rather than shrinks: nine narrow slivers are unreadable,
+     three ranks of three are still the rack. */
+  .inks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .inks div {
+    aspect-ratio: 2 / 1;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .pGrid,
+  .faqList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
