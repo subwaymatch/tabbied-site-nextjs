@@ -214,4 +214,52 @@ test.describe('tabbied package (component test page)', () => {
     await expect(host).toHaveRole('img');
     await expect(host).toHaveAccessibleName('Symmetry');
   });
+
+  // The ambient-redraw timer lives in the core controller (createArtwork), so
+  // these also cover the vanilla entry point — the React prop is a
+  // pass-through. The seed rides on the element's data-seed attribute, which
+  // is what makes a redraw observable from outside.
+  test('redrawInterval rotates the seed, and paused holds it', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const ticking = page.locator('#redraw-interval [data-artwork="radius"] css-doodle');
+    await expect(ticking).toBeAttached({ timeout: 15000 });
+    // Both sections sit below the fold, and an off-screen host drops its
+    // ticks by design — scroll to them or the timer legitimately never fires.
+    await ticking.scrollIntoViewIfNeeded();
+
+    const first = await ticking.getAttribute('data-seed');
+    await expect
+      .poll(() => ticking.getAttribute('data-seed'), { timeout: 10000 })
+      .not.toBe(first);
+
+    // Same interval, gated off: the seed must not move. Scrolled into view
+    // first so the viewport gate isn't what's holding it.
+    const held = page.locator('#redraw-paused [data-artwork="radius"] css-doodle');
+    await held.scrollIntoViewIfNeeded();
+    await expect(held).toBeAttached({ timeout: 15000 });
+
+    const pinned = await held.getAttribute('data-seed');
+    await page.waitForTimeout(1500); // several intervals at 250ms
+    expect(await held.getAttribute('data-seed')).toBe(pinned);
+  });
+
+  test('redrawInterval is skipped under prefers-reduced-motion', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const doodle = page.locator('#redraw-interval [data-artwork="radius"] css-doodle');
+    await expect(doodle).toBeAttached({ timeout: 15000 });
+    await doodle.scrollIntoViewIfNeeded();
+
+    const pinned = await doodle.getAttribute('data-seed');
+    await page.waitForTimeout(1500);
+    expect(await doodle.getAttribute('data-seed')).toBe(pinned);
+  });
 });

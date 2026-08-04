@@ -163,6 +163,7 @@ import { radius } from 'tabbied/artworks';
 const controller = createArtwork(document.querySelector('#stage'), {
   artwork: radius,
   seed: 'k9Pz',
+  redrawInterval: 5200, // optional: reseed on a timer, gates included
   // Measured fits (grid/cover/contain) mount asynchronously, once the
   // host's size is known — drive the controller from onReady.
   onReady: async () => {
@@ -755,7 +756,14 @@ export default function ReactDocsPage() {
                       <Code>update()</Code>, <Code>redraw()</Code>,{' '}
                       <Code>exportImage()</Code>, <Code>exportSvg()</Code> and{' '}
                       <Code>destroy()</Code>.
-                      It accepts the same config the component takes as props.
+                      It accepts the same config the component takes as props,
+                      minus the box props — the host element is yours to size,
+                      or run them through <Code>resolveBoxStyle()</Code>. That
+                      includes <Code>redrawInterval</Code> and{' '}
+                      <Code>paused</Code>: the timer and its reduced-motion,
+                      tab-visibility and viewport gates live in the
+                      controller, so artworks animate here without
+                      reimplementing any of it.
                     </p>
                     <CodeBlock
                       code={coreCode}

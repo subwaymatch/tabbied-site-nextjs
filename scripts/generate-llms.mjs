@@ -139,7 +139,7 @@ export function Example() {
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
 | \`aspectRatio\` | CSS \`aspect-ratio\`, e.g. \`3 / 2\`. Derives height from width. |
 | \`coverRender\` | Render resolution for the \`cover\`/\`contain\` fits (default 800x800). |
-| \`redrawInterval\` | Re-randomize the seed every N ms. |
+| \`redrawInterval\` | Re-randomize the seed every N ms. Off under \`prefers-reduced-motion\`; ticks drop while the tab is hidden or the box is off-screen. |
 | \`paused\` | Pause \`redrawInterval\` ticks. No effect unless \`redrawInterval\` is set. |
 | \`onReady\` | Fires once the artwork has been measured and first painted. |
 
@@ -227,6 +227,20 @@ const controller = createArtwork(document.querySelector('#stage'), {
 });
 
 // later: controller.destroy();
+\`\`\`
+
+The controller takes the same config the component takes as props (minus the
+box props — the host element is yours to size, or run them through
+\`resolveBoxStyle()\`). That includes \`redrawInterval\` and \`paused\`: the timer
+and its reduced-motion, tab-visibility and viewport gates live in the
+controller, so the vanilla API animates without reimplementing them.
+
+\`\`\`js
+const controller = createArtwork(host, {
+  artwork: radius,
+  redrawInterval: 5200,
+});
+controller.update({ paused: true }); // holds the phase; resume with false
 \`\`\`
 
 ## SVG export

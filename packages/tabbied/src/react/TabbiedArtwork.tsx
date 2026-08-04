@@ -154,11 +154,6 @@ export const TabbiedArtwork = forwardRef<
   const hostRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<ArtworkController | null>(null);
 
-  // Read `paused` through a ref so flipping it doesn't tear down and rebuild
-  // the redraw timer — the redraw phase is preserved across pause/resume.
-  const pausedRef = useRef(paused);
-  pausedRef.current = paused;
-
   // fit:"fixed" draws its canvas at an explicit pixel size, so it only takes
   // the numeric form of width/height; a CSS length still sizes the box, and
   // the canvas falls back to DEFAULT_FIXED_SIZE.
@@ -173,6 +168,8 @@ export const TabbiedArtwork = forwardRef<
     width: typeof width === 'number' ? width : undefined,
     height: typeof height === 'number' ? height : undefined,
     coverRender,
+    redrawInterval,
+    paused,
     onReady,
   };
   const configRef = useRef(config);
@@ -204,58 +201,10 @@ export const TabbiedArtwork = forwardRef<
     };
   }, []);
 
-  // Opt-in ambient redraws (the gallery shimmer): rotate the seed through the
-  // controller so designs with CSS transitions morph between variations.
-  useEffect(() => {
-    if (!redrawInterval || redrawInterval <= 0) {
-      return;
-    }
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    // Ticks are dropped while the element is outside the viewport, so a long
-    // page of animated artworks only pays for the ones on screen. (`paused`
-    // remains as an additional external gate.)
-    const host = hostRef.current;
-    let inViewport = true;
-    let viewportObserver: IntersectionObserver | undefined;
-
-    if (host && typeof IntersectionObserver !== 'undefined') {
-      viewportObserver = new IntersectionObserver((entries) => {
-        inViewport = entries[entries.length - 1].isIntersecting;
-      });
-      viewportObserver.observe(host);
-    }
-
-    const tick = () => {
-      if (
-        document.visibilityState === 'visible' &&
-        inViewport &&
-        !pausedRef.current
-      ) {
-        controllerRef.current?.redraw();
-      }
-    };
-
-    // Land the first redraw anywhere in [0, interval) rather than a full
-    // interval after mount, so a wall of artworks starts moving right away
-    // instead of sitting still until every timer fires.
-    let intervalTimer: ReturnType<typeof setInterval> | undefined;
-    const firstTimer = setTimeout(() => {
-      tick();
-      intervalTimer = setInterval(tick, redrawInterval);
-    }, Math.random() * redrawInterval);
-
-    return () => {
-      viewportObserver?.disconnect();
-      clearTimeout(firstTimer);
-      if (intervalTimer !== undefined) {
-        clearInterval(intervalTimer);
-      }
-    };
-  }, [redrawInterval]);
+  // `redrawInterval` / `paused` need no effect of their own: they ride in the
+  // config above, and the controller owns the timer (and its reduced-motion,
+  // tab-visibility and viewport gates). Flipping `paused` is read at tick
+  // time, so the redraw phase survives pause/resume.
 
   useImperativeHandle(
     ref,

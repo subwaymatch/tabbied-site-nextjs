@@ -67,6 +67,30 @@ export default function PackageTestPage() {
           />
         </div>
       </section>
+
+      {/* Ambient redraws. The timer, and its reduced-motion / tab-visibility
+          / viewport gates, live in the core controller — the prop is a
+          pass-through — so this section covers both entry points at once.
+          The interval is short so the spec doesn't have to wait around. */}
+      <section id="redraw-interval">
+        <h2>redrawInterval</h2>
+        <div style={{ height: 200 }}>
+          <TabbiedArtwork artwork={radius} fit="grid" redrawInterval={250} />
+        </div>
+      </section>
+
+      {/* Same timer, gated off by `paused`: the seed must hold still. */}
+      <section id="redraw-paused">
+        <h2>redrawInterval + paused</h2>
+        <div style={{ height: 200 }}>
+          <TabbiedArtwork
+            artwork={radius}
+            fit="grid"
+            redrawInterval={250}
+            paused
+          />
+        </div>
+      </section>
     </main>
   );
 }

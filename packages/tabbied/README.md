@@ -227,6 +227,25 @@ const controller = createArtwork(el, {
 // later: controller.destroy();
 ```
 
+The controller accepts the same config the React component takes as props,
+minus the box props — the host element is yours to size (or run them through
+`resolveBoxStyle`, above). That includes the ambient-redraw timer, so the
+framework-free API animates without reimplementing it:
+
+```js
+const controller = createArtwork(host, {
+  artwork: radius,
+  redrawInterval: 5200, // reseed every 5.2s, morphing via the authored transitions
+});
+
+// Hold the ticks without losing the redraw phase; resume with `false`.
+controller.update({ paused: true });
+```
+
+`redrawInterval` switches itself off entirely under `prefers-reduced-motion`,
+and drops ticks while the tab is hidden or the host is scrolled out of view —
+a page of animated artworks only pays for the ones somebody is looking at.
+
 ## License
 
 MIT © Sy Hong and Ye Joo Park

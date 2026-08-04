@@ -82,6 +82,25 @@ export type ArtworkConfig = {
   height?: number;
   /** cover/contain — render resolution override (default 800×800 or the artwork's sizing.coverRender). */
   coverRender?: CoverRender;
+  /**
+   * Re-randomize the seed every N ms, so designs with authored CSS
+   * transitions morph between arrangements (the gallery shimmer). The first
+   * redraw lands at a random point within the first interval, so a page of
+   * artworks starts moving immediately instead of stepping in lockstep.
+   *
+   * Switched off entirely under prefers-reduced-motion; ticks are dropped
+   * while the tab is hidden or the host is outside the viewport, so
+   * off-screen artworks cost nothing. Only meaningful when `seed` is
+   * uncontrolled — an update() that sets `seed` wins the next tick.
+   */
+  redrawInterval?: number;
+  /**
+   * Pause `redrawInterval` ticks without tearing the timer down, so the
+   * redraw phase survives pause/resume. Off-screen hosts already skip ticks
+   * on their own; this is a consumer-controlled gate on top of that. No
+   * effect unless `redrawInterval` is set.
+   */
+  paused?: boolean;
   /** Called once the first pattern render has been committed. */
   onReady?: () => void;
 };
@@ -197,6 +216,14 @@ export function createArtwork(
   let observer: ResizeObserver | null = null;
   let gridTimer: ReturnType<typeof setTimeout> | null = null;
   let destroyed = false;
+  // Ambient-redraw timer state (see syncRedrawTimer). redrawIntervalMs is the
+  // interval the live timer was built for, so a reconcile only rebuilds when
+  // the interval itself changed.
+  let redrawIntervalMs: number | undefined;
+  let firstRedrawTimer: ReturnType<typeof setTimeout> | null = null;
+  let redrawTimer: ReturnType<typeof setInterval> | null = null;
+  let viewportObserver: IntersectionObserver | null = null;
+  let inViewport = true;
   let readyFired = false;
   // Inline host styles the cover/contain mount overwrote, restored when the
   // element unmounts so destroy() (or a fit change) leaves the host as found.
@@ -560,6 +587,16 @@ export function createArtwork(
     rendered = { ...rendered, styleCode, doodleCode, seed, renderBox, cellPx };
   };
 
+  // Re-randomize (or set) the seed and regenerate in place. Shared by the
+  // public redraw() and the ambient redraw timer: both drop `config.seed` so
+  // a later update() on unrelated props doesn't snap back to the seed the
+  // controller was created with.
+  const rotateSeed = (nextSeed?: string) => {
+    seed = nextSeed ?? randomSeed();
+    config = { ...config, seed: undefined };
+    applyUpdate(resolve());
+  };
+
   // Full reconcile after a config change: re-create on structural changes,
   // update() otherwise. Measured fits stay unmounted until the first
   // ResizeObserver tick delivers the host's size.
@@ -569,6 +606,7 @@ export function createArtwork(
     const resolved = resolve();
 
     syncObserver(resolved);
+    syncRedrawTimer();
 
     if (needsMeasure(resolved.fit) && !hostSize) {
       if (element) unmountElement();
@@ -656,6 +694,81 @@ export function createArtwork(
     }
   };
 
+  // Ambient redraws: rotate the seed on a timer so designs with authored CSS
+  // transitions morph between arrangements. This lives in the controller
+  // rather than in each framework wrapper so the vanilla, React and
+  // declarative entry points all inherit the same gating.
+  //
+  // Three gates keep a wall of animated artworks from costing what it looks
+  // like it should: prefers-reduced-motion switches the effect off entirely,
+  // a hidden tab stops ticking, and a host scrolled out of view stops
+  // ticking. `paused` is a fourth, consumer-controlled gate on top.
+  const prefersReducedMotion = (): boolean =>
+    typeof matchMedia === 'function' &&
+    matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const clearRedrawTimer = () => {
+    if (firstRedrawTimer !== null) {
+      clearTimeout(firstRedrawTimer);
+      firstRedrawTimer = null;
+    }
+    if (redrawTimer !== null) {
+      clearInterval(redrawTimer);
+      redrawTimer = null;
+    }
+    viewportObserver?.disconnect();
+    viewportObserver = null;
+    inViewport = true;
+    redrawIntervalMs = undefined;
+  };
+
+  // Rebuilt only when the interval itself changes. `paused` is read at tick
+  // time instead, so pausing and resuming preserves the redraw phase rather
+  // than restarting the cycle.
+  const syncRedrawTimer = () => {
+    const { redrawInterval } = config;
+    const wanted =
+      redrawInterval && redrawInterval > 0 && !prefersReducedMotion()
+        ? redrawInterval
+        : undefined;
+
+    if (wanted === redrawIntervalMs) return;
+
+    clearRedrawTimer();
+
+    if (wanted === undefined) return;
+
+    redrawIntervalMs = wanted;
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      viewportObserver = new IntersectionObserver((entries) => {
+        inViewport = entries[entries.length - 1].isIntersecting;
+      });
+      viewportObserver.observe(host);
+    }
+
+    const tick = () => {
+      if (
+        !destroyed &&
+        element &&
+        inViewport &&
+        !config.paused &&
+        document.visibilityState === 'visible'
+      ) {
+        rotateSeed();
+      }
+    };
+
+    // Land the first redraw anywhere in [0, interval) rather than a full
+    // interval after mount, so a page of artworks starts moving right away
+    // instead of sitting still and then stepping in lockstep.
+    firstRedrawTimer = setTimeout(() => {
+      firstRedrawTimer = null;
+      tick();
+      redrawTimer = setInterval(tick, wanted);
+    }, Math.random() * wanted);
+  };
+
   reconcile();
 
   return {
@@ -680,9 +793,7 @@ export function createArtwork(
     redraw(nextSeed?: string) {
       if (destroyed) return;
 
-      seed = nextSeed ?? randomSeed();
-      config = { ...config, seed: undefined };
-      applyUpdate(resolve());
+      rotateSeed(nextSeed);
     },
 
     async exportImage(options?: ArtworkExportOptions) {
@@ -726,6 +837,7 @@ export function createArtwork(
       if (destroyed) return;
       destroyed = true;
 
+      clearRedrawTimer();
       observer?.disconnect();
       observer = null;
       unmountElement();
