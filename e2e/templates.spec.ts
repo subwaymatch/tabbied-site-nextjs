@@ -209,3 +209,89 @@ for (const fixture of FIXTURES) {
   });
   });
 }
+
+test.describe('the /templates gallery offers both formats', () => {
+  test.skip(
+    !fs.existsSync(path.join(REPO_ROOT, 'out', 'downloads', 'werkraum-html.zip')),
+    'run `node scripts/package-templates.mjs` first'
+  );
+
+  test('every card links to an HTML and a React zip that exist', async ({
+    page,
+  }) => {
+    await page.goto('/templates/');
+
+    const html = page.getByRole('link', { name: 'HTML', exact: true });
+    const react = page.getByRole('link', { name: 'React', exact: true });
+
+    const count = await html.count();
+    expect(count).toBeGreaterThan(50);
+    await expect(react).toHaveCount(count);
+
+    // Every href must resolve to a file the packager actually wrote — a card
+    // for a site the packager skipped would otherwise be a dead button.
+    for (const link of [...(await html.all()), ...(await react.all())]) {
+      const href = await link.getAttribute('href');
+      expect(href).toMatch(/^\/downloads\/[a-z0-9-]+-(html|react)\.zip$/);
+      expect(
+        fs.existsSync(path.join(REPO_ROOT, 'out', href!.replace(/^\//, ''))),
+        `${href} should exist`
+      ).toBe(true);
+    }
+  });
+
+  test('clicking a button downloads a real zip', async ({ page }) => {
+    await page.goto('/templates/');
+
+    for (const label of ['HTML', 'React']) {
+      const link = page.getByRole('link', { name: label, exact: true }).first();
+      const download = page.waitForEvent('download');
+      await link.click();
+      const file = await download;
+      expect(file.suggestedFilename()).toMatch(
+        new RegExp(`-${label.toLowerCase()}\\.zip$`)
+      );
+      expect(fs.statSync(await file.path()).size).toBeGreaterThan(2000);
+    }
+  });
+
+  test('the React package is a runnable Vite app', async () => {
+    const dir = path.join(REPO_ROOT, 'out', 'downloads', 'werkraum-react');
+
+    for (const file of [
+      'package.json',
+      'vite.config.ts',
+      'index.html',
+      'src/main.tsx',
+      'src/App.tsx',
+      'src/werkraum.module.css',
+    ]) {
+      expect(fs.existsSync(path.join(dir, file)), `${file} missing`).toBe(true);
+    }
+
+    const app = fs.readFileSync(path.join(dir, 'src', 'App.tsx'), 'utf-8');
+    // The page ships as authored; only the Next-isms and the workspace import
+    // paths change. Anything left of either would fail `vite build`.
+    expect(app).not.toContain("from 'next'");
+    expect(app).not.toMatch(/export const metadata/);
+    expect(app).not.toMatch(/from 'components\//);
+    expect(app).not.toContain("'lib/generated/images'");
+    expect(app).toContain("from 'tabbied/react'");
+    expect(app).toContain("from 'tabbied/patterns'");
+
+    // Vite resolves CSS modules itself, so unlike the HTML package the
+    // stylesheet ships exactly as authored.
+    const authored = fs.readFileSync(
+      path.join(REPO_ROOT, 'app/template/werkraum/werkraum.module.css'),
+      'utf-8'
+    );
+    expect(fs.readFileSync(path.join(dir, 'src', 'werkraum.module.css'), 'utf-8'))
+      .toBe(authored);
+
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(dir, 'package.json'), 'utf-8')
+    );
+    expect(pkg.dependencies).toHaveProperty('tabbied');
+    expect(pkg.scripts.dev).toBe('vite');
+  });
+});

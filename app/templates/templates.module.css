@@ -235,13 +235,57 @@
 .card {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
   background: #ffffff06;
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+/* The card used to be one big anchor. It is a div now — the download row
+   holds anchors of its own and nesting them would be invalid — so the link
+   moved inward and takes everything above that row. */
+.cardLink {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Sits below the fold of the card, quiet until the card is hovered or a
+   button is focused, so the grid still reads as a wall of patterns. */
+.dl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-top: 1px solid var(--line);
+  background: #ffffff05;
+}
+.dlLabel {
+  margin-right: auto;
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eef0f670;
+}
+.dlBtn {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #eef0f6c0;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.dlBtn:hover,
+.dlBtn:focus-visible {
+  border-color: var(--accent);
+  color: #eef0f6;
+  background: #ffffff10;
 }
 .card:hover {
   transform: translateY(-4px);

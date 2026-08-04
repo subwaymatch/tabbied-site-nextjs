@@ -20,11 +20,27 @@ npm run templates [slug]             # package template site(s) for download
 
 ## Downloadable templates — derived from the export, never hand-ported
 
-`npm run templates` (after `npm run build`) turns a template site into a
-framework-free download in `out/downloads/<slug>/` plus a zip. It reads the
-static export, so a template can never be staler than the page it came from —
-hand-porting is the trap the strategy doc rejects (see
-`agent-outputs/template-packaging-plan.md`).
+`npm run templates` (**after** `npm run build`, never before — it reads the
+export, and `next build` wipes `out/`) writes two downloads per site into
+`out/downloads/`: `<slug>-html.zip` and `<slug>-react.zip`. The `/templates`
+gallery links to both from every card, so a dead button means the packager
+skipped that site. `out` is in tsconfig's `exclude` because the React packages
+contain their own `vite.config.ts`, which the site's typecheck would otherwise
+try to compile.
+
+The two formats are built in opposite directions, and that is the point:
+
+- **HTML is derived from the export**, because there is no framework-free
+  source to copy — hand-porting is the trap the strategy doc rejects (see
+  `agent-outputs/template-packaging-plan.md`).
+- **React is a copy of the page**, because a template page already *is* a plain
+  React component. The only Next.js API any of the 57 uses is `export const
+  metadata`; there is no next/image, next/link, `'use client'` or
+  `generateStaticParams` anywhere. So `page.tsx` ships as authored and only the
+  frame changes: metadata lifted into `index.html`, workspace imports pointed
+  at copied neighbours, plus a Vite scaffold. Vite resolves `.module.css`
+  natively, so the React package needs **no CSS transform at all** — only the
+  bundler-less HTML package needs `composes:`/`:global()` flattened.
 
 Two things it does *not* do, deliberately. It doesn't de-hash and un-minify
 the built CSS: the authored `.module.css` is already the clean, commented

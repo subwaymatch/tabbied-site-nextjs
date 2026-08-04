@@ -27,6 +27,7 @@ const ART: Record<string, PatternDefinition> = {
 };
 
 type CardData = {
+  slug: string;
   href: string;
   n: number;
   name: string;
@@ -46,28 +47,53 @@ type CardData = {
 function Card({ c }: { c: CardData }) {
   const vars = { '--accent': c.colors[1] ?? c.colors[0] } as CSSProperties;
   return (
-    <a className={s.card} href={c.href} style={vars}>
-      <div className={s.thumb}>
-        <LazyPattern pattern={ART[c.pattern]} palette={c.colors} seed={c.seed} />
-        <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
-      </div>
-      <div className={s.cbody}>
-        <div className={s.cmain}>
-          <h3>{c.name}</h3>
-          <p>{c.topic}</p>
+    // A <div>, not the <a> it used to be: the download links are anchors of
+    // their own and an anchor cannot nest inside another. The card link still
+    // covers everything above the download row.
+    <div className={s.card} style={vars}>
+      <a className={s.cardLink} href={c.href}>
+        <div className={s.thumb}>
+          <LazyPattern pattern={ART[c.pattern]} palette={c.colors} seed={c.seed} />
+          <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
         </div>
-        <div className={s.foot}>
-          <div className={s.sw} aria-hidden="true">
-            {c.colors.map((col, i) => (
-              <span key={i} style={{ background: col }} />
-            ))}
+        <div className={s.cbody}>
+          <div className={s.cmain}>
+            <h3>{c.name}</h3>
+            <p>{c.topic}</p>
           </div>
-          <div className={s.pn}>
-            {c.paletteName} <i>/</i> {c.pattern}
+          <div className={s.foot}>
+            <div className={s.sw} aria-hidden="true">
+              {c.colors.map((col, i) => (
+                <span key={i} style={{ background: col }} />
+              ))}
+            </div>
+            <div className={s.pn}>
+              {c.paletteName} <i>/</i> {c.pattern}
+            </div>
           </div>
         </div>
+      </a>
+      {/* Both formats are built by `npm run templates` into out/downloads/,
+          so these are plain static files served next to the site. `download`
+          saves the zip rather than navigating to it. */}
+      <div className={s.dl}>
+        <span className={s.dlLabel}>Download</span>
+        <a
+          className={s.dlBtn}
+          href={`/downloads/${c.slug}-html.zip`}
+          download
+        >
+          HTML
+        </a>
+        <a
+          className={s.dlBtn}
+          href={`/downloads/${c.slug}-react.zip`}
+          download
+        >
+          React
+        </a>
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -115,6 +141,7 @@ export default function TemplatesGallery() {
   // rather than splitting the collections into separate batches.
   const allCards: CardData[] = [
     ...TEMPLATE_SITES.map((x, i) => ({
+      slug: x.slug,
       href: `/template/${x.slug}/`,
       name: x.brand,
       topic: x.topic,
@@ -124,6 +151,7 @@ export default function TemplatesGallery() {
       seed: `RCT${i}`,
     })),
     ...NEW_TEMPLATE_SITES.map((x) => ({
+      slug: x.slug,
       href: `/template/${x.slug}/`,
       name: x.name,
       topic: x.topic,

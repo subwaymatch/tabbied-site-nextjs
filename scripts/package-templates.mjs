@@ -29,6 +29,7 @@
 //   node scripts/package-templates.mjs --out-dir dist/downloads
 import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
+import fsSync from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -366,6 +367,305 @@ function trimUnusedRules(css, usedClasses) {
   return walk(css);
 }
 
+// ---- React package -------------------------------------------------------
+
+/**
+ * The React format, as a copy rather than a port.
+ *
+ * The HTML package is derived from the export because the markup has to be —
+ * there is no framework-free source to copy. React is the opposite case: a
+ * template page is *already* a plain React component. The only Next.js API any
+ * of the 57 uses is `export const metadata`, and there is no next/image,
+ * next/link, 'use client' or generateStaticParams anywhere. So the page ships
+ * as it was written, and what changes is only the frame around it.
+ *
+ * That also means the CSS needs no transform at all — Vite resolves
+ * `.module.css` natively, so the authored stylesheet ships byte-for-byte with
+ * its `composes:` and `:global()` intact and working. Only the HTML package,
+ * which has no bundler, needs those flattened.
+ */
+
+// A page's non-relative imports, and where each one lands in the package.
+// `tabbied/*` stay as npm deps; local components are copied in beside the page.
+const LOCAL_IMPORTS = new Map([
+  ['components/Figure', { from: 'components/Figure.tsx', to: 'Figure.tsx' }],
+  ['components/template/TemplateSite', { from: 'components/template/TemplateSite.tsx', to: 'TemplateSite.tsx' }],
+  ['components/template/templateData', { from: 'components/template/templateData.ts', to: 'templateData.ts' }],
+  ['components/template/templateContent', { from: 'components/template/templateContent.ts', to: 'templateContent.ts' }],
+  ['components/template/templateSections', { from: 'components/template/templateSections.ts', to: 'templateSections.ts' }],
+  ['components/template/generatedImages', { from: 'components/template/generatedImages.ts', to: 'generatedImages.ts' }],
+  ['components/template/ImageCard', { from: 'components/template/ImageCard.tsx', to: 'ImageCard.tsx' }],
+]);
+
+/** Strip the one Next-ism and point local imports at their copied neighbours. */
+function toStandaloneComponent(source, componentName) {
+  let out = source
+    .replace(/^import type \{ Metadata \}[^\n]*\n/m, '')
+    // `export const metadata = { ... };` — lifted into index.html instead.
+    .replace(/^export const metadata(?::\s*Metadata)?\s*=\s*\{[\s\S]*?\n\};\n/m, '')
+    .replace(/^export const metadata(?::\s*Metadata)?\s*=\s*\{[\s\S]*?\n\};\n/m, '');
+
+  for (const [specifier, target] of LOCAL_IMPORTS) {
+    out = out.replaceAll(`'${specifier}'`, `'./${target.to.replace(/\.tsx?$/, '')}'`);
+  }
+
+  out = out.replaceAll(`'lib/generated/images'`, `'./images'`);
+
+  // The page's default export is the app's root component.
+  out = out.replace(/export default function \w+\(/, `export default function ${componentName}(`);
+
+  return out.replace(/\n{3,}/g, '\n\n').trimStart();
+}
+
+/**
+ * Which local modules a set of sources pulls in, transitively.
+ *
+ * Two specifier shapes reach a local file. A page imports it by workspace path
+ * (`components/template/TemplateSite`); that component then imports its
+ * siblings relatively (`./templateContent`). Both are followed, and because
+ * every copied module lands flat in `src/`, the relative ones already resolve
+ * in the package — they only have to be *present*.
+ */
+function collectLocalImports(sources) {
+  const needed = new Map();
+  const queue = [...sources];
+
+  const siblingsOf = (from) => {
+    const dir = path.dirname(from);
+    return [...LOCAL_IMPORTS.entries()].filter(
+      ([, target]) => path.dirname(target.from) === dir
+    );
+  };
+
+  while (queue.length > 0) {
+    const { source, from } = queue.pop();
+    const candidates = [
+      ...LOCAL_IMPORTS.entries(),
+      ...(from ? siblingsOf(from) : []),
+    ];
+
+    for (const [specifier, target] of candidates) {
+      if (needed.has(specifier)) continue;
+
+      const base = path.basename(target.from, path.extname(target.from));
+      const byPath = new RegExp(`['"]${specifier}['"]`).test(source);
+      const byRelative = new RegExp(`['"]\\./${base}['"]`).test(source);
+
+      if (!byPath && !byRelative) continue;
+
+      needed.set(specifier, target);
+      queue.push({
+        source: fsSync.readFileSync(path.join(repoRoot, target.from), 'utf-8'),
+        from: target.from,
+      });
+    }
+  }
+
+  return needed;
+}
+
+const REACT_README = (slug, name, version) => `# ${name} — React template
+
+The same page as the HTML download, as a Vite + React app.
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+\`\`\`
+src/App.tsx              the page — edit this
+src/${slug}.module.css${' '.repeat(Math.max(0, 12 - slug.length))} its stylesheet, a CSS module
+src/main.tsx             mounts App
+public/images/           the photography this page uses
+\`\`\`
+
+## The patterns
+
+Blocks of pattern are \`<TabbiedPattern>\` elements from
+[tabbied](https://www.npmjs.com/package/tabbied) (v${version}), rendered live by
+[css-doodle](https://css-doodle.com/) — not images:
+
+\`\`\`tsx
+<TabbiedPattern pattern={ortho} palette={['transparent', '#C9C8C1']} fit="grid" />
+\`\`\`
+
+Swap \`pattern\` for any of the 254 designs (see https://tabbied.com), change
+\`palette\` to recolour, or set \`seed\` to pin one arrangement.
+
+## Images
+
+The photography is AI-generated and ships with this template.
+`;
+
+async function packageReactSite(slug, outDir, version, name, images) {
+  const pageSource = await fs.readFile(
+    path.join(templateDir, slug, 'page.tsx'),
+    'utf-8'
+  );
+
+  const locals = collectLocalImports([
+    { source: pageSource, from: path.join('app/template', slug, 'page.tsx') },
+  ]);
+  const siteDir = path.join(outDir, `${slug}-react`);
+  const srcDir = path.join(siteDir, 'src');
+
+  await fs.rm(siteDir, { recursive: true, force: true });
+  await fs.mkdir(srcDir, { recursive: true });
+  await fs.mkdir(path.join(siteDir, 'public', 'images'), { recursive: true });
+
+  await fs.writeFile(
+    path.join(srcDir, 'App.tsx'),
+    toStandaloneComponent(pageSource, 'App')
+  );
+
+  // Copied components keep their own local imports rewritten the same way.
+  const usesLucide = [];
+  for (const target of locals.values()) {
+    const source = await fs.readFile(path.join(repoRoot, target.from), 'utf-8');
+    usesLucide.push(/from 'lucide-react'/.test(source));
+    await fs.writeFile(
+      path.join(srcDir, target.to),
+      toStandaloneComponent(source, path.basename(target.to, path.extname(target.to)))
+    );
+  }
+
+  // Figure reads intrinsic dimensions from the site-wide manifest; ship only
+  // the entries this page can ask for, so the template carries no other site.
+  if (locals.has('components/Figure')) {
+    const manifest = JSON.parse(
+      (await fs.readFile(path.join(repoRoot, 'lib/generated/images.js'), 'utf-8'))
+        .replace(/^[\s\S]*?export default /, '')
+        .replace(/;\s*$/, '')
+    );
+    // Images are copied flat into public/images/, so every entry's `base`
+    // has to point there — the site-wide manifest splits them across
+    // /images/sites and /images/mockups, which would 404 in the package.
+    const mine = Object.fromEntries(
+      Object.entries(manifest)
+        .filter(([id]) => images.some((file) => path.basename(file, '.webp') === id))
+        .map(([id, entry]) => [id, { ...entry, base: '/images' }])
+    );
+    await fs.writeFile(
+      path.join(srcDir, 'images.ts'),
+      `// Intrinsic dimensions for this page's images, so it reserves layout\n` +
+        `// space before they load. Trimmed from the site-wide manifest.\n` +
+        `export default ${JSON.stringify(mine, null, 2)} as Record<string, { hash: string; width: number; height: number; base?: string }>;\n`
+    );
+  }
+
+  // The page's own stylesheet, byte-for-byte — Vite handles CSS modules, so
+  // nothing here needs the flattening the HTML package does.
+  const own = path.join(templateDir, slug, `${slug}.module.css`);
+  if (fsSync.existsSync(own)) {
+    await fs.copyFile(own, path.join(srcDir, `${slug}.module.css`));
+  }
+  if (locals.has('components/template/TemplateSite')) {
+    await fs.copyFile(
+      path.join(repoRoot, 'components/template/TemplateSite.module.css'),
+      path.join(srcDir, 'TemplateSite.module.css')
+    );
+  }
+
+  await fs.copyFile(globalsCss, path.join(srcDir, 'base.css'));
+
+  for (const relativePath of images) {
+    await fs.copyFile(
+      path.join(publicDir, 'images', relativePath),
+      path.join(siteDir, 'public', 'images', path.basename(relativePath))
+    );
+  }
+
+  const dependencies = {
+    react: '^19.2.0',
+    'react-dom': '^19.2.0',
+    tabbied: `^${version}`,
+    ...(usesLucide.some(Boolean) ? { 'lucide-react': '^1.17.0' } : {}),
+  };
+
+  await fs.writeFile(
+    path.join(siteDir, 'package.json'),
+    JSON.stringify(
+      {
+        name: `${slug}-template`,
+        private: true,
+        type: 'module',
+        scripts: { dev: 'vite', build: 'vite build', preview: 'vite preview' },
+        dependencies,
+        devDependencies: {
+          '@vitejs/plugin-react': '^5.0.0',
+          typescript: '^5.9.0',
+          vite: '^7.1.0',
+        },
+      },
+      null,
+      2
+    ) + '\n'
+  );
+
+  await fs.writeFile(
+    path.join(siteDir, 'vite.config.ts'),
+    `import { defineConfig } from 'vite';\nimport react from '@vitejs/plugin-react';\n\nexport default defineConfig({ plugins: [react()] });\n`
+  );
+
+  await fs.writeFile(
+    path.join(siteDir, 'tsconfig.json'),
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2020',
+          lib: ['DOM', 'DOM.Iterable', 'ES2020'],
+          module: 'ESNext',
+          moduleResolution: 'bundler',
+          jsx: 'react-jsx',
+          strict: true,
+          skipLibCheck: true,
+          allowImportingTsExtensions: true,
+          noEmit: true,
+          resolveJsonModule: true,
+        },
+        include: ['src'],
+      },
+      null,
+      2
+    ) + '\n'
+  );
+
+  await fs.writeFile(
+    path.join(srcDir, 'main.tsx'),
+    `import { StrictMode } from 'react';\n` +
+      `import { createRoot } from 'react-dom/client';\n` +
+      `import App from './App';\n` +
+      `import './base.css';\n\n` +
+      `createRoot(document.getElementById('root')!).render(\n` +
+      `  <StrictMode>\n    <App />\n  </StrictMode>\n);\n`
+  );
+
+  // The <head> the page used to get from Next's metadata export.
+  await fs.writeFile(
+    path.join(siteDir, 'index.html'),
+    `<!doctype html>\n<html lang="en">\n  <head>\n` +
+      `    <meta charset="utf-8" />\n` +
+      `    <meta name="viewport" content="width=device-width, initial-scale=1" />\n` +
+      `    <title>${name}</title>\n` +
+      `    <link rel="preconnect" href="https://fonts.googleapis.com" />\n` +
+      `    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n` +
+      `  </head>\n  <body>\n    <div id="root"></div>\n` +
+      `    <script type="module" src="/src/main.tsx"></script>\n  </body>\n</html>\n`
+  );
+
+  await fs.writeFile(
+    path.join(siteDir, 'README.md'),
+    REACT_README(slug, name, version)
+  );
+
+  const zipName = `${slug}-react.zip`;
+  await fs.rm(path.join(outDir, zipName), { force: true });
+  await run('zip', ['-qr', zipName, `${slug}-react`], { cwd: outDir });
+
+  return (await fs.stat(path.join(outDir, zipName))).size;
+}
+
 // ---- emit ----------------------------------------------------------------
 
 const README = (slug, name, version, slugs) => `# ${name}
@@ -506,11 +806,14 @@ async function packageSite(slug, outDir, version) {
 
   const { size } = await fs.stat(path.join(outDir, zipName));
 
+  const reactSize = await packageReactSite(slug, outDir, version, name, images.used);
+
   return {
     slug,
     patterns: slugs.length,
     images: images.used.length,
     size,
+    reactSize,
     sharedCss: stylesheet.shared ? stylesheet.trimmedPercent : null,
   };
 }
@@ -579,7 +882,8 @@ for (const slug of targets) {
     written += 1;
     console.log(
       `package-templates: ${result.slug} — ${result.patterns} pattern(s), ` +
-        `${result.images} image(s), ${(result.size / 1024).toFixed(0)} KB zip` +
+        `${result.images} image(s), html ${(result.size / 1024).toFixed(0)} KB ` +
+        `+ react ${(result.reactSize / 1024).toFixed(0)} KB` +
         (result.sharedCss !== null
           ? ` (shared stylesheet, ${result.sharedCss}% trimmed)`
           : '')
