@@ -60,11 +60,6 @@ const R2 = '@pick(0deg, 90deg)';
 const R4 = '@pick(0deg, 90deg, 180deg, 270deg)';
 const R8 = '@pick(0deg, 45deg, 90deg, 135deg, 180deg, 225deg, 270deg, 315deg)';
 
-// The Shadow ToggleSwitch the originals ship (Radius, Mixtape and Bloks all
-// carry one). A design opts in by putting the token in its rule and setting
-// `shadow` in its cfg.
-const SHADOW = '${shadow}';
-
 // ── the originals' own shape library ───────────────────────────────────────
 // Radius picks between four corner circles and a centred one; Mixtape adds the
 // four half-square triangles. Section A draws from the same short list rather
@@ -273,7 +268,6 @@ const all = [];
 //   freq   default frequency                             (default 1)
 //   tg/tf  gallery-thumbnail grid / frequency            (default '5x5' / 1)
 //   min    sizing.minCellPx floor, for px-scaled details
-//   shadow adds the originals' Shadow toggle; the rule must use ${shadow}
 const add = (name, palIdx, description, build, cfg = {}) => {
   const slug = name.toLowerCase();
   if (!/^[a-z][a-z0-9]*$/.test(slug)) throw new Error(`bad slug: ${slug}`);
@@ -300,7 +294,6 @@ const add = (name, palIdx, description, build, cfg = {}) => {
     gridDefault: cfg.grid ?? '8x12',
     freqDefault: cfg.freq ?? 1,
     ...(cfg.min ? { minCellPx: cfg.min } : {}),
-    ...(cfg.shadow === undefined ? {} : { shadow: cfg.shadow }),
     thumb: { grid: cfg.tg ?? '5x5', frequency: cfg.tf ?? 1 },
     vars,
     rule,
@@ -314,8 +307,8 @@ const add = (name, palIdx, description, build, cfg = {}) => {
 
 add('Quarterfall', 3, 'Radius hollowed out: the same rolled quarter-discs, but half of them keep only their outer band, so filled corners and open ones fall through the grid together.', (c) => ({
   vars: '',
-  rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('circle(100% at 0 0)')} ${rot('@var(--rot)')} @random(0.5) { ${msk('radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%)')} } ${SHADOW} }${TR}`,
-}), { grid: '6x9', tg: '4x4', shadow: false });
+  rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; ${cp('circle(100% at 0 0)')} ${rot('@var(--rot)')} @random(0.5) { ${msk('radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%)')} } }${TR}`,
+}), { grid: '6x9', tg: '4x4' });
 
 add('Cornerbite', 51, 'Full squares with a quarter-circle bitten out of one corner — a deep bite on most, a shallow nick on the rest, the corner rolling a quarter turn at a time.', (c) => ({
   vars: '',
@@ -357,10 +350,10 @@ add('Drift', 26, 'Triangles all leaning the same way within a row and flipping o
 //    breached so the gap walks around the rim.
 // ══════════════════════════════════════════════════════════════════════════
 
-add('Cupola', 17, 'Domed blocks turning to face all four quarters, lifted off the ground by a soft shadow.', (c) => ({
+add('Cupola', 17, 'Domed blocks turning to face all four quarters, each one rolled a quarter turn from its neighbour.', (c) => ({
   vars: '',
-  rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; border-radius: 100% 100% 0 0; ${rot('@var(--rot)')} ${SHADOW} }${TR}`,
-}), { grid: '6x9', tg: '5x5', shadow: true });
+  rule: `--rot: ${R4}; ${F} { background: ${ink(c)}; border-radius: 100% 100% 0 0; ${rot('@var(--rot)')} }${TR}`,
+}), { grid: '6x9', tg: '5x5' });
 
 add('Lagoon', 38, 'Thick rings breached on one side, the gap swinging round the rim from cell to cell.', (c) => ({
   vars: '',

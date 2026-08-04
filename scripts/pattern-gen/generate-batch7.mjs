@@ -38,23 +38,6 @@ const FREQ_OPTION = (def) => ({
   replace: '${shapeFrequency}',
 });
 
-// The Shadow switch the hand-drawn originals ship (Radius, Mixtape and Bloks
-// all carry one); batch-7 designs opt in by putting the token in their rule.
-const SHADOW_OPTION = (def) => ({
-  id: 'shadow',
-  // The caveat belongs to the effect, not to any one design: while the switch
-  // is on, the shadow exports as an SVG drop-shadow filter, so every pattern
-  // carrying this option carries the note. Emitting it here means a
-  // regeneration cannot drop it. See docs/svg-export.md, tier 3.
-  svgExportNote:
-    'The shadow effect is exported as an SVG drop-shadow filter. Browsers render it correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.',
-  displayName: 'Shadow',
-  type: 'ToggleSwitch',
-  default: def,
-  code: '-webkit-box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2); box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2);',
-  replace: '${shadow}',
-});
-
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
 
 const defs = batch7;
@@ -115,7 +98,6 @@ const thumbEntries = [];
 
 for (const def of defs) {
   const options = [GRID_OPTION(def.gridDefault), FREQ_OPTION(def.freqDefault)];
-  if (def.shadow !== undefined) options.push(SHADOW_OPTION(def.shadow));
 
   const style = collapse(`${def.vars} --rule: ( ${def.rule} );`);
   const doodle = collapse(def.doodle ?? SHELL);
@@ -206,11 +188,8 @@ for (const def of defs) {
     JSON.stringify(pattern, null, 2) + '\n'
   );
 
-  const extra = [
-    def.shadow !== undefined ? `, shadow: ${def.shadow}` : '',
-  ].join('');
   thumbEntries.push(
-    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency}${extra} },\n  },`
+    `  ${def.slug}: {\n    options: { grid: '${def.thumb.grid}', frequency: ${def.thumb.frequency} },\n  },`
   );
 }
 

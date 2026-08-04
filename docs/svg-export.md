@@ -89,14 +89,20 @@ reports these in the result's `warnings`:
 | `windowpane` | CSS blends mixed-width borders progressively around rounded corners; per-side arc strokes junction within ≤1 px |
 | `glyph` | Wall-to-wall maximum-contrast quadrant edges; anti-aliasing varies across Chromium builds |
 
-### 3. Conditional — `"svgExportNote"` on the shadow ToggleSwitch option (7)
+### 3. Conditional — `"svgExportNote"` on a ToggleSwitch option (0)
 
-Clean native export normally; the note (and dialog) applies **only while the
-shadow toggle is on**, because the shadow exports as an SVG filter:
-`bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
-`quarterfall`, `radius` (default off).
+No design is in this tier. `bloks`, `cupola`, `foliage`, `mixtape`, `odessa`,
+`quarterfall` and `radius` used to carry a Shadow toggle whose `box-shadow`
+exported as an SVG filter; the option was removed outright rather than kept as
+a trap, so all seven are tier 4 unconditionally.
 
-### 4. Full support — everything else (~239)
+The mechanism is still supported end to end — `PatternOption.svgExportNote`,
+the amber icon and the dialog's per-option lines all still work — so a future
+design that needs a conditional effect can use it. It is currently unexercised
+by any pattern, which is why `e2e/svg-export.spec.ts` no longer has a case for
+it: there is no fixture to point one at.
+
+### 4. Full support — everything else (239)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -145,8 +151,7 @@ on `PatternOption`), so package consumers can implement the same UX.
   sync (thresholds are mirrored in `scripts/svg-parity-sweep.mjs`).
 - **The tier belongs in the batch definition, never only in the generated
   JSON.** Each `scripts/pattern-gen/pattern-defs-N.mjs` takes `svgExport` /
-  `svgExportNote` in a design's cfg and its generator emits them; the shadow
-  toggle's note is emitted by `generate-batch7.mjs`'s `SHADOW_OPTION`. A tier
+  `svgExportNote` in a design's cfg and its generator emits them. A tier
   written straight into `packages/tabbied/patterns/*.json` is silently erased
   the next time anyone regenerates that batch — the generators rewrite every
   file they own. This is not hypothetical: `wedge` lost its `svgExport: false`

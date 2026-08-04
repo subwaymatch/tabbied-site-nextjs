@@ -355,28 +355,10 @@ test.describe('native SVG export', () => {
     expect((await downloadPromise).suggestedFilename()).toBe('neon.svg');
   });
 
-  test('toggle-dependent limitations only warn when the option is on', async ({
-    page,
-  }) => {
-    // radius with its shadow toggle enabled joins the filter tier.
-    await page.goto('/patterns/radius/?seed=e2e01&shadow=true');
-    await page.waitForFunction(
-      () => {
-        const el = document.querySelector('div[data-pattern="radius"] css-doodle');
-        return Boolean(el && el.shadowRoot && el.shadowRoot.querySelector('cssd-grid'));
-      },
-      undefined,
-      { timeout: 30000 }
-    );
-    await page.getByRole('button', { name: 'Export' }).click();
-    const item = page.getByRole('menuitem', { name: 'Download SVG' });
-    await expect(item.locator('svg')).toHaveCount(2);
-    await item.click();
-    await expect(
-      page.getByRole('dialog', { name: 'About this SVG export' })
-    ).toContainText('shadow effect is exported as an SVG drop-shadow filter');
-  });
-
+  // There is deliberately no toggle-dependent case here. The Shadow toggle on
+  // bloks/cupola/foliage/mixtape/odessa/quarterfall/radius was the only
+  // option-level svgExportNote and the option has been removed, so no pattern
+  // can exercise that path. The mechanism still works; it has no fixture.
   for (const slug of unsupportedSlugs) {
     test(`menu item is disabled for ${slug}`, async ({ page }) => {
       await openPattern(page, slug);

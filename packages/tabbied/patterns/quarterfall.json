@@ -41,19 +41,10 @@
       "max": 1,
       "step": 0.1,
       "replace": "${shapeFrequency}"
-    },
-    {
-      "id": "shadow",
-      "svgExportNote": "The shadow effect is exported as an SVG drop-shadow filter. Browsers render it correctly, but some design tools (like Figma or Illustrator) import SVG filters imperfectly.",
-      "displayName": "Shadow",
-      "type": "ToggleSwitch",
-      "default": false,
-      "code": "-webkit-box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2); box-shadow: 0 0 @pick(0, 40)px rgba(0,0,0,0.2);",
-      "replace": "${shadow}"
     }
   ],
   "code": {
-    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: circle(100% at 0 0); clip-path: circle(100% at 0 0); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); @random(0.5) { -webkit-mask: radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%); mask: radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%); } ${shadow} } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: circle(100% at 0 0); clip-path: circle(100% at 0 0); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); @random(0.5) { -webkit-mask: radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%); mask: radial-gradient(circle farthest-side at 0% 0%, transparent 54%, #000 54%); } } -webkit-transition: ease 450ms; transition: ease 450ms; );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
   }
 }

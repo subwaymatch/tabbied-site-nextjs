@@ -103,11 +103,11 @@ const transparentCode = `// Any CSS color works for a slot — including 'transp
 />`;
 
 const optionsCode = `// Option ids come from the preset (the same controls the editor shows).
-// Radius takes a grid size, a shape frequency, and a shadow toggle.
+// Radius takes a grid size and a shape frequency.
 <TabbiedPattern
   pattern={radius}
   seed="k9Pz"
-  options={{ grid: '4x6', shadow: true }}
+  options={{ grid: '4x6', frequency: 0.6 }}
   fit="cover"
   height={280}
 />`;
@@ -638,7 +638,7 @@ export default function ReactDocsPage() {
                       <TabbiedPattern
                         pattern={radius}
                         seed="k9Pz"
-                        options={{ grid: '4x6', shadow: true }}
+                        options={{ grid: '4x6', frequency: 0.6 }}
                         fit="cover"
                         className={styles.demoArt}
                         style={{ width: '100%', height: 280 }}

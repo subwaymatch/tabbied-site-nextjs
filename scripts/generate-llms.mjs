@@ -206,7 +206,7 @@ within \`min\`/\`max\`), and \`ToggleSwitch\` (a boolean).
 <TabbiedPattern
   pattern={radius}
   palette={['#0B1020', '#3E8BFF', '#3FFFB2']}
-  options={{ grid: '8x12', frequency: 0.6, shadow: true }}
+  options={{ grid: '8x12', frequency: 0.6 }}
 />
 \`\`\`
 

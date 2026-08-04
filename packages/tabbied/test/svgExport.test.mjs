@@ -381,16 +381,31 @@ test('tier 2 — the designs that export with a caveat still carry their note', 
   ]);
 });
 
-test('tier 3 — every shadow toggle still warns while it is on', () => {
+test('tier 3 — no design makes its export tier conditional on an option', () => {
+  // The Shadow toggle on bloks, cupola, foliage, mixtape, odessa, quarterfall
+  // and radius was the only member of this tier, and it was removed rather
+  // than left as a switch that quietly costs you a clean SVG. The mechanism
+  // still works — this pins that nothing is using it, so a design that grows
+  // an option-level note has to come here and say so deliberately.
   assert.deepEqual(
     slugsWhere((a) => a.options.some((option) => option.svgExportNote)),
-    ['bloks', 'cupola', 'foliage', 'mixtape', 'odessa', 'quarterfall', 'radius']
+    []
   );
-  // One wording, so the dialog reads the same wherever the toggle appears.
-  const notes = new Set(
-    catalogue.flatMap((a) => a.options.map((o) => o.svgExportNote).filter(Boolean))
-  );
-  assert.equal(notes.size, 1);
+});
+
+test('no pattern paints a box-shadow through an option', () => {
+  // What the removed toggle actually injected. A design wanting a shadow now
+  // has to bake it in and take a definition-level note (as neon, lantern and
+  // terrain do), which is visible in the catalogue instead of hidden behind
+  // a switch that defaults differently per design.
+  for (const pattern of catalogue) {
+    for (const option of pattern.options) {
+      assert.ok(
+        !/box-shadow/.test(option.code ?? ''),
+        `${pattern.slug}.${option.id} injects a box-shadow`
+      );
+    }
+  }
 });
 
 test('a tier-1 design never also carries a note', () => {

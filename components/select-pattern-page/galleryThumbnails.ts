@@ -56,7 +56,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   },
   bloks: {
     palette: ['#3FFFB2', '#ECFFEC', '#9EFFD8', '#ECFFEC', '#9EFFD8', '#FFFFFF'],
-    options: { grid: '3x3', frequency: 1, shadow: true },
+    options: { grid: '3x3', frequency: 1 },
   },
   terrain: {
     palette: ['#232529', '#3E434B', '#3E8BFF', '#3FFFB2', '#275AA6', '#3EECFF'],
@@ -587,7 +587,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '5x5', frequency: 0.95 },
   },
   quarterfall: {
-    options: { grid: '4x4', frequency: 1, shadow: false },
+    options: { grid: '4x4', frequency: 1 },
   },
   cornerbite: {
     options: { grid: '5x5', frequency: 1 },
@@ -611,7 +611,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
     options: { grid: '8x8', frequency: 1 },
   },
   cupola: {
-    options: { grid: '5x5', frequency: 1, shadow: true },
+    options: { grid: '5x5', frequency: 1 },
   },
   lagoon: {
     options: { grid: '4x4', frequency: 1 },

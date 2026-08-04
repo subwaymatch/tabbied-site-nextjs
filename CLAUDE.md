@@ -141,9 +141,10 @@ rendered patterns to true vector SVG. Rules that must not regress:
 - **Support tiers are metadata-driven.** `"svgExport": false` marks the 4
   designs SVG cannot represent (coil, spectrum, pinwheel, wedge — smooth
   conic sweeps): the editor *disables* "Download SVG" for them.
-  `"svgExportNote"` on a definition (11 designs) or on a ToggleSwitch option
-  (7 shadow toggles, note applies only while on) documents limitations —
-  filter-based effects or ≤1px deviations. Everything else (~239) is clean.
+  `"svgExportNote"` on a definition (11 designs) documents limitations —
+  filter-based effects or ≤1px deviations. The option-level form still works
+  but no design uses it: the Shadow toggle that was its only user was removed
+  rather than left as an export trap. Everything else (239) is clean.
   See docs/svg-export.md for the complete lists and reasons.
 - **Limited exports must warn before downloading**: a right-aligned amber
   `TriangleAlert` on the "Download SVG" item (desktop menu + mobile panel)
