@@ -1,5 +1,5 @@
 // Shared keys + helper for restoring the gallery's scroll position when the
-// user returns from an artwork editor via "Back to gallery".
+// user returns from a pattern editor via "Back to gallery".
 //
 // The App Router does not restore window scroll on these back/forward SPA
 // navigations (and the browser's native restoration only applies to full

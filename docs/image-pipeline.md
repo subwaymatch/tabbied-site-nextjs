@@ -1,6 +1,6 @@
-# Showcase imagery: GPT Image 2 (low) → Kie/Recraft cut-outs → committed WebP
+# Template imagery: GPT Image 2 (low) → Kie/Recraft cut-outs → committed WebP
 
-How the imagery on the `/showcase/…` sites is produced, reviewed, and
+How the imagery on the `/template/…` sites is produced, reviewed, and
 committed. This documents the pipeline as implemented in this repo; the
 scripts live at the repo root under `scripts/`, and are independent of the
 older `scripts/images/` pipeline that feeds the `/samples` sites.
@@ -50,9 +50,9 @@ Two properties define the pipeline:
 Every field resolves through a cascade — **prompt → set → project →
 `meta.defaults`**, first hit wins — so shared decisions are written once:
 
-- A **project** is one showcase site: its `style` (one per project), its
+- A **project** is one template site: its `style` (one per project), its
   `palette` (+ `paletteMode`), its default `quality`/`size`/`cutout`.
-  The palette hexes are the same ones the site passes to `TabbiedArtwork`,
+  The palette hexes are the same ones the site passes to `TabbiedPattern`,
   so pattern and imagery stay in one family.
 - A **set** groups images that must read as one series — a team-portrait grid,
   a product line — by pinning the shared sentences (crop, light, backdrop,
@@ -196,7 +196,7 @@ tiles are the strongest use of the pipeline; keep every portrait in one `set`.
 5. Faces are where `low` shows first; portraits are the first candidates for a
    per-set `quality: "medium"`.
 6. Two copies of a palette drift — the JSON project palette and the page's
-   `TabbiedArtwork` palette must stay byte-identical hexes.
+   `TabbiedPattern` palette must stay byte-identical hexes.
 7. Filter by `--project`, not by id-prefix regex.
 8. The manifest is one generated file; two branches adding projects conflict
    there — take either side and re-run `npm run build:images`.

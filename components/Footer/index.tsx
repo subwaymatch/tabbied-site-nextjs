@@ -39,7 +39,7 @@ export default function Footer() {
 
             <p>
               Tabbied lets you easily create timeless and beautifully generated
-              patterns or artwork to use for wall art, websites, print materials
+              patterns or pattern to use for wall art, websites, print materials
               and more.
             </p>
             <p>

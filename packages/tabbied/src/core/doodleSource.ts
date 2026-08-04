@@ -1,11 +1,11 @@
-// Shared helper for turning an artwork definition into concrete css-doodle
-// source. Used by the artwork controller, the Tabbied editor and the gallery
+// Shared helper for turning a pattern definition into concrete css-doodle
+// source. Used by the pattern controller, the Tabbied editor and the gallery
 // thumbnails so the substitution rules stay in one place.
-import type { ArtworkOption, OptionValue } from './types.js';
+import type { PatternOption, OptionValue } from './types.js';
 
 // css-doodle >= 0.5 reads `@random(1)` as a one-cell count rather than a 100%
 // probability gate (fractional values still behave as probabilities). The
-// artwork definitions were authored against css-doodle 0.12 where `@random(1)`
+// pattern definitions were authored against css-doodle 0.12 where `@random(1)`
 // meant "every cell", so nudge the fully-on case just under 1 to preserve the
 // original look at maximum frequency.
 export const fixFullRandomGate = (code: string): string =>
@@ -23,8 +23,8 @@ const getColorsStyleCode = (colors: string[]): string =>
     .map((color, idx) => `--color${idx}: ${sanitizeCssValue(color)};\n`)
     .join('');
 
-// Grow an active palette up to the artwork's full slot count by cycling its
-// ink colors (everything after the color0 background). Artwork styles always
+// Grow an active palette up to the pattern's full slot count by cycling its
+// ink colors (everything after the color0 background). Pattern styles always
 // reference colors up to `max - 1`, so when fewer colors are active the unused
 // slots have to resolve to something — aliasing them back into the active inks
 // redraws the design with the reduced palette instead of leaving gaps.
@@ -44,7 +44,7 @@ export const expandPalette = (
 
 export type DoodleSourceInput = {
   code: { style: string; doodle: string };
-  options: ArtworkOption[];
+  options: PatternOption[];
   palette: string[];
   optionValues: OptionValue[];
   /** Canvas size as CSS lengths, e.g. "360px" / "100%". */
@@ -52,7 +52,7 @@ export type DoodleSourceInput = {
   height: string;
 };
 
-// Build the css-doodle style + rules for an artwork by substituting its option
+// Build the css-doodle style + rules for a pattern by substituting its option
 // placeholders, canvas size and palette. The generated pattern depends only on
 // the seed and grid, so the same inputs render identically at any size.
 export function buildDoodleSource({

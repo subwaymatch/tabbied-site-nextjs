@@ -1,0 +1,480 @@
+import { TabbiedPattern } from 'tabbied/react';
+import {
+  bothcut, dimetric, elbow, evolute, meetpart, prismfold, spiralblock,
+} from 'tabbied/patterns';
+import { Figure } from 'components/Figure';
+import s from './purpurhaus.module.css';
+
+export const metadata = {
+  title: 'Purpurhaus: Natural dye works, Porto',
+  description:
+    'A dye house working only with plants, insects and iron. Fourteen dips to the deepest plum, every recipe published, every batch numbered.',
+};
+
+/* Cream ground, ink, one plum. Every decorative field takes `transparent` in
+   the background slot, so the paper of the page — and, in the plates, the
+   plate itself — is what shows through the drawing. */
+const INK = '#191317';
+const ACCENT = '#5e2750';
+const GREY = '#8b8279';
+const PANEL = '#e2dbcb';
+
+/* Fourteen dips of one skein in one vat. The mordant changes at the seventh,
+   which is the only step in the ladder that is a decision rather than time. */
+const DIPS = [
+  'Alum', 'Alum', 'Alum', 'Alum', 'Alum', 'Alum', 'Alum',
+  'Iron', 'Iron', 'Iron', 'Iron', 'Iron', 'Iron', 'Iron',
+];
+
+const STEPS = [
+  { n: '01', t: 'Scour', d: 'Two hours in soda ash at a rolling simmer. Grease left in the fibre is the reason most dyeing goes patchy', hrs: '2 h' },
+  { n: '02', t: 'Mordant', d: 'Alum for the clear side of the range, iron for the sad side. The mordant, not the dye, decides what colour you get', hrs: '4 h' },
+  { n: '03', t: 'Build the vat', d: 'Cochineal, madder or logwood, brought up slowly and never boiled, because boiling takes the red out of everything', hrs: '6 h' },
+  { n: '04', t: 'Dip', d: 'Twenty minutes in, twenty minutes out in the air. The air is where the colour actually happens', hrs: '× 14' },
+  { n: '05', t: 'Wash and dry', d: 'Rinsed until the water runs clear, then a fortnight on the rack out of direct sun', hrs: '14 days' },
+];
+
+const PRINCIPLES = [
+  {
+    art: evolute,
+    img: 'purpurhaus-tile-skein-cutout',
+    alt: 'A single thick skein of deep purple dyed yarn',
+    n: 'I',
+    t: 'Every recipe is published',
+    d: 'Weights, temperatures, times and water. A recipe kept secret dies with the dyer, and this trade has lost more that way than it has to synthetics.',
+  },
+  {
+    art: bothcut,
+    img: 'purpurhaus-tile-jar-cutout',
+    alt: 'A glass jar of dry purple dye pigment with a cork stopper',
+    n: 'II',
+    t: 'Nothing is corrected',
+    d: 'No synthetic top-up to hit a target, ever. If a batch comes out two dips lighter than the last it is sold as what it is, with its own number on the band.',
+  },
+  {
+    art: meetpart,
+    img: 'purpurhaus-tile-paddle-cutout',
+    alt: 'A long wooden dye paddle stained deep purple at one end',
+    n: 'III',
+    t: 'The vat is never boiled',
+    d: 'Eighty-two degrees, held. Above that the reds go brown and there is no recovering them, which is one of very few things in this building that is genuinely irreversible.',
+  },
+];
+
+const DYES = [
+  ['Cochineal', 'Dactylopius coccus', 'Insect, Canary Islands', 'Alum', 'Crimson to rose'],
+  ['Cochineal', 'Dactylopius coccus', 'Insect, Canary Islands', 'Iron', 'Plum to aubergine'],
+  ['Madder', 'Rubia tinctorum', 'Root, grown in Alentejo', 'Alum', 'Brick to orange-red'],
+  ['Logwood', 'Haematoxylum campechianum', 'Heartwood, imported', 'Alum', 'Violet to purple'],
+  ['Logwood', 'Haematoxylum campechianum', 'Heartwood, imported', 'Iron', 'Near-black'],
+  ['Weld', 'Reseda luteola', 'Whole plant, grown here', 'Alum', 'Clear yellow'],
+  ['Woad', 'Isatis tinctoria', 'Leaf, fermented vat', 'None', 'Blue, by oxidation'],
+  ['Walnut', 'Juglans regia', 'Hull, gathered', 'None', 'Warm brown'],
+  ['Oak gall', 'Quercus infectoria', 'Gall, imported', 'Iron', 'Grey to black'],
+  ['Onion', 'Allium cepa', 'Skin, from the market', 'Alum', 'Ochre'],
+];
+
+const BATCHES = [
+  ['PH-214', '2026', 'Cochineal on wool', '14 dips, iron', '4.2 kg', 'Sold out'],
+  ['PH-211', '2026', 'Logwood on silk', '9 dips, alum', '1.8 kg', '600 g left'],
+  ['PH-208', '2025', 'Madder on linen', '6 dips, alum', '6.0 kg', '2.1 kg left'],
+  ['PH-204', '2025', 'Woad on wool', 'Fermented vat', '3.4 kg', 'Sold out'],
+  ['PH-199', '2025', 'Cochineal on wool', '7 dips, alum', '5.1 kg', '900 g left'],
+  ['PH-193', '2024', 'Oak gall on linen', '4 dips, iron', '2.7 kg', 'Sold out'],
+  ['PH-188', '2024', 'Weld over woad', '3 + 5 dips', '1.2 kg', '400 g left'],
+  ['PH-181', '2023', 'Walnut on wool', '5 dips, none', '8.8 kg', 'Sold out'],
+];
+
+const BUYING = [
+  ['By the skein', '100 g skeins from the current batch, at the door and by post.'],
+  ['By the metre', 'Linen and silk dyed to a batch, cut from the piece. Twelve metre minimum.'],
+  ['Commission', 'Your fibre, our vat. Send a sample first; some wool simply will not take.'],
+  ['Teaching', 'Four people at a time, three days, twice a year. It is mostly washing.'],
+];
+
+/* Day, hours, and whether the desk is shut — the third slot is
+   omitted on the days it is open. */
+const HOURS: [string, string, boolean?][] = [
+  ['Monday', 'Vats down', true],
+  ['Tuesday', '09 – 17'],
+  ['Wednesday', '09 – 17'],
+  ['Thursday', '09 – 17'],
+  ['Friday', '09 – 15'],
+  ['Saturday', 'By arrangement'],
+  ['Sunday', 'Shut', true],
+];
+
+export default function PurpurhausPage() {
+  return (
+    <div className={s.page}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..900&display=swap"
+      />
+
+      <header className={s.bar}>
+        <a className={s.mark} href="#top">Purpurhaus</a>
+        <nav aria-label="Sections">
+          <a href="#ladder">The ladder</a>
+          <a href="#making">Dyeing</a>
+          <a href="#dyes">Dyestuffs</a>
+          <a href="#batches">Batches</a>
+        </nav>
+        <span className={s.now}>Tinturaria / Porto</span>
+      </header>
+
+      <main id="top">
+        {/* ------------------------------------------------------------ HERO */}
+        <section className={s.hero}>
+          <div className={s.heroField} aria-hidden="true">
+            <TabbiedPattern
+              pattern={prismfold}
+              palette={['transparent', PANEL, GREY, ACCENT]}
+              fit="grid"
+              cellSize={154}
+              redrawInterval={6200}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <p className={s.heroKicker}>Natural dye works / Porto / since 1954</p>
+          <h1 className={s.heroType}>
+            <span>Fourteen dips</span>
+            <span className={s.hi}>to the bottom.</span>
+          </h1>
+          <div className={s.heroFoot}>
+            <p>
+              Plants, insects and iron. No synthetic correction, no boiling,
+              and a published recipe for every colour that has ever left this
+              building.
+            </p>
+            <a className={s.cta} href="#ladder">
+              See the ladder
+            </a>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ BLEED SCENE */}
+        <figure className={s.bleed}>
+          <Figure
+            slug="purpurhaus-vats"
+            alt="A row of open dye vats in a whitewashed dye house holding deep purple liquid, skeins hanging above"
+            priority
+          />
+          <figcaption>Four vats, one dyestuff. The steam is the only thing here that is not measured.</figcaption>
+        </figure>
+
+        {/* ---------------------------------------------------------- LADDER
+            Fourteen blocks, computed from the dip number, so the strip and
+            the table under it cannot ever disagree. */}
+        <section id="ladder" className={s.ladder} aria-labelledby="ladder-h">
+          <div className={s.secHead}>
+            <h2 id="ladder-h">One skein, fourteen times</h2>
+            <p>
+              The same wool, the same cochineal vat, dipped again and again.
+              The mordant changes at the eighth, which is why the second rank
+              turns towards plum instead of getting darker red.
+            </p>
+          </div>
+          <div className={s.ladderGrid}>
+            {DIPS.map((mordant, i) => {
+              const k = (i + 1) / DIPS.length;
+              return (
+                <div
+                  key={i}
+                  className={s.dip}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} ${8 + k * 88}%, ${PANEL})` }}
+                >
+                  <span className={s.dipN} style={{ color: k > 0.42 ? '#fff' : INK }}>
+                    {i + 1}
+                  </span>
+                  <span
+                    className={s.dipK}
+                    style={{ color: k > 0.42 ? 'rgb(255 255 255 / 0.74)' : 'rgb(25 19 23 / 0.55)' }}
+                  >
+                    {mordant}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------- STATEMENT */}
+        <section className={s.statement}>
+          <p className={s.big}>
+            A natural dye is not a colour you choose. It is a colour you arrive
+            at, from a particular insect, in a particular water, at a
+            temperature you hold for six hours, and the honest thing to do with
+            the result is to number it and sell it as itself.
+          </p>
+          <div className={s.statementMeta}>
+            <p>
+              Purpurhaus has dyed on the Rua de Miragaia since 1954. Six of us,
+              four vats, a drying loft, and a water supply we have had analysed
+              every year since 1971 because the water is half the recipe.
+            </p>
+            <p>
+              We are not a natural alternative to industrial dyeing. We are a
+              slower, more expensive and less repeatable process that produces
+              colours industry cannot make, and that is the entire offer.
+            </p>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ BAND */}
+        <div className={s.band} aria-hidden="true">
+          <TabbiedPattern
+            pattern={spiralblock}
+            palette={['transparent', ACCENT, INK, PANEL]}
+            fit="grid"
+            cellSize={114}
+            redrawInterval={4200}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
+
+        {/* ---------------------------------------------------------- MAKING */}
+        <section id="making" className={s.making} aria-labelledby="making-h">
+          <div className={s.secHead}>
+            <h2 id="making-h">Five steps</h2>
+            <p>Two days of work and a fortnight of hanging still. The hanging is not waiting; it is part of it.</p>
+          </div>
+          <ol className={s.rows}>
+            {STEPS.map((x) => (
+              <li key={x.n}>
+                <span className={s.rowN}>{x.n}</span>
+                <h3 className={s.rowTitle}>{x.t}</h3>
+                <span className={s.rowSub}>{x.d}</span>
+                <span className={s.rowDays}>{x.hrs}</span>
+              </li>
+            ))}
+          </ol>
+          <div className={s.pair}>
+            <figure>
+              <Figure
+                slug="purpurhaus-drying"
+                alt="Skeins of freshly dyed purple yarn hanging on a wooden drying rack in daylight"
+              />
+              <figcaption>The loft. Out of direct sun, for two weeks, and no shortcut exists.</figcaption>
+            </figure>
+            <figure>
+              <Figure
+                slug="purpurhaus-pigment"
+                alt="Small heaps of dry dye pigment on a stone bench, seen from above"
+              />
+              <figcaption>Ground and weighed. From here on, everything is arithmetic.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ PRINCIPLES */}
+        <section className={s.principles} aria-labelledby="pr-h">
+          <div className={s.secHead}>
+            <h2 id="pr-h">Three refusals</h2>
+            <p>Each one makes the work less repeatable, which is the point rather than the cost.</p>
+          </div>
+          <div className={s.pGrid}>
+            {PRINCIPLES.map((p) => (
+              <article key={p.n}>
+                <div className={s.pPlate}>
+                  <div className={s.pField} aria-hidden="true">
+                    <TabbiedPattern
+                      pattern={p.art}
+                      palette={['transparent', GREY, ACCENT]}
+                      fit="grid"
+                      cellSize={64}
+                      redrawInterval={5400}
+                      style={{ position: 'absolute', inset: 0 }}
+                    />
+                  </div>
+                  <Figure slug={p.img} alt={p.alt} cutout className={s.pObject} />
+                </div>
+                <p className={s.pN}>{p.n}</p>
+                <h3>{p.t}</h3>
+                <p className={s.pBody}>{p.d}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ DYES */}
+        <section id="dyes" className={s.listing} aria-labelledby="dyes-h">
+          <div className={s.secHead}>
+            <h2 id="dyes-h">Ten dyestuffs</h2>
+            <p>Everything in the store room. The mordant column is doing most of the work in this table.</p>
+          </div>
+          <ol className={s.table}>
+            {DYES.map((r, i) => (
+              <li key={i}>
+                <span className={s.tKey}>{r[3]}</span>
+                <span className={s.tMain}>{r[0]}</span>
+                <span className={s.tMid}>{r[1]}</span>
+                <span className={s.tMid}>{r[2]}</span>
+                <span className={s.tEnd}>{r[4]}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ------------------------------------------------------- QUOTE BAND */}
+        <section className={s.quote}>
+          <div className={s.quoteField} aria-hidden="true">
+            <TabbiedPattern
+              pattern={dimetric}
+              palette={['transparent', ACCENT, GREY]}
+              fit="grid"
+              cellSize={118}
+              redrawInterval={4600}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <blockquote>
+            <p>Anyone can match a colour. The difficult thing is admitting, in writing, that you did not.</p>
+            <cite>Idalina Freire, dyer</cite>
+          </blockquote>
+        </section>
+
+        {/* --------------------------------------------------------- BATCHES */}
+        <section id="batches" className={s.listing} aria-labelledby="batches-h">
+          <div className={s.secHead}>
+            <h2 id="batches-h">Batches, numbered</h2>
+            <p>Every band carries its batch number. When a batch is gone, that colour is gone with it.</p>
+          </div>
+          <ol className={s.table}>
+            {BATCHES.map((r, i) => (
+              <li key={i}>
+                <span className={s.tKey}>{r[0]}</span>
+                <span className={s.tMain}>{r[2]}</span>
+                <span className={s.tMid}>{r[3]}</span>
+                <span className={s.tMid}>{r[4]}</span>
+                <span className={s.tEnd}>{r[5]}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ---------------------------------------------------------- BUYING */}
+        <section id="buying" className={s.visit} aria-labelledby="buying-h">
+          <div className={s.visitField} aria-hidden="true">
+            <TabbiedPattern
+              pattern={evolute}
+              palette={['transparent', GREY, PANEL]}
+              fit="grid"
+              cellSize={102}
+              redrawInterval={5400}
+              style={{ position: 'absolute', inset: 0 }}
+            />
+          </div>
+          <h2 id="buying-h">Buying and learning</h2>
+          <dl className={s.visitList}>
+            {BUYING.map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* --------------------------------------------------------- CONTACT */}
+        <section id="contact" className={s.contact} aria-labelledby="contact-h">
+          <div>
+            <p className={s.contactPre}>The dye house</p>
+            <a id="contact-h" className={s.deskTel} href="tel:+351220008800">
+              +351 22 000 88 00
+            </a>
+            <p className={s.contactFine}>
+              Rua de Miragaia 88, 4050 Porto. The recipe book is a PDF, it is
+              free, and it is the only thing we send out the same day.
+            </p>
+          </div>
+          <div>
+            <dl className={s.hours}>
+              {HOURS.map(([d, h, shut]) => (
+                <div key={d} className={shut ? s.hoursShut : undefined}>
+                  <dt>{d}</dt>
+                  <dd>{h}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className={s.hoursNote}>
+              An indigo vat is fed on Monday and left alone; anything dipped
+              that day comes out the colour of an apology.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <div className={s.coda} aria-hidden="true">
+        <TabbiedPattern
+          pattern={elbow}
+          palette={['transparent', ACCENT, PANEL, GREY]}
+          fit="grid"
+          cellSize={104}
+          redrawInterval={5000}
+          style={{ position: 'absolute', inset: 0 }}
+        />
+      </div>
+
+      <footer className={s.footer}>
+        <div className={s.footObject}>
+          <div className={s.footPlate}>
+            <div className={s.footPlateField} aria-hidden="true">
+              <TabbiedPattern
+                pattern={spiralblock}
+                palette={['transparent', GREY, ACCENT]}
+                fit="grid"
+                cellSize={76}
+                redrawInterval={6000}
+                style={{ position: 'absolute', inset: 0 }}
+              />
+            </div>
+            <Figure slug="purpurhaus-tile-swatch-cutout" alt="A fan of dyed wool swatch cards spread open" cutout className={s.footCut} />
+          </div>
+          <p className={s.footLine}>Every colour here can be named, sourced and made again next year.</p>
+        </div>
+        <div className={s.footGrid}>
+          <div>
+            <h2>Dye house</h2>
+            <ul>
+              <li><a href="#making">Five steps</a></li>
+              <li><a href="#ladder">The ladder</a></li>
+              <li><a href="#dyes">Dyestuffs</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Yarn</h2>
+            <ul>
+              <li><a href="#batches">Batches</a></li>
+              <li><a href="#buying">Buying</a></li>
+              <li><a href="#buying">Teaching</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Here</h2>
+            <p>
+              Rua de Miragaia 88
+              <br />
+              4050 Porto
+              <br />
+              cuba@purpurhaus.example
+            </p>
+          </div>
+        </div>
+        <div className={s.footFine}>
+          <p>A fictional dye works. Batches, recipes and dates are invented.</p>
+          <p>
+            Patterns by{' '}
+            <a href="https://tabbied.com" rel="noopener">
+              Tabbied
+            </a>
+            , drawn live on a transparent ground; imagery generated with GPT Image 2.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}

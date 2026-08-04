@@ -29,8 +29,8 @@ export type PaletteDraft = {
 // near-white background, so the editor never opens empty.
 const STARTER_COLORS = ['#f8f9fa', '#232529', '#3e8bff', '#3fffb2', '#ff3d8b'];
 
-// How long to wait after the last edit before recoloring the page's artworks,
-// so dragging a color or typing a hex doesn't rerender every artwork per frame.
+// How long to wait after the last edit before recoloring the page's patterns,
+// so dragging a color or typing a hex doesn't rerender every pattern per frame.
 const PREVIEW_DEBOUNCE_MS = 160;
 
 const draftFromPalette = (palette: BrandPalette): PaletteDraft => ({
@@ -77,7 +77,7 @@ const copyDraftFromLibrary = (palette: LibraryPalette): PaletteDraft => ({
 
 // The draft resolved for the live page preview: a transparent background paints
 // as an actual `transparent` fill, and any mid-edit invalid hex falls back to a
-// neutral so the recolored artworks always get a paintable color.
+// neutral so the recolored patterns always get a paintable color.
 export const resolveDraftColors = (draft: PaletteDraft): string[] =>
   draft.colors.map((color, index) =>
     index === 0 && draft.transparent
@@ -89,10 +89,10 @@ export const resolveDraftColors = (draft: PaletteDraft): string[] =>
 
 /**
  * Shared new/edit-palette editor state, used by both the gallery bar and the
- * individual artwork page. Owns the draft, its mutations, and the debounced
- * live-preview broadcast (B1) so the page's own artworks recolor as the palette
+ * individual pattern page. Owns the draft, its mutations, and the debounced
+ * live-preview broadcast (B1) so the page's own patterns recolor as the palette
  * is edited. `onSaved` lets each host react to a saved palette (e.g. mark it
- * active, or apply it to the open artwork).
+ * active, or apply it to the open pattern).
  */
 export function usePaletteEditor({
   onSaved,

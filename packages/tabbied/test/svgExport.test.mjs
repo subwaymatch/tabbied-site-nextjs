@@ -59,7 +59,7 @@ test('resolveLength resolves percentages against the reference', () => {
   assert.equal(resolveLength('12.5px', 999), 12.5);
 });
 
-test('resolveLength handles the artworks anti-aliasing calc() ramps', () => {
+test('resolveLength handles the patterns anti-aliasing calc() ramps', () => {
   // curl-style ramp: calc(42% - 0.5px)
   assert.equal(resolveLength('calc(42% - 0.5px)', 100), 41.5);
   assert.equal(resolveLength('calc(42% + 0.5px)', 100), 42.5);
@@ -231,7 +231,7 @@ test('originBox insets the background positioning area by the border', () => {
   });
   assert.deepEqual(originBox(box, border, 'border-box'), box);
 
-  // A borderless box — every artwork that predates batch 11's frames — is
+  // A borderless box — every pattern that predates batch 11's frames — is
   // returned untouched, so nothing about those exports moves.
   const plain = {
     borderLeftWidth: '0px',
@@ -321,7 +321,7 @@ test('pseudoBoxFor centres a static pseudo in the content box', () => {
 });
 
 test('pseudoBoxFor leaves a borderless host untouched', () => {
-  // Every artwork that predates batch 11's frames goes through this path, so
+  // Every pattern that predates batch 11's frames goes through this path, so
   // the padding-box fix must be a no-op for it.
   assert.deepEqual(
     pseudoBoxFor(CELL, PLAIN_HOST, absolute({ left: '0px', top: '0px', right: '0px', bottom: '0px' })),
@@ -336,23 +336,23 @@ test('pseudoBoxFor leaves a borderless host untouched', () => {
 // ── SVG-export tiers ───────────────────────────────────────────────────────
 // The tier metadata drives real behaviour: `svgExport: false` disables the
 // download, `svgExportNote` puts a warning dialog in front of it. It is also
-// easy to lose — the batch generators rewrite every artwork file they own, so
+// easy to lose — the batch generators rewrite every pattern file they own, so
 // a tier that exists only in the generated JSON disappears the next time
-// anyone regenerates that batch. That is not a loud failure: the artwork keeps
+// anyone regenerates that batch. That is not a loud failure: the pattern keeps
 // working, the export just quietly becomes wrong. (It happened to `wedge`.)
 //
 // Pinning the three tiers here makes any such loss fail `npm test` instead.
 // Changing a design's tier is a deliberate act — update this list with it, and
 // update docs/svg-export.md, which these numbers are quoted in.
-const ARTWORKS_DIR = path.join(
+const PATTERNS_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   '..',
-  'artworks'
+  'patterns'
 );
 const catalogue = fs
-  .readdirSync(ARTWORKS_DIR)
+  .readdirSync(PATTERNS_DIR)
   .filter((file) => file.endsWith('.json'))
-  .map((file) => JSON.parse(fs.readFileSync(path.join(ARTWORKS_DIR, file), 'utf8')));
+  .map((file) => JSON.parse(fs.readFileSync(path.join(PATTERNS_DIR, file), 'utf8')));
 
 const slugsWhere = (predicate) => catalogue.filter(predicate).map((a) => a.slug).sort();
 
@@ -396,10 +396,10 @@ test('tier 3 — every shadow toggle still warns while it is on', () => {
 test('a tier-1 design never also carries a note', () => {
   // The editor disables the download outright for these, so a note would
   // never be shown — carrying one means the tier was set by mistake.
-  for (const artwork of catalogue) {
-    if (artwork.svgExport === false) {
-      assert.equal(supportsSvgExport(artwork), false);
-      assert.equal(artwork.svgExportNote, undefined, artwork.slug);
+  for (const pattern of catalogue) {
+    if (pattern.svgExport === false) {
+      assert.equal(supportsSvgExport(pattern), false);
+      assert.equal(pattern.svgExportNote, undefined, pattern.slug);
     }
   }
 });

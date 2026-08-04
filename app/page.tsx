@@ -1,7 +1,7 @@
 import MainHeader from 'components/main-page/MainHeader';
 import MainHero from 'components/main-page/Hero';
 import HowItWorksSection from 'components/main-page/HowItWorks';
-import BrowseArtwork from 'components/main-page/BrowseArtwork';
+import BrowsePattern from 'components/main-page/BrowsePattern';
 import ExampleUses from 'components/main-page/ExampleUses';
 import BuiltBy from 'components/main-page/BuiltBy';
 import MakeYourArt from 'components/main-page/MakeYourArt';
@@ -16,7 +16,7 @@ export default function Home() {
 
       <HowItWorksSection />
 
-      <BrowseArtwork />
+      <BrowsePattern />
 
       <ExampleUses />
 

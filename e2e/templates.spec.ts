@@ -1,9 +1,9 @@
 // The packaged HTML templates: does a zip somebody downloads actually work?
 //
 // This is the test that keeps `scripts/package-templates.mjs` honest. The
-// templates are derived from the static export, so a change to a showcase page
+// templates are derived from the static export, so a change to a template page
 // silently reshapes them — a smoke test that opens the generated template and
-// asserts its artworks came up is what catches a template that stopped working
+// asserts its patterns came up is what catches a template that stopped working
 // because a page changed.
 //
 // Requires `npm run build && node scripts/package-templates.mjs` to have run;
@@ -15,7 +15,7 @@ import path from 'node:path';
 
 const REPO_ROOT = path.join(__dirname, '..');
 const PACKAGE_DIR = path.join(REPO_ROOT, 'packages', 'tabbied');
-const TEMPLATE_DIR = path.join(REPO_ROOT, 'out', 'templates', 'werkraum');
+const TEMPLATE_DIR = path.join(REPO_ROOT, 'out', 'downloads', 'werkraum');
 
 // The template pins its bootstrap to the published package on esm.sh. Serving
 // this branch's built dist in its place keeps the test deterministic and
@@ -24,8 +24,8 @@ const TEMPLATE_DIR = path.join(REPO_ROOT, 'out', 'templates', 'werkraum');
 const distFileFor = (url: string): string | null => {
   const pathname = new URL(url).pathname;
 
-  if (/^\/tabbied@[^/]+\/artworks$/.test(pathname)) {
-    return path.join(PACKAGE_DIR, 'dist', 'artworks.generated.js');
+  if (/^\/tabbied@[^/]+\/patterns$/.test(pathname)) {
+    return path.join(PACKAGE_DIR, 'dist', 'patterns.generated.js');
   }
   if (/^\/tabbied@[^/]+$/.test(pathname)) {
     return path.join(PACKAGE_DIR, 'dist', 'core', 'index.js');
@@ -43,7 +43,7 @@ test.describe('packaged HTML template', () => {
     'run `node scripts/package-templates.mjs werkraum` first'
   );
 
-  test('opens standalone and brings its artworks up', async ({ page }) => {
+  test('opens standalone and brings its patterns up', async ({ page }) => {
     const cssDoodle = fs.readFileSync(
       path.join(REPO_ROOT, 'node_modules', 'css-doodle', 'css-doodle.min.js'),
       'utf-8'
@@ -84,15 +84,15 @@ test.describe('packaged HTML template', () => {
     page.on('pageerror', (error) => errors.push(error.message));
 
     // Served by `npm start` (serve out) alongside the site itself.
-    await page.goto('/templates/werkraum/index.html');
+    await page.goto('/downloads/werkraum/index.html');
 
-    const hosts = page.locator('[data-artwork]');
+    const hosts = page.locator('[data-pattern]');
     await expect(hosts).toHaveCount(8);
 
     // Every placeholder gets a live element, and they paint.
     await expect
       .poll(
-        () => page.locator('[data-artwork] css-doodle').count(),
+        () => page.locator('[data-pattern] css-doodle').count(),
         { timeout: 20000 }
       )
       .toBe(8);
@@ -154,6 +154,6 @@ test.describe('packaged HTML template', () => {
       ).toBe(true);
     }
 
-    await page.goto('/templates/werkraum/index.html');
+    await page.goto('/downloads/werkraum/index.html');
   });
 });

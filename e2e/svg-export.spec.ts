@@ -2,8 +2,8 @@
 //
 // Parity is verified by rasterizing doodleToSvg()'s output and diffing it
 // against a screenshot of the live element — the ground truth for what the
-// user sees. A representative artwork set runs by default; set
-// SVG_FULL_SWEEP=1 to run every supported artwork (slow, pre-release).
+// user sees. A representative pattern set runs by default; set
+// SVG_FULL_SWEEP=1 to run every supported pattern (slow, pre-release).
 import { test, expect, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,24 +18,24 @@ const injectedConverter =
     .replace(/\bexport\s+(function|class|const)/g, '$1') +
   '\nwindow.__svgx = { doodleToSvg: doodleToSvg };';
 
-const allArtworks = fs
-  .readdirSync(path.join(PACKAGE_DIR, 'artworks'))
+const allPatterns = fs
+  .readdirSync(path.join(PACKAGE_DIR, 'patterns'))
   .filter((file) => file.endsWith('.json'))
   .map((file) => {
     const definition = JSON.parse(
-      fs.readFileSync(path.join(PACKAGE_DIR, 'artworks', file), 'utf8')
+      fs.readFileSync(path.join(PACKAGE_DIR, 'patterns', file), 'utf8')
     );
     return { slug: file.replace(/\.json$/, ''), svgExport: definition.svgExport };
   });
 
-const supportedSlugs = allArtworks
-  .filter((artwork) => artwork.svgExport !== false)
-  .map((artwork) => artwork.slug);
-const unsupportedSlugs = allArtworks
-  .filter((artwork) => artwork.svgExport === false)
-  .map((artwork) => artwork.slug);
+const supportedSlugs = allPatterns
+  .filter((pattern) => pattern.svgExport !== false)
+  .map((pattern) => pattern.slug);
+const unsupportedSlugs = allPatterns
+  .filter((pattern) => pattern.svgExport === false)
+  .map((pattern) => pattern.slug);
 
-// One artwork per feature family: solid cells + pseudo-elements, radii,
+// One pattern per feature family: solid cells + pseudo-elements, radii,
 // clip-paths, masks, every gradient kind, hard-stop conic sectors, nested
 // @doodle masks, @svg payloads, borders, filters, blend modes, z-index.
 //
@@ -84,7 +84,7 @@ const REPRESENTATIVE = [
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few
-// artworks run looser, for documented sub-CSS-pixel deviations:
+// patterns run looser, for documented sub-CSS-pixel deviations:
 // - fractal/matryoshka/subdivide: css-doodle's live rendering shows hairline
 //   seams from rasterizing the nested foreignObject @doodle mask, which the
 //   clean vector export intentionally does not reproduce.
@@ -107,7 +107,7 @@ const REPRESENTATIVE = [
 //   shipped batch-11 catalogue lands in the same 0.5-1.8% band (toning 1.84%,
 //   dimmer 1.71%, tinting 1.36%). See docs/svg-export.md.
 const MAX_BAD_FRACTION = 0.01;
-const PER_ARTWORK_MAX: Record<string, number> = {
+const PER_PATTERN_MAX: Record<string, number> = {
   fractal: 0.03,
   matryoshka: 0.03,
   subdivide: 0.035,
@@ -122,11 +122,11 @@ const PER_ARTWORK_MAX: Record<string, number> = {
 
 const paritySlugs = process.env.SVG_FULL_SWEEP ? supportedSlugs : REPRESENTATIVE;
 
-async function openArtwork(page: Page, slug: string): Promise<void> {
-  await page.goto(`/artworks/${slug}/?seed=e2e01`);
+async function openPattern(page: Page, slug: string): Promise<void> {
+  await page.goto(`/patterns/${slug}/?seed=e2e01`);
   await page.waitForFunction(
     (s) => {
-      const el = document.querySelector(`div[data-artwork="${s}"] css-doodle`);
+      const el = document.querySelector(`div[data-pattern="${s}"] css-doodle`);
       return Boolean(el && el.shadowRoot && el.shadowRoot.querySelector('cssd-grid'));
     },
     slug,
@@ -143,14 +143,14 @@ test.describe('native SVG export', () => {
 
   for (const slug of paritySlugs) {
     test(`parity: ${slug}`, async ({ page }) => {
-      await openArtwork(page, slug);
+      await openPattern(page, slug);
 
       // Ground truth: the browser's own painting of the element, cropped to
       // the grid's exact (fractional) rect for registration.
       const screenshot = await page.screenshot();
       const shotUrl = `data:image/png;base64,${screenshot.toString('base64')}`;
       const gridRect = await page.evaluate((s) => {
-        const el = document.querySelector(`div[data-artwork="${s}"] css-doodle`)!;
+        const el = document.querySelector(`div[data-pattern="${s}"] css-doodle`)!;
         const rect = el.shadowRoot!.querySelector('cssd-grid')!.getBoundingClientRect();
         return { x: rect.left, y: rect.top, w: rect.width, h: rect.height };
       }, slug);
@@ -161,7 +161,7 @@ test.describe('native SVG export', () => {
         async ({ slug, shotUrl, gridRect }) => {
           const TOLERANCE = 12;
           const el = document.querySelector(
-            `div[data-artwork="${slug}"] css-doodle`
+            `div[data-pattern="${slug}"] css-doodle`
           ) as HTMLElement;
           const res = (window as never as {
             __svgx: {
@@ -270,8 +270,8 @@ test.describe('native SVG export', () => {
 
       expect(
         result.badFraction,
-        `pixel diff vs live render (allowed ${PER_ARTWORK_MAX[slug] ?? MAX_BAD_FRACTION})`
-      ).toBeLessThanOrEqual(PER_ARTWORK_MAX[slug] ?? MAX_BAD_FRACTION);
+        `pixel diff vs live render (allowed ${PER_PATTERN_MAX[slug] ?? MAX_BAD_FRACTION})`
+      ).toBeLessThanOrEqual(PER_PATTERN_MAX[slug] ?? MAX_BAD_FRACTION);
 
       // Validity: parseable XML, native content only, scalable viewBox.
       expect(result.svg).toContain('xmlns="http://www.w3.org/2000/svg"');
@@ -289,10 +289,10 @@ test.describe('native SVG export', () => {
   }
 
   test('same DOM exports byte-identical SVG (determinism)', async ({ page }) => {
-    await openArtwork(page, 'damier');
+    await openPattern(page, 'damier');
     await page.addScriptTag({ content: injectedConverter });
     const [first, second] = await page.evaluate(() => {
-      const el = document.querySelector('div[data-artwork] css-doodle') as HTMLElement;
+      const el = document.querySelector('div[data-pattern] css-doodle') as HTMLElement;
       const svgx = (window as never as {
         __svgx: { doodleToSvg: (el: HTMLElement) => { svg: string } };
       }).__svgx;
@@ -304,7 +304,7 @@ test.describe('native SVG export', () => {
   test('editor downloads a native .svg file', async ({ page }) => {
     // radius (shadow toggle off) has no limitations — no warning icon, no
     // confirmation dialog, straight to the download.
-    await openArtwork(page, 'radius');
+    await openPattern(page, 'radius');
     await page.getByRole('button', { name: 'Export' }).click();
     const item = page.getByRole('menuitem', { name: 'Download SVG' });
     await expect(item.locator('svg')).toHaveCount(1); // file icon only
@@ -320,7 +320,7 @@ test.describe('native SVG export', () => {
   test('limited exports warn and confirm before downloading', async ({ page }) => {
     // neon's glow exports as SVG filters: warning icon on the menu item and
     // a confirmation dialog that can cancel or proceed.
-    await openArtwork(page, 'neon');
+    await openPattern(page, 'neon');
     await page.getByRole('button', { name: 'Export' }).click();
     const item = page.getByRole('menuitem', { name: 'Download SVG' });
     await expect(item.locator('svg')).toHaveCount(2); // file icon + warning
@@ -359,10 +359,10 @@ test.describe('native SVG export', () => {
     page,
   }) => {
     // radius with its shadow toggle enabled joins the filter tier.
-    await page.goto('/artworks/radius/?seed=e2e01&shadow=true');
+    await page.goto('/patterns/radius/?seed=e2e01&shadow=true');
     await page.waitForFunction(
       () => {
-        const el = document.querySelector('div[data-artwork="radius"] css-doodle');
+        const el = document.querySelector('div[data-pattern="radius"] css-doodle');
         return Boolean(el && el.shadowRoot && el.shadowRoot.querySelector('cssd-grid'));
       },
       undefined,
@@ -379,7 +379,7 @@ test.describe('native SVG export', () => {
 
   for (const slug of unsupportedSlugs) {
     test(`menu item is disabled for ${slug}`, async ({ page }) => {
-      await openArtwork(page, slug);
+      await openPattern(page, slug);
       await page.getByRole('button', { name: 'Export' }).click();
       const item = page.getByRole('menuitem', { name: 'Download SVG' });
       await expect(item).toBeVisible();

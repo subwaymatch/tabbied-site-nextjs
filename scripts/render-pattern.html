@@ -1,0 +1,29 @@
+<!-- Render host for scripts/render-pattern.mjs. Served from the repo root by
+     that script so the built ESM can be imported by URL; not part of the site. -->
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; }
+  #stage { overflow: hidden; }
+</style>
+<div id="stage"></div>
+<!-- The built core imports css-doodle as a bare specifier; map it to the
+     copy in node_modules so the page can load it straight from the repo. -->
+<script type="importmap">
+  { "imports": { "css-doodle": "/node_modules/css-doodle/css-doodle.min.js" } }
+</script>
+<script type="module">
+  import 'css-doodle';
+  import { createPattern } from '/packages/tabbied/dist/core/index.js';
+
+  window.__render = async (definition, o) => {
+    const stage = document.getElementById('stage');
+    stage.style.width = `${o.width}px`;
+    stage.style.height = `${o.height}px`;
+    stage.style.background = (o.palette && o.palette[0]) || definition.palette?.[0] || '#fff';
+
+    const config = { pattern: definition, seed: o.seed, fit: o.fit };
+    if (o.palette) config.palette = o.palette;
+    if (o.cell) config.cellSize = o.cell;
+    createPattern(stage, config);
+  };
+</script>

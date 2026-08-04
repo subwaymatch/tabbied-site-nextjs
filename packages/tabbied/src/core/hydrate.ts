@@ -1,80 +1,80 @@
-// Declarative mounting: read an artwork's config off a plain DOM element's
+// Declarative mounting: read a pattern's config off a plain DOM element's
 // data-* attributes and bring it to life.
 //
 // This is what turns a prerendered page into a standalone, framework-free
 // template. The React component writes the same attributes onto its
-// placeholder (see artworkConfigToAttributes), so a static export already
-// carries everything needed to re-mount its artworks without React, an RSC
+// placeholder (see patternConfigToAttributes), so a static export already
+// carries everything needed to re-mount its patterns without React, an RSC
 // payload, or a build step:
 //
-//   <div data-artwork="ortho"
+//   <div data-pattern="ortho"
 //        data-palette="transparent, #C9C8C1, #8E8E88"
 //        data-fit="grid"
 //        data-redraw-interval="5200"></div>
 //
 //   <script type="module">
-//     import { hydrateArtworks } from 'tabbied';
-//     import { artworks } from 'tabbied/artworks';
-//     hydrateArtworks({ artworks });
+//     import { hydratePatterns } from 'tabbied';
+//     import { patterns } from 'tabbied/patterns';
+//     hydratePatterns({ patterns });
 //   </script>
 //
 // The attributes are deliberately readable rather than a JSON blob: somebody
 // editing a downloaded template should be able to change a colour or a slug
 // in the markup without decoding anything.
-import { createArtwork } from './createArtwork.js';
-import type { ArtworkConfig, ArtworkController } from './createArtwork.js';
+import { createPattern } from './createPattern.js';
+import type { PatternConfig, PatternController } from './createPattern.js';
 import { FIT_MODES } from './sizing.js';
 import type { CoverRender } from './sizing.js';
 import type {
-  ArtworkDefinition,
-  ArtworkOption,
+  PatternDefinition,
+  PatternOption,
   FitMode,
   OptionValue,
 } from './types.js';
 
 /** The data-* attribute an element must carry to be hydrated. */
-export const ARTWORK_ATTRIBUTE = 'data-artwork';
+export const PATTERN_ATTRIBUTE = 'data-pattern';
 
-/** Default selector for hydrateArtworks(). */
-export const ARTWORK_SELECTOR = `[${ARTWORK_ATTRIBUTE}]`;
+/** Default selector for hydratePatterns(). */
+export const PATTERN_SELECTOR = `[${PATTERN_ATTRIBUTE}]`;
 
 /**
- * Serialized form of an ArtworkConfig: every value a string, keyed by the
- * data-* attribute name it belongs on. `artwork` carries the slug.
+ * Serialized form of a PatternConfig: every value a string, keyed by the
+ * data-* attribute name it belongs on. `pattern` carries the slug.
  */
-export type ArtworkAttributes = Record<string, string>;
+export type PatternAttributes = Record<string, string>;
 
 /** A hydrated element and the controller now driving it. */
-export type HydratedArtwork = {
+export type HydratedPattern = {
   element: HTMLElement;
-  controller: ArtworkController;
+  controller: PatternController;
 };
 
 export type HydrateOptions = {
   /**
-   * Artwork definitions to resolve slugs against — the `artworks` record from
-   * `tabbied/artworks`, or an array/subset of definitions if the page only
+   * Pattern definitions to resolve slugs against — the `patterns` record from
+   * `tabbied/patterns`, or an array/subset of definitions if the page only
    * uses a few (which keeps the payload to just those).
    */
-  artworks: Record<string, ArtworkDefinition> | readonly ArtworkDefinition[];
+  patterns: Record<string, PatternDefinition> | readonly PatternDefinition[];
   /** Where to look for elements. Defaults to the whole document. */
   root?: ParentNode;
-  /** Overrides the default `[data-artwork]` selector. */
+  /** Overrides the default `[data-pattern]` selector. */
   selector?: string;
   /**
-   * Called for an element whose slug isn't in `artworks`, or whose config is
+   * Called for an element whose slug isn't in `patterns`, or whose config is
    * unusable. Defaults to a console.warn — a template with one bad slug
-   * should still mount the rest of its artworks.
+   * should still mount the rest of its patterns.
    */
   onError?: (error: Error, element: HTMLElement) => void;
   /** Merged into every controller's config, after the attributes. */
-  defaults?: Partial<ArtworkConfig>;
+  defaults?: Partial<PatternConfig>;
 };
 
-// Controllers already mounted by hydrateArtworks, so a second call (a
+// Controllers already mounted by hydratePatterns, so a second call (a
 // re-render, a template that both defers and calls manually) is a no-op
 // rather than a double mount. Weak so detached elements stay collectable.
-const hydrated = new WeakMap<Element, ArtworkController>();
+const hydrated = new WeakMap<Element, PatternController>();
 
 // ---- serialization -------------------------------------------------------
 
@@ -124,19 +124,19 @@ const parseCoverRender = (value: string): CoverRender | undefined => {
 };
 
 /**
- * An ArtworkConfig as data-* attributes, for a server render (or a template
- * generator) to spread onto the host element. `hydrateArtworks` reads exactly
+ * A PatternConfig as data-* attributes, for a server render (or a template
+ * generator) to spread onto the host element. `hydratePatterns` reads exactly
  * what this writes.
  *
- * Only the values that were actually set are emitted, so an artwork left on
- * its authored defaults serializes to a single `data-artwork="<slug>"` and
+ * Only the values that were actually set are emitted, so a pattern left on
+ * its authored defaults serializes to a single `data-pattern="<slug>"` and
  * the markup stays readable. `onReady` has no serialized form.
  */
-export function artworkConfigToAttributes(
-  config: Omit<ArtworkConfig, 'onReady'> & { onReady?: unknown }
-): ArtworkAttributes {
-  const attributes: ArtworkAttributes = {
-    [ARTWORK_ATTRIBUTE]: config.artwork.slug,
+export function patternConfigToAttributes(
+  config: Omit<PatternConfig, 'onReady'> & { onReady?: unknown }
+): PatternAttributes {
+  const attributes: PatternAttributes = {
+    [PATTERN_ATTRIBUTE]: config.pattern.slug,
   };
 
   const set = (name: string, value: string | undefined) => {
@@ -192,7 +192,7 @@ const numberAttribute = (
 // string, so a ButtonSelectGroup whose choices happen to look numeric (or
 // boolean) still comes back as the string css-doodle substitutes.
 const coerceOptionValue = (
-  option: ArtworkOption,
+  option: PatternOption,
   raw: string
 ): OptionValue | undefined => {
   if (option.type === 'ToggleSwitch') {
@@ -210,7 +210,7 @@ const coerceOptionValue = (
 };
 
 const parseOptions = (
-  definition: ArtworkDefinition,
+  definition: PatternDefinition,
   raw: string
 ): Record<string, OptionValue> => {
   const values: Record<string, OptionValue> = {};
@@ -235,30 +235,30 @@ const isFitMode = (value: string): value is FitMode =>
   (FIT_MODES as readonly string[]).includes(value);
 
 /**
- * Read an ArtworkConfig off an element's data-* attributes. The inverse of
- * artworkConfigToAttributes.
+ * Read a PatternConfig off an element's data-* attributes. The inverse of
+ * patternConfigToAttributes.
  *
- * Returns null when the element carries no `data-artwork`, or when its slug
- * isn't in `artworks`. Individual attributes that don't parse are dropped
- * (the controller then uses the artwork's authored default) rather than
+ * Returns null when the element carries no `data-pattern`, or when its slug
+ * isn't in `patterns`. Individual attributes that don't parse are dropped
+ * (the controller then uses the pattern's authored default) rather than
  * failing the whole element — a hand-edited template should degrade to the
  * design's defaults, not to a blank box.
  */
-export function artworkConfigFromElement(
+export function patternConfigFromElement(
   element: HTMLElement,
-  artworks: Record<string, ArtworkDefinition> | readonly ArtworkDefinition[]
-): ArtworkConfig | null {
-  const slug = element.getAttribute(ARTWORK_ATTRIBUTE);
+  patterns: Record<string, PatternDefinition> | readonly PatternDefinition[]
+): PatternConfig | null {
+  const slug = element.getAttribute(PATTERN_ATTRIBUTE);
 
   if (!slug) return null;
 
-  const definition = Array.isArray(artworks)
-    ? artworks.find((candidate) => candidate.slug === slug)
-    : (artworks as Record<string, ArtworkDefinition>)[slug];
+  const definition = Array.isArray(patterns)
+    ? patterns.find((candidate) => candidate.slug === slug)
+    : (patterns as Record<string, PatternDefinition>)[slug];
 
   if (!definition) return null;
 
-  const config: ArtworkConfig = { artwork: definition };
+  const config: PatternConfig = { pattern: definition };
 
   const seed = element.getAttribute('data-seed');
   if (seed) config.seed = seed;
@@ -308,32 +308,32 @@ export function artworkConfigFromElement(
 }
 
 /**
- * Mount every `[data-artwork]` element under `root` from its data-* config.
+ * Mount every `[data-pattern]` element under `root` from its data-* config.
  *
  * ```js
- * import { hydrateArtworks } from 'tabbied';
- * import { artworks } from 'tabbied/artworks';
+ * import { hydratePatterns } from 'tabbied';
+ * import { patterns } from 'tabbied/patterns';
  *
- * const mounted = hydrateArtworks({ artworks });
+ * const mounted = hydratePatterns({ patterns });
  * // later: mounted.forEach(({ controller }) => controller.destroy());
  * ```
  *
  * Idempotent: an element already hydrated by a previous call is skipped, and
  * its existing controller is returned. Not for use alongside the React
- * component — `TabbiedArtwork` mounts its own controller on the same
+ * component — `TabbiedPattern` mounts its own controller on the same
  * placeholder — but the attributes it renders are exactly what this reads,
  * which is what lets a static export be repackaged as a plain HTML template.
  */
-export function hydrateArtworks(options: HydrateOptions): HydratedArtwork[] {
+export function hydratePatterns(options: HydrateOptions): HydratedPattern[] {
   const {
-    artworks,
+    patterns,
     root = document,
-    selector = ARTWORK_SELECTOR,
+    selector = PATTERN_SELECTOR,
     onError = (error: Error) => console.warn(error.message),
     defaults,
   } = options;
 
-  const mounted: HydratedArtwork[] = [];
+  const mounted: HydratedPattern[] = [];
 
   for (const element of root.querySelectorAll<HTMLElement>(selector)) {
     const existing = hydrated.get(element);
@@ -343,21 +343,21 @@ export function hydrateArtworks(options: HydrateOptions): HydratedArtwork[] {
       continue;
     }
 
-    const config = artworkConfigFromElement(element, artworks);
+    const config = patternConfigFromElement(element, patterns);
 
     if (!config) {
       onError(
         new Error(
-          `[tabbied] no artwork definition for "${element.getAttribute(
-            ARTWORK_ATTRIBUTE
-          )}" — pass it in \`artworks\``
+          `[tabbied] no pattern definition for "${element.getAttribute(
+            PATTERN_ATTRIBUTE
+          )}" — pass it in \`patterns\``
         ),
         element
       );
       continue;
     }
 
-    const controller = createArtwork(element, { ...config, ...defaults });
+    const controller = createPattern(element, { ...config, ...defaults });
     hydrated.set(element, controller);
     mounted.push({ element, controller });
   }

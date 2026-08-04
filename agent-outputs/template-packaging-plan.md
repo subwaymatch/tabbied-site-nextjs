@@ -1,6 +1,6 @@
-# Packaging the showcase sites as downloadable templates
+# Packaging the template sites as downloadable templates
 
-A strategy, not an implementation. The question is how to ship the 36 showcase
+A strategy, not an implementation. The question is how to ship the 36 template
 sites as free starter templates in several formats without the templates
 rotting the moment somebody edits a page here.
 
@@ -36,7 +36,7 @@ Each site depends on five things:
 
 | Dependency | Where it lives now | In the package |
 |---|---|---|
-| Markup | `app/showcase/<slug>/page.tsx` | Rendered HTML from the export |
+| Markup | `app/template/<slug>/page.tsx` | Rendered HTML from the export |
 | Styles | `<slug>.module.css` | The compiled CSS, class names de-hashed |
 | Patterns | `tabbied` + `css-doodle` | npm dep, or a pinned CDN script |
 | Photography | `public/images/sites/*.webp` | Copied, only the ones the page uses |
@@ -58,7 +58,7 @@ those rather than all 130.
         ▼
   scripts/package-templates.mjs        (new)
         │
-        ├─ 1. read out/showcase/<slug>/index.html
+        ├─ 1. read out/template/<slug>/index.html
         ├─ 2. strip the Next runtime: __next_f payload, /_next/static scripts,
         │     RSC flight data, the hydration wrapper. Keep <head> links.
         ├─ 3. collect the page's CSS from out/_next/static/css/*.css,
@@ -99,11 +99,11 @@ for exactly this case:
 ```html
 <script type="module">
   import 'https://esm.sh/css-doodle';
-  import { createArtwork } from 'https://esm.sh/tabbied';
-  import { ortho } from 'https://esm.sh/tabbied/artworks';
+  import { createPattern } from 'https://esm.sh/tabbied';
+  import { ortho } from 'https://esm.sh/tabbied/patterns';
 
-  createArtwork(document.querySelector('[data-field="hero"]'), {
-    artwork: ortho,
+  createPattern(document.querySelector('[data-field="hero"]'), {
+    pattern: ortho,
     palette: ['transparent', '#C9C8C1', '#8E8E88'],
     fit: 'grid', cellSize: 132, redrawInterval: 5200,
   });
@@ -116,7 +116,7 @@ will actually use.
 ### React
 
 Wrap the HTML in a component and swap the mount calls back to
-`<TabbiedArtwork>`, which is a mechanical transform because the packager
+`<TabbiedPattern>`, which is a mechanical transform because the packager
 already knows every field's props (it emitted them for the HTML version).
 Ship as a Vite app rather than Next, so it runs with `npm i && npm run dev`
 and carries no framework opinions.
@@ -131,7 +131,7 @@ werkraum-react/
 ### Svelte
 
 Same shape, Vite again. `<css-doodle>` is a custom element, so Svelte needs
-no wrapper at all — mount in `onMount` with the same `createArtwork` call the
+no wrapper at all — mount in `onMount` with the same `createPattern` call the
 HTML version uses. The markup converts cleanly because the source is plain
 HTML: `class=` stays `class=`, which is one fewer transform than React needs.
 
@@ -184,7 +184,7 @@ Three things, plainly:
 2. Roll to all 36, add a smoke test that opens each zip's `index.html` in
    Playwright and asserts a `<css-doodle>` rendered and no console errors.
 3. Add React, then Astro, then Svelte, each as a step-6 emitter.
-4. A `/templates` page listing them, and a download link on each showcase
+4. A `/templates` page listing them, and a download link on each template
    site's own footer.
 
 Step 2's smoke test is the part that makes this maintainable: it is what

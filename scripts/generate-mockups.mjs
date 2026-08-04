@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 /**
- * Put a real Tabbied artwork onto a real-looking object.
+ * Put a real Tabbied pattern onto a real-looking object.
  *
  * The flow is render-then-EDIT, not text-to-image:
  *
- *   packages/tabbied/artworks/<design>.json
- *      │  scripts/render-artwork.mjs (headless Chromium)
+ *   packages/tabbied/patterns/<design>.json
+ *      │  scripts/render-pattern.mjs (headless Chromium)
  *      ▼
- *   generated-images/refs/<id>-ref.png     ← the actual artwork, exact pixels
+ *   generated-images/refs/<id>-ref.png     ← the actual pattern, exact pixels
  *      │  POST /v1/images/edits  (multipart; the ref is the `image` field)
  *      ▼
- *   generated-images/mockups/<id>.png      ← the object wearing the artwork
+ *   generated-images/mockups/<id>.png      ← the object wearing the pattern
  *
  * Why the edits endpoint and not a text prompt: the model cannot execute
  * css-doodle, so describing the pattern in words yields something that merely
  * resembles ours. Handing it the rendered pixels is the only way the geometry
  * in the mockup is our geometry. The model still REDRAWS what it is given, so
  * expect a faithful impression rather than a pixel match; §"Fidelity tiers" in
- * docs/artwork-mockups.md covers when to composite exactly instead.
+ * docs/pattern-mockups.md covers when to composite exactly instead.
  *
  * Usage:
  *   OPENAI_API_KEY=sk-... node scripts/generate-mockups.mjs [options]
  *
  * Options:
  *   --only <id[,id..]>  Only these mockup ids
- *   --refs-only         Render the artwork references and stop (no API calls, free)
+ *   --refs-only         Render the pattern references and stop (no API calls, free)
  *   --out <dir>         Output directory (default: ./generated-images/mockups)
  *   --quality <q>       low | medium | high (default: the JSON's meta.defaults)
  *   --fidelity <f>      Send input_fidelity (gpt-image-1 only; gpt-image-2
@@ -36,7 +36,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { renderArtwork } from './render-artwork.mjs';
+import { renderPattern } from './render-pattern.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_FILE = join(ROOT, 'data', 'mockup-prompts.json');
@@ -76,7 +76,7 @@ function printHelp() {
 export function buildPrompt(m) {
   return [
     `A product photograph of ${m.subject}.`,
-    'The artwork in the provided image is the printed design on it:',
+    'The pattern in the provided image is the printed design on it:',
     'reproduce that pattern faithfully, keeping its exact colours, geometry and',
     'proportions, wrapped naturally over the surface with the scene\'s own',
     'lighting, perspective and any folds or curvature.',
@@ -123,13 +123,13 @@ async function main() {
 
   // 1. Render each reference. Free, deterministic, and worth eyeballing before
   //    spending anything on the edit.
-  console.log(`Rendering ${list.length} artwork reference(s)…`);
+  console.log(`Rendering ${list.length} pattern reference(s)…`);
   mkdirSync(REF_DIR, { recursive: true });
   for (const m of list) {
     const out = join(REF_DIR, `${m.id}-ref.png`);
     if (!opts.force && existsSync(out)) { console.log(`  • ${m.id} ref exists`); m._ref = out; continue; }
-    const a = m.artwork;
-    await renderArtwork({ design: a.design, out, palette: a.palette ?? null, seed: a.seed ?? m.id,
+    const a = m.pattern;
+    await renderPattern({ design: a.design, out, palette: a.palette ?? null, seed: a.seed ?? m.id,
                           width: a.width ?? 1024, height: a.height ?? 1024, fit: a.fit ?? 'grid',
                           cell: a.cell ?? null, scale: 2 });
     console.log(`  ✓ ${m.id}-ref.png (${a.design})`);
@@ -168,7 +168,7 @@ async function main() {
   }
   await Promise.all(Array.from({ length: Math.min(opts.concurrency, todo.length) }, worker));
   console.log(`\nDone: ${ok} generated, ${failed} failed. Output in ${opts.out}`);
-  console.log('Compare each against its reference before promoting (docs/artwork-mockups.md).');
+  console.log('Compare each against its reference before promoting (docs/pattern-mockups.md).');
   if (failed) process.exitCode = 1;
 }
 

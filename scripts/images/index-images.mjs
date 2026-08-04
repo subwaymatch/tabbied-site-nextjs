@@ -1,5 +1,5 @@
-// Refresh components/showcase/generatedImages.ts from whatever is currently in
-// public/images/showcase. import-batch.mjs does this automatically; run it by
+// Refresh components/template/generatedImages.ts from whatever is currently in
+// public/images/template. import-batch.mjs does this automatically; run it by
 // hand after adding, replacing or deleting an image outside the batch flow.
 //
 //   npm run images:index

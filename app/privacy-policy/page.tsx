@@ -21,8 +21,8 @@ export default function PrivacyPolicyPage() {
               <p style={{ marginTop: '1.5rem' }}>Last updated: June 13, 2026.</p>
 
               <p style={{ marginTop: '1.5rem' }}>
-                Tabbied is a free tool for generating artwork in your browser.
-                Artwork is generated client-side, and we do not require an
+                Tabbied is a free tool for generating pattern in your browser.
+                Pattern is generated client-side, and we do not require an
                 account to use the tool.
               </p>
 

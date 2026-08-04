@@ -59,7 +59,7 @@ function HexField({
 /**
  * The shared new/edit-palette dialog (4a): the single place palettes are
  * created, edited, and deleted. Renders over a low-opacity backdrop so the page
- * it sits on stays visible (its artworks recolor live as the draft is edited).
+ * it sits on stays visible (its patterns recolor live as the draft is edited).
  */
 export default function PaletteEditorDialog({
   draft,
@@ -105,7 +105,7 @@ export default function PaletteEditorDialog({
       }}
     >
       <Dialog.Portal>
-        {/* Low-opacity scrim: the page (and its live-recolored artworks) stays
+        {/* Low-opacity scrim: the page (and its live-recolored patterns) stays
             visible behind the dialog. */}
         <Dialog.Backdrop className={styles.dialogBackdrop} />
         <Dialog.Popup

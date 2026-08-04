@@ -26,9 +26,9 @@ export default function TermsOfServicePage() {
                 warranties of any kind.
               </p>
 
-              <h3 style={{ marginTop: '2rem' }}>Use of artwork</h3>
+              <h3 style={{ marginTop: '2rem' }}>Use of pattern</h3>
               <p style={{ marginTop: '1rem' }}>
-                Artwork you generate with Tabbied is yours to use for personal
+                Pattern you generate with Tabbied is yours to use for personal
                 and commercial projects. The Tabbied name, logo, and source code
                 remain the property of their respective owners.
               </p>

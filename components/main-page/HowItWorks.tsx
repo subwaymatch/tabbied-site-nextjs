@@ -18,7 +18,7 @@ export default function HowItWorksSection() {
                 <div className={`${styles.stepNumber} ${styles.one}`}>
                   <span>1</span>
                 </div>
-                <p>Pick a design from our growing collection of artwork</p>
+                <p>Pick a design from our growing collection of pattern</p>
               </div>
             </Col>
 

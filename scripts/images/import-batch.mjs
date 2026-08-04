@@ -1,5 +1,5 @@
 // Step 4 of 4. Download the finished images and write them into
-// public/images/showcase/<id>.webp.
+// public/images/template/<id>.webp.
 //
 //   node scripts/images/import-batch.mjs           # everything that succeeded
 //   node scripts/images/import-batch.mjs --force   # overwrite existing files

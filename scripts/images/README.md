@@ -1,9 +1,9 @@
-# Showcase image pipeline (KIE AI)
+# Template image pipeline (KIE AI)
 
-The showcase sites render every card, alternating row and lookbook cell as a
+The template sites render every card, alternating row and lookbook cell as a
 labelled placeholder holding a ready made image prompt. These four scripts take
 those prompts through [KIE AI](https://kie.ai)'s job API and drop finished
-images into `public/images/showcase/`.
+images into `public/images/template/`.
 
 Default model is **`z-image`** ([product page](https://kie.ai/z-image)), from
 Alibaba Tongyi Lab. Override per run with `--model`, or globally with
@@ -54,7 +54,7 @@ a bare URL is kept.
 ## Run it
 
 ```bash
-npm run build                        # refreshes out/showcase/<slug>/index.html
+npm run build                        # refreshes out/template/<slug>/index.html
 
 npm run images:extract               # 1. prompts -> .batch/prompts.json
 npm run images:build                 # 2. manifest -> .batch/tasks.json
@@ -71,7 +71,7 @@ done — so redoing a finished image means opting out of all three skips. Each
 step spells that `--force`:
 
 ```bash
-# One image. The id is the filename in public/images/showcase, minus .webp.
+# One image. The id is the filename in public/images/template, minus .webp.
 node scripts/images/build-batch.mjs --force --only react__meridian__gallery-2
 npm run images:submit -- --force --watch
 npm run images:import -- --force
@@ -96,7 +96,7 @@ seed on KIE's side. To go back to the prompt card instead, delete the file and
 reindex:
 
 ```bash
-rm public/images/showcase/react__meridian__gallery-2.webp
+rm public/images/template/react__meridian__gallery-2.webp
 npm run images:index
 ```
 
@@ -128,8 +128,8 @@ If KIE support raises your account limit, raise `KIE_RATE_LIMIT` to match.
 
 ## 1. extract-prompts.mjs
 
-Prompts are authored in two places (`components/showcase/showcaseContent.ts` and
-`components/showcase/showcaseSections.ts`), but they converge in the rendered
+Prompts are authored in two places (`components/template/templateContent.ts` and
+`components/template/templateSections.ts`), but they converge in the rendered
 HTML: every placeholder is a `<figure class="imgph" data-image-prompt="...">`
 carrying the final composed string, palette clause included. This reads the built
 pages so there is only one parser to keep honest.
@@ -145,9 +145,9 @@ Slot aspect comes from the layout and maps onto what the model offers. `z-image`
 supports only `1:1`, `4:3`, `3:4`, `16:9` and `9:16`: the 4/3 cards and rows and
 the 1/1 gallery cells map exactly, and the 4/5 tall gallery cell takes the
 nearest portrait, `3:4`. The small difference is cropped by `object-fit: cover`,
-never stretched, the same rule the artworks follow.
+never stretched, the same rule the patterns follow.
 
-`z-image` caps prompts at 1000 characters. Every composed showcase prompt is
+`z-image` caps prompts at 1000 characters. Every composed template prompt is
 currently 230 to 330, so this only ever shows up as a warning if content grows.
 
 ## 2. build-batch.mjs
@@ -204,7 +204,7 @@ is back in the plan (no image on disk) but still carries its old task id.
 
 KIE returns a URL per job rather than inline data, so each result is fetched,
 resized to roughly 2x its widest rendered slot and written as WebP into
-`public/images/showcase/`. With `output: 'export'` there is no `/_next/image`
+`public/images/template/`. With `output: 'export'` there is no `/_next/image`
 optimizer at runtime, so this mirrors `scripts/optimize-images.mjs`.
 
 `z-image` exposes no resolution control, so whatever it returns is downscaled to
@@ -216,9 +216,9 @@ Those ids are listed on stdout and in `.batch/imported.json`; rerunning
 
 ## How slots pick up their image
 
-`components/showcase/ImageCard.tsx` checks whether an image exists for a slot id
+`components/template/ImageCard.tsx` checks whether an image exists for a slot id
 and swaps itself. React cannot stat the filesystem at render time, so the set of
-finished ids is mirrored into `components/showcase/generatedImages.ts`, which
+finished ids is mirrored into `components/template/generatedImages.ts`, which
 `import-batch` (and `npm run images:index`) rewrites.
 
 A filled slot renders `<img>` cropped with `object-fit: cover` and moves the

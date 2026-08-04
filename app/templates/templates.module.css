@@ -1,0 +1,349 @@
+/* The template gallery (/templates/), lists all forty sample sites with live
+   TabbiedPattern thumbnails. Dark, brand-accent theme, independent of the main
+   site chrome. */
+
+.page {
+  --bg: #0e0e13;
+  --mint: #3fffb2;
+  --cyan: #3eecff;
+  --line: #ffffff14;
+  --dim: #eef0f6;
+  --max: 1360px;
+  --pad-x: clamp(20px, 4vw, 56px);
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--dim);
+  font-family: proxima-nova, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────────
+   The backdrop is a contact sheet of four different patterns on four different
+   palettes, which makes the page's premise legible before the headline is. */
+.hero {
+  position: relative;
+  min-height: 66vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.heroArt {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  opacity: 0.4;
+}
+.heroArt > div {
+  position: relative;
+  overflow: hidden;
+}
+.heroArt > div + div {
+  border-left: 1px solid #00000040;
+}
+.heroArt > div > * {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 720px) {
+  .heroArt {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+/* The title sits directly on the pattern, so the scrim has to do real work in
+   the middle of the frame, not only at the edges. */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(94% 84% at 50% 36%, #0e0e13bd, #0e0e13ea 56%, #0e0e13);
+}
+.heroInner {
+  position: relative;
+  z-index: 4;
+  padding: clamp(64px, 9vw, 108px) 24px;
+  max-width: 780px;
+}
+.pre {
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 8vw, 104px);
+  line-height: 0.94;
+  margin: 0;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+/* Cyan through mint only. The previous gradient ran into a magenta stop that
+   landed near black on this background and swallowed the last word. */
+.hero h1 span {
+  background: linear-gradient(96deg, var(--cyan), var(--mint) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p {
+  max-width: 600px;
+  margin: 26px auto 0;
+  font-size: clamp(15px, 1.6vw, 17.5px);
+  line-height: 1.7;
+  color: #eef0f6b8;
+}
+.hero strong {
+  color: var(--dim);
+  font-weight: 600;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(22px, 5vw, 64px);
+  margin: clamp(34px, 4vw, 48px) 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+}
+.facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.facts dt {
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.facts dd {
+  margin: 0;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eef0f680;
+}
+
+/* ── Group headers ───────────────────────────────────────────────────────── */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 96px) var(--pad-x) clamp(40px, 5vw, 72px);
+  display: grid;
+  gap: clamp(64px, 8vw, 112px);
+}
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 18px clamp(24px, 5vw, 64px);
+  padding-bottom: 20px;
+  margin-bottom: clamp(22px, 2.6vw, 32px);
+  border-bottom: 1px solid var(--line);
+}
+.kicker {
+  display: block;
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--mint);
+  margin-bottom: 12px;
+}
+.group h2 {
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(26px, 3.6vw, 42px);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  margin: 0;
+}
+.groupMeta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+.groupMeta p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #eef0f699;
+  max-width: 44ch;
+}
+.count {
+  flex: none;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eef0f680;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+.group code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.92em;
+  color: var(--cyan);
+}
+@media (max-width: 860px) {
+  .group {
+    grid-template-columns: 1fr;
+  }
+  .groupMeta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ── Mosaic ──────────────────────────────────────────────────────────────────
+   Twelve columns carrying ten cards as 2 wide / 3 medium / 3 medium / 2 wide.
+   Every row divides the track count exactly, so a group never ends on a
+   half-empty row, and the patterns get to show at two different scales instead
+   of twenty identical thumbnails. */
+/* One even three-column grid: every card is the same size, so the collection
+   reads as a single set rather than a few featured items plus the rest. */
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.4vw, 20px);
+}
+@media (max-width: 1000px) {
+  .mosaic {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .mosaic {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff06;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  background: #ffffff0d;
+}
+.thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+/* The pattern fills the tile; the number badge must keep its intrinsic size, or
+   it stretches into a full-bleed panel over the top of the pattern. */
+.thumb > *:not(.num) {
+  width: 100%;
+  height: 100%;
+}
+.num {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 3;
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: #0e0e13;
+  background: #ffffffd6;
+}
+.cbody {
+  padding: 14px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.cmain h3 {
+  font-family: proxima-nova, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.015em;
+  margin: 0 0 3px;
+}
+.cmain p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #eef0f691;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+}
+.sw {
+  display: flex;
+  gap: 3px;
+  flex: none;
+}
+.sw span {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px #ffffff1f;
+}
+.pn {
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eef0f670;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pn i {
+  font-style: normal;
+  opacity: 0.45;
+  padding: 0 1px;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 40px var(--pad-x) 56px;
+  text-align: center;
+}
+.footer p {
+  max-width: var(--max);
+  margin: 0 auto;
+  font-size: 13.5px;
+  color: #eef0f680;
+}
+.footer a {
+  color: var(--mint);
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}

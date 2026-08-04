@@ -1,20 +1,20 @@
 // The data-* config contract between a server render and a framework-free
-// re-mount. artworkConfigToAttributes() is what the React component puts on
-// its placeholder; artworkConfigFromElement() is what a plain HTML template
+// re-mount. patternConfigToAttributes() is what the React component puts on
+// its placeholder; patternConfigFromElement() is what a plain HTML template
 // reads back. If they drift, a packaged template silently loses its palette,
 // its options, or its motion — so the round trip is pinned here.
 //
 // Parsing only needs getAttribute(), so these run against a stub rather than
-// a DOM. hydrateArtworks() itself (which mounts) is covered by
+// a DOM. hydratePatterns() itself (which mounts) is covered by
 // e2e/package.spec.ts.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  artworkConfigFromElement,
-  artworkConfigToAttributes,
+  patternConfigFromElement,
+  patternConfigToAttributes,
 } from '../dist/core/hydrate.js';
-import { artworks } from '../dist/artworks.generated.js';
+import { patterns } from '../dist/patterns.generated.js';
 
 const elementFor = (attributes) => ({
   getAttribute: (name) => (name in attributes ? attributes[name] : null),
@@ -22,23 +22,23 @@ const elementFor = (attributes) => ({
 
 // A design with all three option control types in play: radius carries a
 // "colsxrows" ButtonSelectGroup and a Slider.
-const radius = artworks.radius;
+const radius = patterns.radius;
 
 const roundTrip = (config) =>
-  artworkConfigFromElement(
-    elementFor(artworkConfigToAttributes(config)),
-    artworks
+  patternConfigFromElement(
+    elementFor(patternConfigToAttributes(config)),
+    patterns
   );
 
 test('a bare config serializes to just the slug', () => {
-  const attributes = artworkConfigToAttributes({ artwork: radius });
+  const attributes = patternConfigToAttributes({ pattern: radius });
 
-  assert.deepEqual(attributes, { 'data-artwork': 'radius' });
+  assert.deepEqual(attributes, { 'data-pattern': 'radius' });
 });
 
 test('round trips every serializable field', () => {
   const config = {
-    artwork: radius,
+    pattern: radius,
     seed: 'k9Pz',
     palette: ['#0B1020', '#3E8BFF', '#3FFFB2'],
     fit: 'cover',
@@ -53,7 +53,7 @@ test('round trips every serializable field', () => {
 
   const parsed = roundTrip(config);
 
-  assert.equal(parsed.artwork.slug, 'radius');
+  assert.equal(parsed.pattern.slug, 'radius');
   assert.equal(parsed.seed, 'k9Pz');
   assert.deepEqual(parsed.palette, config.palette);
   assert.equal(parsed.fit, 'cover');
@@ -74,7 +74,7 @@ test('option values keep the type their control declares', () => {
   assert.ok(slider, 'radius should declare a slider option');
 
   const parsed = roundTrip({
-    artwork: radius,
+    pattern: radius,
     options: { [grid.id]: '8x12', [slider.id]: 0.6 },
   });
 
@@ -87,15 +87,15 @@ test('option values keep the type their control declares', () => {
 });
 
 test('toggle options round trip as booleans', () => {
-  const toggling = Object.values(artworks).find((artwork) =>
-    artwork.options.some((option) => option.type === 'ToggleSwitch')
+  const toggling = Object.values(patterns).find((pattern) =>
+    pattern.options.some((option) => option.type === 'ToggleSwitch')
   );
   const toggle = toggling.options.find(
     (option) => option.type === 'ToggleSwitch'
   );
 
-  const on = roundTrip({ artwork: toggling, options: { [toggle.id]: true } });
-  const off = roundTrip({ artwork: toggling, options: { [toggle.id]: false } });
+  const on = roundTrip({ pattern: toggling, options: { [toggle.id]: true } });
+  const off = roundTrip({ pattern: toggling, options: { [toggle.id]: false } });
 
   assert.equal(on.options[toggle.id], true);
   assert.equal(off.options[toggle.id], false);
@@ -104,12 +104,12 @@ test('toggle options round trip as booleans', () => {
 test('a palette splits on top-level commas only', () => {
   // Authored palettes are hex or keywords, but the config takes any CSS
   // color — and a functional one carries its own commas.
-  const parsed = artworkConfigFromElement(
+  const parsed = patternConfigFromElement(
     elementFor({
-      'data-artwork': 'radius',
+      'data-pattern': 'radius',
       'data-palette': 'transparent, rgb(11, 16, 32), #3E8BFF',
     }),
-    artworks
+    patterns
   );
 
   assert.deepEqual(parsed.palette, [
@@ -121,30 +121,30 @@ test('a palette splits on top-level commas only', () => {
 
 test('an unknown slug yields null rather than throwing', () => {
   assert.equal(
-    artworkConfigFromElement(
-      elementFor({ 'data-artwork': 'notadesign' }),
-      artworks
+    patternConfigFromElement(
+      elementFor({ 'data-pattern': 'notadesign' }),
+      patterns
     ),
     null
   );
-  assert.equal(artworkConfigFromElement(elementFor({}), artworks), null);
+  assert.equal(patternConfigFromElement(elementFor({}), patterns), null);
 });
 
 test('unparseable attributes fall back to the authored defaults', () => {
   // A hand-edited template should degrade to the design's own defaults, not
   // to a blank box — so a bad value is dropped, not fatal.
-  const parsed = artworkConfigFromElement(
+  const parsed = patternConfigFromElement(
     elementFor({
-      'data-artwork': 'radius',
+      'data-pattern': 'radius',
       'data-fit': 'stretch', // removed in 0.2.0
       'data-cell-size': 'wide',
       'data-cover-render': '800',
       'data-options': 'nosuchoption: 4',
     }),
-    artworks
+    patterns
   );
 
-  assert.equal(parsed.artwork.slug, 'radius');
+  assert.equal(parsed.pattern.slug, 'radius');
   assert.equal(parsed.fit, undefined);
   assert.equal(parsed.cellSize, undefined);
   assert.equal(parsed.coverRender, undefined);
@@ -152,13 +152,13 @@ test('unparseable attributes fall back to the authored defaults', () => {
 });
 
 test('data-paused is a valueless boolean attribute', () => {
-  const flag = artworkConfigFromElement(
-    elementFor({ 'data-artwork': 'radius', 'data-paused': '' }),
-    artworks
+  const flag = patternConfigFromElement(
+    elementFor({ 'data-pattern': 'radius', 'data-paused': '' }),
+    patterns
   );
-  const explicit = artworkConfigFromElement(
-    elementFor({ 'data-artwork': 'radius', 'data-paused': 'false' }),
-    artworks
+  const explicit = patternConfigFromElement(
+    elementFor({ 'data-pattern': 'radius', 'data-paused': 'false' }),
+    patterns
   );
 
   assert.equal(flag.paused, true);
@@ -166,10 +166,10 @@ test('data-paused is a valueless boolean attribute', () => {
 });
 
 test('accepts an array of definitions, not just the record', () => {
-  const parsed = artworkConfigFromElement(
-    elementFor({ 'data-artwork': 'radius' }),
-    [artworks.radius, artworks.symmetry]
+  const parsed = patternConfigFromElement(
+    elementFor({ 'data-pattern': 'radius' }),
+    [patterns.radius, patterns.symmetry]
   );
 
-  assert.equal(parsed.artwork.slug, 'radius');
+  assert.equal(parsed.pattern.slug, 'radius');
 });

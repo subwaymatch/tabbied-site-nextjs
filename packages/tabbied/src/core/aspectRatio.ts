@@ -1,4 +1,4 @@
-// Aspect-ratio + grid helpers shared by the artwork editor.
+// Aspect-ratio + grid helpers shared by the pattern editor.
 //
 // A doodle is rendered on a fixed-width canvas whose height follows the
 // selected aspect ratio. The column×row grid adapts to the ratio so that each

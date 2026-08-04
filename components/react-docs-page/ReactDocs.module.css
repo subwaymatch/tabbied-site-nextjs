@@ -331,13 +331,13 @@
   border-radius: 0;
 }
 
-/* Rounds the corners of a rendered artwork inside a preview. */
+/* Rounds the corners of a rendered pattern inside a preview. */
 .demoArt {
   border-radius: 0.4rem;
   overflow: hidden;
 }
 
-/* Fit-mode comparison. Every mode draws the same artwork at the same seed into
+/* Fit-mode comparison. Every mode draws the same pattern at the same seed into
    the same two boxes — one landscape, one portrait — because what separates the
    modes is only visible when the box stops matching the drawing. */
 /* Sized so all four modes sit on one row inside the docs column (~590px of

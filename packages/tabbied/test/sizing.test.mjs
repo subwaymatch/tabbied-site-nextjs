@@ -55,7 +55,7 @@ test('snapSpanToTracks returns whole tracks', async (t) => {
 });
 
 test('a snapped box divides evenly by its derived grid', () => {
-  // The boxes that showed seams on the showcase pages: full-width bands and
+  // The boxes that showed seams on the template pages: full-width bands and
   // content-height section fields at common viewport widths.
   const boxes = [
     [1440, 240],

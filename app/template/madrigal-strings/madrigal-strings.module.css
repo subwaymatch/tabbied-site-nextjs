@@ -1,0 +1,912 @@
+/* ============================================================
+   MADRIGAL — concert-programme classicism
+   aubergine #2D132C · wine #801336 · carmine #C72C41
+   vermilion #EE4540 · gold #F0C419 · parchment #FFE9C7
+   ============================================================ */
+
+.page {
+  --aubergine: #2d132c;
+  --wine: #801336;
+  --carmine: #c72c41;
+  --vermilion: #ee4540;
+  --gold: #f0c419;
+  --parchment: #ffe9c7;
+  --parchment-dim: rgba(255, 233, 199, 0.78);
+  --parchment-faint: rgba(255, 233, 199, 0.55);
+  --hairline: rgba(240, 196, 25, 0.4);
+  --serif: 'EB Garamond', 'Iowan Old Style', Georgia, serif;
+
+  background: var(--aubergine);
+  color: var(--parchment);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.75;
+  font-variant-numeric: oldstyle-nums;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+.page a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(240, 196, 25, 0.5);
+}
+
+.page a:hover {
+  text-decoration-color: var(--gold);
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.smallCaps {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.14em;
+}
+
+/* ----------------------------------------------------------- masthead */
+
+.masthead {
+  text-align: center;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.25rem 0;
+}
+
+.mastheadEst {
+  margin: 0 0 0.5rem;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.4em;
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+
+.mastheadTitle {
+  display: inline-block;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.mastheadTitle:hover {
+  color: var(--gold);
+}
+
+.mastheadSub {
+  margin: 0.5rem 0 1.75rem;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--parchment-dim);
+}
+
+.mastheadNav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+  padding: 0.9rem 0;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.mastheadNav a {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.18em;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--parchment-dim);
+}
+
+.mastheadNav a:hover {
+  color: var(--gold);
+}
+
+/* --------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+  padding: clamp(3rem, 7vw, 5rem) 1.25rem clamp(3rem, 7vw, 5rem);
+}
+
+/* a full-bleed field of lunette windows behind the whole opening spread —
+   the arches echo the plate above the title */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--aubergine);
+}
+
+.heroFieldScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 19, 44, 0.55) 0%,
+    rgba(45, 19, 44, 0.16) 9%,
+    rgba(45, 19, 44, 0.16) 82%,
+    rgba(45, 19, 44, 0.92) 100%
+  );
+}
+
+.heroArch {
+  position: relative;
+  width: min(24rem, 82vw);
+  aspect-ratio: 3 / 4;
+  margin: 0 auto 2.5rem;
+  border-radius: 50% 50% 0 0 / 32% 32% 0 0;
+  overflow: hidden;
+  /* No engraving behind the instrument: a plain plate, lit from the crown,
+     so the violin is the only figure in the arch. */
+  background: radial-gradient(
+      ellipse 78% 62% at 50% 26%,
+      rgba(240, 196, 25, 0.13) 0%,
+      rgba(240, 196, 25, 0) 72%
+    ),
+    var(--aubergine);
+  border: 1px solid var(--hairline);
+  outline: 1px solid var(--hairline);
+  outline-offset: 7px;
+  isolation: isolate;
+}
+
+/* Centred in the arch, with the height pulled in so the crown's curve
+   never crops the scroll. */
+.heroViolin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 82%;
+  width: auto;
+  max-width: 82%;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+/* the title sits on a cartouche laid over the lunette field, the way a
+   programme's title panel sits on its printed cover */
+.heroCartouche {
+  position: relative;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(1.75rem, 4vw, 2.5rem);
+  background: rgba(45, 19, 44, 0.93);
+  border-top: 3px double var(--hairline);
+  border-bottom: 3px double var(--hairline);
+  box-shadow: 0 0 44px 26px rgba(45, 19, 44, 0.72);
+}
+
+.heroTitle {
+  margin: 0 auto 1.25rem;
+  max-width: 22ch;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.heroLede {
+  margin: 0 auto 1.5rem;
+  max-width: 38rem;
+  font-size: 1.2rem;
+  color: var(--parchment-dim);
+}
+
+.heroNote {
+  margin: 0 auto;
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.heroNote .smallCaps {
+  color: var(--gold);
+}
+
+.heroBench {
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  max-width: 46rem;
+  padding: 0 0.5rem;
+}
+
+/* this caption sits on the lunette field, so it carries its own ground */
+.heroBench .caption {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.3rem 0.85rem;
+  background: rgba(45, 19, 44, 0.88);
+}
+
+/* ------------------------------------------------------------ ornament */
+
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: min(34rem, 78vw);
+  margin: clamp(3.5rem, 8vw, 5.5rem) auto;
+}
+
+.ornamentRule {
+  flex: 1;
+  border-top: 3px double var(--hairline);
+}
+
+.ornamentMark {
+  color: var(--gold);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ----------------------------------------------------- shared section */
+
+.sectionTitle {
+  text-align: center;
+  font-variant-caps: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+  margin: 0 auto 1.75rem;
+  color: var(--parchment);
+  scroll-margin-top: 2rem;
+}
+
+.prose {
+  margin: 0 auto 1.4rem;
+  max-width: 40rem;
+  color: var(--parchment-dim);
+}
+
+.prose:last-child {
+  margin-bottom: 0;
+}
+
+.dropCap::first-letter {
+  float: left;
+  font-size: 3.9em;
+  line-height: 0.78;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.caption {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--parchment-faint);
+}
+
+.framedImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hairline);
+  outline: 1px solid var(--hairline);
+  outline-offset: 6px;
+}
+
+/* ------------------------------------------------------------ history */
+
+.history {
+  padding: 0 1.25rem;
+}
+
+.historyFigure {
+  margin: 2.5rem auto;
+  max-width: 46rem;
+  padding: 0 0.5rem;
+}
+
+.timeline {
+  list-style: none;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  max-width: 42rem;
+}
+
+.timelineRow {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.timelineRow:last-child {
+  border-bottom: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.timelineYear {
+  font-size: 1.35rem;
+  color: var(--gold);
+  font-variant-numeric: oldstyle-nums;
+  text-align: right;
+}
+
+.timelineText {
+  margin: 0.15rem 0 0;
+  color: var(--parchment-dim);
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .timelineRow {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  .timelineYear {
+    text-align: left;
+  }
+}
+
+/* -------------------------------------------------------- instruments */
+
+/* A section-wide engraving printed faint, the same device as the Visiting
+   spread: the pattern runs edge to edge behind the whole section and a scrim
+   holds it far enough back that the text sits on plain aubergine. */
+.sectionField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--aubergine);
+}
+
+.sectionScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      180deg,
+      rgba(45, 19, 44, 0.97) 0%,
+      rgba(45, 19, 44, 0.86) 14%,
+      rgba(45, 19, 44, 0.86) 86%,
+      rgba(45, 19, 44, 0.97) 100%
+    ),
+    radial-gradient(
+      ellipse 62% 74% at 50% 50%,
+      rgba(45, 19, 44, 0.86) 0%,
+      rgba(45, 19, 44, 0.6) 64%,
+      rgba(45, 19, 44, 0) 100%
+    );
+}
+
+.instruments {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.instrument {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+  max-width: 62rem;
+  margin: clamp(3rem, 7vw, 4.5rem) auto 0;
+}
+
+.instrument:nth-of-type(even) {
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+}
+
+.instrument:nth-of-type(even) .pedestal {
+  order: 2;
+}
+
+/* The plate is bare: the pattern now runs behind the whole section instead,
+   so nothing competes with the instrument standing on it. The gradient is the
+   plate's own light, not an engraving. */
+.pedestal {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  /* Each plate keeps a trace of its instrument's colour, pulled most of the way
+     back to the page's aubergine so three plates read as one set. */
+  background-color: color-mix(in srgb, var(--plate-tint, var(--wine)) 24%, var(--aubergine));
+  background-image: radial-gradient(
+    ellipse 74% 66% at 50% 44%,
+    rgba(240, 196, 25, 0.12) 0%,
+    rgba(240, 196, 25, 0) 74%
+  );
+  border: 1px solid var(--hairline);
+  outline: 1px solid var(--hairline);
+  outline-offset: 6px;
+  isolation: isolate;
+}
+
+.pedestalWide {
+  aspect-ratio: 5 / 4;
+}
+
+/* Centred in the plate rather than hung off its foot, so the whole
+   instrument sits inside the pattern field with even margins around it. */
+.cutoutTall {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 88%;
+  width: auto;
+  max-width: 88%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 26px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
+}
+
+.cutoutWide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 88%;
+  height: auto;
+  filter: drop-shadow(0 20px 26px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
+}
+
+.instrumentBody {
+  max-width: 34rem;
+}
+
+.instrumentNumeral {
+  margin: 0 0 0.25rem;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--carmine);
+  font-variant-numeric: normal;
+}
+
+.instrumentName {
+  margin: 0 0 0.35rem;
+  font-variant-caps: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  font-size: 1.6rem;
+}
+
+.instrumentSubtitle {
+  margin: 0 0 1.1rem;
+  font-style: italic;
+  color: var(--parchment-faint);
+  font-size: 1.05rem;
+}
+
+.instrument .prose {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.specList {
+  margin: 1.4rem 0 1.2rem;
+  border-top: 3px double var(--hairline);
+  font-size: 1rem;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, auto) 1fr;
+  gap: 1.25rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(240, 196, 25, 0.18);
+}
+
+.specRow dt {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.specRow dd {
+  margin: 0;
+  color: var(--parchment-dim);
+}
+
+.instrumentPrice {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.instrumentPrice .smallCaps {
+  color: var(--parchment-faint);
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 820px) {
+  .instrument,
+  .instrument:nth-of-type(even) {
+    grid-template-columns: 1fr;
+  }
+  .instrument:nth-of-type(even) .pedestal {
+    order: 0;
+  }
+  .pedestal {
+    max-width: 24rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .instrumentBody {
+    margin: 0 auto;
+  }
+}
+
+/* ------------------------------------------------------------ varnish */
+
+.varnish {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.varnishSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.varnishFigure {
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem;
+}
+
+.varnish .prose {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.pullQuote {
+  margin: 2rem 0 0;
+  padding: 1.4rem 0 0;
+  border-top: 3px double var(--hairline);
+}
+
+.pullQuote p {
+  margin: 0 0 0.6rem;
+  font-size: 1.45rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--parchment);
+}
+
+.pullQuote cite {
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--parchment-faint);
+}
+
+@media (max-width: 820px) {
+  .varnishSplit {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------- commission */
+
+.commission {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 5vw, 3rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.movements {
+  list-style: none;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  max-width: 44rem;
+}
+
+.movement {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.movement:last-child {
+  border-bottom: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.movementNumeral {
+  margin: 0;
+  font-size: 2.8rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--carmine);
+}
+
+.movementTitle {
+  margin: 0.2rem 0 0.6rem;
+  font-variant-caps: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-size: 1.3rem;
+}
+
+.movementTempo {
+  font-variant-caps: normal;
+  letter-spacing: 0.02em;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.02rem;
+  color: var(--parchment-faint);
+}
+
+.movement .prose {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .movement {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .movementNumeral {
+    text-align: left;
+  }
+}
+
+/* ------------------------------------------------------------ luthier */
+
+.luthier {
+  padding: 0 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+  max-width: 58rem;
+  margin: 0 auto;
+}
+
+.luthier .sectionTitle {
+  text-align: left;
+  margin-left: 0;
+}
+
+/* An opaque studio photograph, not a cut-out: it fills an arched plate on the
+   page's own aubergine, with the gold keyline the other plates use. No pattern
+   behind a face, and no drop-shadow — the frame carries the lift. */
+.luthierPlate {
+  margin: 0;
+}
+
+.luthierPortrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  background: var(--aubergine);
+  border: 1px solid var(--hairline);
+  outline: 1px solid var(--hairline);
+  outline-offset: 6px;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.45);
+}
+
+.luthierImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 14%;
+}
+
+.luthierCaption {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--parchment-faint);
+}
+
+.luthierName {
+  margin: 0 0 1.1rem;
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+
+.luthier .prose {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 820px) {
+  .luthier {
+    grid-template-columns: 1fr;
+  }
+  .luthierPlate {
+    max-width: 20rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .luthier .sectionTitle {
+    text-align: center;
+  }
+}
+
+/* ----------------------------------------------------------- concerts */
+
+.concerts {
+  padding: 0 1.25rem;
+}
+
+.concertFigure {
+  margin: 0 auto 2rem;
+  max-width: 46rem;
+  padding: 0 0.5rem;
+}
+
+.placements {
+  list-style: none;
+  margin: 1.75rem auto 0;
+  padding: 0;
+  max-width: 42rem;
+}
+
+.placementRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1.5rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.placementRow:last-child {
+  border-bottom: 1px solid rgba(240, 196, 25, 0.22);
+}
+
+.placementHolder {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.08em;
+  font-size: 1.1rem;
+  color: var(--parchment);
+}
+
+.placementDetail {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--parchment-faint);
+}
+
+/* ----------------------------------------------------------- visiting */
+
+.visiting {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.25rem clamp(3rem, 7vw, 4.5rem);
+  text-align: center;
+}
+
+/* the closing spread answers the opening one — the same lunette windows,
+   printed a shade quieter */
+.visitingField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--aubergine);
+}
+
+.visitingScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      180deg,
+      rgba(45, 19, 44, 0.96) 0%,
+      rgba(45, 19, 44, 0.74) 16%,
+      rgba(45, 19, 44, 0.74) 84%,
+      rgba(45, 19, 44, 0.96) 100%
+    ),
+    radial-gradient(
+      ellipse 46% 68% at 50% 48%,
+      rgba(45, 19, 44, 0.9) 0%,
+      rgba(45, 19, 44, 0.62) 62%,
+      rgba(45, 19, 44, 0) 100%
+    );
+}
+
+.visitGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(240, 196, 25, 0.25);
+  border: 1px solid rgba(240, 196, 25, 0.25);
+  max-width: 52rem;
+  margin: 2.25rem auto 0;
+}
+
+.visitCell {
+  background: var(--aubergine);
+  padding: 1.6rem 1.4rem 1.8rem;
+}
+
+.visitLabel {
+  margin: 0 0 0.6rem;
+  font-variant-caps: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.visitValue {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--parchment-dim);
+}
+
+.visitNote {
+  margin: 1.75rem auto 0;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--parchment-faint);
+  max-width: 36rem;
+}
+
+@media (max-width: 720px) {
+  .visitGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------- footer */
+
+.footer {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.footerBand {
+  position: relative;
+  height: clamp(5rem, 12vw, 8rem);
+  background: var(--aubergine);
+  overflow: hidden;
+}
+
+.colophon {
+  text-align: center;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.colophonTitle {
+  margin: 0 0 0.4rem;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.3em;
+  font-size: 1.4rem;
+  color: var(--parchment);
+}
+
+.colophonLine {
+  margin: 0 0 1.4rem;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--parchment-faint);
+}
+
+.colophonFine {
+  margin: 0 auto;
+  max-width: 40rem;
+  font-size: 0.92rem;
+  color: var(--parchment-faint);
+}
+
+/* ----------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    scroll-behavior: auto;
+  }
+}

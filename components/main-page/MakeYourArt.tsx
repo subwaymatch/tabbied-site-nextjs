@@ -16,7 +16,7 @@ export default function MakeYourArt() {
               </div>
 
               <Link
-                href="/artworks"
+                href="/patterns"
                 className={styles.actionBtn}
                 prefetch={false}
               >

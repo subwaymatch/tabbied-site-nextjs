@@ -1,5 +1,5 @@
-// Small color helpers shared by the palette editors (the /artworks gallery bar
-// and the individual artwork page). Kept framework-free so both the native
+// Small color helpers shared by the palette editors (the /patterns gallery bar
+// and the individual pattern page). Kept framework-free so both the native
 // <input type="color"> swatches and the hex text fields can round-trip values.
 
 // Normalize a hex string for the native color input (which only accepts

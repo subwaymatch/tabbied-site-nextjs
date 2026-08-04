@@ -4,7 +4,7 @@ import { test, expect, type Page } from '@playwright/test';
 // consumes), driven through app/package-test/page.tsx. The gallery and editor
 // already dogfood the cover and fixed fits; this spec covers the adaptive
 // grid fit — the package default — plus contain, and the box props that size
-// the element the artwork renders into.
+// the element the pattern renders into.
 
 const paintedCells = (page: Page, hostSelector: string) =>
   page.evaluate((selector) => {
@@ -47,20 +47,20 @@ test.describe('tabbied package (component test page)', () => {
     await page.goto('/package-test');
 
     await page.waitForFunction(() => !!window.customElements.get('css-doodle'));
-    const doodle = page.locator('#fit-grid [data-artwork="radius"] css-doodle');
+    const doodle = page.locator('#fit-grid [data-pattern="radius"] css-doodle');
     await expect(doodle).toBeAttached({ timeout: 15000 });
 
     // The canvas covers its host box and is snapped up to a whole number of
     // grid tracks, so no cell boundary lands on a sub-pixel (which would draw
     // a hairline seam at every cell edge). The overflow is under one cell and
     // the host clips it.
-    const host = page.locator('#fit-grid [data-artwork="radius"]');
+    const host = page.locator('#fit-grid [data-pattern="radius"]');
     const hostBox = (await host.boundingBox())!;
     const doodleBox = (await doodle.boundingBox())!;
     const {
       cols: cols_px,
       rows: rows_px,
-    } = await gridTrackPx(page, '#fit-grid [data-artwork="radius"]');
+    } = await gridTrackPx(page, '#fit-grid [data-pattern="radius"]');
     const cols = cols_px.length;
     const rows = rows_px.length;
 
@@ -72,7 +72,7 @@ test.describe('tabbied package (component test page)', () => {
     expect((doodleBox.width / cols) % 2).toBeCloseTo(0, 1);
     expect((doodleBox.height / rows) % 2).toBeCloseTo(0, 1);
     expect(doodleBox.width / cols).toBeCloseTo(doodleBox.height / rows, 1);
-    await expect(page.locator('#fit-grid [data-artwork="radius"]')).toHaveCSS(
+    await expect(page.locator('#fit-grid [data-pattern="radius"]')).toHaveCSS(
       'overflow',
       'hidden'
     );
@@ -84,10 +84,10 @@ test.describe('tabbied package (component test page)', () => {
 
     // ~36px target cells: a ~1152×320 box must get a clearly 2-D grid, and
     // the pattern must actually paint.
-    const wideCount = await cellCount(page, '#fit-grid [data-artwork="radius"]');
+    const wideCount = await cellCount(page, '#fit-grid [data-pattern="radius"]');
     expect(wideCount).toBeGreaterThan(100);
     await expect
-      .poll(() => paintedCells(page, '#fit-grid [data-artwork="radius"]'), {
+      .poll(() => paintedCells(page, '#fit-grid [data-pattern="radius"]'), {
         timeout: 10000,
       })
       .toBeGreaterThan(1);
@@ -95,19 +95,19 @@ test.describe('tabbied package (component test page)', () => {
     // Shrinking the container re-derives a coarser grid (debounced ~180ms).
     await page.setViewportSize({ width: 480, height: 800 });
     await expect
-      .poll(() => cellCount(page, '#fit-grid [data-artwork="radius"]'), {
+      .poll(() => cellCount(page, '#fit-grid [data-pattern="radius"]'), {
         timeout: 10000,
       })
       .toBeLessThan(wideCount);
   });
 
-  test('fit="cover" tiles a grid artwork with whole cells (no mid-cell crop)', async ({
+  test('fit="cover" tiles a grid pattern with whole cells (no mid-cell crop)', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const selector = '#fit-cover [data-artwork="radius"]';
+    const selector = '#fit-cover [data-pattern="radius"]';
     const doodle = page.locator(`${selector} css-doodle`);
     await expect(doodle).toBeAttached({ timeout: 15000 });
 
@@ -162,7 +162,7 @@ test.describe('tabbied package (component test page)', () => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const selector = '#box-bounded [data-artwork="radius"]';
+    const selector = '#box-bounded [data-pattern="radius"]';
     await expect(page.locator(`${selector} css-doodle`)).toBeAttached({
       timeout: 15000,
     });
@@ -197,13 +197,13 @@ test.describe('tabbied package (component test page)', () => {
     await page.goto('/package-test');
 
     const doodle = page.locator(
-      '#fit-contain [data-artwork="symmetry"] css-doodle'
+      '#fit-contain [data-pattern="symmetry"] css-doodle'
     );
     await expect(doodle).toBeAttached({ timeout: 15000 });
 
-    // Letterboxed inside a wide box: the visible artwork keeps its authored
+    // Letterboxed inside a wide box: the visible pattern keeps its authored
     // 2:3 (800×1200 render) proportions instead of stretching.
-    const host = page.locator('#fit-contain [data-artwork="symmetry"]');
+    const host = page.locator('#fit-contain [data-pattern="symmetry"]');
     const hostBox = (await host.boundingBox())!;
     const doodleBox = (await doodle.boundingBox())!;
     const ratio = doodleBox.width / doodleBox.height;
@@ -215,7 +215,7 @@ test.describe('tabbied package (component test page)', () => {
     await expect(host).toHaveAccessibleName('Symmetry');
   });
 
-  // The ambient-redraw timer lives in the core controller (createArtwork), so
+  // The ambient-redraw timer lives in the core controller (createPattern), so
   // these also cover the vanilla entry point — the React prop is a
   // pass-through. The seed rides on the element's data-seed attribute, which
   // is what makes a redraw observable from outside.
@@ -225,7 +225,7 @@ test.describe('tabbied package (component test page)', () => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const ticking = page.locator('#redraw-interval [data-artwork="radius"] css-doodle');
+    const ticking = page.locator('#redraw-interval [data-pattern="radius"] css-doodle');
     await expect(ticking).toBeAttached({ timeout: 15000 });
     // Both sections sit below the fold, and an off-screen host drops its
     // ticks by design — scroll to them or the timer legitimately never fires.
@@ -238,7 +238,7 @@ test.describe('tabbied package (component test page)', () => {
 
     // Same interval, gated off: the seed must not move. Scrolled into view
     // first so the viewport gate isn't what's holding it.
-    const held = page.locator('#redraw-paused [data-artwork="radius"] css-doodle');
+    const held = page.locator('#redraw-paused [data-pattern="radius"] css-doodle');
     await held.scrollIntoViewIfNeeded();
     await expect(held).toBeAttached({ timeout: 15000 });
 
@@ -249,8 +249,8 @@ test.describe('tabbied package (component test page)', () => {
 
   // Declarative mounting — the path a packaged HTML template takes: plain
   // markup carrying its config in data-* attributes, mounted by one
-  // hydrateArtworks() call with no component in the picture.
-  test('hydrateArtworks mounts artworks from data-* attributes alone', async ({
+  // hydratePatterns() call with no component in the picture.
+  test('hydratePatterns mounts patterns from data-* attributes alone', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1200, height: 800 });
@@ -311,7 +311,7 @@ test.describe('tabbied package (component test page)', () => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const doodle = page.locator('#redraw-interval [data-artwork="radius"] css-doodle');
+    const doodle = page.locator('#redraw-interval [data-pattern="radius"] css-doodle');
     await expect(doodle).toBeAttached({ timeout: 15000 });
     await doodle.scrollIntoViewIfNeeded();
 

@@ -1,0 +1,840 @@
+/* ==========================================================================
+   SICHTBETON — fair-faced concrete consultancy, Zürich
+   The page is built like a formwork setting-out drawing: a coarse module, hard
+   square corners, tolerances flush right, and one safety orange that only ever
+   marks something that must be witnessed. Pattern fields run full width with
+   `transparent` in the background slot, so the grey paper is the concrete and
+   the pattern is what is cast into it.
+   ========================================================================== */
+
+.page {
+  --grey-p: #e9e9e6;
+  --ink: #131313;
+  --orange: #ff5a00;
+  --steel: #8b8b87;
+  --pale: #d3d3ce;
+  --gut: clamp(1.15rem, 4vw, 3.25rem);
+  --max: 80rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.014em;
+  background: var(--grey-p);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gut);
+  padding: 0.8rem var(--gut);
+  background: color-mix(in srgb, var(--grey-p) 91%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 3px solid var(--ink);
+}
+
+.mark {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.042em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.4vw, 2.2rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--orange);
+}
+
+.meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 10vw, 8rem) var(--gut) clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* subdivide at a very large cell reads as a panel layout drawn on the wall. */
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, #000 54%, transparent 100%);
+}
+
+.heroInner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(1.2rem, 4vw, 2.6rem);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--orange) 62%, var(--ink));
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6.8vw, 5rem);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.042em;
+}
+
+.hero /* The muted second line sits over the hero pattern; plain
+     var(--steel) measured under AA on the glyph pixels. */
+  h1 span {
+  color: color-mix(in srgb, var(--steel) 75%, var(--ink));
+}
+
+.lede {
+  margin: clamp(1.5rem, 4vw, 2.3rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(0.96rem, 1.55vw, 1.12rem);
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------- photography */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.bleed figcaption,
+.pair figcaption,
+.wide figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.bleed figcaption {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 0 var(--gut);
+}
+
+.pair {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.pair figure,
+.wide figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.wide {
+  margin: clamp(2.2rem, 5vw, 3.5rem) 0 0;
+}
+
+.wide img {
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+}
+
+/* ----------------------------------------------------------------- numbers */
+
+.numbers {
+  max-width: var(--max);
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.numbers div {
+  padding-top: 0.75rem;
+  border-top: 4px solid var(--ink);
+}
+
+.numbers dt {
+  font-size: clamp(1.3rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.042em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.numbers dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* --------------------------------------------------------------- headings */
+
+.h2 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.041em;
+}
+
+/* ----------------------------------------------------------------- classes */
+
+.classes,
+.trials {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1.5fr) minmax(0, 1.5fr) 9rem 6rem;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.thead {
+  border-top: 0 !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.cls {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+
+.use {
+  color: var(--ink);
+  font-weight: 550;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.none,
+.req {
+  justify-self: start;
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem;
+}
+
+.none {
+  color: var(--steel);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* Orange only ever marks something that has to be witnessed. */
+.req {
+  background: var(--orange);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- tie band
+   chase is a channelled design: at full strength on a transparent ground it
+   reads as the day-joint and tie grid running across the whole viewport. */
+
+.tieBand {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--grey-p);
+}
+
+.tieField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (22 × 120px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2640px;
+  height: 240px;
+  opacity: 0.92;
+}
+
+/* ------------------------------------------------------------------ checks */
+
+.checks {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.checksField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+}
+
+.checksField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 68% 60% at 50% 34%,
+    var(--grey-p) 0%,
+    color-mix(in srgb, var(--grey-p) 62%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+.checksInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.checkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.checkList li {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding-top: 0.85rem;
+  border-top: 3px solid var(--ink);
+}
+
+.chN {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.checkList h3 {
+  margin: 0;
+  font-size: 1.04rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.checkList p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  max-width: 32rem;
+}
+
+/* ------------------------------------------------------------------ trials */
+
+.trialGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height: 1.34;
+  letter-spacing: -0.03em;
+  max-width: 28rem;
+}
+
+.trialCol p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+/* ------------------------------------------------------------------ office */
+
+.office {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.officeField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.26;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 40%, transparent 60%, #000 100%);
+}
+
+.officeInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.contact div {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
+.contact dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 0.4rem;
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.contact a {
+  border-bottom: 3px solid var(--orange);
+}
+
+/* ------------------------------------------------------- expansion sections
+   The tiles are Tabbied patterns rather than photographs: each sits on a
+   transparent ground in a box with a fixed aspect ratio, so the derived grid
+   stays square and the motif is never stretched. */
+
+.tiles,
+.idx,
+.faq {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.tiles h2,
+.idx h2,
+.faq h2 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.secNote {
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.tilePlate {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 55%, var(--grey-p));
+  margin-bottom: 0.9rem;
+}
+
+.tileN {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.tileGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.03rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.tileBody {
+  margin: 0;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.idxList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.idxList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.6vw, 1.3rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.idxHead {
+  border-top: 0 !important;
+  font-size: 0.64rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--steel) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.idxList li > :first-child {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 0.96rem;
+}
+
+.idxList li > :last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--steel);
+}
+
+.faqList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.faqList dt {
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  margin-bottom: 0.5rem;
+  font-size: 0.99rem;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+
+.faqList dd {
+  margin: 0;
+  font-size: 0.89rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+@media (max-width: 900px) {
+  .tileGrid,
+  .faqList {
+    grid-template-columns: 1fr;
+  }
+
+  .idxList li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 0.2rem;
+  }
+
+  .idxHead {
+    display: none !important;
+  }
+
+  .idxList li > :nth-child(3) {
+    grid-column: 1 / -1;
+    font-size: 0.83rem;
+  }
+}
+
+/* ------------------------------------------------------------------ footer
+   Quiet by design: no wordmark at display size and no pattern field. Four
+   columns of plain links on one flat surface, with the fine print under a
+   hairline. The patterns have had the whole page to speak already. */
+
+.footer {
+  background: var(--ink);
+  color: var(--grey-p);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--grey-p) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--grey-p) 52%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--grey-p) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--orange);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--grey-p) 88%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--grey-p) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--grey-p) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--grey-p) 80%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--orange);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1000px) {
+  .numbers,
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .checkList,
+  .trialGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table li {
+    grid-template-columns: 4.5rem minmax(0, 1fr) 6rem;
+    row-gap: 0.2rem;
+  }
+
+  .thead {
+    display: none !important;
+  }
+
+  .table li > :nth-child(3) {
+    grid-column: 2 / 4;
+    font-size: 0.82rem;
+  }
+
+  .table li > :nth-child(4) {
+    grid-column: 2;
+    text-align: left;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .numbers,
+  .contact,
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wide img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 900px) {
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .tieBand {
+    height: 120px;
+  }
+
+  .tieField {
+    height: 120px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--grey-p);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
+  }
+}
+
+/* -------------------------------------------------------------- tile object
+   The cut-out sits on top of the tile's pattern rather than replacing it:
+   the pattern stays the ground, the object becomes the subject. */
+
+.tileObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.3));
+}

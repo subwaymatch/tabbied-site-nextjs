@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { hydrateArtworks } from 'tabbied';
-import { radius, symmetry } from 'tabbied/artworks';
+import { hydratePatterns } from 'tabbied';
+import { radius, symmetry } from 'tabbied/patterns';
 
 /**
  * The declarative mounting path, exercised the way a packaged HTML template
  * uses it: plain markup carrying its config in data-* attributes, brought to
- * life by one hydrateArtworks() call with no component involved.
+ * life by one hydratePatterns() call with no component involved.
  *
- * `root` is scoped to this section on purpose. The page's <TabbiedArtwork>
+ * `root` is scoped to this section on purpose. The page's <TabbiedPattern>
  * placeholders now serialize the same attributes, so an unscoped call would
  * find them too and mount a second controller on top of React's — which is
  * exactly the mistake the `root` option exists to prevent.
@@ -22,8 +22,8 @@ export function HydrateProbe() {
 
     if (!root) return;
 
-    const mounted = hydrateArtworks({
-      artworks: { radius, symmetry },
+    const mounted = hydratePatterns({
+      patterns: { radius, symmetry },
       root,
     });
 
@@ -35,7 +35,7 @@ export function HydrateProbe() {
       {/* Hand-written markup — no component, no props. */}
       <div
         id="hydrate-basic"
-        data-artwork="radius"
+        data-pattern="radius"
         data-seed="k9Pz"
         data-fit="grid"
         data-palette="#0B1020, #3E8BFF, #3FFFB2"
@@ -47,7 +47,7 @@ export function HydrateProbe() {
           data-options actually reached the controller. */}
       <div
         id="hydrate-options"
-        data-artwork="radius"
+        data-pattern="radius"
         data-seed="k9Pz"
         data-fit="fixed"
         data-options="grid: 4x6"
@@ -55,7 +55,7 @@ export function HydrateProbe() {
         data-height="360"
       />
       {/* An unknown slug must be skipped without taking the others down. */}
-      <div id="hydrate-unknown" data-artwork="notadesign" />
+      <div id="hydrate-unknown" data-pattern="notadesign" />
     </div>
   );
 }

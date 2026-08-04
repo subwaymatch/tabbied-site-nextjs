@@ -16,7 +16,7 @@
 // memorize, but the 222 slugs are opaque ("cleat", "gnomonwedge", "karst"), so
 // an assistant with no catalog either guesses a slug that doesn't exist or
 // imports the whole record and loses tree-shaking. The descriptions authored
-// in artworks/*.json are what make the set searchable.
+// in patterns/*.json are what make the set searchable.
 //
 // Run via `npm run llms` (part of prebuild/predev, after the package build).
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
@@ -55,11 +55,11 @@ const { designs, count, version } = catalog;
 
 const llms = `# Tabbied
 
-> Generative artworks as data: ${count} preset designs powered by css-doodle, shipped as the \`tabbied\` npm package (v${version}) — a framework-agnostic core plus an optional React component. Render any design at any size, reseed it, and export to PNG or true vector SVG.
+> Generative patterns as data: ${count} preset designs powered by css-doodle, shipped as the \`tabbied\` npm package (v${version}) — a framework-agnostic core plus an optional React component. Render any design at any size, reseed it, and export to PNG or true vector SVG.
 
 Install with \`npm install tabbied\`. React is an optional peer dependency, needed only for the \`tabbied/react\` entry point.
 
-Designs are referred to by slug and imported individually — \`import { radius } from 'tabbied/artworks'\` — so a bundler ships only what you use. Slugs are lowercase alphanumeric and are not guessable from a description: read the catalog below to choose one.
+Designs are referred to by slug and imported individually — \`import { radius } from 'tabbied/patterns'\` — so a bundler ships only what you use. Slugs are lowercase alphanumeric and are not guessable from a description: read the catalog below to choose one.
 
 ## Docs
 
@@ -96,25 +96,25 @@ React is an **optional** peer dependency (>=18 <20), needed only for
 
 | Import | Provides |
 | --- | --- |
-| \`tabbied\` | Framework-agnostic core: \`createArtwork\`, sizing/seed helpers, types. |
-| \`tabbied/react\` | The \`TabbiedArtwork\` component and its handle/prop types. |
-| \`tabbied/artworks\` | The presets. Import individually; the \`artworks\` record holds all ${count}. |
+| \`tabbied\` | Framework-agnostic core: \`createPattern\`, sizing/seed helpers, types. |
+| \`tabbied/react\` | The \`TabbiedPattern\` component and its handle/prop types. |
+| \`tabbied/patterns\` | The presets. Import individually; the \`patterns\` record holds all ${count}. |
 | \`tabbied/svg-export\` | \`doodleToSvg\`, the vector converter, for use on a doodle you manage. |
 | \`tabbied/catalog.json\` | This catalog as data. |
 
 ## React
 
 \`\`\`tsx
-import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+import { TabbiedPattern, type TabbiedPatternHandle } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 import { useRef } from 'react';
 
 export function Example() {
-  const ref = useRef<TabbiedArtworkHandle>(null);
+  const ref = useRef<TabbiedPatternHandle>(null);
 
   return (
     <>
-      <TabbiedArtwork ref={ref} artwork={radius} seed="k9Pz" height={320} />
+      <TabbiedPattern ref={ref} pattern={radius} seed="k9Pz" height={320} />
       <button onClick={() => ref.current?.redraw()}>Redraw</button>
       <button onClick={() => ref.current?.exportImage()}>Export PNG</button>
       <button onClick={() => ref.current?.exportSvg({ download: true })}>
@@ -129,8 +129,8 @@ export function Example() {
 
 | Prop | Description |
 | --- | --- |
-| \`artwork\` | An \`ArtworkDefinition\` — a preset from \`tabbied/artworks\`, or your own. Required. |
-| \`seed\` | Pattern seed. Omit for a random seed per mount; reseed via the handle. |
+| \`pattern\` | An \`PatternDefinition\` — a preset from \`tabbied/patterns\`, or your own. Required. |
+| \`seed\` | Randomization seed. Omit for a random seed per mount; reseed via the handle. |
 | \`palette\` | Active colors, background (\`color0\`) first. Defaults to the preset palette. |
 | \`options\` | Option values keyed by option id. Unset options use their authored default. |
 | \`fit\` | \`grid\`, \`cover\`, \`contain\`, or \`fixed\`. Optional — each design declares its own default (\`fit.default\` in the catalog). |
@@ -141,46 +141,46 @@ export function Example() {
 | \`coverRender\` | Render resolution for the \`cover\`/\`contain\` fits (default 800x800). |
 | \`redrawInterval\` | Re-randomize the seed every N ms. Off under \`prefers-reduced-motion\`; ticks drop while the tab is hidden or the box is off-screen. |
 | \`paused\` | Pause \`redrawInterval\` ticks. No effect unless \`redrawInterval\` is set. |
-| \`onReady\` | Fires once the artwork has been measured and first painted. |
+| \`onReady\` | Fires once the pattern has been measured and first painted. |
 
-The handle (\`TabbiedArtworkHandle\`) exposes \`redraw(seed?)\`,
+The handle (\`TabbiedPatternHandle\`) exposes \`redraw(seed?)\`,
 \`exportImage(options?)\`, \`exportSvg(options?)\`, and \`element\` — the raw
 \`<css-doodle>\` node.
 
 ## Sizing
 
-An artwork has no intrinsic size — it takes the size of the box you give it.
+A pattern has no intrinsic size — it takes the size of the box you give it.
 By default that box fills its containing block.
 
 \`\`\`tsx
 // Fill a sized parent.
-<div style={{ height: 400 }}><TabbiedArtwork artwork={radius} /></div>
+<div style={{ height: 400 }}><TabbiedPattern pattern={radius} /></div>
 
 // Cap the width and let the ratio set the height.
-<TabbiedArtwork artwork={radius} maxWidth={960} aspectRatio={3 / 2} />
+<TabbiedPattern pattern={radius} maxWidth={960} aspectRatio={3 / 2} />
 
 // Full-bleed banner.
-<TabbiedArtwork artwork={radius} height="40vh" />
+<TabbiedPattern pattern={radius} height="40vh" />
 \`\`\`
 
 **Gotchas that compile but render wrong:**
 
 - \`height: 100%\` (which \`fill\` sets) only resolves against a parent with a
-  **definite height**. In a parent that sizes to its content the artwork
+  **definite height**. In a parent that sizes to its content the pattern
   collapses — pass \`height\` or \`aspectRatio\` instead.
 - The React component is a **client component** (it registers a browser custom
   element on import). In the Next.js App Router, render it from a client
   boundary or rely on its built-in placeholder until it mounts.
 - Measured fits (\`grid\`, \`cover\`, \`contain\`) mount **asynchronously**, after
   the first ResizeObserver tick. With the core API, drive the controller from
-  \`onReady\`, not immediately after \`createArtwork()\`.
-- Requesting a fit an artwork can't support falls back to its default and warns.
+  \`onReady\`, not immediately after \`createPattern()\`.
+- Requesting a fit a pattern can't support falls back to its default and warns.
 - In a CSS grid, give tracks \`minmax(0, 1fr)\` rather than \`1fr\` so they can
   shrink when the container narrows.
 
 ### Fit modes
 
-No fit distorts the artwork — nothing is ever scaled by a different factor
+No fit distorts the pattern — nothing is ever scaled by a different factor
 horizontally than vertically.
 
 - \`grid\` (default for designs with a grid option) — re-derives the cell grid
@@ -203,8 +203,8 @@ control types: \`ButtonSelectGroup\` (one of \`values\`), \`Slider\` (a number
 within \`min\`/\`max\`), and \`ToggleSwitch\` (a boolean).
 
 \`\`\`tsx
-<TabbiedArtwork
-  artwork={radius}
+<TabbiedPattern
+  pattern={radius}
   palette={['#0B1020', '#3E8BFF', '#3FFFB2']}
   options={{ grid: '8x12', frequency: 0.6, shadow: true }}
 />
@@ -213,11 +213,11 @@ within \`min\`/\`max\`), and \`ToggleSwitch\` (a boolean).
 ## Core (framework-agnostic)
 
 \`\`\`ts
-import { createArtwork } from 'tabbied';
-import { radius } from 'tabbied/artworks';
+import { createPattern } from 'tabbied';
+import { radius } from 'tabbied/patterns';
 
-const controller = createArtwork(document.querySelector('#stage'), {
-  artwork: radius,
+const controller = createPattern(document.querySelector('#stage'), {
+  pattern: radius,
   seed: 'k9Pz',
   onReady: async () => {
     controller.redraw();
@@ -236,8 +236,8 @@ and its reduced-motion, tab-visibility and viewport gates live in the
 controller, so the vanilla API animates without reimplementing them.
 
 \`\`\`js
-const controller = createArtwork(host, {
-  artwork: radius,
+const controller = createPattern(host, {
+  pattern: radius,
   redrawInterval: 5200,
 });
 controller.update({ paused: true }); // holds the phase; resume with false
@@ -245,31 +245,31 @@ controller.update({ paused: true }); // holds the phase; resume with false
 
 ### Declarative mounting
 
-\`hydrateArtworks()\` reads a config off \`data-*\` attributes, so a static HTML
+\`hydratePatterns()\` reads a config off \`data-*\` attributes, so a static HTML
 page needs no build step and no component:
 
 \`\`\`html
-<div data-artwork="ortho" data-palette="transparent, #C9C8C1" data-fit="grid"
+<div data-pattern="ortho" data-palette="transparent, #C9C8C1" data-fit="grid"
      data-redraw-interval="5200" style="width:100%;height:60vh"></div>
 <script type="module">
-  import { hydrateArtworks } from 'https://esm.sh/tabbied';
-  import { artworks } from 'https://esm.sh/tabbied/artworks';
-  hydrateArtworks({ artworks });
+  import { hydratePatterns } from 'https://esm.sh/tabbied';
+  import { patterns } from 'https://esm.sh/tabbied/patterns';
+  hydratePatterns({ patterns });
 </script>
 \`\`\`
 
-Attributes: \`data-artwork\` (slug, required), \`data-seed\`, \`data-palette\`
+Attributes: \`data-pattern\` (slug, required), \`data-seed\`, \`data-palette\`
 (comma separated, background first), \`data-options\` (\`id: value\` pairs
 separated by \`;\`), \`data-fit\`, \`data-cell-size\`, \`data-density\`,
 \`data-width\`, \`data-height\`, \`data-cover-render\` (\`800x800\` or
 \`800x800+120\`), \`data-redraw-interval\`, \`data-paused\`. Option values are
-typed by the artwork's own metadata, so a numeric-looking
+typed by the pattern's own metadata, so a numeric-looking
 \`ButtonSelectGroup\` choice stays a string.
 
 Options: \`root\` (scope the search), \`selector\`, \`defaults\`, \`onError\`.
-Returns \`{ element, controller }\` per mounted artwork, and is idempotent.
-\`artworkConfigToAttributes()\` is the inverse — \`TabbiedArtwork\` uses it, so a
-server-rendered page already carries what \`hydrateArtworks\` reads. Don't use
+Returns \`{ element, controller }\` per mounted pattern, and is idempotent.
+\`patternConfigToAttributes()\` is the inverse — \`TabbiedPattern\` uses it, so a
+server-rendered page already carries what \`hydratePatterns\` reads. Don't use
 both on the same element.
 
 ## SVG export
@@ -280,7 +280,7 @@ elements, no \`<foreignObject>\`), resolving with
 The converter (~21 KB gzipped) is loaded on demand, so apps that never export
 pay nothing.
 
-Call \`supportsSvgExport(artwork)\` before offering the option: ${
+Call \`supportsSvgExport(pattern)\` before offering the option: ${
   designs.filter((design) => !design.svgExport.supported).length
 } designs paint
 smooth conic sweeps that SVG cannot represent and are marked unsupported below.
@@ -291,8 +291,8 @@ those to the user before downloading. Unsupported CSS throws
 
 ## Designs
 
-${count} presets. Import by slug from \`tabbied/artworks\`:
-\`import { <slug> } from 'tabbied/artworks'\`. Options, palettes, and per-design
+${count} presets. Import by slug from \`tabbied/patterns\`:
+\`import { <slug> } from 'tabbied/patterns'\`. Options, palettes, and per-design
 detail are in ${SITE}/catalog.json.
 
 Legend: \`[no SVG]\` cannot export to SVG; \`[SVG note]\` exports with a

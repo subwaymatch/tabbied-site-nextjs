@@ -4,10 +4,10 @@ Guidance for coding agents working in this repository.
 
 ## Repo layout & commands
 
-Tabbied: generative artworks built on css-doodle. npm workspaces — the
+Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 254 artwork
-presets as JSON in `packages/tabbied/artworks/`, embedded by codegen).
+`packages/tabbied/` (framework-free core + React wrapper + 254 pattern
+presets as JSON in `packages/tabbied/patterns/`, embedded by codegen).
 
 ```bash
 npm run dev                          # site (predev builds the package)
@@ -15,42 +15,42 @@ npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
-npm run templates [slug]             # package showcase(s) as HTML templates
+npm run templates [slug]             # package template site(s) for download
 ```
 
-## Showcase templates — derived from the export, never hand-ported
+## Downloadable templates — derived from the export, never hand-ported
 
-`npm run templates` (after `npm run build`) turns a showcase into a
-framework-free download in `out/templates/<slug>/` plus a zip. It reads the
+`npm run templates` (after `npm run build`) turns a template site into a
+framework-free download in `out/downloads/<slug>/` plus a zip. It reads the
 static export, so a template can never be staler than the page it came from —
 hand-porting is the trap the strategy doc rejects (see
 `agent-outputs/template-packaging-plan.md`).
 
 Two things it does *not* do, deliberately. It doesn't de-hash and un-minify the
-built CSS: each showcase already has one authored `<slug>.module.css` next to
+built CSS: each template already has one authored `<slug>.module.css` next to
 its page, and that clean, commented file is what ships — only the class names
 in the *HTML* are rewritten back to plain ones. And it doesn't hand-write the
 mount code: the placeholders already carry their config as `data-*` attributes
-(`TabbiedArtwork` serializes it via `artworkConfigToAttributes`), so one
-`hydrateArtworks()` call revives the whole page.
+(`TabbiedPattern` serializes it via `patternConfigToAttributes`), so one
+`hydratePatterns()` call revives the whole page.
 
 A site fails loudly rather than shipping broken: more than one CSS module on a
 page, two hashed names collapsing onto one plain name, or `composes:` (which
 has no plain-CSS equivalent without flattening — `hopscotch-museum` is the one
-known case, listed in `KNOWN_UNSUPPORTED`). The five legacy showcases that
-render through the shared `ShowcaseSite` component are excluded; they have no
+known case, listed in `KNOWN_UNSUPPORTED`). The five legacy templates that
+render through the shared `TemplateSite` component are excluded; they have no
 per-page stylesheet to ship. `e2e/templates.spec.ts` opens the generated
-template and asserts its artworks come up, which is what catches a template
+template and asserts its patterns come up, which is what catches a template
 that broke because a page changed.
 
 ## Agent-facing docs — all generated, never hand-edited
 
 Four build artifacts describe the catalog to tools that can't see the
-artworks. They're gitignored and regenerated on every build, so edit the
+patterns. They're gitignored and regenerated on every build, so edit the
 generators, not the output:
 
 - `packages/tabbied/catalog.json` — written by the package's
-  `scripts/codegen.mjs` from the same `artworks/*.json` it compiles, exported
+  `scripts/codegen.mjs` from the same `patterns/*.json` it compiles, exported
   as `tabbied/catalog.json`. Carries each design's description, palette,
   options, default fit, and SVG-export tier — but **not** the css-doodle
   `code`, which is what keeps it readable.
@@ -102,7 +102,7 @@ quantiser a whole cell.
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
 The native SVG exporter (`packages/tabbied/src/core/svgExport.ts`) converts
-rendered artworks to true vector SVG. Rules that must not regress:
+rendered patterns to true vector SVG. Rules that must not regress:
 
 - **Support tiers are metadata-driven.** `"svgExport": false` marks the 4
   designs SVG cannot represent (coil, spectrum, pinwheel, wedge — smooth
@@ -117,10 +117,10 @@ rendered artworks to true vector SVG. Rules that must not regress:
   dismiss) titled "About this SVG export" listing the active notes, with
   Cancel / Download SVG. No notes → download directly, no dialog.
 - **Fail loudly, never silently wrong**: unsupported CSS throws
-  `SvgExportUnsupportedError`. New artworks must either stay inside the
+  `SvgExportUnsupportedError`. New patterns must either stay inside the
   supported CSS subset, extend the converter, or set `svgExport: false`
   (+ note). Batches 11 and 12 are authored to be clean throughout and share
-  their lints (`scripts/artwork-gen/artwork-lints.mjs`) and their two gates
+  their lints (`scripts/pattern-gen/pattern-lints.mjs`) and their two gates
   (`svg-sweep.mjs`, `render-sweep.mjs`); a batch generator owns a *bounded*
   range of gallery orders and deletes anything in range it no longer defines.
   Verify with `node scripts/svg-parity-sweep.mjs <slug>` and keep

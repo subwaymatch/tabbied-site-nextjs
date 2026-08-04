@@ -1,20 +1,20 @@
 'use client';
 
 import { useRef } from 'react';
-import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+import { TabbiedPattern, type TabbiedPatternHandle } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 import styles from './ReactDocs.module.css';
 
 // Interactive companion to the "Reseed & export" section: a ref to the
 // component's handle drives redraw()/exportImage() from the buttons.
 export default function ReseedExportDemo() {
-  const ref = useRef<TabbiedArtworkHandle>(null);
+  const ref = useRef<TabbiedPatternHandle>(null);
 
   return (
     <div>
-      <TabbiedArtwork
+      <TabbiedPattern
         ref={ref}
-        artwork={radius}
+        pattern={radius}
         fit="cover"
         className={styles.demoArt}
         style={{ width: '100%', height: 280 }}

@@ -1,5 +1,5 @@
 // A curated, read-only palette library shown in the gallery rail and the
-// artwork editor. Unlike "Your Palettes" (user-defined, persisted in
+// pattern editor. Unlike "Your Palettes" (user-defined, persisted in
 // localStorage via lib/brandPalettes), these ship with the app: they can be
 // applied to preview every design in their colors, or copied into Your Palettes
 // with the "+" affordance (which mints a fresh, editable saved palette).
@@ -551,7 +551,7 @@ export const PALETTE_LIBRARY: LibraryPalette[] = [
 ];
 
 // The palette every gallery preview (and a freshly-opened editor) starts in.
-// The site no longer falls back to each artwork's own authored palette as the
+// The site no longer falls back to each pattern's own authored palette as the
 // default look; instead one curated library palette themes the whole gallery
 // until the visitor picks another. "Pop" is a white-background, six-color
 // spread of Tabbied's brand accents, so it reads cleanly across every design.

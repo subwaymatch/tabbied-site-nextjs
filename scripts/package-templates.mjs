@@ -1,7 +1,7 @@
-// Packages a showcase site as a downloadable, framework-free HTML template.
+// Packages a template site as a downloadable, framework-free HTML template.
 //
 // The static export is the source of truth: `next build` already renders every
-// showcase page to complete HTML, so a template is derived from that rather
+// template page to complete HTML, so a template is derived from that rather
 // than hand-ported. A hand-port is four artefacts per site to keep in step,
 // and within two edits the download and the live site disagree — see
 // agent-outputs/template-packaging-plan.md §1.
@@ -26,7 +26,7 @@
 // Usage:
 //   node scripts/package-templates.mjs                # every packageable site
 //   node scripts/package-templates.mjs werkraum       # one site
-//   node scripts/package-templates.mjs --out-dir dist/templates
+//   node scripts/package-templates.mjs --out-dir dist/downloads
 import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -37,11 +37,11 @@ const run = promisify(execFile);
 
 const repoRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const exportDir = path.join(repoRoot, 'out');
-const showcaseDir = path.join(repoRoot, 'app', 'showcase');
+const templateDir = path.join(repoRoot, 'app', 'template');
 const publicDir = path.join(repoRoot, 'public');
 const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 
-// The five legacy showcases render through the shared ShowcaseSite component
+// The five legacy templates render through the shared TemplateSite component
 // rather than a page of their own, so they have no per-page stylesheet to ship
 // and would drag that whole subsystem into a zip. They need a different
 // strategy; excluded rather than half-packaged.
@@ -101,11 +101,11 @@ const stripReactArtifacts = (html) =>
  * unrelated rules).
  */
 function dehashClassNames(html, slug) {
-  const pattern = /([A-Za-z0-9_-]+)-module__([A-Za-z0-9_]+)__([A-Za-z0-9_-]+)/g;
+  const hashedClass = /([A-Za-z0-9_-]+)-module__([A-Za-z0-9_]+)__([A-Za-z0-9_-]+)/g;
   const modules = new Set();
   const collisions = new Map();
 
-  for (const [, moduleName, hash, localName] of html.matchAll(pattern)) {
+  for (const [, moduleName, hash, localName] of html.matchAll(hashedClass)) {
     modules.add(`${moduleName}-module__${hash}__`);
 
     const seen = collisions.get(localName);
@@ -129,7 +129,7 @@ function dehashClassNames(html, slug) {
     );
   }
 
-  return html.replace(pattern, (_match, _moduleName, _hash, localName) =>
+  return html.replace(hashedClass, (_match, _moduleName, _hash, localName) =>
     localName
   );
 }
@@ -153,9 +153,9 @@ function rewriteImagePaths(html) {
   return { html: rewritten, used: [...used] };
 }
 
-/** The artwork slugs the page mounts, in first-appearance order. */
-const artworkSlugs = (html) => [
-  ...new Set([...html.matchAll(/data-artwork="([a-z0-9]+)"/g)].map((m) => m[1])),
+/** The pattern slugs the page mounts, in first-appearance order. */
+const patternSlugs = (html) => [
+  ...new Set([...html.matchAll(/data-pattern="([a-z0-9]+)"/g)].map((m) => m[1])),
 ];
 
 // ---- CSS -----------------------------------------------------------------
@@ -186,7 +186,7 @@ function prepareStylesheet(css, slug) {
 
 const README = (slug, name, version, slugs) => `# ${name}
 
-A Tabbied showcase, packaged as a plain HTML template. No build step, no
+A Tabbied template, packaged as a plain HTML template. No build step, no
 framework — open \`index.html\` in a browser and it runs.
 
 \`\`\`
@@ -204,11 +204,11 @@ The blocks of pattern are generated in the browser by
 that describes itself in \`data-\` attributes:
 
 \`\`\`html
-<div data-artwork="${slugs[0]}" data-palette="transparent, #C9C8C1"
+<div data-pattern="${slugs[0]}" data-palette="transparent, #C9C8C1"
      data-fit="grid" data-redraw-interval="5200"></div>
 \`\`\`
 
-Change \`data-palette\` to recolour it, \`data-artwork\` to swap the design
+Change \`data-palette\` to recolour it, \`data-pattern\` to swap the design
 (254 to choose from — see https://tabbied.com), \`data-seed\` to pin a
 particular arrangement, or drop \`data-redraw-interval\` to hold it still.
 The script at the bottom of \`index.html\` is what brings them to life; remove
@@ -229,20 +229,20 @@ Patterns by [Tabbied](https://tabbied.com) (tabbied@${version}), MIT licensed.
 `;
 
 const bootstrapScript = (version, slugs) => `
-    <!-- Brings the [data-artwork] blocks above to life. Pinned to a version so
+    <!-- Brings the [data-pattern] blocks above to life. Pinned to a version so
          the template keeps rendering the way it looked when you downloaded it. -->
     <script type="module">
-      import { hydrateArtworks } from 'https://esm.sh/tabbied@${version}';
+      import { hydratePatterns } from 'https://esm.sh/tabbied@${version}';
       import { ${slugs.join(
         ', '
-      )} } from 'https://esm.sh/tabbied@${version}/artworks';
+      )} } from 'https://esm.sh/tabbied@${version}/patterns';
 
-      hydrateArtworks({ artworks: { ${slugs.join(', ')} } });
+      hydratePatterns({ patterns: { ${slugs.join(', ')} } });
     </script>
 `;
 
 async function packageSite(slug, outDir, version) {
-  const source = path.join(exportDir, 'showcase', slug, 'index.html');
+  const source = path.join(exportDir, 'template', slug, 'index.html');
 
   let html;
 
@@ -255,10 +255,10 @@ async function packageSite(slug, outDir, version) {
     );
   }
 
-  const slugs = artworkSlugs(html);
+  const slugs = patternSlugs(html);
 
   if (slugs.length === 0) {
-    throw new Error(`${slug}: no [data-artwork] elements in the export.`);
+    throw new Error(`${slug}: no [data-pattern] elements in the export.`);
   }
 
   html = stripReactArtifacts(stripSiteChrome(stripNextRuntime(html)));
@@ -285,7 +285,7 @@ async function packageSite(slug, outDir, version) {
   await fs.copyFile(globalsCss, path.join(siteDir, 'styles', 'base.css'));
 
   const authoredCss = await fs.readFile(
-    path.join(showcaseDir, slug, `${slug}.module.css`),
+    path.join(templateDir, slug, `${slug}.module.css`),
     'utf-8'
   );
   await fs.writeFile(
@@ -315,7 +315,7 @@ async function packageSite(slug, outDir, version) {
 
   const { size } = await fs.stat(path.join(outDir, zipName));
 
-  return { slug, artworks: slugs.length, images: images.used.length, size };
+  return { slug, patterns: slugs.length, images: images.used.length, size };
 }
 
 // ---- cli -----------------------------------------------------------------
@@ -324,7 +324,10 @@ const args = process.argv.slice(2);
 const outDirIndex = args.indexOf('--out-dir');
 const outDir = path.resolve(
   repoRoot,
-  outDirIndex === -1 ? 'out/templates' : args[outDirIndex + 1]
+  // Not out/templates: that is now the exported /templates route, and a site
+  // slug landing next to its index.html would be a collision waiting to
+  // happen. /downloads/<slug>-html.zip is the public URL anyway.
+  outDirIndex === -1 ? 'out/downloads' : args[outDirIndex + 1]
 );
 // Positional args are slugs. A flag's value is not one.
 const flagValueIndexes = new Set(
@@ -350,7 +353,7 @@ const version =
         )
       ).version;
 
-const packageable = (await fs.readdir(showcaseDir, { withFileTypes: true }))
+const packageable = (await fs.readdir(templateDir, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory() && !SHARED_COMPONENT_SITES.has(entry.name))
   .map((entry) => entry.name)
   .sort();
@@ -378,7 +381,7 @@ for (const slug of targets) {
     const result = await packageSite(slug, outDir, version);
     written += 1;
     console.log(
-      `package-templates: ${result.slug} — ${result.artworks} artwork(s), ` +
+      `package-templates: ${result.slug} — ${result.patterns} pattern(s), ` +
         `${result.images} image(s), ${(result.size / 1024).toFixed(0)} KB zip`
     );
   } catch (error) {
