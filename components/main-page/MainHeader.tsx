@@ -32,7 +32,7 @@ type NavItem = { href: string; label: string; external?: boolean };
 
 const navItems: NavItem[] = [
   { href: '/patterns', label: 'Browse Patterns' },
-  { href: '/templates', label: 'Template' },
+  { href: '/templates', label: 'Templates' },
   { href: '/docs/react', label: 'Docs' },
 ];
 

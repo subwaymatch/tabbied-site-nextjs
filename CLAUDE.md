@@ -15,18 +15,44 @@ npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
-npm run templates [slug]             # package template site(s) for download
+npm run templates [slug]             # repackage template site(s) by hand
 ```
 
 ## Downloadable templates — derived from the export, never hand-ported
 
-`npm run templates` (**after** `npm run build`, never before — it reads the
-export, and `next build` wipes `out/`) writes two downloads per site into
-`out/downloads/`: `<slug>-html.zip` and `<slug>-react.zip`. The `/templates`
-gallery links to both from every card, so a dead button means the packager
-skipped that site. `out` is in tsconfig's `exclude` because the React packages
-contain their own `vite.config.ts`, which the site's typecheck would otherwise
-try to compile.
+`npm run templates` writes two downloads per site — `<slug>-html.zip` and
+`<slug>-react.zip` — plus the folders they were zipped from. The `/templates`
+gallery links to both formats from every card, so a dead button means the
+packager skipped that site. Both `out` and `public/downloads` are in
+tsconfig's `exclude` because the React packages contain their own
+`vite.config.ts`, which the site's typecheck would otherwise try to compile —
+and in `public/downloads` that isn't hypothetical: it fails the second pass.
+
+**`npm run build` is two `next build` passes with the packager between them**,
+and that shape is forced by both ends of the problem:
+
+- The packager *reads* the export, so it can only run after a build. It has no
+  framework-free source to copy from — deriving from the export is the whole
+  strategy (see `agent-outputs/template-packaging-plan.md`).
+- The deploy has to *ship* what it writes, and on Vercel writing into `out/`
+  afterwards is too late. The Next.js builder patches the config ("Applying
+  modifyConfig from Vercel" in the build log) and captures the export during
+  `next build`: a `postbuild` step packaged all 57 sites green on Vercel and
+  all 114 buttons still 404ed, because the files existed on the build machine
+  and were never uploaded. Mirroring into `.vercel/output/static` doesn't work
+  either — it isn't there yet when the build command is still running.
+
+So the packager writes into `public/downloads/`, and the second pass exports
+that folder like any other static asset. Nothing about the host is assumed;
+it is just Next copying `public/`. The zips are gitignored (~106 MB), so the
+deploy's own build is the only thing that ever produces the `/downloads/*.zip`
+the site links to — which is why this is wired into `build` rather than left
+to be remembered.
+
+Run `npm run templates [slug]` by hand to repackage into `out/downloads/`
+without rebuilding (that is where the e2e suite looks). Packaging everything
+wipes the target folder first, so a retired site can't linger in the deploy;
+naming a slug repackages just that one in place.
 
 The two formats are built in opposite directions, and that is the point:
 

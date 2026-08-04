@@ -860,6 +860,14 @@ const packageable = (await fs.readdir(templateDir, { withFileTypes: true }))
 
 const targets = requested.length > 0 ? requested : packageable;
 
+// Packaging everything owns the whole folder, so a site that has since been
+// renamed or retired doesn't linger in it. This matters on the deploy path,
+// where the folder is `public/downloads` and `next build` copies whatever is
+// in it into the export. Naming a slug repackages just that one, in place.
+if (requested.length === 0) {
+  await fs.rm(outDir, { recursive: true, force: true });
+}
+
 await fs.mkdir(outDir, { recursive: true });
 
 let written = 0;
@@ -900,6 +908,7 @@ console.log(
     (skipped > 0 ? `, skipped ${skipped} known-unsupported` : '') +
     (failed > 0 ? `, ${failed} FAILED` : '')
 );
+
 
 // Only unexpected failures are fatal — the known-unsupported set is skipped
 // above, so this stays safe to run as part of a build.
