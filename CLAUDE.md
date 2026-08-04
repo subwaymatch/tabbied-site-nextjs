@@ -32,6 +32,15 @@ so a dead button means the packager skipped that site. `out` is in tsconfig's
 `exclude` because the React packages contain their own `vite.config.ts`, which
 the site's typecheck would otherwise try to compile.
 
+Writing to `out/` is enough everywhere except the host we deploy to. Vercel's
+Next.js builder patches the config ("Applying modifyConfig from Vercel" in the
+build log) and seals the deployment's static root *during* `next build`, so a
+postbuild step writing into `out/` is already too late: the packager ran green
+on Vercel and all 114 buttons still 404ed. `mirrorIntoVercelOutput` therefore
+copies the finished folder into the Build Output API's static root, guarded by
+that directory existing — a no-op locally, in CI, and on any other host, where
+the export is uploaded after the build command finishes.
+
 The two formats are built in opposite directions, and that is the point:
 
 - **HTML is derived from the export**, because there is no framework-free
