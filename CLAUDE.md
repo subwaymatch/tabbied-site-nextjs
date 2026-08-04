@@ -37,11 +37,36 @@ mount code: the placeholders already carry their config as `data-*` attributes
 A site fails loudly rather than shipping broken: more than one CSS module on a
 page, two hashed names collapsing onto one plain name, or `composes:` (which
 has no plain-CSS equivalent without flattening — `hopscotch-museum` is the one
-known case, listed in `KNOWN_UNSUPPORTED`). The five legacy templates that
-render through the shared `TemplateSite` component are excluded; they have no
-per-page stylesheet to ship. `e2e/templates.spec.ts` opens the generated
-template and asserts its patterns come up, which is what catches a template
-that broke because a page changed.
+known case, listed in `KNOWN_UNSUPPORTED`). 56 of the 57 sites package.
+
+**Two stylesheet paths, and they fail differently.** A site with its own
+`<slug>.module.css` ships it byte-for-byte. The five built on the shared
+`TemplateSite` component have no per-page sheet, so the component's is shipped
+trimmed by `trimUnusedRules` to the rules the page can actually match (~45% of
+it is other sites' layout kits). The trim is conservative — a rule goes only
+when it names a class the page doesn't have, and a selector with no class at
+all is always kept — and it is safe only because the packaged page has no
+framework left to add a class after load.
+
+Two traps that trimmer already fell into, both silent:
+
+- **Comments containing braces.** This codebase documents its CSS heavily and
+  one comment contains a literal `{ color: inherit }` as an example. Counted
+  naively that desynchronises brace depth for the rest of the file, so the
+  walker skips comments when scanning. Do not "simplify" it back to
+  `indexOf('{')`.
+- **Comments containing class names**, which poison the selector parsed out of
+  the prelude. The selector is taken with comments stripped; they are put back
+  on the way out so the shipped sheet stays documented.
+
+`e2e/templates.spec.ts` covers one site of each kind and asserts every class
+the markup uses survives into the stylesheet. Note it navigates to
+`/downloads/<slug>/` **with the trailing slash**: `serve` rewrites
+`<dir>/index.html` to an extensionless `<dir>`, and every relative asset then
+resolves a level too high and 404s — which once had this spec passing against
+a completely unstyled page. What actually proves a template is the pixel diff
+against its live page (see the packaging commit); the spec is the cheap guard
+that runs every time.
 
 ## Agent-facing docs — all generated, never hand-edited
 

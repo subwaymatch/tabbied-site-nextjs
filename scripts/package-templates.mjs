@@ -41,18 +41,6 @@ const templateDir = path.join(repoRoot, 'app', 'template');
 const publicDir = path.join(repoRoot, 'public');
 const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 
-// The five legacy templates render through the shared TemplateSite component
-// rather than a page of their own, so they have no per-page stylesheet to ship
-// and would drag that whole subsystem into a zip. They need a different
-// strategy; excluded rather than half-packaged.
-const SHARED_COMPONENT_SITES = new Set([
-  'solstice',
-  'verdant',
-  'ember-and-oak',
-  'facet',
-  'nocturne',
-]);
-
 // Sites the packager knowingly can't handle yet. Listed (rather than left to
 // fail) so a *new* failure is a real signal: anything not in here that throws
 // exits non-zero, which is what makes this safe to wire into a build.
@@ -129,9 +117,51 @@ function dehashClassNames(html, slug) {
     );
   }
 
-  return html.replace(hashedClass, (_match, _moduleName, _hash, localName) =>
-    localName
+  return {
+    html: html.replace(hashedClass, (_m, _module, _hash, localName) => localName),
+    // Which module the page's classes came from, and which of its classes the
+    // page actually uses — both needed to pick and trim the stylesheet.
+    moduleName: [...modules][0]?.replace(/-module__[A-Za-z0-9_]+__$/, '') ?? null,
+    usedClasses: new Set(collisions.keys()),
+  };
+}
+
+/**
+ * The stylesheet to ship, and whether it is this page's own.
+ *
+ * Most sites have an authored `<slug>.module.css` next to their page — that
+ * file ships verbatim, comments and all. The five sites built on the shared
+ * TemplateSite component have no per-page sheet; they use the component's,
+ * which is shipped trimmed to what the page can match (see trimUnusedRules).
+ */
+async function resolveStylesheet(slug, moduleName) {
+  const own = path.join(templateDir, slug, `${slug}.module.css`);
+
+  try {
+    return { css: await fs.readFile(own, 'utf-8'), shared: false };
+  } catch {
+    // Fall through to the shared component sheet the page's classes came from.
+  }
+
+  if (!moduleName) {
+    throw new Error(`${slug}: no CSS module on the page and no ${slug}.module.css`);
+  }
+
+  const sharedPath = path.join(
+    repoRoot,
+    'components',
+    'template',
+    `${moduleName}.module.css`
   );
+
+  try {
+    return { css: await fs.readFile(sharedPath, 'utf-8'), shared: true };
+  } catch {
+    throw new Error(
+      `${slug}: page uses ${moduleName}.module.css, which isn't at ` +
+        `${path.relative(repoRoot, sharedPath)}`
+    );
+  }
 }
 
 /**
@@ -180,6 +210,115 @@ function prepareStylesheet(css, slug) {
   }
 
   return css.replace(/:global\(([^)]*)\)/g, '$1');
+}
+
+/**
+ * Drop rules that can never match the page.
+ *
+ * Only needed for the five sites that share TemplateSite.module.css: a
+ * stylesheet written for every site in that collection carries ~45% rules for
+ * layout kits the page in hand doesn't use, and shipping those in a download
+ * called "this page's stylesheet" is misleading. A site with its own authored
+ * sheet uses 100% of it and is left byte-for-byte alone.
+ *
+ * Conservative by construction: a rule is dropped only when it names at least
+ * one class AND some class it needs is absent from the page. A selector with
+ * no class at all (`html`, `:root`, `a:hover`) is always kept, because whether
+ * it matches can't be decided from the class list. Selector lists are filtered
+ * per-selector, so `.used, .dead` keeps `.used`.
+ *
+ * Safe here specifically because the packaged page has no framework: the only
+ * script left is the pattern bootstrap, which sets inline styles, never
+ * classes. Nothing can add a class after load. The pixel diff against the live
+ * page is what proves it for real.
+ */
+function trimUnusedRules(css, usedClasses) {
+  // Every class the selector requires. `.a.b .c:hover::after` -> a, b, c.
+  const classesIn = (selector) =>
+    [...selector.matchAll(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g)].map((m) => m[1]);
+
+  const keepSelector = (selector) => {
+    const classes = classesIn(selector);
+    return classes.length === 0 || classes.every((c) => usedClasses.has(c));
+  };
+
+  // Scanning has to skip comments, not just count braces. This codebase
+  // documents its CSS heavily and at least one comment contains a literal
+  // `{ color: inherit }` as an example — counted naively, that desynchronises
+  // the brace depth for the rest of the file and the output is silently wrong.
+  const COMMENT = /\/\*[\s\S]*?\*\//g;
+
+  // Index of the next `char` at top level, ignoring anything inside a comment.
+  const scan = (source, from, chars) => {
+    let index = from;
+
+    while (index < source.length) {
+      if (source[index] === '/' && source[index + 1] === '*') {
+        const close = source.indexOf('*/', index + 2);
+        index = close === -1 ? source.length : close + 2;
+        continue;
+      }
+      if (chars.includes(source[index])) return index;
+      index += 1;
+    }
+
+    return -1;
+  };
+
+  const walk = (source) => {
+    let out = '';
+    let index = 0;
+
+    while (index < source.length) {
+      const brace = scan(source, index, '{');
+
+      if (brace === -1) {
+        out += source.slice(index);
+        break;
+      }
+
+      // Match the block this brace opens, comments excepted.
+      let depth = 1;
+      let end = brace + 1;
+      while (end < source.length && depth > 0) {
+        const next = scan(source, end, '{}');
+        if (next === -1) { end = source.length; break; }
+        depth += source[next] === '{' ? 1 : -1;
+        end = next + 1;
+      }
+
+      const prelude = source.slice(index, brace);
+      const body = source.slice(brace + 1, end - 1);
+      // The selector is the prelude minus the comments sitting above it.
+      const selectorText = prelude.replace(COMMENT, '').trim();
+
+      if (/^@(media|supports|container|layer)/.test(selectorText)) {
+        const inner = walk(body);
+        // An at-rule whose every child was dropped goes with them.
+        if (inner.trim()) out += `${prelude}{${inner}}`;
+      } else if (selectorText.startsWith('@')) {
+        out += `${prelude}{${body}}`; // @font-face, @keyframes: keep whole
+      } else {
+        const kept = selectorText
+          .split(',')
+          .map((part) => part.trim())
+          .filter(Boolean)
+          .filter(keepSelector);
+
+        if (kept.length) {
+          // Keep the comments that documented this rule.
+          const comments = (prelude.match(COMMENT) ?? []).join('\n');
+          out += `\n${comments ? comments + '\n' : ''}${kept.join(',\n')} {${body}}\n`;
+        }
+      }
+
+      index = end;
+    }
+
+    return out;
+  };
+
+  return walk(css);
 }
 
 // ---- emit ----------------------------------------------------------------
@@ -262,7 +401,10 @@ async function packageSite(slug, outDir, version) {
   }
 
   html = stripReactArtifacts(stripSiteChrome(stripNextRuntime(html)));
-  html = dehashClassNames(html, slug);
+
+  const dehashed = dehashClassNames(html, slug);
+  const { moduleName, usedClasses } = dehashed;
+  html = dehashed.html;
 
   const images = rewriteImagePaths(html);
   html = images.html;
@@ -284,14 +426,18 @@ async function packageSite(slug, outDir, version) {
   await fs.writeFile(path.join(siteDir, 'index.html'), html);
   await fs.copyFile(globalsCss, path.join(siteDir, 'styles', 'base.css'));
 
-  const authoredCss = await fs.readFile(
-    path.join(templateDir, slug, `${slug}.module.css`),
-    'utf-8'
-  );
-  await fs.writeFile(
-    path.join(siteDir, 'styles', `${slug}.css`),
-    prepareStylesheet(authoredCss, slug)
-  );
+  const stylesheet = await resolveStylesheet(slug, moduleName);
+  let siteCss = prepareStylesheet(stylesheet.css, slug);
+
+  if (stylesheet.shared) {
+    // A sheet written for a whole collection carries rules for layout kits
+    // this page never uses. Ship what this page can actually match.
+    const before = siteCss.length;
+    siteCss = trimUnusedRules(siteCss, usedClasses);
+    stylesheet.trimmedPercent = Math.round((1 - siteCss.length / before) * 100);
+  }
+
+  await fs.writeFile(path.join(siteDir, 'styles', `${slug}.css`), siteCss);
 
   for (const relativePath of images.used) {
     await fs.copyFile(
@@ -315,7 +461,13 @@ async function packageSite(slug, outDir, version) {
 
   const { size } = await fs.stat(path.join(outDir, zipName));
 
-  return { slug, patterns: slugs.length, images: images.used.length, size };
+  return {
+    slug,
+    patterns: slugs.length,
+    images: images.used.length,
+    size,
+    sharedCss: stylesheet.shared ? stylesheet.trimmedPercent : null,
+  };
 }
 
 // ---- cli -----------------------------------------------------------------
@@ -354,7 +506,7 @@ const version =
       ).version;
 
 const packageable = (await fs.readdir(templateDir, { withFileTypes: true }))
-  .filter((entry) => entry.isDirectory() && !SHARED_COMPONENT_SITES.has(entry.name))
+  .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .sort();
 
@@ -382,7 +534,10 @@ for (const slug of targets) {
     written += 1;
     console.log(
       `package-templates: ${result.slug} — ${result.patterns} pattern(s), ` +
-        `${result.images} image(s), ${(result.size / 1024).toFixed(0)} KB zip`
+        `${result.images} image(s), ${(result.size / 1024).toFixed(0)} KB zip` +
+        (result.sharedCss !== null
+          ? ` (shared stylesheet, ${result.sharedCss}% trimmed)`
+          : '')
     );
   } catch (error) {
     failed += 1;

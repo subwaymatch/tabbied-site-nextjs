@@ -15,7 +15,19 @@ import path from 'node:path';
 
 const REPO_ROOT = path.join(__dirname, '..');
 const PACKAGE_DIR = path.join(REPO_ROOT, 'packages', 'tabbied');
-const TEMPLATE_DIR = path.join(REPO_ROOT, 'out', 'downloads', 'werkraum');
+const dirFor = (slug: string) =>
+  path.join(REPO_ROOT, 'out', 'downloads', slug);
+
+// Two sites, because the packager has two stylesheet paths and they fail
+// differently. werkraum has its own authored `<slug>.module.css`, which ships
+// verbatim. solstice is one of the five built on the shared TemplateSite
+// component: it has no per-page sheet, so the component's is shipped trimmed
+// to the rules the page can actually match — a transform with real room to be
+// silently wrong, which is why it is covered here too.
+const FIXTURES = [
+  { slug: 'werkraum', shared: false, patterns: 8, hero: 'werkraum-hero.webp' },
+  { slug: 'solstice', shared: true, patterns: 4, hero: null },
+] as const;
 
 // The template pins its bootstrap to the published package on esm.sh. Serving
 // this branch's built dist in its place keeps the test deterministic and
@@ -37,10 +49,13 @@ const distFileFor = (url: string): string | null => {
   return fs.existsSync(file) ? file : null;
 };
 
-test.describe('packaged HTML template', () => {
+for (const fixture of FIXTURES) {
+  const TEMPLATE_DIR = dirFor(fixture.slug);
+
+  test.describe(`packaged HTML template (${fixture.slug})`, () => {
   test.skip(
     !fs.existsSync(path.join(TEMPLATE_DIR, 'index.html')),
-    'run `node scripts/package-templates.mjs werkraum` first'
+    `run \`node scripts/package-templates.mjs ${fixture.slug}\` first`
   );
 
   test('opens standalone and brings its patterns up', async ({ page }) => {
@@ -83,11 +98,16 @@ test.describe('packaged HTML template', () => {
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
 
-    // Served by `npm start` (serve out) alongside the site itself.
-    await page.goto('/downloads/werkraum/index.html');
+    // The directory form, with the trailing slash, on purpose. `serve`
+    // rewrites `<dir>/index.html` to an extensionless `<dir>` — no trailing
+    // slash — and every relative asset in the template then resolves one
+    // level too high and 404s. The template is fine (opened from disk, or
+    // served by anything that doesn't do that rewrite); the URL is what has
+    // to be right here, or this spec silently tests an unstyled page.
+    await page.goto(`/downloads/${fixture.slug}/`);
 
     const hosts = page.locator('[data-pattern]');
-    await expect(hosts).toHaveCount(8);
+    await expect(hosts).toHaveCount(fixture.patterns);
 
     // Every placeholder gets a live element, and they paint.
     await expect
@@ -95,7 +115,7 @@ test.describe('packaged HTML template', () => {
         () => page.locator('[data-pattern] css-doodle').count(),
         { timeout: 20000 }
       )
-      .toBe(8);
+      .toBe(fixture.patterns);
 
     await expect
       .poll(
@@ -129,22 +149,48 @@ test.describe('packaged HTML template', () => {
     expect(html).not.toMatch(/<!--\/?\$[!?]?-->/);
     expect(html).not.toContain('data-precedence');
 
-    // Plain class names the shipped stylesheet actually defines.
-    expect(html).toContain('class="page"');
-
     // Assets are relative, so the folder works opened from disk.
     expect(html).not.toMatch(/(?:src|href)="\/images\//);
-    expect(html).toContain('./images/werkraum-hero.webp');
-    expect(html).toContain('./styles/werkraum.css');
+    if (fixture.hero) expect(html).toContain(`./images/${fixture.hero}`);
+    expect(html).toContain(`./styles/${fixture.slug}.css`);
 
-    // The stylesheet is the authored source — comments intact, not minified.
     const css = fs.readFileSync(
-      path.join(TEMPLATE_DIR, 'styles', 'werkraum.css'),
+      path.join(TEMPLATE_DIR, 'styles', `${fixture.slug}.css`),
       'utf-8'
     );
-    expect(css).toContain('/* ===');
-    expect(css).toMatch(/^\.page \{$/m);
+
+    // Readable, not minified, and free of CSS-modules-only syntax.
+    expect(css).toContain('/*');
     expect(css).not.toContain(':global(');
+    expect(css).not.toContain('composes:');
+
+    // Every class the markup uses must survive into the stylesheet —
+    // this is what the trim could get wrong on a shared sheet.
+    const declared = new Set(
+      [...css.matchAll(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g)].map((m) => m[1])
+    );
+    const onPage = new Set<string>();
+    for (const attr of html.matchAll(/class="([^"]*)"/g)) {
+      for (const name of attr[1].split(/\s+/)) if (name) onPage.add(name);
+    }
+    // Two sets of class names are hooks rather than styles: lucide's own
+    // icon classes, and the `figure`/`figure--cutout` markers the Figure
+    // component puts on every image for pages that want to target them.
+    // A page that styles neither is not missing anything.
+    const HOOKS = new Set(['figure', 'figure--cutout']);
+    const orphans = [...onPage].filter(
+      (name) =>
+        !declared.has(name) && !name.startsWith('lucide') && !HOOKS.has(name)
+    );
+    expect(orphans, `classes used by the page but absent from its stylesheet`)
+      .toEqual([]);
+
+    // Braces balance — the trim walks the sheet by hand, and a comment
+    // containing a literal `{` once desynchronised it.
+    const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
+    expect((withoutComments.match(/\{/g) ?? []).length).toBe(
+      (withoutComments.match(/\}/g) ?? []).length
+    );
 
     // Every image the page references was copied in.
     for (const match of html.matchAll(/\.\/images\/([^"']+)/g)) {
@@ -154,6 +200,7 @@ test.describe('packaged HTML template', () => {
       ).toBe(true);
     }
 
-    await page.goto('/downloads/werkraum/index.html');
+    await page.goto(`/downloads/${fixture.slug}/`);
   });
-});
+  });
+}
