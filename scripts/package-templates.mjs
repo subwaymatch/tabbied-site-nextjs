@@ -41,12 +41,11 @@ const templateDir = path.join(repoRoot, 'app', 'template');
 const publicDir = path.join(repoRoot, 'public');
 const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 
-// Sites the packager knowingly can't handle yet. Listed (rather than left to
+// Sites the packager knowingly can't handle. Listed (rather than left to
 // fail) so a *new* failure is a real signal: anything not in here that throws
 // exits non-zero, which is what makes this safe to wire into a build.
-const KNOWN_UNSUPPORTED = new Map([
-  ['hopscotch-museum', 'stylesheet uses `composes:` (needs flattening)'],
-]);
+// Currently empty — all 57 sites package.
+const KNOWN_UNSUPPORTED = new Map();
 
 // ---- HTML surgery --------------------------------------------------------
 
@@ -201,15 +200,61 @@ const patternSlugs = (html) => [
  * folded in, or the composed class added to the markup), so a site using it
  * fails here rather than shipping a stylesheet that quietly loses rules.
  */
-function prepareStylesheet(css, slug) {
-  if (/^\s*composes\s*:/m.test(css)) {
-    throw new Error(
-      `${slug}: stylesheet uses \`composes:\`, which has no plain-CSS ` +
-        `equivalent without flattening. Not yet supported by the packager.`
-    );
+function prepareStylesheet(css, slug, usedClasses) {
+  return dropComposes(css, slug, usedClasses).replace(
+    /:global\(([^)]*)\)/g,
+    '$1'
+  );
+}
+
+/**
+ * Remove `composes:` declarations, having checked they were already resolved.
+ *
+ * `composes` needs no flattening here, which is easy to get wrong: CSS Modules
+ * resolves a local `composes` in the *markup*, not the stylesheet. A rule
+ * `.h2Light { composes: h2 }` compiles to `class="…__h2Light …__h2"` on every
+ * element that used it, and both rules are already in the sheet. So the
+ * declaration is inert — it is simply not valid CSS outside the pipeline, and
+ * dropping it leaves rendering untouched.
+ *
+ * That is a premise about the build's output, so it is verified rather than
+ * assumed: if a page uses the composing class but its markup never picked up
+ * the composed one, the assumption is wrong for that site and it fails here.
+ * `composes: x from './other.css'` would pull in a second module, which the
+ * one-module check in dehashClassNames already rejects before this runs.
+ */
+function dropComposes(css, slug, usedClasses) {
+  const problems = [];
+
+  // Rules with a `composes` are simple single-class blocks by definition —
+  // CSS Modules rejects anything else — so a nesting-free block match is safe.
+  const out = css.replace(
+    /\.([A-Za-z0-9_-]+)([^{}]*)\{([^{}]*)\}/g,
+    (rule, className, _rest, body) => {
+      const declarations = [...body.matchAll(/composes\s*:\s*([^;}]+)/g)];
+
+      if (declarations.length === 0) return rule;
+
+      for (const [, value] of declarations) {
+        for (const composed of value.trim().split(/\s+/)) {
+          if (usedClasses.has(className) && !usedClasses.has(composed)) {
+            problems.push(
+              `.${className} composes .${composed}, but the markup carries ` +
+                `only .${className} — the build did not resolve it`
+            );
+          }
+        }
+      }
+
+      return rule.replace(/[ \t]*composes\s*:[^;}]+;?\n?/g, '');
+    }
+  );
+
+  if (problems.length > 0) {
+    throw new Error(`${slug}: ${problems.join('; ')}`);
   }
 
-  return css.replace(/:global\(([^)]*)\)/g, '$1');
+  return out;
 }
 
 /**
@@ -427,7 +472,7 @@ async function packageSite(slug, outDir, version) {
   await fs.copyFile(globalsCss, path.join(siteDir, 'styles', 'base.css'));
 
   const stylesheet = await resolveStylesheet(slug, moduleName);
-  let siteCss = prepareStylesheet(stylesheet.css, slug);
+  let siteCss = prepareStylesheet(stylesheet.css, slug, usedClasses);
 
   if (stylesheet.shared) {
     // A sheet written for a whole collection carries rules for layout kits

@@ -26,18 +26,27 @@ static export, so a template can never be staler than the page it came from —
 hand-porting is the trap the strategy doc rejects (see
 `agent-outputs/template-packaging-plan.md`).
 
-Two things it does *not* do, deliberately. It doesn't de-hash and un-minify the
-built CSS: each template already has one authored `<slug>.module.css` next to
-its page, and that clean, commented file is what ships — only the class names
-in the *HTML* are rewritten back to plain ones. And it doesn't hand-write the
-mount code: the placeholders already carry their config as `data-*` attributes
+Two things it does *not* do, deliberately. It doesn't de-hash and un-minify
+the built CSS: the authored `.module.css` is already the clean, commented
+stylesheet a person should edit, so that ships and only the class names in the
+*HTML* are rewritten back to plain ones. And it doesn't hand-write the mount
+code: the placeholders already carry their config as `data-*` attributes
 (`TabbiedPattern` serializes it via `patternConfigToAttributes`), so one
 `hydratePatterns()` call revives the whole page.
 
 A site fails loudly rather than shipping broken: more than one CSS module on a
-page, two hashed names collapsing onto one plain name, or `composes:` (which
-has no plain-CSS equivalent without flattening — `hopscotch-museum` is the one
-known case, listed in `KNOWN_UNSUPPORTED`). 56 of the 57 sites package.
+page, or two hashed names collapsing onto one plain name. All 57 sites
+package, so `KNOWN_UNSUPPORTED` is empty — anything that throws is a new
+problem and exits non-zero.
+
+`composes:` needs no flattening, which is easy to get backwards. CSS Modules
+resolves a local `composes` in the **markup**: `.h2Light { composes: h2 }`
+compiles to `class="…__h2Light …__h2"` and both rules are already in the
+sheet, so the declaration is inert — just not valid CSS outside the pipeline.
+`dropComposes` removes it, having first checked the build really did add the
+composed class (a premise about build output, so it is verified, not assumed).
+A cross-file `composes … from` would introduce a second module and is caught
+by the one-module check before that runs.
 
 **Two stylesheet paths, and they fail differently.** A site with its own
 `<slug>.module.css` ships it byte-for-byte. The five built on the shared
@@ -59,8 +68,8 @@ Two traps that trimmer already fell into, both silent:
   the prelude. The selector is taken with comments stripped; they are put back
   on the way out so the shipped sheet stays documented.
 
-`e2e/templates.spec.ts` covers one site of each kind and asserts every class
-the markup uses survives into the stylesheet. Note it navigates to
+`e2e/templates.spec.ts` covers one site of each of the three kinds and
+asserts every class the markup uses survives into the stylesheet. Note it navigates to
 `/downloads/<slug>/` **with the trailing slash**: `serve` rewrites
 `<dir>/index.html` to an extensionless `<dir>`, and every relative asset then
 resolves a level too high and 404s — which once had this spec passing against

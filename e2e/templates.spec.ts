@@ -24,9 +24,14 @@ const dirFor = (slug: string) =>
 // component: it has no per-page sheet, so the component's is shipped trimmed
 // to the rules the page can actually match — a transform with real room to be
 // silently wrong, which is why it is covered here too.
+// hopscotch-museum is the third path: its authored sheet uses `composes:`,
+// which CSS Modules resolves in the markup rather than the stylesheet. The
+// packager drops the (inert, non-CSS) declaration after checking the build
+// really did put both classes on the element.
 const FIXTURES = [
   { slug: 'werkraum', shared: false, patterns: 8, hero: 'werkraum-hero.webp' },
   { slug: 'solstice', shared: true, patterns: 4, hero: null },
+  { slug: 'hopscotch-museum', shared: false, patterns: 8, hero: null },
 ] as const;
 
 // The template pins its bootstrap to the published package on esm.sh. Serving
