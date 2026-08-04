@@ -18,6 +18,11 @@ node_modules/
 # next.js
 /.next/
 /out/
+
+# packaged template downloads (~106 MB of zips + the folders they were made
+# from). Written by `npm run templates`, which the build runs between its two
+# `next build` passes so the second one exports them.
+/public/downloads/
 next-env.d.ts
 *.tsbuildinfo
 

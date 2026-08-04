@@ -860,6 +860,14 @@ const packageable = (await fs.readdir(templateDir, { withFileTypes: true }))
 
 const targets = requested.length > 0 ? requested : packageable;
 
+// Packaging everything owns the whole folder, so a site that has since been
+// renamed or retired doesn't linger in it. This matters on the deploy path,
+// where the folder is `public/downloads` and `next build` copies whatever is
+// in it into the export. Naming a slug repackages just that one, in place.
+if (requested.length === 0) {
+  await fs.rm(outDir, { recursive: true, force: true });
+}
+
 await fs.mkdir(outDir, { recursive: true });
 
 let written = 0;
@@ -901,47 +909,6 @@ console.log(
     (failed > 0 ? `, ${failed} FAILED` : '')
 );
 
-await mirrorIntoVercelOutput();
-
-/**
- * Vercel-only: put the downloads where the deploy will actually find them.
- *
- * Writing to `out/` is enough everywhere else — wrangler, `serve out`, or any
- * static host uploads the export after the build command has finished. Vercel
- * does not: its Next.js builder patches the config ("Applying modifyConfig
- * from Vercel" in the build log) and assembles the deployment's static root
- * *during* `next build`, so a postbuild step writing into `out/` is already
- * too late. The packager ran green on Vercel and every one of the 114 buttons
- * still 404ed — the files existed on the build machine and were never
- * deployed.
- *
- * So mirror the finished folder into the Build Output API's static root, which
- * is what gets uploaded. Guarded by the directory existing, so it is a no-op
- * locally, in CI, and on any other host.
- */
-async function mirrorIntoVercelOutput() {
-  if (written === 0) return;
-
-  // `vercel build` writes to .vercel/output inside the project, but on the
-  // build machine the project is /vercel/path0 and the output is its sibling
-  // /vercel/output. Take whichever is there.
-  const root = [
-    path.join(repoRoot, '.vercel', 'output', 'static'),
-    '/vercel/output/static',
-  ].find((candidate) => fsSync.existsSync(candidate));
-
-  if (!root) return;
-
-  const destination = path.join(root, path.basename(outDir));
-
-  await fs.rm(destination, { recursive: true, force: true });
-  await fs.cp(outDir, destination, { recursive: true });
-
-  console.log(
-    `package-templates: mirrored them into ${destination} (Vercel's build ` +
-      `output — the export is sealed before postbuild runs)`
-  );
-}
 
 // Only unexpected failures are fatal — the known-unsupported set is skipped
 // above, so this stays safe to run as part of a build.
