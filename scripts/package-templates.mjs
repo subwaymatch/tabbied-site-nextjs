@@ -538,13 +538,13 @@ async function packageReactSite(slug, outDir, version, name, images) {
         .replace(/^[\s\S]*?export default /, '')
         .replace(/;\s*$/, '')
     );
-    // Images are copied flat into public/images/, so every entry's `base`
-    // has to point there — the site-wide manifest splits them across
-    // /images/sites and /images/mockups, which would 404 in the package.
+    // Each entry keeps the `base` it has on the site (`/images/sites`), because
+    // the images are copied in under the paths they already have — see the
+    // copy loop below for why the React package can't flatten them.
     const mine = Object.fromEntries(
-      Object.entries(manifest)
-        .filter(([id]) => images.some((file) => path.basename(file, '.webp') === id))
-        .map(([id, entry]) => [id, { ...entry, base: '/images' }])
+      Object.entries(manifest).filter(([id]) =>
+        images.some((file) => path.basename(file, '.webp') === id)
+      )
     );
     await fs.writeFile(
       path.join(srcDir, 'images.ts'),
@@ -569,11 +569,21 @@ async function packageReactSite(slug, outDir, version, name, images) {
 
   await fs.copyFile(globalsCss, path.join(srcDir, 'base.css'));
 
+  // Images keep the sub-path they have on the site — `sites/…`, `template/…` —
+  // where the HTML package flattens them into one folder. The two formats
+  // differ because of what each one ships: the HTML package rewrites the
+  // markup, so it can put the files anywhere and point the `src` at them,
+  // while the React package ships the page's *source*, which asks for its
+  // images by the URL it was written with. Figure resolves one from the
+  // manifest's `base` (`/images/sites/<id>.webp`) and ImageCard hardcodes
+  // `/images/template/<id>.webp`; flattening 404s the second kind outright,
+  // which is what emptied the five TemplateSite pages under `vite dev`.
+  // Keeping the structure also means two same-named files from different
+  // folders can't collide on the way in.
   for (const relativePath of images) {
-    await fs.copyFile(
-      path.join(publicDir, 'images', relativePath),
-      path.join(siteDir, 'public', 'images', path.basename(relativePath))
-    );
+    const destination = path.join(siteDir, 'public', 'images', relativePath);
+    await fs.mkdir(path.dirname(destination), { recursive: true });
+    await fs.copyFile(path.join(publicDir, 'images', relativePath), destination);
   }
 
   const dependencies = {
