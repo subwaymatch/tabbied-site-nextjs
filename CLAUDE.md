@@ -68,6 +68,21 @@ The two formats are built in opposite directions, and that is the point:
   natively, so the React package needs **no CSS transform at all** — only the
   bundler-less HTML package needs `composes:`/`:global()` flattened.
 
+**The two formats also lay their images out differently, and must.** The HTML
+package flattens everything into `images/`, which it can only do because it
+rewrites the markup on the way past — `rewriteImagePaths` points every `src` at
+the flat copy. The React package ships the *source*, which asks for its images
+by the URL it was authored with, so it copies them under the sub-paths they
+have on the site (`public/images/sites/…`, `public/images/template/…`). Two
+mechanisms depend on that: `Figure` builds its `src` from the manifest's `base`
+(`/images/sites`), and `ImageCard` hardcodes `/images/template/<id>.webp`.
+Flattening breaks the hardcoded kind — and breaks it *silently*, because Vite's
+dev server answers a miss under `public/` with `index.html` and a 200, so
+nothing 404s and the images just render blank. It emptied all five
+`TemplateSite` pages under `vite dev` while the HTML zip looked fine.
+`e2e/templates.spec.ts` guards this by taking the exported page as ground truth
+for what gets requested and asserting the React package serves every one.
+
 Two things it does *not* do, deliberately. It doesn't de-hash and un-minify
 the built CSS: the authored `.module.css` is already the clean, commented
 stylesheet a person should edit, so that ships and only the class names in the

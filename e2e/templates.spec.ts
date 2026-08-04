@@ -208,6 +208,87 @@ for (const fixture of FIXTURES) {
     await page.goto(`/downloads/${fixture.slug}/`);
   });
   });
+
+  test.describe(`packaged React template (${fixture.slug})`, () => {
+  const REACT_DIR = path.join(
+    REPO_ROOT,
+    'out',
+    'downloads',
+    `${fixture.slug}-react`
+  );
+  const EXPORTED_PAGE = path.join(
+    REPO_ROOT,
+    'out',
+    'template',
+    fixture.slug,
+    'index.html'
+  );
+
+  test.skip(
+    !fs.existsSync(path.join(REACT_DIR, 'src', 'App.tsx')) ||
+      !fs.existsSync(EXPORTED_PAGE),
+    `run \`npm run build\` then \`npm run templates ${fixture.slug}\` first`
+  );
+
+  // The React package ships the page's *source*, so it asks for its images by
+  // the URL it was written with — and unlike the HTML package there is no
+  // markup rewrite to point those URLs somewhere else. Flattening the files
+  // into one folder therefore breaks any page whose image path is hardcoded
+  // rather than read from the manifest (ImageCard's `/images/template/<id>`),
+  // and it breaks them quietly: Vite's dev server answers the miss with
+  // index.html and a 200, so nothing 404s and the images just render blank.
+  //
+  // The exported page is the ground truth for what gets requested: it is the
+  // same component tree, rendered by Next.
+  test('serves every image URL the page requests', () => {
+    const exported = fs.readFileSync(EXPORTED_PAGE, 'utf-8');
+    const requested = new Set(
+      [
+        ...exported.matchAll(
+          /\/images\/([A-Za-z0-9/_-]+\.(?:webp|png|jpg|jpeg|svg|avif))/g
+        ),
+      ].map((match) => match[1])
+    );
+
+    expect(requested.size, 'fixture should exercise the image path')
+      .toBeGreaterThan(0);
+
+    const missing = [...requested].filter(
+      (relativePath) =>
+        !fs.existsSync(path.join(REACT_DIR, 'public', 'images', relativePath))
+    );
+
+    expect(missing, 'images the page asks for but the package does not serve')
+      .toEqual([]);
+  });
+
+  // Figure builds its `src` from the manifest rather than from a literal, so
+  // the trimmed manifest is a second way to point at a file that isn't there.
+  test('the trimmed image manifest points at files that exist', () => {
+    const manifestFile = path.join(REACT_DIR, 'src', 'images.ts');
+
+    test.skip(
+      !fs.existsSync(manifestFile),
+      'site does not use Figure, so it ships no manifest'
+    );
+
+    const manifest: Record<string, { base?: string }> = JSON.parse(
+      fs
+        .readFileSync(manifestFile, 'utf-8')
+        .replace(/^[\s\S]*?export default /, '')
+        .replace(/\s*as Record<[\s\S]*$/, '')
+        .trim()
+    );
+
+    expect(Object.keys(manifest).length).toBeGreaterThan(0);
+
+    const unreachable = Object.entries(manifest)
+      .map(([id, entry]) => `${entry.base ?? '/images/sites'}/${id}.webp`)
+      .filter((url) => !fs.existsSync(path.join(REACT_DIR, 'public', url)));
+
+    expect(unreachable, 'manifest entries with no file behind them').toEqual([]);
+  });
+  });
 }
 
 test.describe('the /templates gallery offers both formats', () => {
