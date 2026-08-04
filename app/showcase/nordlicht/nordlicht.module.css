@@ -82,7 +82,7 @@
   display: grid;
   font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 
@@ -141,7 +141,7 @@
   font-size: clamp(2.2rem, 6.8vw, 5rem);
   font-weight: 600;
   line-height: 1.02;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .lede {
@@ -167,7 +167,7 @@
   display: block;
   font-size: clamp(1.5rem, 3.4vw, 2.4rem);
   font-weight: 600;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   color: var(--ink);
   line-height: 1.05;
   margin-bottom: 0.3rem;
@@ -537,7 +537,7 @@
   margin: 0 0 0.7rem;
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .secNote {

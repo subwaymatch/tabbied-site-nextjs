@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   SALZHAUS — contemporary dance, Basel
+   Batch three of the Swiss set, and the loud one: type at poster size, the
+   full width of the viewport used as the measure, and almost no rules. What
+   separates one thing from the next here is space, a change of ground, or a
+   pattern field — not a hairline. Inter throughout, tracked in a little.
+   ========================================================================== */
+
+.page {
+  --paper: #f3f1ec;
+  --ink: #101014;
+  --red: #ff2d00;
+  --grey: #8b8b85;
+  --pale: #dedcd4;
+
+  /* One side padding for the whole page. Sections run edge to edge; only
+     running text is given a measure, and it is given it in ch. */
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  /* "Slightly tightened": the whole page sits just inside Inter's default
+     fit, and display sizes tighten further from there. */
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--red);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero
+   The headline is the layout. Three lines, set as large as the viewport will
+   take, with the pattern running under all of it and fading out at the feet
+   of the type. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(92svh, 60rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 96%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(3.4rem, 15.5vw, 17rem);
+  font-weight: 800;
+  line-height: 0.83;
+  letter-spacing: -0.047em;
+  text-wrap: balance;
+}
+
+.heroType span:nth-child(2) {
+  /* The middle line steps in by one stroke width, which is the only
+     indent on the page and the only thing that makes it a stanza. */
+  padding-left: 0.14em;
+}
+
+.red {
+  color: var(--red);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.cta {
+  align-self: end;
+  padding: 0.72em 1.4em;
+  background: var(--red);
+  color: var(--paper) !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--ink);
+}
+
+/* ---------------------------------------------------------------- marquee */
+
+.marquee {
+  overflow: hidden;
+  padding: clamp(0.5rem, 1.4vw, 1.1rem) 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  font-size: clamp(1.6rem, 4.6vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: -0.042em;
+  line-height: 1;
+  animation: slide 42s linear infinite;
+}
+
+.marqueeTrack span {
+  padding-right: 0.4em;
+  white-space: nowrap;
+}
+
+.marqueeTrack i {
+  font-style: normal;
+  color: var(--red);
+}
+
+@keyframes slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-25%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* --------------------------------------------------------------- band, coda
+   Full-bleed pattern with no copy over it. These are the paragraph breaks of
+   the page: they do the work a rule would do, at forty times the height. */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 26vw, 380px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.band {
+  background: var(--ink);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 300px);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.046em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 40ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ season
+   Six rows, each the full width of the page. No rules: the row tints on
+   alternate positions and again on hover, which is enough to read as a table
+   and reads as a poster from a distance. */
+
+.season,
+.principles,
+.ensemble,
+.calendar,
+.repertoire {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 9fr) minmax(0, 7fr) 11rem 4rem;
+  grid-template-areas: 'n title sub when min' 'n title room when min';
+  align-items: center;
+  column-gap: var(--gap);
+  padding: clamp(0.9rem, 2vw, 1.6rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rows li:nth-child(odd) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.rows li:hover {
+  background: var(--red);
+  color: var(--paper);
+}
+
+.rows li:hover .rowN,
+.rows li:hover .rowSub,
+.rows li:hover .rowRoom,
+.rows li:hover .rowWhen,
+.rows li:hover .rowMin {
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+
+.rowN {
+  grid-area: n;
+  align-self: start;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  padding-top: 0.5em;
+}
+
+.rowTitle {
+  grid-area: title;
+  margin: 0;
+  font-size: clamp(1.8rem, 5.6vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.044em;
+}
+
+.rowSub {
+  grid-area: sub;
+  align-self: end;
+  font-size: clamp(0.86rem, 1.15vw, 1.05rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.rowRoom {
+  grid-area: room;
+  align-self: start;
+  padding-top: 0.35rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.rowWhen {
+  grid-area: when;
+  font-size: clamp(0.82rem, 1vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.rowMin {
+  grid-area: min;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+/* ----------------------------------------------------------------- figures
+   Four numbers at headline size, on the ink ground, with nothing boxing
+   them. The change of ground is the separator. */
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(3rem, 7vw, 7rem) var(--edge);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.figuresField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.13;
+}
+
+.figVal {
+  margin: 0;
+  font-size: clamp(2.6rem, 8vw, 8rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.047em;
+}
+
+.figures div:nth-child(2) .figVal,
+.figures div:nth-child(4) .figVal {
+  color: var(--red);
+}
+
+.figKey {
+  margin: 0.9rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 54%, transparent);
+}
+
+/* -------------------------------------------------------------------- work */
+
+.work {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.workField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  mask-image: radial-gradient(ellipse 62% 70% at 78% 42%, #000 0%, transparent 78%);
+}
+
+/* A rotated running head in the left margin — the only thing on the page set
+   sideways, and it is a label rather than content. */
+.sideLabel {
+  position: absolute;
+  top: clamp(3.5rem, 9vw, 9rem);
+  left: calc(var(--edge) * 0.28);
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.work h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.046em;
+  max-width: 16ch;
+}
+
+.workCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.6vw, 2.4rem);
+  font-weight: 550;
+  line-height: 1.14;
+  letter-spacing: -0.037em;
+  max-width: 22ch;
+}
+
+.workCols > div p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.workCols > div p + p {
+  margin-top: 1.15em;
+}
+
+/* ------------------------------------------------------------- principles */
+
+.pGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3.5rem);
+}
+
+.pPlate {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 60%, var(--paper));
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.pN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--red);
+}
+
+.pGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+}
+
+.pBody {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+/* The mask used to run the pattern up the middle, behind a scrim. With the
+   slab gone the words sit directly on the page, so it is inverted: strong at
+   the edges, cleared where the quote is. */
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  mask-image: radial-gradient(
+    ellipse 52% 64% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.3) 56%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* The measure is set on the paragraph, not the blockquote: `ch` resolves
+   against the element's own font-size, and the blockquote is still at body
+   size while the type inside it is at five rem. */
+.quote p {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-size: clamp(1.7rem, 5.4vw, 5rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.044em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* ---------------------------------------------------------------- ensemble
+   Fourteen names set as one continuous block of display type. Read as a
+   list, seen as a texture. */
+
+.names {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: clamp(1rem, 2.4vw, 2.4rem);
+  row-gap: clamp(0.1rem, 0.6vw, 0.5rem);
+}
+
+.names li {
+  font-size: clamp(1.5rem, 4.4vw, 4rem);
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: -0.044em;
+  color: color-mix(in srgb, var(--ink) 88%, transparent);
+  transition: color 0.15s ease;
+}
+
+.names li:hover {
+  color: var(--red);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 2.4fr) minmax(0, 1.4fr) 5rem minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.9rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+}
+
+.tDate {
+  font-weight: 600;
+  color: var(--grey);
+}
+
+.tTitle {
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.tRoom {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.tTime {
+  text-align: right;
+  font-weight: 600;
+}
+
+.tNote {
+  text-align: right;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* ------------------------------------------------------------------- visit */
+
+.visit {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.12;
+}
+
+.visit h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.046em;
+}
+
+.visitList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.visitList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.visitList dd {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.32;
+  letter-spacing: -0.028em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.deskTel {
+  display: block;
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(1.7rem, 3.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.042em;
+  font-variant-numeric: tabular-nums;
+}
+
+.deskTel:hover {
+  color: var(--red);
+}
+
+.hours {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.hours > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.hours dt {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 700;
+}
+
+.hours dd {
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.hoursShut dt,
+.hoursShut dd {
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.hoursNote {
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--grey);
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
+  max-width: 46ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Three entries instead of a monogram: the last thing the page says is what
+   happens next, which is more use than the house initial. */
+.footNext {
+  list-style: none;
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.fnWhen {
+  display: block;
+  font-size: clamp(1.7rem, 4.8vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnWhat {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 26ch;
+  /* Two lines reserved, so the tag under each entry lands on one line. */
+  min-height: 2.8em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.fnTag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--red);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .statement,
+  .workCols,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .pGrid,
+  .visitList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rows li {
+    grid-template-columns: 3rem minmax(0, 1fr) 9rem;
+    grid-template-areas: 'n title when' 'n sub when' 'n room min';
+    row-gap: 0.35rem;
+  }
+
+  .rowMin {
+    align-self: start;
+  }
+
+  .sideLabel {
+    display: none;
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(2rem, 6vw, 3rem);
+  }
+
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+
+  .table li {
+    grid-template-columns: minmax(0, 1fr) 4.5rem;
+    grid-template-areas: 'title time' 'date note' 'room note';
+    row-gap: 0.15rem;
+  }
+
+  .tDate { grid-area: date; }
+  .tTitle { grid-area: title; }
+  .tRoom { grid-area: room; font-size: 0.82rem; }
+  .tTime { grid-area: time; }
+  .tNote { grid-area: note; align-self: end; }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .pGrid,
+  .visitList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .rows li {
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    grid-template-areas: 'n title' 'n sub' 'n when' 'n room';
+  }
+
+  .rowMin {
+    display: none;
+  }
+
+  .rowWhen {
+    padding-top: 0.3rem;
+  }
+
+  .footNext {
+    grid-template-columns: 1fr;
+  }
+
+  .fnWhat {
+    min-height: 0;
+  }
+}

@@ -1,0 +1,931 @@
+/* ==========================================================================
+   KUPFERWALZ — copper rolling mill, Liège
+   Batch four: the bold Swiss language of batch three, now with photography.
+   The rule the two media follow is that they never sit on top of each other —
+   scenes run full-bleed with the pattern bands *beside* them, and only the
+   cut-out objects are composited, onto a pattern plate that is their surface.
+   Every decorative field takes `transparent` in the background slot, so the
+   ground of the page (or of the plate) is what shows through the drawing.
+   Inter throughout, tracked in.
+   ========================================================================== */
+
+.page {
+  /* The five values every page in this batch is built from: the ground it is
+     printed on, the ink it is printed in, one accent, one grey, and one panel
+     tone a shade off the ground. Nothing else is coloured. */
+  --ground: #15100e;
+  --ink: #efe7de;
+  --accent: #b4552d;
+  --grey: #7a736d;
+  --panel: #231a16;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--ground) 86%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--accent);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(88svh, 56rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.72;
+  /* The fade reaches full strength below the kicker, not above it: six-point
+     caps in the accent cannot survive the densest part of a field. */
+  mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 52%, transparent 96%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(2.8rem, 11.5vw, 13rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.048em;
+}
+
+.heroType span:last-child {
+  padding-left: 0.1em;
+}
+
+.hi {
+  color: var(--accent);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--accent);
+  color: var(--ground) !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------- photography
+   Scenes are never a backdrop for anything: full width, nothing over them,
+   and a caption in the margin beneath. */
+
+.bleed {
+  margin: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2.4 / 1;
+  object-fit: cover;
+}
+
+.bleed figcaption,
+.pair figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.bleed figcaption {
+  padding: 0 var(--edge);
+}
+
+.pair {
+  margin: clamp(2.5rem, 6vw, 5rem) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: clamp(1rem, 3vw, 2.4rem);
+  align-items: end;
+}
+
+.pair figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.pair figure:last-child img {
+  aspect-ratio: 4 / 3;
+}
+
+
+/* ------------------------------------------------------------------- gauge
+   Ten thicknesses drawn at their real relative thickness. The bar is not a
+   quantity beside the number, it *is* the number, at 40× scale. */
+
+.gauge,
+.making,
+.principles,
+.listing {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.gaugeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gaugeList li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) 9rem;
+  gap: var(--gap);
+  align-items: center;
+  padding: clamp(0.5rem, 1.1vw, 1rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.15s ease;
+}
+
+.gaugeList li:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.gaugeBar {
+  width: 100%;
+  background: var(--accent);
+  transition: background 0.18s ease;
+}
+
+.gaugeList li:hover .gaugeBar {
+  background: var(--ink);
+}
+
+.gaugeMm {
+  font-size: clamp(0.95rem, 1.5vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.037em;
+}
+
+.gaugeNote {
+  margin: clamp(1.2rem, 2.6vw, 2.2rem) 0 0;
+  max-width: 54ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+.gaugeUse {
+  text-align: right;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+/* ------------------------------------------------------------- band, coda */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 24vw, 340px);
+  overflow: hidden;
+  background: var(--ground);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 290px);
+}
+
+/* ------------------------------------------------------------------ making */
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 7fr) minmax(0, 10fr) 7rem;
+  align-items: center;
+  column-gap: var(--gap);
+  padding: clamp(0.9rem, 2vw, 1.6rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rows li:nth-child(odd) {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.rows li:hover {
+  background: var(--accent);
+  color: var(--ground);
+}
+
+.rows li:hover .rowN,
+.rows li:hover .rowSub {
+  color: color-mix(in srgb, var(--ground) 76%, transparent);
+}
+
+.rowN {
+  align-self: start;
+  padding-top: 0.6em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.rowTitle {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.4vw, 4rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.044em;
+}
+
+.rowSub {
+  font-size: clamp(0.86rem, 1.1vw, 1.02rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.rowDays {
+  text-align: right;
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+/* -------------------------------------------------------------- principles
+   The composite: a pattern field on a transparent ground *is* the surface,
+   and the cut-out object sits on it with a CSS shadow to seat it. */
+
+.pGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3.5rem);
+}
+
+.pPlate {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--panel);
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.pField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+.pObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 66%;
+  height: 66%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 26px rgb(0 0 0 / 0.45));
+}
+
+.pN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+
+.pGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.pBody {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 2.4fr) minmax(0, 1.6fr) minmax(0, 1.2fr) minmax(0, 1.8fr);
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.tKey {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.tMain {
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+  font-weight: 650;
+  letter-spacing: -0.036em;
+}
+
+.tMid {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.tEnd {
+  text-align: right;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+/* ------------------------------------------------------------------- quote */
+
+/* No ground of its own: the band sits on the page colour and is separated
+   from its neighbours by the pattern alone, which is drawn on a transparent
+   slot so the page shows straight through it. */
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+/* Held well down and cleared through the middle: the page colour is what
+   shows through the pattern, so it reads as a texture on the ground rather
+   than as a panel laid over it, and the words sit on clean paper. */
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  mask-image: radial-gradient(
+    ellipse 52% 64% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.3) 56%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* The measure is on the paragraph, where `ch` resolves against the display
+   size rather than the blockquote's body size. */
+.quote p {
+  margin: 0 auto;
+  max-width: 24ch;
+  font-size: clamp(1.5rem, 4.4vw, 4.1rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
+}
+
+/* ------------------------------------------------------------------- visit */
+
+.visit {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  overflow: hidden;
+}
+
+/* Was a panel-coloured slab. Now the page ground with a pattern held well
+   down, so the column grid reads against a texture rather than a change of
+   surface. */
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.22;
+}
+
+.visit h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.visitList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.visitList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.visitList dd {
+  margin: 0;
+  max-width: 32ch;
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.34;
+  letter-spacing: -0.026em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.formTitle {
+  margin: 0 0 clamp(1.1rem, 2.4vw, 2rem);
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+/* Inputs are filled rather than ruled: the batch avoids lines, so the field is
+   a tint of the page ink and the focus ring is the only edge it ever draws. */
+.field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: inherit;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: 0.85rem 0.95rem;
+  appearance: none;
+}
+
+.field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--ink) 34%, transparent);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--ground);
+  border: 0;
+  border-radius: 0;
+  padding: 1.1rem 2.4rem;
+  cursor: pointer;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
+  max-width: 48ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+}
+
+/* The footer opens with an object rather than a numeral. It sits on a pattern
+   plate — the page's own device for a cut-out — drawn on a transparent slot so
+   the plate is texture on the page rather than a panel laid over it. */
+.footObject {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.footPlate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: clamp(150px, 19vw, 268px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.footPlateField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.footCut {
+  width: 80%;
+  height: auto;
+}
+
+.footLine {
+  margin: 0;
+  max-width: 19ch;
+  font-size: clamp(1.45rem, 3.4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.036em;
+  text-wrap: balance;
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--accent);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--ink) 46%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .statement,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .pGrid,
+  .visitList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(1.8rem, 5vw, 3rem);
+  }
+
+  .rows li {
+    grid-template-columns: 3rem minmax(0, 1fr) 6rem;
+    grid-template-areas: 'n title days' 'n sub days';
+    row-gap: 0.3rem;
+  }
+
+  .rowN { grid-area: n; }
+  .rowTitle { grid-area: title; }
+  .rowSub { grid-area: sub; }
+  .rowDays { grid-area: days; align-self: center; }
+
+  .table li {
+    grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'key main main' 'key mid1 end' 'key mid2 end';
+    row-gap: 0.1rem;
+  }
+
+  .tKey { grid-area: key; }
+  .tMain { grid-area: main; }
+  .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
+  .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
+  .tEnd { grid-area: end; }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+
+  .pair {
+    grid-template-columns: 1fr;
+  }
+
+  .pair img,
+  .pair figure:last-child img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .pGrid,
+  .visitList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .footObject {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+}

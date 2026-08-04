@@ -62,7 +62,7 @@
 .mark {
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .nav {
@@ -133,7 +133,7 @@
   margin: 0;
   font-size: clamp(2.4rem, 7.4vw, 5.6rem);
   line-height: 0.98;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   font-weight: 650;
 }
 
@@ -164,7 +164,7 @@
 .facts dt {
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 600;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }

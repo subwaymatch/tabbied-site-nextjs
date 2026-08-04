@@ -1,0 +1,883 @@
+/* ==========================================================================
+   ATELIERS BEAUFORT — sail loft, Lorient
+   The scale is the layout. Thirteen full-width bands, force nought to twelve,
+   each with its number set as tall as the band, and force four picked out in
+   the accent because that is what the loft cuts for. Night navy ground, bone
+   type, one sea green, and not a rule anywhere. Inter, tracked in.
+   ========================================================================== */
+
+.page {
+  --navy: #0b1b2b;
+  --bone: #efeae0;
+  --green: #00b37a;
+  --grey: #6e808f;
+  --deep: #14293d;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--navy);
+  color: var(--bone);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--navy) 86%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--green);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(90svh, 58rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.72;
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 96%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(3.2rem, 13.5vw, 15rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.047em;
+}
+
+.heroType span:nth-child(2) {
+  padding-left: 0.12em;
+}
+
+.heroType span:nth-child(3) {
+  padding-left: 0.24em;
+}
+
+.green {
+  color: var(--green);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--green);
+  color: var(--navy) !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--bone);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--bone) 60%, transparent);
+}
+
+/* ------------------------------------------------------------------- scale */
+
+.scale,
+.work,
+.craft,
+.listing {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.scaleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scaleList li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 6fr) 7rem minmax(0, 6fr);
+  gap: var(--gap);
+  align-items: center;
+  padding: clamp(0.7rem, 1.5vw, 1.25rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.16s ease;
+}
+
+.scaleList li:nth-child(odd) {
+  background: color-mix(in srgb, var(--bone) 5%, transparent);
+}
+
+/* Force four is what the loft cuts for, so it is the one row that is not
+   quiet. The page says so twice: here and in the headline. */
+.scaleList li[data-key='yes'] {
+  background: var(--green);
+  color: var(--navy);
+}
+
+.scaleList li:hover {
+  background: color-mix(in srgb, var(--green) 20%, transparent);
+}
+
+.scaleList li[data-key='yes']:hover {
+  background: var(--green);
+}
+
+.fN {
+  font-size: clamp(1.8rem, 4.6vw, 4.4rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.047em;
+  color: var(--green);
+}
+
+.scaleList li[data-key='yes'] .fN {
+  color: var(--navy);
+}
+
+.fBody h3 {
+  margin: 0 0 0.15rem;
+  font-size: clamp(1.05rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.038em;
+}
+
+.fSea {
+  margin: 0;
+  font-size: clamp(0.85rem, 1vw, 0.96rem);
+  color: color-mix(in srgb, var(--bone) 62%, transparent);
+}
+
+.scaleList li[data-key='yes'] .fSea {
+  color: color-mix(in srgb, var(--navy) 72%, transparent);
+}
+
+.fKt {
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+}
+
+.fCut {
+  font-size: clamp(0.85rem, 1vw, 0.96rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+}
+
+.scaleList li[data-key='yes'] .fCut {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--bone) 64%, transparent);
+}
+
+/* -------------------------------------------------------------------- work */
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 8fr) minmax(0, 8fr) 7rem 7rem;
+  align-items: center;
+  column-gap: var(--gap);
+  padding: clamp(0.9rem, 2vw, 1.6rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rows li:nth-child(odd) {
+  background: color-mix(in srgb, var(--bone) 5%, transparent);
+}
+
+.rows li:hover {
+  background: var(--green);
+  color: var(--navy);
+}
+
+.rows li:hover .rowN,
+.rows li:hover .rowSub,
+.rows li:hover .rowLead {
+  color: color-mix(in srgb, var(--navy) 78%, transparent);
+}
+
+.rowN {
+  align-self: start;
+  padding-top: 0.6em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--green);
+}
+
+.rowTitle {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 4.4rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.044em;
+}
+
+.rowSub {
+  font-size: clamp(0.86rem, 1.15vw, 1.05rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--bone) 68%, transparent);
+}
+
+.rowLead {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.rowFrom {
+  text-align: right;
+  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.037em;
+}
+
+/* ------------------------------------------------------------- band, coda */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 24vw, 340px);
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 290px);
+}
+
+/* ------------------------------------------------------------------- craft */
+
+.cGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3.5rem);
+}
+
+.cPlate {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--deep);
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.cN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--green);
+}
+
+.cGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.cBody {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 2.2fr) minmax(0, 2fr) minmax(0, 1.8fr) 9rem;
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--bone) 5%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--green) 15%, transparent);
+}
+
+.tKey {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.tMain {
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+  font-weight: 650;
+  letter-spacing: -0.036em;
+}
+
+.tMid {
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+.tEnd {
+  text-align: right;
+  font-weight: 650;
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+/* No ground of its own — the band sits on the page colour, and the pattern
+   drawn on a transparent slot is what separates it from its neighbours. */
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  mask-image: radial-gradient(
+    ellipse 52% 64% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.3) 56%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Measure on the paragraph: `ch` resolves against the display size there. */
+.quote p {
+  margin: 0 auto;
+  max-width: 26ch;
+  font-size: clamp(1.5rem, 4.2vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bone) 52%, transparent);
+}
+
+/* ------------------------------------------------------------------- visit */
+
+.visit {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  overflow: hidden;
+}
+
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+  mask-image: linear-gradient(90deg, #000 0%, transparent 40%, transparent 60%, #000 100%);
+}
+
+.visit h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.visitList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.visitList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.visitList dd {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.3;
+  letter-spacing: -0.028em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.formTitle {
+  margin: 0 0 clamp(1.1rem, 2.4vw, 2rem);
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+/* Inputs are filled rather than ruled: the batch avoids lines, so the field is
+   a tint of the page ink and the focus ring is the only edge it ever draws. */
+.field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: inherit;
+  background: color-mix(in srgb, var(--bone) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: 0.85rem 0.95rem;
+  appearance: none;
+}
+
+.field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--bone) 34%, transparent);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: var(--navy);
+  border: 0;
+  border-radius: 0;
+  padding: 1.1rem 2.4rem;
+  cursor: pointer;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
+  max-width: 48ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--bone) 62%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+}
+
+/* Three entries instead of a monogram: the last thing the page says is what
+   happens next, which is more use than the house initial. */
+.footNext {
+  list-style: none;
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.fnWhen {
+  display: block;
+  font-size: clamp(1.7rem, 4.8vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnWhat {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 26ch;
+  /* Two lines reserved, so the tag under each entry lands on one line. */
+  min-height: 2.8em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--bone) 72%, transparent);
+}
+
+.fnTag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--bone) 82%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--green);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--bone) 46%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .statement,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .cGrid,
+  .visitList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(1.8rem, 5vw, 3rem);
+  }
+
+  .scaleList li {
+    grid-template-columns: 4rem minmax(0, 1fr) 6rem;
+    grid-template-areas: 'n body kt' 'n cut cut';
+    row-gap: 0.35rem;
+    align-items: start;
+  }
+
+  .fN { grid-area: n; }
+  .fBody { grid-area: body; }
+  .fKt { grid-area: kt; text-align: right; }
+  .fCut { grid-area: cut; }
+
+  .rows li {
+    grid-template-columns: 3rem minmax(0, 1fr) 7rem;
+    grid-template-areas: 'n title from' 'n sub from' 'n lead from';
+    row-gap: 0.3rem;
+  }
+
+  .rowN { grid-area: n; }
+  .rowTitle { grid-area: title; }
+  .rowSub { grid-area: sub; }
+  .rowLead { grid-area: lead; }
+  .rowFrom { grid-area: from; align-self: center; }
+
+  .table li {
+    grid-template-columns: 7rem minmax(0, 1fr) 7rem;
+    grid-template-areas: 'key main end' 'key mid1 end' 'key mid2 end';
+    row-gap: 0.1rem;
+  }
+
+  .tKey { grid-area: key; }
+  .tMain { grid-area: main; }
+  .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.84rem; }
+  .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.84rem; }
+  .tEnd { grid-area: end; align-self: center; }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .cGrid,
+  .visitList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .footNext {
+    grid-template-columns: 1fr;
+  }
+
+  .fnWhat {
+    min-height: 0;
+  }
+}

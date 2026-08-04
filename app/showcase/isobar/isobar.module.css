@@ -1,0 +1,914 @@
+/* ==========================================================================
+   ISOBAR — regional meteorological service, Bergen
+   A chart before it is a page: seven full-height day columns across the whole
+   viewport, a twelve-block climate strip whose tint *is* the number, and a
+   hero that is a pressure reading at poster size. No rules; the only lines on
+   the page are the ones the patterns draw. Inter, tracked in.
+   ========================================================================== */
+
+.page {
+  --paper: #e9edf0;
+  --ink: #0d1418;
+  --violet: #6b2be0;
+  --grey: #7c8792;
+  --pale: #d3dae1;
+  --white: #f7f9fa;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--violet);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(88svh, 56rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.62;
+  mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 98%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+/* A reading, not a slogan. The unit runs at a fifth of the size and carries
+   the colour, which is the only hierarchy the line needs. */
+.heroType {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.12em;
+  font-size: clamp(4rem, 20vw, 22rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.051em;
+}
+
+.heroType span:last-child {
+  font-size: 0.2em;
+  letter-spacing: -0.03em;
+}
+
+.violet {
+  color: var(--violet);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--violet);
+  color: #fff !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--ink);
+}
+
+/* -------------------------------------------------------------------- week */
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
+}
+
+.day {
+  background: var(--white);
+  padding: clamp(1rem, 2vw, 2rem) clamp(0.7rem, 1.4vw, 1.4rem) clamp(1.2rem, 2.2vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.day:first-child {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.dName {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.dTemp {
+  margin: 0.3rem 0 0;
+  font-size: clamp(2.2rem, 5.4vw, 5.2rem);
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.047em;
+}
+
+.dTemp span {
+  font-size: 0.42em;
+  vertical-align: super;
+  color: var(--grey);
+}
+
+.dLo {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+.dW {
+  margin: 0.6rem 0 0;
+  font-size: clamp(0.86rem, 1.05vw, 1rem);
+  letter-spacing: -0.024em;
+  line-height: 1.25;
+}
+
+.dP {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+/* The confidence, drawn rather than described. Twelve pixels wide, as tall
+   as the number, and it sits under everything. */
+.dConf {
+  margin-top: auto;
+  height: clamp(80px, 9vw, 150px);
+  display: flex;
+  align-items: flex-end;
+  /* The empty part of the track is drawn too, faintly: a bar with nothing
+     behind it can only be compared to its neighbours, and this one has to be
+     readable on its own. */
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.dConf div {
+  width: 100%;
+  background: var(--violet);
+}
+
+.day:first-child .dConf {
+  background: color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.day:first-child .dConf div {
+  background: var(--paper);
+}
+
+.dConfN {
+  margin: 0.5rem 0 0;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ method */
+
+.method,
+.listing,
+.climate {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.mGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3.5rem);
+}
+
+.mPlate {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 70%, var(--white));
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.mN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--violet);
+}
+
+.mGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.mBody {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------------------- band, coda */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 24vw, 340px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 290px);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) 9rem;
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--white) 75%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--violet) 10%, transparent);
+}
+
+.tId {
+  font-weight: 600;
+  color: var(--grey);
+}
+
+.tLevel {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tLevel[data-level='orange'] { color: #d1600a; }
+.tLevel[data-level='yellow'] { color: #9a7b00; }
+.tLevel[data-level='green'] { color: #2c7a4b; }
+
+.tMain {
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+  font-weight: 650;
+  letter-spacing: -0.036em;
+}
+
+.tMid {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.tEnd {
+  text-align: right;
+  font-weight: 650;
+}
+
+/* ----------------------------------------------------------------- climate
+   A row of twelve blocks whose tint is the value. There is no axis and no
+   legend: the numbers are printed in the blocks. */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.stripCell {
+  aspect-ratio: 1 / 1.9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(0.6rem, 1.1vw, 1.1rem) clamp(0.4rem, 0.8vw, 0.85rem);
+}
+
+.stripV {
+  font-size: clamp(0.8rem, 1.7vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.042em;
+}
+
+.stripK {
+  font-size: clamp(0.55rem, 0.78vw, 0.74rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.records {
+  margin: clamp(2.5rem, 6vw, 5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3.5rem);
+}
+
+.records dt {
+  font-size: clamp(1.6rem, 4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+}
+
+.records dd {
+  margin: 0.7rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.32;
+  mask-image: radial-gradient(
+    ellipse 48% 60% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.4) 58%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Measure on the paragraph: `ch` resolves against the display size there. */
+.quote p {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-size: clamp(1.6rem, 4.8vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.044em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+/* ----------------------------------------------------------------- service */
+
+.service {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  overflow: hidden;
+}
+
+.serviceField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.36;
+  mask-image: linear-gradient(90deg, #000 0%, transparent 42%, transparent 58%, #000 100%);
+}
+
+.service h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.serviceList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.serviceList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.serviceList dd {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.3;
+  letter-spacing: -0.028em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+}
+
+.officesHead {
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 6.4vw, 5.6rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.046em;
+}
+
+.officeCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.offices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.4vw, 3rem);
+}
+
+.oCity {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.024em;
+}
+
+.oRole {
+  margin: 0 0 0.7rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.oAddr {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.oFix {
+  margin: 0;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+/* A locator, not a map: the pattern stands in for the ground and the offices
+   are plotted on it by percentage, which is as much as a schematic owes. */
+.locator {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.locatorField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.pinDot {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+.pinHead .pinDot {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.pin span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
+  max-width: 48ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Three entries instead of a monogram: the last thing the page says is what
+   happens next, which is more use than the house initial. */
+.footNext {
+  list-style: none;
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.fnWhen {
+  display: block;
+  font-size: clamp(1.7rem, 4.8vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.044em;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnWhat {
+  display: block;
+  margin-top: 0.75rem;
+  max-width: 26ch;
+  /* Two lines reserved, so the tag under each entry lands on one line. */
+  min-height: 2.8em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.fnTag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--violet);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--paper) 48%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 76%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .statement,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .mGrid,
+  .serviceList,
+  .records {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(1.8rem, 5vw, 3rem);
+  }
+
+  .table li {
+    grid-template-columns: 6rem minmax(0, 1fr) 8rem;
+    grid-template-areas: 'lead main end' 'lead mid1 end' 'lead mid2 end';
+    row-gap: 0.1rem;
+  }
+
+  .tId,
+  .tLevel { grid-area: lead; }
+  .tMain { grid-area: main; }
+  .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.84rem; }
+  .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.84rem; }
+  .tEnd { grid-area: end; align-self: center; }
+
+  .officeCols {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  /* Seven columns become four then two: the week folds rather than shrinks,
+     because a 60px-wide day column is not a forecast. */
+  .week {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .strip {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .stripCell {
+    aspect-ratio: 1 / 1.2;
+  }
+}
+
+@media (max-width: 860px) {
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .week {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .mGrid,
+  .serviceList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .offices {
+    grid-template-columns: 1fr;
+  }
+
+  .footNext {
+    grid-template-columns: 1fr;
+  }
+
+  .fnWhat {
+    min-height: 0;
+  }
+}

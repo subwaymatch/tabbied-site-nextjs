@@ -58,7 +58,7 @@
 .mark {
   font-size: 1rem;
   font-weight: 650;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.037em;
 }
 
 .mark span {
@@ -134,7 +134,7 @@
   font-size: clamp(2.2rem, 7vw, 5.2rem);
   font-weight: 650;
   line-height: 0.99;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
 }
 
 .hero /* The muted second line sits over the hero pattern; plain
@@ -254,7 +254,7 @@
 .numbers dt {
   font-size: clamp(1.4rem, 3.2vw, 2.4rem);
   font-weight: 650;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
@@ -273,7 +273,7 @@
   margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 /* ---------------------------------------------------------------- schedule */
@@ -519,7 +519,7 @@
   margin: 0 0 0.7rem;
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .secNote {

@@ -1,0 +1,843 @@
+/* ==========================================================================
+   ZWÖLFTON — ensemble for new music, Vienna
+   A night-ground page: bone type on black, one acid yellow, and no rules at
+   all. Where the previous batch would have drawn a hairline, this one changes
+   the ground or leaves a hand's width of black. Inter, tracked in.
+   ========================================================================== */
+
+.page {
+  --night: #0b0b0f;
+  --bone: #efeee7;
+  --acid: #e8ff00;
+  --grey: #6d6d66;
+  --deep: #22222a;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--night);
+  color: var(--bone);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--night) 84%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--acid);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(90svh, 58rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.75;
+  mask-image: linear-gradient(180deg, #000 0%, #000 44%, transparent 94%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+/* One word, split across two lines and two colours, at the largest size the
+   viewport will carry. */
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(3.8rem, 20vw, 22rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.051em;
+}
+
+.heroType span:last-child {
+  padding-left: 0.24em;
+}
+
+.acid {
+  color: var(--acid);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--bone) 76%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--acid);
+  color: var(--night) !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--bone);
+}
+
+/* ---------------------------------------------------------------- tone row
+   Twelve full-height cells across the whole viewport, each drawing the same
+   design at a different cell size. The only "rule" on the page is the gap
+   between them, and it is a gap, not a line. */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2px;
+  background: var(--deep);
+  border-block: 2px solid var(--deep);
+}
+
+.rowCell {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1 / 2.1;
+  overflow: hidden;
+  background: var(--night);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(0.5rem, 1vw, 1rem) clamp(0.5rem, 1vw, 1rem) clamp(0.7rem, 1.3vw, 1.2rem);
+}
+
+.rowField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.rowPc {
+  font-size: clamp(0.9rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.042em;
+}
+
+.rowPitch {
+  font-size: clamp(0.55rem, 0.8vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--acid);
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+}
+
+.big {
+  margin: 0;
+  max-width: 26ch;
+  font-size: clamp(1.7rem, 5vw, 4.8rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.042em;
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 40ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--bone) 58%, transparent);
+}
+
+/* ------------------------------------------------------------------ season
+   The date is the headline and the programme is the caption: a concert is a
+   night before it is a title. */
+
+.season,
+.rules,
+.listing,
+.workshop {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.nights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nights li {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 11fr) minmax(0, 4fr);
+  gap: var(--gap);
+  align-items: end;
+  padding: clamp(1.1rem, 2.4vw, 2.2rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease;
+}
+
+.nights li:nth-child(odd) {
+  background: color-mix(in srgb, var(--bone) 5%, transparent);
+}
+
+.nights li:hover {
+  background: color-mix(in srgb, var(--acid) 14%, transparent);
+}
+
+.nDate {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  font-size: clamp(2rem, 6.4vw, 6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.048em;
+}
+
+.nDate span {
+  font-size: 0.24em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--acid);
+}
+
+.nBody h3 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1rem, 1.55vw, 1.4rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.nWorks {
+  margin: 0;
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+.nRoom {
+  margin: 0.35rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.nTag {
+  justify-self: end;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+/* ------------------------------------------------------------------- rules */
+
+.rGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3.5vw, 3.5rem);
+}
+
+.rPlate {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: #131318;
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.rN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--acid);
+}
+
+.rGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+}
+
+.rBody {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--bone) 64%, transparent);
+}
+
+/* ----------------------------------------------------------------- players */
+
+.players {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.playersField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  mask-image: radial-gradient(ellipse 70% 74% at 82% 46%, #000 0%, transparent 76%);
+}
+
+.playerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(2rem, 6vw, 6rem);
+}
+
+.playerList li {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: clamp(0.5rem, 1vw, 0.85rem) 0;
+}
+
+.pIdx {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--acid);
+}
+
+.pName {
+  font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.042em;
+}
+
+.pInst {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+/* The pattern is the whole ground here, so the quote gets a scrim rather
+   than a box: the field is simply not drawn where the words are. */
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.36;
+  mask-image: radial-gradient(
+    ellipse 46% 62% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.35) 55%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* The measure sits on the paragraph, where `ch` resolves against the display
+   size rather than the blockquote's body size. */
+.quote p {
+  margin: 0 auto;
+  max-width: 20ch;
+  font-size: clamp(1.7rem, 5.4vw, 5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.046em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bone) 55%, transparent);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 2fr) minmax(0, 2.6fr) minmax(0, 1.4fr) minmax(0, 1.2fr);
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--bone) 5%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--acid) 13%, transparent);
+}
+
+.tYear {
+  font-weight: 600;
+  color: var(--grey);
+}
+
+.tWho {
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 650;
+  letter-spacing: -0.036em;
+}
+
+.tWhat {
+  color: color-mix(in srgb, var(--bone) 72%, transparent);
+}
+
+.tForce {
+  color: color-mix(in srgb, var(--bone) 56%, transparent);
+}
+
+.tNote {
+  text-align: right;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+/* ---------------------------------------------------------------- workshop */
+
+.workshop {
+  position: relative;
+}
+
+.sideLabel {
+  position: absolute;
+  top: clamp(3.5rem, 9vw, 9rem);
+  left: calc(var(--edge) * 0.26);
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.workshop h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+  max-width: 18ch;
+}
+
+.wCols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.lead {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(1.25rem, 2.6vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.wCols > div p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--bone) 66%, transparent);
+}
+
+.wCols > div p + p {
+  margin-top: 1.15em;
+}
+
+/* ------------------------------------------------------------------- visit */
+
+.visit {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.visitField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.34;
+}
+
+.visit h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.visitList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.visitList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+.visitList dd {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.3;
+  letter-spacing: -0.028em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  text-align: center;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.contactMail {
+  display: block;
+  font-size: clamp(1.4rem, 7.6vw, 7.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.048em;
+  word-break: break-word;
+}
+
+.contactMail:hover {
+  color: var(--acid);
+}
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) auto 0;
+  max-width: 46ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--bone) 58%, transparent);
+}
+
+/* ------------------------------------------------------------- coda, footer */
+
+.coda {
+  position: relative;
+  height: clamp(130px, 20vw, 300px);
+  overflow: hidden;
+  background: var(--night);
+}
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+}
+
+.footMark {
+  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(6rem, 26vw, 28rem);
+  font-weight: 800;
+  line-height: 0.72;
+  letter-spacing: -0.056em;
+  color: color-mix(in srgb, var(--acid) 22%, transparent);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--bone) 80%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--acid);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--bone) 45%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--bone) 74%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .secHead,
+  .wCols {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .rGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .visitList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .playerList {
+    grid-template-columns: 1fr;
+  }
+
+  .nights li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-areas: 'date tag' 'body body';
+    row-gap: 0.8rem;
+    align-items: center;
+  }
+
+  .nDate { grid-area: date; }
+  .nBody { grid-area: body; }
+  .nTag { grid-area: tag; }
+
+  .sideLabel {
+    display: none;
+  }
+
+  .table li {
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'year who note' 'year what note' 'year force note';
+    row-gap: 0.1rem;
+  }
+
+  .tYear { grid-area: year; }
+  .tWho { grid-area: who; }
+  .tWhat { grid-area: what; }
+  .tForce { grid-area: force; font-size: 0.82rem; }
+  .tNote { grid-area: note; }
+}
+
+@media (max-width: 860px) {
+  /* Twelve cells is too many below this: the row becomes two ranks of six,
+     which is still the row, just folded. */
+  .row {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .rowCell {
+    aspect-ratio: 1 / 1.5;
+  }
+
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .rGrid,
+  .visitList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

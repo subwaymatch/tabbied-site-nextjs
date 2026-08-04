@@ -1,0 +1,823 @@
+/* ==========================================================================
+   FALZBOGEN — trade bookbindery, Leipzig
+   The imposition diagram is the centrepiece: eight pages a side, half of them
+   upside down, drawn at full width as flat blocks. Everything else is set
+   large on cream with one crimson and no rules at all. Inter, tracked in.
+   ========================================================================== */
+
+.page {
+  --paper: #f2eee4;
+  --ink: #171310;
+  --red: #b0003a;
+  --grey: #8b857a;
+  --pale: #e0dacb;
+
+  --edge: clamp(1.15rem, 3.4vw, 4.5rem);
+  --gap: clamp(1.2rem, 2.6vw, 3rem);
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.018em;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 0.85rem var(--edge);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.mark {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.044em;
+}
+
+.bar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.4rem);
+  flex-wrap: wrap;
+}
+
+.bar nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.bar nav a:hover {
+  color: var(--red);
+}
+
+.now {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2.5rem, 7vw, 7rem) var(--edge) clamp(2rem, 5vw, 4rem);
+  min-height: min(90svh, 58rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  mask-image: linear-gradient(180deg, #000 0%, #000 48%, transparent 96%);
+}
+
+.heroKicker {
+  margin: 0 0 clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.heroType {
+  margin: 0;
+  display: grid;
+  font-size: clamp(3rem, 13vw, 14.5rem);
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.048em;
+}
+
+.heroType span:nth-child(2) {
+  padding-left: 0.1em;
+}
+
+.heroType span:nth-child(3) {
+  padding-left: 0.2em;
+}
+
+.red {
+  color: var(--red);
+}
+
+.heroFoot {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.heroFoot p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.32;
+  letter-spacing: -0.026em;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+.cta {
+  padding: 0.72em 1.4em;
+  background: var(--red);
+  color: var(--paper) !important;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------- section headings */
+
+.secHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: end;
+  margin-bottom: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.secHead h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.secHead p {
+  margin: 0 0 0.4rem;
+  max-width: 44ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* -------------------------------------------------------------- imposition
+   Eight page positions to a forme, drawn full width. The upside-down half is
+   actually upside down: it is a diagram, not an illustration of one. */
+
+.imposition,
+.work,
+.folds,
+.listing {
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+}
+
+.sheet {
+  display: grid;
+  gap: clamp(3px, 0.5vw, 8px);
+}
+
+.sheetRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(3px, 0.5vw, 8px);
+}
+
+.pageCell {
+  /* Portrait, but not as portrait as a real page: at full viewport width four
+     true 1:1.34 pages make a diagram a metre tall. */
+  aspect-ratio: 1 / 0.92;
+  background: var(--pale);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: clamp(0.7rem, 1.4vw, 1.4rem);
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.pageCell[data-flip='yes'] {
+  transform: rotate(180deg);
+  background: color-mix(in srgb, var(--ink) 8%, var(--pale));
+}
+
+.pageCell:hover {
+  background: var(--red);
+  color: var(--paper);
+}
+
+.pageCell span {
+  font-size: clamp(1.6rem, 5.5vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.047em;
+}
+
+.sheetNote {
+  margin: clamp(1.2rem, 2.5vw, 2rem) 0 0;
+  max-width: 52ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* -------------------------------------------------------------- statement */
+
+.statement {
+  padding: clamp(3.5rem, 10vw, 10rem) var(--edge) clamp(2.5rem, 7vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: pretty;
+}
+
+.statementMeta p {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* -------------------------------------------------------------------- work */
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 8fr) minmax(0, 9fr) 7rem 7rem;
+  align-items: center;
+  column-gap: var(--gap);
+  padding: clamp(0.9rem, 2vw, 1.6rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rows li:nth-child(odd) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.rows li:hover {
+  background: var(--red);
+  color: var(--paper);
+}
+
+.rows li:hover .rowN,
+.rows li:hover .rowSub,
+.rows li:hover .rowRun {
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+
+.rowN {
+  align-self: start;
+  padding-top: 0.6em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--red);
+}
+
+.rowTitle {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.6vw, 4.1rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.044em;
+}
+
+.rowSub {
+  font-size: clamp(0.86rem, 1.15vw, 1.05rem);
+  letter-spacing: -0.022em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.rowRun {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.rowLead {
+  text-align: right;
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+/* ------------------------------------------------------------- band, coda */
+
+.band,
+.coda {
+  position: relative;
+  height: clamp(150px, 24vw, 340px);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.coda {
+  height: clamp(130px, 20vw, 290px);
+  background: var(--paper);
+}
+
+/* ------------------------------------------------------------------- folds */
+
+.fGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 3rem);
+}
+
+.fPlate {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 70%, var(--paper));
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.fN {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--red);
+}
+
+.fGrid h3 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.fBody {
+  margin: 0;
+  max-width: 40ch;
+  font-size: clamp(0.9rem, 1.02vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ------------------------------------------------- long tables, borderless */
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr) minmax(0, 1.8fr) minmax(0, 1.8fr) 8rem;
+  gap: var(--gap);
+  align-items: baseline;
+  padding: clamp(0.62rem, 1.1vw, 0.95rem) clamp(0.5rem, 1.2vw, 1.1rem);
+  margin: 0 clamp(-0.5rem, -1.2vw, -1.1rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  transition: background 0.15s ease;
+}
+
+.table li:nth-child(even) {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.table li:hover {
+  background: color-mix(in srgb, var(--red) 11%, transparent);
+}
+
+.tKey {
+  font-weight: 700;
+  color: var(--red);
+}
+
+.tMain {
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+  font-weight: 650;
+  letter-spacing: -0.036em;
+}
+
+.tMid {
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+.tEnd {
+  text-align: right;
+  font-weight: 650;
+}
+
+/* ------------------------------------------------------------------- quote */
+
+.quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 12vw, 12rem) var(--edge);
+  overflow: hidden;
+}
+
+.quoteField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+  mask-image: radial-gradient(
+    ellipse 50% 62% at 50% 50%,
+    transparent 0%,
+    rgb(0 0 0 / 0.4) 58%,
+    #000 100%
+  );
+}
+
+.quote blockquote {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Measure on the paragraph: `ch` resolves against the display size there. */
+.quote p {
+  margin: 0 auto;
+  max-width: 24ch;
+  font-size: clamp(1.5rem, 4.4vw, 4.1rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+}
+
+.quote cite {
+  display: block;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 58%, transparent);
+}
+
+/* -------------------------------------------------------------------- shop */
+
+.shop {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 9rem) var(--edge);
+  overflow: hidden;
+}
+
+.shopField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.36;
+  mask-image: linear-gradient(90deg, #000 0%, transparent 42%, transparent 58%, #000 100%);
+}
+
+.shop h2 {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 7.2vw, 6.6rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.047em;
+}
+
+.shopList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+}
+
+.shopList dt {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.shopList dd {
+  margin: 0;
+  max-width: 32ch;
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.34;
+  letter-spacing: -0.026em;
+}
+
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  padding: clamp(4rem, 11vw, 11rem) var(--edge);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.formTitle {
+  margin: 0 0 clamp(1.1rem, 2.4vw, 2rem);
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+/* Inputs are filled rather than ruled: the batch avoids lines, so the field is
+   a tint of the page ink and the focus ring is the only edge it ever draws. */
+.field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: inherit;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border: 0;
+  border-radius: 0;
+  padding: 0.85rem 0.95rem;
+  appearance: none;
+}
+
+.field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--ink) 34%, transparent);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--paper);
+  border: 0;
+  border-radius: 0;
+  padding: 1.1rem 2.4rem;
+  cursor: pointer;
+}
+
+.contactPre {
+  margin: 0 0 clamp(1rem, 2.4vw, 2rem);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+
+.contactFine {
+  margin: clamp(1.6rem, 3.5vw, 3rem) 0 0;
+  max-width: 48ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  padding: clamp(2.5rem, 6vw, 5rem) var(--edge) clamp(1.6rem, 3vw, 2.6rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Instead of one big glyph, the sections themselves at display size: the first
+   thing the footer offers is a way back out of it. */
+.footIndex {
+  margin: 0 0 clamp(2.2rem, 5.5vw, 4.5rem);
+  display: grid;
+  gap: 0.06em;
+  justify-items: start;
+}
+
+.footIndex a {
+  font-size: clamp(1.8rem, 6vw, 5.4rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.046em;
+  color: color-mix(in srgb, var(--paper) 26%, transparent);
+}
+
+.footIndex a:hover {
+  color: var(--ink);
+}
+
+.footGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+.footGrid h2 {
+  margin: 0 0 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footGrid a,
+.footGrid p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+.footGrid p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footGrid a:hover {
+  color: var(--red);
+}
+
+.footFine {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--paper) 48%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 76%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 1200px) {
+  .fGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .statement,
+  .secHead {
+    grid-template-columns: 1fr;
+  }
+
+  .secHead p {
+    margin-bottom: 0;
+  }
+
+  .shopList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(1.8rem, 5vw, 3rem);
+  }
+
+  .rows li {
+    grid-template-columns: 3rem minmax(0, 1fr) 7rem;
+    grid-template-areas: 'n title lead' 'n sub lead' 'n run lead';
+    row-gap: 0.3rem;
+  }
+
+  .rowN { grid-area: n; }
+  .rowTitle { grid-area: title; }
+  .rowSub { grid-area: sub; }
+  .rowRun { grid-area: run; }
+  .rowLead { grid-area: lead; align-self: center; }
+
+  .table li {
+    grid-template-columns: minmax(0, 1fr) 7rem;
+    grid-template-areas: 'main end' 'key end' 'mid1 end' 'mid2 end';
+    row-gap: 0.1rem;
+  }
+
+  .tKey { grid-area: key; }
+  .tMain { grid-area: main; }
+  .tMid:nth-of-type(3) { grid-area: mid1; font-size: 0.86rem; }
+  .tMid:nth-of-type(4) { grid-area: mid2; font-size: 0.86rem; }
+  .tEnd { grid-area: end; align-self: center; }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .heroFoot {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    justify-self: start;
+  }
+
+  /* Four across becomes two, which is still a forme — just folded once more
+     than the press would. */
+  .sheetRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bar nav {
+    display: none;
+  }
+
+  .fGrid,
+  .shopList,
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+  }
+}

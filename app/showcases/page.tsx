@@ -180,7 +180,9 @@ export default function ShowcasesGallery() {
               <>
                 Live Next.js pages, each rendered by the same{' '}
                 <code>TabbiedArtwork</code> component on its own palette and
-                presets, with AI-generated imagery composited over the patterns.
+                presets — some with AI-generated imagery composited over the
+                patterns, the newest ten with the patterns carrying the page
+                on their own.
               </>
             }
             count={allCards.length}

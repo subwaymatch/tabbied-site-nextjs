@@ -59,7 +59,7 @@
   display: grid;
   font-size: 1.02rem;
   font-weight: 650;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.038em;
   line-height: 1;
 }
 
@@ -124,7 +124,7 @@
   font-size: clamp(2.1rem, 6.8vw, 5rem);
   font-weight: 600;
   line-height: 1.01;
-  letter-spacing: -0.048em;
+  letter-spacing: -0.041em;
 }
 
 .hero /* The muted second line sits over the hero pattern; plain
@@ -212,7 +212,7 @@
 .numbers dt {
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
   font-weight: 650;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.042em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
@@ -231,7 +231,7 @@
   margin: 0 0 clamp(1.5rem, 4vw, 2.4rem);
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 /* -------------------------------------------------------------------- book */
@@ -482,7 +482,7 @@
   margin: 0 0 0.7rem;
   font-size: clamp(1.4rem, 3.2vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 .secNote {
