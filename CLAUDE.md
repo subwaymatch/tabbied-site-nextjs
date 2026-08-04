@@ -15,7 +15,33 @@ npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
+npm run templates [slug]             # package showcase(s) as HTML templates
 ```
+
+## Showcase templates — derived from the export, never hand-ported
+
+`npm run templates` (after `npm run build`) turns a showcase into a
+framework-free download in `out/templates/<slug>/` plus a zip. It reads the
+static export, so a template can never be staler than the page it came from —
+hand-porting is the trap the strategy doc rejects (see
+`agent-outputs/template-packaging-plan.md`).
+
+Two things it does *not* do, deliberately. It doesn't de-hash and un-minify the
+built CSS: each showcase already has one authored `<slug>.module.css` next to
+its page, and that clean, commented file is what ships — only the class names
+in the *HTML* are rewritten back to plain ones. And it doesn't hand-write the
+mount code: the placeholders already carry their config as `data-*` attributes
+(`TabbiedArtwork` serializes it via `artworkConfigToAttributes`), so one
+`hydrateArtworks()` call revives the whole page.
+
+A site fails loudly rather than shipping broken: more than one CSS module on a
+page, two hashed names collapsing onto one plain name, or `composes:` (which
+has no plain-CSS equivalent without flattening — `hopscotch-museum` is the one
+known case, listed in `KNOWN_UNSUPPORTED`). The five legacy showcases that
+render through the shared `ShowcaseSite` component are excluded; they have no
+per-page stylesheet to ship. `e2e/templates.spec.ts` opens the generated
+template and asserts its artworks come up, which is what catches a template
+that broke because a page changed.
 
 ## Agent-facing docs — all generated, never hand-edited
 
