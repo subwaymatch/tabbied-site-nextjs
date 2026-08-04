@@ -15,18 +15,22 @@ npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
-npm run templates [slug]             # package template site(s) for download
+npm run templates [slug]             # repackage template site(s) by hand
 ```
 
 ## Downloadable templates — derived from the export, never hand-ported
 
-`npm run templates` (**after** `npm run build`, never before — it reads the
-export, and `next build` wipes `out/`) writes two downloads per site into
-`out/downloads/`: `<slug>-html.zip` and `<slug>-react.zip`. The `/templates`
-gallery links to both from every card, so a dead button means the packager
-skipped that site. `out` is in tsconfig's `exclude` because the React packages
-contain their own `vite.config.ts`, which the site's typecheck would otherwise
-try to compile.
+`npm run templates` writes two downloads per site into `out/downloads/`:
+`<slug>-html.zip` and `<slug>-react.zip`. It runs **after** `npm run build`,
+never before — it reads the export, and `next build` wipes `out/` — which is
+why it is wired as `postbuild` rather than left to be remembered. That is not
+a convenience: the zips are gitignored (~106 MB), so the deploy's own build is
+the only thing that ever produces the `/downloads/*.zip` the site links to.
+Run it by hand to repackage one site without rebuilding, and pass a slug to do
+just that one. The `/templates` gallery links to both formats from every card,
+so a dead button means the packager skipped that site. `out` is in tsconfig's
+`exclude` because the React packages contain their own `vite.config.ts`, which
+the site's typecheck would otherwise try to compile.
 
 The two formats are built in opposite directions, and that is the point:
 
