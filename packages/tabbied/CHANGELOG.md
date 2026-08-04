@@ -1,5 +1,89 @@
 # tabbied
 
+## 0.4.0
+
+### Minor Changes
+
+- [#51](https://github.com/subwaymatch/tabbied/pull/51) [`6103be1`](https://github.com/subwaymatch/tabbied/commit/6103be16402185cda96c83bd78a7cccbe4f9dfae) Thanks [@subwaymatch](https://github.com/subwaymatch)! - **Breaking: "artwork" is now "pattern" throughout the public API.** The project
+  started out making artworks and has pivoted to making patterns, mostly for
+  digital products — the vocabulary now matches. There are no deprecated
+  aliases; this is a clean break on 0.x.
+
+  | Before                                                                                                                                        | After                                                    |
+  | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+  | `createArtwork(host, config)`                                                                                                                 | `createPattern(host, config)`                            |
+  | `hydrateArtworks({ artworks })`                                                                                                               | `hydratePatterns({ patterns })`                          |
+  | `artworkConfigToAttributes` / `artworkConfigFromElement`                                                                                      | `patternConfigToAttributes` / `patternConfigFromElement` |
+  | `ArtworkDefinition`, `ArtworkOption`, `ArtworkConfig`, `ArtworkController`, `ArtworkSlug`, `ArtworkColors`, `ArtworkSizing`, `ArtworkBoxSize` | `Pattern…` equivalents                                   |
+  | `import { … } from 'tabbied/artworks'`                                                                                                        | `import { … } from 'tabbied/patterns'`                   |
+  | `artworks` record, `isArtworkSlug()`                                                                                                          | `patterns` record, `isPatternSlug()`                     |
+  | `<TabbiedArtwork artwork={…} />`                                                                                                              | `<TabbiedPattern pattern={…} />`                         |
+  | `TabbiedArtworkProps`, `TabbiedArtworkHandle`                                                                                                 | `TabbiedPatternProps`, `TabbiedPatternHandle`            |
+  | `data-artwork="<slug>"`                                                                                                                       | `data-pattern="<slug>"`                                  |
+
+  Design slugs, palettes, options and rendering are all unchanged — this is a
+  rename, not a behaviour change. To migrate, rename the imports and the
+  `artwork` prop; nothing else needs to move.
+
+  `ARTWORK_ATTRIBUTE` / `ARTWORK_SELECTOR` are now `PATTERN_ATTRIBUTE` /
+  `PATTERN_SELECTOR`. Note that `data-pattern` is what
+  `patternConfigFromElement` reads, so markup emitted by an older version needs
+  the attribute renamed too.
+
+  The package CHANGELOG's historical entries are deliberately left alone: 0.1.0
+  through 0.3.0 shipped the old names, and rewriting them would make those
+  entries describe an API that never existed.
+
+- [#51](https://github.com/subwaymatch/tabbied/pull/51) [`6103be1`](https://github.com/subwaymatch/tabbied/commit/6103be16402185cda96c83bd78a7cccbe4f9dfae) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Add declarative mounting: `hydratePatterns()` reads a pattern's config off
+  plain `data-*` attributes and mounts every match under a root, so a static
+  HTML page can describe its patterns in the markup and bring them all up with
+  one call — no component, no build step.
+
+  `patternConfigToAttributes()` is the inverse, and `TabbiedPattern` now uses it
+  on its own placeholder. A server-rendered React page therefore emits exactly
+  what `hydratePatterns` reads, which is what lets a prerendered page be
+  repackaged as a framework-free template.
+
+  The attributes are readable rather than a JSON blob (`data-palette="transparent,
+#C9C8C1"`, `data-options="grid: 8x12; shadow: true"`), and option values are
+  typed by the pattern's own option metadata rather than guessed — a
+  `ButtonSelectGroup` choice that looks numeric stays a string. Unknown slugs
+  and unparseable attributes degrade to the design's authored defaults instead
+  of failing.
+
+- [#51](https://github.com/subwaymatch/tabbied/pull/51) [`6103be1`](https://github.com/subwaymatch/tabbied/commit/6103be16402185cda96c83bd78a7cccbe4f9dfae) Thanks [@subwaymatch](https://github.com/subwaymatch)! - **Breaking: the `shadow` option is removed from all seven patterns that had
+  it** — `bloks`, `cupola`, `foliage`, `mixtape`, `odessa`, `quarterfall` and
+  `radius`. The toggle injected a `box-shadow`, which is the one CSS effect that
+  costs a design its clean SVG export: with it on, the shadow left as an SVG
+  drop-shadow filter that Figma and Illustrator import imperfectly.
+
+  Rather than keep a switch whose "on" state quietly degrades an export, the
+  effect is gone. All seven now export as clean native vector unconditionally,
+  which takes the clean tier from 232 designs to **239** and empties the
+  conditional tier entirely.
+
+  Passing `options={{ shadow: … }}` is now a no-op rather than an error — the
+  controller ignores option ids a design doesn't declare — so nothing throws,
+  but the shadow will no longer render. **`bloks` and `cupola` change
+  appearance by default**, since their toggle defaulted to on; the other five
+  defaulted to off and are unchanged unless you were opting in.
+
+  `PatternOption.svgExportNote` and the editor's per-option warning still work;
+  no design uses them now. A design that wants a shadow should bake it in and
+  take a definition-level note, as `neon`, `lantern` and `terrain` do — visible
+  in the catalogue rather than hidden behind a switch.
+
+- [#51](https://github.com/subwaymatch/tabbied/pull/51) [`6103be1`](https://github.com/subwaymatch/tabbied/commit/6103be16402185cda96c83bd78a7cccbe4f9dfae) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Move the ambient-redraw timer into the framework-free core. `createPattern`
+  now accepts `redrawInterval` and `paused`, along with the gates that used to
+  live in the React component: the effect switches off entirely under
+  `prefers-reduced-motion`, and drops ticks while the tab is hidden or the host
+  is scrolled out of view. `paused` is read at tick time, so pausing and
+  resuming preserves the redraw phase instead of restarting the cycle.
+
+  `TabbiedPattern`'s `redrawInterval` / `paused` props are unchanged — they now
+  pass straight through to the controller — so React consumers need do nothing.
+  Vanilla consumers get animated patterns without reimplementing the timer.
+
 ## 0.3.0
 
 ### Minor Changes
