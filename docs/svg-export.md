@@ -1,19 +1,19 @@
 # Native SVG export — reference
 
-The single source of truth for how Tabbied's SVG export works, which artworks
-it supports (and why), and the rules to follow when touching artworks, the
+The single source of truth for how Tabbied's SVG export works, which patterns
+it supports (and why), and the rules to follow when touching patterns, the
 converter, or export UI. Written for future maintainers and coding agents.
 Historical background lives in `agent-outputs/native-svg-export-handoff.md`
 (the original research + implementation addendum, kept as a dated record).
 
 Batches 11 (gallery orders 1200-1254, 55 designs) and 12 (1400-1431, 32
 designs) were authored against this document: every design in them is tier 4,
-and `scripts/artwork-gen/validate-svg-batch11.mjs` /
+and `scripts/pattern-gen/validate-svg-batch11.mjs` /
 `validate-svg-batch12.mjs` are the gate that keeps them there — they run the
 shipped converter over each rendered design and fail on a throw, on any
 warning, or on a pixel diff above a budget deliberately tighter than the
-shipped one. Both are thin callers of `scripts/artwork-gen/svg-sweep.mjs`, and
-both batches share the authoring lints in `scripts/artwork-gen/artwork-lints.mjs`.
+shipped one. Both are thin callers of `scripts/pattern-gen/svg-sweep.mjs`, and
+both batches share the authoring lints in `scripts/pattern-gen/pattern-lints.mjs`.
 
 Batch 12 is where the *smooth* gradient gets used: 19 of its 32 designs are
 built on linear and radial ramps — fades, a corner glow, halftones and ruled
@@ -37,7 +37,7 @@ Public surface:
 - `controller.exportSvg(options)` / React handle `exportSvg(options)` — waits
   for in-flight CSS transitions, then snapshots the DOM. `{ download: true }`
   saves `<slug>.svg`.
-- `supportsSvgExport(artwork)` (in `types.ts`, **not** the converter module)
+- `supportsSvgExport(pattern)` (in `types.ts`, **not** the converter module)
   — UI gating without pulling the converter into the bundle.
 - `import { doodleToSvg } from 'tabbied/svg-export'` — direct converter use.
 
@@ -49,7 +49,7 @@ only. `dist/core/svgExport.js` must keep **zero runtime imports** (only
 type-only imports in the source); the parity harness and e2e inject that file
 directly into pages.
 
-## Artwork support tiers
+## Pattern support tiers
 
 ### 1. No SVG export — `"svgExport": false` (4)
 
@@ -58,7 +58,7 @@ primitive, so faithful export is impossible. The editor disables the menu
 item with tooltip *"This design uses effects SVG can't represent."* No
 dialog — the option simply can't be used.
 
-| Artwork | Reason |
+| Pattern | Reason |
 | --- | --- |
 | `coil` | Smooth conic color-wheel sweeps in ring segments |
 | `spectrum` | Smooth multi-color conic sweeps |
@@ -74,7 +74,7 @@ about (see the dialog contract below). Two sub-groups:
 design tools (Figma, Illustrator) import imperfectly; the converter also
 reports these in the result's `warnings`:
 
-| Artwork | Effect |
+| Pattern | Effect |
 | --- | --- |
 | `bokeh` | `filter: blur()` → `feGaussianBlur` |
 | `neon`, `lantern`, `terrain` | box-shadow glows → `feDropShadow`/blur-merge chains |
@@ -82,21 +82,27 @@ reports these in the result's `warnings`:
 
 **Documented sub-pixel deviations** (≤1 CSS px from the on-screen render):
 
-| Artwork | Deviation |
+| Pattern | Deviation |
 | --- | --- |
 | `fractal`, `matryoshka`, `subdivide` | Live rendering shows hairline seams from rasterizing the nested `@doodle` mask; the vector export is intentionally seam-free |
 | `drypoint` | `@svg` mask sub-pixel rounding; its payload uses `calc()` in SVG attributes, which some design tools don't evaluate |
 | `windowpane` | CSS blends mixed-width borders progressively around rounded corners; per-side arc strokes junction within ≤1 px |
 | `glyph` | Wall-to-wall maximum-contrast quadrant edges; anti-aliasing varies across Chromium builds |
 
-### 3. Conditional — `"svgExportNote"` on the shadow ToggleSwitch option (7)
+### 3. Conditional — `"svgExportNote"` on a ToggleSwitch option (0)
 
-Clean native export normally; the note (and dialog) applies **only while the
-shadow toggle is on**, because the shadow exports as an SVG filter:
-`bloks`, `cupola` (toggle default **on**), `foliage`, `mixtape`, `odessa`,
-`quarterfall`, `radius` (default off).
+No design is in this tier. `bloks`, `cupola`, `foliage`, `mixtape`, `odessa`,
+`quarterfall` and `radius` used to carry a Shadow toggle whose `box-shadow`
+exported as an SVG filter; the option was removed outright rather than kept as
+a trap, so all seven are tier 4 unconditionally.
 
-### 4. Full support — everything else (~239)
+The mechanism is still supported end to end — `PatternOption.svgExportNote`,
+the amber icon and the dialog's per-option lines all still work — so a future
+design that needs a conditional effect can use it. It is currently unexercised
+by any pattern, which is why `e2e/svg-export.spec.ts` no longer has a case for
+it: there is no fixture to point one at.
+
+### 4. Full support — everything else (239)
 
 Solid fills, border-radius shapes, per-side borders, clip-paths,
 linear/radial/repeating gradients (incl. `calc(% ± px)` ramps and
@@ -106,12 +112,12 @@ opacity, z-index. Each verified pixel-accurate against its live render.
 
 ## UI contract: warning icon + confirmation dialog
 
-Implemented in `components/edit-artwork-page/EditArtwork.tsx` /
-`EditArtworkHeader.tsx`. Any new export surface must follow the same rules:
+Implemented in `components/edit-pattern-page/EditPattern.tsx` /
+`EditPatternHeader.tsx`. Any new export surface must follow the same rules:
 
-1. `supportsSvgExport(artwork) === false` → **disabled** "Download SVG" item
+1. `supportsSvgExport(pattern) === false` → **disabled** "Download SVG" item
    with the tooltip. Never show the dialog for these.
-2. Collect the active notes: `artwork.svgExportNote` plus
+2. Collect the active notes: `pattern.svgExportNote` plus
    `option.svgExportNote` for every option whose current value is `true`.
 3. Notes present → a right-aligned amber lucide `TriangleAlert` on the
    "Download SVG" item (desktop dropdown **and** mobile export panel), and
@@ -122,14 +128,14 @@ Implemented in `components/edit-artwork-page/EditArtwork.tsx` /
    press).
 5. No notes → download immediately, no dialog.
 
-The metadata lives in the package (`svgExportNote` on `ArtworkDefinition` and
-on `ArtworkOption`), so package consumers can implement the same UX.
+The metadata lives in the package (`svgExportNote` on `PatternDefinition` and
+on `PatternOption`), so package consumers can implement the same UX.
 
-## Rules when adding or editing artworks
+## Rules when adding or editing patterns
 
 - The converter **fails loudly** (`SvgExportUnsupportedError`) on CSS it
   can't map — silently-wrong output is the failure mode to avoid. If a new
-  artwork throws, either extend the converter or set `"svgExport": false`.
+  pattern throws, either extend the converter or set `"svgExport": false`.
 - **Beware css-doodle per-occurrence rolls**: paired
   `-webkit-x: @pick(...)` / `x: @pick(...)` declarations roll independently
   (rendering uses the last declaration; the export reads computed styles so
@@ -140,14 +146,13 @@ on `ArtworkOption`), so package consumers can implement the same UX.
 - Effects that map to SVG *filters* (blur, box-shadow, blend modes) are
   allowed but need an `svgExportNote` (on the definition, or on the toggle
   option when the effect is optional).
-- After any artwork change, run the parity sweep for it (below); keep the
+- After any pattern change, run the parity sweep for it (below); keep the
   representative list and threshold table in `e2e/svg-export.spec.ts` in
   sync (thresholds are mirrored in `scripts/svg-parity-sweep.mjs`).
 - **The tier belongs in the batch definition, never only in the generated
-  JSON.** Each `scripts/artwork-gen/artwork-defs-N.mjs` takes `svgExport` /
-  `svgExportNote` in a design's cfg and its generator emits them; the shadow
-  toggle's note is emitted by `generate-batch7.mjs`'s `SHADOW_OPTION`. A tier
-  written straight into `packages/tabbied/artworks/*.json` is silently erased
+  JSON.** Each `scripts/pattern-gen/pattern-defs-N.mjs` takes `svgExport` /
+  `svgExportNote` in a design's cfg and its generator emits them. A tier
+  written straight into `packages/tabbied/patterns/*.json` is silently erased
   the next time anyone regenerates that batch — the generators rewrite every
   file they own. This is not hypothetical: `wedge` lost its `svgExport: false`
   that way, and nothing failed.
@@ -159,9 +164,9 @@ on `ArtworkOption`), so package consumers can implement the same UX.
   batch 10 once claimed every order above 1100 and so deleted the whole of
   batch 11. Batch 11 owns 1200-1399, batch 12 owns 1400-1999, and a batch 13
   starts at 2000 and bounds itself the same way.
-- `scripts/artwork-gen/generate-artworks.mjs` (batches 1-3) is historical and
+- `scripts/pattern-gen/generate-patterns.mjs` (batches 1-3) is historical and
   refuses to run: its definitions would recreate 105 retired designs and
-  overwrite `tetro`. For those artworks the JSON is authoritative — edit it
+  overwrite `tetro`. For those patterns the JSON is authoritative — edit it
   directly, and the unit test guards the tiers.
 
 ## Verification
@@ -173,14 +178,14 @@ pixel-snaps edges while SVG anti-aliases fractional geometry, so a differing
 pixel passes when its color lies channel-wise between the other image's
 5×5-neighborhood extremes (2 device px = 1 CSS px), checked in both
 directions. Default budget: ≤1% differing pixels; the tiers above carry
-documented per-artwork headroom (see `PER_ARTWORK_MAX` in the spec — CI's
+documented per-pattern headroom (see `PER_PATTERN_MAX` in the spec — CI's
 Chromium measures slightly different AA/shadow falloff than local builds).
 
 ### Cell boundaries: integer vs fractional
 
 The batch sweeps draw each design in a square box, so a square grid gives
 cells at an exact integer size (300px / 5x5 = 60.0px). The editor does not: at
-the default 6x9 grid the artwork page renders a 364x546 element, and the cells
+the default 6x9 grid the pattern page renders a 364x546 element, and the cells
 come out **60.66px**. That one difference is worth knowing about, because a
 design whose hard edges land on integer boundaries in the sweep lands
 mid-device-pixel in the editor — and mid-pixel is exactly where CSS snaps an
@@ -197,7 +202,7 @@ So: the 0.4% budget below is calibrated for the integer-cell default, where it
 is a tight and stable signal for real authoring mistakes — abutments, wrong
 geometry, gradient aliasing. It is *not* a claim that any design holds 0.4% at
 every grid the editor offers. When a design is edge-dense enough to matter,
-the e2e's `PER_ARTWORK_MAX` carries the documented headroom (`glyph`,
+the e2e's `PER_PATTERN_MAX` carries the documented headroom (`glyph`,
 `stepramp`).
 
 One thing the fractional pass does catch that the default misses: repeating
@@ -211,17 +216,17 @@ npm test --workspace tabbied              # unit tests for the pure parsers
 npm run build && npm run test:e2e         # e2e incl. representative parity set
 SVG_FULL_SWEEP=1 npx playwright test e2e/svg-export.spec.ts   # full catalog
 node scripts/svg-parity-sweep.mjs [slug ...]   # dev-server sweep w/ artifacts
-node scripts/artwork-gen/validate-svg-batch12.mjs   # no dev server needed
-SVG_CELL=301 node scripts/artwork-gen/validate-svg-batch12.mjs  # fractional cells
-SVG_GRID=6x9 node scripts/artwork-gen/validate-svg-batch12.mjs  # editor default
+node scripts/pattern-gen/validate-svg-batch12.mjs   # no dev server needed
+SVG_CELL=301 node scripts/pattern-gen/validate-svg-batch12.mjs  # fractional cells
+SVG_GRID=6x9 node scripts/pattern-gen/validate-svg-batch12.mjs  # editor default
 ```
 
-The last one is the fast path while authoring: it renders artworks directly
+The last one is the fast path while authoring: it renders patterns directly
 from their JSON, twelve to a page across two seeds with the frequency gate
 wide open, so a few hundred designs sweep in minutes instead of one page load
 each. It also fails on any converter *warning*, which the parity scripts do
 not — a warning is precisely the signal that a design needs an
-`svgExportNote`. `SLUGS=a,b` narrows it to specific artworks (including ones
+`svgExportNote`. `SLUGS=a,b` narrows it to specific patterns (including ones
 outside the batch the script names).
 
 The sweep script needs `npm run build --workspace tabbied` first (it injects
@@ -233,7 +238,7 @@ The sweep script needs `npm run build --workspace tabbied` first (it injects
 - **Geometry**: layout offsets are integer-rounded, so boxes are measured via
   `getBoundingClientRect` with a temporary `transform:none` override. The
   override must be unwound in **two steps** (restore transforms while
-  transitions stay muted, force a recalc, then unmute) or the artworks'
+  transitions stay muted, force a recalc, then unmute) or the patterns'
   ~400ms transitions restart and computed transforms read as identity.
 - **Effect order** per the Filter Effects model: children → `filter` →
   `clip-path` → `mask` → opacity/blend, all inside the transform group.
@@ -258,14 +263,14 @@ The sweep script needs `npm run build --workspace tabbied` first (it injects
   (payloads intentionally bleed past their viewBox) with content-hash id
   namespacing.
 - **Colors** are normalized through a DOM probe that **fails loudly** on
-  unparseable values — a silent fallback once painted whole artworks in the
+  unparseable values — a silent fallback once painted whole patterns in the
   page's inherited text color (the `curl` calc()-ramp incident).
 - **Borders shift the boxes inside them.** An absolutely-positioned
   pseudo-element resolves its offsets against its host's *padding* box, a
   static one is centred in the content box, and a background layer is
   positioned in the origin box (padding-box by default) even though it is
   clipped to the border box. All three coincide on a borderless element,
-  which every artwork in the catalogue currently is — so this has no live
+  which every pattern in the catalogue currently is — so this has no live
   parity coverage and is held by unit tests instead (`originBox` and
   `pseudoBoxFor` in the package's test suite). The converter used the border
   box for all three until batch 11, and anything placed inside a frame came

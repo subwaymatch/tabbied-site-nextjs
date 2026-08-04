@@ -1,7 +1,7 @@
 {
   "name": "tabbied",
   "version": "0.3.0",
-  "description": "Tabbied generative artworks: a framework-agnostic core plus a React component, powered by css-doodle.",
+  "description": "Tabbied generative patterns: a framework-agnostic core plus a React component, powered by css-doodle.",
   "type": "module",
   "license": "MIT",
   "author": "Sy Hong and Ye Joo Park",
@@ -31,10 +31,10 @@
       "import": "./dist/react/index.js",
       "default": "./dist/react/index.js"
     },
-    "./artworks": {
-      "types": "./dist/artworks.generated.d.ts",
-      "import": "./dist/artworks.generated.js",
-      "default": "./dist/artworks.generated.js"
+    "./patterns": {
+      "types": "./dist/patterns.generated.d.ts",
+      "import": "./dist/patterns.generated.js",
+      "default": "./dist/patterns.generated.js"
     },
     "./svg-export": {
       "types": "./dist/core/svgExport.d.ts",

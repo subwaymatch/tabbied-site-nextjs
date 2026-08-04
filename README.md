@@ -9,7 +9,7 @@
 
 ⚠️ **Note:** The Tabbied project is undergoing modernization and redesign. The API may change over the next few months.
 
-Tabbied lets you easily create timeless and beautifully generated patterns or artwork to use for wall art, websites, print materials and more. Under the hood, Tabbied uses <a href="https://css-doodle.com/">&lt;css-doodle /&gt;</a> to generate the artworks.
+Tabbied lets you easily create timeless and beautifully generated patterns or pattern to use for wall art, websites, print materials and more. Under the hood, Tabbied uses <a href="https://css-doodle.com/">&lt;css-doodle /&gt;</a> to generate the patterns.
 
 Try it at **[tabbied.com](https://tabbied.com)**.
 
@@ -31,12 +31,12 @@ npm install tabbied
 ```
 
 ```tsx
-import { TabbiedArtwork } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+import { TabbiedPattern } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 
 export function Example() {
   return (
-    <TabbiedArtwork artwork={radius} fit="cover" style={{ width: '100%', height: 320 }} />
+    <TabbiedPattern pattern={radius} fit="cover" style={{ width: '100%', height: 320 }} />
   );
 }
 ```
@@ -57,7 +57,7 @@ contract plus a one-line description of every design, in a single fetch.
 | [`/llms-full.txt`](https://tabbied.com/llms-full.txt) | The full API contract and a one-line entry for all 222 designs (~31 KB). |
 | [`/catalog.json`](https://tabbied.com/catalog.json) | Structured per-design data: palette, options and accepted values, default fit, SVG-export support. Also shipped in the package as `tabbied/catalog.json`. |
 
-All three are generated at build time from the same `artworks/*.json` the
+All three are generated at build time from the same `patterns/*.json` the
 package is built from ([`scripts/generate-llms.mjs`](./scripts/generate-llms.mjs)),
 so they can't drift from what's published.
 
@@ -81,7 +81,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The designs live as JSON in [`packages/tabbied/artworks/`](./packages/tabbied/artworks) — the package's codegen turns them into a typed module that both the site and the published package consume, so adding a new design is just a new JSON file.
+The designs live as JSON in [`packages/tabbied/patterns/`](./packages/tabbied/patterns) — the package's codegen turns them into a typed module that both the site and the published package consume, so adding a new design is just a new JSON file.
 
 ## ✅ Testing
 

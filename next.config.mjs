@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 // The whole site is prerenderable (every route is built from the local
-// artworks/ folder; interactivity is client-side), so it ships as a pure
+// patterns/ folder; interactivity is client-side), so it ships as a pure
 // static export. On Vercel that means pages are served straight from the CDN
 // as files — zero function invocations, zero ISR cache reads/writes — instead
 // of App Router's default prerender-behind-a-function serving.

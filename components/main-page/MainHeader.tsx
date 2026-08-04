@@ -25,26 +25,26 @@ function GithubIcon({ size = 24 }: { size?: number }) {
 
 // `external` items point at static files outside the Next app. They render as a
 // real <a> so the browser does a full navigation instead of client-side routing,
-// which has no route to resolve for them. Nothing uses it today — the showcase
-// sites became Next routes under /showcase/ — but the escape hatch is cheap to
+// which has no route to resolve for them. Nothing uses it today — the template
+// sites became Next routes under /template/ — but the escape hatch is cheap to
 // keep for the next thing dropped into public/.
 type NavItem = { href: string; label: string; external?: boolean };
 
 const navItems: NavItem[] = [
-  { href: '/artworks', label: 'Browse Artworks' },
-  { href: '/showcases', label: 'Showcase' },
+  { href: '/patterns', label: 'Browse Patterns' },
+  { href: '/templates', label: 'Template' },
   { href: '/docs/react', label: 'Docs' },
 ];
 
 // The site is a static export with `trailingSlash: true`, so the live pathname
-// is "/artworks/" while a nav href is "/artworks". Strip any trailing slash
+// is "/patterns/" while a nav href is "/patterns". Strip any trailing slash
 // (keeping "/" itself) before comparing so the active item resolves either way.
 function normalizePath(path: string) {
   return path.length > 1 ? path.replace(/\/+$/, '') : path;
 }
 
 // The shared site header, logo, page navigation, and GitHub link, reused on
-// every route except the individual artwork editor (which has its own header).
+// every route except the individual pattern editor (which has its own header).
 export default function MainHeader() {
   const currentPath = normalizePath(usePathname() ?? '/');
 

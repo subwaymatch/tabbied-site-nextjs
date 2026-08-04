@@ -47,7 +47,7 @@ changeset when the change deserves more than a patch, or deserves a changelog
 entry in your own words — a hand-written changeset always wins over the
 generated one.
 
-Changes outside `packages/tabbied` (the site, docs, CI, the showcase) don't
+Changes outside `packages/tabbied` (the site, docs, CI, the template) don't
 release anything, which is what you want — they aren't part of the npm package.
 
 **Ship right now instead of waiting for Monday:** merge the "Version Packages"
@@ -105,7 +105,7 @@ PR creation and changelog generation; no other secrets are needed.
   the workflow's `npm install -g npm@latest` step ensures.
 - **Build artifacts:** `packages/tabbied/dist` is git-ignored and rebuilt in CI;
   `prepublishOnly` is a backstop, and the workflow also builds explicitly before
-  publishing. The published tarball only contains `dist` and `artworks` (see the
+  publishing. The published tarball only contains `dist` and `patterns` (see the
   package's `files` field).
 - **Workspace link:** the root app depends on `"tabbied": "*"` so the local
   workspace copy stays linked across version bumps — don't pin it back to an

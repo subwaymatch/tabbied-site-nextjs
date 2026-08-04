@@ -4,10 +4,10 @@ Guidance for coding agents working in this repository.
 
 ## Repo layout & commands
 
-Tabbied: generative artworks built on css-doodle. npm workspaces — the
+Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 254 artwork
-presets as JSON in `packages/tabbied/artworks/`, embedded by codegen).
+`packages/tabbied/` (framework-free core + React wrapper + 254 pattern
+presets as JSON in `packages/tabbied/patterns/`, embedded by codegen).
 
 ```bash
 npm run dev                          # site (predev builds the package)
@@ -15,16 +15,92 @@ npm run build --workspace tabbied    # codegen + tsc for the package
 npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
+npm run templates [slug]             # package template site(s) for download
 ```
+
+## Downloadable templates — derived from the export, never hand-ported
+
+`npm run templates` (**after** `npm run build`, never before — it reads the
+export, and `next build` wipes `out/`) writes two downloads per site into
+`out/downloads/`: `<slug>-html.zip` and `<slug>-react.zip`. The `/templates`
+gallery links to both from every card, so a dead button means the packager
+skipped that site. `out` is in tsconfig's `exclude` because the React packages
+contain their own `vite.config.ts`, which the site's typecheck would otherwise
+try to compile.
+
+The two formats are built in opposite directions, and that is the point:
+
+- **HTML is derived from the export**, because there is no framework-free
+  source to copy — hand-porting is the trap the strategy doc rejects (see
+  `agent-outputs/template-packaging-plan.md`).
+- **React is a copy of the page**, because a template page already *is* a plain
+  React component. The only Next.js API any of the 57 uses is `export const
+  metadata`; there is no next/image, next/link, `'use client'` or
+  `generateStaticParams` anywhere. So `page.tsx` ships as authored and only the
+  frame changes: metadata lifted into `index.html`, workspace imports pointed
+  at copied neighbours, plus a Vite scaffold. Vite resolves `.module.css`
+  natively, so the React package needs **no CSS transform at all** — only the
+  bundler-less HTML package needs `composes:`/`:global()` flattened.
+
+Two things it does *not* do, deliberately. It doesn't de-hash and un-minify
+the built CSS: the authored `.module.css` is already the clean, commented
+stylesheet a person should edit, so that ships and only the class names in the
+*HTML* are rewritten back to plain ones. And it doesn't hand-write the mount
+code: the placeholders already carry their config as `data-*` attributes
+(`TabbiedPattern` serializes it via `patternConfigToAttributes`), so one
+`hydratePatterns()` call revives the whole page.
+
+A site fails loudly rather than shipping broken: more than one CSS module on a
+page, or two hashed names collapsing onto one plain name. All 57 sites
+package, so `KNOWN_UNSUPPORTED` is empty — anything that throws is a new
+problem and exits non-zero.
+
+`composes:` needs no flattening, which is easy to get backwards. CSS Modules
+resolves a local `composes` in the **markup**: `.h2Light { composes: h2 }`
+compiles to `class="…__h2Light …__h2"` and both rules are already in the
+sheet, so the declaration is inert — just not valid CSS outside the pipeline.
+`dropComposes` removes it, having first checked the build really did add the
+composed class (a premise about build output, so it is verified, not assumed).
+A cross-file `composes … from` would introduce a second module and is caught
+by the one-module check before that runs.
+
+**Two stylesheet paths, and they fail differently.** A site with its own
+`<slug>.module.css` ships it byte-for-byte. The five built on the shared
+`TemplateSite` component have no per-page sheet, so the component's is shipped
+trimmed by `trimUnusedRules` to the rules the page can actually match (~45% of
+it is other sites' layout kits). The trim is conservative — a rule goes only
+when it names a class the page doesn't have, and a selector with no class at
+all is always kept — and it is safe only because the packaged page has no
+framework left to add a class after load.
+
+Two traps that trimmer already fell into, both silent:
+
+- **Comments containing braces.** This codebase documents its CSS heavily and
+  one comment contains a literal `{ color: inherit }` as an example. Counted
+  naively that desynchronises brace depth for the rest of the file, so the
+  walker skips comments when scanning. Do not "simplify" it back to
+  `indexOf('{')`.
+- **Comments containing class names**, which poison the selector parsed out of
+  the prelude. The selector is taken with comments stripped; they are put back
+  on the way out so the shipped sheet stays documented.
+
+`e2e/templates.spec.ts` covers one site of each of the three kinds and
+asserts every class the markup uses survives into the stylesheet. Note it navigates to
+`/downloads/<slug>/` **with the trailing slash**: `serve` rewrites
+`<dir>/index.html` to an extensionless `<dir>`, and every relative asset then
+resolves a level too high and 404s — which once had this spec passing against
+a completely unstyled page. What actually proves a template is the pixel diff
+against its live page (see the packaging commit); the spec is the cheap guard
+that runs every time.
 
 ## Agent-facing docs — all generated, never hand-edited
 
 Four build artifacts describe the catalog to tools that can't see the
-artworks. They're gitignored and regenerated on every build, so edit the
+patterns. They're gitignored and regenerated on every build, so edit the
 generators, not the output:
 
 - `packages/tabbied/catalog.json` — written by the package's
-  `scripts/codegen.mjs` from the same `artworks/*.json` it compiles, exported
+  `scripts/codegen.mjs` from the same `patterns/*.json` it compiles, exported
   as `tabbied/catalog.json`. Carries each design's description, palette,
   options, default fit, and SVG-export tier — but **not** the css-doodle
   `code`, which is what keeps it readable.
@@ -76,14 +152,15 @@ quantiser a whole cell.
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
 The native SVG exporter (`packages/tabbied/src/core/svgExport.ts`) converts
-rendered artworks to true vector SVG. Rules that must not regress:
+rendered patterns to true vector SVG. Rules that must not regress:
 
 - **Support tiers are metadata-driven.** `"svgExport": false` marks the 4
   designs SVG cannot represent (coil, spectrum, pinwheel, wedge — smooth
   conic sweeps): the editor *disables* "Download SVG" for them.
-  `"svgExportNote"` on a definition (11 designs) or on a ToggleSwitch option
-  (7 shadow toggles, note applies only while on) documents limitations —
-  filter-based effects or ≤1px deviations. Everything else (~239) is clean.
+  `"svgExportNote"` on a definition (11 designs) documents limitations —
+  filter-based effects or ≤1px deviations. The option-level form still works
+  but no design uses it: the Shadow toggle that was its only user was removed
+  rather than left as an export trap. Everything else (239) is clean.
   See docs/svg-export.md for the complete lists and reasons.
 - **Limited exports must warn before downloading**: a right-aligned amber
   `TriangleAlert` on the "Download SVG" item (desktop menu + mobile panel)
@@ -91,10 +168,10 @@ rendered artworks to true vector SVG. Rules that must not regress:
   dismiss) titled "About this SVG export" listing the active notes, with
   Cancel / Download SVG. No notes → download directly, no dialog.
 - **Fail loudly, never silently wrong**: unsupported CSS throws
-  `SvgExportUnsupportedError`. New artworks must either stay inside the
+  `SvgExportUnsupportedError`. New patterns must either stay inside the
   supported CSS subset, extend the converter, or set `svgExport: false`
   (+ note). Batches 11 and 12 are authored to be clean throughout and share
-  their lints (`scripts/artwork-gen/artwork-lints.mjs`) and their two gates
+  their lints (`scripts/pattern-gen/pattern-lints.mjs`) and their two gates
   (`svg-sweep.mjs`, `render-sweep.mjs`); a batch generator owns a *bounded*
   range of gallery orders and deletes anything in range it no longer defines.
   Verify with `node scripts/svg-parity-sweep.mjs <slug>` and keep

@@ -21,8 +21,8 @@ import { dirname, extname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-// Served image roots. `sites` holds the showcase photography; `mockups` holds
-// objects wearing a real artwork (see docs/artwork-mockups.md). A manifest entry
+// Served image roots. `sites` holds the template photography; `mockups` holds
+// objects wearing a real pattern (see docs/pattern-mockups.md). A manifest entry
 // records which root it came from so <Figure> can build the right URL.
 const IMAGE_DIRS = [
   { dir: join(ROOT, "public", "images", "sites"), base: "/images/sites" },

@@ -43,7 +43,7 @@ const all = Boolean(args.all || args.force);
 const pending = all ? selected : selected.filter((p) => !fs.existsSync(imagePath(p.id)));
 
 if (!pending.length) {
-  console.log(`Nothing to generate (${selected.length} selected, all already in public/images/showcase).`);
+  console.log(`Nothing to generate (${selected.length} selected, all already in public/images/template).`);
   process.exit(0);
 }
 

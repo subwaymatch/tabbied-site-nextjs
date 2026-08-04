@@ -5,7 +5,7 @@
       "size": "1024x1024",
       "quality": "low"
     },
-    "note": "Each entry renders `artwork` to PNG first, then sends that PNG to the images EDITS endpoint as the reference the model must reproduce on the object. See docs/artwork-mockups.md."
+    "note": "Each entry renders `pattern` to PNG first, then sends that PNG to the images EDITS endpoint as the reference the model must reproduce on the object. See docs/pattern-mockups.md."
   },
   "mockups": [
     {
@@ -13,7 +13,7 @@
       "title": "Exhibition poster, gallery wall",
       "surface": "flat",
       "size": "1024x1536",
-      "artwork": {
+      "pattern": {
         "design": "bauhaus",
         "seed": "mk-poster",
         "width": 1024,
@@ -34,7 +34,7 @@
       "title": "Pressed-powder compact",
       "surface": "curved",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "fluting",
         "seed": "mk-compact",
         "width": 1024,
@@ -57,7 +57,7 @@
       "title": "Delivery van livery",
       "surface": "large-curved",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "ziggy",
         "seed": "mk-van",
         "width": 1536,
@@ -80,7 +80,7 @@
       "title": "Printed canvas tote",
       "surface": "fabric",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "lattice",
         "seed": "mk-tote",
         "width": 1024,
@@ -103,7 +103,7 @@
       "title": "Coffee tin, cylindrical label",
       "surface": "cylinder",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "annulus",
         "seed": "mk-tin",
         "width": 1024,
@@ -126,7 +126,7 @@
       "title": "Exhibition triptych, museum wall",
       "surface": "flat",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "ziggurat",
         "seed": "mk-poster-triptych",
         "width": 1536,
@@ -147,7 +147,7 @@
       "title": "Museum shop tote",
       "surface": "fabric",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "dogtooth",
         "seed": "mk-tote-canvas-shop",
         "width": 1024,
@@ -168,7 +168,7 @@
       "title": "Enamel camp mug",
       "surface": "cylinder",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "damier",
         "seed": "mk-mug-enamel",
         "width": 1024,
@@ -189,7 +189,7 @@
       "title": "Bound notebook, printed board",
       "surface": "flat",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "weave",
         "seed": "mk-notebook-cover",
         "width": 1024,
@@ -210,7 +210,7 @@
       "title": "Skate deck underside",
       "surface": "flat",
       "size": "1024x1536",
-      "artwork": {
+      "pattern": {
         "design": "cleat",
         "seed": "mk-skateboard-deck",
         "width": 1024,
@@ -231,7 +231,7 @@
       "title": "Confectionery tin",
       "surface": "cylinder",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "octagon",
         "seed": "mk-tin-biscuit",
         "width": 1024,
@@ -252,7 +252,7 @@
       "title": "Printed silk scarf",
       "surface": "fabric",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "vitrail",
         "seed": "mk-scarf-silk",
         "width": 1024,
@@ -273,7 +273,7 @@
       "title": "Record sleeve",
       "surface": "flat",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "tesserae",
         "seed": "mk-vinyl-sleeve",
         "width": 1024,
@@ -294,7 +294,7 @@
       "title": "City tram livery",
       "surface": "large-curved",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "bias",
         "seed": "mk-tram-livery",
         "width": 1536,
@@ -315,7 +315,7 @@
       "title": "Glazed wall tiling",
       "surface": "flat",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "scramble",
         "seed": "mk-wall-tiles",
         "width": 1536,
@@ -336,7 +336,7 @@
       "title": "Linen floor cushion",
       "surface": "fabric",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "quilt",
         "seed": "mk-cushion-linen",
         "width": 1024,
@@ -357,7 +357,7 @@
       "title": "Golf umbrella canopy",
       "surface": "large-curved",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "northstar",
         "seed": "mk-umbrella-canopy",
         "width": 1024,
@@ -378,7 +378,7 @@
       "title": "Folding carton",
       "surface": "flat",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "chain",
         "seed": "mk-packaging-carton",
         "width": 1024,
@@ -399,7 +399,7 @@
       "title": "Cycling helmet shell",
       "surface": "curved",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "caltrop",
         "seed": "mk-helmet-cycling",
         "width": 1024,
@@ -420,7 +420,7 @@
       "title": "Delta kite sail",
       "surface": "fabric",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "sliver",
         "seed": "mk-kite-sail",
         "width": 1536,
@@ -441,7 +441,7 @@
       "title": "Hardback book jacket",
       "surface": "flat",
       "size": "1024x1024",
-      "artwork": {
+      "pattern": {
         "design": "merlon",
         "seed": "mk-bookjacket-hard",
         "width": 1024,
@@ -462,7 +462,7 @@
       "title": "Cafe awning",
       "surface": "flat",
       "size": "1536x1024",
-      "artwork": {
+      "pattern": {
         "design": "battlement",
         "seed": "mk-awning-cafe",
         "width": 1536,
@@ -483,7 +483,7 @@
       "title": "Hard-shell cabin case",
       "surface": "large-curved",
       "size": "1024x1536",
-      "artwork": {
+      "pattern": {
         "design": "isocube",
         "seed": "mk-luggage-shell",
         "width": 1024,
@@ -504,7 +504,7 @@
       "title": "Work apron",
       "surface": "fabric",
       "size": "1024x1536",
-      "artwork": {
+      "pattern": {
         "design": "hurdle",
         "seed": "mk-apron-workwear",
         "width": 1024,
@@ -525,7 +525,7 @@
       "title": "Wayfinding panel",
       "surface": "flat",
       "size": "1024x1536",
-      "artwork": {
+      "pattern": {
         "design": "spandrel",
         "seed": "mk-signage-panel",
         "width": 1024,

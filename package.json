@@ -11,6 +11,7 @@
     "prebuild": "npm run build --workspace tabbied && npm run llms && npm run build:images",
     "build": "next build",
     "llms": "node scripts/generate-llms.mjs",
+    "templates": "node scripts/package-templates.mjs",
     "build:images": "node scripts/build-image-manifest.mjs",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",

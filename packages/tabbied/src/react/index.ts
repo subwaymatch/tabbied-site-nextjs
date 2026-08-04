@@ -1,5 +1,5 @@
 export {
-  TabbiedArtwork,
-  type TabbiedArtworkHandle,
-  type TabbiedArtworkProps,
-} from './TabbiedArtwork.js';
+  TabbiedPattern,
+  type TabbiedPatternHandle,
+  type TabbiedPatternProps,
+} from './TabbiedPattern.js';

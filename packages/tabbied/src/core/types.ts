@@ -1,13 +1,13 @@
 import type { AspectRatioId } from './aspectRatio.js';
 
-export type ArtworkOptionType = 'ButtonSelectGroup' | 'Slider' | 'ToggleSwitch';
+export type PatternOptionType = 'ButtonSelectGroup' | 'Slider' | 'ToggleSwitch';
 
 export type OptionValue = string | number | boolean;
 
-export type ArtworkOption = {
+export type PatternOption = {
   id: string;
   displayName: string;
-  type: ArtworkOptionType;
+  type: PatternOptionType;
   default: OptionValue;
   replace: string;
   /** ButtonSelectGroup choices. */
@@ -21,7 +21,7 @@ export type ArtworkOption = {
   /**
    * ToggleSwitch only: SVG-export limitation introduced when this option is
    * on (e.g. a shadow that exports as an SVG filter). Export UIs should
-   * surface it before downloading. See ArtworkDefinition.svgExportNote for
+   * surface it before downloading. See PatternDefinition.svgExportNote for
    * always-on limitations.
    */
   svgExportNote?: string;
@@ -30,17 +30,17 @@ export type ArtworkOption = {
 /**
  * Bounds for how many palette entries (including the color0 background) are
  * active at once. `palette` must hold `max` entries so every slot has an
- * authored default; the artwork's style references colors up to `max - 1` and
+ * authored default; the pattern's style references colors up to `max - 1` and
  * inactive slots alias back into the active inks (see expandPalette).
  */
-export type ArtworkColors = {
+export type PatternColors = {
   min: number;
   max: number;
   default: number;
 };
 
 /**
- * How an artwork is fitted into its container. See createArtwork().
+ * How a pattern is fitted into its container. See createPattern().
  *
  * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
  * near-square at any box shape, `cover`/`contain` scale a render uniformly,
@@ -51,13 +51,13 @@ export type ArtworkColors = {
 export type FitMode = 'grid' | 'cover' | 'contain' | 'fixed';
 
 /**
- * Per-artwork sizing metadata. Everything is optional: artworks with a
+ * Per-pattern sizing metadata. Everything is optional: patterns with a
  * "colsxrows" grid option default to the adaptive `grid` fit, grid-less
  * compositions (Symmetry) to `cover`. `minCellPx`/`maxCellPx` bound the
  * adaptive cell size — designs with fixed-px strokes and shadows need a floor
  * so cells never shrink past the look they were authored for.
  */
-export type ArtworkSizing = {
+export type PatternSizing = {
   allowed?: FitMode[];
   default?: FitMode;
   minCellPx?: number;
@@ -75,21 +75,21 @@ export type ArtworkSizing = {
   coverRender?: { width: number; height: number; cropTop?: number };
 };
 
-export type ArtworkDefinition = {
+export type PatternDefinition = {
   name: string;
   slug: string;
   /** Short blurb about the design (shown by the Tabbied site). */
   description?: string;
   palette?: string[];
   /** Adjustable color-count bounds. Absent means the palette size is fixed. */
-  colors?: ArtworkColors;
-  options: ArtworkOption[];
+  colors?: PatternColors;
+  options: PatternOption[];
   code: {
     style: string;
     doodle: string;
   };
-  /** How the artwork may be fitted into a container. See ArtworkSizing. */
-  sizing?: ArtworkSizing;
+  /** How the pattern may be fitted into a container. See PatternSizing. */
+  sizing?: PatternSizing;
   /** Initial aspect ratio when the Tabbied editor opens. Defaults to "2:3". */
   defaultAspectRatio?: AspectRatioId;
   /**
@@ -112,18 +112,18 @@ export type ArtworkDefinition = {
    * exported as SVG filters that design tools import imperfectly, or
    * documented sub-pixel deviations from the on-screen rendering). Export
    * UIs should surface it before downloading. Options can carry their own
-   * conditional note — see ArtworkOption.svgExportNote.
+   * conditional note — see PatternOption.svgExportNote.
    */
   svgExportNote?: string;
 };
 
 /**
- * Whether an artwork can be exported as native SVG. False only for designs
+ * Whether a pattern can be exported as native SVG. False only for designs
  * whose definition opts out via `svgExport: false` (smooth conic-gradient
  * sweeps have no SVG equivalent). Lives here — not in the converter module —
  * so UI gating never pulls the converter into the bundle (exportSvg() loads
  * it on demand).
  */
-export function supportsSvgExport(artwork: { svgExport?: boolean }): boolean {
-  return artwork.svgExport !== false;
+export function supportsSvgExport(pattern: { svgExport?: boolean }): boolean {
+  return pattern.svgExport !== false;
 }

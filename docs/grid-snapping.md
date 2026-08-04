@@ -2,7 +2,7 @@
 
 Short version: css-doodle lays its grid out as `repeat(n, 1fr)`. A container
 that isn't divisible by `n` puts every cell boundary on a sub-pixel, and the
-browser draws a hairline seam at each one. `createArtwork` rounds the canvas
+browser draws a hairline seam at each one. `createPattern` rounds the canvas
 up to a whole number of tracks and lets the host clip the difference.
 
 ## The failure it fixes
@@ -11,7 +11,7 @@ up to a whole number of tracks and lets the host clip the difference.
 fills a section:
 
 ```jsx
-<TabbiedArtwork artwork={quire} fit="grid" cellSize={120}
+<TabbiedPattern pattern={quire} fit="grid" cellSize={120}
                 style={{ position: 'absolute', inset: 0 }} />
 ```
 
@@ -21,18 +21,18 @@ fluid container almost never makes an integer. A 1440px band at 11 columns
 gives **130.906px** tracks, and every one of the 10 interior boundaries lands
 mid-pixel.
 
-The result is a faint grid of hairlines over the artwork, in the artwork's own
+The result is a faint grid of hairlines over the pattern, in the pattern's own
 colours or the page background, depending on which way the boundary rounds.
 It reads as a rendering bug, not a design.
 
-This was not rare. A sweep of the 36 showcase pages — reading
+This was not rare. A sweep of the 36 template pages — reading
 `getComputedStyle(cssd-grid).gridTemplateColumns` out of each doodle's shadow
 root — found **164 fractional grids** before the fix, nearly all of them
 full-section background fields.
 
 ## The fix
 
-`applyGridSnap` in `core/createArtwork.ts` sets the canvas inline to
+`applyGridSnap` in `core/createPattern.ts` sets the canvas inline to
 `snapSpanToTracks(hostSpan, tracks, cellMultiple)` on each axis — the smallest
 span that both covers the box and divides into cells of a whole, divisible
 size:
@@ -61,7 +61,7 @@ Sichtbeton's hero was the case that proved it: 8 × 180px across and 3 × 197px
 down, every outer track exact, and still visibly gapped. `subdivide` masks
 each cell with a nested `@doodle(@grid: 2)`, and 197 halves to **98.5**.
 
-`ArtworkSizing.cellMultiple` carries the divisor. It defaults to 2 — which
+`PatternSizing.cellMultiple` carries the divisor. It defaults to 2 — which
 also keeps centred rules and strokes off half-pixels — and only three designs
 in the catalogue need more, the three that mask with a nested `@doodle`:
 
@@ -98,7 +98,7 @@ than a sub-cell crop.
 
 **The doodle source still says `100%`.** The snap is an inline style on the
 `<css-doodle>` element, not a change to `@size` in the generated source. That
-is deliberate: the source feeds SVG export and the 254 artwork definitions'
+is deliberate: the source feeds SVG export and the 254 pattern definitions'
 `${width}`/`${height}` substitution, and neither should move because a
 container happened to be 1441px wide.
 

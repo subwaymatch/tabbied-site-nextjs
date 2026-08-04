@@ -1,4 +1,4 @@
-// Short alphanumeric seeds for css-doodle. Shared by the artwork controller's
+// Short alphanumeric seeds for css-doodle. Shared by the pattern controller's
 // redraw(), the Tabbied editor's Redraw button and the gallery thumbnails.
 const SEED_CHARS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

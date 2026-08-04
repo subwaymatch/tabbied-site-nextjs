@@ -14,13 +14,13 @@ in the same PR; the rest are recorded here with suggested fixes.
    scrolled out of view (only the tab's visibility and the external `paused`
    prop gated it). The site's gallery hand-rolled an IntersectionObserver to
    compensate; every other consumer (including the docs demo) paid a full
-   css-doodle stylesheet regeneration every N ms for invisible artwork.
-   *Fix:* built-in viewport gating in `TabbiedArtwork` — ticks are dropped
+   css-doodle stylesheet regeneration every N ms for invisible pattern.
+   *Fix:* built-in viewport gating in `TabbiedPattern` — ticks are dropped
    while the element is off-screen.
-2. **`fit="cover"` cut grid artworks mid-cell** (the reported vertical cutoff).
+2. **`fit="cover"` cut grid patterns mid-cell** (the reported vertical cutoff).
    *Fix:* adaptive cover — the render box follows the host's aspect ratio and
    re-derives its grid; special layouts (no grid option / `cropTop`) keep
-   scale-and-crop. See `sizing.ts` / `createArtwork.ts`.
+   scale-and-crop. See `sizing.ts` / `createPattern.ts`.
 3. **Stretched cells** in `deriveGridForBox` — independent per-axis rounding
    could pair a rounded-up axis with a rounded-down one (up to ~2× distortion
    at small counts; a min-cell floor above the box's short edge forced 1×N
@@ -39,18 +39,18 @@ in the same PR; the rest are recorded here with suggested fixes.
    no `./package.json` export: `require('tabbied')` and older resolvers
    (Jest CJS, `moduleResolution: node10`) failed outright. *Fix:* added all
    three.
-8. **Packaging dead weight** — all 103 raw `artworks/*.json` shipped but were
+8. **Packaging dead weight** — all 103 raw `patterns/*.json` shipped but were
    unreachable through the exports map; source maps referenced `src/` paths
-   not present in the tarball. *Fix:* dropped `artworks` from `files`,
+   not present in the tarball. *Fix:* dropped `patterns` from `files`,
    `inlineSources` for maps, removed `declarationMap`.
 9. **Core entry pulled the whole catalog** — `tabbied` re-exported all 100+
-   presets, so unshaken consumers of `createArtwork` carried ~200 KB of
+   presets, so unshaken consumers of `createPattern` carried ~200 KB of
    definitions. *Fix (breaking, pre-1.0):* presets now come only from
-   `tabbied/artworks`.
+   `tabbied/patterns`.
 10. **Console-warning flood** — `resolveFitMode` warned on every render/resize
-    tick for an unsupported fit. *Fix:* warn once per artwork+fit pair.
+    tick for an unsupported fit. *Fix:* warn once per pattern+fit pair.
 11. **Broken documented example** — the README/docs core example called
-    `redraw()`/`exportImage()` immediately after `createArtwork()`, which
+    `redraw()`/`exportImage()` immediately after `createPattern()`, which
     always throws for measured fits (the element mounts on the first
     ResizeObserver tick). *Fix:* examples drive the controller from `onReady`.
 12. **Codegen reserved words** — a slug like `do` or `if` would generate
@@ -127,16 +127,16 @@ in the same PR; the rest are recorded here with suggested fixes.
   would fix it.
 - Duplicated tokens/styles: `#ed005f` hardcoded where `--red-high-contrast`
   exists; `.galleryCard` styles duplicated (and drifted) between
-  BrowseArtwork and SelectArtwork modules; `.actionBtn` copy-pasted between
+  BrowsePattern and SelectPattern modules; `.actionBtn` copy-pasted between
   Hero and MakeYourArt.
 - Dangling CSS-module references (`styles.center` in MakeYourArt,
   `styles.textHeader`/`styles.names` in BuiltBy) silently resolve to
   `undefined`.
 - Dead rules: global `.btn` in `globals.css`, the `margin: 0` media rule in
-  BrowseArtwork, the `.pcr-picker` z-index override in `pickr.css`.
+  BrowsePattern, the `.pcr-picker` z-index override in `pickr.css`.
 - White-on-`#ed005f` CTA text measures ~4.4:1 — marginal AA fail at normal
   sizes.
 - `align-items: safe center` is dropped by Safari (editor options column
   falls back to top-aligned) — cosmetic inconsistency.
-- `GalleryDoodleInner` imports the full `artworks` record (~144 KB deferred
+- `GalleryDoodleInner` imports the full `patterns` record (~144 KB deferred
   chunk) to render 7 homepage thumbnails; per-slug imports would shrink it.

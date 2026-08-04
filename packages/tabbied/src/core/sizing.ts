@@ -1,10 +1,10 @@
-// Sizing strategies for rendering an artwork into an arbitrary container.
+// Sizing strategies for rendering a pattern into an arbitrary container.
 //
 // The generated pattern depends only on the seed and grid (see
-// doodleSource.ts), so an artwork can be drawn at any size; what varies per
+// doodleSource.ts), so a pattern can be drawn at any size; what varies per
 // strategy is how the cell grid and the css-doodle canvas relate to the
-// container. See createArtwork() for how each FitMode is applied.
-import type { ArtworkDefinition, ArtworkSizing, FitMode } from './types.js';
+// container. See createPattern() for how each FitMode is applied.
+import type { PatternDefinition, PatternSizing, FitMode } from './types.js';
 
 // Options with this id hold a "colsxrows" grid string; the adaptive `grid`
 // fit overrides it with a grid derived from the measured container.
@@ -21,7 +21,7 @@ export const DEFAULT_CELL_PX = DENSITY_CELL_PX[4];
 // css-doodle caps grids at 64×64 cells (parse_grid).
 export const MAX_GRID_EDGE = 64;
 
-// Bounds applied to the requested cell size when an artwork doesn't declare
+// Bounds applied to the requested cell size when a pattern doesn't declare
 // its own (sizing.minCellPx / sizing.maxCellPx).
 const DEFAULT_MIN_CELL_PX = 24;
 const DEFAULT_MAX_CELL_PX = 220;
@@ -46,34 +46,34 @@ export const FIT_MODES: readonly FitMode[] = [
 
 // Fits that existed in an earlier version, mapped to why they went away. Kept
 // so a stale `fit` prop gets a message that explains the migration instead of
-// the generic "not supported by this artwork" fallback warning.
+// the generic "not supported by this pattern" fallback warning.
 const REMOVED_FIT_MODES: Record<string, string> = {
   stretch:
-    'artworks are no longer scaled by a different factor per axis. Use "grid" ' +
+    'patterns are no longer scaled by a different factor per axis. Use "grid" ' +
     '(re-derives the cell grid for the box, so cells stay near-square) or ' +
     '"cover"/"contain" (scale a render uniformly).',
 };
 
-export function hasGridOption(definition: ArtworkDefinition): boolean {
+export function hasGridOption(definition: PatternDefinition): boolean {
   return definition.options.some((option) => option.id === GRID_OPTION_ID);
 }
 
 // ---- box sizing -----------------------------------------------------------
-// An artwork has no intrinsic size: `fit` says how the drawing relates to its
+// A pattern has no intrinsic size: `fit` says how the drawing relates to its
 // box, and these say how big the box is. They're deliberately the CSS
-// properties they map to — the element an artwork renders into is a normal
+// properties they map to — the element a pattern renders into is a normal
 // block box, so anything expressible in CSS stays expressible here.
 
-/** How big the element an artwork renders into should be. */
-export type ArtworkBoxSize = {
+/** How big the element a pattern renders into should be. */
+export type PatternBoxSize = {
   /**
    * Fill the containing block (`width: 100%; height: 100%`). Default, so an
-   * artwork dropped into a sized parent shows up without extra CSS. An
+   * pattern dropped into a sized parent shows up without extra CSS. An
    * explicit `width`/`height` takes over that axis; `fill: false` opts out of
    * both, leaving the box to a class name or the surrounding layout.
    *
    * `height: 100%` only resolves against a parent with a definite height. In a
-   * parent that sizes to its content, give the artwork a `height` or an
+   * parent that sizes to its content, give the pattern a `height` or an
    * `aspectRatio` instead.
    */
   fill?: boolean;
@@ -91,7 +91,7 @@ export type ArtworkBoxSize = {
 };
 
 /** The CSS the box props resolve to (assignable to a style object). */
-export type ArtworkBoxStyle = {
+export type PatternBoxStyle = {
   width?: string;
   height?: string;
   maxWidth?: string;
@@ -111,9 +111,9 @@ const cssLength = (value: number | string): string =>
  * Object.assign(host.style, resolveBoxStyle({ maxWidth: 720, aspectRatio: 3 / 2 }));
  * ```
  */
-export function resolveBoxStyle(size: ArtworkBoxSize = {}): ArtworkBoxStyle {
+export function resolveBoxStyle(size: PatternBoxSize = {}): PatternBoxStyle {
   const { fill = true, width, height, maxWidth, maxHeight, aspectRatio } = size;
-  const style: ArtworkBoxStyle = {};
+  const style: PatternBoxStyle = {};
 
   if (width != null) {
     style.width = cssLength(width);
@@ -144,11 +144,11 @@ export function resolveBoxStyle(size: ArtworkBoxSize = {}): ArtworkBoxStyle {
   return style;
 }
 
-// The fits an artwork supports. Declared sizing.allowed wins; otherwise every
+// The fits a pattern supports. Declared sizing.allowed wins; otherwise every
 // fit is available except that the adaptive `grid` fit needs a "colsxrows"
 // grid option to drive (grid-less compositions like Symmetry letterbox a
 // fixed-ratio design instead, so they cover/contain).
-export function allowedFitModes(definition: ArtworkDefinition): FitMode[] {
+export function allowedFitModes(definition: PatternDefinition): FitMode[] {
   if (definition.sizing?.allowed) {
     return definition.sizing.allowed;
   }
@@ -158,7 +158,7 @@ export function allowedFitModes(definition: ArtworkDefinition): FitMode[] {
     : FIT_MODES.filter((mode) => mode !== 'grid');
 }
 
-export function defaultFitMode(definition: ArtworkDefinition): FitMode {
+export function defaultFitMode(definition: PatternDefinition): FitMode {
   return (
     definition.sizing?.default ??
     (hasGridOption(definition) ? 'grid' : 'cover')
@@ -166,14 +166,14 @@ export function defaultFitMode(definition: ArtworkDefinition): FitMode {
 }
 
 // resolveFitMode runs on every render/update/resize tick, so an unsupported
-// fit warns once per artwork+fit pair instead of flooding the console.
+// fit warns once per pattern+fit pair instead of flooding the console.
 const warnedFits = new Set<string>();
 
-// Resolve a requested fit against the artwork's capabilities, falling back to
-// the artwork's default (with a console warning) rather than rendering a
+// Resolve a requested fit against the pattern's capabilities, falling back to
+// the pattern's default (with a console warning) rather than rendering a
 // strategy the design can't support.
 export function resolveFitMode(
-  definition: ArtworkDefinition,
+  definition: PatternDefinition,
   requested?: FitMode
 ): FitMode {
   if (!requested) {
@@ -203,7 +203,7 @@ export function resolveFitMode(
 
 // "cols × rows" for an arbitrary box at a target cell size, keeping cells
 // near-square. Generalizes deriveGrid() from the five preset aspect ratios to
-// any measured container: respect the artwork's cell-size bounds (px-effect
+// any measured container: respect the pattern's cell-size bounds (px-effect
 // designs need a floor) — though never a cell larger than the box's short
 // edge — then css-doodle's hard 64×64 cap.
 //
@@ -217,7 +217,7 @@ export function deriveGridForBox(
   width: number,
   height: number,
   targetCellPx: number,
-  sizing?: ArtworkSizing
+  sizing?: PatternSizing
 ): { cols: number; rows: number } {
   if (width <= 0 || height <= 0) {
     return { cols: 1, rows: 1 };
@@ -278,7 +278,7 @@ export function deriveGridForBox(
  * a clean 8 × 180 across and 3 × 197 down, and 197 halves to 98.5.
  *
  * The default of 2 covers centred rules and strokes; the three designs that
- * mask with a nested `@doodle` declare their own (see `ArtworkSizing`).
+ * mask with a nested `@doodle` declare their own (see `PatternSizing`).
  *
  * The returned span overflows the box by less than two cells, which the host
  * clips. Rounding *down* instead would leave a strip of the container
@@ -314,7 +314,7 @@ export function parseGridValue(
   return cols > 0 && rows > 0 ? { cols, rows } : null;
 }
 
-// The render box `cover` uses for a grid-driven artwork: the largest box of
+// The render box `cover` uses for a grid-driven pattern: the largest box of
 // the host's aspect ratio that fits inside the base coverRender box. Matching
 // the host's shape (instead of cropping a fixed-shape render into it) lets the
 // grid tile it edge-to-edge with whole cells, so nothing is cut off mid-cell;

@@ -194,7 +194,7 @@ export function resolveLength(token: string, reference: number): number {
 }
 
 /**
- * Resolve `calc()` mixes of percentages and px (the artworks' anti-aliasing
+ * Resolve `calc()` mixes of percentages and px (the patterns' anti-aliasing
  * ramps: `calc(42% - 0.5px)`). Supports +/- chains of %/px terms.
  */
 export function resolveCalc(token: string, reference: number): number {
@@ -404,7 +404,7 @@ function parseStops(
   const stops: GradientStop[] = [];
   for (const part of parts) {
     // A color token followed by up to two positions (which may be calc()
-    // mixes — the artworks' anti-aliasing ramps). A bare position would be
+    // mixes — the patterns' anti-aliasing ramps). A bare position would be
     // a CSS interpolation hint, which SVG cannot express.
     const tokens = splitTopLevel(part, ' ').filter(Boolean);
     if (tokens.length === 0 || isPositionToken(tokens[0])) {
@@ -861,7 +861,7 @@ type WalkEnv = {
 const MEASURE_OVERRIDE =
   '*,*::before,*::after{transform:none!important;transition:none!important;animation:none!important}';
 
-// The artworks author `transition: ease 400ms` on their cells, so restoring
+// The patterns author `transition: ease 400ms` on their cells, so restoring
 // transforms and transitions in the same style recalc would *start* a
 // transition from the overridden state — and later getComputedStyle() calls
 // would read its t=0 (identity) frames. Unwind in two steps: restore
@@ -1153,7 +1153,7 @@ function paintSvgDataUri(
     }
     const suffix = contentHash(source);
     const inner = namespaceIds(svgEl.innerHTML, suffix);
-    // overflow: the artworks' @svg payloads intentionally bleed past their
+    // overflow: the patterns' @svg payloads intentionally bleed past their
     // viewBox (e.g. stripes at y:-1..102); symbols clip by default.
     const symbolId = addDef(ctx, {
       tag: 'symbol',
@@ -1213,7 +1213,7 @@ function paintSvgDataUri(
  * The background positioning area for one layer: the border box inset by the
  * border (padding-box, the CSS default) and optionally the padding too
  * (content-box). Identical to `box` on a box without borders, which is every
- * artwork that predates section G of batch 11.
+ * pattern that predates section G of batch 11.
  */
 function originBox(box: Box, cs: CSSStyleDeclaration, origin: string): Box {
   const kind = origin.trim();
@@ -1819,7 +1819,7 @@ function boxShadowFilterUrl(cs: CSSStyleDeclaration, box: Box, env: WalkEnv): st
  * Neither kind of pseudo is laid out against the border box: an
  * absolutely-positioned one resolves its offsets against the padding box, a
  * static one is centred in the content box. On a borderless host the three
- * coincide — which is every artwork that predates batch 11's frames — but on a
+ * coincide — which is every pattern that predates batch 11's frames — but on a
  * bordered one, using the border box displaces the pseudo by the border width.
  *
  * Returns null when the pseudo has no area to paint.
@@ -2080,7 +2080,7 @@ export function doodleToSvg(
 
   let bodyNodes: SvgNode[];
   try {
-    // The host's own background (usually transparent — tabbied artworks put
+    // The host's own background (usually transparent — tabbied patterns put
     // color0 on the grid container).
     const hostBg = normalizeColor(env.getStyle(element).backgroundColor);
     bodyNodes = [];

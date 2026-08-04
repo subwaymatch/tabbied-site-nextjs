@@ -1,18 +1,18 @@
-// Step 1 of 4. Harvest every image prompt in the showcase into a manifest.
+// Step 1 of 4. Harvest every image prompt in the template into a manifest.
 //
-// The prompts are authored across two modules (components/showcase/showcaseContent.ts
-// and components/showcase/showcaseSections.ts), but they converge on one thing in
+// The prompts are authored across two modules (components/template/templateContent.ts
+// and components/template/templateSections.ts), but they converge on one thing in
 // the rendered HTML: every slot is a
 // <figure class="imgph" data-image-id="..." data-image-prompt="..."> holding the
 // final composed string, palette clause and all. So the built pages are the
 // single source read here instead of two parsers that could drift.
 //
-// The id is authored by the renderer (imageId() in ShowcaseSite.tsx), which is
-// also what it checks against public/images/showcase to decide whether to show
+// The id is authored by the renderer (imageId() in TemplateSite.tsx), which is
+// also what it checks against public/images/template to decide whether to show
 // the image or the prompt. It is read straight off the tag so the two sides
 // cannot disagree.
 //
-//   npm run build            # writes out/showcase/<slug>/index.html
+//   npm run build            # writes out/template/<slug>/index.html
 //   node scripts/images/extract-prompts.mjs
 import fs from 'node:fs';
 import path from 'node:path';
@@ -24,7 +24,7 @@ const args = argv();
 // every image already generated, and renaming 174 files to drop a redundant
 // segment would be churn for its own sake.
 const SOURCES = [
-  { stack: 'react', dir: path.join(ROOT, 'out/showcase'), hint: 'npm run build' },
+  { stack: 'react', dir: path.join(ROOT, 'out/template'), hint: 'npm run build' },
 ];
 
 const unescapeHtml = (s) =>

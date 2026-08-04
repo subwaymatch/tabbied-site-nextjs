@@ -1,10 +1,10 @@
 // SVG-export pixel-parity sweep (development tool).
 //
-// For each artwork, rasterizes doodleToSvg()'s output and diffs it against a
+// For each pattern, rasterizes doodleToSvg()'s output and diffs it against a
 // real screenshot of the live element (deviceScaleFactor 2) — the ground
 // truth for what the user sees. The CI-friendly equivalent lives in
 // e2e/svg-export.spec.ts; this script is for fast iteration against a dev
-// server, with per-artwork results as they complete and failure artifacts
+// server, with per-pattern results as they complete and failure artifacts
 // (out.svg / mine.png / ref.png) for inspection.
 //
 // Usage:
@@ -35,14 +35,14 @@ const script =
   '\nwindow.__svgx = { doodleToSvg, _internals };';
 
 const allSlugs = fs
-  .readdirSync('packages/tabbied/artworks')
+  .readdirSync('packages/tabbied/patterns')
   .filter((f) => f.endsWith('.json'))
   .map((f) => f.replace(/\.json$/, ''));
 
 const unsupported = new Set(
   allSlugs.filter((slug) => {
     const def = JSON.parse(
-      fs.readFileSync(path.join('packages/tabbied/artworks', `${slug}.json`), 'utf8')
+      fs.readFileSync(path.join('packages/tabbied/patterns', `${slug}.json`), 'utf8')
     );
     return def.svgExport === false;
   })
@@ -64,7 +64,7 @@ const MAX_BAD_FRACTION = 0.01; // 1% of pixels
 //   arcs progressively in CSS; the per-side arc strokes junction within
 //   ≤1 CSS px of it.
 // Keep in sync with e2e/svg-export.spec.ts (which documents each entry).
-const PER_ARTWORK_MAX = {
+const PER_PATTERN_MAX = {
   fractal: 0.03,
   matryoshka: 0.03,
   subdivide: 0.035,
@@ -88,13 +88,13 @@ page.on('pageerror', (e) => console.log(`  pageerror: ${e.message.split('\n')[0]
 const results = [];
 for (const slug of slugs) {
   try {
-    await page.goto(`${BASE_URL}/artworks/${slug}/?seed=parity01`, {
+    await page.goto(`${BASE_URL}/patterns/${slug}/?seed=parity01`, {
       waitUntil: 'domcontentloaded',
       timeout: 60000,
     });
     await page.waitForFunction(
       (s) => {
-        const el = document.querySelector(`div[data-artwork="${s}"] css-doodle`);
+        const el = document.querySelector(`div[data-pattern="${s}"] css-doodle`);
         return el && el.shadowRoot && el.shadowRoot.querySelector('cssd-grid');
       },
       slug,
@@ -108,7 +108,7 @@ for (const slug of slugs) {
     const shot = await page.screenshot();
     const shotUrl = `data:image/png;base64,${shot.toString('base64')}`;
     const gridOffset = await page.evaluate((s) => {
-      const el = document.querySelector(`div[data-artwork="${s}"] css-doodle`);
+      const el = document.querySelector(`div[data-pattern="${s}"] css-doodle`);
       const grid = el.shadowRoot.querySelector('cssd-grid');
       const gr = grid.getBoundingClientRect();
       // Viewport screenshots share getBoundingClientRect's coordinate space.
@@ -119,7 +119,7 @@ for (const slug of slugs) {
 
     const r = await page.evaluate(
       async ({ slug, TOLERANCE, shotUrl, gridOffset }) => {
-        const el = document.querySelector(`div[data-artwork="${slug}"] css-doodle`);
+        const el = document.querySelector(`div[data-pattern="${slug}"] css-doodle`);
 
         let res;
         try {
@@ -243,7 +243,7 @@ for (const slug of slugs) {
       console.log(`ERROR ${slug}: ${r.error}`);
       continue;
     }
-    const pass = r.badFraction <= (PER_ARTWORK_MAX[slug] ?? MAX_BAD_FRACTION);
+    const pass = r.badFraction <= (PER_PATTERN_MAX[slug] ?? MAX_BAD_FRACTION);
     results.push({
       slug,
       status: pass ? 'pass' : 'FAIL',

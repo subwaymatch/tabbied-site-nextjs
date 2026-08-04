@@ -1,0 +1,982 @@
+/* ==========================================================================
+   WERKRAUM — architecture practice, Basel
+   A twelve-column page with a hard left rail. Every section number sits in
+   that rail; the text column never moves. Patterns are full-bleed fields with
+   a transparent background slot, so they read as texture in the paper colour
+   rather than as pictures laid on top of it.
+   ========================================================================== */
+
+.page {
+  --paper: #f4f3ef;
+  --ink: #16161a;
+  --red: #d6001c;
+  --grey: #8e8e88;
+  --pale: #c9c8c1;
+  --rail: 5.5rem;
+  --gut: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 78rem;
+
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: 'cv05' 1, 'ss03' 1;
+  letter-spacing: -0.014em;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- top bar */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gut);
+  padding: 0.85rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.mark {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.037em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.9rem, 2.2vw, 2rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 0.82rem;
+  color: var(--ink);
+  display: inline-flex;
+  gap: 0.42em;
+  align-items: baseline;
+}
+
+.nav a span {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.68rem;
+  color: var(--grey);
+}
+
+.nav a:hover {
+  color: var(--red);
+}
+
+.barMeta {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 11vw, 9rem) var(--gut) clamp(3rem, 8vw, 6rem);
+}
+
+/* The pattern runs the full width of the section behind everything. Because
+   its colour0 is `transparent`, the paper below shows through the gaps and
+   the opacity here decides how loud the texture is. */
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+}
+
+.heroGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.heroTag {
+  margin: 0 0 clamp(1.5rem, 5vw, 3.5rem);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--grey) 66%, var(--ink));
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.4rem, 7.4vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 650;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.heroLede {
+  margin: clamp(1.6rem, 4vw, 2.6rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.facts {
+  margin: clamp(2.5rem, 7vw, 5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gut);
+  max-width: 46rem;
+}
+
+.facts div {
+  margin: 0;
+}
+
+.facts dt {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.042em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.facts dd {
+  margin: 0.4rem 0 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------ photography
+   Plates are flush to the grid and captioned in the rail's type. No frames,
+   no rounded corners: the crop is the only edge treatment on the page. */
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.plate {
+  margin: 0;
+  position: relative;
+}
+
+.plate img {
+  aspect-ratio: 21 / 8;
+  object-fit: cover;
+}
+
+.plate figcaption,
+.pair figcaption,
+.trio figcaption {
+  margin-top: 0.6rem;
+  padding: 0 var(--gut);
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.pair figcaption,
+.trio figcaption {
+  padding: 0;
+}
+
+.pair {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.2rem);
+  align-items: start;
+}
+
+.pair figure,
+.trio figure {
+  margin: 0;
+}
+
+.pair img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.trio {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+}
+
+.trio img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* ------------------------------------------------------------- the rail */
+
+.rail {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.railRule {
+  display: block;
+  width: 1px;
+  min-height: 2.5rem;
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+/* ---------------------------------------------------------------- practice */
+
+.practice,
+.work,
+.people {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.practice h2,
+.work h2,
+.people h2 {
+  margin: 0 0 clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+}
+
+.twoCol {
+  columns: 2;
+  column-gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 54rem;
+}
+
+.twoCol p {
+  margin: 0 0 1.1rem;
+  break-inside: avoid;
+  font-size: 0.98rem;
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.lead {
+  font-size: 1.16rem !important;
+  color: var(--ink) !important;
+  letter-spacing: -0.02em;
+}
+
+/* -------------------------------------------------------------- band ------
+   A pure pattern band: no copy, full width, the loudest field on the page. */
+
+.band {
+  position: relative;
+  height: 288px;
+  overflow: hidden;
+}
+
+.bandField {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Pinned to an exact multiple of the cell (19 × 144px) and clipped by
+     the band, so every grid track is a whole pixel at every viewport. Sizing
+     the field to the viewport instead gives fractional tracks (1440 / 11 =
+     130.9px) and a hairline seam at each cell edge. */
+  width: 2736px;
+  height: 288px;
+  opacity: 0.9;
+}
+
+/* -------------------------------------------------------------------- work */
+
+.workNote {
+  margin: -0.8rem 0 2rem;
+  max-width: 34rem;
+  font-size: 0.86rem;
+  color: var(--grey);
+}
+
+.table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tableHead,
+.row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 2.1fr) minmax(0, 1fr) minmax(0, 1.6fr) 6rem 4rem;
+  gap: clamp(0.5rem, 1.6vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+}
+
+.tableHead {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding-bottom: 0.5rem;
+}
+
+.row {
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  transition: background 120ms ease;
+}
+
+.row:hover {
+  background: color-mix(in srgb, var(--red) 7%, transparent);
+}
+
+.rowNo {
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+.rowName {
+  color: var(--ink);
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+.rowName i {
+  display: block;
+  font-style: normal;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-top: 0.25rem;
+}
+
+.rowName i.live {
+  color: var(--red);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ method */
+
+.method {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7rem) 0;
+}
+
+/* Text-bearing fields get two things the decorative band does not: a low
+   opacity, and a wash of the paper colour concentrated where the copy sits.
+   The pattern stays legible at the margins and gets out of the way in the
+   middle. */
+.methodField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.methodField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 62% 74% at 50% 52%,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 55%, transparent) 58%,
+    transparent 100%
+  );
+}
+
+.methodInner {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.methodInner h2 {
+  margin: 0 0 clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+}
+
+.methodGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 5vw, 4rem);
+}
+
+.methodGrid article {
+  max-width: 30rem;
+}
+
+.mNo {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+
+.methodGrid h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+}
+
+.methodGrid p {
+  margin: 0;
+  font-size: 0.94rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ------------------------------------------------------------------ people */
+
+.peopleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 52rem;
+}
+
+.peopleList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) 4rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.pName {
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+.pRole {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.pSince {
+  font-size: 0.8rem;
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ office */
+
+.office {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem);
+}
+
+/* subdivide draws in big blocks, so this one is pushed much further back than
+   the others and masked to the edges: the red reads as a margin note. */
+.officeField {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+}
+
+.officeField::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--paper) 12%,
+      var(--paper) 82%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 70% 84% at 46% 50%,
+      var(--paper) 0%,
+      color-mix(in srgb, var(--paper) 70%, transparent) 66%,
+      transparent 100%
+    );
+}
+
+.officeInner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.officeGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.officeGrid h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+}
+
+.officeLead {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.contact div {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.contact dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.contact dd {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.contact a:hover {
+  color: var(--red);
+}
+
+.officeApply {
+  grid-column: 2;
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  max-width: 34rem;
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* --------------------------------------------------------------- materials
+   The three plates are Tabbied patterns, not photographs: a square tile on a
+   transparent ground standing in for a material sample. Square boxes keep the
+   derived grid square, so the motif is never stretched. */
+
+.materials,
+.awards,
+.questions {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--gut);
+}
+
+.materials h2,
+.awards h2,
+.questions h2 {
+  margin: 0 0 clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+}
+
+.matGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.matTile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pale) 45%, var(--paper));
+  margin-bottom: 0.9rem;
+}
+
+.matN {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--red);
+}
+
+.matGrid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.matBody {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------------ awards */
+
+.awardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.awardList li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 2fr) minmax(0, 1.2fr) 8rem;
+  gap: clamp(0.5rem, 1.6vw, 1.4rem);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-size: 0.9rem;
+}
+
+.aYear {
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+}
+
+.aWhat {
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+.aWhere {
+  color: color-mix(in srgb, var(--ink) 68%, transparent);
+}
+
+.aResult,
+.aWon {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-align: right;
+}
+
+.aWon {
+  color: var(--red);
+}
+
+/* --------------------------------------------------------------- questions */
+
+.qList {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+  max-width: 62rem;
+}
+
+.qList dt {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  margin-bottom: 0.5rem;
+}
+
+.qList dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+
+/* ------------------------------------------------------------------ footer
+   Quiet by design: no wordmark at display size and no pattern field. Four
+   columns of plain links on one flat surface, with the fine print under a
+   hairline. The patterns have had the whole page to speak already. */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut) clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.footGrid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.footName {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.footTag {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.footHead {
+  margin: 0 0 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 52%, transparent);
+}
+
+.footLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footLinks a {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footLinks a:hover {
+  color: var(--red);
+}
+
+.footAddr {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.footFine {
+  max-width: var(--max);
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.footFine p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--paper) 56%, transparent);
+}
+
+.footFine a {
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footFine a:hover {
+  color: var(--red);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  .page {
+    --rail: 3rem;
+  }
+
+  .matGrid,
+  .qList {
+    grid-template-columns: 1fr;
+  }
+
+  .awardList li {
+    grid-template-columns: 3rem minmax(0, 1fr) 7rem;
+    row-gap: 0.2rem;
+  }
+
+  .aWhere {
+    grid-column: 2 / 4;
+    font-size: 0.84rem;
+  }
+
+  .twoCol {
+    columns: 1;
+  }
+
+  .methodGrid,
+  .officeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHead {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 5rem;
+    row-gap: 0.2rem;
+  }
+
+  .row > :nth-child(4) {
+    grid-column: 2 / 4;
+    font-size: 0.82rem;
+  }
+
+  .row > :nth-child(5) {
+    grid-column: 2;
+    font-size: 0.82rem;
+    color: var(--grey);
+  }
+
+  .officeApply {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  .peopleList li {
+    grid-template-columns: minmax(0, 1fr) 3.5rem;
+  }
+
+  .pRole {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .pair,
+  .trio {
+    grid-template-columns: 1fr;
+  }
+
+  .plate img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 900px) {
+  .footGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footGrid,
+  .footFine {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .band {
+    height: 144px;
+  }
+
+  .bandField {
+    height: 144px;
+  }
+}
+
+/* ------------------------------------------------------- coda + foot fields
+   Two decorative pattern fields at the end of the page: a full-width band
+   between the last section and the footer, and a very quiet texture inside
+   the footer itself. Both are aria-hidden and carry no content. */
+
+.coda {
+  position: relative;
+  height: clamp(132px, 20vw, 248px);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.codaField {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+
+@media (max-width: 700px) {
+  .coda {
+    height: 108px;
+  }
+}
+
+/* -------------------------------------------------------------- tile object
+   The cut-out sits on top of the tile's pattern rather than replacing it:
+   the pattern stays the ground, the object becomes the subject. */
+
+.tileObject {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.3));
+}

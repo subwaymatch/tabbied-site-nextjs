@@ -1,5 +1,5 @@
 // Custom palettes: user-defined color palettes, persisted in localStorage, that
-// can be applied globally to the /artworks gallery previews (and exported /
+// can be applied globally to the /patterns gallery previews (and exported /
 // imported as JSON so a brand's colors travel between machines and projects).
 // (Named `brandPalettes` internally for storage-key stability; the UI calls
 // them "custom palettes".)
@@ -33,7 +33,7 @@ export type BrandPalette = {
 export type BrandPaletteState = {
   palettes: BrandPalette[];
   /**
-   * The palette previewed across the gallery. `null` is not "each artwork's own
+   * The palette previewed across the gallery. `null` is not "each pattern's own
    * colors" anymore — the site always themes previews with a shared palette, so
    * a null id resolves to DEFAULT_PALETTE_ID (see resolveActivePalette).
    */
@@ -183,10 +183,10 @@ export function useBrandPalettes(): BrandPaletteState {
 // ---------------------------------------------------------------------------
 // Live draft preview (transient — never persisted)
 // ---------------------------------------------------------------------------
-// While the palette editor dialog is open, the page's own artworks recolor to
+// While the palette editor dialog is open, the page's own patterns recolor to
 // the palette being edited. That live value is broadcast on its own channel
 // (separate from the persisted store, so it never touches localStorage) and
-// consumed by the gallery cards and the artwork preview. `null` = no draft
+// consumed by the gallery cards and the pattern preview. `null` = no draft
 // open, so consumers fall back to their normal palette.
 let draftPreview: string[] | null = null;
 const draftPreviewListeners = new Set<() => void>();
@@ -241,7 +241,7 @@ export const deletePalette = (id: string) => {
     ...state,
     palettes: state.palettes.filter((palette) => palette.id !== id),
     // Deleting the active palette reverts previews to the shared default rather
-    // than to a per-artwork look (which the gallery no longer has).
+    // than to a per-pattern look (which the gallery no longer has).
     activePaletteId:
       state.activePaletteId === id ? DEFAULT_PALETTE_ID : state.activePaletteId,
   });
@@ -272,7 +272,7 @@ const libraryAsBrand = (library: LibraryPalette): BrandPalette => ({
 /**
  * The active palette resolved from the saved palettes first, then the curated
  * library. A null/unknown active id falls back to the shared default library
- * palette, so the gallery is always themed by one palette (never each artwork's
+ * palette, so the gallery is always themed by one palette (never each pattern's
  * own colors). Returns null only in the impossible case that the default id has
  * been dropped from the library.
  */
@@ -385,7 +385,7 @@ export const importPalettesJson = (
 };
 
 // ---------------------------------------------------------------------------
-// Applying a brand palette to an artwork
+// Applying a brand palette to a pattern
 // ---------------------------------------------------------------------------
 
 /** The palette's colors with color0 resolved for rendering. */
@@ -395,8 +395,8 @@ export const resolvePaletteColors = (palette: BrandPalette): string[] =>
     : [...palette.colors];
 
 /**
- * The palette to hand to <TabbiedArtwork> for a gallery preview: the active
- * brand palette's colors, or undefined when the artwork defaults apply.
+ * The palette to hand to <TabbiedPattern> for a gallery preview: the active
+ * brand palette's colors, or undefined when the pattern defaults apply.
  */
 export const previewPalette = (
   state: BrandPaletteState

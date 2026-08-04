@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { TabbiedArtwork } from 'tabbied/react';
-import { radius, symmetry, quilt } from 'tabbied/artworks';
+import { TabbiedPattern } from 'tabbied/react';
+import { radius, symmetry, quilt } from 'tabbied/patterns';
 import MainHeader from 'components/main-page/MainHeader';
 import { Container, Row, Col } from 'components/layout';
 import Footer from 'components/Footer';
@@ -16,7 +16,7 @@ import styles from 'components/react-docs-page/ReactDocs.module.css';
 export const metadata: Metadata = {
   title: 'Documentation - Tabbied',
   description:
-    'Documentation for the tabbied npm package: render, resize, recolor, reseed, and export Tabbied generative artworks in React or vanilla JavaScript.',
+    'Documentation for the tabbied npm package: render, resize, recolor, reseed, and export Tabbied generative patterns in React or vanilla JavaScript.',
 };
 
 const SECTIONS: DocsSection[] = [
@@ -37,57 +37,57 @@ const SECTIONS: DocsSection[] = [
 
 const installCode = `npm install tabbied`;
 
-const basicCode = `import { TabbiedArtwork } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+const basicCode = `import { TabbiedPattern } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 
 export function Banner() {
   // The box fills its parent by default; height={320} pins one axis.
-  return <TabbiedArtwork artwork={radius} seed="k9Pz" height={320} />;
+  return <TabbiedPattern pattern={radius} seed="k9Pz" height={320} />;
 }`;
 
 const treeShakeCode = `// Import only what you render — bundlers ship just those presets.
-import { radius, symmetry } from 'tabbied/artworks';
+import { radius, symmetry } from 'tabbied/patterns';
 
 // Building a gallery? The full record pulls in every design.
-import { artworks } from 'tabbied/artworks';`;
+import { patterns } from 'tabbied/patterns';`;
 
 const boxCode = `// Default: fill the containing block. .panel is 100% wide, 400px tall.
 <div className="panel">
-  <TabbiedArtwork artwork={radius} />
+  <TabbiedPattern pattern={radius} />
 </div>
 
 // Fill the width, cap it, and let the ratio set the height.
-<TabbiedArtwork artwork={radius} maxWidth={960} aspectRatio={3 / 2} />
+<TabbiedPattern pattern={radius} maxWidth={960} aspectRatio={3 / 2} />
 
 // Pin one axis; numbers are px, strings are CSS.
-<TabbiedArtwork artwork={radius} height={320} />
-<TabbiedArtwork artwork={radius} height="40vh" maxHeight={520} />
+<TabbiedPattern pattern={radius} height={320} />
+<TabbiedPattern pattern={radius} height="40vh" maxHeight={520} />
 
 // Hand sizing back to a class name.
-<TabbiedArtwork artwork={radius} fill={false} className="hero-art" />`;
+<TabbiedPattern pattern={radius} fill={false} className="hero-art" />`;
 
 const fitCode = `// grid (default): the cell grid adapts to the container size
-<TabbiedArtwork artwork={radius} fit="grid" />
+<TabbiedPattern pattern={radius} fit="grid" />
 
 // cover: a fixed-resolution render scaled uniformly to fill the box;
-// grid-driven artworks adapt the render to the box's shape (whole cells,
+// grid-driven patterns adapt the render to the box's shape (whole cells,
 // no mid-cell crop), special layouts like Symmetry scale-and-crop
-<TabbiedArtwork artwork={radius} fit="cover" />
+<TabbiedPattern pattern={radius} fit="cover" />
 
-// contain: letterboxed at the artwork's authored ratio
-<TabbiedArtwork artwork={symmetry} fit="contain" />
+// contain: letterboxed at the pattern's authored ratio
+<TabbiedPattern pattern={symmetry} fit="contain" />
 
 // fixed: an explicit canvas size in px (what the Tabbied editor uses)
-<TabbiedArtwork artwork={radius} fit="fixed" width={360} height={540} />`;
+<TabbiedPattern pattern={radius} fit="fixed" width={360} height={540} />`;
 
 const symmetryFitCode = `// Symmetry is one composition rather than a repeating grid, so it
 // declares sizing.allowed = ['cover', 'contain', 'fixed'] and defaults
 // to cover. Asking for "grid" falls back to that default with a warning.
-<TabbiedArtwork artwork={symmetry} fit="cover" />
-<TabbiedArtwork artwork={symmetry} fit="contain" />`;
+<TabbiedPattern pattern={symmetry} fit="cover" />
+<TabbiedPattern pattern={symmetry} fit="contain" />`;
 
-const paletteCode = `<TabbiedArtwork
-  artwork={radius}
+const paletteCode = `<TabbiedPattern
+  pattern={radius}
   seed="k9Pz"
   // color0 (the background) comes first
   palette={['#0b132b', '#5bc0be', '#6fffe9', '#ff6b6b']}
@@ -97,31 +97,31 @@ const paletteCode = `<TabbiedArtwork
 
 const transparentCode = `// Any CSS color works for a slot — including 'transparent',
 // which drops the background entirely.
-<TabbiedArtwork
-  artwork={radius}
+<TabbiedPattern
+  pattern={radius}
   palette={['transparent', '#232529', '#ff3d8b']}
 />`;
 
 const optionsCode = `// Option ids come from the preset (the same controls the editor shows).
-// Radius takes a grid size, a shape frequency, and a shadow toggle.
-<TabbiedArtwork
-  artwork={radius}
+// Radius takes a grid size and a shape frequency.
+<TabbiedPattern
+  pattern={radius}
   seed="k9Pz"
-  options={{ grid: '4x6', shadow: true }}
+  options={{ grid: '4x6', frequency: 0.6 }}
   fit="cover"
   height={280}
 />`;
 
 const reseedCode = `import { useRef } from 'react';
-import { TabbiedArtwork, type TabbiedArtworkHandle } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+import { TabbiedPattern, type TabbiedPatternHandle } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 
 export function Reseedable() {
-  const ref = useRef<TabbiedArtworkHandle>(null);
+  const ref = useRef<TabbiedPatternHandle>(null);
 
   return (
     <>
-      <TabbiedArtwork ref={ref} artwork={radius} fit="cover" />
+      <TabbiedPattern ref={ref} pattern={radius} fit="cover" />
       <button onClick={() => ref.current?.redraw()}>Redraw</button>
       <button onClick={() => ref.current?.exportImage()}>Export PNG</button>
     </>
@@ -131,38 +131,39 @@ export function Reseedable() {
 const animatedCode = `// Reseed on a timer (the gallery's shimmer). Ticks are skipped while
 // the tab is hidden or the element is outside the viewport, and the
 // whole timer is skipped under prefers-reduced-motion.
-<TabbiedArtwork
-  artwork={quilt}
+<TabbiedPattern
+  pattern={quilt}
   fit="cover"
   redrawInterval={2000}
   height={280}
 />`;
 
 const a11yCode = `// Decorative (default): hidden from assistive tech.
-<TabbiedArtwork artwork={radius} />
+<TabbiedPattern pattern={radius} />
 
 // Meaningful image: exposed with role="img" and a label.
-<TabbiedArtwork
-  artwork={radius}
+<TabbiedPattern
+  pattern={radius}
   decorative={false}
   ariaLabel="Generative pattern of quarter circles"
 />`;
 
 const ssrCode = `// App Router: works directly in a Server Component tree — the
 // component itself is the client boundary.
-import { TabbiedArtwork } from 'tabbied/react';
-import { radius } from 'tabbied/artworks';
+import { TabbiedPattern } from 'tabbied/react';
+import { radius } from 'tabbied/patterns';
 
 export default function Page() {
-  return <TabbiedArtwork artwork={radius} height={320} />;
+  return <TabbiedPattern pattern={radius} height={320} />;
 }`;
 
-const coreCode = `import { createArtwork } from 'tabbied';
-import { radius } from 'tabbied/artworks';
+const coreCode = `import { createPattern } from 'tabbied';
+import { radius } from 'tabbied/patterns';
 
-const controller = createArtwork(document.querySelector('#stage'), {
-  artwork: radius,
+const controller = createPattern(document.querySelector('#stage'), {
+  pattern: radius,
   seed: 'k9Pz',
+  redrawInterval: 5200, // optional: reseed on a timer, gates included
   // Measured fits (grid/cover/contain) mount asynchronously, once the
   // host's size is known — drive the controller from onReady.
   onReady: async () => {
@@ -171,12 +172,12 @@ const controller = createArtwork(document.querySelector('#stage'), {
   },
 });
 
-// later, when the artwork is removed:
+// later, when the pattern is removed:
 controller.destroy();`;
 
-const definitionCode = `import type { ArtworkDefinition } from 'tabbied';
+const definitionCode = `import type { PatternDefinition } from 'tabbied';
 
-const myArtwork: ArtworkDefinition = {
+const myPattern: PatternDefinition = {
   name: 'My design',
   slug: 'my-design',
   palette: ['#101418', '#3e8bff', '#3fffb2'],
@@ -216,7 +217,7 @@ const FIT_DEMOS = [
   {
     fit: 'contain',
     label: 'fit="contain"',
-    note: 'The whole render, letterboxed. The bars are the artwork background.',
+    note: 'The whole render, letterboxed. The bars are the pattern background.',
   },
   {
     fit: 'fixed',
@@ -241,9 +242,9 @@ function FitDemo({
   label: string;
   note: string;
 }) {
-  const artwork = (
-    <TabbiedArtwork
-      artwork={radius}
+  const pattern = (
+    <TabbiedPattern
+      pattern={radius}
       seed="k9Pz"
       fit={fit}
       density={1}
@@ -254,8 +255,8 @@ function FitDemo({
   return (
     <figure className={styles.fitItem}>
       <div className={styles.fitShapes}>
-        <div className={styles.fitWide}>{artwork}</div>
-        <div className={styles.fitTall}>{artwork}</div>
+        <div className={styles.fitWide}>{pattern}</div>
+        <div className={styles.fitTall}>{pattern}</div>
       </div>
       <figcaption className={styles.fitCaption}>
         <code>{label}</code>
@@ -301,7 +302,7 @@ export default function ReactDocsPage() {
                 <p className={styles.eyebrow}>Documentation</p>
                 <h1 className={styles.pageTitle}>The tabbied package</h1>
                 <p className={styles.intro}>
-                  Tabbied&apos;s generative artworks as a library: a
+                  Tabbied&apos;s generative patterns as a library: a
                   framework-agnostic core plus a React component, powered by{' '}
                   <a href="https://css-doodle.com/">css-doodle</a>. Render any
                   preset (or your own definition) at any size, recolor it,
@@ -340,24 +341,24 @@ export default function ReactDocsPage() {
                     <ul className={styles.list}>
                       <li>
                         <Code>tabbied/react</Code> — the{' '}
-                        <Code>TabbiedArtwork</Code> component. It renders an
-                        artwork into a normal, CSS-sizeable box, like an{' '}
+                        <Code>TabbiedPattern</Code> component. It renders an
+                        pattern into a normal, CSS-sizeable box, like an{' '}
                         <Code>&lt;img&gt;</Code>.
                       </li>
                       <li>
-                        <Code>tabbied/artworks</Code> — 100+ preset designs as
-                        tree-shakeable <Code>ArtworkDefinition</Code> exports.
+                        <Code>tabbied/patterns</Code> — 100+ preset designs as
+                        tree-shakeable <Code>PatternDefinition</Code> exports.
                       </li>
                       <li>
                         <Code>tabbied</Code> — the framework-agnostic core
-                        (<Code>createArtwork</Code>) plus all shared types and
+                        (<Code>createPattern</Code>) plus all shared types and
                         sizing helpers.
                       </li>
                     </ul>
                     <p>
-                      Patterns are deterministic: the same artwork, seed, grid
+                      Patterns are deterministic: the same pattern, seed, grid
                       and options always draw the same design, at any size.
-                      That makes artworks safe to use as reproducible brand
+                      That makes patterns safe to use as reproducible brand
                       assets — a seed is a design you can keep.
                     </p>
                   </Section>
@@ -380,13 +381,13 @@ export default function ReactDocsPage() {
                     <p>
                       Import the component and a preset, then render it inside
                       a sized box. On the server and the first client paint it
-                      shows the artwork&apos;s background color (correct size,
+                      shows the pattern&apos;s background color (correct size,
                       zero layout shift); the live pattern takes over once it
                       mounts.
                     </p>
                     <Example code={basicCode}>
-                      <TabbiedArtwork
-                        artwork={radius}
+                      <TabbiedPattern
+                        pattern={radius}
                         seed="k9Pz"
                         fit="cover"
                         className={styles.demoArt}
@@ -397,8 +398,8 @@ export default function ReactDocsPage() {
 
                   <Section id="presets" title="Importing presets">
                     <p>
-                      <Code>artwork</Code> takes an{' '}
-                      <Code>ArtworkDefinition</Code> object. Each preset is a
+                      <Code>pattern</Code> takes an{' '}
+                      <Code>PatternDefinition</Code> object. Each preset is a
                       side-effect-free named export, so importing only the
                       designs you render keeps the rest of the catalog out of
                       your bundle.
@@ -409,7 +410,7 @@ export default function ReactDocsPage() {
                     />
                     <p>
                       Browse every design (and its options) in the{' '}
-                      <a href="/artworks/">gallery</a> — the preset export
+                      <a href="/patterns/">gallery</a> — the preset export
                       name is the slug in the editor URL.
                     </p>
                   </Section>
@@ -418,7 +419,7 @@ export default function ReactDocsPage() {
                     <p>
                       Sizing splits in two: the <strong>box props</strong> say
                       how big the element is, and <Code>fit</Code> says how the
-                      drawing meets that box. An artwork has no intrinsic size,
+                      drawing meets that box. A pattern has no intrinsic size,
                       so by default the box simply{' '}
                       <strong>fills its containing block</strong> — drop one
                       into a sized parent and you are done.
@@ -427,23 +428,23 @@ export default function ReactDocsPage() {
                       <div className={styles.boxDemo}>
                         <figure className={styles.fitItem}>
                           <div className={styles.boxDemoFill}>
-                            <TabbiedArtwork
-                              artwork={radius}
+                            <TabbiedPattern
+                              pattern={radius}
                               seed="k9Pz"
                               density={1}
                             />
                           </div>
                           <figcaption className={styles.fitCaption}>
                             <code>
-                              &lt;TabbiedArtwork artwork={'{radius}'} /&gt;
+                              &lt;TabbiedPattern pattern={'{radius}'} /&gt;
                             </code>
                             No sizing props — it fills the 120px-tall box it was
                             dropped into.
                           </figcaption>
                         </figure>
                         <figure className={styles.fitItem}>
-                          <TabbiedArtwork
-                            artwork={radius}
+                          <TabbiedPattern
+                            pattern={radius}
                             seed="k9Pz"
                             density={1}
                             maxWidth={320}
@@ -490,7 +491,7 @@ export default function ReactDocsPage() {
                       <Code>aspectRatio</Code> instead of <Code>fill</Code>.
                     </p>
                     <p>
-                      Whatever the box turns out to be, the artwork is fitted
+                      Whatever the box turns out to be, the pattern is fitted
                       into it <strong>without distortion</strong> — nothing is
                       ever scaled by a different factor horizontally than
                       vertically. <Code>fit</Code> picks which
@@ -508,7 +509,7 @@ export default function ReactDocsPage() {
                         <Code>cover</Code> — draws a fixed-resolution render
                         and scales it uniformly into the box, preserving the authored
                         proportions of fixed-px strokes and shadows. For
-                        grid-driven artworks the render follows the box&apos;s
+                        grid-driven patterns the render follows the box&apos;s
                         aspect ratio and re-derives its grid, so the pattern
                         is never cut off mid-cell; special layouts (e.g.
                         Symmetry&apos;s centered composition) scale-and-crop
@@ -516,7 +517,7 @@ export default function ReactDocsPage() {
                       </li>
                       <li>
                         <Code>contain</Code> — letterboxes the render at its
-                        authored ratio (the artwork&apos;s background color
+                        authored ratio (the pattern&apos;s background color
                         fills the bars).
                       </li>
                       <li>
@@ -527,9 +528,9 @@ export default function ReactDocsPage() {
                       </li>
                     </ul>
                     <p>
-                      Each artwork declares a sensible default, so{' '}
+                      Each pattern declares a sensible default, so{' '}
                       <Code>fit</Code> is optional. Requesting a fit an
-                      artwork can&apos;t support falls back to its default
+                      pattern can&apos;t support falls back to its default
                       with a console warning.
                     </p>
                     <p>
@@ -540,7 +541,7 @@ export default function ReactDocsPage() {
                       <Code>cover</Code> to scale a render uniformly.
                     </p>
                     <p>
-                      Each column below is one mode, drawing the same artwork at
+                      Each column below is one mode, drawing the same pattern at
                       the same seed into a landscape box and a portrait one. The
                       differences only show up when the box stops matching the
                       drawing — which is most of the time.
@@ -553,7 +554,7 @@ export default function ReactDocsPage() {
                       </div>
                     </Example>
                     <p>
-                      Artworks whose layout isn&apos;t a repeating grid opt out
+                      Patterns whose layout isn&apos;t a repeating grid opt out
                       of <Code>grid</Code> entirely — Symmetry draws one
                       centered composition, so it only offers{' '}
                       <Code>cover</Code>, <Code>contain</Code> and{' '}
@@ -563,8 +564,8 @@ export default function ReactDocsPage() {
                       <div className={styles.fitGrid}>
                         <figure className={styles.fitItem}>
                           <div className={styles.fitCompare}>
-                            <TabbiedArtwork
-                              artwork={symmetry}
+                            <TabbiedPattern
+                              pattern={symmetry}
                               seed="k9Pz"
                               fit="cover"
                             />
@@ -576,8 +577,8 @@ export default function ReactDocsPage() {
                         </figure>
                         <figure className={styles.fitItem}>
                           <div className={styles.fitCompare}>
-                            <TabbiedArtwork
-                              artwork={symmetry}
+                            <TabbiedPattern
+                              pattern={symmetry}
                               seed="k9Pz"
                               fit="contain"
                             />
@@ -596,13 +597,13 @@ export default function ReactDocsPage() {
                       Pass <Code>palette</Code> to recolor a design — the
                       background color (<Code>color0</Code>) comes first,
                       followed by the inks. Passing fewer colors than the
-                      artwork was authored with is fine: the unused slots
+                      pattern was authored with is fine: the unused slots
                       cycle back through your inks, so a two-color palette
                       redraws the whole design in your two colors.
                     </p>
                     <Example code={paletteCode}>
-                      <TabbiedArtwork
-                        artwork={radius}
+                      <TabbiedPattern
+                        pattern={radius}
                         seed="k9Pz"
                         palette={['#0b132b', '#5bc0be', '#6fffe9', '#ff6b6b']}
                         fit="cover"
@@ -617,7 +618,7 @@ export default function ReactDocsPage() {
                     <div className={styles.callout}>
                       <p>
                         Trying a custom palette across every design? The{' '}
-                        <a href="/artworks/">gallery</a> lets you save named
+                        <a href="/patterns/">gallery</a> lets you save named
                         palettes (exportable as JSON) and preview all presets
                         with them — including with a transparent background.
                       </p>
@@ -630,14 +631,14 @@ export default function ReactDocsPage() {
                       the same controls the Tabbied editor shows. Pass them
                       keyed by option id; anything you omit uses the authored
                       default. Option ids and their allowed values live on the
-                      definition itself (<Code>artwork.options</Code>), so you
+                      definition itself (<Code>pattern.options</Code>), so you
                       can build your own controls against them.
                     </p>
                     <Example code={optionsCode}>
-                      <TabbiedArtwork
-                        artwork={radius}
+                      <TabbiedPattern
+                        pattern={radius}
                         seed="k9Pz"
-                        options={{ grid: '4x6', shadow: true }}
+                        options={{ grid: '4x6', frequency: 0.6 }}
                         fit="cover"
                         className={styles.demoArt}
                         style={{ width: '100%', height: 280 }}
@@ -675,7 +676,7 @@ export default function ReactDocsPage() {
                       <Code>scale</Code> for print-resolution exports.
                     </p>
                     <p>
-                      <Code>exportSvg()</Code> converts the rendered artwork
+                      <Code>exportSvg()</Code> converts the rendered pattern
                       to a native vector SVG (real shapes and gradients, no{' '}
                       <Code>foreignObject</Code>) that opens in design tools
                       and scales to any resolution; pass{' '}
@@ -683,7 +684,7 @@ export default function ReactDocsPage() {
                       <Code>.svg</Code>. A few designs use smooth
                       conic-gradient sweeps SVG can&apos;t express — they set{' '}
                       <Code>svgExport: false</Code> in their definition, which{' '}
-                      <Code>supportsSvgExport(artwork)</Code> checks.
+                      <Code>supportsSvgExport(pattern)</Code> checks.
                     </p>
                   </Section>
 
@@ -692,15 +693,15 @@ export default function ReactDocsPage() {
                       Set <Code>redrawInterval</Code> to reseed on a timer —
                       the gallery&apos;s shimmer. Ticks are dropped while the
                       tab is hidden or the element is scrolled out of the
-                      viewport, so a long page of animated artworks only pays
+                      viewport, so a long page of animated patterns only pays
                       for what&apos;s on screen; the whole timer is skipped
                       under <Code>prefers-reduced-motion</Code>. Use the{' '}
                       <Code>paused</Code> prop for your own gating on top
                       (it preserves the timer phase).
                     </p>
                     <Example code={animatedCode}>
-                      <TabbiedArtwork
-                        artwork={quilt}
+                      <TabbiedPattern
+                        pattern={quilt}
                         fit="cover"
                         redrawInterval={2000}
                         className={styles.demoArt}
@@ -711,12 +712,12 @@ export default function ReactDocsPage() {
 
                   <Section id="accessibility" title="Accessibility">
                     <p>
-                      By default the artwork is decorative: the box is{' '}
+                      By default the pattern is decorative: the box is{' '}
                       <Code>aria-hidden</Code> and invisible to assistive
                       tech. Set <Code>decorative={'{false}'}</Code> to expose
                       it as an image with <Code>role=&quot;img&quot;</Code>{' '}
                       and an accessible name (<Code>ariaLabel</Code>, falling
-                      back to the artwork&apos;s display name).
+                      back to the pattern&apos;s display name).
                     </p>
                     <CodeBlock
                       code={a11yCode}
@@ -731,11 +732,11 @@ export default function ReactDocsPage() {
 
                   <Section id="ssr" title="Server rendering">
                     <p>
-                      <Code>TabbiedArtwork</Code> is a client component (it
+                      <Code>TabbiedPattern</Code> is a client component (it
                       registers a browser custom element on import) with a
                       built-in server placeholder: on the server and the first
                       client paint it renders the wrapper box filled with the
-                      artwork&apos;s background color — correct dimensions,
+                      pattern&apos;s background color — correct dimensions,
                       zero layout shift, no hydration mismatch. In the Next.js
                       App Router you can use it directly from Server
                       Components; no <Code>ssr: false</Code> ceremony needed.
@@ -749,13 +750,20 @@ export default function ReactDocsPage() {
                   <Section id="vanilla" title="Vanilla JavaScript">
                     <p>
                       The React component is a thin wrapper over the
-                      framework-free engine. <Code>createArtwork(host,
-                      config)</Code> mounts an artwork into any element and
+                      framework-free engine. <Code>createPattern(host,
+                      config)</Code> mounts a pattern into any element and
                       returns a controller with{' '}
                       <Code>update()</Code>, <Code>redraw()</Code>,{' '}
                       <Code>exportImage()</Code>, <Code>exportSvg()</Code> and{' '}
                       <Code>destroy()</Code>.
-                      It accepts the same config the component takes as props.
+                      It accepts the same config the component takes as props,
+                      minus the box props — the host element is yours to size,
+                      or run them through <Code>resolveBoxStyle()</Code>. That
+                      includes <Code>redrawInterval</Code> and{' '}
+                      <Code>paused</Code>: the timer and its reduced-motion,
+                      tab-visibility and viewport gates live in the
+                      controller, so patterns animate here without
+                      reimplementing any of it.
                     </p>
                     <CodeBlock
                       code={coreCode}
@@ -765,7 +773,7 @@ export default function ReactDocsPage() {
 
                   <Section id="api" title="API reference">
                     <h3 className={styles.minihead}>
-                      &lt;TabbiedArtwork /&gt; props
+                      &lt;TabbiedPattern /&gt; props
                     </h3>
                     <div className={styles.tableScroll}>
                       <table className={styles.propsTable}>
@@ -780,16 +788,16 @@ export default function ReactDocsPage() {
                         <tbody>
                           <tr>
                             <td className={styles.propName}>
-                              artwork
+                              pattern
                               <span className={styles.required}>required</span>
                             </td>
                             <td>
-                              <code>ArtworkDefinition</code>
+                              <code>PatternDefinition</code>
                             </td>
                             <td className={styles.defaultCol}>—</td>
                             <td>
-                              The artwork to render — a preset from{' '}
-                              <Code>tabbied/artworks</Code> or your own
+                              The pattern to render — a preset from{' '}
+                              <Code>tabbied/patterns</Code> or your own
                               definition.
                             </td>
                           </tr>
@@ -800,7 +808,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td className={styles.defaultCol}>random</td>
                             <td>
-                              Pattern seed. Omit for a random seed per mount;
+                              Randomization seed. Omit for a random seed per mount;
                               reseed via the handle.
                             </td>
                           </tr>
@@ -835,7 +843,7 @@ export default function ReactDocsPage() {
                                 &apos;contain&apos; | &apos;fixed&apos;
                               </code>
                             </td>
-                            <td className={styles.defaultCol}>per artwork</td>
+                            <td className={styles.defaultCol}>per pattern</td>
                             <td>
                               How the drawing meets its box — never by
                               distorting it (see{' '}
@@ -1008,7 +1016,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td>
                               PNG export via css-doodle. Returns a promise;
-                              rejects before the artwork has mounted.
+                              rejects before the pattern has mounted.
                             </td>
                           </tr>
                           <tr>
@@ -1037,7 +1045,7 @@ export default function ReactDocsPage() {
                       </table>
                     </div>
 
-                    <h3 className={styles.minihead}>ArtworkDefinition</h3>
+                    <h3 className={styles.minihead}>PatternDefinition</h3>
                     <p>
                       Presets are plain data. You can author your own — the
                       renderer only cares about the shape:
@@ -1047,9 +1055,9 @@ export default function ReactDocsPage() {
                       className={styles.codeStandalone}
                     />
                     <p>
-                      The full type (palette slots, option kinds, per-artwork
+                      The full type (palette slots, option kinds, per-pattern
                       sizing metadata) ships with the package —{' '}
-                      <Code>import type {'{ ArtworkDefinition }'} from
+                      <Code>import type {'{ PatternDefinition }'} from
                       &apos;tabbied&apos;</Code>.
                     </p>
                   </Section>
@@ -1064,7 +1072,7 @@ export default function ReactDocsPage() {
                       >
                         GitHub
                       </a>
-                      . The package is MIT-licensed — artworks you export are
+                      . The package is MIT-licensed — patterns you export are
                       yours to use anywhere.
                     </p>
                   </footer>
