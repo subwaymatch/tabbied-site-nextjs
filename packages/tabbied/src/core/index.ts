@@ -8,6 +8,7 @@ export * from './seed.js';
 export * from './aspectRatio.js';
 export * from './sizing.js';
 export * from './createArtwork.js';
+export * from './hydrate.js';
 // The SVG converter itself (~21 KB gzipped) is NOT re-exported here:
 // controller.exportSvg() loads it on demand via dynamic import, so consumers
 // who never export pay nothing. Import `doodleToSvg` from

@@ -8,6 +8,7 @@ import {
   type CSSProperties,
 } from 'react';
 import {
+  artworkConfigToAttributes,
   createArtwork,
   resolveBoxStyle,
   resolveFitMode,
@@ -258,10 +259,20 @@ export const TabbiedArtwork = forwardRef<
       : { fill, width, height, maxWidth, maxHeight, aspectRatio }
   );
 
+  // The config as data-* attributes. On the client they are inert — the
+  // controller is driven by props — but they make a *server* render
+  // self-describing: the prerendered HTML then carries everything
+  // hydrateArtworks() needs to re-mount the artwork with no React and no
+  // build step, which is what lets a static export be repackaged as a plain
+  // HTML template. Deterministic from props, so no hydration mismatch (an
+  // uncontrolled `seed` is generated inside the controller, not here, and so
+  // is simply absent).
+  const configAttributes = artworkConfigToAttributes(config);
+
   return (
     <div
       ref={hostRef}
-      data-artwork={definition.slug}
+      {...configAttributes}
       className={className}
       style={{ backgroundColor: background, ...boxStyle, ...style }}
       {...(decorative

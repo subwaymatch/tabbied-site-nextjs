@@ -247,6 +247,63 @@ test.describe('tabbied package (component test page)', () => {
     expect(await held.getAttribute('data-seed')).toBe(pinned);
   });
 
+  // Declarative mounting — the path a packaged HTML template takes: plain
+  // markup carrying its config in data-* attributes, mounted by one
+  // hydrateArtworks() call with no component in the picture.
+  test('hydrateArtworks mounts artworks from data-* attributes alone', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const basic = page.locator('#hydrate-basic');
+    await basic.scrollIntoViewIfNeeded();
+    await expect(basic.locator('css-doodle')).toBeAttached({ timeout: 15000 });
+
+    await expect
+      .poll(() => paintedCells(page, '#hydrate-basic'), { timeout: 10000 })
+      .toBeGreaterThan(1);
+
+    // The declared seed and palette must be what actually rendered.
+    await expect(basic.locator('css-doodle')).toHaveAttribute(
+      'data-seed',
+      'k9Pz'
+    );
+    const inks = await page.evaluate(() => {
+      const el = document.querySelector('#hydrate-basic css-doodle');
+      return [
+        ...new Set(
+          [...(el?.shadowRoot?.querySelectorAll('cssd-cell') ?? [])].map(
+            (cell) => getComputedStyle(cell).backgroundColor
+          )
+        ),
+      ];
+    });
+    // #3E8BFF and #3FFFB2 from data-palette, nothing from radius's authored set.
+    expect(inks.join(' ')).toMatch(/rgb\(62, 139, 255\)|rgb\(63, 255, 178\)/);
+
+    // data-options is typed by the definition, so "4x6" stays the string the
+    // ButtonSelectGroup declares and drives a 4×6 grid. (Read under
+    // fit:"fixed" — the adaptive grid fit re-derives cols×rows from the box
+    // by design, which would mask whether the option arrived at all.)
+    const options = page.locator('#hydrate-options');
+    await options.scrollIntoViewIfNeeded();
+    await expect(options.locator('css-doodle')).toBeAttached({ timeout: 15000 });
+    await expect
+      .poll(() => cellCount(page, '#hydrate-options'), { timeout: 10000 })
+      .toBe(24);
+
+    // data-width / data-height sized the fixed canvas.
+    const canvas = (await options.locator('css-doodle').boundingBox())!;
+    expect(canvas.width).toBeCloseTo(240, 0);
+    expect(canvas.height).toBeCloseTo(360, 0);
+
+    // An unknown slug is skipped without taking its neighbours down.
+    await expect(
+      page.locator('#hydrate-unknown css-doodle')
+    ).toHaveCount(0);
+  });
+
   test('redrawInterval is skipped under prefers-reduced-motion', async ({
     page,
   }) => {

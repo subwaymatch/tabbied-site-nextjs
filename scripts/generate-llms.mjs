@@ -243,6 +243,35 @@ const controller = createArtwork(host, {
 controller.update({ paused: true }); // holds the phase; resume with false
 \`\`\`
 
+### Declarative mounting
+
+\`hydrateArtworks()\` reads a config off \`data-*\` attributes, so a static HTML
+page needs no build step and no component:
+
+\`\`\`html
+<div data-artwork="ortho" data-palette="transparent, #C9C8C1" data-fit="grid"
+     data-redraw-interval="5200" style="width:100%;height:60vh"></div>
+<script type="module">
+  import { hydrateArtworks } from 'https://esm.sh/tabbied';
+  import { artworks } from 'https://esm.sh/tabbied/artworks';
+  hydrateArtworks({ artworks });
+</script>
+\`\`\`
+
+Attributes: \`data-artwork\` (slug, required), \`data-seed\`, \`data-palette\`
+(comma separated, background first), \`data-options\` (\`id: value\` pairs
+separated by \`;\`), \`data-fit\`, \`data-cell-size\`, \`data-density\`,
+\`data-width\`, \`data-height\`, \`data-cover-render\` (\`800x800\` or
+\`800x800+120\`), \`data-redraw-interval\`, \`data-paused\`. Option values are
+typed by the artwork's own metadata, so a numeric-looking
+\`ButtonSelectGroup\` choice stays a string.
+
+Options: \`root\` (scope the search), \`selector\`, \`defaults\`, \`onError\`.
+Returns \`{ element, controller }\` per mounted artwork, and is idempotent.
+\`artworkConfigToAttributes()\` is the inverse — \`TabbiedArtwork\` uses it, so a
+server-rendered page already carries what \`hydrateArtworks\` reads. Don't use
+both on the same element.
+
 ## SVG export
 
 \`exportSvg()\` produces a **native vector SVG** (real \`<rect>\`/\`<path>\`/gradient

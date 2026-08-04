@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { TabbiedArtwork } from 'tabbied/react';
 import { radius, symmetry } from 'tabbied/artworks';
+import { HydrateProbe } from './HydrateProbe';
 
 export const metadata: Metadata = {
   title: 'tabbied package test',
@@ -90,6 +91,13 @@ export default function PackageTestPage() {
             paused
           />
         </div>
+      </section>
+
+      {/* Declarative mounting: markup + hydrateArtworks(), no component. This
+          is the path a packaged HTML template takes. */}
+      <section id="hydrate">
+        <h2>hydrateArtworks()</h2>
+        <HydrateProbe />
       </section>
     </main>
   );

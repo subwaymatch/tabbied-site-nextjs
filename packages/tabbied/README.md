@@ -246,6 +246,64 @@ controller.update({ paused: true });
 and drops ticks while the tab is hidden or the host is scrolled out of view —
 a page of animated artworks only pays for the ones somebody is looking at.
 
+### Declarative mounting (no build step)
+
+`hydrateArtworks()` reads an artwork's config off plain `data-*` attributes,
+so a static HTML page can describe its artworks in the markup and bring them
+all up with one call:
+
+```html
+<div data-artwork="ortho"
+     data-palette="transparent, #C9C8C1, #8E8E88"
+     data-fit="grid"
+     data-cell-size="132"
+     data-redraw-interval="5200"
+     style="width: 100%; height: 60vh"></div>
+
+<script type="module">
+  import { hydrateArtworks } from 'https://esm.sh/tabbied';
+  import { artworks } from 'https://esm.sh/tabbied/artworks';
+
+  hydrateArtworks({ artworks });
+</script>
+```
+
+The attributes are readable rather than a JSON blob — the point is that
+somebody editing a page can change a colour or a slug without decoding
+anything. Values are typed by the artwork's own option metadata, so a
+`ButtonSelectGroup` choice that looks numeric stays a string.
+
+| Attribute | Config field |
+| --- | --- |
+| `data-artwork` | The preset slug. Required — everything else is optional. |
+| `data-seed` | `seed` |
+| `data-palette` | `palette` — comma separated, background first. Splits at top level, so `rgb(0, 0, 0)` survives. |
+| `data-options` | `options` — `id: value` pairs separated by `;` |
+| `data-fit` | `fit` |
+| `data-cell-size` / `data-density` | `cellSize` / `density` |
+| `data-width` / `data-height` | `fixed` canvas size in px |
+| `data-cover-render` | `coverRender` — `800x800`, or `800x800+120` with a `cropTop` |
+| `data-redraw-interval` / `data-paused` | `redrawInterval` / `paused` |
+
+Pass `root` to scope the search to a subtree, `selector` to override
+`[data-artwork]`, and `defaults` to merge a config into every match.
+`hydrateArtworks` returns `{ element, controller }` for each artwork it
+mounted, and is idempotent — calling it twice won't double-mount.
+
+An unknown slug is reported through `onError` (a `console.warn` by default)
+and skipped, and an attribute that doesn't parse falls back to the design's
+authored default: a hand-edited template degrades to the artwork's defaults
+rather than to a blank box.
+
+`artworkConfigToAttributes()` is the inverse, for generating such markup.
+`TabbiedArtwork` uses it on its own placeholder, so a server-rendered React
+page already emits everything `hydrateArtworks` needs — which is what lets a
+prerendered page be repackaged as a framework-free template.
+
+> Use one or the other on a given element: `TabbiedArtwork` mounts its own
+> controller, so an unscoped `hydrateArtworks()` on a React page would mount a
+> second one on top of it. That's what `root` is for.
+
 ## License
 
 MIT © Sy Hong and Ye Joo Park
