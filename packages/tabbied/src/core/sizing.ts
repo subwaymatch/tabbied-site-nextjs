@@ -4,7 +4,7 @@
 // doodleSource.ts), so a pattern can be drawn at any size; what varies per
 // strategy is how the cell grid and the css-doodle canvas relate to the
 // container. See createPattern() for how each FitMode is applied.
-import type { PatternDefinition, PatternSizing, FitMode } from './types.js';
+import type { PatternSizing, FitMode } from './types.js';
 
 // Options with this id hold a "colsxrows" grid string; the adaptive `grid`
 // fit overrides it with a grid derived from the measured container.
@@ -37,26 +37,17 @@ export const DEFAULT_COVER_RENDER: CoverRender = { width: 800, height: 800 };
 // original 2:3 preview footprint.
 export const DEFAULT_FIXED_SIZE = { width: 360, height: 540 };
 
+// Every mode works for every design, so there is no per-pattern capability
+// check: `fit` is a plain choice, and an unset one takes the default. The
+// list exists so `data-fit` can be validated (see hydrate.ts).
 export const FIT_MODES: readonly FitMode[] = ['grid', 'cover', 'fixed'];
 
-// Fits that existed in an earlier version, mapped to why they went away. Kept
-// so a stale `fit` prop gets a message that explains the migration instead of
-// the generic "not supported by this pattern" fallback warning.
-const REMOVED_FIT_MODES: Record<string, string> = {
-  stretch:
-    'patterns are no longer scaled by a different factor per axis. Use "grid" ' +
-    '(re-derives the cell grid for the box, so cells stay near-square) or ' +
-    '"cover" (scales a render uniformly).',
-  contain:
-    'every design in the catalog is cell-tiled, and letterboxing one drew its ' +
-    'authored grid on the default square canvas — so its cells came out ' +
-    'oblong while "grid" already fills the box exactly, with square cells and ' +
-    'no bars. Use "grid", or "cover" with an `aspectRatio` on the box.',
-};
-
-export function hasGridOption(definition: PatternDefinition): boolean {
-  return definition.options.some((option) => option.id === GRID_OPTION_ID);
-}
+/**
+ * The fit used when none is requested. Every design is cell-tiled, so the
+ * adaptive grid is always the right starting point: it fills any box with
+ * whole, near-square cells and no letterboxing.
+ */
+export const DEFAULT_FIT_MODE: FitMode = 'grid';
 
 // ---- box sizing -----------------------------------------------------------
 // A pattern has no intrinsic size: `fit` says how the drawing relates to its
@@ -142,63 +133,6 @@ export function resolveBoxStyle(size: PatternBoxSize = {}): PatternBoxStyle {
   }
 
   return style;
-}
-
-// The fits a pattern supports. Declared sizing.allowed wins; otherwise every
-// fit is available except that the adaptive `grid` fit needs a "colsxrows"
-// grid option to drive. Every design in the catalog has one; a caller's own
-// grid-less definition falls back to cover/fixed.
-export function allowedFitModes(definition: PatternDefinition): FitMode[] {
-  if (definition.sizing?.allowed) {
-    return definition.sizing.allowed;
-  }
-
-  return hasGridOption(definition)
-    ? [...FIT_MODES]
-    : FIT_MODES.filter((mode) => mode !== 'grid');
-}
-
-export function defaultFitMode(definition: PatternDefinition): FitMode {
-  return (
-    definition.sizing?.default ??
-    (hasGridOption(definition) ? 'grid' : 'cover')
-  );
-}
-
-// resolveFitMode runs on every render/update/resize tick, so an unsupported
-// fit warns once per pattern+fit pair instead of flooding the console.
-const warnedFits = new Set<string>();
-
-// Resolve a requested fit against the pattern's capabilities, falling back to
-// the pattern's default (with a console warning) rather than rendering a
-// strategy the design can't support.
-export function resolveFitMode(
-  definition: PatternDefinition,
-  requested?: FitMode
-): FitMode {
-  if (!requested) {
-    return defaultFitMode(definition);
-  }
-
-  if (allowedFitModes(definition).includes(requested)) {
-    return requested;
-  }
-
-  const fallback = defaultFitMode(definition);
-  const warnKey = `${definition.slug}|${requested}`;
-
-  if (typeof console !== 'undefined' && !warnedFits.has(warnKey)) {
-    warnedFits.add(warnKey);
-    const removed = REMOVED_FIT_MODES[requested];
-
-    console.warn(
-      removed
-        ? `[tabbied] fit "${requested}" was removed: ${removed} Using "${fallback}" instead.`
-        : `[tabbied] fit "${requested}" is not supported by "${definition.slug}" — using "${fallback}" instead`
-    );
-  }
-
-  return fallback;
 }
 
 // "cols × rows" for an arbitrary box at a target cell size, keeping cells

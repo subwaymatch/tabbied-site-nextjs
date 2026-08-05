@@ -189,24 +189,14 @@ nothing is ever scaled by a different factor horizontally than vertically.
 - `grid` (default) — re-derives the cell grid from the measured box: whole,
   near-square cells edge to edge at any box shape.
 - `cover` — draws a fixed-resolution render and scales it uniformly to fill the
-  box (preserving the proportions of fixed-px strokes and shadows). For
-  grid-driven patterns — every design in the catalog — the render follows the
-  box's aspect ratio and re-derives its grid, so the pattern is never cut off
-  mid-cell; your own grid-less definition scales-and-crops instead.
+  box (preserving the proportions of fixed-px strokes and shadows). The render
+  follows the box's aspect ratio and re-derives its grid, so the pattern is
+  never cut off mid-cell.
 - `fixed` — renders at an explicit canvas size (`width`/`height` in px, default
   360 × 540). This is what the Tabbied editor uses.
 
-Each pattern declares a sensible default, so `fit` is optional. Requesting a
-fit a pattern can't support falls back to its default with a console warning.
-
-> **Removed in 0.2.0:** `fit="stretch"`, which kept the authored grid and let
-> cells deform with the box. Use `grid` (the default) for a box-shaped grid, or
-> `cover` to scale a render uniformly.
->
-> **Removed in 0.5.0:** `fit="contain"`. Every design is cell-tiled, and
-> letterboxing one drew its authored grid on the default square canvas — so its
-> cells came out oblong while `grid` already fills the box exactly, with square
-> cells and no bars. Use `grid`, or `cover` with an `aspectRatio` on the box.
+Every design supports all three, so `fit` is a plain choice — omit it and you
+get `grid`.
 
 ## Core (framework-agnostic)
 

@@ -133,7 +133,7 @@ export function Example() {
 | \`seed\` | Randomization seed. Omit for a random seed per mount; reseed via the handle. |
 | \`palette\` | Active colors, background (\`color0\`) first. Defaults to the preset palette. |
 | \`options\` | Option values keyed by option id. Unset options use their authored default. |
-| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional — each design declares its own default (\`fit.default\` in the catalog). |
+| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional — the same three for every design; omit it for \`grid\`. |
 | \`fill\` | \`width: 100%; height: 100%\`. Defaults to \`true\`. |
 | \`width\` / \`height\` | Box size. Numbers are px. Overrides \`fill\` on that axis. |
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
@@ -174,7 +174,6 @@ By default that box fills its containing block.
 - Measured fits (\`grid\`, \`cover\`) mount **asynchronously**, after
   the first ResizeObserver tick. With the core API, drive the controller from
   \`onReady\`, not immediately after \`createPattern()\`.
-- Requesting a fit a pattern can't support falls back to its default and warns.
 - In a CSS grid, give tracks \`minmax(0, 1fr)\` rather than \`1fr\` so they can
   shrink when the container narrows.
 
@@ -189,9 +188,8 @@ horizontally than vertically.
   box, preserving the proportions of fixed-px strokes and shadows.
 - \`fixed\` — renders at an explicit canvas size (default 360x540).
 
-\`fit="stretch"\` was **removed in 0.2.0** and \`fit="contain"\` in 0.5.0. Every
-design is cell-tiled, so \`grid\` already fills any box with square cells and no
-letterbox bars — use it, or \`cover\` with an \`aspectRatio\` on the box.
+There is no per-design fit metadata: every design is cell-tiled and supports
+all three.
 
 ## Palettes and options
 

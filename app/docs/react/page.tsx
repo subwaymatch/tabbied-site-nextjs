@@ -493,10 +493,9 @@ export default function ReactDocsPage() {
                       </li>
                       <li>
                         <Code>cover</Code> — draws a fixed-resolution render
-                        and scales it uniformly into the box, preserving the authored
-                        proportions of fixed-px strokes and shadows. For
-                        grid-driven patterns — every design in the catalog —
-                        the render follows the box&apos;s aspect ratio and
+                        and scales it uniformly into the box, preserving the
+                        authored proportions of fixed-px strokes and shadows.
+                        The render follows the box&apos;s aspect ratio and
                         re-derives its grid, so the pattern is never cut off
                         mid-cell.
                       </li>
@@ -508,27 +507,8 @@ export default function ReactDocsPage() {
                       </li>
                     </ul>
                     <p>
-                      Each pattern declares a sensible default, so{' '}
-                      <Code>fit</Code> is optional. Requesting a fit an
-                      pattern can&apos;t support falls back to its default
-                      with a console warning.
-                    </p>
-                    <p>
-                      <strong>Removed in 0.2.0:</strong>{' '}
-                      <Code>fit=&quot;stretch&quot;</Code>, which kept the
-                      authored grid and let cells deform with the box. Use{' '}
-                      <Code>grid</Code> (the default) for a box-shaped grid, or{' '}
-                      <Code>cover</Code> to scale a render uniformly.
-                    </p>
-                    <p>
-                      <strong>Removed in 0.5.0:</strong>{' '}
-                      <Code>fit=&quot;contain&quot;</Code>. Every design is
-                      cell-tiled, and letterboxing one drew its authored grid
-                      on the default square canvas — so its cells came out
-                      oblong while <Code>grid</Code> already fills the box
-                      exactly, with square cells and no bars. Use{' '}
-                      <Code>grid</Code>, or <Code>cover</Code> with an{' '}
-                      <Code>aspectRatio</Code> on the box.
+                      Every design supports all three, so <Code>fit</Code> is a
+                      plain choice — omit it and you get <Code>grid</Code>.
                     </p>
                     <p>
                       Each column below is one mode, drawing the same pattern at
@@ -543,14 +523,6 @@ export default function ReactDocsPage() {
                         ))}
                       </div>
                     </Example>
-                    <p>
-                      A definition without a &quot;colsxrows&quot; grid option
-                      has no cell grid to re-derive, so it opts out of{' '}
-                      <Code>grid</Code> and offers <Code>cover</Code> and{' '}
-                      <Code>fixed</Code>. Every design in the catalog is
-                      cell-tiled, so this only comes up for a{' '}
-                      <Code>PatternDefinition</Code> you write yourself.
-                    </p>
                   </Section>
 
                   <Section id="palettes" title="Colors & palettes">

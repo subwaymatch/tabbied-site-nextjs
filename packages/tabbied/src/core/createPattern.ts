@@ -10,6 +10,7 @@ import { randomSeed } from './seed.js';
 import {
   DEFAULT_CELL_PX,
   DEFAULT_COVER_RENDER,
+  DEFAULT_FIT_MODE,
   DEFAULT_FIXED_SIZE,
   DENSITY_CELL_PX,
   GRID_OPTION_ID,
@@ -17,8 +18,6 @@ import {
   coverCellPx,
   deriveGridForBox,
   fitRenderToBox,
-  hasGridOption,
-  resolveFitMode,
   snapSpanToTracks,
   type CoverRender,
 } from './sizing.js';
@@ -67,10 +66,10 @@ export type PatternConfig = {
   palette?: string[];
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
-  /**
-   * Fit strategy — how the drawing relates to the host box. Defaults to the
-   * pattern's sizing.default. How *big* the host box is stays a CSS question:
-   * size it yourself, or apply resolveBoxStyle() to it.
+   /**
+   * Fit strategy — how the drawing relates to the host box. Defaults to
+   * DEFAULT_FIT_MODE. How *big* the host box is stays a CSS question: size it
+   * yourself, or apply resolveBoxStyle() to it.
    */
   fit?: FitMode;
   /** fit:"grid" — target cell size in px (default 36). */
@@ -80,7 +79,7 @@ export type PatternConfig = {
   /** fit:"fixed" — canvas size in px. */
   width?: number;
   height?: number;
-  /** `cover` — render resolution override (default 800×800 or the pattern's sizing.coverRender). */
+  /** `cover` — render resolution override (default 800×800). */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms, so designs with authored CSS
@@ -260,7 +259,7 @@ export function createPattern(
       optionValues: definition.options.map(
         (option) => config.options?.[option.id] ?? option.default
       ),
-      fit: resolveFitMode(definition, config.fit),
+      fit: config.fit ?? DEFAULT_FIT_MODE,
       targetCellPx:
         config.cellSize ??
         (config.density != null
@@ -268,10 +267,7 @@ export function createPattern(
           : DEFAULT_CELL_PX),
       fixedWidth: config.width ?? DEFAULT_FIXED_SIZE.width,
       fixedHeight: config.height ?? DEFAULT_FIXED_SIZE.height,
-      coverRender:
-        config.coverRender ??
-        config.pattern.sizing?.coverRender ??
-        DEFAULT_COVER_RENDER,
+      coverRender: config.coverRender ?? DEFAULT_COVER_RENDER,
     };
   };
 
@@ -283,25 +279,18 @@ export function createPattern(
   const needsMeasure = (fit: FitMode): boolean =>
     fit === 'grid' || fit === 'cover';
 
-  // Whether `cover` adapts its render box + grid to the host's shape (whole
-  // cells edge-to-edge, nothing cropped mid-cell). A caller's own definition
-  // without a "colsxrows" grid option isn't cell-tiled, so it keeps the
-  // authored fixed-shape render and crops instead.
-  const isAdaptiveCover = (resolved: ResolvedConfig): boolean =>
-    resolved.fit === 'cover' && hasGridOption(resolved.definition);
-
-  // The fixed-resolution box a `cover` render draws at.
-  const resolveRenderBox = (resolved: ResolvedConfig): CoverRender => {
-    if (isAdaptiveCover(resolved) && hostSize) {
-      return adaptCoverRenderToBox(
-        hostSize.width,
-        hostSize.height,
-        resolved.coverRender
-      );
-    }
-
-    return resolved.coverRender;
-  };
+  // The fixed-resolution box a `cover` render draws at: the base box reshaped
+  // to the host, so the grid tiles it edge-to-edge with whole cells and
+  // nothing is cropped mid-cell. Falls back to the base box until the first
+  // measure lands.
+  const resolveRenderBox = (resolved: ResolvedConfig): CoverRender =>
+    hostSize
+      ? adaptCoverRenderToBox(
+          hostSize.width,
+          hostSize.height,
+          resolved.coverRender
+        )
+      : resolved.coverRender;
 
   // The css-doodle canvas size and effective option values for the strategy.
   const buildSource = (resolved: ResolvedConfig) => {
@@ -343,7 +332,7 @@ export function createPattern(
       );
 
       optionValues = overrideGrid(cols, rows);
-    } else if (renderBox && isAdaptiveCover(resolved) && hostSize) {
+    } else if (renderBox && hostSize) {
       // Cell size for the adapted box: an explicit cellSize/density prop is in
       // host px (grid-fit semantics), so it converts through the render scale;
       // otherwise the pinned/authored grid's cell size on the base box is kept.
@@ -633,14 +622,9 @@ export function createPattern(
 
     if (resolved.fit === 'cover') {
       // Re-scaling the already-rendered canvas is cheap — apply on every
-      // tick. Fixed-shape renders are done here; an adaptive cover render
-      // also re-derives its box + grid below (debounced), since its shape
-      // tracks the host's.
+      // tick. The render's box + grid track the host's shape too, so they are
+      // re-derived below as well (debounced).
       applyTransform(resolved);
-
-      if (!isAdaptiveCover(resolved)) {
-        return;
-      }
     }
 
     if (resolved.fit === 'grid') {

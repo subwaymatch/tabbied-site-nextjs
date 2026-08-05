@@ -148,9 +148,7 @@ const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
 
 export default function EditPattern({ pattern }: { pattern: Pattern }) {
-  const lockedAspectRatio = pattern.lockAspectRatio ?? null;
-  const defaultAspectRatio =
-    lockedAspectRatio ?? pattern.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
+  const defaultAspectRatio = pattern.defaultAspectRatio ?? DEFAULT_ASPECT_RATIO;
 
   const paletteDefaults = pattern.palette ?? [];
   const minColors = pattern.colors?.min ?? paletteDefaults.length;
@@ -281,7 +279,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
   const aspectRatioFromQuery = (): AspectRatioId => {
     const queryRatio = searchParams.get('aspectRatio');
 
-    return !lockedAspectRatio && queryRatio && isAspectRatioId(queryRatio)
+    return queryRatio && isAspectRatioId(queryRatio)
       ? queryRatio
       : defaultAspectRatio;
   };
@@ -442,9 +440,7 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
       .slice(0, colorCount)
       .forEach((color) => newParams.append('palette', color));
     newParams.set('seed', seed);
-    if (!lockedAspectRatio) {
-      newParams.set('aspectRatio', aspectRatio);
-    }
+    newParams.set('aspectRatio', aspectRatio);
     pattern.options.forEach((option, index) => {
       newParams.set(option.id, String(optionValues[index]));
     });
@@ -1371,14 +1367,12 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
           <section className={styles.group}>
             <h2 className={styles.groupTitle}>Layout</h2>
 
-            {!lockedAspectRatio && (
-              <div className={styles.layoutRow}>
-                <span className={styles.layoutLabel}>Aspect ratio</span>
-                <div className={styles.ratioTiles}>
-                  {ASPECT_RATIO_IDS.map((id) => renderRatioTile(id))}
-                </div>
+            <div className={styles.layoutRow}>
+              <span className={styles.layoutLabel}>Aspect ratio</span>
+              <div className={styles.ratioTiles}>
+                {ASPECT_RATIO_IDS.map((id) => renderRatioTile(id))}
               </div>
-            )}
+            </div>
 
             {pattern.options.map((option, index) =>
               renderLayoutOption(option, index)

@@ -44,22 +44,18 @@ export type PatternColors = {
  *
  * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
  * near-square at any box shape, `cover` scales a render uniformly, and `fixed`
- * draws at an explicit canvas size. (Two modes have been removed: `stretch`,
- * which kept the authored grid and let cells deform with the box, and
- * `contain` — see resolveFitMode.)
+ * draws at an explicit canvas size. Every design supports all three, so `fit`
+ * is a plain choice — an unset one takes DEFAULT_FIT_MODE.
  */
 export type FitMode = 'grid' | 'cover' | 'fixed';
 
 /**
- * Per-pattern sizing metadata. Everything is optional: patterns with a
- * "colsxrows" grid option default to the adaptive `grid` fit, and a grid-less
- * definition to `cover`. `minCellPx`/`maxCellPx` bound the adaptive cell size
- * — designs with fixed-px strokes and shadows need a floor so cells never
- * shrink past the look they were authored for.
+ * Per-pattern sizing metadata, all of it about the adaptive `grid` fit and all
+ * of it optional. `minCellPx`/`maxCellPx` bound the derived cell size —
+ * designs with fixed-px strokes and shadows need a floor so cells never shrink
+ * past the look they were authored for.
  */
 export type PatternSizing = {
-  allowed?: FitMode[];
-  default?: FitMode;
   minCellPx?: number;
   maxCellPx?: number;
   /**
@@ -71,8 +67,6 @@ export type PatternSizing = {
    * to 2, which also keeps centred rules and strokes off half-pixels.
    */
   cellMultiple?: number;
-  /** Render resolution for the `cover` fit. */
-  coverRender?: { width: number; height: number };
 };
 
 export type PatternDefinition = {
@@ -92,12 +86,6 @@ export type PatternDefinition = {
   sizing?: PatternSizing;
   /** Initial aspect ratio when the Tabbied editor opens. Defaults to "2:3". */
   defaultAspectRatio?: AspectRatioId;
-  /**
-   * Forces a single aspect ratio and hides the editor's selector — for designs
-   * whose layout is tuned to one ratio. Currently unused: every design in the
-   * catalog is a cell-tiled grid that adapts to any ratio.
-   */
-  lockAspectRatio?: AspectRatioId;
   /** Render the gallery title in white (for dark thumbnails). */
   galleryWhite?: boolean;
   /** Sort position in the gallery (ascending). Unset sorts last. */

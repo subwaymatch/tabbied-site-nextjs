@@ -104,16 +104,6 @@ console.log(
 
 // ---- catalog.json ----
 
-// The fit a pattern defaults to when none is requested. This mirrors
-// defaultFitMode()/hasGridOption() in src/core/sizing.ts — kept in sync by
-// hand because codegen runs before tsc, so there's no compiled module to
-// import. If the rule there changes, change it here too.
-const defaultFit = (definition) =>
-  definition.sizing?.default ??
-  (definition.options?.some((option) => option.id === 'grid')
-    ? 'grid'
-    : 'cover');
-
 // Options minus `replace`/`code` — those are css-doodle template plumbing, not
 // something a consumer passes. What's left is the id to key `options` by, the
 // control type, and the range of accepted values.
@@ -139,13 +129,16 @@ const catalog = {
   version,
   count: patterns.length,
   docs: 'https://tabbied.com/llms.txt',
-  // Repeated once here rather than on all 222 entries.
+  // Repeated once here rather than on every entry. `fit` is deliberately not
+  // per-design: every design supports grid / cover / fixed, and an unset one
+  // takes the grid default.
   usage: {
     install: 'npm install tabbied',
     import: "import { <slug> } from 'tabbied/patterns';",
     react:
       "import { TabbiedPattern } from 'tabbied/react';\n<TabbiedPattern pattern={<slug>} height={320} />",
     core: "import { createPattern } from 'tabbied';",
+    fit: "grid (default) | cover | fixed — the same three for every design",
   },
   designs: patterns.map((definition) => ({
     slug: definition.slug,
@@ -154,12 +147,6 @@ const catalog = {
     palette: definition.palette ?? [],
     ...(definition.colors ? { colors: definition.colors } : {}),
     options: (definition.options ?? []).map(catalogOption),
-    fit: {
-      default: defaultFit(definition),
-      ...(definition.sizing?.allowed
-        ? { allowed: definition.sizing.allowed }
-        : {}),
-    },
     ...(definition.defaultAspectRatio
       ? { defaultAspectRatio: definition.defaultAspectRatio }
       : {}),
