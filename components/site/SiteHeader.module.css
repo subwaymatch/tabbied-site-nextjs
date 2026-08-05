@@ -1,12 +1,16 @@
-/* The shared site header. One hairline divides it from the page, the mark sits
-   hard against the left gutter and the nav against the right — the same
-   edge-to-edge grid the pages below it use, rather than a centred container. */
+/* The shared site header. The mark sits hard against the left gutter and the
+   nav against the right — the same edge-to-edge grid the pages below it use,
+   rather than a centred container.
+
+   Its bottom hairline is one of the two rules the system allows (the other
+   opens a section): the header is sticky and white over white, so without it
+   the page scrolls straight through the nav. */
 
 .header {
   position: sticky;
   top: 0;
   z-index: 1100;
-  background: color-mix(in srgb, var(--paper-raised) 88%, transparent);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--rule);
 }
@@ -73,7 +77,6 @@
 
 .navLink:hover {
   color: var(--ink);
-  border-bottom-color: var(--rule);
 }
 
 /* Persistent accent for the current section (also flagged via aria-current),
@@ -185,8 +188,7 @@
   height: 100vh;
   height: 100dvh;
   padding: 0 0 24px;
-  background: var(--paper-raised);
-  border-left: 1px solid var(--rule);
+  background: var(--paper);
   outline: none;
   transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -234,24 +236,24 @@
 .drawerNav {
   display: flex;
   flex-direction: column;
+  padding-top: 1.4rem;
 }
 
-/* Full-width rows divided by hairlines — the drawer is a contents page, not a
-   floating menu. */
+/* Set large and spaced rather than boxed in rows — the drawer is a contents
+   page, not a floating menu. */
 .drawerLink {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 1.1rem var(--edge);
+  padding: 0.85rem var(--edge);
   font-family: var(--font-sans-serif);
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   color: var(--ink);
   text-align: left;
   background: none;
   border: none;
-  border-bottom: 1px solid var(--rule-soft);
   cursor: pointer;
 }
 

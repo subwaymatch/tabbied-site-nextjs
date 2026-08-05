@@ -2,8 +2,8 @@
    Rendered as a direct child of the document-scrolled gallery (not nested in the
    header), so `position: sticky` pins it below the site header across the whole
    grid scroll. Chips scroll sideways; the trailing "All ›" pill opens the
-   browser. Instead of a hard divider, the paper ground is solid behind the chips
-   and fades out over its bottom edge, so the pinned bar melts into the grid
+   browser. Instead of a divider, the white ground is solid behind the chips and
+   fades out over its bottom edge, so the pinned bar melts into the grid
    scrolling beneath it rather than sitting on a visible line. */
 .shelf {
   position: sticky;
@@ -17,7 +17,7 @@
     to bottom,
     var(--paper) 0%,
     var(--paper) 76%,
-    rgba(242, 242, 239, 0) 100%
+    rgba(255, 255, 255, 0) 100%
   );
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -28,23 +28,29 @@
   display: none;
 }
 
-/* Square-cornered and outlined rather than a floating pill: the shelf belongs
-   to the same hairline grid as the rest of the page. */
+/* Square-cornered and filled rather than a floating outlined pill: the tint is
+   what makes a chip an object, so nothing has to be drawn around it. */
 .chip {
   flex: none;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 8px 10px;
-  border: 1px solid var(--rule);
-  background: var(--paper-raised);
+  border: none;
+  background: var(--surface);
   font-family: var(--font-sans-serif);
   cursor: pointer;
-  transition: border-color 120ms ease;
+  transition: background-color 120ms ease;
 }
 
-.chipActive {
-  border-color: var(--ink);
+.chip:hover {
+  background: var(--surface-hover);
+}
+
+.chipActive,
+.chipActive:hover {
+  background: var(--surface-hover);
+  box-shadow: inset 0 -2px 0 var(--accent);
 }
 
 .chip:focus-visible {
@@ -55,7 +61,6 @@
 .strip {
   --strip-width: 44px;
   --strip-height: 13px;
-  border: 1px solid rgba(11, 11, 12, 0.12);
 }
 
 .name {
@@ -104,7 +109,7 @@
   align-items: center;
   gap: 4px;
   padding: 8px 12px;
-  border: 1px solid var(--ink);
+  border: none;
   background: var(--ink);
   font-family: var(--font-sans-serif);
   font-size: 0.78rem;

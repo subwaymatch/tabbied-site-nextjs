@@ -1,7 +1,8 @@
 /* The pattern gallery (/patterns): the shared site header, a pinned palette
    rail, and the design grid. Same Swiss system as the home and template
-   galleries — paper ground, hairline rules, tightened Inter — with the rail
-   divided from the grid by a single rule rather than a tint. */
+   galleries — ink on white, tightened Inter, the grid doing the dividing. One
+   rule on the page, under the heading; the rail is held apart from the grid by
+   its gutter rather than ruled off from it. */
 .gallery {
   position: relative;
   background: var(--paper);
@@ -25,7 +26,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
   gap: 16px 32px;
-  padding-bottom: 1rem;
+  padding-bottom: 0.9rem;
   border-bottom: 1px solid var(--ink);
 }
 
@@ -119,10 +120,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  margin-top: clamp(28px, 4vw, 48px);
-  padding-top: clamp(20px, 2.5vw, 30px);
-  border-top: 1px solid var(--rule);
+  gap: 4px;
+  margin-top: clamp(32px, 4.5vw, 56px);
 }
 
 .pageArrow,
@@ -133,7 +132,7 @@
   min-width: 34px;
   height: 34px;
   padding: 0 8px;
-  border: 1px solid var(--rule);
+  border: none;
   background: transparent;
   font-family: var(--font-sans-serif);
   font-size: 0.78rem;
@@ -141,26 +140,23 @@
   letter-spacing: -0.01em;
   color: var(--ink-2);
   cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease,
-    background-color 120ms ease;
+  transition: color 120ms ease, background-color 120ms ease;
 }
 
 .pageArrow:hover:not(:disabled),
 .pageNumber:hover {
-  border-color: var(--ink);
   color: var(--ink);
+  background: var(--surface);
 }
 
 .pageArrow:disabled {
   color: #b6b6ae;
-  border-color: var(--rule-soft);
   cursor: default;
 }
 
 .pageNumberCurrent,
 .pageNumberCurrent:hover {
   background: var(--ink);
-  border-color: var(--ink);
   color: var(--paper);
 }
 
@@ -193,8 +189,8 @@
 .clearSearch {
   margin-top: 16px;
   padding: 0.7rem 1.2rem;
-  border: 1px solid var(--ink);
-  background: transparent;
+  border: none;
+  background: var(--surface);
   font-family: var(--font-sans-serif);
   font-size: 0.7rem;
   font-weight: 700;
@@ -249,18 +245,19 @@
   cursor: pointer;
 }
 
-/* The square tile that clips the pattern; its hairline firms up on hover. */
+/* The square tile that clips the pattern. No frame around it — the label below
+   carries the hover. */
 .tile {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: 1px solid var(--rule);
-  transition: border-color 140ms ease;
+  background: var(--surface);
 }
 
-.card:hover .tile {
-  border-color: var(--ink);
+.card:hover .cardName,
+.card:hover .cardIndex {
+  color: var(--accent-ink);
 }
 
 .card:focus-visible {
@@ -285,10 +282,12 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--ink-3);
+  transition: color 140ms ease;
 }
 
 .cardName {
   min-width: 0;
+  transition: color 140ms ease;
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.3;
@@ -320,7 +319,7 @@
   --shimmer-band: rgba(11, 11, 12, 0.06);
   position: absolute;
   inset: 0;
-  background-color: #e8e8e3;
+  background-color: var(--surface);
   transition: opacity 0.4s ease, visibility 0s 0.4s;
 }
 

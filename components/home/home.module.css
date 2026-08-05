@@ -1,8 +1,9 @@
 /* ==========================================================================
-   Home page — Swiss grid: ink on paper, hairline rules doing all the dividing,
-   tightened Inter, and one accent. Every section is numbered and opens on a
-   rule, so the page reads as a single document rather than a stack of banners.
-   Shared by every component under components/home/.
+   Home page — Swiss grid: ink on white, tightened Inter, one accent, and the
+   grid itself doing the dividing. Rules are rationed to one per section (the
+   line the numbered head sits on), so the page reads as a single document
+   without being drawn as a table. Shared by every component under
+   components/home/.
    ========================================================================== */
 
 .page {
@@ -38,9 +39,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 0.9rem;
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  border-bottom: 1px solid var(--rule);
+  margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
 }
 
 .kicker,
@@ -114,8 +113,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: background-color 130ms ease, color 130ms ease,
-    border-color 130ms ease;
+  transition: background-color 130ms ease, color 130ms ease;
 }
 
 .btnPrimary {
@@ -130,23 +128,23 @@
 
 .btnGhost {
   color: var(--ink);
-  border: 1px solid var(--ink);
+  background: var(--surface);
 }
 
 .btnGhost:hover {
-  color: var(--paper);
-  background: var(--ink);
+  background: var(--surface-hover);
 }
 
-/* Full-bleed contact sheet: one band of pattern divided by hairlines, not five
-   floating cards. */
+/* Full-bleed contact sheet. The tiles are held apart by white gutters rather
+   than ruled off from each other, so the band reads as five samples on the page
+   instead of a framed panel. */
 .heroStrip {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 0.9vw, 14px);
   height: clamp(9rem, 19vw, 17rem);
   margin-top: clamp(2rem, 4.5vw, 4rem);
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+  padding: 0 var(--edge);
 }
 
 .heroTile {
@@ -154,24 +152,12 @@
   overflow: hidden;
 }
 
-.heroTile + .heroTile {
-  border-left: 1px solid var(--ink);
-}
-
 .facts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
   margin: 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.facts > div {
-  padding: clamp(1rem, 2vw, 1.6rem) var(--edge) clamp(1rem, 2vw, 1.5rem);
-}
-
-.facts > div + div {
-  border-left: 1px solid var(--rule);
-  padding-left: clamp(1rem, 2.4vw, 2rem);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) var(--edge) 0;
 }
 
 .facts dt {
@@ -195,9 +181,9 @@
 
 .section {
   padding: clamp(3rem, 6.5vw, 6.5rem) var(--edge);
-  border-bottom: 1px solid var(--rule);
 }
 
+/* The one rule a section gets: the line its numbered head sits on. */
 .sectionHead {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -270,20 +256,14 @@
 .steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
+  gap: clamp(1.5rem, 3vw, 3rem);
   margin: clamp(2.5rem, 5vw, 4.5rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .steps li {
-  padding: 1.4rem clamp(1rem, 2.4vw, 2.4rem) 0 0;
-  border-top: 1px solid var(--rule);
-}
-
-.steps li + li {
-  padding-left: clamp(1rem, 2.4vw, 2.4rem);
-  border-left: 1px solid var(--rule);
+  padding-right: clamp(0.5rem, 1.6vw, 1.6rem);
 }
 
 .stepNumber {
@@ -329,13 +309,15 @@
 .patternTile {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--rule);
-  transition: border-color 130ms ease;
+  background: var(--surface);
 }
 
-.patternCard:hover .patternTile,
-.patternCardAll:hover .patternTile {
-  border-color: var(--ink);
+/* Hover is carried by the label, not by an outline appearing around the tile. */
+.patternCard:hover .patternMeta h3,
+.patternCard:hover .patternIndex,
+.patternCardAll:hover .patternMeta h3,
+.patternCardAll:hover .patternIndex {
+  color: var(--accent-ink);
 }
 
 .patternMeta {
@@ -350,10 +332,12 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--ink-3);
+  transition: color 130ms ease;
 }
 
 .patternMeta h3 {
   min-width: 0;
+  transition: color 130ms ease;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -370,7 +354,6 @@
   display: grid;
   place-items: center;
   background: var(--ink);
-  border-color: var(--ink);
 }
 
 .allInner {
@@ -408,12 +391,11 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border: 1px solid var(--rule);
-  transition: border-color 130ms ease;
+  background: var(--surface);
 }
 
-.templateCard:hover .templateTile {
-  border-color: var(--ink);
+.templateCard:hover .templateMeta h3 {
+  color: var(--accent-ink);
 }
 
 .templateMeta {
@@ -422,6 +404,7 @@
 
 .templateMeta h3 {
   font-size: 1rem;
+  transition: color 130ms ease;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--ink);
@@ -462,8 +445,7 @@
 
 .useImage {
   overflow: hidden;
-  background: var(--paper-raised);
-  border: 1px solid var(--rule);
+  background: var(--surface);
 }
 
 .useImage img {
@@ -534,8 +516,7 @@
 }
 
 .colophonImage {
-  border: 1px solid var(--rule);
-  background: var(--paper-raised);
+  background: var(--surface);
   align-self: start;
 }
 
@@ -566,18 +547,17 @@
   color: var(--ink);
 }
 
-/* The spec list is a data table: term left, value right, hairline per row. */
+/* Term over value, in a column: the pairs read as a spec sheet on alignment
+   alone, with no rules ruling them off. */
 .specs {
   margin: 0;
-  border-top: 1px solid var(--ink);
 }
 
 .specs > div {
   display: grid;
   grid-template-columns: minmax(6.5rem, 30%) minmax(0, 1fr);
   gap: 12px;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0;
 }
 
 .specs dt {
@@ -631,9 +611,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: clamp(1.2rem, 3vw, 2.5rem);
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-  padding-top: clamp(1.2rem, 2.5vw, 2rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: clamp(2.2rem, 4.5vw, 3.8rem);
 }
 
 .ctaFoot p {
@@ -683,15 +661,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .facts > div:nth-child(odd) {
-    border-left: none;
-    padding-left: var(--edge);
-  }
-
-  .facts > div:nth-child(n + 3) {
-    border-top: 1px solid var(--rule);
-  }
-
   .sectionHead {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.2rem;
@@ -702,12 +671,7 @@
   }
 
   .steps li {
-    padding: 1.2rem 0 1.4rem;
-  }
-
-  .steps li + li {
-    padding-left: 0;
-    border-left: none;
+    padding-right: 0;
   }
 
   .steps p {

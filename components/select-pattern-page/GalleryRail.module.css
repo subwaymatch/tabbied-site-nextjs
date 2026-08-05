@@ -1,7 +1,7 @@
 /* The gallery's desktop palette rail: a label + palette search pinned at the
    top, the full merged palette list scrolling in the middle, and a pinned
-   "+ New Palette" at the bottom. One hairline divides it from the design grid —
-   the same rule the site header draws above it.
+   "+ New Palette" at the bottom. No divider against the design grid — the
+   column gutter is the separation.
 
    Pinned to the viewport (it stays put while the design grid scrolls with the
    document) and offset by the sticky site header, so the "+ New Palette" foot
@@ -21,7 +21,6 @@
      foot add their own right breathing room so content never crowds it. */
   padding: 22px 10px 14px var(--edge);
   background: var(--paper);
-  border-right: 1px solid var(--rule);
   overflow: hidden;
 }
 
@@ -30,15 +29,12 @@
   padding-right: 18px;
 }
 
-/* Swiss section label: uppercase term on the left, count on the right, sitting
-   on the rule that opens the list. */
+/* Swiss section label: uppercase term on the left, count on the right. */
 .railHead {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--ink);
 }
 
 .railHead h2 {
@@ -61,7 +57,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 10px;
   padding: 8px 2px;
   border-bottom: 1px solid var(--rule);
   color: var(--ink-3);
@@ -137,7 +133,6 @@
   flex: none;
   margin-top: 6px;
   padding: 12px 18px 0;
-  border-top: 1px solid var(--rule);
 }
 
 /* "+ New Palette" — placeholder strip of empty cells + label. Hover darkens the
@@ -172,21 +167,20 @@
   outline-offset: -2px;
 }
 
+/* Five empty cells standing in for a palette's swatches: the tint alone reads
+   as the placeholder, with white gaps instead of an outline and dividers. */
 .newStrip {
   display: flex;
+  gap: 2px;
   width: 56px;
   height: 14px;
   flex: none;
-  border: 1px solid var(--rule);
   overflow: hidden;
 }
 
 .newStrip > span {
   flex: 1;
-}
-
-.newStrip > span:not(:last-child) {
-  border-right: 1px solid var(--rule);
+  background: var(--surface);
 }
 
 .newLabel {

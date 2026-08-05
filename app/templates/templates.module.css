@@ -1,8 +1,9 @@
 /* ==========================================================================
    The template gallery (/templates/): every sample site, with live
    TabbiedPattern thumbnails. Same Swiss system as the home page and the pattern
-   gallery — ink on paper, hairline rules, tightened Inter, one accent — so the
-   three galleries read as one site.
+   gallery — ink on white, tightened Inter, one accent, and the grid doing the
+   dividing — so the three galleries read as one site. One rule on the page: the
+   line the numbered section head sits on.
    ========================================================================== */
 
 .page {
@@ -39,9 +40,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 0.9rem;
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  border-bottom: 1px solid var(--rule);
+  margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
 }
 
 .kicker,
@@ -120,15 +119,15 @@
   color: var(--accent-ink);
 }
 
-/* Full-bleed contact sheet of six sites in their own palettes: one band of
-   pattern divided by hairlines, not six floating cards. */
+/* Contact sheet of six sites in their own palettes, held apart by white gutters
+   rather than ruled off from each other. */
 .heroStrip {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(8px, 0.9vw, 14px);
   height: clamp(9rem, 18vw, 16rem);
   margin-top: clamp(2rem, 4.5vw, 4rem);
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+  padding: 0 var(--edge);
 }
 
 .heroTile {
@@ -136,24 +135,12 @@
   overflow: hidden;
 }
 
-.heroTile + .heroTile {
-  border-left: 1px solid var(--ink);
-}
-
 .facts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
   margin: 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.facts > div {
-  padding: clamp(1rem, 2vw, 1.6rem) var(--edge) clamp(1rem, 2vw, 1.5rem);
-}
-
-.facts > div + div {
-  border-left: 1px solid var(--rule);
-  padding-left: clamp(1rem, 2.4vw, 2rem);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) var(--edge) 0;
 }
 
 .facts dt {
@@ -240,8 +227,6 @@
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--ink-3);
-  padding: 0.4rem 0.7rem;
-  border: 1px solid var(--rule);
 }
 
 /* ── Index grid ──────────────────────────────────────────────────────────── */
@@ -261,8 +246,9 @@
 
 /* ── Card ────────────────────────────────────────────────────────────────── */
 
-/* No box: the card is a thumbnail with hairline-divided rows under it. The site
-   accent (its palette's first ink, set inline) picks out the frame on hover. */
+/* No box and no frame: the card is a thumbnail with its metadata set under it.
+   The site accent (its palette's first ink, set inline) picks out the title on
+   hover, so nothing has to be drawn around the tile to show it is live. */
 .card {
   display: flex;
   flex-direction: column;
@@ -281,12 +267,11 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border: 1px solid var(--rule);
-  transition: border-color 140ms ease;
+  background: var(--surface);
 }
 
-.card:hover .thumb {
-  border-color: var(--accent-site, var(--ink));
+.card:hover .cmain h3 {
+  color: var(--accent-site, var(--ink));
 }
 
 .cbody {
@@ -314,6 +299,7 @@
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: var(--ink);
+  transition: color 140ms ease;
 }
 
 .cmain p {
@@ -328,8 +314,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 0.5rem 0;
-  border-top: 1px solid var(--rule-soft);
+  padding-bottom: 0.55rem;
 }
 
 .sw {
@@ -363,13 +348,11 @@
   padding: 0 1px;
 }
 
-/* Download row: the last band of the card, above its closing rule. */
+/* Download row: the last band of the card. */
 .dl {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0.45rem 0 0;
-  border-top: 1px solid var(--rule-soft);
 }
 
 .dlLabel {
@@ -382,20 +365,18 @@
 }
 
 .dlBtn {
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--rule);
+  padding: 0.32rem 0.62rem;
+  background: var(--surface);
   font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--ink-2);
   text-decoration: none;
-  transition: border-color 130ms ease, color 130ms ease,
-    background-color 130ms ease;
+  transition: color 130ms ease, background-color 130ms ease;
 }
 
 .dlBtn:hover,
 .dlBtn:focus-visible {
-  border-color: var(--ink);
   color: var(--paper);
   background: var(--ink);
 }
@@ -427,15 +408,6 @@
 
   .facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .facts > div:nth-child(odd) {
-    border-left: none;
-    padding-left: var(--edge);
-  }
-
-  .facts > div:nth-child(n + 3) {
-    border-top: 1px solid var(--rule);
   }
 
   .sectionHead {

@@ -112,17 +112,22 @@ th:not([align]) {
 
   /* ── Swiss chrome ────────────────────────────────────────────────────────
      The home page, the pattern gallery and the template gallery share one
-     system: ink on paper, hairline rules doing the dividing, and a single
+     system: ink on white, space (not rules) doing the dividing, and a single
      accent. `--accent` is the brand pink at full strength, used for fills and
      rules where its 3:1 contrast is fine; `--accent-ink` is the darkened value
-     small type is set in, so accented labels clear 4.5:1 on paper. */
+     small type is set in, so accented labels clear 4.5:1 on white.
+
+     Rules are rationed: one under the sticky header, and one opening each
+     section. Everything else is separated by the grid. `--surface` is the one
+     tint on the page — control fills and the mats behind images — so a chip or
+     a photo reads as an object without an outline around it. */
   --ink: #0b0b0c;
   --ink-2: #3c3c41; /* secondary copy */
   --ink-3: #6f6f76; /* meta / captions */
-  --paper: #f2f2ef;
-  --paper-raised: #ffffff;
-  --rule: #d8d8d2;
-  --rule-soft: #e6e6e1;
+  --paper: #ffffff;
+  --surface: #f3f3f0;
+  --surface-hover: #eaeae5;
+  --rule: #e2e2dd;
   --accent: #ff3d8b;
   --accent-ink: #d1004f;
 

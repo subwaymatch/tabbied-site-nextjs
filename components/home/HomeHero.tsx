@@ -11,7 +11,9 @@ import s from './home.module.css';
  * one accent instead of five competing palettes.
  */
 const INK = '#0b0b0c';
-const PAPER = '#f2f2ef';
+// `--surface`, not the page's white: the tiles carry no frame, so a hair of
+// tint is what separates a light pattern from the page behind it.
+const PAPER = '#f3f3f0';
 const ACCENT = '#ff3d8b';
 const GREY = '#c9c9c2';
 
