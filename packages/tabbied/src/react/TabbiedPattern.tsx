@@ -77,6 +77,10 @@ export type TabbiedPatternProps = PatternBoxSize & {
    * are dropped while the tab is hidden or the element is outside the
    * viewport, so off-screen patterns cost nothing. Only meaningful when
    * `seed` is uncontrolled.
+   *
+   * Reduced motion covers more than this timer — see the note on motion in
+   * the README: the designs' own cell transitions are muted too, so redraws
+   * and resize-driven re-renders cut rather than morph.
    */
   redrawInterval?: number;
   /**

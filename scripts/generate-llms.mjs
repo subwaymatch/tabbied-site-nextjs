@@ -139,7 +139,7 @@ export function Example() {
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
 | \`aspectRatio\` | CSS \`aspect-ratio\`, e.g. \`3 / 2\`. Derives height from width. |
 | \`coverRender\` | Render resolution for the \`cover\` fit (default 800x800). |
-| \`redrawInterval\` | Re-randomize the seed every N ms. Off under \`prefers-reduced-motion\`; ticks drop while the tab is hidden or the box is off-screen. |
+| \`redrawInterval\` | Re-randomize the seed every N ms. Ticks drop while the tab is hidden or the box is off-screen. |
 | \`paused\` | Pause \`redrawInterval\` ticks. No effect unless \`redrawInterval\` is set. |
 | \`onReady\` | Fires once the pattern has been measured and first painted. |
 
@@ -190,6 +190,16 @@ horizontally than vertically.
 
 There is no per-design fit metadata: every design is cell-tiled and supports
 all three.
+
+## Reduced motion
+
+Under \`prefers-reduced-motion: reduce\` the controller suppresses both sources
+of movement with no configuration: the \`redrawInterval\` timer never starts,
+and the designs' own ~400ms cell transitions are muted, so any re-render cuts
+to the new arrangement instead of morphing. That second half covers passive
+motion — a resize re-derives the grid, so turning a phone would otherwise
+animate every cell. The preference is observed, not read once, so toggling it
+mid-session takes effect immediately. Nothing needs to be passed for this.
 
 ## Palettes and options
 

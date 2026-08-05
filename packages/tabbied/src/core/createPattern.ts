@@ -66,7 +66,7 @@ export type PatternConfig = {
   palette?: string[];
   /** Option values keyed by option id; unset options use authored defaults. */
   options?: Record<string, OptionValue>;
-   /**
+  /**
    * Fit strategy — how the drawing relates to the host box. Defaults to
    * DEFAULT_FIT_MODE. How *big* the host box is stays a CSS question: size it
    * yourself, or apply resolveBoxStyle() to it.
@@ -87,10 +87,12 @@ export type PatternConfig = {
    * redraw lands at a random point within the first interval, so a page of
    * patterns starts moving immediately instead of stepping in lockstep.
    *
-   * Switched off entirely under prefers-reduced-motion; ticks are dropped
-   * while the tab is hidden or the host is outside the viewport, so
-   * off-screen patterns cost nothing. Only meaningful when `seed` is
-   * uncontrolled — an update() that sets `seed` wins the next tick.
+   * Switched off entirely under prefers-reduced-motion (which also mutes the
+   * designs' own cell transitions, so a resize-driven re-render cuts instead
+   * of morphing); ticks are dropped while the tab is hidden or the host is
+   * outside the viewport, so off-screen patterns cost nothing. Only
+   * meaningful when `seed` is uncontrolled — an update() that sets `seed`
+   * wins the next tick.
    */
   redrawInterval?: number;
   /**
@@ -157,35 +159,48 @@ const GRID_RESIZE_DEBOUNCE_MS = 180;
 // pattern mounts twice and id-escaping issues.
 let instanceCounter = 0;
 
-// Pattern rules carry their own `transition`, which is what makes redraw()
-// morph one arrangement into the next. On the very first paint there is nothing
-// to morph from, so every cell animates in from its unstyled state: the drawing
-// visibly assembles itself, and a page full of patterns pays for thousands of
-// simultaneous transitions while it is still loading. Mute them inside the
-// shadow root for the first two frames, then drop the override so redraws
-// animate exactly as authored.
+// Every pattern's rules carry their own `transition`, which is what makes
+// redraw() morph one arrangement into the next instead of cutting. This
+// override switches that off, and it is used for two different reasons.
+//
+// 1. The first paint has nothing to morph from, so every cell would animate in
+//    from its unstyled state: the drawing visibly assembles itself, and a page
+//    of patterns pays for thousands of simultaneous transitions while it is
+//    still loading. Muted for two frames, then dropped.
+// 2. Under prefers-reduced-motion it stays on for the controller's whole life.
+//    The ambient redraw timer is switched off separately (see
+//    syncRedrawTimer), but that is not the only motion: a resize re-derives
+//    the grid and re-renders, which morphs every cell without the user having
+//    asked for anything. That is the passive motion the preference is about.
 //
 // The override lives in the shadow root because that is where css-doodle puts
 // the generated cell styles; a rule in the light DOM cannot reach them.
-const MUTE_FIRST_DRAW =
+const MUTE_TRANSITIONS =
   'cssd-cell,cssd-cell *,cssd-cell::before,cssd-cell::after{transition:none !important}';
 
-const muteFirstDraw = (element: CssDoodleElement): void => {
+const appendMuteStyle = (
+  element: CssDoodleElement
+): HTMLStyleElement | null => {
   const root = element.shadowRoot;
 
-  if (!root || typeof requestAnimationFrame !== 'function') {
-    return;
+  if (!root) {
+    return null;
   }
 
   const mute = document.createElement('style');
-  mute.textContent = MUTE_FIRST_DRAW;
+  mute.textContent = MUTE_TRANSITIONS;
   root.appendChild(mute);
 
-  // Two frames: one for the cells to get their styles, one to paint them.
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => mute.remove());
-  });
+  return mute;
 };
+
+const reducedMotionQuery = (): MediaQueryList | null =>
+  typeof matchMedia === 'function'
+    ? matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+
+const prefersReducedMotion = (): boolean =>
+  reducedMotionQuery()?.matches ?? false;
 
 type ResolvedConfig = {
   definition: PatternDefinition;
@@ -224,6 +239,11 @@ export function createPattern(
   let viewportObserver: IntersectionObserver | null = null;
   let inViewport = true;
   let readyFired = false;
+  // The transition override living in the current element's shadow root, held
+  // so the reduced-motion listener can drop it when the preference changes.
+  let muteStyle: HTMLStyleElement | null = null;
+  let motionQuery: MediaQueryList | null = null;
+  let onMotionChange: (() => void) | null = null;
   // Inline host styles the cover mount overwrote, restored when the
   // element unmounts so destroy() (or a fit change) leaves the host as found.
   let hostStyleBackup: { position: string; overflow: string } | null = null;
@@ -507,9 +527,48 @@ export function createPattern(
 
     host.appendChild(styleEl);
     host.appendChild(element);
-    muteFirstDraw(element);
+
+    // Mute unconditionally, then decide how long for: under reduced motion the
+    // override stays for good, otherwise it lifts once the first paint has
+    // landed and redraws animate exactly as authored.
+    muteStyle = appendMuteStyle(element);
+    if (!prefersReducedMotion()) {
+      releaseFirstDrawMute();
+    }
 
     fireReady();
+  };
+
+  // css-doodle's update() regenerates the shadow root when the grid changes,
+  // which takes the injected override with it — so under reduced motion the
+  // override has to be re-asserted after every update, not just at mount.
+  // Re-appending synchronously means it is in place for the same style
+  // recalculation that would otherwise start the transitions.
+  const ensureMuted = () => {
+    if (!element || !prefersReducedMotion() || muteStyle?.isConnected) {
+      return;
+    }
+
+    muteStyle = appendMuteStyle(element);
+  };
+
+  // Two frames: one for the cells to get their styles, one to paint them.
+  const releaseFirstDrawMute = () => {
+    const mute = muteStyle;
+
+    if (!mute || typeof requestAnimationFrame !== 'function') {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // A change to the preference mid-frame wins over the release.
+        if (muteStyle === mute && !prefersReducedMotion()) {
+          mute.remove();
+          muteStyle = null;
+        }
+      });
+    });
   };
 
   const unmountElement = () => {
@@ -522,6 +581,8 @@ export function createPattern(
     styleEl = null;
     element = null;
     rendered = null;
+    // The override lived in the element's shadow root, so it went with it.
+    muteStyle = null;
 
     if (hostStyleBackup) {
       host.style.position = hostStyleBackup.position;
@@ -561,6 +622,7 @@ export function createPattern(
     }
 
     element.update(doodleCode);
+    ensureMuted();
     rendered = { ...rendered, styleCode, doodleCode, seed, renderBox, cellPx };
   };
 
@@ -675,10 +737,6 @@ export function createPattern(
   // like it should: prefers-reduced-motion switches the effect off entirely,
   // a hidden tab stops ticking, and a host scrolled out of view stops
   // ticking. `paused` is a fourth, consumer-controlled gate on top.
-  const prefersReducedMotion = (): boolean =>
-    typeof matchMedia === 'function' &&
-    matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   const clearRedrawTimer = () => {
     if (firstRedrawTimer !== null) {
       clearTimeout(firstRedrawTimer);
@@ -740,6 +798,28 @@ export function createPattern(
       redrawTimer = setInterval(tick, wanted);
     }, Math.random() * wanted);
   };
+
+  // The preference can be toggled while the page is open, so it is observed
+  // rather than read once at mount. Both halves have to follow it: the ambient
+  // timer starts or stops, and the transition override goes on or comes off.
+  motionQuery = reducedMotionQuery();
+
+  if (motionQuery?.addEventListener) {
+    onMotionChange = () => {
+      if (destroyed) return;
+
+      syncRedrawTimer();
+
+      if (prefersReducedMotion()) {
+        if (element && !muteStyle) muteStyle = appendMuteStyle(element);
+      } else if (muteStyle) {
+        muteStyle.remove();
+        muteStyle = null;
+      }
+    };
+
+    motionQuery.addEventListener('change', onMotionChange);
+  }
 
   reconcile();
 
@@ -812,6 +892,13 @@ export function createPattern(
       clearRedrawTimer();
       observer?.disconnect();
       observer = null;
+
+      if (motionQuery && onMotionChange) {
+        motionQuery.removeEventListener('change', onMotionChange);
+      }
+      motionQuery = null;
+      onMotionChange = null;
+
       unmountElement();
     },
   };

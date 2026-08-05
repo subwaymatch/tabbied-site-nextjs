@@ -16,6 +16,28 @@ const paintedCells = (page: Page, hostSelector: string) =>
     }).length;
   }, hostSelector);
 
+// The longest transition any cell declares, in ms. The designs author a ~400ms
+// ease (that is what makes a redraw morph rather than cut), and the controller
+// mutes it by injecting `transition: none !important` into the shadow root.
+// Reading the max rather than the first cell's keeps this independent of which
+// cells a given seed happened to paint.
+const maxCellTransitionMs = (page: Page, hostSelector: string) =>
+  page.evaluate((selector) => {
+    const el = document.querySelector(`${selector} css-doodle`);
+    if (!el || !el.shadowRoot) return -1;
+
+    return [...el.shadowRoot.querySelectorAll('cssd-cell')].reduce(
+      (longest, cell) =>
+        Math.max(
+          longest,
+          ...getComputedStyle(cell)
+            .transitionDuration.split(',')
+            .map((value) => parseFloat(value) * 1000 || 0)
+        ),
+      0
+    );
+  }, hostSelector);
+
 const cellCount = (page: Page, hostSelector: string) =>
   page.evaluate((selector) => {
     const el = document.querySelector(`${selector} css-doodle`);
@@ -295,6 +317,56 @@ test.describe('tabbied package (component test page)', () => {
     await expect(
       page.locator('#hydrate-unknown css-doodle')
     ).toHaveCount(0);
+  });
+
+  // The authored cell transitions are the second source of motion, and unlike
+  // the redraw timer they fire without anyone asking: a resize re-derives the
+  // grid, so turning a phone would otherwise animate every cell on the page.
+  test('cell transitions animate normally by default', async ({ page }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const selector = '#fit-grid [data-pattern="radius"]';
+    await expect(page.locator(`${selector} css-doodle`)).toBeAttached({
+      timeout: 15000,
+    });
+
+    // The first paint is muted for two frames (nothing to morph from), then
+    // the override lifts and the authored ease takes over.
+    await expect
+      .poll(() => maxCellTransitionMs(page, selector), { timeout: 10000 })
+      .toBeGreaterThan(0);
+  });
+
+  test('prefers-reduced-motion mutes the cell transitions, including across a resize', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.goto('/package-test');
+
+    const selector = '#fit-grid [data-pattern="radius"]';
+    await expect(page.locator(`${selector} css-doodle`)).toBeAttached({
+      timeout: 15000,
+    });
+    await expect
+      .poll(() => paintedCells(page, selector), { timeout: 10000 })
+      .toBeGreaterThan(1);
+
+    expect(await maxCellTransitionMs(page, selector)).toBe(0);
+
+    // Force a real re-render: a narrower box derives a different grid, which
+    // re-renders after the ~180ms debounce. Without the mute every cell would
+    // morph into the new arrangement.
+    const before = await cellCount(page, selector);
+    await page.setViewportSize({ width: 640, height: 800 });
+    await expect
+      .poll(() => cellCount(page, selector), { timeout: 10000 })
+      .not.toBe(before);
+
+    // The re-render happened and stayed muted — the override is not a
+    // first-paint trick that a later render undoes.
+    expect(await maxCellTransitionMs(page, selector)).toBe(0);
   });
 
   test('redrawInterval is skipped under prefers-reduced-motion', async ({

@@ -236,9 +236,28 @@ const controller = createPattern(host, {
 controller.update({ paused: true });
 ```
 
-`redrawInterval` switches itself off entirely under `prefers-reduced-motion`,
-and drops ticks while the tab is hidden or the host is scrolled out of view —
-a page of animated patterns only pays for the ones somebody is looking at.
+`redrawInterval` drops ticks while the tab is hidden or the host is scrolled
+out of view — a page of animated patterns only pays for the ones somebody is
+looking at.
+
+### Reduced motion
+
+Under `prefers-reduced-motion: reduce` the controller suppresses **both**
+sources of movement, with no configuration:
+
+- the `redrawInterval` timer never starts, and
+- the designs' own cell transitions are muted, so anything that re-renders
+  cuts to the new arrangement instead of morphing into it.
+
+The second half matters more than it sounds. Every design carries a ~400ms
+`transition`, and a re-render is not always something the reader asked for: a
+resize re-derives the grid, so turning a phone or dragging a window animates
+every cell on the page. That is the passive motion the preference exists for.
+A `redraw()` you call yourself is muted on the same terms.
+
+Nothing is lost — the pattern renders identically, it just stops easing
+between states. The preference is *observed*, not read once, so toggling it
+while the page is open takes effect immediately.
 
 ### Declarative mounting (no build step)
 
