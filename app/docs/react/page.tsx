@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { TabbiedPattern } from 'tabbied/react';
-import { radius, symmetry, quilt } from 'tabbied/patterns';
+import { radius, quilt } from 'tabbied/patterns';
 import MainHeader from 'components/main-page/MainHeader';
 import { Container, Row, Col } from 'components/layout';
 import Footer from 'components/Footer';
@@ -46,7 +46,7 @@ export function Banner() {
 }`;
 
 const treeShakeCode = `// Import only what you render — bundlers ship just those presets.
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius, windowpane } from 'tabbied/patterns';
 
 // Building a gallery? The full record pulls in every design.
 import { patterns } from 'tabbied/patterns';`;
@@ -69,22 +69,13 @@ const boxCode = `// Default: fill the containing block. .panel is 100% wide, 400
 const fitCode = `// grid (default): the cell grid adapts to the container size
 <TabbiedPattern pattern={radius} fit="grid" />
 
-// cover: a fixed-resolution render scaled uniformly to fill the box;
-// grid-driven patterns adapt the render to the box's shape (whole cells,
-// no mid-cell crop), special layouts like Symmetry scale-and-crop
+// cover: a fixed-resolution render scaled uniformly to fill the box.
+// Every design is cell-tiled, so the render adapts to the box's shape
+// and tiles it with whole cells — nothing is cropped mid-cell
 <TabbiedPattern pattern={radius} fit="cover" />
-
-// contain: letterboxed at the pattern's authored ratio
-<TabbiedPattern pattern={symmetry} fit="contain" />
 
 // fixed: an explicit canvas size in px (what the Tabbied editor uses)
 <TabbiedPattern pattern={radius} fit="fixed" width={360} height={540} />`;
-
-const symmetryFitCode = `// Symmetry is one composition rather than a repeating grid, so it
-// declares sizing.allowed = ['cover', 'contain', 'fixed'] and defaults
-// to cover. Asking for "grid" falls back to that default with a warning.
-<TabbiedPattern pattern={symmetry} fit="cover" />
-<TabbiedPattern pattern={symmetry} fit="contain" />`;
 
 const paletteCode = `<TabbiedPattern
   pattern={radius}
@@ -164,7 +155,7 @@ const controller = createPattern(document.querySelector('#stage'), {
   pattern: radius,
   seed: 'k9Pz',
   redrawInterval: 5200, // optional: reseed on a timer, gates included
-  // Measured fits (grid/cover/contain) mount asynchronously, once the
+  // Measured fits (grid/cover) mount asynchronously, once the
   // host's size is known — drive the controller from onReady.
   onReady: async () => {
     controller.redraw(); // re-randomize the seed
@@ -213,11 +204,6 @@ const FIT_DEMOS = [
     fit: 'cover',
     label: 'fit="cover"',
     note: 'One render, scaled uniformly to fill. Fixed-px strokes keep their proportions.',
-  },
-  {
-    fit: 'contain',
-    label: 'fit="contain"',
-    note: 'The whole render, letterboxed. The bars are the pattern background.',
   },
   {
     fit: 'fixed',
@@ -509,16 +495,10 @@ export default function ReactDocsPage() {
                         <Code>cover</Code> — draws a fixed-resolution render
                         and scales it uniformly into the box, preserving the authored
                         proportions of fixed-px strokes and shadows. For
-                        grid-driven patterns the render follows the box&apos;s
-                        aspect ratio and re-derives its grid, so the pattern
-                        is never cut off mid-cell; special layouts (e.g.
-                        Symmetry&apos;s centered composition) scale-and-crop
-                        instead.
-                      </li>
-                      <li>
-                        <Code>contain</Code> — letterboxes the render at its
-                        authored ratio (the pattern&apos;s background color
-                        fills the bars).
+                        grid-driven patterns — every design in the catalog —
+                        the render follows the box&apos;s aspect ratio and
+                        re-derives its grid, so the pattern is never cut off
+                        mid-cell.
                       </li>
                       <li>
                         <Code>fixed</Code> — renders at an explicit canvas
@@ -541,6 +521,16 @@ export default function ReactDocsPage() {
                       <Code>cover</Code> to scale a render uniformly.
                     </p>
                     <p>
+                      <strong>Removed in 0.5.0:</strong>{' '}
+                      <Code>fit=&quot;contain&quot;</Code>. Every design is
+                      cell-tiled, and letterboxing one drew its authored grid
+                      on the default square canvas — so its cells came out
+                      oblong while <Code>grid</Code> already fills the box
+                      exactly, with square cells and no bars. Use{' '}
+                      <Code>grid</Code>, or <Code>cover</Code> with an{' '}
+                      <Code>aspectRatio</Code> on the box.
+                    </p>
+                    <p>
                       Each column below is one mode, drawing the same pattern at
                       the same seed into a landscape box and a portrait one. The
                       differences only show up when the box stops matching the
@@ -554,42 +544,13 @@ export default function ReactDocsPage() {
                       </div>
                     </Example>
                     <p>
-                      Patterns whose layout isn&apos;t a repeating grid opt out
-                      of <Code>grid</Code> entirely — Symmetry draws one
-                      centered composition, so it only offers{' '}
-                      <Code>cover</Code>, <Code>contain</Code> and{' '}
-                      <Code>fixed</Code>:
+                      A definition without a &quot;colsxrows&quot; grid option
+                      has no cell grid to re-derive, so it opts out of{' '}
+                      <Code>grid</Code> and offers <Code>cover</Code> and{' '}
+                      <Code>fixed</Code>. Every design in the catalog is
+                      cell-tiled, so this only comes up for a{' '}
+                      <Code>PatternDefinition</Code> you write yourself.
                     </p>
-                    <Example code={symmetryFitCode}>
-                      <div className={styles.fitGrid}>
-                        <figure className={styles.fitItem}>
-                          <div className={styles.fitCompare}>
-                            <TabbiedPattern
-                              pattern={symmetry}
-                              seed="k9Pz"
-                              fit="cover"
-                            />
-                          </div>
-                          <figcaption className={styles.fitCaption}>
-                            <code>fit=&quot;cover&quot;</code>
-                            Scaled up until it fills, cropping the overflow.
-                          </figcaption>
-                        </figure>
-                        <figure className={styles.fitItem}>
-                          <div className={styles.fitCompare}>
-                            <TabbiedPattern
-                              pattern={symmetry}
-                              seed="k9Pz"
-                              fit="contain"
-                            />
-                          </div>
-                          <figcaption className={styles.fitCaption}>
-                            <code>fit=&quot;contain&quot;</code>
-                            Scaled down until it fits, letterboxing the rest.
-                          </figcaption>
-                        </figure>
-                      </div>
-                    </Example>
                   </Section>
 
                   <Section id="palettes" title="Colors & palettes">
@@ -840,7 +801,7 @@ export default function ReactDocsPage() {
                             <td>
                               <code>
                                 &apos;grid&apos; | &apos;cover&apos; |
-                                &apos;contain&apos; | &apos;fixed&apos;
+                                &apos;fixed&apos;
                               </code>
                             </td>
                             <td className={styles.defaultCol}>per pattern</td>
@@ -926,7 +887,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td className={styles.defaultCol}>800 × 800</td>
                             <td>
-                              <Code>cover</Code>/<Code>contain</Code> render
+                              <Code>cover</Code> render
                               resolution override.
                             </td>
                           </tr>

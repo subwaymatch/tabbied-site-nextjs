@@ -133,12 +133,12 @@ export function Example() {
 | \`seed\` | Randomization seed. Omit for a random seed per mount; reseed via the handle. |
 | \`palette\` | Active colors, background (\`color0\`) first. Defaults to the preset palette. |
 | \`options\` | Option values keyed by option id. Unset options use their authored default. |
-| \`fit\` | \`grid\`, \`cover\`, \`contain\`, or \`fixed\`. Optional — each design declares its own default (\`fit.default\` in the catalog). |
+| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional — each design declares its own default (\`fit.default\` in the catalog). |
 | \`fill\` | \`width: 100%; height: 100%\`. Defaults to \`true\`. |
 | \`width\` / \`height\` | Box size. Numbers are px. Overrides \`fill\` on that axis. |
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
 | \`aspectRatio\` | CSS \`aspect-ratio\`, e.g. \`3 / 2\`. Derives height from width. |
-| \`coverRender\` | Render resolution for the \`cover\`/\`contain\` fits (default 800x800). |
+| \`coverRender\` | Render resolution for the \`cover\` fit (default 800x800). |
 | \`redrawInterval\` | Re-randomize the seed every N ms. Off under \`prefers-reduced-motion\`; ticks drop while the tab is hidden or the box is off-screen. |
 | \`paused\` | Pause \`redrawInterval\` ticks. No effect unless \`redrawInterval\` is set. |
 | \`onReady\` | Fires once the pattern has been measured and first painted. |
@@ -171,7 +171,7 @@ By default that box fills its containing block.
 - The React component is a **client component** (it registers a browser custom
   element on import). In the Next.js App Router, render it from a client
   boundary or rely on its built-in placeholder until it mounts.
-- Measured fits (\`grid\`, \`cover\`, \`contain\`) mount **asynchronously**, after
+- Measured fits (\`grid\`, \`cover\`) mount **asynchronously**, after
   the first ResizeObserver tick. With the core API, drive the controller from
   \`onReady\`, not immediately after \`createPattern()\`.
 - Requesting a fit a pattern can't support falls back to its default and warns.
@@ -187,10 +187,11 @@ horizontally than vertically.
   from the measured box, so cells stay near-square at any box shape.
 - \`cover\` — draws at a fixed resolution and scales it uniformly to fill the
   box, preserving the proportions of fixed-px strokes and shadows.
-- \`contain\` — letterboxes that fixed-resolution render at its authored ratio.
 - \`fixed\` — renders at an explicit canvas size (default 360x540).
 
-\`fit="stretch"\` was **removed in 0.2.0**. Use \`grid\` or \`cover\`.
+\`fit="stretch"\` was **removed in 0.2.0** and \`fit="contain"\` in 0.5.0. Every
+design is cell-tiled, so \`grid\` already fills any box with square cells and no
+letterbox bars — use it, or \`cover\` with an \`aspectRatio\` on the box.
 
 ## Palettes and options
 

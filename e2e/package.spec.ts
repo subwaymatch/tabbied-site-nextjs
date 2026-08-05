@@ -3,8 +3,8 @@ import { test, expect, type Page } from '@playwright/test';
 // Coverage for the `tabbied` package itself (via the built dist the site
 // consumes), driven through app/package-test/page.tsx. The gallery and editor
 // already dogfood the cover and fixed fits; this spec covers the adaptive
-// grid fit — the package default — plus contain, and the box props that size
-// the element the pattern renders into.
+// grid fit — the package default — and the box props that size the element
+// the pattern renders into.
 
 const paintedCells = (page: Page, hostSelector: string) =>
   page.evaluate((selector) => {
@@ -190,29 +190,22 @@ test.describe('tabbied package (component test page)', () => {
     expect(narrowBox.width / narrowBox.height).toBeCloseTo(3 / 2, 1);
   });
 
-  test('fit="contain" letterboxes symmetry at its authored ratio', async ({
-    page,
-  }) => {
+  test('fit="fixed" draws at its own canvas size', async ({ page }) => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await page.goto('/package-test');
 
-    const doodle = page.locator(
-      '#fit-contain [data-pattern="symmetry"] css-doodle'
-    );
-    await expect(doodle).toBeAttached({ timeout: 15000 });
+    const host = page.locator('#fit-fixed [data-pattern="radius"]');
+    await expect(host.locator('css-doodle')).toBeAttached({ timeout: 15000 });
 
-    // Letterboxed inside a wide box: the visible pattern keeps its authored
-    // 2:3 (800×1200 render) proportions instead of stretching.
-    const host = page.locator('#fit-contain [data-pattern="symmetry"]');
+    // The box takes the canvas size rather than filling the (much wider)
+    // section, so `fixed` is the one fit with an inherent size.
     const hostBox = (await host.boundingBox())!;
-    const doodleBox = (await doodle.boundingBox())!;
-    const ratio = doodleBox.width / doodleBox.height;
-    expect(Math.abs(ratio - 2 / 3)).toBeLessThan(0.02);
-    expect(doodleBox.height).toBeLessThanOrEqual(hostBox.height + 1);
+    expect(hostBox.width).toBeCloseTo(300, 0);
+    expect(hostBox.height).toBeCloseTo(450, 0);
 
     // Non-decorative mode exposes an accessible image role.
     await expect(host).toHaveRole('img');
-    await expect(host).toHaveAccessibleName('Symmetry');
+    await expect(host).toHaveAccessibleName('Radius');
   });
 
   // The ambient-redraw timer lives in the core controller (createPattern), so

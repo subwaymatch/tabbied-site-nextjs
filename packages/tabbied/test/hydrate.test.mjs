@@ -168,7 +168,7 @@ test('data-paused is a valueless boolean attribute', () => {
 test('accepts an array of definitions, not just the record', () => {
   const parsed = patternConfigFromElement(
     elementFor({ 'data-pattern': 'radius' }),
-    [patterns.radius, patterns.symmetry]
+    [patterns.radius, patterns.windowpane]
   );
 
   assert.equal(parsed.pattern.slug, 'radius');

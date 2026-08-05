@@ -2,9 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  FIT_MODES,
+  allowedFitModes,
+  defaultFitMode,
   deriveGridForBox,
+  resolveFitMode,
   snapSpanToTracks,
 } from '../dist/core/sizing.js';
+import { radius } from '../dist/patterns.generated.js';
 
 // css-doodle lays a grid out as `repeat(n, 1fr)`. A container that isn't
 // divisible by n puts every cell boundary on a sub-pixel and the browser
@@ -74,4 +79,32 @@ test('a snapped box divides evenly by its derived grid', () => {
       assert.equal((snapSpanToTracks(height, rows) / rows) % 2, 0);
     }
   }
+});
+
+// `contain` was removed in 0.5.0. Every design in the catalog is cell-tiled,
+// and letterboxing one drew its authored grid on the default square canvas —
+// so its cells came out oblong while `grid` already fills the box exactly,
+// with square cells and no bars. Asking for it must fall back rather than
+// render something the API no longer models.
+test('the removed "contain" fit falls back with a migration warning', () => {
+  const warnings = [];
+  const warn = console.warn;
+  console.warn = (message) => warnings.push(String(message));
+
+  try {
+    assert.ok(!FIT_MODES.includes('contain'));
+    assert.ok(!allowedFitModes(radius).includes('contain'));
+
+    // Falls back to the pattern's own default rather than throwing.
+    assert.equal(resolveFitMode(radius, 'contain'), defaultFitMode(radius));
+    assert.equal(resolveFitMode(radius, 'contain'), 'grid');
+  } finally {
+    console.warn = warn;
+  }
+
+  // The message explains the migration instead of the generic "not supported
+  // by this pattern" fallback (resolveFitMode warns once per pattern+fit).
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /was removed/);
+  assert.match(warnings[0], /"grid"/);
 });

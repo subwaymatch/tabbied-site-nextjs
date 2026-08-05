@@ -57,22 +57,22 @@ export type TabbiedPatternProps = PatternBoxSize & {
   /**
    * Fit strategy — how the drawing relates to this component's box (the box
    * itself is sized by `fill`/`width`/`height`/`maxWidth`/`maxHeight`):
-   * `grid` (default) re-derives the cell grid from the measured box,
-   * `cover`/`contain` scale a fixed-resolution render uniformly (preserving
-   * fixed-px effects), `fixed` renders at an explicit canvas size. Defaults
-   * per pattern (sizing metadata). No fit deforms the pattern — nothing is
-   * scaled by a different factor horizontally than vertically.
+   * `grid` (default) re-derives the cell grid from the measured box, `cover`
+   * scales a fixed-resolution render uniformly (preserving fixed-px effects),
+   * `fixed` renders at an explicit canvas size. Defaults per pattern (sizing
+   * metadata). No fit deforms the pattern — nothing is scaled by a different
+   * factor horizontally than vertically.
    *
-   * For grid-driven patterns, `cover` adapts its render to the box's aspect
-   * ratio (whole cells, nothing cropped mid-cell); special layouts without a
-   * grid — like Symmetry — scale-and-crop instead.
+   * For grid-driven patterns — every design in the catalog — `cover` adapts
+   * its render to the box's aspect ratio (whole cells, nothing cropped
+   * mid-cell); a caller's own grid-less definition scales-and-crops instead.
    */
   fit?: FitMode;
   /** fit:"grid" — target cell size in px (default 36). */
   cellSize?: number;
   /** fit:"grid" — authored density level 0..4, alternative to cellSize. */
   density?: 0 | 1 | 2 | 3 | 4;
-  /** cover/contain — render resolution override. */
+  /** `cover` — render resolution override. */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms (first redraw lands at a random point
@@ -240,8 +240,8 @@ export const TabbiedPattern = forwardRef<
     []
   );
 
-  // The pattern's background color doubles as the pre-mount placeholder and
-  // the letterbox color for fit:"contain".
+  // The pattern's background color, painted on the wrapper as the pre-mount
+  // placeholder (correct size, zero CLS, no raw-source flash).
   const background = (palette ?? definition.palette)?.[0];
   const resolvedFit = resolveFitMode(definition, fit);
   // fit:"fixed" is the one strategy with an inherent size, so its box defaults

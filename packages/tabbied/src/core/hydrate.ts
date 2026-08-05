@@ -105,22 +105,14 @@ const splitTopLevel = (value: string, separator: string): string[] => {
 };
 
 const coverRenderToString = (render: CoverRender): string =>
-  render.cropTop != null
-    ? `${render.width}x${render.height}+${render.cropTop}`
-    : `${render.width}x${render.height}`;
+  `${render.width}x${render.height}`;
 
 const parseCoverRender = (value: string): CoverRender | undefined => {
-  const match = /^(\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)(?:\+(\d+(?:\.\d+)?))?$/.exec(
-    value.trim()
-  );
+  const match = /^(\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)$/.exec(value.trim());
 
   if (!match) return undefined;
 
-  return {
-    width: Number(match[1]),
-    height: Number(match[2]),
-    ...(match[3] != null ? { cropTop: Number(match[3]) } : {}),
-  };
+  return { width: Number(match[1]), height: Number(match[2]) };
 };
 
 /**

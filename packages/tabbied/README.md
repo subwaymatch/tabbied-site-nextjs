@@ -108,7 +108,7 @@ actually render from `tabbied/patterns` and your bundler ships just those —
 not the entire catalog:
 
 ```tsx
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius, windowpane } from 'tabbied/patterns';
 ```
 
 Each preset is a side-effect-free named export, so unused ones are dropped at
@@ -128,7 +128,7 @@ on its built-in measurable placeholder until it mounts.
 | `seed`    | Randomization seed. Omit for a random seed per mount; reseed via the handle.       |
 | `palette` | Active colors, background (`color0`) first. Defaults to the preset palette.  |
 | `options` | Option values keyed by option id; unset options use authored defaults.       |
-| `fit`     | How the drawing meets its box: `grid` (default), `cover`, `contain`, or `fixed`. |
+| `fit`     | How the drawing meets its box: `grid` (default), `cover`, or `fixed`. |
 | box props | How big the box is: `fill`, `width`, `height`, `maxWidth`, `maxHeight`, `aspectRatio`. |
 
 See the inline JSDoc on `TabbiedPatternProps` for the full list.
@@ -190,10 +190,9 @@ nothing is ever scaled by a different factor horizontally than vertically.
   near-square cells edge to edge at any box shape.
 - `cover` — draws a fixed-resolution render and scales it uniformly to fill the
   box (preserving the proportions of fixed-px strokes and shadows). For
-  grid-driven patterns the render follows the box's aspect ratio and re-derives
-  its grid, so the pattern is never cut off mid-cell; special layouts (e.g.
-  Symmetry's centered composition) scale-and-crop instead.
-- `contain` — letterboxes the fixed-resolution render at its authored ratio.
+  grid-driven patterns — every design in the catalog — the render follows the
+  box's aspect ratio and re-derives its grid, so the pattern is never cut off
+  mid-cell; your own grid-less definition scales-and-crops instead.
 - `fixed` — renders at an explicit canvas size (`width`/`height` in px, default
   360 × 540). This is what the Tabbied editor uses.
 
@@ -203,6 +202,11 @@ fit a pattern can't support falls back to its default with a console warning.
 > **Removed in 0.2.0:** `fit="stretch"`, which kept the authored grid and let
 > cells deform with the box. Use `grid` (the default) for a box-shaped grid, or
 > `cover` to scale a render uniformly.
+>
+> **Removed in 0.5.0:** `fit="contain"`. Every design is cell-tiled, and
+> letterboxing one drew its authored grid on the default square canvas — so its
+> cells came out oblong while `grid` already fills the box exactly, with square
+> cells and no bars. Use `grid`, or `cover` with an `aspectRatio` on the box.
 
 ## Core (framework-agnostic)
 
@@ -214,7 +218,7 @@ const el = document.querySelector('#stage')!;
 const controller = createPattern(el, {
   pattern: radius,
   seed: 'k9Pz',
-  // Measured fits (grid/cover/contain) mount asynchronously, after the first
+  // Measured fits (grid/cover) mount asynchronously, after the first
   // ResizeObserver tick delivers the host's size — drive the controller from
   // onReady rather than immediately after createPattern().
   onReady: async () => {
@@ -282,7 +286,7 @@ anything. Values are typed by the pattern's own option metadata, so a
 | `data-fit` | `fit` |
 | `data-cell-size` / `data-density` | `cellSize` / `density` |
 | `data-width` / `data-height` | `fixed` canvas size in px |
-| `data-cover-render` | `coverRender` — `800x800`, or `800x800+120` with a `cropTop` |
+| `data-cover-render` | `coverRender` — `800x800` |
 | `data-redraw-interval` / `data-paused` | `redrawInterval` / `paused` |
 
 Pass `root` to scope the search to a subtree, `selector` to override

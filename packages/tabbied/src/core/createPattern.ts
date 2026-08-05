@@ -80,7 +80,7 @@ export type PatternConfig = {
   /** fit:"fixed" — canvas size in px. */
   width?: number;
   height?: number;
-  /** cover/contain — render resolution override (default 800×800 or the pattern's sizing.coverRender). */
+  /** `cover` — render resolution override (default 800×800 or the pattern's sizing.coverRender). */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms, so designs with authored CSS
@@ -225,13 +225,13 @@ export function createPattern(
   let viewportObserver: IntersectionObserver | null = null;
   let inViewport = true;
   let readyFired = false;
-  // Inline host styles the cover/contain mount overwrote, restored when the
+  // Inline host styles the cover mount overwrote, restored when the
   // element unmounts so destroy() (or a fit change) leaves the host as found.
   let hostStyleBackup: { position: string; overflow: string } | null = null;
 
   let hostSize: { width: number; height: number } | null = null;
   // What the live element currently shows, for update()-vs-recreate diffing.
-  // renderBox is the canvas size a cover/contain render was drawn at — the
+  // renderBox is the canvas size a cover render was drawn at — the
   // scaling transform must track what's in the DOM, not the latest measure.
   let rendered: {
     structure: string;
@@ -239,7 +239,7 @@ export function createPattern(
     doodleCode: string;
     seed: string;
     renderBox: CoverRender | null;
-    /** Layout cell size of a cover/contain render, for scale quantisation. */
+    /** Layout cell size of a cover render, for scale quantisation. */
     cellPx: number | null;
   } | null = null;
 
@@ -281,19 +281,16 @@ export function createPattern(
     `${resolved.definition.slug}|${resolved.fit}`;
 
   const needsMeasure = (fit: FitMode): boolean =>
-    fit === 'grid' || fit === 'cover' || fit === 'contain';
+    fit === 'grid' || fit === 'cover';
 
   // Whether `cover` adapts its render box + grid to the host's shape (whole
-  // cells edge-to-edge, nothing cropped mid-cell). Special layouts keep the
-  // authored fixed-shape render and crop instead: compositions without a
-  // "colsxrows" grid option (their layout isn't cell-tiled — think Symmetry's
-  // centered scene) and renders with an explicit `cropTop`.
+  // cells edge-to-edge, nothing cropped mid-cell). A caller's own definition
+  // without a "colsxrows" grid option isn't cell-tiled, so it keeps the
+  // authored fixed-shape render and crops instead.
   const isAdaptiveCover = (resolved: ResolvedConfig): boolean =>
-    resolved.fit === 'cover' &&
-    hasGridOption(resolved.definition) &&
-    resolved.coverRender.cropTop == null;
+    resolved.fit === 'cover' && hasGridOption(resolved.definition);
 
-  // The fixed-resolution box a cover/contain render draws at.
+  // The fixed-resolution box a `cover` render draws at.
   const resolveRenderBox = (resolved: ResolvedConfig): CoverRender => {
     if (isAdaptiveCover(resolved) && hostSize) {
       return adaptCoverRenderToBox(
@@ -318,7 +315,7 @@ export function createPattern(
     if (fit === 'fixed') {
       width = `${resolved.fixedWidth}px`;
       height = `${resolved.fixedHeight}px`;
-    } else if (fit === 'cover' || fit === 'contain') {
+    } else if (fit === 'cover') {
       renderBox = resolveRenderBox(resolved);
       // width/height are filled in below, after any render-box snapping.
       width = '';
@@ -432,7 +429,7 @@ export function createPattern(
     const cellW = snapSpanToTracks(hostSize.width, cols, cellMultiple) / cols;
     const cellH = snapSpanToTracks(hostSize.height, rows, cellMultiple) / rows;
 
-    // Square the cell. 146 of the 254 designs rotate their cell by a quarter
+    // Square the cell. 146 of the 253 designs rotate their cell by a quarter
     // turn (`transform: rotate(@pick(0deg, 90deg, ...))`), and a quarter turn
     // of an oblong swaps its axes: a 120x124 cell paints 124x120 once rotated,
     // leaving 2px uncovered top and bottom. That reads as a seam between
@@ -446,11 +443,7 @@ export function createPattern(
   };
 
   const applyTransform = (resolved: ResolvedConfig) => {
-    if (
-      !element ||
-      !hostSize ||
-      (resolved.fit !== 'cover' && resolved.fit !== 'contain')
-    ) {
+    if (!element || !hostSize || resolved.fit !== 'cover') {
       return;
     }
 
@@ -458,7 +451,6 @@ export function createPattern(
       hostSize.width,
       hostSize.height,
       rendered?.renderBox ?? resolved.coverRender,
-      resolved.fit,
       rendered?.cellPx ?? undefined
     );
 
@@ -503,15 +495,11 @@ export function createPattern(
       cellPx,
     };
 
-    if (
-      resolved.fit === 'cover' ||
-      resolved.fit === 'contain' ||
-      resolved.fit === 'grid'
-    ) {
+    if (resolved.fit === 'cover' || resolved.fit === 'grid') {
       // An oversized canvas scaled or snapped into the host (which clips the
-      // overflow): a fixed-resolution render for cover/contain, a whole
-      // number of grid tracks for grid. Positioning is set before append so
-      // the oversized canvas never affects layout.
+      // overflow): a fixed-resolution render for cover, a whole number of grid
+      // tracks for grid. Positioning is set before append so the oversized
+      // canvas never affects layout.
       const hostStyle = getComputedStyle(host);
       hostStyleBackup ??= {
         position: host.style.position,
@@ -643,7 +631,7 @@ export function createPattern(
       return;
     }
 
-    if (resolved.fit === 'cover' || resolved.fit === 'contain') {
+    if (resolved.fit === 'cover') {
       // Re-scaling the already-rendered canvas is cheap — apply on every
       // tick. Fixed-shape renders are done here; an adaptive cover render
       // also re-derives its box + grid below (debounced), since its shape

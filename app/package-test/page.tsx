@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { TabbiedPattern } from 'tabbied/react';
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius } from 'tabbied/patterns';
 import { HydrateProbe } from './HydrateProbe';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // server-component JSX with no ssr:false ceremony (the component is a client
 // boundary by itself and renders a measurable placeholder until mounted), and
 // importing only the presets it renders from `tabbied/patterns` so the bundle
-// holds those two definitions rather than all 84.
+// holds just those definitions rather than the whole catalog.
 // Used by e2e/package.spec.ts to cover the fit strategies the main site
 // doesn't reach (the gallery uses cover, the editor fixed) and the box props
 // that size the element the pattern renders into.
@@ -56,17 +56,19 @@ export default function PackageTestPage() {
         />
       </section>
 
-      {/* Grid-less composition letterboxed at its authored 2:3 ratio. */}
-      <section id="fit-contain">
-        <h2>fit=&quot;contain&quot; (symmetry)</h2>
-        <div style={{ height: 300 }}>
-          <TabbiedPattern
-            pattern={symmetry}
-            seed="k9Pz"
-            fit="contain"
-            decorative={false}
-          />
-        </div>
+      {/* An explicit canvas size, which the box takes as its own rather than
+          filling the parent. Also the page's one non-decorative pattern, so
+          the role/accessible-name path is covered. */}
+      <section id="fit-fixed">
+        <h2>fit=&quot;fixed&quot;</h2>
+        <TabbiedPattern
+          pattern={radius}
+          seed="k9Pz"
+          fit="fixed"
+          width={300}
+          height={450}
+          decorative={false}
+        />
       </section>
 
       {/* Ambient redraws. The timer, and its reduced-motion / tab-visibility

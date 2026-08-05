@@ -43,19 +43,19 @@ export type PatternColors = {
  * How a pattern is fitted into its container. See createPattern().
  *
  * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
- * near-square at any box shape, `cover`/`contain` scale a render uniformly,
- * and `fixed` draws at an explicit canvas size. (A `stretch` mode that kept
- * the authored grid and let cells deform with the box existed through 0.1.x
- * and was removed — see resolveFitMode.)
+ * near-square at any box shape, `cover` scales a render uniformly, and `fixed`
+ * draws at an explicit canvas size. (Two modes have been removed: `stretch`,
+ * which kept the authored grid and let cells deform with the box, and
+ * `contain` — see resolveFitMode.)
  */
-export type FitMode = 'grid' | 'cover' | 'contain' | 'fixed';
+export type FitMode = 'grid' | 'cover' | 'fixed';
 
 /**
  * Per-pattern sizing metadata. Everything is optional: patterns with a
- * "colsxrows" grid option default to the adaptive `grid` fit, grid-less
- * compositions (Symmetry) to `cover`. `minCellPx`/`maxCellPx` bound the
- * adaptive cell size — designs with fixed-px strokes and shadows need a floor
- * so cells never shrink past the look they were authored for.
+ * "colsxrows" grid option default to the adaptive `grid` fit, and a grid-less
+ * definition to `cover`. `minCellPx`/`maxCellPx` bound the adaptive cell size
+ * — designs with fixed-px strokes and shadows need a floor so cells never
+ * shrink past the look they were authored for.
  */
 export type PatternSizing = {
   allowed?: FitMode[];
@@ -71,8 +71,8 @@ export type PatternSizing = {
    * to 2, which also keeps centred rules and strokes off half-pixels.
    */
   cellMultiple?: number;
-  /** Render resolution (and optional top-crop) for the cover/contain fits. */
-  coverRender?: { width: number; height: number; cropTop?: number };
+  /** Render resolution for the `cover` fit. */
+  coverRender?: { width: number; height: number };
 };
 
 export type PatternDefinition = {
@@ -94,8 +94,8 @@ export type PatternDefinition = {
   defaultAspectRatio?: AspectRatioId;
   /**
    * Forces a single aspect ratio and hides the editor's selector — for designs
-   * whose layout is tuned to one ratio. Currently unused: Symmetry letterboxes
-   * its composition into a centered 2:3 box instead.
+   * whose layout is tuned to one ratio. Currently unused: every design in the
+   * catalog is a cell-tiled grid that adapts to any ratio.
    */
   lockAspectRatio?: AspectRatioId;
   /** Render the gallery title in white (for dark thumbnails). */

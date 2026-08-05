@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 254 pattern
+`packages/tabbied/` (framework-free core + React wrapper + 253 pattern
 presets as JSON in `packages/tabbied/patterns/`, embedded by codegen).
 
 ```bash
@@ -171,24 +171,23 @@ not merely to a whole pixel: a design that subdivides its cell seams at
 a nested `@doodle` — declare their own.
 
 The cell is also **squared** — `applyGridSnap` uses the larger of the two
-snapped cells on both axes. 146 of the 254 designs rotate a cell by a quarter
+snapped cells on both axes. 146 of the 253 designs rotate a cell by a quarter
 turn, which swaps an oblong's axes and leaves a strip uncovered (a 120×124
 cell paints 124×120 rotated). Cobalt Works' coda seamed on exactly that.
 
 The snap is an inline style on the `<css-doodle>` element, *not* a change to
-`@size` in the generated source — the source feeds SVG export and the 254
+`@size` in the generated source — the source feeds SVG export and the 253
 definitions' `${width}`/`${height}` substitution, and neither should move
 because a container happened to be 1441px wide. Two traps: a CSS class can't
 set the box (`resolveBoxStyle` writes width/height inline on the wrapper, so a
 class loses), and css-doodle caps grids at 64×64, so a box implying more
 columns than that silently rescales the cell and puts the seams back.
 
-`cover`/`contain` scale their render box with a transform, so snapping alone
-does nothing there — measured: 6 interior seams with integral tracks under a
-fractional scale, 0 once `fitRenderToBox` quantised the scale so
-`cell × scale` is whole (up for cover, down for contain, translate rounded).
-Both halves are required; the render-box snap only exists to give the
-quantiser a whole cell.
+`cover` scales its render box with a transform, so snapping alone does nothing
+there — measured: 6 interior seams with integral tracks under a fractional
+scale, 0 once `fitRenderToBox` quantised the scale so `cell × scale` is whole
+(rounded up, translate rounded). Both halves are required; the render-box snap
+only exists to give the quantiser a whole cell.
 
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
