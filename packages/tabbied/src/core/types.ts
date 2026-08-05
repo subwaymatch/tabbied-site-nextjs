@@ -43,23 +43,19 @@ export type PatternColors = {
  * How a pattern is fitted into its container. See createPattern().
  *
  * No fit distorts the drawing: `grid` re-derives the cell grid so cells stay
- * near-square at any box shape, `cover`/`contain` scale a render uniformly,
- * and `fixed` draws at an explicit canvas size. (A `stretch` mode that kept
- * the authored grid and let cells deform with the box existed through 0.1.x
- * and was removed — see resolveFitMode.)
+ * near-square at any box shape, `cover` scales a render uniformly, and `fixed`
+ * draws at an explicit canvas size. Every design supports all three, so `fit`
+ * is a plain choice — an unset one takes DEFAULT_FIT_MODE.
  */
-export type FitMode = 'grid' | 'cover' | 'contain' | 'fixed';
+export type FitMode = 'grid' | 'cover' | 'fixed';
 
 /**
- * Per-pattern sizing metadata. Everything is optional: patterns with a
- * "colsxrows" grid option default to the adaptive `grid` fit, grid-less
- * compositions (Symmetry) to `cover`. `minCellPx`/`maxCellPx` bound the
- * adaptive cell size — designs with fixed-px strokes and shadows need a floor
- * so cells never shrink past the look they were authored for.
+ * Per-pattern sizing metadata, all of it about the adaptive `grid` fit and all
+ * of it optional. `minCellPx`/`maxCellPx` bound the derived cell size —
+ * designs with fixed-px strokes and shadows need a floor so cells never shrink
+ * past the look they were authored for.
  */
 export type PatternSizing = {
-  allowed?: FitMode[];
-  default?: FitMode;
   minCellPx?: number;
   maxCellPx?: number;
   /**
@@ -71,8 +67,6 @@ export type PatternSizing = {
    * to 2, which also keeps centred rules and strokes off half-pixels.
    */
   cellMultiple?: number;
-  /** Render resolution (and optional top-crop) for the cover/contain fits. */
-  coverRender?: { width: number; height: number; cropTop?: number };
 };
 
 export type PatternDefinition = {
@@ -92,12 +86,6 @@ export type PatternDefinition = {
   sizing?: PatternSizing;
   /** Initial aspect ratio when the Tabbied editor opens. Defaults to "2:3". */
   defaultAspectRatio?: AspectRatioId;
-  /**
-   * Forces a single aspect ratio and hides the editor's selector — for designs
-   * whose layout is tuned to one ratio. Currently unused: Symmetry letterboxes
-   * its composition into a centered 2:3 box instead.
-   */
-  lockAspectRatio?: AspectRatioId;
   /** Render the gallery title in white (for dark thumbnails). */
   galleryWhite?: boolean;
   /** Sort position in the gallery (ascending). Unset sorts last. */

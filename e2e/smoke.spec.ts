@@ -347,28 +347,6 @@ test.describe('Tabbied site', () => {
     await expect(page.getByText('9x9', { exact: true })).toBeVisible();
   });
 
-  test('symmetry offers aspect ratios and follows the selection', async ({
-    page,
-  }) => {
-    await page.goto('/patterns/symmetry?seed=0000');
-
-    await expect(
-      page.locator('[data-pattern="symmetry"] css-doodle')
-    ).toBeAttached();
-    // Symmetry is no longer ratio-locked: it letterboxes its composition into
-    // a centered 2:3 box, so the selector is offered like everywhere else.
-    await expect(page.getByText('Aspect ratio')).toBeVisible();
-    await page.getByRole('button', { name: '2:1' }).click();
-
-    await expect(page).toHaveURL(/aspectRatio=2%3A1/);
-
-    // The canvas follows the landscape ratio.
-    const box = await page
-      .locator('[data-pattern="symmetry"] css-doodle')
-      .boundingBox();
-    expect(box!.width).toBeGreaterThan(box!.height);
-  });
-
   test('palette colors can be removed and re-added within the pattern bounds', async ({
     page,
   }) => {

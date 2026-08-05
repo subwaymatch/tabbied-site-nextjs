@@ -25,7 +25,7 @@
  *   --palette <list>   Comma-separated hexes, background first (default: authored)
  *   --seed <string>    Fixed seed, so a re-render is byte-identical
  *   --width/--height   Render size in px (default 1024 x 1024)
- *   --fit <mode>       grid | cover | contain (default grid)
+ *   --fit <mode>       grid | cover | fixed (default grid)
  *   --cell <n>         cellSize override; larger cells survive the model redraw
  *   --scale <n>        deviceScaleFactor (default 2)
  */

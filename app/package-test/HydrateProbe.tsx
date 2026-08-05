@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { hydratePatterns } from 'tabbied';
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius, windowpane } from 'tabbied/patterns';
 
 /**
  * The declarative mounting path, exercised the way a packaged HTML template
@@ -23,7 +23,7 @@ export function HydrateProbe() {
     if (!root) return;
 
     const mounted = hydratePatterns({
-      patterns: { radius, symmetry },
+      patterns: { radius, windowpane },
       root,
     });
 

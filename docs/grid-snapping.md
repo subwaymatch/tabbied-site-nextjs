@@ -117,11 +117,11 @@ lands at or under the cap.
 the debounced re-render. Without that, the canvas would hold its old pixel
 size through a drag and either gap or over-cover the host.
 
-## `fit: "cover"` and `"contain"`: snapping is not enough
+## `fit: "cover"`: snapping is not enough
 
-These derive a render box and then *scale* it into the host with a transform,
-which makes them a different problem: the transform maps exact layout tracks
-onto fractional device pixels, and the browser seams there.
+`cover` derives a render box and then *scales* it into the host with a
+transform, which makes it a different problem: the transform maps exact layout
+tracks onto fractional device pixels, and the browser seams there.
 
 An isolated test settles it. Seven cells, every one the same colour, so any
 column that is not that colour is a seam and nothing else:
@@ -145,9 +145,8 @@ than the fix:
 1. The adaptive cover render box is snapped to whole, divisible, square cells
    — which is what gives step 2 a whole `cell` to quantise against.
 2. `fitRenderToBox` quantises the scale so `cell × scale` is a whole number,
-   rounding **up** for cover (which crops anyway) and **down** for contain
-   (which must stay inside its box). The ratio is untouched either way, so
-   contain still letterboxes at the authored ratio.
+   rounding **up** (cover crops anyway). The ratio is untouched, so the
+   drawing is never distorted — only cropped slightly further.
 
 The translate is rounded too — half a pixel of offset puts every boundary
 back on a fraction and undoes the quantised scale.

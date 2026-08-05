@@ -11,7 +11,7 @@ import {
   patternConfigToAttributes,
   createPattern,
   resolveBoxStyle,
-  resolveFitMode,
+  DEFAULT_FIT_MODE,
   DEFAULT_FIXED_SIZE,
   type PatternBoxSize,
   type PatternConfig,
@@ -57,22 +57,19 @@ export type TabbiedPatternProps = PatternBoxSize & {
   /**
    * Fit strategy — how the drawing relates to this component's box (the box
    * itself is sized by `fill`/`width`/`height`/`maxWidth`/`maxHeight`):
-   * `grid` (default) re-derives the cell grid from the measured box,
-   * `cover`/`contain` scale a fixed-resolution render uniformly (preserving
-   * fixed-px effects), `fixed` renders at an explicit canvas size. Defaults
-   * per pattern (sizing metadata). No fit deforms the pattern — nothing is
-   * scaled by a different factor horizontally than vertically.
-   *
-   * For grid-driven patterns, `cover` adapts its render to the box's aspect
-   * ratio (whole cells, nothing cropped mid-cell); special layouts without a
-   * grid — like Symmetry — scale-and-crop instead.
+   * `grid` (the default) re-derives the cell grid from the measured box,
+   * `cover` scales a fixed-resolution render uniformly (preserving fixed-px
+   * effects) after reshaping it to the box — whole cells, nothing cropped
+   * mid-cell — and `fixed` renders at an explicit canvas size. No fit deforms
+   * the pattern: nothing is scaled by a different factor horizontally than
+   * vertically.
    */
   fit?: FitMode;
   /** fit:"grid" — target cell size in px (default 36). */
   cellSize?: number;
   /** fit:"grid" — authored density level 0..4, alternative to cellSize. */
   density?: 0 | 1 | 2 | 3 | 4;
-  /** cover/contain — render resolution override. */
+  /** `cover` — render resolution override. */
   coverRender?: CoverRender;
   /**
    * Re-randomize the seed every N ms (first redraw lands at a random point
@@ -80,6 +77,10 @@ export type TabbiedPatternProps = PatternBoxSize & {
    * are dropped while the tab is hidden or the element is outside the
    * viewport, so off-screen patterns cost nothing. Only meaningful when
    * `seed` is uncontrolled.
+   *
+   * Reduced motion covers more than this timer — see the note on motion in
+   * the README: the designs' own cell transitions are muted too, so redraws
+   * and resize-driven re-renders cut rather than morph.
    */
   redrawInterval?: number;
   /**
@@ -240,10 +241,10 @@ export const TabbiedPattern = forwardRef<
     []
   );
 
-  // The pattern's background color doubles as the pre-mount placeholder and
-  // the letterbox color for fit:"contain".
+  // The pattern's background color, painted on the wrapper as the pre-mount
+  // placeholder (correct size, zero CLS, no raw-source flash).
   const background = (palette ?? definition.palette)?.[0];
-  const resolvedFit = resolveFitMode(definition, fit);
+  const resolvedFit = fit ?? DEFAULT_FIT_MODE;
   // fit:"fixed" is the one strategy with an inherent size, so its box defaults
   // to the canvas rather than to filling the parent.
   const boxStyle: CSSProperties = resolveBoxStyle(

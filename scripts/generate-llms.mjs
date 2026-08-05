@@ -133,13 +133,13 @@ export function Example() {
 | \`seed\` | Randomization seed. Omit for a random seed per mount; reseed via the handle. |
 | \`palette\` | Active colors, background (\`color0\`) first. Defaults to the preset palette. |
 | \`options\` | Option values keyed by option id. Unset options use their authored default. |
-| \`fit\` | \`grid\`, \`cover\`, \`contain\`, or \`fixed\`. Optional — each design declares its own default (\`fit.default\` in the catalog). |
+| \`fit\` | \`grid\`, \`cover\`, or \`fixed\`. Optional — the same three for every design; omit it for \`grid\`. |
 | \`fill\` | \`width: 100%; height: 100%\`. Defaults to \`true\`. |
 | \`width\` / \`height\` | Box size. Numbers are px. Overrides \`fill\` on that axis. |
 | \`maxWidth\` / \`maxHeight\` | Upper bounds on the box. |
 | \`aspectRatio\` | CSS \`aspect-ratio\`, e.g. \`3 / 2\`. Derives height from width. |
-| \`coverRender\` | Render resolution for the \`cover\`/\`contain\` fits (default 800x800). |
-| \`redrawInterval\` | Re-randomize the seed every N ms. Off under \`prefers-reduced-motion\`; ticks drop while the tab is hidden or the box is off-screen. |
+| \`coverRender\` | Render resolution for the \`cover\` fit (default 800x800). |
+| \`redrawInterval\` | Re-randomize the seed every N ms. Ticks drop while the tab is hidden or the box is off-screen. |
 | \`paused\` | Pause \`redrawInterval\` ticks. No effect unless \`redrawInterval\` is set. |
 | \`onReady\` | Fires once the pattern has been measured and first painted. |
 
@@ -171,10 +171,9 @@ By default that box fills its containing block.
 - The React component is a **client component** (it registers a browser custom
   element on import). In the Next.js App Router, render it from a client
   boundary or rely on its built-in placeholder until it mounts.
-- Measured fits (\`grid\`, \`cover\`, \`contain\`) mount **asynchronously**, after
+- Measured fits (\`grid\`, \`cover\`) mount **asynchronously**, after
   the first ResizeObserver tick. With the core API, drive the controller from
   \`onReady\`, not immediately after \`createPattern()\`.
-- Requesting a fit a pattern can't support falls back to its default and warns.
 - In a CSS grid, give tracks \`minmax(0, 1fr)\` rather than \`1fr\` so they can
   shrink when the container narrows.
 
@@ -187,10 +186,20 @@ horizontally than vertically.
   from the measured box, so cells stay near-square at any box shape.
 - \`cover\` — draws at a fixed resolution and scales it uniformly to fill the
   box, preserving the proportions of fixed-px strokes and shadows.
-- \`contain\` — letterboxes that fixed-resolution render at its authored ratio.
 - \`fixed\` — renders at an explicit canvas size (default 360x540).
 
-\`fit="stretch"\` was **removed in 0.2.0**. Use \`grid\` or \`cover\`.
+There is no per-design fit metadata: every design is cell-tiled and supports
+all three.
+
+## Reduced motion
+
+Under \`prefers-reduced-motion: reduce\` the controller suppresses both sources
+of movement with no configuration: the \`redrawInterval\` timer never starts,
+and the designs' own ~400ms cell transitions are muted, so any re-render cuts
+to the new arrangement instead of morphing. That second half covers passive
+motion — a resize re-derives the grid, so turning a phone would otherwise
+animate every cell. The preference is observed, not read once, so toggling it
+mid-session takes effect immediately. Nothing needs to be passed for this.
 
 ## Palettes and options
 

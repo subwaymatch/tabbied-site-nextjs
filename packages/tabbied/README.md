@@ -108,7 +108,7 @@ actually render from `tabbied/patterns` and your bundler ships just those —
 not the entire catalog:
 
 ```tsx
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius, windowpane } from 'tabbied/patterns';
 ```
 
 Each preset is a side-effect-free named export, so unused ones are dropped at
@@ -128,7 +128,7 @@ on its built-in measurable placeholder until it mounts.
 | `seed`    | Randomization seed. Omit for a random seed per mount; reseed via the handle.       |
 | `palette` | Active colors, background (`color0`) first. Defaults to the preset palette.  |
 | `options` | Option values keyed by option id; unset options use authored defaults.       |
-| `fit`     | How the drawing meets its box: `grid` (default), `cover`, `contain`, or `fixed`. |
+| `fit`     | How the drawing meets its box: `grid` (default), `cover`, or `fixed`. |
 | box props | How big the box is: `fill`, `width`, `height`, `maxWidth`, `maxHeight`, `aspectRatio`. |
 
 See the inline JSDoc on `TabbiedPatternProps` for the full list.
@@ -189,20 +189,14 @@ nothing is ever scaled by a different factor horizontally than vertically.
 - `grid` (default) — re-derives the cell grid from the measured box: whole,
   near-square cells edge to edge at any box shape.
 - `cover` — draws a fixed-resolution render and scales it uniformly to fill the
-  box (preserving the proportions of fixed-px strokes and shadows). For
-  grid-driven patterns the render follows the box's aspect ratio and re-derives
-  its grid, so the pattern is never cut off mid-cell; special layouts (e.g.
-  Symmetry's centered composition) scale-and-crop instead.
-- `contain` — letterboxes the fixed-resolution render at its authored ratio.
+  box (preserving the proportions of fixed-px strokes and shadows). The render
+  follows the box's aspect ratio and re-derives its grid, so the pattern is
+  never cut off mid-cell.
 - `fixed` — renders at an explicit canvas size (`width`/`height` in px, default
   360 × 540). This is what the Tabbied editor uses.
 
-Each pattern declares a sensible default, so `fit` is optional. Requesting a
-fit a pattern can't support falls back to its default with a console warning.
-
-> **Removed in 0.2.0:** `fit="stretch"`, which kept the authored grid and let
-> cells deform with the box. Use `grid` (the default) for a box-shaped grid, or
-> `cover` to scale a render uniformly.
+Every design supports all three, so `fit` is a plain choice — omit it and you
+get `grid`.
 
 ## Core (framework-agnostic)
 
@@ -214,7 +208,7 @@ const el = document.querySelector('#stage')!;
 const controller = createPattern(el, {
   pattern: radius,
   seed: 'k9Pz',
-  // Measured fits (grid/cover/contain) mount asynchronously, after the first
+  // Measured fits (grid/cover) mount asynchronously, after the first
   // ResizeObserver tick delivers the host's size — drive the controller from
   // onReady rather than immediately after createPattern().
   onReady: async () => {
@@ -242,9 +236,28 @@ const controller = createPattern(host, {
 controller.update({ paused: true });
 ```
 
-`redrawInterval` switches itself off entirely under `prefers-reduced-motion`,
-and drops ticks while the tab is hidden or the host is scrolled out of view —
-a page of animated patterns only pays for the ones somebody is looking at.
+`redrawInterval` drops ticks while the tab is hidden or the host is scrolled
+out of view — a page of animated patterns only pays for the ones somebody is
+looking at.
+
+### Reduced motion
+
+Under `prefers-reduced-motion: reduce` the controller suppresses **both**
+sources of movement, with no configuration:
+
+- the `redrawInterval` timer never starts, and
+- the designs' own cell transitions are muted, so anything that re-renders
+  cuts to the new arrangement instead of morphing into it.
+
+The second half matters more than it sounds. Every design carries a ~400ms
+`transition`, and a re-render is not always something the reader asked for: a
+resize re-derives the grid, so turning a phone or dragging a window animates
+every cell on the page. That is the passive motion the preference exists for.
+A `redraw()` you call yourself is muted on the same terms.
+
+Nothing is lost — the pattern renders identically, it just stops easing
+between states. The preference is *observed*, not read once, so toggling it
+while the page is open takes effect immediately.
 
 ### Declarative mounting (no build step)
 
@@ -282,7 +295,7 @@ anything. Values are typed by the pattern's own option metadata, so a
 | `data-fit` | `fit` |
 | `data-cell-size` / `data-density` | `cellSize` / `density` |
 | `data-width` / `data-height` | `fixed` canvas size in px |
-| `data-cover-render` | `coverRender` — `800x800`, or `800x800+120` with a `cropTop` |
+| `data-cover-render` | `coverRender` — `800x800` |
 | `data-redraw-interval` / `data-paused` | `redrawInterval` / `paused` |
 
 Pass `root` to scope the search to a subtree, `selector` to override

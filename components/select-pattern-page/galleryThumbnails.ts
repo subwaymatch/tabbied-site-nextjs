@@ -14,10 +14,9 @@ export type ThumbnailConfig = {
    * Internal render size in px. The doodle is drawn at this resolution and then
    * scaled to fit the (square) card, so fixed-px features (border widths,
    * shadows) keep the proportions of the original 800px pattern. Defaults to
-   * 800 x 800. `cropTop` keeps only the top fraction of the render (Symmetry
-   * shows just its top half).
+   * 800 x 800.
    */
-  render?: { width: number; height: number; cropTop?: number };
+  render?: { width: number; height: number };
 };
 
 export const galleryThumbnails: Record<string, ThumbnailConfig> = {
@@ -34,13 +33,6 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   odessa: {
     palette: ['#1B4075', '#3EECFF', '#D89FFF', '#3E8BFF', '#3FFFB2'],
     options: { grid: '4x4', frequency: 0.6 },
-  },
-  symmetry: {
-    palette: ['#97F4FF', '#97F4FF', '#00FFF3', '#00A1FF', '#FF8DFF', '#FF007E'],
-    options: { circularity: 1 },
-    // Crop a hair above the horizon (0.5) so the top edge of the mirrored
-    // pink shapes — which sit exactly on the 50% line — stays out of frame.
-    render: { width: 800, height: 1200, cropTop: 0.48 },
   },
   veil: {
     palette: ['#9EFFD8', '#3E8BFF', '#326DC9', '#1B4075', '#3EECFF', '#3E8BFF'],

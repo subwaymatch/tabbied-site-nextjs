@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { TabbiedPattern } from 'tabbied/react';
-import { radius, symmetry, quilt } from 'tabbied/patterns';
+import { radius, quilt } from 'tabbied/patterns';
 import MainHeader from 'components/main-page/MainHeader';
 import { Container, Row, Col } from 'components/layout';
 import Footer from 'components/Footer';
@@ -46,7 +46,7 @@ export function Banner() {
 }`;
 
 const treeShakeCode = `// Import only what you render — bundlers ship just those presets.
-import { radius, symmetry } from 'tabbied/patterns';
+import { radius, windowpane } from 'tabbied/patterns';
 
 // Building a gallery? The full record pulls in every design.
 import { patterns } from 'tabbied/patterns';`;
@@ -69,22 +69,13 @@ const boxCode = `// Default: fill the containing block. .panel is 100% wide, 400
 const fitCode = `// grid (default): the cell grid adapts to the container size
 <TabbiedPattern pattern={radius} fit="grid" />
 
-// cover: a fixed-resolution render scaled uniformly to fill the box;
-// grid-driven patterns adapt the render to the box's shape (whole cells,
-// no mid-cell crop), special layouts like Symmetry scale-and-crop
+// cover: a fixed-resolution render scaled uniformly to fill the box.
+// Every design is cell-tiled, so the render adapts to the box's shape
+// and tiles it with whole cells — nothing is cropped mid-cell
 <TabbiedPattern pattern={radius} fit="cover" />
-
-// contain: letterboxed at the pattern's authored ratio
-<TabbiedPattern pattern={symmetry} fit="contain" />
 
 // fixed: an explicit canvas size in px (what the Tabbied editor uses)
 <TabbiedPattern pattern={radius} fit="fixed" width={360} height={540} />`;
-
-const symmetryFitCode = `// Symmetry is one composition rather than a repeating grid, so it
-// declares sizing.allowed = ['cover', 'contain', 'fixed'] and defaults
-// to cover. Asking for "grid" falls back to that default with a warning.
-<TabbiedPattern pattern={symmetry} fit="cover" />
-<TabbiedPattern pattern={symmetry} fit="contain" />`;
 
 const paletteCode = `<TabbiedPattern
   pattern={radius}
@@ -129,8 +120,9 @@ export function Reseedable() {
 }`;
 
 const animatedCode = `// Reseed on a timer (the gallery's shimmer). Ticks are skipped while
-// the tab is hidden or the element is outside the viewport, and the
-// whole timer is skipped under prefers-reduced-motion.
+// the tab is hidden or the element is outside the viewport. Under
+// prefers-reduced-motion the timer never starts and the designs' own
+// cell transitions are muted, so nothing here moves.
 <TabbiedPattern
   pattern={quilt}
   fit="cover"
@@ -164,7 +156,7 @@ const controller = createPattern(document.querySelector('#stage'), {
   pattern: radius,
   seed: 'k9Pz',
   redrawInterval: 5200, // optional: reseed on a timer, gates included
-  // Measured fits (grid/cover/contain) mount asynchronously, once the
+  // Measured fits (grid/cover) mount asynchronously, once the
   // host's size is known — drive the controller from onReady.
   onReady: async () => {
     controller.redraw(); // re-randomize the seed
@@ -213,11 +205,6 @@ const FIT_DEMOS = [
     fit: 'cover',
     label: 'fit="cover"',
     note: 'One render, scaled uniformly to fill. Fixed-px strokes keep their proportions.',
-  },
-  {
-    fit: 'contain',
-    label: 'fit="contain"',
-    note: 'The whole render, letterboxed. The bars are the pattern background.',
   },
   {
     fit: 'fixed',
@@ -507,18 +494,11 @@ export default function ReactDocsPage() {
                       </li>
                       <li>
                         <Code>cover</Code> — draws a fixed-resolution render
-                        and scales it uniformly into the box, preserving the authored
-                        proportions of fixed-px strokes and shadows. For
-                        grid-driven patterns the render follows the box&apos;s
-                        aspect ratio and re-derives its grid, so the pattern
-                        is never cut off mid-cell; special layouts (e.g.
-                        Symmetry&apos;s centered composition) scale-and-crop
-                        instead.
-                      </li>
-                      <li>
-                        <Code>contain</Code> — letterboxes the render at its
-                        authored ratio (the pattern&apos;s background color
-                        fills the bars).
+                        and scales it uniformly into the box, preserving the
+                        authored proportions of fixed-px strokes and shadows.
+                        The render follows the box&apos;s aspect ratio and
+                        re-derives its grid, so the pattern is never cut off
+                        mid-cell.
                       </li>
                       <li>
                         <Code>fixed</Code> — renders at an explicit canvas
@@ -528,17 +508,8 @@ export default function ReactDocsPage() {
                       </li>
                     </ul>
                     <p>
-                      Each pattern declares a sensible default, so{' '}
-                      <Code>fit</Code> is optional. Requesting a fit an
-                      pattern can&apos;t support falls back to its default
-                      with a console warning.
-                    </p>
-                    <p>
-                      <strong>Removed in 0.2.0:</strong>{' '}
-                      <Code>fit=&quot;stretch&quot;</Code>, which kept the
-                      authored grid and let cells deform with the box. Use{' '}
-                      <Code>grid</Code> (the default) for a box-shaped grid, or{' '}
-                      <Code>cover</Code> to scale a render uniformly.
+                      Every design supports all three, so <Code>fit</Code> is a
+                      plain choice — omit it and you get <Code>grid</Code>.
                     </p>
                     <p>
                       Each column below is one mode, drawing the same pattern at
@@ -551,43 +522,6 @@ export default function ReactDocsPage() {
                         {FIT_DEMOS.map((demo) => (
                           <FitDemo key={demo.fit} {...demo} />
                         ))}
-                      </div>
-                    </Example>
-                    <p>
-                      Patterns whose layout isn&apos;t a repeating grid opt out
-                      of <Code>grid</Code> entirely — Symmetry draws one
-                      centered composition, so it only offers{' '}
-                      <Code>cover</Code>, <Code>contain</Code> and{' '}
-                      <Code>fixed</Code>:
-                    </p>
-                    <Example code={symmetryFitCode}>
-                      <div className={styles.fitGrid}>
-                        <figure className={styles.fitItem}>
-                          <div className={styles.fitCompare}>
-                            <TabbiedPattern
-                              pattern={symmetry}
-                              seed="k9Pz"
-                              fit="cover"
-                            />
-                          </div>
-                          <figcaption className={styles.fitCaption}>
-                            <code>fit=&quot;cover&quot;</code>
-                            Scaled up until it fills, cropping the overflow.
-                          </figcaption>
-                        </figure>
-                        <figure className={styles.fitItem}>
-                          <div className={styles.fitCompare}>
-                            <TabbiedPattern
-                              pattern={symmetry}
-                              seed="k9Pz"
-                              fit="contain"
-                            />
-                          </div>
-                          <figcaption className={styles.fitCaption}>
-                            <code>fit=&quot;contain&quot;</code>
-                            Scaled down until it fits, letterboxing the rest.
-                          </figcaption>
-                        </figure>
                       </div>
                     </Example>
                   </Section>
@@ -694,10 +628,11 @@ export default function ReactDocsPage() {
                       the gallery&apos;s shimmer. Ticks are dropped while the
                       tab is hidden or the element is scrolled out of the
                       viewport, so a long page of animated patterns only pays
-                      for what&apos;s on screen; the whole timer is skipped
-                      under <Code>prefers-reduced-motion</Code>. Use the{' '}
-                      <Code>paused</Code> prop for your own gating on top
-                      (it preserves the timer phase).
+                      for what&apos;s on screen. Use the <Code>paused</Code>{' '}
+                      prop for your own gating on top (it preserves the timer
+                      phase), and see{' '}
+                      <a href="#accessibility">Accessibility</a> for what{' '}
+                      <Code>prefers-reduced-motion</Code> switches off.
                     </p>
                     <Example code={animatedCode}>
                       <TabbiedPattern
@@ -723,10 +658,39 @@ export default function ReactDocsPage() {
                       code={a11yCode}
                       className={styles.codeStandalone}
                     />
+                    <h3 className={styles.minihead}>Reduced motion</h3>
                     <p>
-                      Motion is opt-in only (<Code>redrawInterval</Code>) and
-                      always disabled for users with{' '}
-                      <Code>prefers-reduced-motion</Code>.
+                      A pattern has two sources of movement, and{' '}
+                      <Code>prefers-reduced-motion: reduce</Code> suppresses
+                      both — with no configuration and no props to pass:
+                    </p>
+                    <ul>
+                      <li>
+                        the <Code>redrawInterval</Code> timer never starts, and
+                      </li>
+                      <li>
+                        the designs&apos; own cell transitions are muted, so
+                        anything that re-renders cuts to the new arrangement
+                        instead of morphing into it.
+                      </li>
+                    </ul>
+                    <p>
+                      The second half does more work than it sounds like. Every
+                      design carries a ~400ms <Code>transition</Code>, and a
+                      re-render is not always something the reader asked for:{' '}
+                      <Code>grid</Code> and <Code>cover</Code> re-derive their
+                      cell grid when the box changes, so turning a phone or
+                      dragging a window would otherwise animate every cell on
+                      the page. That is the passive motion the preference
+                      exists for. A <Code>redraw()</Code> you call yourself is
+                      muted on the same terms.
+                    </p>
+                    <p>
+                      Nothing is lost either way — the pattern renders
+                      identically, it just stops easing between states. The
+                      preference is <em>observed</em>, not read once, so
+                      toggling it while the page is open takes effect
+                      immediately.
                     </p>
                   </Section>
 
@@ -840,7 +804,7 @@ export default function ReactDocsPage() {
                             <td>
                               <code>
                                 &apos;grid&apos; | &apos;cover&apos; |
-                                &apos;contain&apos; | &apos;fixed&apos;
+                                &apos;fixed&apos;
                               </code>
                             </td>
                             <td className={styles.defaultCol}>per pattern</td>
@@ -926,7 +890,7 @@ export default function ReactDocsPage() {
                             </td>
                             <td className={styles.defaultCol}>800 × 800</td>
                             <td>
-                              <Code>cover</Code>/<Code>contain</Code> render
+                              <Code>cover</Code> render
                               resolution override.
                             </td>
                           </tr>

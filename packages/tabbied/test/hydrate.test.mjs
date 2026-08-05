@@ -136,7 +136,7 @@ test('unparseable attributes fall back to the authored defaults', () => {
   const parsed = patternConfigFromElement(
     elementFor({
       'data-pattern': 'radius',
-      'data-fit': 'stretch', // removed in 0.2.0
+      'data-fit': 'stretch', // not a fit mode
       'data-cell-size': 'wide',
       'data-cover-render': '800',
       'data-options': 'nosuchoption: 4',
@@ -168,7 +168,7 @@ test('data-paused is a valueless boolean attribute', () => {
 test('accepts an array of definitions, not just the record', () => {
   const parsed = patternConfigFromElement(
     elementFor({ 'data-pattern': 'radius' }),
-    [patterns.radius, patterns.symmetry]
+    [patterns.radius, patterns.windowpane]
   );
 
   assert.equal(parsed.pattern.slug, 'radius');

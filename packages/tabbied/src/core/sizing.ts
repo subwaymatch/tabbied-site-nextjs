@@ -4,7 +4,7 @@
 // doodleSource.ts), so a pattern can be drawn at any size; what varies per
 // strategy is how the cell grid and the css-doodle canvas relate to the
 // container. See createPattern() for how each FitMode is applied.
-import type { PatternDefinition, PatternSizing, FitMode } from './types.js';
+import type { PatternSizing, FitMode } from './types.js';
 
 // Options with this id hold a "colsxrows" grid string; the adaptive `grid`
 // fit overrides it with a grid derived from the measured container.
@@ -26,8 +26,8 @@ export const MAX_GRID_EDGE = 64;
 const DEFAULT_MIN_CELL_PX = 24;
 const DEFAULT_MAX_CELL_PX = 220;
 
-/** Render resolution (and optional top-crop) for the cover/contain fits. */
-export type CoverRender = { width: number; height: number; cropTop?: number };
+/** Render resolution for the `cover` fit. */
+export type CoverRender = { width: number; height: number };
 
 // The gallery's proven default: render at a fixed 800×800 and scale into the
 // container, preserving the proportions of fixed-px strokes and shadows.
@@ -37,26 +37,17 @@ export const DEFAULT_COVER_RENDER: CoverRender = { width: 800, height: 800 };
 // original 2:3 preview footprint.
 export const DEFAULT_FIXED_SIZE = { width: 360, height: 540 };
 
-export const FIT_MODES: readonly FitMode[] = [
-  'grid',
-  'cover',
-  'contain',
-  'fixed',
-];
+// Every mode works for every design, so there is no per-pattern capability
+// check: `fit` is a plain choice, and an unset one takes the default. The
+// list exists so `data-fit` can be validated (see hydrate.ts).
+export const FIT_MODES: readonly FitMode[] = ['grid', 'cover', 'fixed'];
 
-// Fits that existed in an earlier version, mapped to why they went away. Kept
-// so a stale `fit` prop gets a message that explains the migration instead of
-// the generic "not supported by this pattern" fallback warning.
-const REMOVED_FIT_MODES: Record<string, string> = {
-  stretch:
-    'patterns are no longer scaled by a different factor per axis. Use "grid" ' +
-    '(re-derives the cell grid for the box, so cells stay near-square) or ' +
-    '"cover"/"contain" (scale a render uniformly).',
-};
-
-export function hasGridOption(definition: PatternDefinition): boolean {
-  return definition.options.some((option) => option.id === GRID_OPTION_ID);
-}
+/**
+ * The fit used when none is requested. Every design is cell-tiled, so the
+ * adaptive grid is always the right starting point: it fills any box with
+ * whole, near-square cells and no letterboxing.
+ */
+export const DEFAULT_FIT_MODE: FitMode = 'grid';
 
 // ---- box sizing -----------------------------------------------------------
 // A pattern has no intrinsic size: `fit` says how the drawing relates to its
@@ -142,63 +133,6 @@ export function resolveBoxStyle(size: PatternBoxSize = {}): PatternBoxStyle {
   }
 
   return style;
-}
-
-// The fits a pattern supports. Declared sizing.allowed wins; otherwise every
-// fit is available except that the adaptive `grid` fit needs a "colsxrows"
-// grid option to drive (grid-less compositions like Symmetry letterbox a
-// fixed-ratio design instead, so they cover/contain).
-export function allowedFitModes(definition: PatternDefinition): FitMode[] {
-  if (definition.sizing?.allowed) {
-    return definition.sizing.allowed;
-  }
-
-  return hasGridOption(definition)
-    ? [...FIT_MODES]
-    : FIT_MODES.filter((mode) => mode !== 'grid');
-}
-
-export function defaultFitMode(definition: PatternDefinition): FitMode {
-  return (
-    definition.sizing?.default ??
-    (hasGridOption(definition) ? 'grid' : 'cover')
-  );
-}
-
-// resolveFitMode runs on every render/update/resize tick, so an unsupported
-// fit warns once per pattern+fit pair instead of flooding the console.
-const warnedFits = new Set<string>();
-
-// Resolve a requested fit against the pattern's capabilities, falling back to
-// the pattern's default (with a console warning) rather than rendering a
-// strategy the design can't support.
-export function resolveFitMode(
-  definition: PatternDefinition,
-  requested?: FitMode
-): FitMode {
-  if (!requested) {
-    return defaultFitMode(definition);
-  }
-
-  if (allowedFitModes(definition).includes(requested)) {
-    return requested;
-  }
-
-  const fallback = defaultFitMode(definition);
-  const warnKey = `${definition.slug}|${requested}`;
-
-  if (typeof console !== 'undefined' && !warnedFits.has(warnKey)) {
-    warnedFits.add(warnKey);
-    const removed = REMOVED_FIT_MODES[requested];
-
-    console.warn(
-      removed
-        ? `[tabbied] fit "${requested}" was removed: ${removed} Using "${fallback}" instead.`
-        : `[tabbied] fit "${requested}" is not supported by "${definition.slug}" — using "${fallback}" instead`
-    );
-  }
-
-  return fallback;
 }
 
 // "cols × rows" for an arbitrary box at a target cell size, keeping cells
@@ -354,27 +288,18 @@ export function coverCellPx(
   return Math.sqrt((base.width / grid.cols) * (base.height / grid.rows));
 }
 
-// Scale + offsets that fit a fixed-resolution render into a host box. This is
-// the gallery-thumbnail technique: scaling the rendered element (instead of
-// rendering at the host's pixel size) preserves the authored proportions of
-// fixed-px strokes and shadows, and DOM scaling stays vector-crisp.
-//
-// `cropTop` keeps only the top fraction of the render visible for `cover`
-// (anchored to the top edge — e.g. Symmetry's gallery card shows just its
-// top half); without it the render is centered on both axes.
+// Scale + offsets that fit a fixed-resolution render into a host box, filling
+// it and cropping the overflow. This is the gallery-thumbnail technique:
+// scaling the rendered element (instead of rendering at the host's pixel size)
+// preserves the authored proportions of fixed-px strokes and shadows, and DOM
+// scaling stays vector-crisp.
 export function fitRenderToBox(
   hostWidth: number,
   hostHeight: number,
   render: CoverRender,
-  mode: 'cover' | 'contain',
   cellPx?: number
 ): { scale: number; translateX: number; translateY: number } {
-  const cropTop = render.cropTop ?? 1;
-  const visibleHeight = render.height * cropTop;
-  let scale =
-    mode === 'cover'
-      ? Math.max(hostWidth / render.width, hostHeight / visibleHeight)
-      : Math.min(hostWidth / render.width, hostHeight / render.height);
+  let scale = Math.max(hostWidth / render.width, hostHeight / render.height);
 
   // Land every cell edge on a whole pixel *after* the transform. Snapping the
   // render box is not enough on its own: a scaled canvas maps exact layout
@@ -382,13 +307,10 @@ export function fitRenderToBox(
   // isolated test — same grid, same colour in every cell — measured 6 interior
   // seams both with fractional tracks and with integral ones under a 1.44
   // scale, and 0 once the scale was quantised so `cell * scale` was a whole
-  // number. Cover rounds the scale up (it crops anyway); contain rounds down,
-  // since it must stay inside the box, and the ratio is unaffected either way.
+  // number. The scale rounds up, which only ever crops further — and the box
+  // is filled either way, so the ratio is unaffected.
   if (cellPx && cellPx > 0 && Number.isFinite(scale)) {
-    const scaledCell = cellPx * scale;
-    const quantised = mode === 'cover'
-      ? Math.ceil(scaledCell)
-      : Math.floor(scaledCell);
+    const quantised = Math.ceil(cellPx * scale);
 
     if (quantised >= 1) {
       scale = quantised / cellPx;
@@ -401,9 +323,6 @@ export function fitRenderToBox(
   return {
     scale,
     translateX: Math.round((hostWidth - render.width * scale) / 2),
-    translateY:
-      mode === 'cover' && cropTop < 1
-        ? 0
-        : Math.round((hostHeight - render.height * scale) / 2),
+    translateY: Math.round((hostHeight - render.height * scale) / 2),
   };
 }
