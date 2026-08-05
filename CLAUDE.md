@@ -189,6 +189,32 @@ scale, 0 once `fitRenderToBox` quantised the scale so `cell × scale` is whole
 (rounded up, translate rounded). Both halves are required; the render-box snap
 only exists to give the quantiser a whole cell.
 
+## Reduced motion — invariant
+
+A pattern moves two ways, and `prefers-reduced-motion` has to stop both. The
+`redrawInterval` timer is the obvious one. The other is that **all 253 designs
+declare a ~400ms `transition`** — the thing that makes a redraw morph rather
+than cut — and it fires on any re-render, including ones nobody asked for:
+`grid` and `cover` re-derive their cell grid on resize, so turning a phone
+would otherwise animate every cell on the page.
+
+`createPattern` mutes them by injecting `transition: none !important` into the
+shadow root (the generated cell styles live there; a light-DOM rule can't
+reach them). The same override suppresses the first paint for two frames —
+under reduced motion it simply never lifts.
+
+Two things that look redundant and are not:
+
+- **`ensureMuted()` after every `element.update()`.** css-doodle regenerates
+  the shadow root when the grid changes, which takes the injected `<style>`
+  with it. Without the re-assert the mute holds at mount and is gone after the
+  first resize-driven re-render — i.e. it fails in exactly the case it exists
+  for. `e2e/package.spec.ts` covers this by resizing and asserting the cell
+  transition-duration is still 0ms.
+- **The `change` listener on the media query.** The preference is observed,
+  not read once: `syncRedrawTimer` only re-checks on a config change, so a
+  toggle mid-session would otherwise leave a running timer ticking.
+
 ## SVG export — invariants (full reference: docs/svg-export.md)
 
 The native SVG exporter (`packages/tabbied/src/core/svgExport.ts`) converts

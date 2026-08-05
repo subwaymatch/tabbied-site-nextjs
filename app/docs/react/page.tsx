@@ -120,8 +120,9 @@ export function Reseedable() {
 }`;
 
 const animatedCode = `// Reseed on a timer (the gallery's shimmer). Ticks are skipped while
-// the tab is hidden or the element is outside the viewport, and the
-// whole timer is skipped under prefers-reduced-motion.
+// the tab is hidden or the element is outside the viewport. Under
+// prefers-reduced-motion the timer never starts and the designs' own
+// cell transitions are muted, so nothing here moves.
 <TabbiedPattern
   pattern={quilt}
   fit="cover"
@@ -627,10 +628,11 @@ export default function ReactDocsPage() {
                       the gallery&apos;s shimmer. Ticks are dropped while the
                       tab is hidden or the element is scrolled out of the
                       viewport, so a long page of animated patterns only pays
-                      for what&apos;s on screen; the whole timer is skipped
-                      under <Code>prefers-reduced-motion</Code>. Use the{' '}
-                      <Code>paused</Code> prop for your own gating on top
-                      (it preserves the timer phase).
+                      for what&apos;s on screen. Use the <Code>paused</Code>{' '}
+                      prop for your own gating on top (it preserves the timer
+                      phase), and see{' '}
+                      <a href="#accessibility">Accessibility</a> for what{' '}
+                      <Code>prefers-reduced-motion</Code> switches off.
                     </p>
                     <Example code={animatedCode}>
                       <TabbiedPattern
@@ -656,10 +658,39 @@ export default function ReactDocsPage() {
                       code={a11yCode}
                       className={styles.codeStandalone}
                     />
+                    <h3 className={styles.minihead}>Reduced motion</h3>
                     <p>
-                      Motion is opt-in only (<Code>redrawInterval</Code>) and
-                      always disabled for users with{' '}
-                      <Code>prefers-reduced-motion</Code>.
+                      A pattern has two sources of movement, and{' '}
+                      <Code>prefers-reduced-motion: reduce</Code> suppresses
+                      both — with no configuration and no props to pass:
+                    </p>
+                    <ul>
+                      <li>
+                        the <Code>redrawInterval</Code> timer never starts, and
+                      </li>
+                      <li>
+                        the designs&apos; own cell transitions are muted, so
+                        anything that re-renders cuts to the new arrangement
+                        instead of morphing into it.
+                      </li>
+                    </ul>
+                    <p>
+                      The second half does more work than it sounds like. Every
+                      design carries a ~400ms <Code>transition</Code>, and a
+                      re-render is not always something the reader asked for:{' '}
+                      <Code>grid</Code> and <Code>cover</Code> re-derive their
+                      cell grid when the box changes, so turning a phone or
+                      dragging a window would otherwise animate every cell on
+                      the page. That is the passive motion the preference
+                      exists for. A <Code>redraw()</Code> you call yourself is
+                      muted on the same terms.
+                    </p>
+                    <p>
+                      Nothing is lost either way — the pattern renders
+                      identically, it just stops easing between states. The
+                      preference is <em>observed</em>, not read once, so
+                      toggling it while the page is open takes effect
+                      immediately.
                     </p>
                   </Section>
 
