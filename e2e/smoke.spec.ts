@@ -5,23 +5,21 @@ test.describe('Tabbied site', () => {
     await page.goto('/');
 
     await expect(page).toHaveTitle(/Tabbied/);
-    // The hero is loaded client-side via dynamic(ssr:false) and pulls in the
-    // css-doodle library, so give it a little longer to appear. Match the full
+    // The headline is two spans with a word space between them, so it reads as
+    // one string while breaking where the design wants it to. Match the full
     // hero copy so it is not confused with the footer's marketing blurb.
     await expect(page.getByText(/Doodle with\s+generated patterns/)).toBeVisible(
       { timeout: 15000 }
     );
 
-    // Regression guard for the Bootstrap 4 -> 5 `media-breakpoint-down()`
-    // semantics change: the xs/mobile overrides must not leak onto desktop
-    // widths (which had collapsed the hero padding from ~160px to 64px).
-    const heroPadTop = await page.evaluate(() => {
-      const p = [...document.querySelectorAll('p')].find((e) =>
-        /^Doodle with/.test((e.textContent || '').trim())
-      );
-      return p ? parseInt(getComputedStyle(p.parentElement).paddingTop, 10) : 0;
+    // The hero headline is fluid (`clamp(2.9rem, 9.6vw, 9rem)`), so a desktop
+    // viewport must land well above the mobile floor — a guard against a
+    // mobile-first override leaking onto desktop widths.
+    const headlineSize = await page.evaluate(() => {
+      const h1 = document.querySelector('h1');
+      return h1 ? parseFloat(getComputedStyle(h1).fontSize) : 0;
     });
-    expect(heroPadTop).toBeGreaterThan(100);
+    expect(headlineSize).toBeGreaterThan(60);
 
     // "Make your art" appears in the hero and the closing CTA.
     await page.getByRole('link', { name: 'Make your art' }).first().click();
@@ -493,7 +491,7 @@ test.describe('Tabbied site (mobile viewport)', () => {
 
     const drawer = page.getByRole('dialog');
     await expect(
-      drawer.getByRole('link', { name: 'Browse Patterns' })
+      drawer.getByRole('link', { name: 'Patterns', exact: true })
     ).toBeVisible();
     // GitHub moves from the header into the drawer on mobile.
     await expect(drawer.getByRole('link', { name: 'GitHub' })).toBeVisible();
@@ -509,13 +507,14 @@ test.describe('Shared site header', () => {
   test('is reused on content pages and marks the active nav item', async ({
     page,
   }) => {
-    // The gallery (/patterns) now owns its own rail chrome, so the shared
-    // header is exercised on the docs page instead.
     await page.goto('/docs/react');
 
-    // The home-page header (logo nav + GitHub link) is reused here.
+    // The site header (mark, nav and GitHub link) is reused here. Nav labels
+    // also appear in the footer's Explore column, so header assertions are
+    // scoped to <header>.
+    const header = page.locator('header');
     await expect(
-      page.getByRole('link', { name: 'Tabbied on GitHub' })
+      header.getByRole('link', { name: 'Tabbied on GitHub' })
     ).toBeVisible();
 
     // At desktop widths the inline nav replaces the hamburger entirely.
@@ -523,39 +522,47 @@ test.describe('Shared site header', () => {
       page.getByRole('button', { name: 'Open navigation menu' })
     ).toBeHidden();
 
-    // "Docs" is the current section, "Browse Patterns" is not. The active item
-    // is both flagged for assistive tech and given a style hook.
-    const docs = page.getByRole('link', { name: 'Docs' });
+    // "Docs" is the current section, "Patterns" is not. The active item is
+    // both flagged for assistive tech and given a style hook.
+    const docs = header.getByRole('link', { name: 'Docs', exact: true });
     await expect(docs).toHaveAttribute('aria-current', 'page');
     await expect(docs).toHaveClass(/active/);
     await expect(
-      page.getByRole('link', { name: 'Browse Patterns' })
+      header.getByRole('link', { name: 'Patterns', exact: true })
     ).not.toHaveAttribute('aria-current', 'page');
 
     // A page with no matching nav item highlights nothing.
     await page.goto('/privacy-policy');
     await expect(
-      page.getByRole('link', { name: 'Browse Patterns' })
+      header.getByRole('link', { name: 'Patterns', exact: true })
     ).toBeVisible();
     await expect(page.locator('header a[aria-current="page"]')).toHaveCount(0);
   });
 
-  test('the gallery rail owns its chrome instead of the shared header', async ({
+  test('the gallery shares the header, above its palette rail', async ({
     page,
   }) => {
     await page.goto('/patterns');
 
-    // The rail carries the Tabbied logo and its palette chrome — but not the
-    // shared site nav or its hamburger.
+    // getByRole('banner'), not locator('header'): the page's own section header
+    // is a second <header> element (and not a banner).
+    const header = page.getByRole('banner');
+    const patterns = header.getByRole('link', { name: 'Patterns', exact: true });
+    await expect(patterns).toBeVisible();
+    await expect(patterns).toHaveAttribute('aria-current', 'page');
+
+    // The rail no longer carries a logo of its own — the header has it — and
+    // starts below the header rather than at the top of the viewport.
+    const rail = page.locator('aside');
     await expect(
-      page.locator('aside').getByRole('link', { name: 'Tabbied', exact: true })
-    ).toBeVisible();
-    await expect(
-      page.getByRole('button', { name: 'Open navigation menu' })
+      rail.getByRole('link', { name: 'Tabbied', exact: true })
     ).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: 'Browse Patterns' })
-    ).toHaveCount(0);
+
+    const headerBottom = await header.evaluate(
+      (el) => el.getBoundingClientRect().bottom
+    );
+    const railTop = await rail.evaluate((el) => el.getBoundingClientRect().top);
+    expect(Math.abs(railTop - headerBottom)).toBeLessThan(2);
   });
 
   test('is not used on the individual pattern editor', async ({ page }) => {
@@ -568,7 +575,7 @@ test.describe('Shared site header', () => {
 
     // ...and never renders the shared site nav.
     await expect(
-      page.getByRole('link', { name: 'Browse Patterns' })
+      page.getByRole('link', { name: 'Templates', exact: true })
     ).toHaveCount(0);
   });
 });

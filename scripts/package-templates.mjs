@@ -67,7 +67,13 @@ const stripSiteChrome = (html) =>
     .replace(/<link[^>]*rel="manifest"[^>]*>/g, '')
     .replace(/<link[^>]*rel="(icon|apple-touch-icon|mask-icon)"[^>]*>/g, '')
     .replace(/<meta[^>]*name="msapplication-TileColor"[^>]*>/g, '')
-    .replace(/<meta[^>]*name="theme-color"[^>]*>/g, '');
+    .replace(/<meta[^>]*name="theme-color"[^>]*>/g, '')
+    // The root class is `next/font`'s generated CSS-variable hook (the site
+    // sets its chrome in Inter through it). The variable it declares lives in
+    // the site's stylesheet, which a template doesn't ship, and every template
+    // sets its own font-family anyway — so on <html> it is pure residue. No
+    // template puts a class of its own there.
+    .replace(/(<html\b[^>]*?)\sclass="[^"]*"/i, '$1');
 
 // Traces of the renderer that mean nothing without it: Suspense boundary
 // markers (matched exactly, so comments the page's author wrote survive),

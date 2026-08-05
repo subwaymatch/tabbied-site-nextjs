@@ -11,10 +11,17 @@ import { markGalleryNavigation } from 'lib/galleryScroll';
 import GalleryDoodle from './GalleryDoodle';
 import styles from './SelectPattern.module.css';
 
-// One gallery card: a live thumbnail with its name below it (no overlay).
-// Client-side because the preview follows the selected palette (localStorage),
-// applied to every design in the grid.
-export default function GalleryCard({ item }: { item: GalleryItem }) {
+// One gallery card: a live thumbnail with its index and name below it (no
+// overlay). Client-side because the preview follows the selected palette
+// (localStorage), applied to every design in the grid.
+export default function GalleryCard({
+  item,
+  index,
+}: {
+  item: GalleryItem;
+  /** Position in the whole gallery, not in the page — the label is an index. */
+  index: number;
+}) {
   const brandState = useBrandPalettes();
   // While a palette is being edited, every card recolors live to the draft;
   // otherwise it follows the active saved or library palette.
@@ -31,7 +38,12 @@ export default function GalleryCard({ item }: { item: GalleryItem }) {
       <div className={styles.tile}>
         <GalleryDoodle item={item} palette={palette} />
       </div>
-      <h3 className={styles.cardName}>{item.name}</h3>
+      <div className={styles.cardMeta}>
+        <span className={styles.cardIndex}>
+          {String(index).padStart(3, '0')}
+        </span>
+        <h3 className={styles.cardName}>{item.name}</h3>
+      </div>
     </Link>
   );
 }

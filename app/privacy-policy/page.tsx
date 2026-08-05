@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import MainHeader from 'components/main-page/MainHeader';
+import SiteHeader from 'components/site/SiteHeader';
 import { Container, Row, Col } from 'components/layout';
-import Footer from 'components/Footer';
+import SiteFooter from 'components/site/SiteFooter';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Tabbied',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <MainHeader />
+      <SiteHeader />
 
       <main style={{ padding: '4rem 0', minHeight: '50vh' }}>
         <Container>
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
         </Container>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

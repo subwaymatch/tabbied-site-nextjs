@@ -1,6 +1,6 @@
 /**
  * The GitHub brand glyph, inlined because lucide-react dropped its GitHub icon.
- * Shared by the gallery's desktop rail footer and its mobile header.
+ * One copy, shared by the site header and footer.
  */
 export default function GithubIcon({ size = 18 }: { size?: number }) {
   return (

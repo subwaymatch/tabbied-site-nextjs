@@ -1,20 +1,18 @@
 'use client';
 
-import Link from 'next/link';
 import { Plus, Search } from 'lucide-react';
-import LogoDoodle from 'components/main-page/LogoDoodle';
 import PaletteBrowser from 'components/palette/PaletteBrowser';
 import type { BrandPalette } from 'lib/brandPalettes';
 import type { LibraryPalette } from 'lib/paletteLibrary';
-import GithubIcon from './GithubIcon';
 import styles from './GalleryMobileHeader.module.css';
 
 /**
- * Mobile (7a) gallery chrome: a compact logo + GitHub header, the design search,
- * and a "Preview colors" row with "New Palette" (or the embedded browser when
- * "All ›" is tapped). The palette chip shelf itself is rendered by SelectPattern
- * just below this header — as a direct child of the scrolling page — so it can
- * stay pinned with `position: sticky` across the whole grid scroll.
+ * Mobile (7a) gallery chrome: the design search and a "Preview colors" row with
+ * "New Palette" (or the embedded browser when "All ›" is tapped). The logo and
+ * GitHub link that used to sit above them now come from the shared site header.
+ * The palette chip shelf itself is rendered by SelectPattern just below this
+ * header — as a direct child of the scrolling page — so it can stay pinned with
+ * `position: sticky` across the whole grid scroll.
  */
 export default function GalleryMobileHeader({
   search,
@@ -45,22 +43,6 @@ export default function GalleryMobileHeader({
 }) {
   return (
     <div className={styles.wrapper}>
-      <header className={styles.header}>
-        <Link href="/" aria-label="Tabbied" className={styles.logo} prefetch={false}>
-          <LogoDoodle size={30} />
-        </Link>
-        <span className={styles.spacer} />
-        <a
-          href="https://github.com/subwaymatch/tabbied/"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Tabbied on GitHub"
-          className={styles.github}
-        >
-          <GithubIcon size={18} />
-        </a>
-      </header>
-
       <label className={styles.search}>
         <Search size={15} aria-hidden="true" />
         <input

@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { TabbiedPattern } from 'tabbied/react';
 import { radius, quilt } from 'tabbied/patterns';
-import MainHeader from 'components/main-page/MainHeader';
+import SiteHeader from 'components/site/SiteHeader';
 import { Container, Row, Col } from 'components/layout';
-import Footer from 'components/Footer';
+import SiteFooter from 'components/site/SiteFooter';
 import CodeBlock from 'components/react-docs-page/CodeBlock';
 import Example from 'components/react-docs-page/Example';
 import ReseedExportDemo from 'components/react-docs-page/ReseedExportDemo';
@@ -279,7 +279,7 @@ function Section({
 export default function ReactDocsPage() {
   return (
     <>
-      <MainHeader />
+      <SiteHeader />
 
       <main style={{ padding: '3rem 0 4rem' }}>
         <Container>
@@ -1047,7 +1047,7 @@ export default function ReactDocsPage() {
         </Container>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

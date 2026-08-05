@@ -1,5 +1,6 @@
-/* Mobile (7a) gallery header. Hidden on the two-column desktop layout, where
-   the fixed rail (GalleryRail) takes over instead. */
+/* Mobile (7a) gallery header: the design search and the palette row. Hidden on
+   the two-column desktop layout, where the fixed rail (GalleryRail) takes over.
+   The logo and GitHub link come from the shared site header above it. */
 .wrapper {
   display: none;
 }
@@ -7,54 +8,27 @@
 @media (max-width: 991.98px) {
   .wrapper {
     display: block;
-    padding: 14px 20px 0;
+    padding: 14px var(--edge) 0;
   }
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  padding-bottom: 2px;
-}
-
-.logo {
-  display: inline-flex;
-  color: #232529;
 }
 
 .spacer {
   flex: 1;
 }
 
-.github {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-right: -12px;
-  color: #98a0af;
-  transition: color 120ms ease;
-}
-
-.github:hover {
-  color: #4a5160;
-}
-
 .search {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 8px;
-  padding: 11px 2px;
-  border-bottom: 1px solid #e3e6ea;
-  color: #98a0af;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-3);
   transition: border-color 120ms ease;
 }
 
 .search:hover,
 .search:focus-within {
-  border-color: #98a0af;
+  border-color: var(--ink);
 }
 
 .search input {
@@ -63,8 +37,9 @@
   border: none;
   background: transparent;
   font-family: var(--font-sans-serif);
-  font-size: 14px;
-  color: #232529;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
   outline: none;
 }
 
@@ -72,13 +47,15 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .previewLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: #646d7b;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
 .newPalette {
@@ -90,14 +67,16 @@
   border: none;
   background: transparent;
   font-family: var(--font-sans-serif);
-  font-size: 13px;
-  color: #646d7b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
   cursor: pointer;
   transition: color 120ms ease;
 }
 
 .newPalette:hover {
-  color: #232529;
+  color: var(--ink);
 }
 
 /* When "All ›" opens the browser, it takes the palette slot as a bounded,

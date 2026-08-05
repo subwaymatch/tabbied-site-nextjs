@@ -1,9 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import Link from 'next/link';
 import { Search } from 'lucide-react';
-import LogoDoodle from 'components/main-page/LogoDoodle';
 import PaletteRow from 'components/palette/PaletteRow';
 import { usePaletteReveal } from 'components/palette/usePaletteReveal';
 import type { BrandPalette } from 'lib/brandPalettes';
@@ -17,11 +15,14 @@ import styles from './GalleryRail.module.css';
 const PAGE = 24;
 
 /**
- * The gallery's desktop palette rail: the Tabbied logo, one search that filters
- * both the palette list and the design grid, the full merged palette list
- * (custom first, then the read-only library) in a single scrolling column, and
- * a pinned "+ New Palette". The list is the whole point of the rail, so it's
- * shown from the start — no "Preview colors" step and no separate browser.
+ * The gallery's desktop palette rail: one search that filters both the palette
+ * list and the design grid, the full merged palette list (custom first, then
+ * the read-only library) in a single scrolling column, and a pinned
+ * "+ New Palette". The list is the whole point of the rail, so it's shown from
+ * the start — no "Preview colors" step and no separate browser.
+ *
+ * It sits below the shared site header (which carries the logo and the site
+ * nav), pinned to the viewport and offset by `--header-h`.
  */
 export default function GalleryRail({
   search,
@@ -58,9 +59,10 @@ export default function GalleryRail({
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
-        <Link href="/" aria-label="Tabbied" className={styles.logo} prefetch={false}>
-          <LogoDoodle size={32} />
-        </Link>
+        <div className={styles.railHead}>
+          <h2>Palettes</h2>
+          <span className={styles.railCount}>{merged.length}</span>
+        </div>
 
         <label className={styles.search}>
           <Search size={14} aria-hidden="true" />

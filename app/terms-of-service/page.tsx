@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import MainHeader from 'components/main-page/MainHeader';
+import SiteHeader from 'components/site/SiteHeader';
 import { Container, Row, Col } from 'components/layout';
-import Footer from 'components/Footer';
+import SiteFooter from 'components/site/SiteFooter';
 
 export const metadata: Metadata = {
   title: 'Terms of Services - Tabbied',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function TermsOfServicePage() {
   return (
     <>
-      <MainHeader />
+      <SiteHeader />
 
       <main style={{ padding: '4rem 0', minHeight: '50vh' }}>
         <Container>
@@ -52,7 +52,7 @@ export default function TermsOfServicePage() {
         </Container>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

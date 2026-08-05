@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
-import type { CSSProperties, ReactNode } from 'react';
-import { TabbiedPattern } from 'tabbied/react';
+import type { CSSProperties } from 'react';
 import type { PatternDefinition } from 'tabbied';
 import {
   lobe, windowpane, prisma, foliage, veil, blossom, spark, frond, chamfer,
-  fluting, merlon, diadem, vitrail, ivy, bokeh, lunette, neon, bauhaus, tetro,
+  fluting, merlon, diadem, vitrail, ivy, bokeh, lunette,
 } from 'tabbied/patterns';
-import LazyPattern from './LazyPattern';
+import LazyPattern from 'components/LazyPattern';
+import SiteHeader from 'components/site/SiteHeader';
+import SiteFooter from 'components/site/SiteFooter';
 import { TEMPLATE_SITES } from 'components/template/templateData';
 import { NEW_TEMPLATE_SITES } from 'lib/templateSites';
 import s from './templates.module.css';
@@ -39,13 +40,14 @@ type CardData = {
 };
 
 /**
- * A card in the mosaic. The pattern is the content, so it takes the whole top of
- * the card and the metadata sits underneath in one quiet line. Each card carries
- * its palette as a custom property, which tints its hover state: mousing across
- * the grid previews each site's accent before you open it.
+ * A card in the index. The pattern is the content, so it takes the whole top of
+ * the card and the metadata sits underneath on hairlines. Each card carries its
+ * palette as a custom property, which tints its hover border: mousing across the
+ * grid previews each site's accent before you open it.
  */
 function Card({ c }: { c: CardData }) {
-  const vars = { '--accent': c.colors[1] ?? c.colors[0] } as CSSProperties;
+  const vars = { '--accent-site': c.colors[1] ?? c.colors[0] } as CSSProperties;
+
   return (
     // A <div>, not the <a> it used to be: the download links are anchors of
     // their own and an anchor cannot nest inside another. The card link still
@@ -54,42 +56,37 @@ function Card({ c }: { c: CardData }) {
       <a className={s.cardLink} href={c.href}>
         <div className={s.thumb}>
           <LazyPattern pattern={ART[c.pattern]} palette={c.colors} seed={c.seed} />
-          <span className={s.num}>{String(c.n).padStart(2, '0')}</span>
         </div>
+
         <div className={s.cbody}>
+          <div className={s.cnum}>{String(c.n).padStart(2, '0')}</div>
           <div className={s.cmain}>
             <h3>{c.name}</h3>
             <p>{c.topic}</p>
           </div>
-          <div className={s.foot}>
-            <div className={s.sw} aria-hidden="true">
-              {c.colors.map((col, i) => (
-                <span key={i} style={{ background: col }} />
-              ))}
-            </div>
-            <div className={s.pn}>
-              {c.paletteName} <i>/</i> {c.pattern}
-            </div>
-          </div>
+        </div>
+
+        <div className={s.cmeta}>
+          <span className={s.sw} aria-hidden="true">
+            {c.colors.map((col, i) => (
+              <i key={i} style={{ background: col }} />
+            ))}
+          </span>
+          <span className={s.pn}>
+            {c.paletteName} <i>/</i> {c.pattern}
+          </span>
         </div>
       </a>
+
       {/* Both formats are built by `npm run templates` into out/downloads/,
           so these are plain static files served next to the site. `download`
           saves the zip rather than navigating to it. */}
       <div className={s.dl}>
         <span className={s.dlLabel}>Download</span>
-        <a
-          className={s.dlBtn}
-          href={`/downloads/${c.slug}-html.zip`}
-          download
-        >
+        <a className={s.dlBtn} href={`/downloads/${c.slug}-html.zip`} download>
           HTML
         </a>
-        <a
-          className={s.dlBtn}
-          href={`/downloads/${c.slug}-react.zip`}
-          download
-        >
+        <a className={s.dlBtn} href={`/downloads/${c.slug}-react.zip`} download>
           React
         </a>
       </div>
@@ -97,44 +94,27 @@ function Card({ c }: { c: CardData }) {
   );
 }
 
-// The hero backdrop is a contact sheet rather than one enlarged pattern: four
-// different patterns on four different palettes, which states the premise of the
-// page before a word is read.
-const HERO_TILES: { art: PatternDefinition; palette: string[]; seed: string }[] = [
-  { art: neon, palette: ['#0d0d12', '#3fffb2', '#3eecff', '#ff3d8b'], seed: 'H1' },
-  { art: bauhaus, palette: ['#0d0d12', '#ff3d8b', '#ffd23e', '#3eecff'], seed: 'H2' },
-  { art: tetro, palette: ['#0d0d12', '#7048e8', '#3eecff', '#3fffb2'], seed: 'H3' },
-  { art: prisma, palette: ['#0d0d12', '#ffd23e', '#3fffb2', '#7048e8'], seed: 'H4' },
+// The hero band is a contact sheet rather than one enlarged pattern: six sites,
+// each in its own palette, which states the premise of the page before a word of
+// it is read.
+const HERO_PICKS = [
+  'kubus',
+  'zenith-observatory',
+  'hopscotch-museum',
+  'maison-ambre',
+  'cerulean-swim',
+  'oxbow-workshop',
 ];
 
-function GroupHead({
-  kicker,
-  title,
-  body,
-  count,
-  unit = 'sites',
-}: {
-  kicker: string;
-  title: string;
-  body: ReactNode;
-  count: number;
-  unit?: string;
-}) {
-  return (
-    <header className={s.group}>
-      <div>
-        <span className={s.kicker}>{kicker}</span>
-        <h2>{title}</h2>
-      </div>
-      <div className={s.groupMeta}>
-        <p>{body}</p>
-        <span className={s.count}>
-          {count} {unit}
-        </span>
-      </div>
-    </header>
-  );
-}
+const HERO_TILES = HERO_PICKS.map((slug) => {
+  const site = NEW_TEMPLATE_SITES.find((x) => x.slug === slug);
+
+  // A renamed or retired template should fail the build, not quietly leave a
+  // hole in the band.
+  if (!site) throw new Error(`Unknown template site in the hero: ${slug}`);
+
+  return site;
+});
 
 export default function TemplatesGallery() {
   // One list, numbered straight through: the gallery shows a single grid
@@ -163,73 +143,81 @@ export default function TemplatesGallery() {
   ].map((c, i) => ({ ...c, n: i + 1 }));
 
   return (
-    <main className={s.page}>
-      <header className={s.hero}>
-        <div className={s.heroArt} aria-hidden="true">
-          {HERO_TILES.map((t) => (
-            <div key={t.seed}>
-              <TabbiedPattern
-                pattern={t.art}
-                palette={t.palette}
-                seed={t.seed}
-                fit="cover"
-                density={1}
-              />
-            </div>
-          ))}
-        </div>
-        <div className={s.heroScrim} />
-        <div className={s.heroInner}>
-          <div className={s.pre}>Made with Tabbied</div>
-          <h1>
-            {TOTAL} sites,<br />
-            <span>one pattern engine</span>
-          </h1>
-          <p>
-            Every site below uses a <strong>Tabbied</strong> generative pattern as its
-            main design accent, themed end to end with a single palette.
-            Same component, {TOTAL} completely different moods.
-          </p>
-          <dl className={s.facts}>
-            <div><dt>{TOTAL}</dt><dd>sample sites</dd></div>
-            <div><dt>{TOTAL}</dt><dd>palettes</dd></div>
-            <div><dt>{TOTAL}</dt><dd>patterns</dd></div>
-            <div><dt>1</dt><dd>component</dd></div>
-          </dl>
-        </div>
-      </header>
+    <div className={s.page}>
+      <SiteHeader />
 
-      <div className={s.wrap}>
-        <section>
-          <GroupHead
-            kicker="01"
-            title="Every site, one component"
-            body={
-              <>
+      <main>
+        <header className={s.hero}>
+          <div className={s.heroHead}>
+            <p className={s.kicker}>Made with Tabbied</p>
+            <p className={s.heroTag}>Free · HTML + React · MIT</p>
+          </div>
+
+          <h1 className={s.heroType}>
+            <span>{TOTAL} sites,</span> <span>one pattern engine</span>
+          </h1>
+
+          <div className={s.heroFoot}>
+            <p className={s.heroLead}>
+              Every site below uses a <strong>Tabbied</strong> generative pattern
+              as its main design accent, themed end to end with a single palette.
+              Same component, {TOTAL} completely different moods — and each one
+              downloads as plain HTML or as a React project.
+            </p>
+            <a className={s.heroJump} href="#index">
+              Browse the index
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <div className={s.heroStrip} aria-hidden="true">
+            {HERO_TILES.map((tile) => (
+              <div key={tile.slug} className={s.heroTile}>
+                <LazyPattern
+                  pattern={tile.pattern}
+                  palette={tile.palette}
+                  seed={tile.seed}
+                  density={1}
+                />
+              </div>
+            ))}
+          </div>
+
+          <dl className={s.facts}>
+            <div><dt>{TOTAL}</dt><dd>Sample sites</dd></div>
+            <div><dt>{TOTAL}</dt><dd>Palettes</dd></div>
+            <div><dt>{TOTAL}</dt><dd>Patterns</dd></div>
+            <div><dt>1</dt><dd>Component</dd></div>
+          </dl>
+        </header>
+
+        <section className={s.index} id="index">
+          <header className={s.sectionHead}>
+            <div className={s.sectionHeadMain}>
+              <span className={s.sectionIndex}>01</span>
+              <h2 className={s.sectionTitle}>Every site, one component</h2>
+            </div>
+            <div className={s.sectionHeadNote}>
+              <p>
                 Live Next.js pages, each rendered by the same{' '}
                 <code>TabbiedPattern</code> component on its own palette and
                 presets — some with AI-generated imagery composited over the
-                patterns, the newest ten with the patterns carrying the page
-                on their own.
-              </>
-            }
-            count={allCards.length}
-          />
+                patterns, the newest with the patterns carrying the page on their
+                own.
+              </p>
+              <span className={s.count}>{allCards.length} sites</span>
+            </div>
+          </header>
+
           <div className={s.mosaic}>
             {allCards.map((c) => (
               <Card key={c.href} c={c} />
             ))}
           </div>
         </section>
+      </main>
 
-      </div>
-
-      <footer className={s.footer}>
-        <p>
-          Built with <a href="https://tabbied.com">Tabbied</a>, generative patterns
-          powered by css-doodle. Open any card to view the full site.
-        </p>
-      </footer>
-    </main>
+      <SiteFooter />
+    </div>
   );
 }

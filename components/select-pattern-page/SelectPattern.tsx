@@ -17,6 +17,7 @@ import {
 } from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
+import SiteHeader from 'components/site/SiteHeader';
 import GalleryRail from './GalleryRail';
 import GalleryMobileHeader from './GalleryMobileHeader';
 import GalleryChipShelf from './GalleryChipShelf';
@@ -189,149 +190,172 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
   const hasResults = filtered.length > 0;
 
   return (
-    <main className={styles.gallery}>
-      <GalleryScrollRestorer />
+    <>
+      {/* The gallery carries the same header as every other page; the rail
+          below it offsets by `--header-h` rather than owning a logo of its
+          own. */}
+      <SiteHeader />
 
-      {!isMobile && (
-      <GalleryRail
-        search={search}
-        onSearchChange={onSearchChange}
-        palettes={savedPalettes}
-        library={PALETTE_LIBRARY}
-        selectedId={selectedId}
-        onApply={(id) => applyPalette(id)}
-        onEditCustom={onEditCustom}
-        onEditLibrary={onEditLibrary}
-        onDelete={removePalette}
-        onNewPalette={() => editor.openEditor()}
-      />
-      )}
+      <main className={styles.gallery}>
+        <GalleryScrollRestorer />
 
-      {isMobile && (
-      <GalleryMobileHeader
-        search={search}
-        onSearchChange={onSearchChange}
-        onNewPalette={() => editor.openEditor()}
-        palettes={savedPalettes}
-        library={PALETTE_LIBRARY}
-        selectedId={selectedId}
-        onApply={(id) => applyPalette(id)}
-        onEditCustom={onEditCustom}
-        onEditLibrary={onEditLibrary}
-        onDelete={removePalette}
-        browserOpen={browserOpen}
-        onCloseBrowser={() => setBrowserOpen(false)}
-      />
-      )}
+        {!isMobile && (
+          <GalleryRail
+            search={search}
+            onSearchChange={onSearchChange}
+            palettes={savedPalettes}
+            library={PALETTE_LIBRARY}
+            selectedId={selectedId}
+            onApply={(id) => applyPalette(id)}
+            onEditCustom={onEditCustom}
+            onEditLibrary={onEditLibrary}
+            onDelete={removePalette}
+            onNewPalette={() => editor.openEditor()}
+          />
+        )}
 
-      {/* Mobile only: the palette chip shelf lives here — a direct child of the
-          document-scrolled gallery — so `position: sticky` keeps it pinned to
-          the top of the viewport across the whole grid scroll (nested inside the
-          header wrapper it could only stick within that short box). */}
-      {isMobile && !browserOpen && (
-        <GalleryChipShelf
-          className={styles.mobileShelf}
-          palettes={savedPalettes}
-          library={PALETTE_LIBRARY}
-          selectedId={selectedId}
-          onApply={(id) => applyPalette(id)}
-          onEditCustom={onEditCustom}
-          onEditLibrary={onEditLibrary}
-          onDelete={removePalette}
-          onBrowse={() => setBrowserOpen(true)}
-        />
-      )}
+        {isMobile && (
+          <GalleryMobileHeader
+            search={search}
+            onSearchChange={onSearchChange}
+            onNewPalette={() => editor.openEditor()}
+            palettes={savedPalettes}
+            library={PALETTE_LIBRARY}
+            selectedId={selectedId}
+            onApply={(id) => applyPalette(id)}
+            onEditCustom={onEditCustom}
+            onEditLibrary={onEditLibrary}
+            onDelete={removePalette}
+            browserOpen={browserOpen}
+            onCloseBrowser={() => setBrowserOpen(false)}
+          />
+        )}
 
-      <div className={styles.mainColumn}>
-        <div className={styles.mainHeader}>
-          <div className={styles.mainHeading}>
-            <h1 className={styles.title}>Pick a design</h1>
-            <span className={styles.count}>{filtered.length} designs</span>
-          </div>
-        </div>
+        {/* Mobile only: the palette chip shelf lives here — a direct child of
+            the document-scrolled gallery — so `position: sticky` keeps it
+            pinned below the site header across the whole grid scroll (nested
+            inside the header wrapper it could only stick within that short
+            box). */}
+        {isMobile && !browserOpen && (
+          <GalleryChipShelf
+            className={styles.mobileShelf}
+            palettes={savedPalettes}
+            library={PALETTE_LIBRARY}
+            selectedId={selectedId}
+            onApply={(id) => applyPalette(id)}
+            onEditCustom={onEditCustom}
+            onEditLibrary={onEditLibrary}
+            onDelete={removePalette}
+            onBrowse={() => setBrowserOpen(true)}
+          />
+        )}
 
-        {hasResults ? (
-          <>
-            <div className={styles.grid}>
-              {visible.map((item) => (
-                <GalleryCard key={item.slug} item={item} />
-              ))}
+        <div className={styles.mainColumn}>
+          <header className={styles.mainHeader}>
+            <div className={styles.mainHeading}>
+              <p className={styles.eyebrow}>The gallery</p>
+              <h1 className={styles.title}>Pick a design</h1>
+              <p className={styles.subtitle}>
+                Apply a palette to preview every design in your own colours,
+                then open one to customise it and export SVG, PNG or React.
+              </p>
             </div>
 
-            {pageCount > 1 && (
-              <nav className={styles.pagination} aria-label="Pages">
-                <button
-                  type="button"
-                  className={styles.pageArrow}
-                  onClick={() => goToPage(clampedPage - 1)}
-                  disabled={clampedPage <= 1}
-                  aria-label="Previous page"
-                >
-                  <ArrowLeft size={15} />
-                </button>
+            <div className={styles.mainMeta}>
+              <span className={styles.count}>{filtered.length}</span>
+              <span className={styles.countLabel}>
+                {filtered.length === 1 ? 'design' : 'designs'}
+              </span>
+            </div>
+          </header>
 
-                {pages.map((p, index) =>
-                  p === null ? (
-                    <span
-                      key={`gap-${index}`}
-                      className={styles.pageGap}
-                      aria-hidden="true"
-                    >
-                      …
-                    </span>
-                  ) : (
-                    <button
-                      key={p}
-                      type="button"
-                      className={
-                        p === clampedPage
-                          ? `${styles.pageNumber} ${styles.pageNumberCurrent}`
-                          : styles.pageNumber
-                      }
-                      onClick={() => goToPage(p)}
-                      aria-current={p === clampedPage ? 'page' : undefined}
-                    >
-                      {p}
-                    </button>
-                  )
-                )}
+          {hasResults ? (
+            <>
+              <div className={styles.grid}>
+                {visible.map((item, i) => (
+                  <GalleryCard
+                    key={item.slug}
+                    item={item}
+                    index={(clampedPage - 1) * PER_PAGE + i + 1}
+                  />
+                ))}
+              </div>
 
-                <button
-                  type="button"
-                  className={styles.pageArrow}
-                  onClick={() => goToPage(clampedPage + 1)}
-                  disabled={clampedPage >= pageCount}
-                  aria-label="Next page"
-                >
-                  <ArrowRight size={15} />
-                </button>
-              </nav>
-            )}
-          </>
-        ) : (
-          <div className={styles.noResults}>
-            <p>No designs match your search.</p>
-            <button
-              type="button"
-              className={styles.clearSearch}
-              onClick={() => onSearchChange('')}
-            >
-              Clear search
-            </button>
-          </div>
-        )}
-      </div>
+              {pageCount > 1 && (
+                <nav className={styles.pagination} aria-label="Pages">
+                  <button
+                    type="button"
+                    className={styles.pageArrow}
+                    onClick={() => goToPage(clampedPage - 1)}
+                    disabled={clampedPage <= 1}
+                    aria-label="Previous page"
+                  >
+                    <ArrowLeft size={15} />
+                  </button>
 
-      <PaletteEditorDialog
-        draft={editor.draft}
-        setDraft={editor.setDraft}
-        draftError={editor.draftError}
-        onClose={editor.closeEditor}
-        onSave={editor.saveDraft}
-        onDelete={editor.removeDraftPalette}
-        onRandomize={editor.randomizeDraft}
-        setDraftColor={editor.setDraftColor}
-      />
-    </main>
+                  {pages.map((p, index) =>
+                    p === null ? (
+                      <span
+                        key={`gap-${index}`}
+                        className={styles.pageGap}
+                        aria-hidden="true"
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <button
+                        key={p}
+                        type="button"
+                        className={
+                          p === clampedPage
+                            ? `${styles.pageNumber} ${styles.pageNumberCurrent}`
+                            : styles.pageNumber
+                        }
+                        onClick={() => goToPage(p)}
+                        aria-current={p === clampedPage ? 'page' : undefined}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+
+                  <button
+                    type="button"
+                    className={styles.pageArrow}
+                    onClick={() => goToPage(clampedPage + 1)}
+                    disabled={clampedPage >= pageCount}
+                    aria-label="Next page"
+                  >
+                    <ArrowRight size={15} />
+                  </button>
+                </nav>
+              )}
+            </>
+          ) : (
+            <div className={styles.noResults}>
+              <p>No designs match your search.</p>
+              <button
+                type="button"
+                className={styles.clearSearch}
+                onClick={() => onSearchChange('')}
+              >
+                Clear search
+              </button>
+            </div>
+          )}
+        </div>
+
+        <PaletteEditorDialog
+          draft={editor.draft}
+          setDraft={editor.setDraft}
+          draftError={editor.draftError}
+          onClose={editor.closeEditor}
+          onSave={editor.saveDraft}
+          onDelete={editor.removeDraftPalette}
+          onRandomize={editor.randomizeDraft}
+          setDraftColor={editor.setDraftColor}
+        />
+      </main>
+    </>
   );
 }

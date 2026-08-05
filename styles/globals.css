@@ -1,7 +1,8 @@
-/* The proxima-nova (Adobe Fonts / typekit) stylesheet is linked from the root
-   layout <head> with a preconnect, rather than @imported here — an @import is
-   only discovered after this bundle downloads, which serializes the requests
-   and delays first paint. */
+/* Inter is loaded by the root layout through `next/font/google`, which
+   self-hosts the files at build time and exposes them as `--font-inter`. It
+   replaced the proxima-nova typekit link: the site chrome is set in the same
+   tightened Inter as the template sites, and self-hosting drops a
+   render-blocking third-party stylesheet from every page. */
 
 /*
  * minireset.css (MIT, https://github.com/jgthms/minireset.css), vendored inline
@@ -93,7 +94,8 @@ th:not([align]) {
 }
 
 :root {
-  --font-sans-serif: 'proxima-nova', 'Inter', sans-serif;
+  --font-sans-serif: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', monospace;
 
   /* Design tokens (the subset referenced across the app). */
   --gray-dark: #232529;
@@ -107,6 +109,34 @@ th:not([align]) {
   --lime-hover: #65ffc1; /* color.scale($lime, +20% lightness) */
   --blue-medium: hsl(217, 60%, 49%);
   --red-high-contrast: #ed005f;
+
+  /* ── Swiss chrome ────────────────────────────────────────────────────────
+     The home page, the pattern gallery and the template gallery share one
+     system: ink on paper, hairline rules doing the dividing, and a single
+     accent. `--accent` is the brand pink at full strength, used for fills and
+     rules where its 3:1 contrast is fine; `--accent-ink` is the darkened value
+     small type is set in, so accented labels clear 4.5:1 on paper. */
+  --ink: #0b0b0c;
+  --ink-2: #3c3c41; /* secondary copy */
+  --ink-3: #6f6f76; /* meta / captions */
+  --paper: #f2f2ef;
+  --paper-raised: #ffffff;
+  --rule: #d8d8d2;
+  --rule-soft: #e6e6e1;
+  --accent: #ff3d8b;
+  --accent-ink: #d1004f;
+
+  /* The shared header is sticky, so anything else that pins to the top of the
+     viewport (the gallery rail, its mobile palette shelf) offsets by this. */
+  --header-h: 60px;
+  /* Page gutter, shared by every full-bleed Swiss section. */
+  --edge: clamp(18px, 4.2vw, 56px);
+}
+
+@media (max-width: 991.98px) {
+  :root {
+    --header-h: 54px;
+  }
 }
 
 /*
@@ -124,11 +154,18 @@ body {
   overflow-x: clip;
 }
 
+/* Inter, tracked in slightly — the same setting the template sites use, so the
+   chrome and the templates read as one typographic system. Tabular figures are
+   on globally because the Swiss layouts line numbers up in columns (counts,
+   indices, pagination). */
 body {
   color: var(--gray-medium);
   font-family: var(--font-sans-serif);
   font-size: 1.2rem;
   line-height: 1.7;
+  letter-spacing: -0.014em;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -141,33 +178,16 @@ a:hover {
   color: var(--pink);
 }
 
+/* The last global type rule, used by the two policy pages. Everything else the
+   old marketing page put here (`.btn`, `.align-*`) left with it. */
 h3.section-title {
-  color: var(--gray-dark);
-  font-size: 2.33rem;
-  line-height: 1.3;
-}
-
-.align-center {
-  text-align: center;
-}
-
-.align-right {
-  text-align: right;
+  color: var(--ink);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.042em;
 }
 
 button {
   font-family: var(--font-sans-serif);
-}
-
-.btn {
-  display: inline-block;
-  padding: 1rem 1.5rem;
-  border-radius: 0.2rem;
-  color: var(--gray-dark);
-  background-color: var(--lime);
-}
-
-.btn:hover {
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  background-color: var(--lime-hover);
 }

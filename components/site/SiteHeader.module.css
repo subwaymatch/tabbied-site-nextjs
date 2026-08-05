@@ -1,0 +1,286 @@
+/* The shared site header. One hairline divides it from the page, the mark sits
+   hard against the left gutter and the nav against the right — the same
+   edge-to-edge grid the pages below it use, rather than a centred container. */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  background: color-mix(in srgb, var(--paper-raised) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  height: var(--header-h);
+  padding: 0 var(--edge);
+}
+
+/* ── Mark ─────────────────────────────────────────────────────────────────── */
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.markDoodle {
+  flex: none;
+}
+
+.wordmark {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+}
+
+/* ── Nav ──────────────────────────────────────────────────────────────────── */
+
+.nav {
+  display: none;
+}
+
+.nav ol {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(18px, 2.6vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 4px 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.navLink:hover {
+  color: var(--ink);
+  border-bottom-color: var(--rule);
+}
+
+/* Persistent accent for the current section (also flagged via aria-current),
+   distinct from the transient hover rule. */
+.active,
+.active:hover {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* The contents-list index. Decorative (aria-hidden in the markup), so it can
+   stay small and quiet without costing the link its name. */
+.idx {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+.active .idx {
+  color: var(--accent-ink);
+}
+
+/* ── Right cluster ───────────────────────────────────────────────────────── */
+
+.end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.github {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--ink-2);
+  line-height: 0;
+  transition: color 120ms ease;
+}
+
+.github:hover {
+  color: var(--accent-ink);
+}
+
+.menuTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-right: -8px;
+  padding: 0;
+  color: var(--ink);
+  background: none;
+  border: none;
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menuTrigger:hover,
+.menuTrigger[data-popup-open] {
+  color: var(--accent-ink);
+}
+
+/* The inline nav takes over at this width, so the trigger is no longer needed
+   and GitHub comes back out of the drawer. */
+@media (min-width: 992px) {
+  .nav {
+    display: block;
+  }
+
+  .github {
+    display: inline-flex;
+  }
+
+  .menuTrigger {
+    display: none;
+  }
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────────────────── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1190;
+  background: color-mix(in srgb, var(--ink) 42%, transparent);
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+.backdrop[data-starting-style],
+.backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  width: min(86%, 340px);
+  height: 100vh;
+  height: 100dvh;
+  padding: 0 0 24px;
+  background: var(--paper-raised);
+  border-left: 1px solid var(--rule);
+  outline: none;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawer[data-starting-style],
+.drawer[data-ending-style] {
+  transform: translateX(100%);
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 12px 0 var(--edge);
+  border-bottom: 1px solid var(--rule);
+}
+
+.drawerTitle {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.drawerClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--ink);
+  background: none;
+  border: none;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.drawerClose:hover {
+  color: var(--accent-ink);
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full-width rows divided by hairlines — the drawer is a contents page, not a
+   floating menu. */
+.drawerLink {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 1.1rem var(--edge);
+  font-family: var(--font-sans-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule-soft);
+  cursor: pointer;
+}
+
+.drawerLink:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.drawerLinkActive {
+  color: var(--accent-ink);
+}
+
+.drawerGithub {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding: 1rem var(--edge) 0;
+  font-family: var(--font-sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.drawerGithub:hover {
+  color: var(--ink);
+}

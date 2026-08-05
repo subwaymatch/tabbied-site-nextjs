@@ -10,23 +10,28 @@ import type { PatternDefinition } from 'tabbied';
 const MOUNT_MARGIN = '400px';
 
 /**
- * A gallery tile that builds its pattern only once it approaches the viewport,
- * then keeps it mounted. The page carries twenty of these, and rendering them
- * all on load means thousands of cells competing for the main thread before
- * anything is on screen. Until a tile mounts it shows its own background color,
- * so the grid still reads as complete while scrolling.
+ * A tile that builds its pattern only once it approaches the viewport, then
+ * keeps it mounted. The template gallery carries fifty-seven of these and the
+ * home page another dozen; rendering them all on load means thousands of cells
+ * competing for the main thread before anything is on screen. Until a tile
+ * mounts it shows its own background color, so a grid still reads as complete
+ * while scrolling.
  *
- * The same treatment the main /patterns gallery uses (see
- * components/select-pattern-page/GalleryDoodle.tsx).
+ * The same treatment the /patterns gallery uses (see
+ * components/select-pattern-page/GalleryDoodle.tsx), minus that component's
+ * pause-when-offscreen redraw timer — these tiles are still.
  */
 export default function LazyPattern({
   pattern,
   palette,
   seed,
+  density = 2,
 }: {
   pattern: PatternDefinition;
   palette: string[];
   seed: string;
+  /** Authored density level; lower means larger cells. */
+  density?: 0 | 1 | 2 | 3 | 4;
 }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const [approached, setApproached] = useState(false);
@@ -66,7 +71,7 @@ export default function LazyPattern({
           palette={palette}
           seed={seed}
           fit="cover"
-          density={2}
+          density={density}
           style={{ width: '100%', height: '100%' }}
         />
       )}

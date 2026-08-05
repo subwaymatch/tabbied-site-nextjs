@@ -1,5 +1,16 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import 'styles/globals.css';
+
+// Self-hosted at build time (no third-party stylesheet on the critical path),
+// exposed to CSS as `--font-inter` and consumed through `--font-sans-serif`.
+// The template sites keep their own Google Fonts <link>: they ship as
+// standalone downloads with no Next.js build behind them.
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Tabbied',
@@ -31,25 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        {/* proxima-nova (Adobe Fonts). Linked here instead of an @import in
-            globals.css so the browser discovers it from the HTML right away
-            (an @import is only found after the CSS bundle downloads), and
-            preconnected so the font files skip connection setup. React hoists
-            both links into <head>; stylesheets need `precedence` for that. */}
-        <link
-          rel="preconnect"
-          href="https://use.typekit.net"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://use.typekit.net/nws2bge.css"
-          precedence="default"
-        />
-        {children}
-      </body>
+    <html lang="en" className={inter.variable}>
+      <body>{children}</body>
     </html>
   );
 }
