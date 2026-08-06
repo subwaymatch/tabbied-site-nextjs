@@ -23,15 +23,15 @@ entry point. The core works in any framework (or none).
 | `tabbied`          | The framework-agnostic core: `createPattern`, sizing/seed helpers, and the type definitions. |
 | `tabbied/react`    | The `TabbiedPattern` React component (and its handle/prop types).                       |
 | `tabbied/patterns` | The preset `PatternDefinition`s (import individually) plus the full `patterns` record.  |
-| `tabbied/catalog.json` | Every design as data — description, palette, options, default fit, SVG-export support. See [Finding a design](#finding-a-design). |
+| `tabbied/catalog.json` | Every design as data — description, palette, options, SVG-export support. See [Finding a design](#finding-a-design). |
 
 ## Finding a design
 
 The presets are referenced by slug, and there are a lot of them — the slug
 alone (`cleat`, `gnomonwedge`, `karst`) won't tell you what a design looks
 like. `catalog.json` is the searchable index: one entry per design with a
-description, the authored palette, every option and its accepted values, the
-default fit, and whether it exports to SVG.
+description, the authored palette, every option and its accepted values, and
+whether it exports to SVG.
 
 ```js
 // Bundlers (Vite, webpack, Next) import JSON directly. In native Node ESM,

@@ -17,7 +17,7 @@ export default async function BrowsePatternSection() {
       <Container>
         <Row>
           <Col md={12}>
-            <span className={styles.subheading}>Browse pattern</span>
+            <span className={styles.subheading}>Browse patterns</span>
             <h3 className="section-title">Pick a design and start doodling</h3>
           </Col>
         </Row>
@@ -27,11 +27,10 @@ export default async function BrowsePatternSection() {
         <Row noGutter className={styles.galleryGrid}>
           {gallery.map((item) => (
             <Col key={item.slug} md={3} sm={6} xs={6}>
-              {/* The seed param matches the patterns gallery links: the editor
-                  only mirrors customizations into the URL (making them
-                  shareable and refresh-safe) when the URL already carries a
-                  query param. prefetch={false} keeps the card grid from firing
-                  an edge request per visible card. */}
+              {/* The seed param matches the patterns gallery links, so the
+                  editor opens on the same arrangement the card showed.
+                  prefetch={false} keeps the card grid from firing an edge
+                  request per visible card. */}
               <Link href={`/patterns/${item.slug}?seed=0000`} prefetch={false}>
                 <div className={styles.galleryCard}>
                   <h4 className={item.white ? styles.white : undefined}>

@@ -152,16 +152,15 @@ generators, not the output:
 - `packages/tabbied/catalog.json` — written by the package's
   `scripts/codegen.mjs` from the same `patterns/*.json` it compiles, exported
   as `tabbied/catalog.json`. Carries each design's description, palette,
-  options, default fit, and SVG-export tier — but **not** the css-doodle
+  options, and SVG-export tier — but **not** the css-doodle
   `code`, which is what keeps it readable.
 - `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — written
   by `scripts/generate-llms.mjs` from that catalog.
 
-Codegen re-implements `defaultFitMode()` and `supportsSvgExport()` because it
-runs before tsc and has no compiled module to import. `test/catalog.test.mjs`
-pins both against the real implementations — if you change the rule in
-`src/core/sizing.ts` or `types.ts`, change it in codegen too or that test
-fails.
+Codegen re-implements `supportsSvgExport()` because it runs before tsc and
+has no compiled module to import. `test/catalog.test.mjs` pins it against the
+real implementation — if you change the rule in `types.ts`, change it in
+codegen too or that test fails.
 
 ## Grid snapping — invariant (full reference: docs/grid-snapping.md)
 
@@ -180,12 +179,12 @@ not merely to a whole pixel: a design that subdivides its cell seams at
 a nested `@doodle` — declare their own.
 
 The cell is also **squared** — `applyGridSnap` uses the larger of the two
-snapped cells on both axes. 146 of the 253 designs rotate a cell by a quarter
+snapped cells on both axes. Well over a hundred designs rotate a cell by a quarter
 turn, which swaps an oblong's axes and leaves a strip uncovered (a 120×124
 cell paints 124×120 rotated). Cobalt Works' coda seamed on exactly that.
 
 The snap is an inline style on the `<css-doodle>` element, *not* a change to
-`@size` in the generated source — the source feeds SVG export and the 253
+`@size` in the generated source — the source feeds SVG export and the
 definitions' `${width}`/`${height}` substitution, and neither should move
 because a container happened to be 1441px wide. Two traps: a CSS class can't
 set the box (`resolveBoxStyle` writes width/height inline on the wrapper, so a
@@ -201,7 +200,7 @@ only exists to give the quantiser a whole cell.
 ## Reduced motion — invariant
 
 A pattern moves two ways, and `prefers-reduced-motion` has to stop both. The
-`redrawInterval` timer is the obvious one. The other is that **all 253 designs
+`redrawInterval` timer is the obvious one. The other is that **all 295 designs
 declare a ~400ms `transition`** — the thing that makes a redraw morph rather
 than cut — and it fires on any re-render, including ones nobody asked for:
 `grid` and `cover` re-derive their cell grid on resize, so turning a phone

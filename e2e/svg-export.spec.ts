@@ -48,6 +48,10 @@ const unsupportedSlugs = allPatterns
 // flat alpha levels (`stepramp`), a radial ramp thrown from a corner and used
 // as a mask (`radiance`), and a dot field intersected with a radial ramp
 // (`dotwash`).
+//
+// Batch 13 (orders 2000-2041) adds three, one per family it's built from: a
+// linear+radial gradient mask (`bight`), a pure clip-path composition
+// (`bench`), and the batch's only stepped-conic mask (`mirrorblack`).
 const REPRESENTATIVE = [
   'damier',
   'radius',
@@ -81,6 +85,9 @@ const REPRESENTATIVE = [
   'stepramp',
   'radiance',
   'dotwash',
+  'bight',
+  'bench',
+  'mirrorblack',
 ];
 
 // Differing pixels tolerated (after anti-aliasing forgiveness). A few

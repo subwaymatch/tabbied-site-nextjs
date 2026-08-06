@@ -246,7 +246,9 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
         <div className={styles.mainHeader}>
           <div className={styles.mainHeading}>
             <h1 className={styles.title}>Pick a design</h1>
-            <span className={styles.count}>{filtered.length} designs</span>
+            <span className={styles.count}>
+              {filtered.length} {filtered.length === 1 ? 'design' : 'designs'}
+            </span>
           </div>
         </div>
 

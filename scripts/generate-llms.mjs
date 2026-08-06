@@ -6,15 +6,15 @@
 //
 //   /llms.txt       the llms.txt convention (llmstxt.org): a short index that
 //                   links to everything else.
-//   /llms-full.txt  the whole API contract plus a one-line entry for all 222
-//                   designs — enough to pick a design and wire it up from a
+//   /llms-full.txt  the whole API contract plus a one-line entry for every
+//                   design — enough to pick a design and wire it up from a
 //                   single fetch.
 //   /catalog.json   the full structured catalog, for precise lookup of one
 //                   design's options, palette, and export support.
 //
 // The point of all this is design discovery. The API is small enough to
-// memorize, but the 222 slugs are opaque ("cleat", "gnomonwedge", "karst"), so
-// an assistant with no catalog either guesses a slug that doesn't exist or
+// memorize, but the ~300 slugs are opaque ("cleat", "gnomonwedge", "karst"),
+// so an assistant with no catalog either guesses a slug that doesn't exist or
 // imports the whole record and loses tree-shaking. The descriptions authored
 // in patterns/*.json are what make the set searchable.
 //
@@ -64,7 +64,7 @@ Designs are referred to by slug and imported individually — \`import { radius 
 ## Docs
 
 - [llms-full.txt](${SITE}/llms-full.txt): the complete API contract and a one-line entry for every design. Start here — it is designed to be enough on its own.
-- [catalog.json](${SITE}/catalog.json): every design with its description, palette, options, default fit, and SVG-export support. Use it to look up one design in detail. Also shipped in the package at \`tabbied/catalog.json\`.
+- [catalog.json](${SITE}/catalog.json): every design with its description, palette, options, and SVG-export support. Use it to look up one design in detail. Also shipped in the package at \`tabbied/catalog.json\`.
 - [React component reference](${SITE}/docs/react/): props, sizing, and live examples.
 - [Package README](${REPO}/blob/main/packages/tabbied/README.md): entry points, the core API, and SVG export.
 - [SVG export notes](${REPO}/blob/main/docs/svg-export.md): what the vector exporter supports and where it degrades.
@@ -182,8 +182,8 @@ By default that box fills its containing block.
 No fit distorts the pattern — nothing is ever scaled by a different factor
 horizontally than vertically.
 
-- \`grid\` (default for designs with a grid option) — re-derives the cell grid
-  from the measured box, so cells stay near-square at any box shape.
+- \`grid\` (the default) — re-derives the cell grid from the measured box, so
+  cells stay near-square at any box shape.
 - \`cover\` — draws at a fixed resolution and scales it uniformly to fill the
   box, preserving the proportions of fixed-px strokes and shadows.
 - \`fixed\` — renders at an explicit canvas size (default 360x540).
@@ -270,8 +270,8 @@ page needs no build step and no component:
 Attributes: \`data-pattern\` (slug, required), \`data-seed\`, \`data-palette\`
 (comma separated, background first), \`data-options\` (\`id: value\` pairs
 separated by \`;\`), \`data-fit\`, \`data-cell-size\`, \`data-density\`,
-\`data-width\`, \`data-height\`, \`data-cover-render\` (\`800x800\` or
-\`800x800+120\`), \`data-redraw-interval\`, \`data-paused\`. Option values are
+\`data-width\`, \`data-height\`, \`data-cover-render\` (\`800x800\`),
+\`data-redraw-interval\`, \`data-paused\`. Option values are
 typed by the pattern's own metadata, so a numeric-looking
 \`ButtonSelectGroup\` choice stays a string.
 
