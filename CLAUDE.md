@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
-`packages/tabbied/` (framework-free core + React wrapper + 253 pattern
+`packages/tabbied/` (framework-free core + React wrapper + 295 pattern
 presets as JSON in `packages/tabbied/patterns/`, embedded by codegen).
 
 ```bash
@@ -16,7 +16,16 @@ npm test --workspace tabbied         # package unit tests (node --test)
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
+npm run check:thumbnails             # gallery configs all name a real design
 ```
+
+`galleryThumbnails.ts` is the one pattern-keyed file nothing regenerates —
+its palettes and densities were tuned by eye. The gallery reads it as
+`galleryThumbnails[item.slug]`, so a config whose slug names nothing is never
+read and rots silently; 278 accumulated that way when the catalog moved from
+`artworks/` to `patterns/`. `check:thumbnails` runs on `prebuild`/`predev` and
+fails on one. A design with *no* entry is fine — it falls back to its own
+palette and option defaults, which is how 19 of the catalog renders.
 
 ## Downloadable templates — derived from the export, never hand-ported
 
