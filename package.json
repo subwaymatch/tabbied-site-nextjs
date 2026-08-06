@@ -6,13 +6,14 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "npm run build --workspace tabbied && npm run llms && npm run build:images",
+    "predev": "npm run build --workspace tabbied && npm run llms && npm run build:images && npm run check:thumbnails",
     "dev": "next dev",
-    "prebuild": "npm run build --workspace tabbied && npm run llms && npm run build:images",
+    "prebuild": "npm run build --workspace tabbied && npm run llms && npm run build:images && npm run check:thumbnails",
     "build": "next build && npm run templates -- --out-dir public/downloads && next build",
     "llms": "node scripts/generate-llms.mjs",
     "templates": "node scripts/package-templates.mjs",
     "build:images": "node scripts/build-image-manifest.mjs",
+    "check:thumbnails": "node scripts/check-gallery-thumbnails.mjs",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",
     "images:extract": "node scripts/images/extract-prompts.mjs",

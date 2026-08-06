@@ -1,0 +1,50 @@
+{
+  "name": "Garret",
+  "slug": "garret",
+  "galleryOrder": 2025,
+  "galleryWhite": true,
+  "description": "The gable-end wall with one small light under the peak.",
+  "palette": [
+    "#2B1E1A",
+    "#E2543E",
+    "#E3A92E",
+    "#88A872",
+    "#F3EBDB",
+    "#7FA886"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-clip-path: polygon(0.0% 100.0%, 0.0% 36.0%, 50.0% 6.0%, 100.0% 36.0%, 100.0% 100.0%); clip-path: polygon(0.0% 100.0%, 0.0% 36.0%, 50.0% 6.0%, 100.0% 36.0%, 100.0% 100.0%); -webkit-mask: linear-gradient(90deg, #000 0 40%, transparent 40% 60%, #000 60%), linear-gradient(180deg, #000 0 48%, transparent 48% 72%, #000 72%); mask: linear-gradient(90deg, #000 0 40%, transparent 40% 60%, #000 60%), linear-gradient(180deg, #000 0 48%, transparent 48% 72%, #000 72%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
