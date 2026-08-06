@@ -5,8 +5,8 @@
 // `svgExportNote`, no converter warning, and pixel parity with the live render
 // well inside the house budget. pattern-defs-11/shared.mjs is where the
 // vocabulary that satisfies it was worked out, pattern-defs-12/shared.mjs is
-// where the smooth ramps were added, and this module re-exports both rather
-// than restating them.
+// where the smooth ramps were added, and this module re-exports what this
+// batch actually uses rather than restating any of it.
 //
 // What is off the table is unchanged: box-shadow, filter: blur(),
 // mix-blend-mode (all export as SVG *filters*, which design tools import
@@ -17,11 +17,11 @@
 //
 // Where batch 13 goes further is *placement*: batches 11 and 12 drew almost
 // everything from the middle of the cell out, and this batch anchors its
-// geometry to the cell's corners and edges instead — quarter-discs seated in a
-// corner, domes rising off an edge, arcs turning through a corner, frames
-// hugging the perimeter. The helpers below exist for that: `farthest-side`
-// radials so a stop at 100% means "one cell side" wherever the centre sits,
-// and hard linear bands that read as bars without needing a pseudo-element.
+// geometry to the cell's corners and edges instead — a shore held against one
+// side, a frame hugging the perimeter, a light thrown in from an edge. The
+// helpers below exist for that: `farthest-side` radials so a stop at 100%
+// means "one cell side" wherever the centre sits, and hard linear bands that
+// read as bars without needing a pseudo-element.
 //
 // The house rules inherited from batches 6-12 still apply and are enforced by
 // generate-batch13.mjs: exactly one @random(${shapeFrequency}) gate per
@@ -39,7 +39,6 @@ export {
   B,
   A,
   ink,
-  c1,
   R2,
   R4,
   pieL,
@@ -47,33 +46,23 @@ export {
   ringsL,
   poly,
 } from '../pattern-defs-11/shared.mjs';
-export { mskI, bandL, bandAt, arcSector } from '../pattern-defs-11/shared.mjs';
 export {
   fade,
-  rise,
   midFade,
   stepFade,
   dotsL,
   softDotsL,
   faded,
   both,
-  sheet,
   across,
-  down,
 } from '../pattern-defs-12/shared.mjs';
 
 import { TAKEN12 } from '../pattern-defs-12/shared.mjs';
 import { batch12 } from '../pattern-defs-12.mjs';
 
-// Every motif name used anywhere in the project, batches 11 and 12 included,
-// plus the batch-13 designs cut before they shipped. A name should never come
-// to mean two different things.
-const CUT13 = [];
-export const TAKEN13 = new Set([
-  ...TAKEN12,
-  ...batch12.map((d) => d.slug),
-  ...CUT13,
-]);
+// Every motif name used anywhere in the project, batches 11 and 12 included.
+// A name should never come to mean two different things.
+export const TAKEN13 = new Set([...TAKEN12, ...batch12.map((d) => d.slug)]);
 
 // ── anchored radials ───────────────────────────────────────────────────────
 // `farthest-side` makes a percentage stop mean "that fraction of one cell
@@ -97,7 +86,7 @@ export const boreFS = (r, at = '50% 50%') =>
 // ── hard linear bands ──────────────────────────────────────────────────────
 // A bar as a mask layer rather than a pseudo-element: the strip between two
 // stops, at any angle. Composable — msk(a, b) adds bars into crosses and
-// frames, mskI(a, b) intersects them into checks.
+// frames, mskI(a, b) intersects them.
 
 /** The strip between `from` and `to`, running across the `angle` direction. */
 export const bandLin = (angle, from, to) =>
@@ -133,7 +122,7 @@ export const stepGlow = (at, steps, span = 100) => {
 // into an SVG <pattern> holding one tile.
 
 /** Any gradient, tiled at `w` × `h` from the top-left corner. */
-export const tiled = (gradient, w, h = w) => `${gradient} 0 0 / ${w} ${h}`;
+const tiled = (gradient, w, h = w) => `${gradient} 0 0 / ${w} ${h}`;
 
 /** A hard-edged ring (eyelet) in each `pitch`-sized tile. */
 export const eyeletL = (inner, outer, pitch) =>
@@ -141,7 +130,3 @@ export const eyeletL = (inner, outer, pitch) =>
     `radial-gradient(circle at 50% 50%, transparent ${inner}, #000 ${inner} ${outer}, transparent ${outer})`,
     pitch
   );
-
-/** A field of arches: a dome rising from the bottom of each tile. */
-export const archTileL = (r, w, h = w) =>
-  tiled(`radial-gradient(circle at 50% 100%, #000 ${r}, transparent ${r})`, w, h);

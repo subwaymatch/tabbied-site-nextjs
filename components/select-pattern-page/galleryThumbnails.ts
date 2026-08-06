@@ -1577,34 +1577,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   roundstep: {
     options: { grid: '5x5', frequency: 1 },
   },
-  headland: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  islet: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cay: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   bight: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  firth: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fjord: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kyle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  holm: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  motu: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  atollet: {
     options: { grid: '5x5', frequency: 1 },
   },
   eyot: {
@@ -1619,109 +1592,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   spit: {
     options: { grid: '5x5', frequency: 1 },
   },
-  tombolo: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  drumlin: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  butte: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mesa: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tor: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   bluff: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crag: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cuesta: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  esker: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kame: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kettle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tarn: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  scarp: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  scree: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  nunatak: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  saddleback: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  monopitch: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  saltbox: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gambrel: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mansard: {
     options: { grid: '5x5', frequency: 1 },
   },
   jerkinhead: {
     options: { grid: '5x5', frequency: 1 },
   },
-  catslide: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  eaves: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ridgeboard: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bargeboard: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kneeler: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crocket: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hoodmould: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dripstone: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   larmier: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cresting: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  joist: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  purlin: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  scantling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  skewcut: {
     options: { grid: '5x5', frequency: 1 },
   },
   rabbet: {
@@ -1730,64 +1607,10 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   rebate: {
     options: { grid: '5x5', frequency: 1 },
   },
-  wallplate: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  treenail: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  futtock: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  keelson: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  garboard: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  doubling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  partners: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  shaft: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  quoin: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  serge: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gabardine: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chambray: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   percale: {
     options: { grid: '5x5', frequency: 1 },
   },
-  muslin: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  calico: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   batiste: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cambric: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  broadcloth: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  drabbet: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  nankeen: {
     options: { grid: '5x5', frequency: 1 },
   },
   fustian: {
@@ -1796,97 +1619,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   moleskin: {
     options: { grid: '5x5', frequency: 1 },
   },
-  dungaree: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  flannelette: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  grommet: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  thimble: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cringle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  spool: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  skein: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  knurl: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   capstan: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gadroon: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  godron: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lobing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wrythen: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ormolu: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  vermeil: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  girandole: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bobble: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  pharos: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lightship: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  isophase: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  occulting: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fixedlight: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  glimmer: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  flicker: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  luster: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gilt: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gilding: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  flambeau: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sconce: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  luminaire: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  clairdelune: {
     options: { grid: '5x5', frequency: 1 },
   },
   mirrorblack: {
@@ -1898,52 +1631,10 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   tulle: {
     options: { grid: '3x3', frequency: 1 },
   },
-  marquisette: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   maline: {
     options: { grid: '5x5', frequency: 1 },
   },
   ninon: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  voile: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  organza: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chiffon: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  georgette: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crepeline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  birdseye: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  nep: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  slub: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  noil: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  boucle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  yardarm: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crosstree: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  masthead: {
     options: { grid: '5x5', frequency: 1 },
   },
   bowsprit: {
@@ -1952,58 +1643,13 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   jibboom: {
     options: { grid: '5x5', frequency: 1 },
   },
-  halyard: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lanyard: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  forestay: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  backstay: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bobstay: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  martingale: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  jackstay: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lazyjack: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  outhaul: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  downhaul: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   casing: {
     options: { grid: '5x5', frequency: 1 },
   },
   alcove: {
     options: { grid: '5x5', frequency: 1 },
   },
-  niche: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   apse: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  clerestory: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  triforium: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  arcading: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  blindstory: {
     options: { grid: '5x5', frequency: 1 },
   },
   garret: {
@@ -2012,214 +1658,22 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   lucarne: {
     options: { grid: '5x5', frequency: 1 },
   },
-  belvedere: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  plinth: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  baluster: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  handrail: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chimney: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  stair: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   bench: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  terrace: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  berm: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  swale: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  col: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  arete: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  couloir: {
     options: { grid: '5x5', frequency: 1 },
   },
   gully: {
     options: { grid: '5x5', frequency: 1 },
   },
-  ravine: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   gorge: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  canyon: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ledge: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  spur: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ridge: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chevron: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  aran: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gansey: {
     options: { grid: '5x5', frequency: 1 },
   },
   guernsey: {
     options: { grid: '5x5', frequency: 1 },
   },
-  fairisle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  intarsia: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  racking: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tuck: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   wale: {
     options: { grid: '5x5', frequency: 1 },
   },
-  course: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  loom: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  heddle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  shuttle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  treadle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sley: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  rhomb: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  azurite: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  malachite: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cinnabar: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  carmine: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  vermilion: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ochre: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  umber: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sienna: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  madder: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  woad: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  smalt: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  ultramarine: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  celadon: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  verdigris: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  peachbloom: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  oxblood: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sangdeboeuf: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   raku: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  shino: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  oribe: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  temmoku: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sancai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  doucai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  wucai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fencai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  yangcai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  famillerose: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  familleverte: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  teadust: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  veiling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  charmeuse: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sateen: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  taffeta: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  faille: {
     options: { grid: '5x5', frequency: 1 },
   },
   grosgrain: {
@@ -2228,28 +1682,7 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   bengaline: {
     options: { grid: '5x5', frequency: 1 },
   },
-  habotai: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  pongee: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  shantung: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   cendal: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sarcenet: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  samite: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dupioni: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tussah: {
     options: { grid: '5x5', frequency: 1 },
   },
   giornata: {
@@ -2258,223 +1691,16 @@ export const galleryThumbnails: Record<string, ThumbnailConfig> = {
   gesso: {
     options: { grid: '5x5', frequency: 1 },
   },
-  secco: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  intonaco: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   arriccio: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sinopia: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  spolvero: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  pouncing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  sgraffito: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  mishima: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  slipware: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  japanning: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  shellac: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  varnish: {
     options: { grid: '5x5', frequency: 1 },
   },
   basse: {
     options: { grid: '5x5', frequency: 1 },
   },
-  carded: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   combed: {
     options: { grid: '5x5', frequency: 1 },
   },
-  worsted: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  woollen: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  felting: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  fulling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  waulking: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  napping: {
-    options: { grid: '3x3', frequency: 1 },
-  },
-  teasel: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tentering: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  singeing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  beetling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
   mercerising: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  calendering: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  hank: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  splice: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  seizing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  whipping: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  worming: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  marline: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  spunyarn: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  oakum: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  baggywrinkle: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  chafe: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  furl: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  brail: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  snotter: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  parrel: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  earing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  parcelling: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tattersall: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tartan: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  dhurrie: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kersey: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  soumak: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cicim: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  zili: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  jajim: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  verneh: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  gabbeh: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  numdah: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  namda: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  kesi: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tiraz: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  lampas: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  intrados: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  extrados: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  cyma: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  easing: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  curtail: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  bullnose: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  echinus: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  guttae: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  triglyph: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  metope: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  tympanum: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  entasis: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  flute: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  beadcourse: {
-    options: { grid: '5x5', frequency: 1 },
-  },
-  crepidoma: {
     options: { grid: '5x5', frequency: 1 },
   },
 };
