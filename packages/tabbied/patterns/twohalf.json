@@ -3,6 +3,22 @@
   "slug": "twohalf",
   "galleryOrder": 1419,
   "description": "Two blocks with a channel of ground left open between them.",
+  "tags": [
+    "blocks",
+    "maze",
+    "squares"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

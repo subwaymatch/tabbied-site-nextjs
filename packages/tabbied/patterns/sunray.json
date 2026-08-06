@@ -4,6 +4,22 @@
   "galleryOrder": 1100,
   "galleryWhite": true,
   "description": "A broad sector opening from one corner, so the light comes in across the whole cell.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#0D1B2A",
     "#1B98E0",

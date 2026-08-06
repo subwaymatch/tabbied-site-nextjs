@@ -4,6 +4,23 @@
   "galleryOrder": 1237,
   "galleryWhite": true,
   "description": "The smallest dot that still reads, on a close pitch.",
+  "tags": [
+    "dots",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "technical",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider",
+    "wallpaper"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

@@ -3,6 +3,22 @@
   "slug": "schist",
   "galleryOrder": 715,
   "description": "Schistosity: parallel planes of mica that split the rock into sheets.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "organic"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

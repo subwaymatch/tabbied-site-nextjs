@@ -17,6 +17,9 @@
 
   window.__render = async (definition, o) => {
     const stage = document.getElementById('stage');
+    // Tear down any previous mount so one page can render a whole batch
+    // (generate-previews.mjs); single-use callers are unaffected.
+    window.__controller?.destroy();
     stage.style.width = `${o.width}px`;
     stage.style.height = `${o.height}px`;
     stage.style.background = (o.palette && o.palette[0]) || definition.palette?.[0] || '#fff';
@@ -24,6 +27,10 @@
     const config = { pattern: definition, seed: o.seed, fit: o.fit };
     if (o.palette) config.palette = o.palette;
     if (o.cell) config.cellSize = o.cell;
-    createPattern(stage, config);
+    // Resolve once the pattern is measured and painted, so callers can
+    // screenshot immediately after (plus a settle for the ~400ms transition).
+    await new Promise((ready) => {
+      window.__controller = createPattern(stage, { ...config, onReady: ready });
+    });
   };
 </script>

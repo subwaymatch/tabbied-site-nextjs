@@ -4,6 +4,23 @@
   "galleryOrder": 909,
   "galleryWhite": true,
   "description": "Quartered, then quartered again: a mask that keeps three of every four squares.",
+  "tags": [
+    "squares",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster",
+    "og-image"
+  ],
   "palette": [
     "#2B1B3D",
     "#FF8A5C",

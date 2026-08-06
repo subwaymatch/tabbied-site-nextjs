@@ -3,6 +3,23 @@
   "slug": "housing",
   "galleryOrder": 1221,
   "description": "A slot let into one edge and stopped short of the far side.",
+  "tags": [
+    "blocks",
+    "squares",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFFFC",
     "#BEB7A4",

@@ -4,6 +4,22 @@
   "galleryOrder": 1014,
   "galleryWhite": true,
   "description": "A single fold about the horizontal, with the shape running off both edges.",
+  "tags": [
+    "triangles",
+    "grid",
+    "mosaic",
+    "diagonals"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#0A0908",
     "#49111C",

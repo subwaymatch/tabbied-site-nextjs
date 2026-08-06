@@ -3,6 +3,24 @@
   "slug": "lattice",
   "galleryOrder": 378,
   "description": "A diamond lattice of crossing diagonals with a coloured pip in each lozenge — argyle, re-pipped on reseed.",
+  "tags": [
+    "diamonds",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFFFF",
     "#3E8BFF",

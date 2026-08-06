@@ -4,6 +4,22 @@
   "galleryOrder": 1020,
   "galleryWhite": true,
   "description": "A raking light: parallel bars whose lean builds steadily down the sheet.",
+  "tags": [
+    "lines",
+    "diagonals",
+    "waves",
+    "zigzags"
+  ],
+  "mood": [
+    "bold",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#231942",
     "#5E548E",

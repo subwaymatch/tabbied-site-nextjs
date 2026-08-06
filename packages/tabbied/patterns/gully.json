@@ -4,6 +4,22 @@
   "galleryOrder": 2028,
   "galleryWhite": true,
   "description": "A V worn up into the sheet from its lower edge.",
+  "tags": [
+    "squares",
+    "mosaic",
+    "diamonds",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "organic"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#0A0908",
     "#49111C",

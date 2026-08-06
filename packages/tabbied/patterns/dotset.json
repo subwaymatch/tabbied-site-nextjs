@@ -3,6 +3,22 @@
   "slug": "dotset",
   "galleryOrder": 1425,
   "description": "Nine dots to a cell, each a third of its own tile.",
+  "tags": [
+    "dots",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#FAEFE0",
     "#E56399",

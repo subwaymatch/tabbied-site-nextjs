@@ -4,6 +4,22 @@
   "galleryOrder": 1109,
   "galleryWhite": true,
   "description": "The arris: the sharp edge where two faces meet, taken off with a small chamfer.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic",
+    "diagonals"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#191D32",
     "#282F44",

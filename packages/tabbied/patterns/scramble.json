@@ -3,6 +3,23 @@
   "slug": "scramble",
   "galleryOrder": 704,
   "description": "Each square gives up one of its four quadrants, so the field reads as a wall of L-shapes turning every which way.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#FAF7F0",
     "#232529",

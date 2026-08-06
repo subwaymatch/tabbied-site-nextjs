@@ -3,6 +3,22 @@
   "slug": "dotfade",
   "galleryOrder": 1406,
   "description": "Big dots on a wide pitch, falling away on the diagonal.",
+  "tags": [
+    "dots",
+    "diamonds",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "textile",
+    "section-divider"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

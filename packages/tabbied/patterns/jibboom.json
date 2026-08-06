@@ -3,6 +3,22 @@
   "slug": "jibboom",
   "galleryOrder": 2021,
   "description": "Two spars run out parallel on the same diagonal.",
+  "tags": [
+    "diagonals",
+    "chevrons",
+    "lines",
+    "zigzags"
+  ],
+  "mood": [
+    "playful",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

@@ -3,6 +3,21 @@
   "slug": "buttonhole",
   "galleryOrder": 634,
   "description": "Worked buttonholes cut right through the placket, upright in one column and crosswise in the next.",
+  "tags": [
+    "ovals",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF8F2",
     "#FF7E9D",

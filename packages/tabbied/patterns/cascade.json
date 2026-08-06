@@ -3,6 +3,23 @@
   "slug": "cascade",
   "galleryOrder": 705,
   "description": "A three-tread staircase cut from every square, the flight turning to face a new quarter each cell.",
+  "tags": [
+    "steps",
+    "zigzags",
+    "blocks",
+    "squares"
+  ],
+  "mood": [
+    "retro",
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#F0EAD6",
     "#264653",

@@ -4,7 +4,32 @@
   "galleryOrder": 44,
   "svgExportNote": "Quadrant edges may anti-alias a hair differently than the on-screen rendering.",
   "description": "Every tile is a tiny 2x2 pixel glyph — each quadrant rolls ink, paper or a color on its own, spelling out an unreadable alphabet.",
-  "palette": ["#FFFFFF", "#232529", "#FF3D8B", "#3E8BFF", "#3FFFB2", "#F5DD32"],
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic",
+    "blocks"
+  ],
+  "mood": [
+    "playful",
+    "technical",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "og-image",
+    "poster",
+    "wallpaper",
+    "packaging"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#232529",
+    "#FF3D8B",
+    "#3E8BFF",
+    "#3FFFB2",
+    "#F5DD32"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -16,7 +41,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

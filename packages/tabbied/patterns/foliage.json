@@ -3,6 +3,24 @@
   "slug": "foliage",
   "galleryOrder": 16,
   "description": "Gradient leaf shapes rotate through the grid, with the occasional berry tucked in between.",
+  "tags": [
+    "leaves",
+    "petals",
+    "dots",
+    "grid",
+    "gradients"
+  ],
+  "mood": [
+    "organic",
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#ECFFEC",
     "#3FFFB2",

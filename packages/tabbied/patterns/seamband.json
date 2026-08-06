@@ -4,6 +4,21 @@
   "galleryOrder": 1203,
   "galleryWhite": true,
   "description": "A third ink laid in a narrow band right on the seam, so the join is drawn rather than implied.",
+  "tags": [
+    "maze",
+    "lines"
+  ],
+  "mood": [
+    "playful",
+    "technical",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "og-image",
+    "poster"
+  ],
   "palette": [
     "#0B132B",
     "#1C2541",

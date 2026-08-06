@@ -4,6 +4,22 @@
   "galleryOrder": 2014,
   "galleryWhite": true,
   "description": "Fine concentric beads turned all the way out from the centre.",
+  "tags": [
+    "concentric",
+    "rings",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#1B2A4A",
     "#F7C548",

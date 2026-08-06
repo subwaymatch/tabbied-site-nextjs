@@ -4,6 +4,21 @@
   "galleryOrder": 2017,
   "galleryWhite": true,
   "description": "An even veil of dots, close enough to read almost as a tint.",
+  "tags": [
+    "dots",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider",
+    "wallpaper"
+  ],
   "palette": [
     "#221E22",
     "#EFD9CE",

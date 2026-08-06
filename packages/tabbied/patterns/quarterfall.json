@@ -4,6 +4,23 @@
   "galleryOrder": 700,
   "galleryWhite": true,
   "description": "Radius hollowed out: the same rolled quarter-discs, but half of them keep only their outer band, so filled corners and open ones fall through the grid together.",
+  "tags": [
+    "quarter-circles",
+    "arcs",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#0B2540",
     "#1B4075",

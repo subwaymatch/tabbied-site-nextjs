@@ -4,6 +4,23 @@
   "galleryOrder": 2024,
   "galleryWhite": true,
   "description": "A rectangular body with a half-round end swelling off it.",
+  "tags": [
+    "blocks",
+    "maze",
+    "semicircles",
+    "curves"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "wallpaper"
+  ],
   "palette": [
     "#08141E",
     "#0F8B8D",

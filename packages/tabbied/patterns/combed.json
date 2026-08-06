@@ -4,6 +4,22 @@
   "galleryOrder": 2040,
   "galleryWhite": true,
   "description": "Fine rules surviving only in a band across the middle.",
+  "tags": [
+    "lines",
+    "stripes",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#11151A",
     "#FF5252",

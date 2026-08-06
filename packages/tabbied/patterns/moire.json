@@ -4,6 +4,21 @@
   "galleryOrder": 714,
   "galleryWhite": true,
   "description": "Two rulings laid over each other a few degrees apart, so the beat between them draws its own pattern.",
+  "tags": [
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#15171C",
     "#E8E6E1",

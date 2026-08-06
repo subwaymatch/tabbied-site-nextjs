@@ -4,6 +4,21 @@
   "galleryOrder": 467,
   "galleryWhite": true,
   "description": "Eight-point sparks burning at the centre of each cell, re-pointing on reseed.",
+  "tags": [
+    "stars",
+    "grid"
+  ],
+  "mood": [
+    "elegant",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "packaging",
+    "card-texture"
+  ],
   "palette": [
     "#10002B",
     "#5A189A",

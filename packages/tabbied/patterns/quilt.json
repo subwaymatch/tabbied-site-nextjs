@@ -3,6 +3,22 @@
   "slug": "quilt",
   "galleryOrder": 68,
   "description": "Half-square triangle patchwork in fabric tones — each block re-cuts its diagonal and trades patches on every redraw.",
+  "tags": [
+    "triangles",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FBF3E4",
     "#D96C47",

@@ -4,6 +4,23 @@
   "galleryOrder": 352,
   "galleryWhite": true,
   "description": "Squared U-notches like castle merlons, each turning to a new wall on reseed.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "lines"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#1D1F24",
     "#E8E6E1",

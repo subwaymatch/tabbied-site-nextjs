@@ -3,6 +3,21 @@
   "slug": "crescendo",
   "galleryOrder": 58,
   "description": "The classic multiplication-table doodle with the numbers stripped away: tone deepens smoothly with row times column, re-rolling its grid on every redraw.",
+  "tags": [
+    "squares",
+    "grid",
+    "gradients"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider"
+  ],
   "palette": [
     "#FFFFFF",
     "#60569E"

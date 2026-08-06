@@ -3,6 +3,23 @@
   "slug": "strand",
   "galleryOrder": 2002,
   "description": "The beach as a slab against one edge, with a sandbar lying offshore of it.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging",
+    "card-texture"
+  ],
   "palette": [
     "#F3F9D2",
     "#274001",

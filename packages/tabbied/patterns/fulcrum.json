@@ -4,6 +4,20 @@
   "galleryOrder": 1002,
   "galleryWhite": true,
   "description": "Wedges tipping further off the horizontal the further they stand from the balance point.",
+  "tags": [
+    "triangles",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "poster",
+    "wallpaper"
+  ],
   "palette": [
     "#0A0908",
     "#49111C",

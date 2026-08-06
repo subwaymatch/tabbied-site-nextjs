@@ -4,6 +4,22 @@
   "galleryOrder": 2013,
   "galleryWhite": true,
   "description": "Cloth nearly solid, with only a pinstripe of ground surviving the shear.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "elegant",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#231942",
     "#5E548E",

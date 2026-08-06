@@ -3,6 +3,23 @@
   "slug": "bias",
   "galleryOrder": 623,
   "description": "Every square cut corner to corner, the seam flipping with the checker so the field reads as one running diagonal.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#FFFFFF",
     "#3E8BFF",

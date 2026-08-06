@@ -4,6 +4,23 @@
   "galleryOrder": 1110,
   "galleryWhite": true,
   "description": "An abutment: the mass at the end of the arch that takes the thrust.",
+  "tags": [
+    "triangles",
+    "squares",
+    "grid",
+    "diagonals",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#161616",
     "#F5F5F0",

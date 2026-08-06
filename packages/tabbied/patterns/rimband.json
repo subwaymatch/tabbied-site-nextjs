@@ -3,6 +3,22 @@
   "slug": "rimband",
   "galleryOrder": 1211,
   "description": "The ring runs right to the edge of the cell, so it meets its neighbours.",
+  "tags": [
+    "rings",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#F7F7FF",
     "#2D3142",

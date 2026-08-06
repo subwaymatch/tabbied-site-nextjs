@@ -4,6 +4,24 @@
   "galleryOrder": 1231,
   "galleryWhite": true,
   "description": "Two parallel bars of equal weight with a wide channel between them.",
+  "tags": [
+    "lines",
+    "stripes",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#181818",
     "#EC4E20",

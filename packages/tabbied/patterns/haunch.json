@@ -4,6 +4,23 @@
   "galleryOrder": 1108,
   "galleryWhite": true,
   "description": "The haunch of an arch: the corner filled with a curve rather than a bracket.",
+  "tags": [
+    "quarter-circles",
+    "circles",
+    "semicircles",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#04030F",
     "#3D0E61",

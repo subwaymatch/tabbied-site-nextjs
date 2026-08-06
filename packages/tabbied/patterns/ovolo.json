@@ -3,6 +3,23 @@
   "slug": "ovolo",
   "galleryOrder": 629,
   "description": "Quarter-round mouldings turning one corner clockwise per cell, so the field marches through all four faces.",
+  "tags": [
+    "quarter-circles",
+    "circles",
+    "semicircles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging",
+    "textile"
+  ],
   "palette": [
     "#FFFFFF",
     "#3E8BFF",

@@ -4,6 +4,23 @@
   "galleryOrder": 2031,
   "galleryWhite": true,
   "description": "A sawtooth skyline filled solid to the hem.",
+  "tags": [
+    "zigzags",
+    "blocks",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#0D1B2A",
     "#1B98E0",

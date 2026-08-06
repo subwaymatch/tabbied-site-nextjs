@@ -3,6 +3,22 @@
   "slug": "matryoshka",
   "galleryOrder": 907,
   "description": "A doodle inside a doodle: each cell holds a whole second grid, and only some of its cells are open.",
+  "tags": [
+    "squares",
+    "mosaic",
+    "grid",
+    "blocks"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

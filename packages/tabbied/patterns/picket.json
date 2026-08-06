@@ -4,6 +4,21 @@
   "galleryOrder": 371,
   "galleryWhite": true,
   "description": "A picket fence of vertical pales, the slats fading and re-colouring as the light moves on reseed.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#2B1E1A",
     "#E2543E",

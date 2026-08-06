@@ -4,6 +4,22 @@
   "galleryOrder": 1224,
   "galleryWhite": true,
   "description": "A straight channel run right across the cell, ends open.",
+  "tags": [
+    "lines",
+    "stripes",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#181818",
     "#EC4E20",

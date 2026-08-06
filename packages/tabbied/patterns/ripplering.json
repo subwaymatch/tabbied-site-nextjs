@@ -4,6 +4,22 @@
   "galleryOrder": 1213,
   "galleryWhite": true,
   "description": "Many fine concentric rings, close enough that the eye reads the spacing before the shape.",
+  "tags": [
+    "concentric",
+    "rings",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#0E1230",
     "#3E8BFF",

@@ -30,17 +30,27 @@ entry point. The core works in any framework (or none).
 The presets are referenced by slug, and there are a lot of them — the slug
 alone (`cleat`, `gnomonwedge`, `karst`) won't tell you what a design looks
 like. `catalog.json` is the searchable index: one entry per design with a
-description, the authored palette, every option and its accepted values, and
-whether it exports to SVG.
+description, closed-vocabulary `tags` / `mood` / `density` / `goodFor`
+metadata to filter on, the authored palette, every option and its accepted
+values, whether it exports to SVG, and a stable `preview` image URL
+(`https://tabbied.com/previews/<slug>.webp`) so you can look before you pick.
 
 ```js
 // Bundlers (Vite, webpack, Next) import JSON directly. In native Node ESM,
 // add the import attribute: `with { type: 'json' }`.
 import catalog from 'tabbied/catalog.json';
 
-const arches = catalog.designs.filter((design) =>
-  /arc|curve|round/.test(design.description ?? '')
+const heroCandidates = catalog.designs.filter(
+  (design) =>
+    design.goodFor.includes('hero-background') && design.density === 'sparse'
 );
+```
+
+Or from a shell, without writing any code:
+
+```bash
+npx tabbied list --tag dots --density dense
+npx tabbied info radius
 ```
 
 The same data is served at
@@ -316,6 +326,34 @@ prerendered page be repackaged as a framework-free template.
 > Use one or the other on a given element: `TabbiedPattern` mounts its own
 > controller, so an unscoped `hydratePatterns()` on a React page would mount a
 > second one on top of it. That's what `root` is for.
+
+## CLI
+
+The package ships a `tabbied` bin for rendering without writing an app —
+generate an asset, or a video-ready frame sequence, straight from a shell:
+
+```bash
+npx tabbied render radius --seed k9Pz --size 1600x900 --out hero.svg
+npx tabbied render bight --palette "#0B1020,#3E8BFF" --out banner.png
+npx tabbied render radius --frames 120 --reseed-every 30 --size 1920x1080 --out frames/
+npx tabbied list --good-for hero-background --density sparse
+npx tabbied info radius
+```
+
+Rendering runs css-doodle in a headless browser via whatever Playwright the
+project already has (`playwright`, `playwright-core`, or `@playwright/test`) —
+install one of those if none is present, and pass `--browser <path>` (or set
+`TABBIED_CHROMIUM`) to use a specific Chromium binary. `--out`'s extension
+picks the format; frame sequences are PNG, cut deterministically between
+seeds (frames within a reseed window are identical, so encoders can
+deduplicate). Run `npx tabbied --help` for every flag.
+
+## For AI agents
+
+`AGENTS.md` and `llms.txt` ship in this package — the latter is the complete
+agent-facing reference (also served at
+[tabbied.com/llms-full.txt](https://tabbied.com/llms-full.txt)). Point your
+coding assistant at either.
 
 ## License
 

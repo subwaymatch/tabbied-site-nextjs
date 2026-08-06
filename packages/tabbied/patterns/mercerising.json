@@ -4,6 +4,20 @@
   "galleryOrder": 2041,
   "galleryWhite": true,
   "description": "Dots given a lustre band on the bias.",
+  "tags": [
+    "dots",
+    "halftone"
+  ],
+  "mood": [
+    "elegant",
+    "calm"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "card-texture",
+    "hero-background",
+    "wallpaper"
+  ],
   "palette": [
     "#2D132C",
     "#801336",

@@ -4,6 +4,22 @@
   "galleryOrder": 2030,
   "galleryWhite": true,
   "description": "Ribbing read end-on: paired ribs with a groove down each pair.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#1C1C1C",
     "#F2542D",

@@ -3,6 +3,21 @@
   "slug": "bracket",
   "galleryOrder": 347,
   "description": "L-shaped brackets clicking into corners, each elbow re-orienting on reseed.",
+  "tags": [
+    "blocks",
+    "maze",
+    "squares"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFFFF",
     "#3E8BFF",

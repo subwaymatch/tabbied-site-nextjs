@@ -4,6 +4,22 @@
   "galleryOrder": 398,
   "galleryWhite": true,
   "description": "Each tile a two-stop diagonal gradient, the facets re-lighting and re-aiming on reseed.",
+  "tags": [
+    "squares",
+    "grid",
+    "gradients",
+    "mosaic"
+  ],
+  "mood": [
+    "calm",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "hero-background"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

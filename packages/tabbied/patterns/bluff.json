@@ -4,6 +4,23 @@
   "galleryOrder": 2005,
   "galleryWhite": true,
   "description": "A half-round face standing straight off one side of the cell.",
+  "tags": [
+    "semicircles",
+    "scallops",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "poster",
+    "card-texture"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

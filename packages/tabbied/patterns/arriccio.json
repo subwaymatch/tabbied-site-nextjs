@@ -4,6 +4,24 @@
   "galleryOrder": 2038,
   "galleryWhite": true,
   "description": "The rough coat thrown from a corner, its reach stepped rather than smooth.",
+  "tags": [
+    "quarter-circles",
+    "concentric",
+    "arcs",
+    "radial",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#141233",
     "#6C4AB6",

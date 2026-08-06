@@ -3,6 +3,23 @@
   "slug": "tidering",
   "galleryOrder": 1214,
   "description": "The rings are centred on the bottom edge, so each cell shows a run of arcs rather than circles.",
+  "tags": [
+    "arcs",
+    "concentric",
+    "rings",
+    "curves",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FFFCF2",
     "#252422",

@@ -3,6 +3,22 @@
   "slug": "scumble",
   "galleryOrder": 1254,
   "description": "Rules that fade as they go, dragged across the cell like a dry brush.",
+  "tags": [
+    "stripes",
+    "lines",
+    "gradients",
+    "blocks"
+  ],
+  "mood": [
+    "calm",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#F0EAD6",
     "#264653",

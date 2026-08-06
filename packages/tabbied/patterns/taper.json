@@ -3,6 +3,20 @@
   "slug": "taper",
   "galleryOrder": 637,
   "description": "Squares growing steadily from left to right, each column exactly one step larger than the last.",
+  "tags": [
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "section-divider",
+    "og-image"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

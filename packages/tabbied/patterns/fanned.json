@@ -4,6 +4,24 @@
   "galleryOrder": 1242,
   "galleryWhite": true,
   "description": "Two long shapes fanned from a common corner.",
+  "tags": [
+    "chevrons",
+    "diagonals",
+    "blocks",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#181818",
     "#EC4E20",

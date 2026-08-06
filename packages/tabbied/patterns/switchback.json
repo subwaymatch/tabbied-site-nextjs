@@ -4,6 +4,22 @@
   "galleryOrder": 389,
   "galleryWhite": true,
   "description": "A bold L-turn switchback stroke, the trail doubling back to a new corner each seed.",
+  "tags": [
+    "maze",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "technical",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "poster",
+    "og-image"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

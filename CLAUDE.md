@@ -145,22 +145,50 @@ that runs every time.
 
 ## Agent-facing docs — all generated, never hand-edited
 
-Four build artifacts describe the catalog to tools that can't see the
+Five build artifacts describe the catalog to tools that can't see the
 patterns. They're gitignored and regenerated on every build, so edit the
 generators, not the output:
 
 - `packages/tabbied/catalog.json` — written by the package's
   `scripts/codegen.mjs` from the same `patterns/*.json` it compiles, exported
-  as `tabbied/catalog.json`. Carries each design's description, palette,
-  options, and SVG-export tier — but **not** the css-doodle
-  `code`, which is what keeps it readable.
-- `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — written
-  by `scripts/generate-llms.mjs` from that catalog.
+  as `tabbied/catalog.json`. Carries each design's description, its
+  closed-vocabulary metadata (`tags`/`mood`/`density`/`goodFor` — see below),
+  its `preview` image URL, palette, options, and SVG-export tier — but
+  **not** the css-doodle `code`, which is what keeps it readable.
+- `packages/tabbied/llms.txt` — the full agent reference, written by the
+  package's `scripts/generate-llms.mjs` during its build (so a publish can't
+  ship without it; it's in the tarball `files` along with the hand-written
+  `AGENTS.md`).
+- `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — the
+  site's copies, written by the root `scripts/generate-llms.mjs`, a thin
+  wrapper over the package generator. One template, two consumers.
 
 Codegen re-implements `supportsSvgExport()` because it runs before tsc and
 has no compiled module to import. `test/catalog.test.mjs` pins it against the
 real implementation — if you change the rule in `types.ts`, change it in
 codegen too or that test fails.
+
+**Catalog metadata is a closed vocabulary.** Every `patterns/*.json` carries
+`tags` (visible motifs), `mood`, `density`, and `goodFor`, validated by
+codegen against `packages/tabbied/scripts/catalog-vocabulary.mjs` — an
+out-of-vocabulary value or a missing field fails the build. The values were
+authored by *looking at each rendered preview* (not the description), so when
+adding a design, look at it before tagging it; when adding a vocabulary term,
+remember published catalogs query these exact strings. The metadata is
+catalog-only: codegen strips it from the runtime bundle, and a test pins that.
+
+**Every design ships a committed preview** at `public/previews/<slug>.webp`
+(authored palette, default options, seed `preview1`, rendered @2x — at @1x
+the finest stipples vanish). `check:previews` (prebuild/predev) fails on a
+missing or orphaned file; regenerate with `npm run previews [slug]`. The
+catalog points agents at these URLs, which is why they're committed rather
+than rebuilt per deploy — a headless browser isn't available on the deploy
+build, and stable URLs shouldn't re-render anyway.
+
+The package also ships a `tabbied` bin (`src/cli.ts`): `render` (SVG/PNG,
+`--frames` for deterministic PNG sequences) and `list`/`info` over the
+catalog. It acquires a browser from whichever Playwright is installed —
+never add a hard Playwright dependency to the package.
 
 ## Grid snapping — invariant (full reference: docs/grid-snapping.md)
 

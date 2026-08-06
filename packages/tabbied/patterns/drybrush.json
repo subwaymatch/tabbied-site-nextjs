@@ -3,6 +3,23 @@
   "slug": "drybrush",
   "galleryOrder": 1413,
   "description": "Rules dragged across the cell, thinning as they go until the ground shows through.",
+  "tags": [
+    "lines",
+    "stripes",
+    "gradients",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#F0EAD6",
     "#264653",

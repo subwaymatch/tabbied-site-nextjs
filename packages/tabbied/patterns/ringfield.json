@@ -4,6 +4,22 @@
   "galleryOrder": 1424,
   "galleryWhite": true,
   "description": "Rings on a close pitch, run from a point on one edge rather than the centre.",
+  "tags": [
+    "concentric",
+    "rings",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#03071E",
     "#370617",

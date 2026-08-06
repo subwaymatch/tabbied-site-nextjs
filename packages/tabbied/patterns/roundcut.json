@@ -3,6 +3,24 @@
   "slug": "roundcut",
   "galleryOrder": 1429,
   "description": "One corner rounded hard and the other three left square — a quadrant.",
+  "tags": [
+    "quarter-circles",
+    "circles",
+    "semicircles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

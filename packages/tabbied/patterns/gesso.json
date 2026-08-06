@@ -4,6 +4,21 @@
   "galleryOrder": 2037,
   "galleryWhite": true,
   "description": "Six fine levels, close enough to read almost as a smooth ground.",
+  "tags": [
+    "blocks",
+    "gradients",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "technical",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "wallpaper"
+  ],
   "palette": [
     "#0A100D",
     "#B9BAA3",

@@ -3,6 +3,22 @@
   "slug": "decay",
   "galleryOrder": 1402,
   "description": "A fall broken by one flat step half way down, so the drop reads in two stages.",
+  "tags": [
+    "gradients",
+    "blocks",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#FDF0D5",
     "#003049",

@@ -4,6 +4,22 @@
   "galleryOrder": 1228,
   "galleryWhite": true,
   "description": "A bracket profile: a straight back, a stepped front and an angled underside.",
+  "tags": [
+    "steps",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#0F2027",
     "#3FFFB2",

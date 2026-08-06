@@ -4,6 +4,21 @@
   "galleryOrder": 2018,
   "galleryWhite": true,
   "description": "Small dots with feathered edges, soft as pressed net.",
+  "tags": [
+    "dots",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "hero-background"
+  ],
   "palette": [
     "#10303A",
     "#2BB3A3",

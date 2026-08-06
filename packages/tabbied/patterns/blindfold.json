@@ -3,6 +3,22 @@
   "slug": "blindfold",
   "galleryOrder": 1208,
   "description": "Half the cells rule across and half rule down, and nothing says which is which.",
+  "tags": [
+    "stripes",
+    "lines",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#FFF3B0",
     "#335C67",

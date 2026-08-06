@@ -4,6 +4,21 @@
   "galleryOrder": 459,
   "galleryWhite": true,
   "description": "Clean octagons with grouted gaps, each tile re-glazing on reseed.",
+  "tags": [
+    "mosaic",
+    "grid",
+    "dots"
+  ],
+  "mood": [
+    "technical",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#161616",
     "#F5F5F0",

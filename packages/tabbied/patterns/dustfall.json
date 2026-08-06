@@ -3,6 +3,23 @@
   "slug": "dustfall",
   "galleryOrder": 1409,
   "description": "A fine field on a close pitch, settling towards one edge.",
+  "tags": [
+    "dots",
+    "halftone",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "organic"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF1E6",
     "#5C3D2E",

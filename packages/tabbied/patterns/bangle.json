@@ -4,6 +4,21 @@
   "galleryOrder": 1212,
   "galleryWhite": true,
   "description": "The ring is drawn on the corner rather than the centre, so only an arc of it lands in the cell.",
+  "tags": [
+    "arcs",
+    "curves",
+    "circles"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#241024",
     "#E84393",

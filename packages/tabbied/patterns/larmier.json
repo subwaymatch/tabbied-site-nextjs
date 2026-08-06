@@ -4,6 +4,23 @@
   "galleryOrder": 2007,
   "galleryWhite": true,
   "description": "A projecting course: a flat band with its underside bevelled back to the wall.",
+  "tags": [
+    "blocks",
+    "lines",
+    "maze",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#10303A",
     "#2BB3A3",

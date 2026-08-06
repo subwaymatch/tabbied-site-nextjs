@@ -3,6 +3,22 @@
   "slug": "rafter",
   "galleryOrder": 632,
   "description": "One diagonal member per cell, meeting end to end into unbroken raking stripes.",
+  "tags": [
+    "diagonals",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

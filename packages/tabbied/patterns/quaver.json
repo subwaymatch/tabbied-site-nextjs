@@ -4,6 +4,23 @@
   "galleryOrder": 414,
   "galleryWhite": true,
   "description": "Quarter-disc fills tucked into a rotating corner, the wedge spinning to a new corner each seed.",
+  "tags": [
+    "quarter-circles",
+    "semicircles",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

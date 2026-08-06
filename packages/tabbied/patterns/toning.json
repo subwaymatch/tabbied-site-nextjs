@@ -3,6 +3,21 @@
   "slug": "toning",
   "galleryOrder": 1252,
   "description": "Two inks fading past each other in opposite directions.",
+  "tags": [
+    "gradients",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "textile"
+  ],
   "palette": [
     "#FFF3B0",
     "#335C67",

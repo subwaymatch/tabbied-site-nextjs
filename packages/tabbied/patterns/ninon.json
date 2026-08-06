@@ -3,6 +3,19 @@
   "slug": "ninon",
   "galleryOrder": 2019,
   "description": "Sparse pin dots on a wide open ground.",
+  "tags": [
+    "dots",
+    "grid"
+  ],
+  "mood": [
+    "calm"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "card-texture"
+  ],
   "palette": [
     "#FFF8E7",
     "#D62828",

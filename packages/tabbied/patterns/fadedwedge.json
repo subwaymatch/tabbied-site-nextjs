@@ -4,6 +4,23 @@
   "galleryOrder": 1416,
   "galleryWhite": true,
   "description": "A corner-to-corner triangle, solid at its base and spent by its point.",
+  "tags": [
+    "triangles",
+    "grid",
+    "gradients",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

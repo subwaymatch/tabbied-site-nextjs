@@ -4,6 +4,23 @@
   "galleryOrder": 1248,
   "galleryWhite": true,
   "description": "A solid ink with a second fading away across it.",
+  "tags": [
+    "gradients",
+    "squares",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#241024",
     "#E84393",

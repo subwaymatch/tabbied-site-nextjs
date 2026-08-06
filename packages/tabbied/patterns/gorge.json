@@ -3,6 +3,22 @@
   "slug": "gorge",
   "galleryOrder": 2029,
   "description": "A slot with near-vertical walls, cut almost to the floor.",
+  "tags": [
+    "squares",
+    "lines",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FDF0D5",
     "#003049",

@@ -46,16 +46,21 @@
   },
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
+  "bin": {
+    "tabbied": "./dist/cli.js"
+  },
   "files": [
     "dist",
-    "catalog.json"
+    "catalog.json",
+    "llms.txt",
+    "AGENTS.md"
   ],
   "sideEffects": [
     "./dist/**/register.js"
   ],
   "scripts": {
     "codegen": "node scripts/codegen.mjs",
-    "build": "node scripts/codegen.mjs && node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "build": "node scripts/codegen.mjs && node scripts/generate-llms.mjs && node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
     "test": "node --test",
     "dev": "node scripts/codegen.mjs && tsc -p tsconfig.json --watch",
     "typecheck": "node scripts/codegen.mjs && tsc -p tsconfig.json --noEmit",
@@ -73,6 +78,7 @@
     }
   },
   "devDependencies": {
+    "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "typescript": "^6.0.3"
   },

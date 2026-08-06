@@ -4,6 +4,23 @@
   "galleryOrder": 2006,
   "galleryWhite": true,
   "description": "A gable with its peak clipped back, leaving a short flat instead of a point.",
+  "tags": [
+    "blocks",
+    "hexagons",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile"
+  ],
   "palette": [
     "#15171C",
     "#E8E6E1",

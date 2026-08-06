@@ -3,7 +3,30 @@
   "slug": "maze",
   "galleryOrder": 12,
   "description": "A nod to the classic 10 PRINT one-liner: diagonal strokes tumble across the grid to form an endless maze, with the occasional junction dot.",
-  "palette": ["#E9F1FF", "#232529", "#3E8BFF", "#FF3D8B", "#3FFFB2", "#3EECFF"],
+  "tags": [
+    "diagonals",
+    "lines",
+    "maze",
+    "dots"
+  ],
+  "mood": [
+    "playful",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "og-image",
+    "poster"
+  ],
+  "palette": [
+    "#E9F1FF",
+    "#232529",
+    "#3E8BFF",
+    "#FF3D8B",
+    "#3FFFB2",
+    "#3EECFF"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -15,7 +38,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "10x15",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

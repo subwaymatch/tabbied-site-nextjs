@@ -4,6 +4,21 @@
   "galleryOrder": 719,
   "galleryWhite": true,
   "description": "The Miura fold: a tessellation of parallelograms that opens and closes in one pull.",
+  "tags": [
+    "zigzags",
+    "chevrons",
+    "stripes"
+  ],
+  "mood": [
+    "bold",
+    "elegant"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#04030F",
     "#3D0E61",

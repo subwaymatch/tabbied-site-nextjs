@@ -4,6 +4,23 @@
   "galleryOrder": 1418,
   "galleryWhite": true,
   "description": "A single fall cut into five flat levels, so the fade is counted rather than smooth.",
+  "tags": [
+    "squares",
+    "blocks",
+    "gradients",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "card-texture"
+  ],
   "palette": [
     "#191D32",
     "#282F44",
