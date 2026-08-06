@@ -1,0 +1,50 @@
+{
+  "name": "Godron",
+  "slug": "godron",
+  "galleryOrder": 2083,
+  "galleryWhite": true,
+  "description": "A barber twist: a straight band with the spiral read as diagonal cuts.",
+  "palette": [
+    "#0B132B",
+    "#1C2541",
+    "#3A506B",
+    "#5BC0BE",
+    "#6FFFE9",
+    "#F2F4F3"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(180deg, transparent 0 34%, #000 34% 66%, transparent 66%), repeating-linear-gradient(45deg, #000 0 11%, transparent 11% 22%); mask: linear-gradient(180deg, transparent 0 34%, #000 34% 66%, transparent 66%), repeating-linear-gradient(45deg, #000 0 11%, transparent 11% 22%); -webkit-mask-composite: source-in; mask-composite: intersect; -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

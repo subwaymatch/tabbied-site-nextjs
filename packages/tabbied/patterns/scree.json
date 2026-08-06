@@ -1,0 +1,50 @@
+{
+  "name": "Scree",
+  "slug": "scree",
+  "galleryOrder": 2027,
+  "galleryWhite": true,
+  "description": "A slope of loose stones banked against the foot of the cell.",
+  "palette": [
+    "#0A0908",
+    "#49111C",
+    "#A9927D",
+    "#F2F4F3",
+    "#5E503F",
+    "#C6AC8F"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: radial-gradient(circle at 50% 50%, #000 32%, transparent 32%) 0 0 / 12.5% 12.5%, linear-gradient(0deg, #000 0 38%, transparent 38%); mask: radial-gradient(circle at 50% 50%, #000 32%, transparent 32%) 0 0 / 12.5% 12.5%, linear-gradient(0deg, #000 0 38%, transparent 38%); -webkit-mask-composite: source-in; mask-composite: intersect; -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

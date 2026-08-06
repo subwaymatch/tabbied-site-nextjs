@@ -1,0 +1,50 @@
+{
+  "name": "Flicker",
+  "slug": "flicker",
+  "galleryOrder": 2096,
+  "galleryWhite": true,
+  "description": "An unequal pair: a broad flash one way and a thin stab back the other.",
+  "palette": [
+    "#241024",
+    "#E84393",
+    "#B388EB",
+    "#FF8FB8",
+    "#F5C542",
+    "#FFF1F6"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: conic-gradient(from 340deg at 50% 50%, #000 0 30deg, transparent 30deg 360deg), conic-gradient(from 152deg at 50% 50%, #000 0 14deg, transparent 14deg 360deg); mask: conic-gradient(from 340deg at 50% 50%, #000 0 30deg, transparent 30deg 360deg), conic-gradient(from 152deg at 50% 50%, #000 0 14deg, transparent 14deg 360deg); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

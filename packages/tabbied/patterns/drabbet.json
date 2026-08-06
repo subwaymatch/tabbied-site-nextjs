@@ -1,0 +1,50 @@
+{
+  "name": "Drabbet",
+  "slug": "drabbet",
+  "galleryOrder": 2069,
+  "galleryWhite": true,
+  "description": "A coarse paired rhythm: two stripes close together, then a long rest.",
+  "palette": [
+    "#1C1C1C",
+    "#F2542D",
+    "#F5DFBB",
+    "#0E9594",
+    "#127475",
+    "#EDEDED"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: repeating-linear-gradient(90deg, #000 0 12%, transparent 12% 18%, #000 18% 24%, transparent 24% 40%); mask: repeating-linear-gradient(90deg, #000 0 12%, transparent 12% 18%, #000 18% 24%, transparent 24% 40%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

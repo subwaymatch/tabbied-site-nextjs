@@ -1,0 +1,49 @@
+{
+  "name": "Spunyarn",
+  "slug": "spunyarn",
+  "galleryOrder": 2260,
+  "description": "Two loose yarns twisted nearly parallel, crossing only at a shallow angle.",
+  "palette": [
+    "#EDF6F9",
+    "#006D77",
+    "#83C5BE",
+    "#E29578",
+    "#FFDDD2",
+    "#00343C"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { :before { content: ''; position: absolute; left: 8%; right: 8%; top: 42%; bottom: 42%; background: var(--color1); -webkit-transform: rotate(-12deg); transform: rotate(-12deg); -webkit-transition: ease 450ms; transition: ease 450ms; } :after { content: ''; position: absolute; left: 8%; right: 8%; top: 42%; bottom: 42%; background: @p(var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-transform: rotate(12deg); transform: rotate(12deg); opacity: 0.72; -webkit-transition: ease 450ms; transition: ease 450ms; } -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

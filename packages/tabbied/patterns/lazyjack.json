@@ -1,0 +1,50 @@
+{
+  "name": "Lazyjack",
+  "slug": "lazyjack",
+  "galleryOrder": 2132,
+  "galleryWhite": true,
+  "description": "Three hairlines falling from one point to the boom below.",
+  "palette": [
+    "#0C1B33",
+    "#7B9EA8",
+    "#DDE8B9",
+    "#F2E7C9",
+    "#B95F89",
+    "#2E4756"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg, 180deg, 270deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: conic-gradient(from 157deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), conic-gradient(from 177deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), conic-gradient(from 197deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), linear-gradient(0deg, transparent 0 8%, #000 8% 18%, transparent 18%); mask: conic-gradient(from 157deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), conic-gradient(from 177deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), conic-gradient(from 197deg at 50% 8%, #000 0 6deg, transparent 6deg 360deg), linear-gradient(0deg, transparent 0 8%, #000 8% 18%, transparent 18%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}

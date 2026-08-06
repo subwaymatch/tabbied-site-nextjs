@@ -1,0 +1,50 @@
+{
+  "name": "Taffeta",
+  "slug": "taffeta",
+  "galleryOrder": 2213,
+  "galleryWhite": true,
+  "description": "Two parallel bands of sheen, the shot colour changing between them.",
+  "palette": [
+    "#01161E",
+    "#124559",
+    "#598392",
+    "#AEC3B0",
+    "#EFF6E0",
+    "#F4B860"
+  ],
+  "colors": {
+    "min": 2,
+    "max": 6,
+    "default": 6
+  },
+  "options": [
+    {
+      "id": "grid",
+      "displayName": "Columns and rows",
+      "type": "ButtonSelectGroup",
+      "default": "6x9",
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
+      "replace": "${grid}"
+    },
+    {
+      "id": "frequency",
+      "displayName": "Frequency",
+      "type": "Slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 1,
+      "step": 0.1,
+      "replace": "${shapeFrequency}"
+    }
+  ],
+  "code": {
+    "style": "--rule: ( --rot: @pick(0deg, 90deg); @random(${shapeFrequency}) { background: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); -webkit-mask: linear-gradient(90deg, transparent 4%, #000 18% 26%, transparent 40%), linear-gradient(90deg, transparent 52%, #000 66% 74%, transparent 88%); mask: linear-gradient(90deg, transparent 4%, #000 18% 26%, transparent 40%), linear-gradient(90deg, transparent 52%, #000 66% 74%, transparent 88%); -webkit-transform: rotate(@var(--rot)); transform: rotate(@var(--rot)); } -webkit-transition: ease 450ms; transition: ease 450ms; );",
+    "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; overflow:hidden; text-align:center; box-sizing:border-box } :container { background: var(--color0); overflow:hidden; }"
+  }
+}
