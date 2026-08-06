@@ -3,6 +3,23 @@
   "slug": "batiste",
   "galleryOrder": 2010,
   "description": "Hairlines spaced far apart on an airy ground.",
+  "tags": [
+    "lines",
+    "stripes",
+    "grid",
+    "blocks"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper",
+    "hero-background"
+  ],
   "palette": [
     "#FFF8F2",
     "#FF7E9D",

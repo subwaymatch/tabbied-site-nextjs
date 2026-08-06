@@ -4,6 +4,24 @@
   "galleryOrder": 2001,
   "galleryWhite": true,
   "description": "A river islet held between two straight banks.",
+  "tags": [
+    "blocks",
+    "lines",
+    "dots",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro",
+    "elegant"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging",
+    "card-texture"
+  ],
   "palette": [
     "#1E1B18",
     "#C99E10",

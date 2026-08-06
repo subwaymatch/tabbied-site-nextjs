@@ -3,6 +3,22 @@
   "slug": "peppering",
   "galleryOrder": 1411,
   "description": "Coarse dots concentrated in the middle third and thinning out from there.",
+  "tags": [
+    "dots",
+    "diamonds",
+    "blocks"
+  ],
+  "mood": [
+    "calm",
+    "playful",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF9F5",
     "#FF8FB8",

@@ -145,23 +145,50 @@ that runs every time.
 
 ## Agent-facing docs — all generated, never hand-edited
 
-Four build artifacts describe the catalog to tools that can't see the
+Five build artifacts describe the catalog to tools that can't see the
 patterns. They're gitignored and regenerated on every build, so edit the
 generators, not the output:
 
 - `packages/tabbied/catalog.json` — written by the package's
   `scripts/codegen.mjs` from the same `patterns/*.json` it compiles, exported
-  as `tabbied/catalog.json`. Carries each design's description, palette,
-  options, default fit, and SVG-export tier — but **not** the css-doodle
-  `code`, which is what keeps it readable.
-- `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — written
-  by `scripts/generate-llms.mjs` from that catalog.
+  as `tabbied/catalog.json`. Carries each design's description, its
+  closed-vocabulary metadata (`tags`/`mood`/`density`/`goodFor` — see below),
+  its `preview` image URL, palette, options, and SVG-export tier — but
+  **not** the css-doodle `code`, which is what keeps it readable.
+- `packages/tabbied/llms.txt` — the full agent reference, written by the
+  package's `scripts/generate-llms.mjs` during its build (so a publish can't
+  ship without it; it's in the tarball `files` along with the hand-written
+  `AGENTS.md`).
+- `public/llms.txt`, `public/llms-full.txt`, `public/catalog.json` — the
+  site's copies, written by the root `scripts/generate-llms.mjs`, a thin
+  wrapper over the package generator. One template, two consumers.
 
-Codegen re-implements `defaultFitMode()` and `supportsSvgExport()` because it
-runs before tsc and has no compiled module to import. `test/catalog.test.mjs`
-pins both against the real implementations — if you change the rule in
-`src/core/sizing.ts` or `types.ts`, change it in codegen too or that test
-fails.
+Codegen re-implements `supportsSvgExport()` because it runs before tsc and
+has no compiled module to import. `test/catalog.test.mjs` pins it against the
+real implementation — if you change the rule in `types.ts`, change it in
+codegen too or that test fails.
+
+**Catalog metadata is a closed vocabulary.** Every `patterns/*.json` carries
+`tags` (visible motifs), `mood`, `density`, and `goodFor`, validated by
+codegen against `packages/tabbied/scripts/catalog-vocabulary.mjs` — an
+out-of-vocabulary value or a missing field fails the build. The values were
+authored by *looking at each rendered preview* (not the description), so when
+adding a design, look at it before tagging it; when adding a vocabulary term,
+remember published catalogs query these exact strings. The metadata is
+catalog-only: codegen strips it from the runtime bundle, and a test pins that.
+
+**Every design ships a committed preview** at `public/previews/<slug>.webp`
+(authored palette, default options, seed `preview1`, rendered @2x — at @1x
+the finest stipples vanish). `check:previews` (prebuild/predev) fails on a
+missing or orphaned file; regenerate with `npm run previews [slug]`. The
+catalog points agents at these URLs, which is why they're committed rather
+than rebuilt per deploy — a headless browser isn't available on the deploy
+build, and stable URLs shouldn't re-render anyway.
+
+The package also ships a `tabbied` bin (`src/cli.ts`): `render` (SVG/PNG,
+`--frames` for deterministic PNG sequences) and `list`/`info` over the
+catalog. It acquires a browser from whichever Playwright is installed —
+never add a hard Playwright dependency to the package.
 
 ## Grid snapping — invariant (full reference: docs/grid-snapping.md)
 
@@ -180,12 +207,12 @@ not merely to a whole pixel: a design that subdivides its cell seams at
 a nested `@doodle` — declare their own.
 
 The cell is also **squared** — `applyGridSnap` uses the larger of the two
-snapped cells on both axes. 146 of the 253 designs rotate a cell by a quarter
+snapped cells on both axes. Well over a hundred designs rotate a cell by a quarter
 turn, which swaps an oblong's axes and leaves a strip uncovered (a 120×124
 cell paints 124×120 rotated). Cobalt Works' coda seamed on exactly that.
 
 The snap is an inline style on the `<css-doodle>` element, *not* a change to
-`@size` in the generated source — the source feeds SVG export and the 253
+`@size` in the generated source — the source feeds SVG export and the
 definitions' `${width}`/`${height}` substitution, and neither should move
 because a container happened to be 1441px wide. Two traps: a CSS class can't
 set the box (`resolveBoxStyle` writes width/height inline on the wrapper, so a
@@ -201,7 +228,7 @@ only exists to give the quantiser a whole cell.
 ## Reduced motion — invariant
 
 A pattern moves two ways, and `prefers-reduced-motion` has to stop both. The
-`redrawInterval` timer is the obvious one. The other is that **all 253 designs
+`redrawInterval` timer is the obvious one. The other is that **all 295 designs
 declare a ~400ms `transition`** — the thing that makes a redraw morph rather
 than cut — and it fires on any re-render, including ones nobody asked for:
 `grid` and `cover` re-derive their cell grid on resize, so turning a phone

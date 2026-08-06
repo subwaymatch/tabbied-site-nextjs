@@ -3,6 +3,21 @@
   "slug": "bench",
   "galleryOrder": 2027,
   "description": "One deep step cut into an otherwise sheer face.",
+  "tags": [
+    "steps",
+    "blocks",
+    "zigzags"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "poster",
+    "textile"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

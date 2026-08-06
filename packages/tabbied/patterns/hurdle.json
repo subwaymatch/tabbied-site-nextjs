@@ -3,6 +3,20 @@
   "slug": "hurdle",
   "galleryOrder": 624,
   "description": "Woven hurdle fencing: flat laths lying across the grain on one square and along it on the next.",
+  "tags": [
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF9F5",
     "#FF8FB8",

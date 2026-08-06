@@ -3,6 +3,21 @@
   "slug": "cendal",
   "galleryOrder": 2035,
   "description": "A sash cut on the bias, fading along its own length.",
+  "tags": [
+    "diagonals",
+    "gradients",
+    "lines"
+  ],
+  "mood": [
+    "elegant",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "section-divider"
+  ],
   "palette": [
     "#F0EAD6",
     "#264653",

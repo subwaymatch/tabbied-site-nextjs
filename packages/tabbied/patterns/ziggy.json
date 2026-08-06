@@ -3,7 +3,30 @@
   "slug": "ziggy",
   "galleryOrder": 22,
   "description": "Thick chevron bands lock into zigzag ribbons — mostly dark, with colorful chevrons breaking through like radio static turned into fabric.",
-  "palette": ["#F5DD32", "#232529", "#FF3D8B", "#3E8BFF", "#FFFFFF", "#1B4075"],
+  "tags": [
+    "chevrons",
+    "zigzags",
+    "diamonds"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
+  "palette": [
+    "#F5DD32",
+    "#232529",
+    "#FF3D8B",
+    "#3E8BFF",
+    "#FFFFFF",
+    "#1B4075"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -15,7 +38,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

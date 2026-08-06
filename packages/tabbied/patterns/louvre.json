@@ -4,6 +4,21 @@
   "galleryOrder": 620,
   "galleryWhite": true,
   "description": "Angled shutter slats set at one constant tilt, so the whole canvas rakes the same way and only the finish changes. The gaps between slats are open, not painted.",
+  "tags": [
+    "diagonals",
+    "blocks",
+    "stripes"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#001219",
     "#005F73",

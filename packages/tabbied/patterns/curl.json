@@ -3,20 +3,52 @@
   "slug": "curl",
   "galleryOrder": 52,
   "description": "The classic Truchet curl: two thin arcs per tile joining into meandering loops — inked on nothing at all, ready to lay over anything.",
-  "palette": ["#FFFFFF00", "#232529", "#FF3D8B", "#3E8BFF", "#3FFFB2", "#F5DD32"],
+  "tags": [
+    "arcs",
+    "curves",
+    "lines",
+    "maze"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "packaging",
+    "textile"
+  ],
+  "palette": [
+    "#FFFFFF00",
+    "#232529",
+    "#FF3D8B",
+    "#3E8BFF",
+    "#3FFFB2",
+    "#F5DD32"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
     "default": 5
   },
-  "sizing": { "minCellPx": 36 },
+  "sizing": {
+    "minCellPx": 36
+  },
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

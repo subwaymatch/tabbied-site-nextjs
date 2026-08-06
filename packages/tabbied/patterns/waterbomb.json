@@ -4,6 +4,22 @@
   "galleryOrder": 720,
   "galleryWhite": true,
   "description": "The waterbomb base: a square creased on both diagonals and collapsed to a triangle.",
+  "tags": [
+    "triangles",
+    "diamonds",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "poster",
+    "wallpaper"
+  ],
   "palette": [
     "#2D132C",
     "#801336",

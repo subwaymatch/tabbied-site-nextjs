@@ -4,6 +4,24 @@
   "galleryOrder": 1239,
   "galleryWhite": true,
   "description": "Dots dense enough that the ink joins up and the gaps become the drawing.",
+  "tags": [
+    "dots",
+    "halftone",
+    "diamonds",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "card-texture",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#241024",
     "#E84393",

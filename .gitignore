@@ -67,3 +67,6 @@ generated-images/
 
 # Sandbox-only Playwright override (chromium build mismatch); never committed.
 playwright.local.config.ts
+
+# The package's agent-facing reference, written by its build (generate-llms.mjs)
+/packages/tabbied/llms.txt

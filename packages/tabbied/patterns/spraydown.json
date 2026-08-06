@@ -3,6 +3,23 @@
   "slug": "spraydown",
   "galleryOrder": 1408,
   "description": "Nothing at the top of the cell and a heavy spray by the bottom.",
+  "tags": [
+    "dots",
+    "halftone",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF4E6",
     "#3D348B",

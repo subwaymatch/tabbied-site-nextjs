@@ -4,6 +4,22 @@
   "galleryOrder": 604,
   "galleryWhite": true,
   "description": "Thread bobbins pinched at the waist, turning upright or flat on reseed.",
+  "tags": [
+    "blocks",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#2B1E1A",
     "#E2543E",

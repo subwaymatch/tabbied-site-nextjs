@@ -3,6 +3,21 @@
   "slug": "parity",
   "galleryOrder": 904,
   "description": "A checker that keeps changing its mind: the parity of the column decides the shape, the parity of the row decides the turn.",
+  "tags": [
+    "zigzags",
+    "chevrons",
+    "triangles"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

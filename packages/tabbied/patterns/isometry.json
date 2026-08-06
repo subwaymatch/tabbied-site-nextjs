@@ -3,6 +3,21 @@
   "slug": "isometry",
   "galleryOrder": 1017,
   "description": "The isometric grid: everything skewed thirty degrees, one way or the other.",
+  "tags": [
+    "chevrons",
+    "diagonals",
+    "zigzags"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

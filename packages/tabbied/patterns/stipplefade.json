@@ -4,6 +4,22 @@
   "galleryOrder": 1405,
   "galleryWhite": true,
   "description": "An even stipple at one edge of the cell, thinning to nothing at the other.",
+  "tags": [
+    "dots",
+    "halftone",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#181818",
     "#EC4E20",

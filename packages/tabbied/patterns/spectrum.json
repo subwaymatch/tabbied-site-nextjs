@@ -4,6 +4,23 @@
   "galleryOrder": 317,
   "galleryWhite": true,
   "description": "Smooth colour wheels turning a quarter at a time, the spectrum sweeping to a new orientation each seed.",
+  "tags": [
+    "circles",
+    "gradients",
+    "radial",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

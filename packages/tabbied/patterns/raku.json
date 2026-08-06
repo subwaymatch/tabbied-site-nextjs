@@ -3,6 +3,22 @@
   "slug": "raku",
   "galleryOrder": 2032,
   "description": "A scorch reaching in from one corner across most of the cell.",
+  "tags": [
+    "gradients",
+    "quarter-circles",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "organic",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "hero-background",
+    "wallpaper"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

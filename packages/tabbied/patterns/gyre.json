@@ -4,6 +4,22 @@
   "galleryOrder": 1005,
   "galleryWhite": true,
   "description": "A slow rotation about the middle of the sheet: every mark tangent to its own circle.",
+  "tags": [
+    "concentric",
+    "radial",
+    "rings",
+    "lines"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "hero-background"
+  ],
   "palette": [
     "#0F2A1E",
     "#2F6B3C",

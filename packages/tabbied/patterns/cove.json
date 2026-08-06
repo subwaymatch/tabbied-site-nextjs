@@ -3,6 +3,23 @@
   "slug": "cove",
   "galleryOrder": 630,
   "description": "A deep circular scoop cut out of every block, the cove swapping to the opposite corner on alternate rows.",
+  "tags": [
+    "quarter-circles",
+    "semicircles",
+    "curves",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF4E6",
     "#3D348B",

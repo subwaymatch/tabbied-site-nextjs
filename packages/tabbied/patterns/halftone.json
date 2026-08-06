@@ -3,6 +3,24 @@
   "slug": "halftone",
   "galleryOrder": 116,
   "description": "A halftone ramp printed top to bottom — dots grow with each row, and the whole screen shivers as every dot re-jitters per seed.",
+  "tags": [
+    "halftone",
+    "dots",
+    "grid",
+    "gradients"
+  ],
+  "mood": [
+    "calm",
+    "technical",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "poster",
+    "card-texture"
+  ],
   "palette": [
     "#FAF7F0",
     "#232529",

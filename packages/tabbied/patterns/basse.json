@@ -3,6 +3,23 @@
   "slug": "basse",
   "galleryOrder": 2039,
   "description": "Wide columns rising through counted levels of translucent enamel.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

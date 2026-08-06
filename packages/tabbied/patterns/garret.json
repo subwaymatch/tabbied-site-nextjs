@@ -4,6 +4,23 @@
   "galleryOrder": 2025,
   "galleryWhite": true,
   "description": "The gable-end wall with one small light under the peak.",
+  "tags": [
+    "blocks",
+    "mosaic",
+    "grid",
+    "squares"
+  ],
+  "mood": [
+    "retro",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "packaging",
+    "wallpaper",
+    "textile",
+    "poster"
+  ],
   "palette": [
     "#2B1E1A",
     "#E2543E",

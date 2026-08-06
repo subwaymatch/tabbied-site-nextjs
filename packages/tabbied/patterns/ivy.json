@@ -3,6 +3,23 @@
   "slug": "ivy",
   "galleryOrder": 78,
   "description": "Quarter-round leaves tiling into winding vines — each leaf swells from a different corner after every redraw.",
+  "tags": [
+    "quarter-circles",
+    "semicircles",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "organic",
+    "calm",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#F2F7EE",
     "#2F6B3C",

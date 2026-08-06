@@ -4,6 +4,22 @@
   "galleryOrder": 1227,
   "galleryWhite": true,
   "description": "A block projecting from one edge, wider than it is deep.",
+  "tags": [
+    "blocks",
+    "squares",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#131A26",
     "#F5A65B",

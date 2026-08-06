@@ -3,6 +3,22 @@
   "slug": "rabbet",
   "galleryOrder": 2008,
   "description": "A block with a step ploughed out of one corner, ready to take its neighbour.",
+  "tags": [
+    "blocks",
+    "steps",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#E9F1FF",
     "#1B4075",

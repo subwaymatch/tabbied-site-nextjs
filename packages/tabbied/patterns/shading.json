@@ -3,6 +3,21 @@
   "slug": "shading",
   "galleryOrder": 1251,
   "description": "A fade running on the diagonal, over a cell that is otherwise plain.",
+  "tags": [
+    "gradients",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

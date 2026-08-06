@@ -3,6 +3,22 @@
   "slug": "recession",
   "galleryOrder": 1019,
   "description": "Marks receding into the distance: smaller, fainter and closer together as they go.",
+  "tags": [
+    "dots",
+    "circles",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "poster"
+  ],
   "palette": [
     "#FFF9F5",
     "#FF8FB8",

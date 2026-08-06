@@ -3,6 +3,22 @@
   "slug": "lucarne",
   "galleryOrder": 2026,
   "description": "A long roof slope with a small dormer void cut into it.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "grid",
+    "blocks"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "poster",
+    "og-image"
+  ],
   "palette": [
     "#FFF9F5",
     "#FF8FB8",

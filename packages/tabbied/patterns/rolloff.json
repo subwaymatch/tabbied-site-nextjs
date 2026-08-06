@@ -4,6 +4,22 @@
   "galleryOrder": 1401,
   "galleryWhite": true,
   "description": "The ramp runs corner to corner rather than edge to edge, so the fall is on the diagonal.",
+  "tags": [
+    "gradients",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "og-image"
+  ],
   "palette": [
     "#10303A",
     "#2BB3A3",

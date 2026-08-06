@@ -3,6 +3,21 @@
   "slug": "subside",
   "galleryOrder": 1403,
   "description": "A band across the middle of the cell, fading along its own length.",
+  "tags": [
+    "blocks",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "section-divider"
+  ],
   "palette": [
     "#F5F3F4",
     "#0B090A",

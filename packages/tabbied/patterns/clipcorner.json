@@ -3,6 +3,22 @@
   "slug": "clipcorner",
   "galleryOrder": 1216,
   "description": "Two opposite corners cut, so the cell reads as a long lozenge.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "diagonals"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

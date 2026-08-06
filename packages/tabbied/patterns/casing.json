@@ -4,6 +4,20 @@
   "galleryOrder": 2022,
   "galleryWhite": true,
   "description": "A plain frame of even width around an open middle.",
+  "tags": [
+    "squares",
+    "grid",
+    "blocks"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "wallpaper"
+  ],
   "palette": [
     "#0A100D",
     "#B9BAA3",

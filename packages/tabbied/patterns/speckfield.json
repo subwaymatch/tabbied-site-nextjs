@@ -4,6 +4,22 @@
   "galleryOrder": 1235,
   "galleryWhite": true,
   "description": "Small dots on a wide pitch, so the cell reads as a tint with texture in it.",
+  "tags": [
+    "dots",
+    "grid",
+    "halftone"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider",
+    "wallpaper"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

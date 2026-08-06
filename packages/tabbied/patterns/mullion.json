@@ -3,6 +3,22 @@
   "slug": "mullion",
   "galleryOrder": 712,
   "description": "Tall lights divided by mullions — three panes to an opening, the divisions cut, not drawn.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "og-image",
+    "poster"
+  ],
   "palette": [
     "#E9F1FF",
     "#1B4075",

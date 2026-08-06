@@ -3,6 +3,22 @@
   "slug": "grainfall",
   "galleryOrder": 1407,
   "description": "A fine grain, dense enough to read as a tint where it starts and as specks where it ends.",
+  "tags": [
+    "dots",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFFFC",
     "#BEB7A4",

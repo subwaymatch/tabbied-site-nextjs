@@ -3,6 +3,22 @@
   "slug": "reeding",
   "galleryOrder": 1111,
   "description": "Reeding: convex half-rounds run side by side, the opposite of fluting.",
+  "tags": [
+    "lines",
+    "stripes",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

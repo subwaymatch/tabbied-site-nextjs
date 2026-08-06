@@ -4,6 +4,24 @@
   "galleryOrder": 908,
   "galleryWhite": true,
   "description": "Self-similar all the way down: the inner grid uses the same open-or-shut rule as the outer one.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic",
+    "blocks"
+  ],
+  "mood": [
+    "retro",
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "wallpaper",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

@@ -4,6 +4,22 @@
   "galleryOrder": 707,
   "galleryWhite": true,
   "description": "Triangles all leaning the same way within a row and flipping on the next, with the odd contrary tile drifting through.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#0B2540",
     "#3E8BFF",

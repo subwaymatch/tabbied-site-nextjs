@@ -4,6 +4,23 @@
   "galleryOrder": 1001,
   "galleryWhite": true,
   "description": "A square field given a twist that accumulates with the radius — flat in the middle, wrung out at the rim.",
+  "tags": [
+    "squares",
+    "diamonds",
+    "radial",
+    "concentric"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#141233",
     "#6C4AB6",

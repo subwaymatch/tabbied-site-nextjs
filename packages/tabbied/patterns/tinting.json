@@ -4,6 +4,21 @@
   "galleryOrder": 1250,
   "galleryWhite": true,
   "description": "A ruled field that fades out as it crosses the cell.",
+  "tags": [
+    "lines",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

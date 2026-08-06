@@ -4,6 +4,22 @@
   "galleryOrder": 1004,
   "galleryWhite": true,
   "description": "The same field turned a quarter: every mark lies across the radius instead of along it.",
+  "tags": [
+    "lines",
+    "concentric",
+    "radial",
+    "rings"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image"
+  ],
   "palette": [
     "#12100E",
     "#D62246",

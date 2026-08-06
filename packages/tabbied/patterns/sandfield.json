@@ -4,6 +4,22 @@
   "galleryOrder": 1240,
   "galleryWhite": true,
   "description": "A fine close field, nearer a texture than a pattern.",
+  "tags": [
+    "dots",
+    "halftone",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#1D1F24",
     "#E8E6E1",

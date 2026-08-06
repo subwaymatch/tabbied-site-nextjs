@@ -3,6 +3,23 @@
   "slug": "bight",
   "galleryOrder": 2000,
   "description": "A slab of shore with one round bay bitten out of its seaward edge.",
+  "tags": [
+    "blocks",
+    "scallops",
+    "maze",
+    "curves"
+  ],
+  "mood": [
+    "organic",
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "packaging"
+  ],
   "palette": [
     "#FEFAE0",
     "#606C38",

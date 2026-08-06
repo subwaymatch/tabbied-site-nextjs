@@ -4,6 +4,22 @@
   "galleryOrder": 2015,
   "galleryWhite": true,
   "description": "Two fans facing each other from opposite edges, almost meeting.",
+  "tags": [
+    "triangles",
+    "diamonds",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "poster",
+    "og-image"
+  ],
   "palette": [
     "#12100E",
     "#D62246",

@@ -74,6 +74,7 @@ const PER_PATTERN_MAX = {
   terrain: 0.02,
   neon: 0.015,
   lantern: 0.015,
+  stepramp: 0.02,
 };
 
 const browser = await chromium.launch({
@@ -278,4 +279,6 @@ const fails = results.filter((r) => r.status !== 'pass');
 console.log(
   `\n${results.length - fails.length}/${results.length} passed; failures: ${fails.map((f) => f.slug).join(', ') || 'none'}`
 );
+// Scripted callers must see failures as failures, like the other gates do.
+if (fails.length > 0) process.exitCode = 1;
 await browser.close();

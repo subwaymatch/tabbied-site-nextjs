@@ -3,6 +3,22 @@
   "slug": "rebate",
   "galleryOrder": 2009,
   "description": "The other half of that joint: a block with the notch taken out of its edge.",
+  "tags": [
+    "blocks",
+    "steps",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#F8F4E3",
     "#40434E",

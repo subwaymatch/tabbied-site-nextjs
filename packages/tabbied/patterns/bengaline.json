@@ -3,6 +3,23 @@
   "slug": "bengaline",
   "galleryOrder": 2034,
   "description": "Two ribbons fading in opposite directions, warp against weft.",
+  "tags": [
+    "blocks",
+    "gradients",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "packaging",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

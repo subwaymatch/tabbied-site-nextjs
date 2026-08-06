@@ -3,6 +3,24 @@
   "slug": "spit",
   "galleryOrder": 2004,
   "description": "A bar of land curving out from the shore across the water.",
+  "tags": [
+    "arcs",
+    "quarter-circles",
+    "curves",
+    "grid"
+  ],
+  "mood": [
+    "organic",
+    "playful",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "wallpaper",
+    "section-divider"
+  ],
   "palette": [
     "#EDF6F9",
     "#006D77",

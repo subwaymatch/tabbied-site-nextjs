@@ -3,6 +3,22 @@
   "slug": "meetpart",
   "galleryOrder": 1244,
   "description": "Two sectors from opposite corners, only the diamond where they meet left.",
+  "tags": [
+    "diamonds",
+    "diagonals",
+    "chevrons",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

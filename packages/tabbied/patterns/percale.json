@@ -3,6 +3,23 @@
   "slug": "percale",
   "galleryOrder": 2011,
   "description": "A crisp, even stripe, ink and ground given equal measure.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFFFF",
     "#06AED5",

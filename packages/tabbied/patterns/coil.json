@@ -4,6 +4,23 @@
   "galleryOrder": 318,
   "galleryWhite": true,
   "description": "Colour-wheel rings with a hollow hub, the coil re-winding to a new angle on each redraw.",
+  "tags": [
+    "circles",
+    "rings",
+    "radial",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "wallpaper"
+  ],
   "palette": [
     "#1D1F24",
     "#E8E6E1",

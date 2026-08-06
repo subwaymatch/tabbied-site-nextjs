@@ -4,6 +4,22 @@
   "galleryOrder": 901,
   "galleryWhite": true,
   "description": "Linocut gouges: broad chisel strokes with rounded ends.",
+  "tags": [
+    "lines",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture",
+    "poster"
+  ],
   "palette": [
     "#2D132C",
     "#801336",

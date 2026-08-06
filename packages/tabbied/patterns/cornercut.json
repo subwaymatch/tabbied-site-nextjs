@@ -4,6 +4,22 @@
   "galleryOrder": 1215,
   "galleryWhite": true,
   "description": "One corner taken off square, and the cut turning round the cell from one to the next.",
+  "tags": [
+    "squares",
+    "triangles",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "card-texture"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

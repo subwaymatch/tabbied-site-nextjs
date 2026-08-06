@@ -3,6 +3,20 @@
   "slug": "bowsprit",
   "galleryOrder": 2020,
   "description": "A spar run out on the diagonal over the hull below.",
+  "tags": [
+    "diagonals",
+    "triangles",
+    "lines"
+  ],
+  "mood": [
+    "organic",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#F3F9D2",
     "#274001",

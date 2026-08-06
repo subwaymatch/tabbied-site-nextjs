@@ -3,6 +3,20 @@
   "slug": "grosgrain",
   "galleryOrder": 2033,
   "description": "A wide ribbon whose ends feather out instead of stopping.",
+  "tags": [
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FFF3B0",
     "#335C67",

@@ -3,6 +3,21 @@
   "slug": "alcove",
   "galleryOrder": 2023,
   "description": "The same frame with one side left open.",
+  "tags": [
+    "squares",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

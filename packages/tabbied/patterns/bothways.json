@@ -4,6 +4,21 @@
   "galleryOrder": 1243,
   "galleryWhite": true,
   "description": "A field ruled both ways at once, so only the crossings survive.",
+  "tags": [
+    "squares",
+    "dots",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

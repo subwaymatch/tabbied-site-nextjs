@@ -3,6 +3,22 @@
   "slug": "dotfield",
   "galleryOrder": 1236,
   "description": "A plain even field: the dot half the width of its tile.",
+  "tags": [
+    "dots",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "hero-background",
+    "wallpaper",
+    "section-divider"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

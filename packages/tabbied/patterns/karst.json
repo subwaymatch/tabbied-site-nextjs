@@ -4,6 +4,23 @@
   "galleryOrder": 718,
   "galleryWhite": true,
   "description": "Limestone pavement: solid clints with the grikes weathered clean through between them.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#0F1A20",
     "#F4D35E",

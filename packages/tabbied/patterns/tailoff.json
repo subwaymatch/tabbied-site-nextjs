@@ -4,6 +4,21 @@
   "galleryOrder": 1404,
   "galleryWhite": true,
   "description": "A narrow upright, solid at the foot and spent by the head.",
+  "tags": [
+    "lines",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "hero-background"
+  ],
   "palette": [
     "#0C1B33",
     "#7B9EA8",

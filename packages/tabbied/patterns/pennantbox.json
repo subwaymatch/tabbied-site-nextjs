@@ -3,6 +3,23 @@
   "slug": "pennantbox",
   "galleryOrder": 364,
   "description": "Squares with a triangular corner folded down like a turned page, re-folding each seed.",
+  "tags": [
+    "squares",
+    "triangles",
+    "mosaic",
+    "blocks"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

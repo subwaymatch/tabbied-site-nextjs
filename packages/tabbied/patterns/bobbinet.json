@@ -3,6 +3,24 @@
   "slug": "bobbinet",
   "galleryOrder": 2016,
   "description": "A net of eyelets — the ground a bobbin lace is worked on.",
+  "tags": [
+    "dots",
+    "rings",
+    "grid",
+    "halftone"
+  ],
+  "mood": [
+    "calm",
+    "technical",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "section-divider",
+    "wallpaper"
+  ],
   "palette": [
     "#F5F5F0",
     "#161616",

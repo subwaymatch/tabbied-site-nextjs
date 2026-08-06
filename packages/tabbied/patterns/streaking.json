@@ -3,6 +3,24 @@
   "slug": "streaking",
   "galleryOrder": 1414,
   "description": "The rules lean at forty-five degrees and the fall runs square across them.",
+  "tags": [
+    "diagonals",
+    "stripes",
+    "squares",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "hero-background",
+    "card-texture",
+    "wallpaper",
+    "section-divider"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

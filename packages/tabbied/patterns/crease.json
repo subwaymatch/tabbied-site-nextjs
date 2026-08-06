@@ -3,6 +3,22 @@
   "slug": "crease",
   "galleryOrder": 721,
   "description": "A crease pattern: the mountain and valley lines drawn before anything is folded.",
+  "tags": [
+    "triangles",
+    "mosaic",
+    "grid",
+    "diagonals"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FFF3B0",
     "#335C67",

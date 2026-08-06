@@ -4,6 +4,23 @@
   "galleryOrder": 706,
   "galleryWhite": true,
   "description": "Parallelograms leaning one way or the other, packing into a field that shears as you read across it.",
+  "tags": [
+    "blocks",
+    "diagonals",
+    "zigzags",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#1D1F24",
     "#E8E6E1",

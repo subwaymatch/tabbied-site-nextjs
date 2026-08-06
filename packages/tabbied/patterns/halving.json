@@ -4,6 +4,22 @@
   "galleryOrder": 1222,
   "galleryWhite": true,
   "description": "Two opposite notches of the same size, so the cell would key into a copy of itself.",
+  "tags": [
+    "squares",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

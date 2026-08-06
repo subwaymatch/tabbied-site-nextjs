@@ -3,6 +3,22 @@
   "slug": "gimbal",
   "galleryOrder": 1008,
   "description": "Two rings on crossed axes, both swung to the cell's own bearing.",
+  "tags": [
+    "ovals",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "elegant",
+    "calm",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "hero-background"
+  ],
   "palette": [
     "#FAF7F0",
     "#232529",

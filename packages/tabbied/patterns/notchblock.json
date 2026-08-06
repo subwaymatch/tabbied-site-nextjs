@@ -4,6 +4,22 @@
   "galleryOrder": 510,
   "galleryWhite": true,
   "description": "Big blocks missing a rectangular corner notch, re-orienting on reseed.",
+  "tags": [
+    "blocks",
+    "squares",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

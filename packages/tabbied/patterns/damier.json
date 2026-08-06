@@ -3,6 +3,23 @@
   "slug": "damier",
   "galleryOrder": 622,
   "description": "A strict checkerboard — filled squares keyed to their neighbours, the open squares holding a single pip so the field still reads when the ground drops away.",
+  "tags": [
+    "checkerboard",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging",
+    "textile"
+  ],
   "palette": [
     "#FAF7F0",
     "#232529",

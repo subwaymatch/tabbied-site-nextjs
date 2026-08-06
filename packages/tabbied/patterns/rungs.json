@@ -3,6 +3,22 @@
   "slug": "rungs",
   "galleryOrder": 369,
   "description": "Ladder rungs stacked across the cell, turning upright or flat on each seed.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

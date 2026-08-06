@@ -4,6 +4,23 @@
   "galleryOrder": 1233,
   "galleryWhite": true,
   "description": "A right triangle filling half the cell, the hypotenuse running corner to corner.",
+  "tags": [
+    "triangles",
+    "grid",
+    "mosaic",
+    "diagonals"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

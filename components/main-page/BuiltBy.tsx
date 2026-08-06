@@ -35,7 +35,7 @@ export default function BuiltBy() {
                 creativity. Tabbied was initially developed as a tool for making
                 wall art, but we quickly realized that it could be used for many
                 other purposes. We’re very excited to see what you can make
-                using out platform.
+                using our platform.
               </p>
 
               <p>

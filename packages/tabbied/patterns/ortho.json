@@ -4,6 +4,21 @@
   "galleryOrder": 1016,
   "galleryWhite": true,
   "description": "No perspective at all — the same square everywhere, and only the weight of the line changing.",
+  "tags": [
+    "squares",
+    "grid",
+    "lines"
+  ],
+  "mood": [
+    "technical",
+    "calm"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "hero-background"
+  ],
   "palette": [
     "#11151A",
     "#FF5252",

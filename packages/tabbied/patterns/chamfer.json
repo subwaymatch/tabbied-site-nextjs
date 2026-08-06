@@ -3,6 +3,21 @@
   "slug": "chamfer",
   "galleryOrder": 496,
   "description": "Squares with one chamfered corner, the bevel rotating to a new edge on reseed.",
+  "tags": [
+    "squares",
+    "grid",
+    "blocks"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

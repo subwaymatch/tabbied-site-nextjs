@@ -4,6 +4,25 @@
   "galleryOrder": 703,
   "galleryWhite": true,
   "description": "Mixtape's whole library at once — corner circles, half-square triangles, a centred disc — and one cell in five raked through with cut slots.",
+  "tags": [
+    "circles",
+    "triangles",
+    "quarter-circles",
+    "stripes",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#0D1B2A",
     "#1B98E0",

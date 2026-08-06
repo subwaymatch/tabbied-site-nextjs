@@ -4,6 +4,23 @@
   "galleryOrder": 717,
   "galleryWhite": true,
   "description": "Folded sheets nested inside one another, the way a gathering is made up before it is sewn.",
+  "tags": [
+    "lines",
+    "squares",
+    "grid",
+    "steps"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#2C061F",
     "#DF57BC",

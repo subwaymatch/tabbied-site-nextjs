@@ -4,6 +4,22 @@
   "galleryOrder": 1427,
   "galleryWhite": true,
   "description": "Two long bars fanned from a common corner, the upper one let down over it.",
+  "tags": [
+    "diagonals",
+    "blocks",
+    "grid",
+    "zigzags"
+  ],
+  "mood": [
+    "retro",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#131A26",
     "#F5A65B",

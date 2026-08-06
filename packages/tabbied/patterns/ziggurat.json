@@ -4,7 +4,31 @@
   "galleryOrder": 51,
   "galleryWhite": true,
   "description": "Stepped temple silhouettes climbing in four directions — an op-art stairfield, mostly cyan with flashes of other colors.",
-  "palette": ["#1B4075", "#3EECFF", "#FFFFFF", "#3E8BFF", "#3FFFB2", "#97F4FF"],
+  "tags": [
+    "steps",
+    "blocks",
+    "zigzags",
+    "squares"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
+  "palette": [
+    "#1B4075",
+    "#3EECFF",
+    "#FFFFFF",
+    "#3E8BFF",
+    "#3FFFB2",
+    "#97F4FF"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -16,7 +40,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

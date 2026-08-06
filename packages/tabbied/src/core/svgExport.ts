@@ -881,6 +881,18 @@ function measureTree(
   override.textContent = MEASURE_OVERRIDE;
   const mute = document.createElement('style');
   mute.textContent = MUTE_MOTION;
+  // The override style lives in the shadow root, so it can never reach the
+  // host <css-doodle> itself — and the `cover` fit scales the host with an
+  // inline transform. Left in place it would scale every measured box while
+  // getComputedStyle keeps returning unscaled px (border widths, radii,
+  // pseudo sizes, shadow offsets), silently distorting the export. Neutralize
+  // it inline for the measurement pass; the export then comes out at the
+  // render box's native resolution, which is what the source describes.
+  const host = root.host as HTMLElement;
+  const hostTransform = host.style.transform;
+  const hostTransition = host.style.transition;
+  host.style.transition = 'none';
+  host.style.transform = 'none';
   root.appendChild(override);
   try {
     const anchorRect = anchor.getBoundingClientRect();
@@ -902,9 +914,12 @@ function measureTree(
   } finally {
     root.appendChild(mute);
     override.remove();
-    // Commit the restored transforms while transitions are still muted.
+    host.style.transform = hostTransform;
+    // Commit the restored transforms while transitions are still muted (the
+    // host's own transition stays inline-muted through the same recalc).
     void anchor.getBoundingClientRect();
     mute.remove();
+    host.style.transition = hostTransition;
   }
 }
 

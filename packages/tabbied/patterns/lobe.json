@@ -3,6 +3,23 @@
   "slug": "lobe",
   "galleryOrder": 430,
   "description": "Quarter-round leaves curling from one corner, the petal spinning to a new corner each seed.",
+  "tags": [
+    "leaves",
+    "petals",
+    "quarter-circles",
+    "grid"
+  ],
+  "mood": [
+    "organic",
+    "calm",
+    "retro"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FEFAE0",
     "#606C38",

@@ -3,7 +3,31 @@
   "slug": "weave",
   "galleryOrder": 21,
   "description": "Stripes alternate between warp and weft from cell to cell, basket-weaving the canvas with the occasional solid patch.",
-  "palette": ["#FFFFFF", "#3E8BFF", "#1B4075", "#3EECFF", "#FF3D8B", "#3FFFB2"],
+  "tags": [
+    "stripes",
+    "squares",
+    "grid",
+    "circles",
+    "lines"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#3E8BFF",
+    "#1B4075",
+    "#3EECFF",
+    "#FF3D8B",
+    "#3FFFB2"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -15,7 +39,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {
