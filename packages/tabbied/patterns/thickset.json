@@ -4,6 +4,20 @@
   "galleryOrder": 1021,
   "galleryWhite": true,
   "description": "Heavy throughout, and heavier still as it goes: frames that all but close up.",
+  "tags": [
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "textile"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

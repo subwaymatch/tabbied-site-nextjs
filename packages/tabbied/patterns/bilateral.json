@@ -4,6 +4,23 @@
   "galleryOrder": 1013,
   "galleryWhite": true,
   "description": "The sheet folded down its middle: everything past the centreline is the mirror of what came before it.",
+  "tags": [
+    "triangles",
+    "grid",
+    "mosaic",
+    "diagonals"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

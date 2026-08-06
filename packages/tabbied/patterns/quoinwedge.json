@@ -4,6 +4,22 @@
   "galleryOrder": 1234,
   "galleryWhite": true,
   "description": "A wedge set into a corner, its point running to the far edge.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#161616",
     "#F5F5F0",

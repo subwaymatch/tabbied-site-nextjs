@@ -3,6 +3,22 @@
   "slug": "mortise",
   "galleryOrder": 631,
   "description": "A mortise cut square through each block, standing upright in one column and lying flat in the next.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#FDF6E3",
     "#073642",

@@ -4,6 +4,23 @@
   "galleryOrder": 1247,
   "galleryWhite": true,
   "description": "The fade runs from one corner to the one opposite.",
+  "tags": [
+    "squares",
+    "grid",
+    "gradients",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

@@ -3,6 +3,22 @@
   "slug": "chip",
   "galleryOrder": 702,
   "description": "Squares with two opposite corners knocked off, a few left whole — the chamfer turning a quarter at a time.",
+  "tags": [
+    "squares",
+    "blocks",
+    "grid",
+    "diagonals"
+  ],
+  "mood": [
+    "retro",
+    "organic"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

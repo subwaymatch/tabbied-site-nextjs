@@ -3,6 +3,23 @@
   "slug": "frieze",
   "galleryOrder": 1102,
   "description": "A running frieze two cells deep: the upper half of the motif in one row, the lower in the next.",
+  "tags": [
+    "zigzags",
+    "chevrons",
+    "diamonds",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster",
+    "packaging"
+  ],
   "palette": [
     "#F4EFE4",
     "#7A1F3D",

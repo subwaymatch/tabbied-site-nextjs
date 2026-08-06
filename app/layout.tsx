@@ -15,7 +15,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Tabbied',
   description:
-    'Tabbied lets you easily create timeless and beautifully generated patterns or pattern to use for wall art, websites, print materials and more.',
+    'Tabbied lets you easily create timeless and beautifully generated patterns to use for wall art, websites, print materials and more.',
   manifest: '/site.webmanifest',
   icons: {
     icon: [

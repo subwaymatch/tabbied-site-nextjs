@@ -4,6 +4,22 @@
   "galleryOrder": 1106,
   "galleryWhite": true,
   "description": "Oval links running edge to edge, each one overlapping its neighbours.",
+  "tags": [
+    "ovals",
+    "dots",
+    "circles"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "wallpaper"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

@@ -3,6 +3,22 @@
   "slug": "snipcorner",
   "galleryOrder": 1421,
   "description": "One corner taken off at a shallow angle, so the cut is longer than it is deep.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#FFFDF7",
     "#232529",

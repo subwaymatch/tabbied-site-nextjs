@@ -3,6 +3,22 @@
   "slug": "stylobate",
   "galleryOrder": 1225,
   "description": "Three steps down from one corner to the opposite edge.",
+  "tags": [
+    "steps",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "organic",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#F2EFEA",
     "#3A5A40",

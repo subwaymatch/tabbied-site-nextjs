@@ -3,6 +3,24 @@
   "slug": "gravure",
   "galleryOrder": 903,
   "description": "Photogravure cells: a grid of square wells with the walls left standing between them.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic",
+    "lattice"
+  ],
+  "mood": [
+    "bold",
+    "retro",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "wallpaper",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#FAF7F0",
     "#232529",

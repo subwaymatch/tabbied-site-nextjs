@@ -4,6 +4,21 @@
   "galleryOrder": 722,
   "galleryWhite": true,
   "description": "A shaft with its keyway cut: a bore with one square notch broached out of the wall.",
+  "tags": [
+    "rings",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

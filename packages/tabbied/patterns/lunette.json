@@ -3,6 +3,22 @@
   "slug": "lunette",
   "galleryOrder": 627,
   "description": "Half-round lunette windows, each pair of panes parted by an open glazing bar rather than a painted one.",
+  "tags": [
+    "semicircles",
+    "quarter-circles",
+    "arcs",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FEFAE0",
     "#606C38",

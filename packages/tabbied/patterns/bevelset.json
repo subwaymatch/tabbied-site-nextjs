@@ -4,6 +4,23 @@
   "galleryOrder": 1217,
   "galleryWhite": true,
   "description": "All four corners cut equally: a regular octagon held inside its square.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic",
+    "diagonals"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "poster",
+    "textile"
+  ],
   "palette": [
     "#1A1A2E",
     "#16213E",

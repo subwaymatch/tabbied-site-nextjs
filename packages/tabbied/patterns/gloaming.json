@@ -3,6 +3,24 @@
   "slug": "gloaming",
   "galleryOrder": 1400,
   "description": "The ink holds for a moment at one edge and then falls away to nothing across the rest of the cell.",
+  "tags": [
+    "blocks",
+    "squares",
+    "gradients",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#FFFDF7",
     "#232529",

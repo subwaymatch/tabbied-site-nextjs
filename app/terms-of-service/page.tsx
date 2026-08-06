@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'components/layout';
 import SiteFooter from 'components/site/SiteFooter';
 
 export const metadata: Metadata = {
-  title: 'Terms of Services - Tabbied',
+  title: 'Terms of Service - Tabbied',
 };
 
 export default function TermsOfServicePage() {
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
         <Container>
           <Row>
             <Col lg={{ span: 8, offset: 2 }} md={10}>
-              <h3 className="section-title">Terms of Services</h3>
+              <h3 className="section-title">Terms of Service</h3>
 
               <p style={{ marginTop: '1.5rem' }}>Last updated: June 13, 2026.</p>
 

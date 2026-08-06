@@ -3,6 +3,21 @@
   "slug": "mitre",
   "galleryOrder": 1218,
   "description": "A single deep cut running most of the way across, leaving a broad triangle.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#FFF8E7",
     "#D62828",

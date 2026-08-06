@@ -3,6 +3,21 @@
   "slug": "hilbert",
   "galleryOrder": 905,
   "description": "The Hilbert curve's four orientations, cycling by cell index so the path always joins up.",
+  "tags": [
+    "maze",
+    "grid",
+    "lines"
+  ],
+  "mood": [
+    "technical",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#F7F7FF",
     "#2D3142",

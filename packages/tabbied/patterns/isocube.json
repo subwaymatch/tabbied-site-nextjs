@@ -3,6 +3,22 @@
   "slug": "isocube",
   "galleryOrder": 625,
   "description": "Tumbling blocks: one hexagon per cell shaded as a lit top and two falling sides, stacking into an isometric wall.",
+  "tags": [
+    "hexagons",
+    "diamonds",
+    "blocks",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

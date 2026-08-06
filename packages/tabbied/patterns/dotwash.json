@@ -3,6 +3,22 @@
   "slug": "dotwash",
   "galleryOrder": 1412,
   "description": "The field pooled in one corner, thinning as it goes out from it.",
+  "tags": [
+    "dots",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "elegant"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#FFF0F3",
     "#590D22",

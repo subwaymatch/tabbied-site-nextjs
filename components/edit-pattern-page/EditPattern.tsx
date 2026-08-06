@@ -194,7 +194,11 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   const customPaletteColors = (custom: BrandPalette): string[] =>
     custom.colors.map((color, index) =>
-      index === 0 && custom.transparentBackground ? `${color}00` : color
+      // Normalize first: appending an alpha byte to a 3- or 8-digit hex would
+      // produce an invalid color (the stored palette allows both forms).
+      index === 0 && custom.transparentBackground
+        ? `${toOpaqueHex(color)}00`
+        : color
     );
 
   const customPaletteToEditor = (
@@ -428,12 +432,16 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     return () => observer.disconnect();
   }, []);
 
-  // Sync the URL search params FROM component state if necessary.
-  useEffect(() => {
-    if (searchParams.toString() === '') {
-      return;
-    }
+  // Serialized state as of mount, so the sync effect can tell "still the
+  // state the URL already implies" apart from a real edit.
+  const initialSerializedState = useRef<string | null>(null);
 
+  // Sync the URL search params FROM component state if necessary. A clean
+  // `/patterns/<slug>/` visit keeps its bare URL while the state still matches
+  // what that URL implies — but only that long: once anything changes the URL
+  // must follow, even when it started without params, or "Copy shareable
+  // link" copies a link that doesn't reproduce the edits.
+  useEffect(() => {
     const newParams = new URLSearchParams();
 
     palette
@@ -446,6 +454,17 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
     });
 
     const nextParams = newParams.toString();
+
+    if (initialSerializedState.current === null) {
+      initialSerializedState.current = nextParams;
+    }
+
+    if (
+      searchParams.toString() === '' &&
+      nextParams === initialSerializedState.current
+    ) {
+      return;
+    }
 
     if (nextParams !== searchParams.toString()) {
       if (selfWrites.current.size > 32) selfWrites.current.clear();
@@ -625,6 +644,9 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
       return next;
     });
+    // Like every other swatch edit: the colors no longer match the applied
+    // chip, so stop highlighting it.
+    setPaletteSource('custom');
   };
 
   const changeAspectRatio = (nextRatio: AspectRatioId) => {

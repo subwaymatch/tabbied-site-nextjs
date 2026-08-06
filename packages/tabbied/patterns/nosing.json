@@ -4,6 +4,22 @@
   "galleryOrder": 1220,
   "galleryWhite": true,
   "description": "One edge stepped forward twice, like the nose of a tread.",
+  "tags": [
+    "blocks",
+    "steps",
+    "squares",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#1D1F24",
     "#E8E6E1",

@@ -3,7 +3,28 @@
   "slug": "tesserae",
   "galleryOrder": 40,
   "description": "Hand-set mosaic tiles in three blues, each one cut and laid at its own slight angle so the whole wall shimmers.",
-  "palette": ["#FFFFFF", "#3E8BFF", "#3EECFF", "#1B4075"],
+  "tags": [
+    "squares",
+    "mosaic",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "textile",
+    "poster"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#3E8BFF",
+    "#3EECFF",
+    "#1B4075"
+  ],
   "colors": {
     "min": 2,
     "max": 4,
@@ -15,7 +36,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

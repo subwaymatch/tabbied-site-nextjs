@@ -4,6 +4,21 @@
   "galleryOrder": 1420,
   "galleryWhite": true,
   "description": "A parallelogram leaning across the cell, with ground either side of it.",
+  "tags": [
+    "blocks",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

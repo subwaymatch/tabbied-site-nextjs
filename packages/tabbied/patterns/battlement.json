@@ -4,6 +4,23 @@
   "galleryOrder": 390,
   "galleryWhite": true,
   "description": "Crenellated battlements marching along the top edge, re-toothing on each seed.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "steps"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#0B2540",
     "#1B4075",

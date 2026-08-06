@@ -4,6 +4,24 @@
   "galleryOrder": 1101,
   "galleryWhite": true,
   "description": "A wide spray thrown from one edge, the cone opening to nearly a half-circle.",
+  "tags": [
+    "triangles",
+    "squares",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "retro",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#2D132C",
     "#801336",

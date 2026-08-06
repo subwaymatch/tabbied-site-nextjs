@@ -4,6 +4,23 @@
   "galleryOrder": 1105,
   "galleryWhite": true,
   "description": "A field of small perforations on a square pitch.",
+  "tags": [
+    "dots",
+    "squares",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#1B2A4A",
     "#F7C548",

@@ -4,6 +4,23 @@
   "galleryOrder": 1426,
   "galleryWhite": true,
   "description": "The finest field in the section — a texture rather than a pattern.",
+  "tags": [
+    "dots",
+    "halftone",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "technical",
+    "calm"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#1B2A4A",
     "#F7C548",

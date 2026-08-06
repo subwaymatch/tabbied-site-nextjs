@@ -4,6 +4,24 @@
   "galleryOrder": 1219,
   "galleryWhite": true,
   "description": "The cut leans the other way from the corner it starts at, so the profile reads as sprung.",
+  "tags": [
+    "blocks",
+    "triangles",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#241024",
     "#E84393",

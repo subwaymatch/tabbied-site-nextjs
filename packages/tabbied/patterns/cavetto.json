@@ -3,6 +3,22 @@
   "slug": "cavetto",
   "galleryOrder": 713,
   "description": "A hollow quarter-round run along the edge of every block, turning corner by corner.",
+  "tags": [
+    "quarter-circles",
+    "semicircles",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "organic"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "packaging",
+    "wallpaper"
+  ],
   "palette": [
     "#F6F4D2",
     "#3E5622",

@@ -4,6 +4,22 @@
   "galleryOrder": 1417,
   "galleryWhite": true,
   "description": "A bar cut on the slant, thinning towards one end.",
+  "tags": [
+    "blocks",
+    "diagonals",
+    "gradients",
+    "grid"
+  ],
+  "mood": [
+    "elegant",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "wallpaper",
+    "card-texture",
+    "textile"
+  ],
   "palette": [
     "#0E1230",
     "#3E8BFF",

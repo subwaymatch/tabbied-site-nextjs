@@ -4,6 +4,22 @@
   "galleryOrder": 461,
   "galleryWhite": true,
   "description": "Diamonds set with a smaller diamond core, re-jewelling their two tones on reseed.",
+  "tags": [
+    "diamonds",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging",
+    "poster"
+  ],
   "palette": [
     "#2D132C",
     "#801336",

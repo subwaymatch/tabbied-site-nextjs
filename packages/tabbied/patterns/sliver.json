@@ -4,6 +4,22 @@
   "galleryOrder": 486,
   "galleryWhite": true,
   "description": "Thin slivers strewn at every angle, re-scattering their spin on reseed.",
+  "tags": [
+    "lines",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "technical"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "wallpaper",
+    "card-texture",
+    "section-divider"
+  ],
   "palette": [
     "#0D1B2A",
     "#1B98E0",

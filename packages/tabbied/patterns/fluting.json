@@ -3,6 +3,23 @@
   "slug": "fluting",
   "galleryOrder": 1112,
   "description": "Fluting: concave channels cut into the face, with a fillet between each pair.",
+  "tags": [
+    "stripes",
+    "squares",
+    "grid",
+    "lines"
+  ],
+  "mood": [
+    "playful",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging",
+    "poster"
+  ],
   "palette": [
     "#FFF9F5",
     "#FF8FB8",

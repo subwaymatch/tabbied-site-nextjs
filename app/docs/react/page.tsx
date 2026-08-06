@@ -807,7 +807,9 @@ export default function ReactDocsPage() {
                                 &apos;fixed&apos;
                               </code>
                             </td>
-                            <td className={styles.defaultCol}>per pattern</td>
+                            <td className={styles.defaultCol}>
+                              &apos;grid&apos;
+                            </td>
                             <td>
                               How the drawing meets its box — never by
                               distorting it (see{' '}
@@ -886,7 +888,7 @@ export default function ReactDocsPage() {
                           <tr>
                             <td className={styles.propName}>coverRender</td>
                             <td>
-                              <code>{'{ width, height, cropTop? }'}</code>
+                              <code>{'{ width, height }'}</code>
                             </td>
                             <td className={styles.defaultCol}>800 × 800</td>
                             <td>

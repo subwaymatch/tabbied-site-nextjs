@@ -4,20 +4,54 @@
   "galleryOrder": 18,
   "galleryWhite": true,
   "description": "Quarter-circle arcs meet at the cell edges to sketch a tangled transit map of neon lines and stations on a navy night.",
-  "palette": ["#1B4075", "#3EECFF", "#3FFFB2", "#FF3D8B", "#FFFFFF", "#F5DD32"],
+  "tags": [
+    "arcs",
+    "quarter-circles",
+    "circles",
+    "curves",
+    "dots"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging",
+    "wallpaper"
+  ],
+  "palette": [
+    "#1B4075",
+    "#3EECFF",
+    "#3FFFB2",
+    "#FF3D8B",
+    "#FFFFFF",
+    "#F5DD32"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
     "default": 6
   },
-  "sizing": { "minCellPx": 36 },
+  "sizing": {
+    "minCellPx": 36
+  },
   "options": [
     {
       "id": "grid",
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "8x12",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

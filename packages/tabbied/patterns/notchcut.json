@@ -4,6 +4,21 @@
   "galleryOrder": 1205,
   "galleryWhite": true,
   "description": "A straight cut with one square notch taken out of the middle of it.",
+  "tags": [
+    "blocks",
+    "squares",
+    "mosaic"
+  ],
+  "mood": [
+    "retro",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#131A26",
     "#F5A65B",

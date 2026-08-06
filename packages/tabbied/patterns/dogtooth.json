@@ -3,6 +3,21 @@
   "slug": "dogtooth",
   "galleryOrder": 442,
   "description": "Interlocking hound’s-tooth notches re-keying their teeth on every redraw.",
+  "tags": [
+    "squares",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "technical",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#F5F5F0",
     "#161616",

@@ -4,6 +4,24 @@
   "galleryOrder": 285,
   "svgExportNote": "Cells that mix two border widths on rounded corners can differ from the screen by up to a pixel where the arcs meet.",
   "description": "A lattice of mullions with the odd crossing node, re-weighting on reseed.",
+  "tags": [
+    "lattice",
+    "grid",
+    "squares",
+    "dots",
+    "lines"
+  ],
+  "mood": [
+    "retro",
+    "playful",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "wallpaper"
+  ],
   "palette": [
     "#F2E9DC",
     "#E63329",

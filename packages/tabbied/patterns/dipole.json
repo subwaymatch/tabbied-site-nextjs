@@ -3,6 +3,20 @@
   "slug": "dipole",
   "galleryOrder": 1009,
   "description": "Two poles instead of one, and the field between them bending from one to the other.",
+  "tags": [
+    "lines",
+    "radial"
+  ],
+  "mood": [
+    "technical",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "section-divider"
+  ],
   "palette": [
     "#FBF3E4",
     "#D96C47",

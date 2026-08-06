@@ -3,6 +3,20 @@
   "slug": "gutter",
   "galleryOrder": 635,
   "description": "Two text columns with a clean gutter between them, the page grid repeated spread after spread.",
+  "tags": [
+    "blocks",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "card-texture",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#F5F5F0",
     "#161616",

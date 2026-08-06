@@ -3,6 +3,21 @@
   "slug": "staple",
   "galleryOrder": 1107,
   "description": "A staple driven into the board, both legs showing.",
+  "tags": [
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FFF3B0",
     "#335C67",

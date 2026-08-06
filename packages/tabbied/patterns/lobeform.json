@@ -4,6 +4,21 @@
   "galleryOrder": 1229,
   "galleryWhite": true,
   "description": "Three corners rounded and one left square: the plainest leaf there is.",
+  "tags": [
+    "quarter-circles",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

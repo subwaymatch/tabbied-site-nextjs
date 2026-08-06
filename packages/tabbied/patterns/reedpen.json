@@ -4,6 +4,21 @@
   "galleryOrder": 1012,
   "galleryWhite": true,
   "description": "A reed pen: three strokes of the same length, laid down side by side.",
+  "tags": [
+    "lines",
+    "stripes",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "packaging",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#181818",
     "#EC4E20",

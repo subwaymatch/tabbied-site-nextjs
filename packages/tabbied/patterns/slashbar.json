@@ -4,6 +4,22 @@
   "galleryOrder": 1232,
   "galleryWhite": true,
   "description": "One bar leaning at forty-five degrees, kept inside its cell.",
+  "tags": [
+    "lines",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "sparse",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#01161E",
     "#124559",

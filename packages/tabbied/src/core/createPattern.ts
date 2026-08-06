@@ -109,6 +109,8 @@ export type PatternConfig = {
 export type PatternController = {
   /** The live <css-doodle> element (null until mounted / after destroy()). */
   readonly element: CssDoodleElement | null;
+  /** True after destroy(); a destroyed controller ignores every call. */
+  readonly destroyed: boolean;
   /** Merge config changes in; only real differences reach the DOM. */
   update(config: Partial<PatternConfig>): void;
   /** Re-randomize (or set) the seed and regenerate, preserving transitions. */
@@ -438,7 +440,7 @@ export function createPattern(
     const cellW = snapSpanToTracks(hostSize.width, cols, cellMultiple) / cols;
     const cellH = snapSpanToTracks(hostSize.height, rows, cellMultiple) / rows;
 
-    // Square the cell. 146 of the 253 designs rotate their cell by a quarter
+    // Square the cell. Well over a hundred designs rotate their cell by a quarter
     // turn (`transform: rotate(@pick(0deg, 90deg, ...))`), and a quarter turn
     // of an oblong swaps its axes: a 120x124 cell paints 124x120 once rotated,
     // leaving 2px uncovered top and bottom. That reads as a seam between
@@ -665,6 +667,11 @@ export function createPattern(
     }
 
     applyUpdate(resolved);
+    // A non-structural config change can still change the derived grid (a
+    // cellSize/density update re-renders with new cols/rows), and the inline
+    // canvas size must be re-snapped to the new track count or every boundary
+    // lands back on a sub-pixel — the seams the snap exists to prevent.
+    applyGridSnap(resolved);
     applyTransform(resolved);
   };
 
@@ -826,6 +833,10 @@ export function createPattern(
   return {
     get element() {
       return element;
+    },
+
+    get destroyed() {
+      return destroyed;
     },
 
     update(partial: Partial<PatternConfig>) {

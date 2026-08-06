@@ -3,6 +3,22 @@
   "slug": "spiralblock",
   "galleryOrder": 358,
   "description": "A squared-off spiral coiling into each cell, re-winding its tint on reseed.",
+  "tags": [
+    "squares",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

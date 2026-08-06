@@ -194,6 +194,9 @@ const coerceOptionValue = (
   }
 
   if (option.type === 'Slider') {
+    // Number('') is 0, which would substitute a value the option never
+    // offered; a bare `frequency:` entry should fall back to the default.
+    if (raw === '') return undefined;
     const value = Number(raw);
     return Number.isFinite(value) ? value : undefined;
   }
@@ -330,7 +333,9 @@ export function hydratePatterns(options: HydrateOptions): HydratedPattern[] {
   for (const element of root.querySelectorAll<HTMLElement>(selector)) {
     const existing = hydrated.get(element);
 
-    if (existing) {
+    // A destroyed controller is inert forever — fall through and re-hydrate
+    // so a teardown/re-hydrate cycle (the README's own recipe) works.
+    if (existing && !existing.destroyed) {
       mounted.push({ element, controller: existing });
       continue;
     }

@@ -3,6 +3,20 @@
   "slug": "hairpin",
   "galleryOrder": 906,
   "description": "A hairpin bend — the road doubling back on itself — turning a quarter with every column.",
+  "tags": [
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "packaging"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

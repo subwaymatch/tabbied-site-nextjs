@@ -4,6 +4,21 @@
   "galleryOrder": 1010,
   "galleryWhite": true,
   "description": "A single wedge cut out of each cell, its angle rolled from a short list.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "mosaic",
+    "gradients"
+  ],
+  "mood": [
+    "technical",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "og-image"
+  ],
   "palette": [
     "#0E2438",
     "#275AA6",

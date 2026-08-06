@@ -3,6 +3,23 @@
   "slug": "birdsmouth",
   "galleryOrder": 1223,
   "description": "A V cut into one edge, deep enough to reach the middle of the cell.",
+  "tags": [
+    "triangles",
+    "diamonds",
+    "chevrons",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "wallpaper",
+    "poster",
+    "textile"
+  ],
   "palette": [
     "#FDFCFB",
     "#E2D1F9",

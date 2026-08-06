@@ -4,6 +4,23 @@
   "galleryOrder": 57,
   "galleryWhite": true,
   "description": "A full-bleed mosaic of half-square triangles in deep indigo and jewel tones — every reseed melts each facet into its next orientation.",
+  "tags": [
+    "triangles",
+    "mosaic",
+    "diagonals",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper",
+    "textile"
+  ],
   "palette": [
     "#1A1B3A",
     "#3E8BFF",

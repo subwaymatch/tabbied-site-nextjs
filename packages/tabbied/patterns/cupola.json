@@ -4,6 +4,23 @@
   "galleryOrder": 708,
   "galleryWhite": true,
   "description": "Domed blocks turning to face all four quarters, each one rolled a quarter turn from its neighbour.",
+  "tags": [
+    "semicircles",
+    "quarter-circles",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging",
+    "textile"
+  ],
   "palette": [
     "#0E1230",
     "#3E8BFF",

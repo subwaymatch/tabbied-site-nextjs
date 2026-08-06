@@ -3,6 +3,23 @@
   "slug": "kerf",
   "galleryOrder": 621,
   "description": "Saw slots cut clean through solid blocks, the kerf biting from the top on one row and the bottom on the next.",
+  "tags": [
+    "blocks",
+    "squares",
+    "lines",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#FBF7EE",
     "#FF4D6D",

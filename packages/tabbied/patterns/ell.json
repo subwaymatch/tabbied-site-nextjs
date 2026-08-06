@@ -3,6 +3,23 @@
   "slug": "ell",
   "galleryOrder": 494,
   "description": "L-shaped brackets locking the grid together, each one spinning to a new corner on reseed.",
+  "tags": [
+    "squares",
+    "blocks",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "bold",
+    "festive"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
   "palette": [
     "#FFFFFF",
     "#3E8BFF",

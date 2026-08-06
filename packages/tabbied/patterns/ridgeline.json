@@ -4,6 +4,22 @@
   "galleryOrder": 1200,
   "galleryWhite": true,
   "description": "One diagonal cut corner to corner, a different ink each side of it, and the ridge turning a quarter at a time.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#0B1F3A",
     "#3E8BFF",

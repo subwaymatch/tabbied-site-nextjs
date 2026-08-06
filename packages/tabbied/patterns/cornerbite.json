@@ -3,6 +3,23 @@
   "slug": "cornerbite",
   "galleryOrder": 701,
   "description": "Full squares with a quarter-circle bitten out of one corner — a deep bite on most, a shallow nick on the rest, the corner rolling a quarter turn at a time.",
+  "tags": [
+    "quarter-circles",
+    "squares",
+    "circles",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "wallpaper"
+  ],
   "palette": [
     "#F7F7FF",
     "#2D3142",

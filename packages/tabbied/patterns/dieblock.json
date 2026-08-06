@@ -4,6 +4,23 @@
   "galleryOrder": 1226,
   "galleryWhite": true,
   "description": "Every corner squared off with a step rather than a straight cut.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "packaging",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#12100E",
     "#D62246",

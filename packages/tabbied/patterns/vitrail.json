@@ -4,7 +4,32 @@
   "galleryOrder": 33,
   "galleryWhite": true,
   "description": "Stained-glass panes in jewel tones, split by diagonals, arcs and half-moons, with dark leading running between them.",
-  "palette": ["#232529", "#3E8BFF", "#3EECFF", "#FF3D8B", "#F5DD32"],
+  "tags": [
+    "grid",
+    "quarter-circles",
+    "semicircles",
+    "triangles",
+    "squares",
+    "mosaic"
+  ],
+  "mood": [
+    "festive",
+    "playful",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "packaging"
+  ],
+  "palette": [
+    "#232529",
+    "#3E8BFF",
+    "#3EECFF",
+    "#FF3D8B",
+    "#F5DD32"
+  ],
   "colors": {
     "min": 2,
     "max": 5,
@@ -16,7 +41,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "6x9",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {

@@ -4,6 +4,21 @@
   "galleryOrder": 1006,
   "galleryWhite": true,
   "description": "A spiral: the bearing plus a turn that grows with the radius, so the arms wind in.",
+  "tags": [
+    "spirals",
+    "lines",
+    "curves"
+  ],
+  "mood": [
+    "organic",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#022B3A",
     "#1F7A8C",

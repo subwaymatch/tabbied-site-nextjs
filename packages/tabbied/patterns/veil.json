@@ -2,7 +2,14 @@
   "name": "Veil",
   "slug": "veil",
   "galleryOrder": 5,
-  "palette": ["#9EFFD8", "#3E8BFF", "#326DC9", "#1B4075", "#3EECFF", "#3E8BFF"],
+  "palette": [
+    "#9EFFD8",
+    "#3E8BFF",
+    "#326DC9",
+    "#1B4075",
+    "#3EECFF",
+    "#3E8BFF"
+  ],
   "colors": {
     "min": 2,
     "max": 6,
@@ -14,7 +21,13 @@
       "displayName": "Columns and rows",
       "type": "ButtonSelectGroup",
       "default": "10x15",
-      "options": ["2x3", "4x6", "6x9", "8x12", "10x15"],
+      "options": [
+        "2x3",
+        "4x6",
+        "6x9",
+        "8x12",
+        "10x15"
+      ],
       "replace": "${grid}"
     },
     {
@@ -31,5 +44,21 @@
   "code": {
     "style": "/* Random color generator variable */ --randomColor: @p(var(--color1), var(--color2), var(--color3), var(--color4), var(--color5)); --rule: ( /*Frequency options of 0.2, 0.4, 0.6, 0.8, 1.0 */ @random (${shapeFrequency}) { background-color: var(--randomColor); -webkit-clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); clip-path: polygon(@pick( '0 0, 101% 0, 101% 101%', '0 0, 101% 0, 0 101%', '0 0, 101% 101%, 0 101%', '101% 0, 101% 101%, 0 101%' )); -webkit-transition: .2s ease 100ms; transition: .2s ease 100ms; -webkit-transform: clip-path; transform: clip-path; } );",
     "doodle": ":doodle { @grid: ${grid}; @size: ${width} ${height}; text-align:center; box-sizing:border-box } :container { background:var(--color0); overflow:hidden; }"
-  }
+  },
+  "tags": [
+    "triangles",
+    "mosaic",
+    "grid",
+    "diagonals"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "poster"
+  ]
 }

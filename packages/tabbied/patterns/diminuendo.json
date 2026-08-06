@@ -3,6 +3,22 @@
   "slug": "diminuendo",
   "galleryOrder": 636,
   "description": "A field of squares fading out row by row on a straight ramp, top to bottom, without a single step out of place.",
+  "tags": [
+    "squares",
+    "grid",
+    "gradients"
+  ],
+  "mood": [
+    "calm",
+    "playful"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "hero-background",
+    "section-divider",
+    "card-texture",
+    "wallpaper"
+  ],
   "palette": [
     "#FCFBFF",
     "#60569E",

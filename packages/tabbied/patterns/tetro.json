@@ -4,6 +4,23 @@
   "galleryOrder": 348,
   "galleryWhite": true,
   "description": "T-blocks dropping into place, every tetromino turning to a new orientation each seed.",
+  "tags": [
+    "blocks",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "playful",
+    "festive",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

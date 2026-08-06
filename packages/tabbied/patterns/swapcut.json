@@ -4,6 +4,23 @@
   "galleryOrder": 1202,
   "galleryWhite": true,
   "description": "One diagonal, and the ink either side of it changing places every other cell.",
+  "tags": [
+    "triangles",
+    "diagonals",
+    "mosaic",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "festive",
+    "retro"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "textile",
+    "og-image"
+  ],
   "palette": [
     "#12100E",
     "#D62246",

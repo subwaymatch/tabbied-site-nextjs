@@ -4,6 +4,24 @@
   "galleryOrder": 1000,
   "galleryWhite": true,
   "description": "Discs at their largest in the middle of the sheet and shrinking all the way to the corners.",
+  "tags": [
+    "dots",
+    "circles",
+    "radial",
+    "halftone",
+    "grid"
+  ],
+  "mood": [
+    "bold",
+    "playful",
+    "technical"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "hero-background"
+  ],
   "palette": [
     "#101A2E",
     "#3E8BFF",

@@ -4,6 +4,21 @@
   "galleryOrder": 1209,
   "galleryWhite": true,
   "description": "One wide beam thrown from the middle of an edge, opening to nearly a half-circle.",
+  "tags": [
+    "triangles",
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#04030F",
     "#3D0E61",

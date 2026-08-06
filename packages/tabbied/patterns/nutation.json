@@ -3,6 +3,21 @@
   "slug": "nutation",
   "galleryOrder": 1007,
   "description": "The nod on top of the spin: the bearing with a ripple added to it.",
+  "tags": [
+    "lines",
+    "radial",
+    "spirals"
+  ],
+  "mood": [
+    "playful",
+    "bold"
+  ],
+  "density": "medium",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "wallpaper"
+  ],
   "palette": [
     "#E9F1FF",
     "#1B4075",

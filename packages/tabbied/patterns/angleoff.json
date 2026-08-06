@@ -4,6 +4,22 @@
   "galleryOrder": 1422,
   "galleryWhite": true,
   "description": "A single deep cut running most of the way across, leaving a long triangle.",
+  "tags": [
+    "triangles",
+    "grid",
+    "diagonals",
+    "mosaic"
+  ],
+  "mood": [
+    "bold",
+    "playful"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "poster",
+    "og-image",
+    "textile"
+  ],
   "palette": [
     "#231942",
     "#5E548E",

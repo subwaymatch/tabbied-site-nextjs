@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 import { patterns } from '../dist/patterns.generated.js';
 import { supportsSvgExport } from '../dist/core/types.js';
+import { validateDesignMetadata } from '../scripts/catalog-vocabulary.mjs';
 
 const packageRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
@@ -98,6 +99,32 @@ test('catalog omits css-doodle plumbing', () => {
     for (const option of design.options) {
       assert.ok(!('replace' in option), 'option leaked its replace token');
       assert.ok(!('code' in option), 'option leaked its code snippet');
+    }
+  }
+});
+
+test('every design carries complete, in-vocabulary metadata and a preview', () => {
+  for (const design of catalog.designs) {
+    assert.deepEqual(
+      validateDesignMetadata(design),
+      [],
+      `metadata for "${design.slug}" fails the vocabulary rules`
+    );
+    assert.equal(
+      design.preview,
+      `https://tabbied.com/previews/${design.slug}.webp`,
+      `preview URL for "${design.slug}"`
+    );
+  }
+});
+
+test('the runtime bundle does not carry the catalog-only metadata', () => {
+  for (const [slug, definition] of Object.entries(patterns)) {
+    for (const field of ['tags', 'mood', 'density', 'goodFor']) {
+      assert.ok(
+        !(field in definition),
+        `"${slug}" leaked catalog-only "${field}" into the runtime bundle`
+      );
     }
   }
 });

@@ -3,6 +3,22 @@
   "slug": "corduroy",
   "galleryOrder": 1206,
   "description": "Wide ribs with a narrow channel between them — nearly solid, but not quite.",
+  "tags": [
+    "stripes",
+    "lines",
+    "blocks",
+    "grid"
+  ],
+  "mood": [
+    "retro",
+    "bold"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "textile",
+    "wallpaper",
+    "card-texture"
+  ],
   "palette": [
     "#EAE0CC",
     "#1B1B1E",

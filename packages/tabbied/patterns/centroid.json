@@ -4,6 +4,21 @@
   "galleryOrder": 1003,
   "galleryWhite": true,
   "description": "A plain grid of squares, lit from the middle: only the opacity carries the field.",
+  "tags": [
+    "squares",
+    "grid",
+    "mosaic"
+  ],
+  "mood": [
+    "calm",
+    "technical"
+  ],
+  "density": "dense",
+  "goodFor": [
+    "hero-background",
+    "og-image",
+    "card-texture"
+  ],
   "palette": [
     "#0B2540",
     "#1B4075",
