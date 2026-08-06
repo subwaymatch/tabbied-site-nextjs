@@ -1,0 +1,20 @@
+{
+  // The Worker is checked separately from the site: it runs on workerd, not in
+  // a browser and not in node, so it needs Cloudflare's globals rather than the
+  // site's DOM lib. The root tsconfig excludes worker/ for the same reason
+  // packages/ is excluded there.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["."]
+}

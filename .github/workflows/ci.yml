@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   package:
-    name: Package typecheck & build
+    name: Package typecheck, build & unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,8 +22,34 @@ jobs:
       - run: npm ci
       - name: Typecheck tabbied
         run: npm run typecheck --workspace tabbied
-      - name: Build tabbied
-        run: npm run build --workspace tabbied
+      # tabbied-mcp imports tabbied/catalog.json, so tabbied has to be built
+      # first; build:packages does both in order.
+      - name: Build packages
+        run: npm run build:packages
+      - name: Test tabbied
+        run: npm test --workspace tabbied
+      # The MCP protocol layer is hand-written rather than wrapped around the
+      # reference SDK (see docs/mcp-server.md), so this suite is what stands in
+      # for the SDK's own tests. It is not optional.
+      - name: Test tabbied-mcp
+        run: npm test --workspace tabbied-mcp
+
+  worker:
+    name: Worker typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # worker/ is excluded from the site's tsconfig (it targets workerd, not
+      # the browser), so nothing else would ever typecheck it.
+      - name: Build packages
+        run: npm run build:packages
+      - name: Typecheck worker
+        run: npm run typecheck:worker
 
   e2e:
     name: Playwright e2e
