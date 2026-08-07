@@ -17,10 +17,11 @@ Try it at **[tabbied.com](https://tabbied.com)**.
 
 ## 📦 What's in this repo
 
-Tabbied is an [npm workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) monorepo with two parts:
+Tabbied is an [npm workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) monorepo with three parts:
 
-- **The website** (repo root) — the [Next.js](https://nextjs.org/) app behind [tabbied.com](https://tabbied.com), where you browse, customize, reseed, and export the designs.
+- **The website** (repo root) — the [Next.js](https://nextjs.org/) app behind [tabbied.com](https://tabbied.com), where you browse, customize, reseed, and export the designs. It ships as a static export served by [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/).
 - **The [`tabbied`](./packages/tabbied) package** — the generative engine as a published, framework-agnostic library with an optional React component. The site renders every design through this package, so it doubles as the package's integration test.
+- **The [`tabbied-mcp`](./packages/tabbied-mcp) package** — an [MCP](https://modelcontextprotocol.io) server over the design catalog. The same code serves the site's `/mcp` endpoint and a local `tabbied-mcp` bin.
 
 ## 🎨 Using the `tabbied` package
 
@@ -45,21 +46,37 @@ Presets are imported individually, so your bundle only includes the designs you 
 
 ### 🤖 Using Tabbied with an AI coding assistant
 
-The hard part for an assistant isn't the API — it's picking one of the 222
+The hard part for an assistant isn't the API — it's picking one of the 295
 designs, since the slugs (`cleat`, `gnomonwedge`, `karst`) say nothing about
-what they draw. Point it at
-**[tabbied.com/llms-full.txt](https://tabbied.com/llms-full.txt)**: the API
-contract plus a one-line description of every design, in a single fetch.
+what they draw.
+
+**The best answer is the MCP server**, because it lets the assistant *look* at
+the designs before choosing rather than guessing from a name. Nothing to
+install:
+
+```bash
+claude mcp add --transport http tabbied https://tabbied.com/mcp
+```
+
+It exposes `search_designs` (filter by motif, mood, density, intended use),
+`preview_design` (the rendered image for up to six candidates), `get_design`,
+and `get_docs`. Running it locally with `npx -y tabbied-mcp` adds
+`render_design`, which writes real SVG and PNG files. See
+[`docs/mcp-server.md`](./docs/mcp-server.md) and the
+[package README](./packages/tabbied-mcp/README.md).
+
+For assistants without MCP, the same catalog is three static files:
 
 | File | For |
 | --- | --- |
 | [`/llms.txt`](https://tabbied.com/llms.txt) | The [llms.txt](https://llmstxt.org/) index — a short pointer to everything below. |
-| [`/llms-full.txt`](https://tabbied.com/llms-full.txt) | The full API contract and a one-line entry for all 222 designs (~31 KB). |
+| [`/llms-full.txt`](https://tabbied.com/llms-full.txt) | The full API contract and a one-line entry for all 295 designs (~55 KB). |
 | [`/catalog.json`](https://tabbied.com/catalog.json) | Structured per-design data: palette, options and accepted values, default fit, SVG-export support. Also shipped in the package as `tabbied/catalog.json`. |
 
 All three are generated at build time from the same `patterns/*.json` the
 package is built from ([`scripts/generate-llms.mjs`](./scripts/generate-llms.mjs)),
-so they can't drift from what's published.
+so they can't drift from what's published — and the MCP server reads those same
+files rather than a copy of its own.
 
 ## 🚀 Developing locally
 
@@ -96,6 +113,35 @@ npx playwright install chromium
 npm run build
 npm run test:e2e
 ```
+
+Unit tests for the two packages run under `node --test`:
+
+```bash
+npm test --workspace tabbied
+npm test --workspace tabbied-mcp
+```
+
+## ☁️ Deploying
+
+The site is a static export hosted on
+[Cloudflare Workers static assets](https://developers.cloudflare.com/workers/static-assets/),
+configured in [`wrangler.jsonc`](./wrangler.jsonc). Everything in `out/` is
+served straight off Cloudflare's network; [`worker/index.ts`](./worker/index.ts)
+runs only for `/mcp` and `/health`.
+
+```bash
+# Run the real Worker over a build, including the MCP endpoint
+npm run build
+npm run preview
+
+# Build and ship
+npm run deploy
+```
+
+On Workers Builds, set the build command to `npm run build` and leave the
+deploy command as `npx wrangler deploy`. Response headers live in
+[`public/_headers`](./public/_headers) — a static export has no server to
+attach them to, so `headers()` in `next.config.mjs` would be inert.
 
 ## 🔨 Built by
 

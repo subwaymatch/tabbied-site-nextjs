@@ -44,6 +44,7 @@ Designs are referred to by slug and imported individually — \`import { radius 
 
 ## Docs
 
+- [MCP server](${SITE}/mcp): if you speak the Model Context Protocol, connect to this endpoint instead of reading files — it is the only route that lets you *look* at a design before choosing it. Tools: \`search_designs\`, \`preview_design\`, \`get_design\`, \`get_docs\`. Run \`npx -y tabbied-mcp\` locally to also get \`render_design\`.
 - [llms-full.txt](${SITE}/llms-full.txt): the complete API contract, integration recipes, and a one-line entry for every design. Start here — it is designed to be enough on its own.
 - [catalog.json](${SITE}/catalog.json): every design with its description, tags, palette, options, preview URL, and SVG-export support. Use it to look up one design in detail. Also shipped in the package at \`tabbied/catalog.json\`.
 - [React component reference](${SITE}/docs/react/): props, sizing, and live examples.
@@ -108,6 +109,19 @@ const candidates = catalog.designs.filter(
 \`\`\`
 
 Or from a shell: \`npx tabbied list --tag dots --density dense\` (see CLI below).
+
+**If you speak MCP, use the MCP server instead of any of the above.** It is the
+only route that lets you *see* the designs while choosing:
+
+\`\`\`bash
+claude mcp add --transport http tabbied ${SITE}/mcp    # nothing to install
+claude mcp add tabbied -- npx -y tabbied-mcp           # local, adds rendering
+\`\`\`
+
+Tools: \`search_designs\` (the filters above, as a query), \`preview_design\`
+(returns the rendered image for up to six slugs), \`get_design\`, \`get_docs\`,
+and — locally only, since it needs a browser — \`render_design\` for SVG/PNG
+files. Endpoint: ${SITE}/mcp. Package: \`tabbied-mcp\`.
 
 ## React
 

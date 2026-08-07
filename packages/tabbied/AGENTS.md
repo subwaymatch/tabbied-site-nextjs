@@ -13,6 +13,13 @@ this package:
   `density` / `goodFor` for filtering, palette, options, SVG-export support,
   and a stable `preview` image URL.
 
+**If your harness speaks MCP, connect to the server instead of reading any of
+this**: `https://tabbied.com/mcp` (nothing to install) or `npx -y tabbied-mcp`
+(local, and adds a `render_design` tool). It wraps the same catalog in
+`search_designs` / `preview_design` / `get_design` / `get_docs`, and
+`preview_design` returns the actual images — which is the difference between
+choosing a design and guessing one.
+
 Three things worth knowing before writing any code:
 
 1. **Designs are picked by slug, and slugs are opaque** (`cleat`, `karst`).

@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tabbied",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-08-06",
+
+  // The site is a pure static export, so `assets` is doing nearly all the work
+  // here: every page, image, preview, and template zip in out/ is served
+  // straight from Cloudflare's network without invoking the Worker at all.
+  //
+  // `npm run build` must have run first — out/ is not in git. It is two
+  // `next build` passes with the template packager between them; see the
+  // "Downloadable templates" section of CLAUDE.md for why that shape is forced.
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+
+    // Serve out/404.html for anything that matches no asset. Unlike Pages,
+    // Workers does not infer this from the presence of a 404.html.
+    "not_found_handling": "404-page",
+
+    // Only the Worker's own routes jump the queue. /mcp is not a file, so it
+    // would reach the Worker anyway — but only after the asset router had a
+    // look at it, and with `trailingSlash: true` in next.config.mjs the
+    // default html_handling would answer a POST to /mcp with a 308 to /mcp/.
+    // Redirecting an MCP client's POST breaks it, so the Worker takes the path
+    // before any of that can happen.
+    "run_worker_first": ["/mcp", "/mcp/*", "/health"]
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Custom domain, deliberately not declared here yet. Until tabbied.com is a
+  // zone in this Cloudflare account, a `routes` entry makes `wrangler deploy`
+  // fail outright rather than fall back — so the first deploys land on
+  // tabbied.<subdomain>.workers.dev and the domain is attached afterwards
+  // (Workers → tabbied → Settings → Domains & Routes → Add custom domain,
+  // which creates the DNS record for you). Once the zone is here, this becomes
+  // the reproducible form and can be uncommented:
+  //
+  // "routes": [
+  //   { "pattern": "tabbied.com", "custom_domain": true },
+  //   { "pattern": "www.tabbied.com", "custom_domain": true }
+  // ]
+}

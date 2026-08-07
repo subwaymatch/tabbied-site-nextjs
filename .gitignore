@@ -34,6 +34,9 @@ next-env.d.ts
 /packages/tabbied/src/patterns.generated.ts
 /packages/tabbied/catalog.json
 
+# tabbied-mcp build output
+/packages/tabbied-mcp/dist/
+
 # agent-facing docs generated from the catalog by scripts/generate-llms.mjs
 /public/llms.txt
 /public/llms-full.txt
@@ -55,8 +58,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
+# cloudflare (wrangler's local state, dev cache, and generated env types)
+.wrangler/
+worker-configuration.d.ts
 
 # generated image-batch working files (manifest, JSONL, batch state)
 /scripts/images/.batch/

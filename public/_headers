@@ -1,0 +1,59 @@
+# Response headers for the static export, read by Cloudflare Workers static
+# assets. Next copies public/ into out/ verbatim, so this lands at out/_headers
+# where wrangler picks it up; the file itself is consumed, never served.
+#
+# This is where the site's headers have to live. next.config.mjs runs in
+# `output: 'export'` mode, and an export has no server to attach headers to, so
+# `headers()` in next.config is inert — the same reason these lived in
+# vercel.json before the move to Cloudflare.
+#
+# Limits: 100 rules, 2,000 characters per line.
+
+# The agent-facing docs. Served as plain text rather than downloaded (the
+# export has no extension-to-type mapping for .txt that sets charset), and
+# CORS-open because the whole point is that tools fetch them cross-origin.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/catalog.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Marketing and template imagery: content-addressed by name and never edited in
+# place, so a month is safe.
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Favicons and the web manifest, same reasoning.
+/favicon.ico
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/favicon-16x16.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/favicon-32x32.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/apple-touch-icon.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/safari-pinned-tab.svg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/mstile-150x150.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/browserconfig.xml
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/site.webmanifest
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/android-chrome-192x192.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/android-chrome-256x256.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/android-chrome-384x384.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/android-chrome-512x512.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400

@@ -7,13 +7,19 @@ Guidance for coding agents working in this repository.
 Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
 `packages/tabbied/` (framework-free core + React wrapper + 295 pattern
-presets as JSON in `packages/tabbied/patterns/`, embedded by codegen).
+presets as JSON in `packages/tabbied/patterns/`, embedded by codegen) and the
+`tabbied-mcp` package in `packages/tabbied-mcp/` (the MCP server, shared by
+the site's `/mcp` endpoint and a `tabbied-mcp` stdio bin).
 
 ```bash
-npm run dev                          # site (predev builds the package)
-npm run build --workspace tabbied    # codegen + tsc for the package
+npm run dev                          # site (predev builds both packages)
+npm run build:packages               # codegen + tsc for tabbied, then tabbied-mcp
 npm test --workspace tabbied         # package unit tests (node --test)
+npm test --workspace tabbied-mcp     # MCP toolset + both protocol eras
 npm run build && npm run test:e2e    # static export + Playwright suite
+npm run preview                      # run the real Worker over out/ (wrangler dev)
+npm run deploy                       # build, then wrangler deploy
+npm run typecheck:worker             # worker/ is excluded from the site tsconfig
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run check:thumbnails             # gallery configs all name a real design
@@ -26,6 +32,90 @@ read and rots silently; 278 accumulated that way when the catalog moved from
 `artworks/` to `patterns/`. `check:thumbnails` runs on `prebuild`/`predev` and
 fails on one. A design with *no* entry is fine — it falls back to its own
 palette and option defaults, which is how 19 of the catalog renders.
+
+## Hosting — Cloudflare Workers static assets
+
+The site is a static export served by Workers static assets. `wrangler.jsonc`
+points `assets.directory` at `out/`; Cloudflare serves anything that matches a
+file there **without invoking the Worker**, so `worker/index.ts` runs for
+exactly two paths (`/mcp`, `/health`) and hands everything else to
+`env.ASSETS`.
+
+Three things that are explicit here and were implicit or automatic on Vercel:
+
+- **`not_found_handling: "404-page"`.** Workers does not infer a custom 404
+  from the presence of `out/404.html` the way Pages did. Without this line a
+  miss returns a bare `404 Not Found` and `app/not-found.tsx` is never seen.
+- **Headers live in `public/_headers`**, not in `next.config.mjs` (an export
+  has no server to attach them to) and no longer in `vercel.json`. Next copies
+  `public/` verbatim, so the file lands at `out/_headers` where wrangler reads
+  it — and wrangler *consumes* it rather than serving it. `wrangler dev` prints
+  `Parsed N valid header rules` on boot, which is the cheapest way to catch a
+  typo. Limits: 100 rules, 2,000 characters per line.
+- **`run_worker_first: ["/mcp", "/mcp/*", "/health"]`.** `/mcp` is not a file,
+  so it would reach the Worker anyway — but only after the asset router looked
+  at it, and with `trailingSlash: true` the default `html_handling` answers a
+  POST to `/mcp` with a 308 to `/mcp/`. Redirecting an MCP client's POST breaks
+  it. Do not drop these patterns.
+
+The export is comfortably inside the platform limits — roughly 4,300 files
+against a 20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but
+both are counted per Worker *version*. Don't treat that file count as stable:
+most of it is per-route RSC payloads, and a Next minor can move it a lot (16.3
+cut ~1,400 files off 16.2's output without changing a page). What is stable is
+`public/downloads/`, a flat 1,711 files, so a batch of new template sites is
+the thing most likely to actually threaten the ceiling. `wrangler deploy`
+prints the count it uploaded.
+
+`vercel.json` and `scripts/vercel-ignore-build.sh` are gone. The ignore-build
+script's job — don't redeploy when only `agent-outputs/` changed — has no
+in-repo equivalent on Cloudflare; it is a **build watch path** configured on
+the Workers Builds project (exclude `agent-outputs/*`), so it lives in the
+dashboard rather than in git.
+
+## The MCP server — one implementation, two transports
+
+`packages/tabbied-mcp/` exposes the catalog to agents over the Model Context
+Protocol. Full reference: `docs/mcp-server.md`.
+
+The protocol comes from `@modelcontextprotocol/server` (MCP SDK v2). We own
+the tools; the SDK owns the wire.
+
+- `src/tools.ts` — the four catalog tools, with no runtime imports at all. The
+  host injects what differs (preview bytes, docs text) through `ToolContext`.
+- `src/server.ts` — registers those tools onto an `McpServer`. The seam.
+- `src/stdio.ts`, `src/node/` — the bin, the local catalog reader, and
+  `render_design`. Node only, never reached from the Worker.
+
+Both transports are the SDK's: the Worker wraps the factory in
+`createMcpHandler`, the bin hands it to `serveStdio`. So the remote endpoint
+and the local bin answer `tools/list` identically. **A tool that needs a
+browser cannot be remote**: `render_design` exists only over stdio, because
+rendering a css-doodle pattern needs a real browser and a Worker has none.
+
+Four things worth not re-litigating:
+
+- **`buildServer` is a factory, and must stay one.** MCP v2 is stateless — the
+  SDK builds a server per request (per connection on stdio). Capturing
+  per-request state in it would work locally and break under concurrency.
+- **Tool schemas stay plain JSON Schema, adapted with `fromJsonSchema`,** not
+  authored as Zod. `search_designs`'s enums are derived from the catalog being
+  served, so static Zod could not express them without drifting from what is
+  actually queryable. Registering the schema is also what buys argument
+  validation — the SDK rejects an out-of-vocabulary tag before our handler runs.
+- **`createMcpHandler` comes from the SDK, not from `agents/mcp/server`.**
+  Cloudflare's is a re-export of the same function (it graduated upstream), but
+  taking it from `agents` drags partyserver, esbuild, and babel into a Worker
+  that needs none of them. The SDK's own deps are `zod` and
+  `@modelcontextprotocol/core`; the bundle is ~122 KB gzipped.
+- **The Worker reads the catalog through `env.ASSETS`, not from its bundle.**
+  The tools then describe exactly the bytes that deployment serves — a design
+  added in the same commit cannot be missing from the catalog an agent queries
+  — and 384 KB of JSON stays out of the Worker.
+
+`legacy: 'stateless'` is spelled out at the call site even though it is the
+default: it is what keeps 2025-era clients working, and every shipping client
+still opens with `initialize`. Dropping it to `'reject'` would strand them.
 
 ## Downloadable templates — derived from the export, never hand-ported
 
@@ -43,13 +133,13 @@ and that shape is forced by both ends of the problem:
 - The packager *reads* the export, so it can only run after a build. It has no
   framework-free source to copy from — deriving from the export is the whole
   strategy (see `agent-outputs/template-packaging-plan.md`).
-- The deploy has to *ship* what it writes, and on Vercel writing into `out/`
-  afterwards is too late. The Next.js builder patches the config ("Applying
-  modifyConfig from Vercel" in the build log) and captures the export during
-  `next build`: a `postbuild` step packaged all 57 sites green on Vercel and
-  all 114 buttons still 404ed, because the files existed on the build machine
-  and were never uploaded. Mirroring into `.vercel/output/static` doesn't work
-  either — it isn't there yet when the build command is still running.
+- The deploy has to *ship* what it writes, and the host decides when it stops
+  looking. This shape was forced by Vercel, where writing into `out/` after the
+  build was too late: the Next.js builder patched the config ("Applying
+  modifyConfig from Vercel" in the build log) and captured the export during
+  `next build`, so a `postbuild` step packaged all 57 sites green and all 114
+  buttons still 404ed — the files existed on the build machine and were never
+  uploaded.
 
 So the packager writes into `public/downloads/`, and the second pass exports
 that folder like any other static asset. Nothing about the host is assumed;
@@ -57,6 +147,15 @@ it is just Next copying `public/`. The zips are gitignored (~106 MB), so the
 deploy's own build is the only thing that ever produces the `/downloads/*.zip`
 the site links to — which is why this is wired into `build` rather than left
 to be remembered.
+
+**Cloudflare would tolerate a cheaper shape, and it is deliberately not used.**
+`wrangler deploy` uploads `out/` from disk after the build command has already
+exited, so a single pass plus a `postbuild` packaging step into `out/downloads/`
+would work here and would save a whole `next build`. The two-pass version is
+kept because it depends on nothing but Next copying `public/`, and the failure
+it guards against is silent and total — 114 dead buttons on a green build. If
+you do collapse it, prove it by fetching a `/downloads/*.zip` from a real
+deployment, not from a local `out/`.
 
 Run `npm run templates [slug]` by hand to repackage into `out/downloads/`
 without rebuilding (that is where the e2e suite looks). Packaging everything

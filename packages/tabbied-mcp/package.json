@@ -1,0 +1,54 @@
+{
+  "name": "tabbied-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Tabbied: search, look at, and render 295 generative pattern designs from any MCP client.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sy Hong and Ye Joo Park",
+  "homepage": "https://tabbied.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/subwaymatch/tabbied.git",
+    "directory": "packages/tabbied-mcp"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "tabbied",
+    "generative-art",
+    "pattern",
+    "css-doodle"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "tabbied-mcp": "./dist/stdio.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "test": "node --test",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "tabbied": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
