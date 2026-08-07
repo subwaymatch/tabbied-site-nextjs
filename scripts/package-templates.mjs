@@ -453,6 +453,27 @@ function trimUnusedRules(css, usedClasses) {
 
 // A page's non-relative imports, and where each one lands in the package.
 // `tabbied/*` stay as npm deps; local components are copied in beside the page.
+// Packages a template page may import that are *not* copied into the package
+// as source, keyed to the range the scaffold should install. `tabbied` itself
+// is always a dependency and is pinned separately, from the workspace version.
+//
+// `tabbied-templates` is here because the five shared-component sites carry the
+// editable-section annotations, and the component derives its brand custom
+// properties through that package (see docs/editable-templates.md).
+const TEMPLATES_PACKAGE_VERSION = `^${
+  JSON.parse(
+    fsSync.readFileSync(
+      path.join(repoRoot, 'packages', 'tabbied-templates', 'package.json'),
+      'utf-8'
+    )
+  ).version
+}`;
+
+const EXTERNAL_DEPENDENCIES = new Map([
+  ['lucide-react', '^1.17.0'],
+  ['tabbied-templates', TEMPLATES_PACKAGE_VERSION],
+]);
+
 const LOCAL_IMPORTS = new Map([
   ['components/Figure', { from: 'components/Figure.tsx', to: 'Figure.tsx' }],
   ['components/template/TemplateSite', { from: 'components/template/TemplateSite.tsx', to: 'TemplateSite.tsx' }],
@@ -586,10 +607,26 @@ async function packageReactSite(slug, outDir, version, name, images) {
   );
 
   // Copied components keep their own local imports rewritten the same way.
-  const usesLucide = [];
+  //
+  // While reading them, note which external packages the shipped source
+  // actually imports. A package that is imported but missing from the
+  // scaffold's package.json fails at `npm install` time in somebody else's
+  // folder, which is the worst place to find out — so this is derived from the
+  // source rather than maintained by hand.
+  const externals = new Set();
+  const noteExternals = (source) => {
+    for (const name of EXTERNAL_DEPENDENCIES.keys()) {
+      if (new RegExp(`from '${name}(?:/[^']*)?'`).test(source)) {
+        externals.add(name);
+      }
+    }
+  };
+
+  noteExternals(pageSource);
+
   for (const target of locals.values()) {
     const source = await fs.readFile(path.join(repoRoot, target.from), 'utf-8');
-    usesLucide.push(/from 'lucide-react'/.test(source));
+    noteExternals(source);
     await fs.writeFile(
       path.join(srcDir, target.to),
       toStandaloneComponent(source, path.basename(target.to, path.extname(target.to)))
@@ -656,7 +693,9 @@ async function packageReactSite(slug, outDir, version, name, images) {
     react: '^19.2.0',
     'react-dom': '^19.2.0',
     tabbied: `^${version}`,
-    ...(usesLucide.some(Boolean) ? { 'lucide-react': '^1.17.0' } : {}),
+    ...Object.fromEntries(
+      [...externals].sort().map((name) => [name, EXTERNAL_DEPENDENCIES.get(name)])
+    ),
   };
 
   await fs.writeFile(

@@ -1,6 +1,8 @@
+import { Fragment } from 'react';
 import type { CSSProperties, ComponentType, ReactNode } from 'react';
 import { TabbiedPattern } from 'tabbied/react';
 import type { PatternDefinition } from 'tabbied';
+import { derivePaletteProperties, parseEmphasis } from 'tabbied-templates';
 import {
   Sunrise, Leaf, Waves, HeartHandshake, Presentation, FlaskConical, Users, Ticket,
   Database, GraduationCap, Globe, Flame, Utensils, Flower2, Mail, Truck, ShieldCheck,
@@ -23,32 +25,39 @@ const imageId = (
 ) =>
   `react__${site.slug}__${slot}-${i}`;
 
-// ---- color helpers --------------------------------------------------------
-function toRgb(hex: string): [number, number, number] {
-  let h = hex.replace('#', '').trim();
-  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
-  const n = parseInt(h, 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-}
-function luminance(hex: string): number {
-  const [r, g, b] = toRgb(hex).map((v) => {
-    const c = v / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-function mix(a: string, b: string, t: number): string {
-  const [ar, ag, ab] = toRgb(a);
-  const [br, bg, bb] = toRgb(b);
-  const c = (x: number, y: number) => Math.round(x + (y - x) * t);
-  return `rgb(${c(ar, br)}, ${c(ag, bg)}, ${c(ab, bb)})`;
-}
-const onColor = (hex: string) => (luminance(hex) < 0.55 ? '#ffffff' : '#151515');
+// ---- editable slots -------------------------------------------------------
+// The `data-edit*` attributes below are the editable-section contract: they
+// name the parts of this page a person or an agent may change, and they are
+// read back out of the static export to generate the template's spec (see
+// docs/editable-templates.md). Five sites share this component, so annotating
+// it once annotates all five.
+//
+// The palette roles a pattern field follows. A field drawn on the page's own
+// ground takes the whole palette; one drawn *over* something keeps
+// `transparent` in colour0 — that literal is what leaves real negative space
+// for the photograph underneath, so it must never be re-coloured.
+const fullRoles = (site: Site) => site.colors.map((_, i) => i).join(',');
+const overlayRoles = (site: Site) =>
+  ['transparent', ...site.colors.slice(1).map((_, i) => i + 1)].join(',');
 
 function renderTitle(title: string): ReactNode {
-  const m = title.match(/^(.*?)\{em\}(.*?)\{\/em\}(.*)$/);
-  if (!m) return title;
-  return (<>{m[1]}<em className={s.em}>{m[2]}</em>{m[3]}</>);
+  const segments = parseEmphasis(title);
+
+  if (!segments.some((segment) => segment.emphasis)) return title;
+
+  return (
+    <>
+      {segments.map((segment, i) =>
+        segment.emphasis ? (
+          <em key={i} className={s.em}>{segment.text}</em>
+        ) : (
+          // A keyed Fragment renders no element, so the markup is exactly what
+          // the single-accent regex this replaced produced: text, <em>, text.
+          <Fragment key={i}>{segment.text}</Fragment>
+        )
+      )}
+    </>
+  );
 }
 
 const ICONS: Record<string, ComponentType<{ size?: number; strokeWidth?: number }>> = {
@@ -82,29 +91,19 @@ function Decor({ def, palette, density = 1 }: { def: PatternDefinition; palette:
 // ---- main -----------------------------------------------------------------
 export default function TemplateSite({ site, patterns }: Props) {
   const { colors } = site;
-  const bg = colors[0];
-  const c1 = colors[1] ?? bg;
-  const dark = luminance(bg) < 0.5;
-  const darkest = [...colors].sort((a, b) => luminance(a) - luminance(b))[0];
-  // A near-white tinted by the page itself, not a fixed warm off-white:
-  // #f5f3ef is a cream, and on Facet's navy or Nocturne's violet it read as
-  // a foreign colour in the menu and body copy rather than the page's own.
-  const ink = dark
-    ? mix(bg, '#ffffff', 0.93)
-    : luminance(darkest) < 0.4
-      ? darkest
-      : '#1c1e24';
 
+  // Colour enters the page exactly once, here, as custom properties. The
+  // derivation moved into `tabbied-templates` because applyEdits has to
+  // recompute these same variables when somebody re-colours a downloaded copy
+  // — `--ink` and the card tints are functions of the palette rather than
+  // members of it, and a second implementation of that maths is how a
+  // re-coloured page ends up with body copy nobody can read.
   const vars: Record<string, string> = {
-    '--bg': bg,
-    '--c1': c1,
-    '--ink': ink,
-    '--onC1': onColor(c1),
-    '--card': dark ? mix(bg, '#ffffff', 0.07) : mix(bg, '#ffffff', 0.6),
-    '--soft': dark ? mix(bg, '#ffffff', 0.04) : mix(bg, '#ffffff', 0.45),
-    // A flat-section site drops the alternating band tone entirely: every
-    // section sits on the page colour, and rhythm comes from spacing alone.
-    ...(site.flatSections ? { '--band': bg } : {}),
+    ...derivePaletteProperties(colors, 'templateSite', {
+      // A flat-section site drops the alternating band tone entirely: every
+      // section sits on the page colour, and rhythm comes from spacing alone.
+      flatSections: site.flatSections,
+    }),
     '--display': site.fonts.display,
     '--body': site.fonts.body,
     ...(site.tracking ? { '--tracking': site.tracking } : {}),
@@ -124,7 +123,14 @@ export default function TemplateSite({ site, patterns }: Props) {
   const order: SectionKey[] = sec?.sections ?? ['about', 'items', 'features', 'testimonials', 'band', 'newsletter'];
 
   return (
-    <div className={`${s.site} ${kitClass}`} style={vars as CSSProperties}>
+    <div
+      className={`${s.site} ${kitClass}`}
+      style={vars as CSSProperties}
+      // Names the palette derivation, so a page is self-describing: re-colouring
+      // a packaged copy needs the markup and the new colours, nothing else.
+      data-edit-root="templateSite"
+      {...(site.flatSections ? { 'data-edit-flat': '' } : {})}
+    >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="stylesheet" href={site.fonts.href} precedence="default" />
@@ -174,9 +180,13 @@ function Section({ k, site, patterns, content, sec }: Ctx & { k: SectionKey }) {
 function Nav({ site }: { site: Site }) {
   return (
     <nav className={s.nav}>
-      <a className={s.logo} href="#">{site.brand}</a>
-      <ul className={s.navLinks}>{site.nav.map((n) => <li key={n}><a href="#">{n}</a></li>)}</ul>
-      <a className={s.navCta} href="#">{site.primaryCta}</a>
+      <a className={s.logo} href="#" data-edit="brand.name" data-edit-max="24">{site.brand}</a>
+      <ul className={s.navLinks}>
+        {site.nav.map((n, i) => (
+          <li key={n}><a href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a></li>
+        ))}
+      </ul>
+      <a className={s.navCta} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a>
     </nav>
   );
 }
@@ -184,8 +194,8 @@ function Nav({ site }: { site: Site }) {
 function CtaRow({ site, center }: { site: Site; center?: boolean }) {
   return (
     <div className={`${s.ctaRow}${center ? ` ${s.ctaCenter}` : ''}`}>
-      <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.primaryCta}</a>
-      <a className={`${s.btn} ${s.btnGhost}`} href="#">{site.secondaryCta}</a>
+      <a className={`${s.btn} ${s.btnSolid}`} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a>
+      <a className={`${s.btn} ${s.btnGhost}`} href="#" data-edit="cta.secondary" data-edit-max="20">{site.secondaryCta}</a>
     </div>
   );
 }
@@ -193,8 +203,8 @@ function CtaRow({ site, center }: { site: Site; center?: boolean }) {
 function Stats({ site }: { site: Site }) {
   return (
     <div className={s.statStrip}>
-      {site.stats!.map((st) => (
-        <div key={st.l}><div className={s.statN}>{st.n}</div><div className={s.statL}>{st.l}</div></div>
+      {site.stats!.map((st, i) => (
+        <div key={st.l}><div className={s.statN} data-edit={`stats.${i}.n`} data-edit-max="8">{st.n}</div><div className={s.statL} data-edit={`stats.${i}.l`} data-edit-max="32">{st.l}</div></div>
       ))}
     </div>
   );
@@ -203,8 +213,8 @@ function Stats({ site }: { site: Site }) {
 function StatBand({ site }: { site: Site }) {
   return (
     <section className={s.statBand}>
-      {site.stats!.map((st) => (
-        <div key={st.l}><div className={s.statBandN}>{st.n}</div><div className={s.statBandL}>{st.l}</div></div>
+      {site.stats!.map((st, i) => (
+        <div key={st.l}><div className={s.statBandN} data-edit={`stats.${i}.n`} data-edit-max="8">{st.n}</div><div className={s.statBandL} data-edit={`stats.${i}.l`} data-edit-max="32">{st.l}</div></div>
       ))}
     </section>
   );
@@ -214,14 +224,25 @@ function About({ site, patterns, content }: Ctx & { content: NonNullable<Ctx['co
   return (
     <section className={s.about}>
       <div className={s.aboutCopy}>
-        <div className={s.eyebrow}>{content.about.eyebrow}</div>
-        <h2>{content.about.title}</h2>
-        {content.about.body.map((p, i) => <p key={i}>{p}</p>)}
-        <ul className={s.points}>{content.about.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
+        <div className={s.eyebrow} data-edit="about.eyebrow" data-edit-max="28">{content.about.eyebrow}</div>
+        <h2 data-edit="about.title" data-edit-max="70">{content.about.title}</h2>
+        {content.about.body.map((p, i) => (
+          <p key={i} data-edit={`about.body.${i}`} data-edit-multiline data-edit-max="320">{p}</p>
+        ))}
+        <ul className={s.points}>
+          {content.about.points.map((pt, i) => (
+            <li key={pt} data-edit={`about.points.${i}`} data-edit-max="60">{pt}</li>
+          ))}
+        </ul>
       </div>
-      <div className={s.aboutArt}>
+      <div
+        className={s.aboutArt}
+        {...(content.aboutImage
+          ? {}
+          : { 'data-edit-pattern': 'about.field', 'data-edit-roles': fullRoles(site) })}
+      >
         {content.aboutImage ? (
-          <ImageCard id={imageId(site, 'about', 0)} prompt={content.aboutImage} colors={site.colors} />
+          <ImageCard editId="about.photo" id={imageId(site, 'about', 0)} prompt={content.aboutImage} colors={site.colors} />
         ) : (
           <Decor def={artAt(site, patterns, 2)} palette={site.colors} density={1} />
         )}
@@ -233,10 +254,10 @@ function About({ site, patterns, content }: Ctx & { content: NonNullable<Ctx['co
 function Manifesto({ site, patterns, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['manifesto']> }) {
   return (
     <section className={s.manifesto}>
-      <div className={s.abs} style={{ opacity: 0.16 }}><Decor def={artAt(site, patterns, 2)} palette={site.colors} density={1} /></div>
+      <div className={s.abs} style={{ opacity: 0.16 }} data-edit-pattern="manifesto.field" data-edit-roles={fullRoles(site)}><Decor def={artAt(site, patterns, 2)} palette={site.colors} density={1} /></div>
       <div className={s.manifestoInner}>
-        <div className={s.eyebrow}>{data.kicker}</div>
-        <p>{data.text}</p>
+        <div className={s.eyebrow} data-edit="manifesto.kicker" data-edit-max="28">{data.kicker}</div>
+        <p data-edit="manifesto.text" data-edit-multiline data-edit-max="280">{data.text}</p>
       </div>
     </section>
   );
@@ -248,12 +269,12 @@ function AltRows({ site, rows }: { site: Site; rows: NonNullable<NonNullable<Ctx
       {rows.map((r, i) => (
         <div className={`${s.altRow}${i % 2 ? ` ${s.altRowRev}` : ''}`} key={r.title}>
           <div className={s.altCopy}>
-            <div className={s.eyebrow}>{r.eyebrow}</div>
-            <h3>{r.title}</h3>
-            <p>{r.body}</p>
+            <div className={s.eyebrow} data-edit={`altRows.${i}.eyebrow`} data-edit-max="28">{r.eyebrow}</div>
+            <h3 data-edit={`altRows.${i}.title`} data-edit-max="60">{r.title}</h3>
+            <p data-edit={`altRows.${i}.body`} data-edit-multiline data-edit-max="240">{r.body}</p>
           </div>
           <div className={s.altMedia}>
-            <ImageCard id={imageId(site, 'alt', i)} prompt={r.image} colors={site.colors} />
+            <ImageCard editId={`altRows.${i}.photo`} id={imageId(site, 'alt', i)} prompt={r.image} colors={site.colors} />
           </div>
         </div>
       ))}
@@ -265,13 +286,13 @@ function IconFeatures({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['ico
   return (
     <section className={s.iconFeat}>
       <div className={s.iconGrid}>
-        {data.map((f) => {
+        {data.map((f, i) => {
           const Ico = ICONS[f.icon] ?? Sparkles;
           return (
             <div className={s.iconItem} key={f.title}>
               <span className={s.iconWrap}><Ico size={24} strokeWidth={1.75} /></span>
-              <h3>{f.title}</h3>
-              <p>{f.body}</p>
+              <h3 data-edit={`iconFeatures.${i}.title`} data-edit-max="40">{f.title}</h3>
+              <p data-edit={`iconFeatures.${i}.body`} data-edit-multiline data-edit-max="160">{f.body}</p>
             </div>
           );
         })}
@@ -284,17 +305,17 @@ function Items({ site, content }: { site: Site; content?: Ctx['content'] }) {
   const promptFor = (seed: string) => content?.images[seed] ?? '';
   return (
     <section className={s.section} id="items">
-      <SectionHead kicker={site.sectionKicker} title={site.sectionTitle} sub={site.sectionSub} />
+      <SectionHead slot="items" kicker={site.sectionKicker} title={site.sectionTitle} sub={site.sectionSub} />
       <div className={s.grid}>
         {site.items.map((it, i) => (
           <article className={s.card} key={it.seed}>
             <div className={s.cardMedia}>
-              <ImageCard id={imageId(site, 'card', i)} prompt={promptFor(it.seed)} colors={site.colors} />
+              <ImageCard editId={`items.${i}.photo`} id={imageId(site, 'card', i)} prompt={promptFor(it.seed)} colors={site.colors} />
             </div>
             <div className={s.cardBody}>
-              <div className={s.cardEyebrow}>{it.eyebrow}</div>
-              <h3>{it.title}</h3>
-              <div className={s.cardMeta}>{it.meta}</div>
+              <div className={s.cardEyebrow} data-edit={`items.${i}.eyebrow`} data-edit-max="24">{it.eyebrow}</div>
+              <h3 data-edit={`items.${i}.title`} data-edit-max="48">{it.title}</h3>
+              <div className={s.cardMeta} data-edit={`items.${i}.meta`} data-edit-max="48">{it.meta}</div>
             </div>
           </article>
         ))}
@@ -309,7 +330,7 @@ function Gallery({ site, prompts }: { site: Site; prompts: string[] }) {
       <div className={s.galleryGrid}>
         {prompts.map((p, i) => (
           <div className={s.galleryCell} key={i}>
-            <ImageCard id={imageId(site, 'gallery', i)} prompt={p} colors={site.colors} />
+            <ImageCard editId={`gallery.${i}.photo`} id={imageId(site, 'gallery', i)} prompt={p} colors={site.colors} />
           </div>
         ))}
       </div>
@@ -324,7 +345,8 @@ function Features({ data }: { data: NonNullable<Ctx['content']>['features'] }) {
         {data.map((f, i) => (
           <div className={s.feat} key={f.title}>
             <div className={s.featNum}>{String(i + 1).padStart(2, '0')}</div>
-            <h3>{f.title}</h3><p>{f.body}</p>
+            <h3 data-edit={`features.${i}.title`} data-edit-max="40">{f.title}</h3>
+            <p data-edit={`features.${i}.body`} data-edit-multiline data-edit-max="180">{f.body}</p>
           </div>
         ))}
       </div>
@@ -335,14 +357,17 @@ function Features({ data }: { data: NonNullable<Ctx['content']>['features'] }) {
 // One header treatment for every section: kicker, title, and a supporting line
 // sitting on a hairline. Consistency here is what stops the page reading as a
 // pile of unrelated blocks.
-function SectionHead({ kicker, title, sub }: { kicker?: string; title: string; sub?: string }) {
+function SectionHead({ kicker, title, sub, slot }: { kicker?: string; title: string; sub?: string; slot?: string }) {
+  // `slot` namespaces this header's ids: several sections share this component,
+  // so the prefix is what keeps "the items heading" and "the pricing heading"
+  // distinct editable things.
   return (
     <div className={s.sectionHead}>
       <div>
-        {kicker ? <span className={s.sectionIndex}>{kicker}</span> : null}
-        <h2>{title}</h2>
+        {kicker ? <span className={s.sectionIndex} {...(slot ? { 'data-edit': `${slot}.kicker`, 'data-edit-max': '28' } : {})}>{kicker}</span> : null}
+        <h2 {...(slot ? { 'data-edit': `${slot}.title`, 'data-edit-max': '60' } : {})}>{title}</h2>
       </div>
-      {sub ? <p>{sub}</p> : <span />}
+      {sub ? <p {...(slot ? { 'data-edit': `${slot}.sub`, 'data-edit-multiline': '', 'data-edit-max': '200' } : {})}>{sub}</p> : <span />}
     </div>
   );
 }
@@ -350,12 +375,12 @@ function SectionHead({ kicker, title, sub }: { kicker?: string; title: string; s
 function Testimonials({ data }: { data: NonNullable<Ctx['content']>['testimonials'] }) {
   return (
     <section className={s.section}>
-      <SectionHead kicker="Word of mouth" title="What people say" />
+      <SectionHead slot="testimonials" kicker="Word of mouth" title="What people say" />
       <div className={s.quoteGrid}>
-        {data.map((t) => (
+        {data.map((t, i) => (
           <figure className={s.quote} key={t.name}>
-            <blockquote>“{t.quote}”</blockquote>
-            <figcaption><span className={s.qName}>{t.name}</span><span className={s.qRole}>{t.role}</span></figcaption>
+            <blockquote data-edit={`testimonials.${i}.quote`} data-edit-multiline data-edit-max="220">“{t.quote}”</blockquote>
+            <figcaption><span className={s.qName} data-edit={`testimonials.${i}.name`} data-edit-max="32">{t.name}</span><span className={s.qRole} data-edit={`testimonials.${i}.role`} data-edit-max="40">{t.role}</span></figcaption>
           </figure>
         ))}
       </div>
@@ -367,13 +392,13 @@ function Process({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['process'
   return (
     <section className={s.panel}>
       <div className={s.process}>
-      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <SectionHead slot="process" kicker={data.kicker} title={data.title} sub={data.sub} />
       <div className={s.processGrid}>
         {data.steps.map((st, i) => (
           <div className={s.step} key={st.title}>
             <div className={s.stepNum}>{String(i + 1).padStart(2, '0')}</div>
-            <h3>{st.title}</h3>
-            <p>{st.body}</p>
+            <h3 data-edit={`process.steps.${i}.title`} data-edit-max="40">{st.title}</h3>
+            <p data-edit={`process.steps.${i}.body`} data-edit-multiline data-edit-max="180">{st.body}</p>
           </div>
         ))}
       </div>
@@ -385,15 +410,15 @@ function Process({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['process'
 function Pricing({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['pricing']> }) {
   return (
     <section className={s.pricing}>
-      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <SectionHead slot="pricing" kicker={data.kicker} title={data.title} sub={data.sub} />
       <div className={s.tierGrid}>
-        {data.tiers.map((t) => (
+        {data.tiers.map((t, i) => (
           <div className={`${s.tier}${t.featured ? ` ${s.tierFeatured}` : ''}`} key={t.name}>
-            <div className={s.tierName}>{t.name}</div>
-            <div className={s.tierPrice}>{t.price} <span>{t.unit}</span></div>
-            <p className={s.tierBody}>{t.body}</p>
-            <ul className={s.tierList}>{t.includes.map((f) => <li key={f}>{f}</li>)}</ul>
-            <a className={s.tierCta} href="#">{t.cta}</a>
+            <div className={s.tierName} data-edit={`pricing.tiers.${i}.name`} data-edit-max="24">{t.name}</div>
+            <div className={s.tierPrice}><span data-edit={`pricing.tiers.${i}.price`} data-edit-max="12">{t.price}</span> <span data-edit={`pricing.tiers.${i}.unit`} data-edit-max="16">{t.unit}</span></div>
+            <p className={s.tierBody} data-edit={`pricing.tiers.${i}.body`} data-edit-multiline data-edit-max="160">{t.body}</p>
+            <ul className={s.tierList}>{t.includes.map((f, j) => <li key={f} data-edit={`pricing.tiers.${i}.includes.${j}`} data-edit-max="60">{f}</li>)}</ul>
+            <a className={s.tierCta} href="#" data-edit={`pricing.tiers.${i}.cta`} data-edit-max="20">{t.cta}</a>
           </div>
         ))}
       </div>
@@ -405,12 +430,12 @@ function Specs({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['specs']> }
   return (
     <section className={s.panel}>
       <div className={s.specs}>
-      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <SectionHead slot="specs" kicker={data.kicker} title={data.title} sub={data.sub} />
       <div>
-        {data.rows.map((r) => (
+        {data.rows.map((r, i) => (
           <div className={s.specRow} key={r.k}>
-            <div className={s.specK}>{r.k}</div>
-            <p className={s.specV}>{r.v}</p>
+            <div className={s.specK} data-edit={`specs.rows.${i}.k`} data-edit-max="32">{r.k}</div>
+            <p className={s.specV} data-edit={`specs.rows.${i}.v`} data-edit-multiline data-edit-max="200">{r.v}</p>
           </div>
         ))}
       </div>
@@ -442,20 +467,21 @@ const portraitPrompt = (role: string, look: string, scene: string) =>
 function Team({ site, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['team']> }) {
   return (
     <section className={s.team}>
-      <SectionHead kicker={data.kicker} title={data.title} sub={data.sub} />
+      <SectionHead slot="team" kicker={data.kicker} title={data.title} sub={data.sub} />
       <div className={s.teamGrid}>
         {data.people.map((p, i) => (
           <div key={p.name}>
             <div className={s.teamArt}>
               <ImageCard
+                editId={`team.${i}.photo`}
                 id={imageId(site, 'team', i)}
                 prompt={portraitPrompt(p.role, p.look, data.portraitScene)}
                 colors={site.colors}
               />
             </div>
-            <h3 className={s.teamName}>{p.name}</h3>
-            <div className={s.teamRole}>{p.role}</div>
-            <p className={s.teamBio}>{p.bio}</p>
+            <h3 className={s.teamName} data-edit={`team.${i}.name`} data-edit-max="32">{p.name}</h3>
+            <div className={s.teamRole} data-edit={`team.${i}.role`} data-edit-max="40">{p.role}</div>
+            <p className={s.teamBio} data-edit={`team.${i}.bio`} data-edit-multiline data-edit-max="200">{p.bio}</p>
           </div>
         ))}
       </div>
@@ -466,11 +492,11 @@ function Team({ site, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>[
 function BigQuote({ site, patterns, data }: Ctx & { data: NonNullable<NonNullable<Ctx['sec']>['bigQuote']> }) {
   return (
     <section className={s.bigQuote}>
-      <div className={s.abs} style={{ opacity: 0.18 }}><Decor def={artAt(site, patterns, 3)} palette={site.colors} density={1} /></div>
+      <div className={s.abs} style={{ opacity: 0.18 }} data-edit-pattern="bigQuote.field" data-edit-roles={fullRoles(site)}><Decor def={artAt(site, patterns, 3)} palette={site.colors} density={1} /></div>
       <div className={s.bigQuoteScrim} />
       <figure className={s.bigQuoteInner}>
-        <blockquote>“{data.quote}”</blockquote>
-        <figcaption>{data.name}, <span>{data.role}</span></figcaption>
+        <blockquote data-edit="bigQuote.quote" data-edit-multiline data-edit-max="260">“{data.quote}”</blockquote>
+        <figcaption><span data-edit="bigQuote.name" data-edit-max="32">{data.name}</span>, <span data-edit="bigQuote.role" data-edit-max="40">{data.role}</span></figcaption>
       </figure>
     </section>
   );
@@ -479,12 +505,12 @@ function BigQuote({ site, patterns, data }: Ctx & { data: NonNullable<NonNullabl
 function Faq({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['faq']> }) {
   return (
     <section className={s.section}>
-      <SectionHead kicker="Before you ask" title="Questions" />
+      <SectionHead slot="faq" kicker="Before you ask" title="Questions" />
       <div className={s.faqList}>
-        {data.map((f) => (
+        {data.map((f, i) => (
           <details className={s.faqItem} key={f.q}>
-            <summary>{f.q}</summary>
-            <p>{f.a}</p>
+            <summary data-edit={`faq.${i}.q`} data-edit-max="80">{f.q}</summary>
+            <p data-edit={`faq.${i}.a`} data-edit-multiline data-edit-max="280">{f.a}</p>
           </details>
         ))}
       </div>
@@ -495,8 +521,8 @@ function Faq({ data }: { data: NonNullable<NonNullable<Ctx['sec']>['faq']> }) {
 function Logos({ data }: { data: string[] }) {
   return (
     <section className={s.logos}>
-      <span className={s.logosLabel}>As seen in</span>
-      <div className={s.logosRow}>{data.map((n) => <span key={n}>{n}</span>)}</div>
+      <span className={s.logosLabel} data-edit="logos.label" data-edit-max="24">As seen in</span>
+      <div className={s.logosRow}>{data.map((n, i) => <span key={n} data-edit={`logos.${i}`} data-edit-max="24">{n}</span>)}</div>
     </section>
   );
 }
@@ -505,11 +531,11 @@ function Newsletter({ data }: { data: NonNullable<Ctx['content']>['newsletter'] 
   return (
     <section className={s.newsletter}>
       <div className={s.newsletterInner}>
-        <h2>{data.title}</h2>
-        <p>{data.body}</p>
+        <h2 data-edit="newsletter.title" data-edit-max="60">{data.title}</h2>
+        <p data-edit="newsletter.body" data-edit-multiline data-edit-max="200">{data.body}</p>
         <form className={s.newsForm} action="#">
           <input type="email" placeholder={data.placeholder} aria-label="Email" />
-          <button type="submit" className={`${s.btn} ${s.btnSolid}`}>{data.cta}</button>
+          <button type="submit" className={`${s.btn} ${s.btnSolid}`} data-edit="newsletter.cta" data-edit-max="20">{data.cta}</button>
         </form>
       </div>
     </section>
@@ -519,13 +545,13 @@ function Newsletter({ data }: { data: NonNullable<Ctx['content']>['newsletter'] 
 function Band({ site, patterns, index = 0 }: Ctx & { index?: number }) {
   return (
     <section className={s.band}>
-      <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+      <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }} data-edit-pattern="band.field" data-edit-roles={fullRoles(site)}>
         <Decor def={artAt(site, patterns, index)} palette={site.colors} density={1} />
       </div>
       <div className={s.bandScrim} />
       <div className={s.bandInner}>
-        <h2>{site.bandTitle}</h2>
-        <a className={`${s.btn} ${s.btnSolid}`} href="#">{site.bandCta}</a>
+        <h2 data-edit="band.title" data-edit-max="60">{site.bandTitle}</h2>
+        <a className={`${s.btn} ${s.btnSolid}`} href="#" data-edit="band.cta" data-edit-max="20">{site.bandCta}</a>
       </div>
     </section>
   );
@@ -535,11 +561,11 @@ function Footer({ site }: { site: Site }) {
   return (
     <footer className={s.footer}>
       <div className={s.footTop}>
-        <span className={s.logo}>{site.brand}</span>
-        <nav className={s.footNav}>{site.nav.map((n) => <a key={n} href="#">{n}</a>)}</nav>
+        <span className={s.logo} data-edit="brand.name" data-edit-max="24">{site.brand}</span>
+        <nav className={s.footNav}>{site.nav.map((n, i) => <a key={n} href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a>)}</nav>
       </div>
       <div className={s.footBottom}>
-        <span>© 2026 {site.brand}. All rights reserved.</span>
+        <span>© 2026 <span data-edit="brand.name" data-edit-max="24">{site.brand}</span>. All rights reserved.</span>
         <span>{site.patterns.length} Tabbied patterns ({site.patterns.join(' · ')}) via the React component, {site.paletteName} palette.</span>
       </div>
     </footer>
@@ -553,12 +579,12 @@ function SplitHero({ site, patterns, heroImage, overlay }: HeroProps) {
       <Nav site={site} />
       <header className={`${s.splitHero}${site.reverse ? ` ${s.reverse}` : ''}`}>
         <div className={s.splitCopy}>
-          <div className={s.eyebrow}>{site.eyebrow}</div>
-          <h1>{renderTitle(site.title)}</h1>
-          <p className={s.lede}>{site.lede}</p>
+          <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
+          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
           <CtaRow site={site} />
         </div>
-        <div className={s.splitArt}>
+        <div className={s.splitArt} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
           <HeroArt site={site} patterns={patterns} heroImage={heroImage} overlay={overlay} />
         </div>
       </header>
@@ -589,7 +615,7 @@ function HeroArt({ site, patterns, heroImage, overlay }: HeroProps) {
 
   return (
     <>
-      <ImageCard id={imageId(site, 'hero', 0)} prompt={heroImage} colors={site.colors} />
+      <ImageCard editId="hero.photo" id={imageId(site, 'hero', 0)} prompt={heroImage} colors={site.colors} />
       <div className={s.heroPattern} aria-hidden="true">
         <Decor def={def} palette={['transparent', ...site.colors.slice(1)]} density={0} />
       </div>
@@ -602,19 +628,22 @@ function SpotlightHero({ site, patterns, heroImage, overlay }: HeroProps) {
     <>
       <Nav site={site} />
       <header className={s.spotHero}>
-        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
           <HeroArt site={site} patterns={patterns} heroImage={heroImage} overlay={overlay} />
         </div>
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
-          <div className={s.eyebrow}>{site.eyebrow}</div>
-          <h1>{renderTitle(site.title)}</h1>
-          <p className={s.lede}>{site.lede}</p>
+          <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
+          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
           <CtaRow site={site} center />
         </div>
       </header>
       {site.ticker && (
         <div className={s.marquee}>
+          {/* The ticker is printed twice to make the marquee loop, so its words
+              are not annotated: one id cannot describe two elements that are
+              deliberately the same text in different positions. */}
           <span>{[...site.ticker, ...site.ticker].map((t, i) => <span key={i}>{t} <i>✦</i> </span>)}</span>
         </div>
       )}
@@ -626,12 +655,14 @@ function EditorialHero({ site, patterns, heroImage, overlay }: HeroProps) {
   const lead = site.items[0];
   return (
     <>
-      <div className={s.edMast}><span>Vol. IV · No. 12</span><a className={s.navCta} href="#">{site.primaryCta}</a></div>
-      <div className={s.edTitleRow}><h1>{site.brand}</h1><p className={s.lede}>{site.lede}</p></div>
-      <nav className={s.edNav}>{site.nav.map((n) => <a key={n} href="#">{n}</a>)}</nav>
-      <div className={s.edCover}>
+      <div className={s.edMast}><span>Vol. IV · No. 12</span><a className={s.navCta} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a></div>
+      <div className={s.edTitleRow}><h1 data-edit="brand.name" data-edit-max="24">{site.brand}</h1><p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p></div>
+      <nav className={s.edNav}>{site.nav.map((n, i) => <a key={n} href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a>)}</nav>
+      <div className={s.edCover} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
         <HeroArt site={site} patterns={patterns} heroImage={heroImage} overlay={overlay} />
-        <div className={s.edCoverCaption}><div className={s.k}>{lead.eyebrow}</div><h2>{lead.title}</h2></div>
+        {/* The cover caption mirrors the first item card, so it shares that
+            card's ids rather than minting a second name for the same copy. */}
+        <div className={s.edCoverCaption}><div className={s.k} data-edit="items.0.eyebrow" data-edit-max="24">{lead.eyebrow}</div><h2 data-edit="items.0.title" data-edit-max="48">{lead.title}</h2></div>
       </div>
     </>
   );
@@ -642,15 +673,15 @@ function BoutiqueHero({ site, patterns, heroImage, overlay }: HeroProps) {
     <>
       <Nav site={site} />
       <header className={s.boutHero}>
-        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }}>
+        <div className={s.doodleBox} style={{ position: 'absolute', inset: 0 }} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
           <HeroArt site={site} patterns={patterns} heroImage={heroImage} overlay={overlay} />
         </div>
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
-          <div className={s.eyebrow}>{site.eyebrow}</div>
-          <h1>{renderTitle(site.title)}</h1>
-          <p className={s.lede}>{site.lede}</p>
-          <a className={s.boutBtn} href="#">{site.primaryCta}</a>
+          <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
+          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
+          <a className={s.boutBtn} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a>
         </div>
       </header>
     </>

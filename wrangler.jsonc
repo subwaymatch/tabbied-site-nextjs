@@ -25,7 +25,12 @@
     // default html_handling would answer a POST to /mcp with a 308 to /mcp/.
     // Redirecting an MCP client's POST breaks it, so the Worker takes the path
     // before any of that can happen.
-    "run_worker_first": ["/mcp", "/mcp/*", "/health"]
+    //
+    // /api is here for exactly the same reason and it is not optional: every
+    // POST to the platform tier (sign-in, projects, AI tasks) would otherwise
+    // be answered with a redirect before the Worker ever saw it. Any new
+    // non-asset route must join this list.
+    "run_worker_first": ["/mcp", "/mcp/*", "/health", "/api", "/api/*"]
   },
 
   "observability": {

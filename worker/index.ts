@@ -2,13 +2,21 @@
 //
 // It is almost entirely a static-asset server: `next build` writes the whole
 // site into out/, wrangler uploads it, and Cloudflare serves matching paths
-// without ever invoking this code. Only two paths reach the Worker —
+// without ever invoking this code. Only three prefixes reach the Worker —
 //
 //   /mcp     the remote MCP endpoint (see docs/mcp-server.md)
+//   /api     the platform tier: accounts, projects, AI tasks
 //   /health  a liveness probe that doesn't depend on the asset pipeline
 //
 // — and everything else falls through to `env.ASSETS`, which is also how the
 // custom 404 page is served (`not_found_handling: "404-page"`).
+//
+// Routing is Hono's rather than a chain of `if (pathname === …)`. That was the
+// right shape for two routes and the wrong one for twenty: the platform work
+// (see agent-outputs/platform-auth-ai-plan.md) adds an authenticated API whose
+// session extraction, rate limiting, and error shaping all want one place to
+// live. Nothing about the two existing endpoints changes — same handlers, same
+// statelessness, same fallthrough.
 //
 // The MCP server reads the catalog, the previews, and the reference *through
 // the assets binding* rather than bundling them. That is deliberate: the tools
@@ -23,6 +31,7 @@
 // to be spoken. The same function is re-exported by `agents/mcp/server`; taking
 // it from the SDK avoids pulling partyserver, esbuild, and babel into a Worker
 // that wants none of them.
+import { Hono } from 'hono';
 import { createMcpHandler } from '@modelcontextprotocol/server';
 import {
   buildServer,
@@ -31,11 +40,9 @@ import {
   type CatalogDesign,
 } from 'tabbied-mcp';
 
-type Env = {
+export type Env = {
   ASSETS: { fetch(request: Request | string): Promise<Response> };
 };
-
-const MCP_PATH = '/mcp';
 
 // Isolates are reused across requests, so a cold read of the catalog is paid
 // once per isolate rather than once per request. Cached as the promise so
@@ -125,39 +132,62 @@ async function handleMcp(request: Request, env: Env): Promise<Response> {
   }).fetch(request);
 }
 
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const { pathname } = new URL(request.url);
+const app = new Hono<{ Bindings: Env }>();
 
-    if (pathname === MCP_PATH || pathname === `${MCP_PATH}/`) {
-      try {
-        return await handleMcp(request, env);
-      } catch (error) {
-        // The catalog is an asset; if it can't be read, the deployment is
-        // broken rather than the request. Say so in JSON-RPC terms so a client
-        // surfaces something better than an opaque 500.
-        return new Response(
-          JSON.stringify({
-            jsonrpc: '2.0',
-            id: null,
-            error: {
-              code: -32603,
-              message: `MCP server unavailable: ${
-                error instanceof Error ? error.message : String(error)
-              }`,
-            },
-          }),
-          { status: 503, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-    }
+// Every method, because the transport uses more than POST and the SDK is what
+// decides which ones it answers — a 405 from the SDK is a correct MCP reply,
+// whereas a 404 from this router would not be. Both spellings are registered
+// because `run_worker_first` hands us the unslashed form and a client that
+// posts to `/mcp/` must not be redirected (see wrangler.jsonc).
+app.all('/mcp', (c) => handleMcp(c.req.raw, c.env));
+app.all('/mcp/', (c) => handleMcp(c.req.raw, c.env));
 
-    if (pathname === '/health') {
-      return new Response('ok', {
-        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-      });
-    }
+app.onError((error, c) => {
+  const { pathname } = new URL(c.req.url);
 
-    return env.ASSETS.fetch(request);
-  },
-};
+  // The catalog is an asset; if it can't be read, the deployment is broken
+  // rather than the request. Say so in JSON-RPC terms so an MCP client
+  // surfaces something better than an opaque 500.
+  if (pathname === '/mcp' || pathname === '/mcp/') {
+    return c.json(
+      {
+        jsonrpc: '2.0',
+        id: null,
+        error: {
+          code: -32603,
+          message: `MCP server unavailable: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        },
+      },
+      503
+    );
+  }
+
+  return c.json({ error: 'Internal error' }, 500);
+});
+
+app.get('/health', (c) => c.text('ok'));
+
+// ---- the platform tier ----------------------------------------------------
+// Scaffolding only: the routes that need identity and an AI upstream land with
+// the bindings they depend on (D1, KV, R2, secrets). What exists now is the
+// seam — a mounted sub-app, reachable through `run_worker_first`, with a probe
+// that proves the wiring end to end.
+const api = new Hono<{ Bindings: Env }>();
+
+api.get('/health', (c) =>
+  c.json({ status: 'ok', service: 'tabbied-api', version: 1 })
+);
+
+api.notFound((c) => c.json({ error: 'Not found' }, 404));
+
+app.route('/api', api);
+
+// Anything that is not one of ours is an asset. This is the common path by a
+// wide margin — Cloudflare only routes the prefixes in `run_worker_first` here
+// at all, and everything else that reaches us is a miss the asset router
+// answers with out/404.html.
+app.all('*', (c) => c.env.ASSETS.fetch(c.req.raw));
+
+export default app;

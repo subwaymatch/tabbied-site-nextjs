@@ -1,0 +1,46 @@
+{
+  "name": "tabbied-templates",
+  "version": "0.1.0",
+  "description": "The editable-section spec for Tabbied template sites: what a person or an agent may change about a template, and the engine that applies it.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sy Hong and Ye Joo Park",
+  "homepage": "https://tabbied.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/subwaymatch/tabbied.git",
+    "directory": "packages/tabbied-templates"
+  },
+  "keywords": [
+    "tabbied",
+    "template",
+    "editable",
+    "generative-art",
+    "css-doodle"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "test": "node --test",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
