@@ -52,7 +52,19 @@ const TURNAROUND = [
 
 export default function NullpunktPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--white': '#ffffff',
+        '--ink': '#0a0a0a',
+        '--red': '#e10600',
+        '--grey': '#9ea2a6',
+        '--pale': '#dbdbd9',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="white,ink,red,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -67,18 +79,18 @@ export default function NullpunktPage() {
           Nullpunkt
         </a>
         <nav aria-label="Sections">
-          <a href="#scope">Scope</a>
-          <a href="#principles">Principles</a>
-          <a href="#turnaround">Turnaround</a>
-          <a href="#lab">Laboratory</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#scope">Scope</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#principles">Principles</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#turnaround">Turnaround</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#lab">Laboratory</a>
         </nav>
-        <span className={s.accred}>Akkreditiert · D-K-00000-00-00</span>
+        <span data-edit="bar.accred" data-edit-max="60" className={s.accred}>Akkreditiert · D-K-00000-00-00</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={ortho}
               palette={['transparent', PALE, GREY]}
@@ -89,17 +101,17 @@ export default function NullpunktPage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Institut für Messtechnik / Braunschweig</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Institut für Messtechnik / Braunschweig</p>
             <h1>
               Zero is a
               <br />
-              <span>decision</span>, and
+              <span data-edit="hero.span" data-edit-max="60">decision</span>, and
               <br />
               somebody has to
               <br />
               make it.
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We calibrate the instruments that other laboratories calibrate
               against. Six quantities, one uncertainty budget each, published in
               full.
@@ -108,32 +120,32 @@ export default function NullpunktPage() {
         </section>
 
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.nullpunkt-gauges"
             slug="nullpunkt-gauges"
             alt="A fitted case of precision steel gauge blocks opened on a white laboratory bench"
             priority
           />
-          <figcaption>Set 04, grade K. Wrung, measured, and put back the same afternoon.</figcaption>
+          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Set 04, grade K. Wrung, measured, and put back the same afternoon.</figcaption>
         </figure>
 
         {/* --------------------------------------------------------- SCOPE */}
         <section id="scope" className={s.scope} aria-labelledby="scope-h">
-          <h2 className={s.h2} id="scope-h">
+          <h2 data-edit="scope.h2" data-edit-max="60" className={s.h2} id="scope-h">
             Scope of accreditation
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span>Quantity</span>
-              <span>Range</span>
-              <span>Best uncertainty</span>
-              <span>Reference</span>
+              <span data-edit="scope.span" data-edit-max="60">Quantity</span>
+              <span data-edit="scope.span2" data-edit-max="60">Range</span>
+              <span data-edit="scope.span3" data-edit-max="60">Best uncertainty</span>
+              <span data-edit="scope.span4" data-edit-max="60">Reference</span>
             </li>
-            {SERVICES.map((x) => (
+            {SERVICES.map((x, i) => (
               <li key={x.q}>
-                <span className={s.q}>{x.q}</span>
-                <span className={s.num}>{x.range}</span>
-                <span className={s.unc}>{x.unc}</span>
-                <span className={s.kit}>{x.kit}</span>
+                <span data-edit={`scope.q.${i}`} data-edit-max="60" className={s.q}>{x.q}</span>
+                <span data-edit={`scope.num.${i}`} data-edit-max="60" className={s.num}>{x.range}</span>
+                <span data-edit={`scope.unc.${i}`} data-edit-max="60" className={s.unc}>{x.unc}</span>
+                <span data-edit={`scope.kit.${i}`} data-edit-max="60" className={s.kit}>{x.kit}</span>
               </li>
             ))}
           </ol>
@@ -141,7 +153,7 @@ export default function NullpunktPage() {
 
         {/* ----------------------------------------------------- ZERO BAND */}
         <section className={s.zeroBand} aria-hidden="true">
-          <div className={s.zeroField}>
+          <div data-edit-pattern="zeroBand.field" data-edit-roles="transparent,1,2,3" className={s.zeroField}>
             <TabbiedPattern
               pattern={ring}
               palette={['transparent', INK, RED, GREY]}
@@ -155,7 +167,7 @@ export default function NullpunktPage() {
 
         {/* ---------------------------------------------------- PRINCIPLES */}
         <section id="principles" className={s.principles} aria-labelledby="principles-h">
-          <div className={s.prField} aria-hidden="true">
+          <div data-edit-pattern="principles.field" data-edit-roles="transparent,3,4" className={s.prField} aria-hidden="true">
             <TabbiedPattern
               pattern={gimbal}
               palette={['transparent', GREY, PALE]}
@@ -166,16 +178,16 @@ export default function NullpunktPage() {
             />
           </div>
           <div className={s.prInner}>
-            <h2 className={s.h2} id="principles-h">
+            <h2 data-edit="principles.h2" data-edit-max="60" className={s.h2} id="principles-h">
               Four things we will not negotiate
             </h2>
             <ol className={s.prList}>
-              {PRINCIPLES.map((p) => (
+              {PRINCIPLES.map((p, i) => (
                 <li key={p.n}>
-                  <span className={s.prN}>{p.n}</span>
+                  <span data-edit={`principles.prN.${i}`} data-edit-max="60" className={s.prN}>{p.n}</span>
                   <div>
-                    <h3>{p.t}</h3>
-                    <p>{p.d}</p>
+                    <h3 data-edit={`principles.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                    <p data-edit={`principles.p.${i}`} data-edit-max="240" data-edit-multiline>{p.d}</p>
                   </div>
                 </li>
               ))}
@@ -186,36 +198,36 @@ export default function NullpunktPage() {
         {/* ------------------------------------------------------- LAB PAIR */}
         <div className={s.pair}>
           <figure>
-            <Figure
+            <Figure editId="photo.nullpunkt-cmm"
               slug="nullpunkt-cmm"
               alt="A coordinate measuring machine with a probe over a metal part in a clean laboratory"
             />
-            <figcaption>CMM 2, granite table, 20.0 °C ± 0.1.</figcaption>
+            <figcaption data-edit="top.figcaption2" data-edit-max="120" data-edit-multiline>CMM 2, granite table, 20.0 °C ± 0.1.</figcaption>
           </figure>
           <figure>
-            <Figure
+            <Figure editId="photo.nullpunkt-artefact"
               slug="nullpunkt-artefact"
               alt="A polished metal cylinder standing under a glass bell jar on a black granite table"
             />
-            <figcaption>Transfer artefact, checked every ninety days.</figcaption>
+            <figcaption data-edit="top.figcaption3" data-edit-max="120" data-edit-multiline>Transfer artefact, checked every ninety days.</figcaption>
           </figure>
         </div>
 
         {/* ---------------------------------------------------- TURNAROUND */}
         <section id="turnaround" className={s.turn} aria-labelledby="turn-h">
-          <h2 className={s.h2} id="turn-h">
+          <h2 data-edit="turnaround.h2" data-edit-max="60" className={s.h2} id="turn-h">
             Turnaround
           </h2>
           <ol className={s.turnList}>
-            {TURNAROUND.map(([tier, days, cost]) => (
+            {TURNAROUND.map(([tier, days, cost], i) => (
               <li key={tier}>
-                <span className={s.tTier}>{tier}</span>
-                <span className={s.tDays}>{days}</span>
-                <span className={s.tCost}>{cost}</span>
+                <span data-edit={`turnaround.tTier.${i}`} data-edit-max="60" className={s.tTier}>{tier}</span>
+                <span data-edit={`turnaround.tDays.${i}`} data-edit-max="60" className={s.tDays}>{days}</span>
+                <span data-edit={`turnaround.tCost.${i}`} data-edit-max="60" className={s.tCost}>{cost}</span>
               </li>
             ))}
           </ol>
-          <p className={s.turnNote}>
+          <p data-edit="turnaround.turnNote" data-edit-max="240" data-edit-multiline className={s.turnNote}>
             The clock starts when the instrument reaches the laboratory and has
             reached room temperature, which for a steel artefact from a cold van
             is not the same morning.
@@ -224,7 +236,7 @@ export default function NullpunktPage() {
 
         {/* ----------------------------------------------------------- LAB */}
         <section id="lab" className={s.lab} aria-labelledby="lab-h">
-          <div className={s.labField} aria-hidden="true">
+          <div data-edit-pattern="lab.field" data-edit-roles="transparent,2,3" className={s.labField} aria-hidden="true">
             <TabbiedPattern
               pattern={dipole}
               palette={['transparent', RED, GREY]}
@@ -235,18 +247,18 @@ export default function NullpunktPage() {
             />
           </div>
           <div className={s.labInner}>
-            <h2 className={s.h2} id="lab-h">
+            <h2 data-edit="lab.h2" data-edit-max="60" className={s.h2} id="lab-h">
               Bundesallee 100
             </h2>
             <div className={s.labGrid}>
-              <p className={s.big}>
+              <p data-edit="lab.big" data-edit-max="240" data-edit-multiline className={s.big}>
                 Four measurement rooms held at 20.0 °C, two of them to a tenth.
                 Deliveries to the rear, and please do not open the case in the
                 corridor.
               </p>
               <dl>
                 <div>
-                  <dt>Laboratory</dt>
+                  <dt data-edit="lab.dt" data-edit-max="28">Laboratory</dt>
                   <dd>
                     Bundesallee 100
                     <br />
@@ -254,39 +266,39 @@ export default function NullpunktPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Submissions</dt>
+                  <dt data-edit="lab.dt2" data-edit-max="28">Submissions</dt>
                   <dd>
-                    <a href="mailto:kalibrierung@nullpunkt.example">
+                    <a data-edit="lab.a" data-edit-max="28" href="mailto:kalibrierung@nullpunkt.example">
                       kalibrierung@nullpunkt.example
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt>Goods in</dt>
-                  <dd>Mon to Thu, 07.30 to 15.00</dd>
+                  <dt data-edit="lab.dt3" data-edit-max="28">Goods in</dt>
+                  <dd data-edit="lab.dd" data-edit-max="200" data-edit-multiline>Mon to Thu, 07.30 to 15.00</dd>
                 </div>
                 <div>
-                  <dt>Certificates</dt>
-                  <dd>Signed PDF, and paper on request, at no charge</dd>
+                  <dt data-edit="lab.dt4" data-edit-max="28">Certificates</dt>
+                  <dd data-edit="lab.dd2" data-edit-max="200" data-edit-multiline>Signed PDF, and paper on request, at no charge</dd>
                 </div>
               </dl>
             </div>
             <figure className={s.wide}>
-              <Figure
+              <Figure editId="photo.nullpunkt-lab"
                 slug="nullpunkt-lab"
                 alt="An empty temperature-controlled measurement laboratory with white surfaces"
               />
-              <figcaption>Room 2, empty and at temperature. This is what good looks like.</figcaption>
+              <figcaption data-edit="lab.figcaption" data-edit-max="120" data-edit-multiline>Room 2, empty and at temperature. This is what good looks like.</figcaption>
             </figure>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three sources of uncertainty</h2>
-          <p className={s.secNote}>Every certificate states these. The budget is published in full with each result.</p>
+          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three sources of uncertainty</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Every certificate states these. The budget is published in full with each result.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ring}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -302,14 +314,14 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nullpunkt-tile-mass-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nullpunkt-tile-mass-cutout" slug="nullpunkt-tile-mass-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The reference</h3>
-                <p className={s.tileBody}>How well the standard itself is known, and how long since it was compared upward. This is usually the smallest term and the hardest to improve.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.h3" data-edit-max="40">The reference</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>How well the standard itself is known, and how long since it was compared upward. This is usually the smallest term and the hardest to improve.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={gimbal}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -325,14 +337,14 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nullpunkt-tile-logger-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nullpunkt-tile-logger-cutout" slug="nullpunkt-tile-logger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The environment</h3>
-                <p className={s.tileBody}>Temperature, and then temperature again. Twenty degrees is a definition, not a room, and holding it to a tenth costs more than the instrument.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.h32" data-edit-max="40">The environment</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Temperature, and then temperature again. Twenty degrees is a definition, not a room, and holding it to a tenth costs more than the instrument.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={protractor}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -348,84 +360,84 @@ export default function NullpunktPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nullpunkt-tile-tweezers-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nullpunkt-tile-tweezers-cutout" slug="nullpunkt-tile-tweezers-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>The operator</h3>
-                <p className={s.tileBody}>Repeatability across three runs and two people. If the operator term dominates, the method is wrong, not the person.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.h33" data-edit-max="40">The operator</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Repeatability across three runs and two people. If the operator term dominates, the method is wrong, not the person.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">Reference standards held</h2>
-          <p className={s.secNote}>What sits at the top of our chain, and when each was last compared upward.</p>
+          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Reference standards held</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What sits at the top of our chain, and when each was last compared upward.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Standard</span>
-                <span>Quantity</span>
-                <span>Traceable to</span>
-                <span>Last compared</span>
+                <span data-edit="index.span" data-edit-max="60">Standard</span>
+                <span data-edit="index.span2" data-edit-max="60">Quantity</span>
+                <span data-edit="index.span3" data-edit-max="60">Traceable to</span>
+                <span data-edit="index.span4" data-edit-max="60">Last compared</span>
             </li>
               <li key="Gauge block set, grade K">
-                <span>Gauge block set, grade K</span>
-                <span>Length</span>
-                <span>PTB</span>
-                <span>Sep 2025</span>
+                <span data-edit="index.span5" data-edit-max="60">Gauge block set, grade K</span>
+                <span data-edit="index.span6" data-edit-max="60">Length</span>
+                <span data-edit="index.span7" data-edit-max="60">PTB</span>
+                <span data-edit="index.span8" data-edit-max="60">Sep 2025</span>
               </li>
               <li key="E1 mass set, 1 mg to 20 kg">
-                <span>E1 mass set, 1 mg to 20 kg</span>
-                <span>Mass</span>
-                <span>PTB</span>
-                <span>Jun 2025</span>
+                <span data-edit="index.span9" data-edit-max="60">E1 mass set, 1 mg to 20 kg</span>
+                <span data-edit="index.span10" data-edit-max="60">Mass</span>
+                <span data-edit="index.span11" data-edit-max="60">PTB</span>
+                <span data-edit="index.span12" data-edit-max="60">Jun 2025</span>
               </li>
               <li key="SPRT with fixed points">
-                <span>SPRT with fixed points</span>
-                <span>Temperature</span>
-                <span>PTB</span>
-                <span>Mar 2025</span>
+                <span data-edit="index.span13" data-edit-max="60">SPRT with fixed points</span>
+                <span data-edit="index.span14" data-edit-max="60">Temperature</span>
+                <span data-edit="index.span15" data-edit-max="60">PTB</span>
+                <span data-edit="index.span16" data-edit-max="60">Mar 2025</span>
               </li>
               <li key="Caesium standard">
-                <span>Caesium standard</span>
-                <span>Frequency</span>
-                <span>PTB via GNSS</span>
-                <span>Continuous</span>
+                <span data-edit="index.span17" data-edit-max="60">Caesium standard</span>
+                <span data-edit="index.span18" data-edit-max="60">Frequency</span>
+                <span data-edit="index.span19" data-edit-max="60">PTB via GNSS</span>
+                <span data-edit="index.span20" data-edit-max="60">Continuous</span>
               </li>
               <li key="Piston gauge, two ranges">
-                <span>Piston gauge, two ranges</span>
-                <span>Pressure</span>
-                <span>PTB</span>
-                <span>Nov 2025</span>
+                <span data-edit="index.span21" data-edit-max="60">Piston gauge, two ranges</span>
+                <span data-edit="index.span22" data-edit-max="60">Pressure</span>
+                <span data-edit="index.span23" data-edit-max="60">PTB</span>
+                <span data-edit="index.span24" data-edit-max="60">Nov 2025</span>
               </li>
               <li key="Josephson array">
-                <span>Josephson array</span>
-                <span>Voltage</span>
-                <span>PTB</span>
-                <span>Apr 2025</span>
+                <span data-edit="index.span25" data-edit-max="60">Josephson array</span>
+                <span data-edit="index.span26" data-edit-max="60">Voltage</span>
+                <span data-edit="index.span27" data-edit-max="60">PTB</span>
+                <span data-edit="index.span28" data-edit-max="60">Apr 2025</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Before you send an instrument</h2>
+          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Before you send an instrument</h2>
           <dl className={s.faqList}>
               <div key="How should it be packed?">
-                <dt>How should it be packed?</dt>
-                <dd>In its own case, in a box, with the case not touching the box. Most damage we see happens in transit and none of it is dramatic.</dd>
+                <dt data-edit="faq.dt" data-edit-max="28">How should it be packed?</dt>
+                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>In its own case, in a box, with the case not touching the box. Most damage we see happens in transit and none of it is dramatic.</dd>
               </div>
               <div key="Will you adjust it as we">
-                <dt>Will you adjust it as well as calibrate it?</dt>
-                <dd>Only if you ask in writing. Calibration and adjustment are different jobs, and an adjusted instrument has no history.</dd>
+                <dt data-edit="faq.dt2" data-edit-max="28">Will you adjust it as well as calibrate it?</dt>
+                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Only if you ask in writing. Calibration and adjustment are different jobs, and an adjusted instrument has no history.</dd>
               </div>
               <div key="What if it is out of tol">
-                <dt>What if it is out of tolerance?</dt>
-                <dd>The certificate says so on the first line and we telephone you the same day, because the interesting question is what you measured with it last month.</dd>
+                <dt data-edit="faq.dt3" data-edit-max="28">What if it is out of tolerance?</dt>
+                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>The certificate says so on the first line and we telephone you the same day, because the interesting question is what you measured with it last month.</dd>
               </div>
               <div key="Can I watch?">
-                <dt>Can I watch?</dt>
-                <dd>Yes. Ask when you book. Most people stay twenty minutes and leave with a better feel for why it takes fifteen days.</dd>
+                <dt data-edit="faq.dt4" data-edit-max="28">Can I watch?</dt>
+                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Yes. Ask when you book. Most people stay twenty minutes and leave with a better feel for why it takes fifteen days.</dd>
               </div>
           </dl>
         </section>
@@ -436,7 +448,7 @@ export default function NullpunktPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={nutation}
               palette={['transparent', PALE, GREY]}
@@ -451,39 +463,39 @@ export default function NullpunktPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Nullpunkt</p>
-            <p className={s.footTag}>Institut für Messtechnik, Bundesallee 100, Braunschweig.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Nullpunkt</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Institut für Messtechnik, Bundesallee 100, Braunschweig.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Calibration</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Calibration</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#scope">Scope of accreditation</a>
+                <a data-edit="footer.a" data-edit-max="28" href="#scope">Scope of accreditation</a>
               </li>
               <li>
-                <a href="#turnaround">Turnaround</a>
+                <a data-edit="footer.a2" data-edit-max="28" href="#turnaround">Turnaround</a>
               </li>
               <li>
-                <a href="#principles">Principles</a>
+                <a data-edit="footer.a3" data-edit-max="28" href="#principles">Principles</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Laboratory</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Laboratory</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#lab">Bundesallee 100</a>
+                <a data-edit="footer.a4" data-edit-max="28" href="#lab">Bundesallee 100</a>
               </li>
               <li>
-                <a href="#lab">Goods in</a>
+                <a data-edit="footer.a5" data-edit-max="28" href="#lab">Goods in</a>
               </li>
               <li>
-                <a href="#lab">Certificates</a>
+                <a data-edit="footer.a6" data-edit-max="28" href="#lab">Certificates</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Bundesallee 100
               <br />
@@ -496,10 +508,10 @@ export default function NullpunktPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional calibration laboratory. Prices and times are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional calibration laboratory. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

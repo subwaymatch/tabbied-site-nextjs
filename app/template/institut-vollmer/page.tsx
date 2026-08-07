@@ -290,7 +290,20 @@ function LabelColumn({
 
 export default function InstitutVollmerPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--white': '#ffffff',
+        '--ink': '#1a1a1a',
+        '--blue': '#0b4ee0',
+        '--steel': '#9aa0a6',
+        '--pale': '#e9ebee',
+        '--graphite': '#4a4f55',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="white,ink,blue,steel,pale,graphite"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
         rel="preconnect"
@@ -306,7 +319,7 @@ export default function InstitutVollmerPage() {
       <header className={s.masthead}>
         <div className={s.wrap}>
           <div className={s.grid}>
-            <p className={s.wordmark}>Institut Vollmer</p>
+            <p data-edit="masthead.wordmark" data-edit-max="240" data-edit-multiline className={s.wordmark}>Institut Vollmer</p>
             <p className={s.mastheadMeta}>
               Materials research since 1951
               <br />
@@ -314,10 +327,10 @@ export default function InstitutVollmerPage() {
             </p>
             <nav className={s.nav} aria-label="Sections">
               <ul>
-                {NAV.map((item) => (
+                {NAV.map((item, i) => (
                   <li key={item.no}>
                     <a href={item.href}>
-                      <span className={s.navNo}>{item.no}</span> {item.label}
+                      <span data-edit={`masthead.navNo.${i}`} data-edit-max="60" className={s.navNo}>{item.no}</span> {item.label}
                     </a>
                   </li>
                 ))}
@@ -337,11 +350,11 @@ export default function InstitutVollmerPage() {
                 label="Statement"
                 note="Independent foundation, Basel, established 1951"
               />
-              <h1 id="t-hero" className={s.heroTitle}>
+              <h1 data-edit="tHero.heroTitle" data-edit-max="70" id="t-hero" className={s.heroTitle}>
                 Materials fail in ways that are boring, repeatable and worth
                 measuring properly.
               </h1>
-              <p className={s.lead}>
+              <p data-edit="tHero.lead" data-edit-max="240" data-edit-multiline className={s.lead}>
                 Institut Vollmer tests metals, coatings, polymers and ceramics
                 for anyone willing to pay for an honest number. We are a
                 foundation, not a department. Four research programmes, 148
@@ -349,17 +362,17 @@ export default function InstitutVollmerPage() {
                 report.
               </p>
               <p className={s.heroActions}>
-                <a className={s.button} href="#industry">
+                <a data-edit="tHero.button" data-edit-max="28" className={s.button} href="#industry">
                   Work with the institute
                 </a>
-                <a className={s.textLink} href="#publications">
+                <a data-edit="tHero.textLink" data-edit-max="28" className={s.textLink} href="#publications">
                   Recent publications
                 </a>
               </p>
             </div>
           </div>
           <div className={s.heroImage}>
-            <Figure
+            <Figure editId="photo.vollmer-hero"
               slug="vollmer-hero"
               alt="A materials testing hall at Institut Vollmer, load frames in a row under high windows"
               priority
@@ -367,7 +380,7 @@ export default function InstitutVollmerPage() {
             />
           </div>
           <div className={s.strip}>
-            <div className={`${s.stripField} ${s.fieldWhite}`} aria-hidden="true">
+            <div data-edit-pattern="tHero.field" className={`${s.stripField} ${s.fieldWhite}`} aria-hidden="true">
               <TabbiedPattern
                 pattern={perforate}
                 palette={FIELD_STRIP}
@@ -389,26 +402,26 @@ export default function InstitutVollmerPage() {
                 label="Research"
                 note="Four programmes, reviewed every five years"
               />
-              <h2 id="t-research" className={s.sectionTitle}>
+              <h2 data-edit="research.sectionTitle" data-edit-max="60" id="t-research" className={s.sectionTitle}>
                 Four programmes. No fifth one until one of these closes.
               </h2>
             </div>
 
-            {AREAS.map((area) => (
+            {AREAS.map((area, i) => (
               <div key={area.key} className={`${s.grid} ${s.areaRow}`}>
                 <div className={s.areaKey}>
-                  <p className={s.areaLetter}>{area.key}</p>
-                  <h3>{area.title}</h3>
+                  <p data-edit={`research.areaLetter.${i}`} data-edit-max="240" data-edit-multiline className={s.areaLetter}>{area.key}</p>
+                  <h3 data-edit={`research.h3.${i}`} data-edit-max="40">{area.title}</h3>
                 </div>
                 <div className={s.areaBody}>
-                  <p className={s.areaLead}>{area.lead}</p>
-                  <p>{area.body}</p>
+                  <p data-edit={`research.areaLead.${i}`} data-edit-max="240" data-edit-multiline className={s.areaLead}>{area.lead}</p>
+                  <p data-edit={`research.p.${i}`} data-edit-max="240" data-edit-multiline>{area.body}</p>
                 </div>
                 <dl className={s.areaFacts}>
-                  {area.facts.map(([k, v]) => (
+                  {area.facts.map(([k, v], i2) => (
                     <div key={k} className={s.factRow}>
-                      <dt>{k}</dt>
-                      <dd>{v}</dd>
+                      <dt data-edit={`research.dt.${i}.${i2}`} data-edit-max="28">{k}</dt>
+                      <dd data-edit={`research.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -417,23 +430,23 @@ export default function InstitutVollmerPage() {
 
             <div className={`${s.grid} ${s.researchFigures}`}>
               <figure className={s.researchPhoto}>
-                <Figure
+                <Figure editId="photo.vollmer-microscopy"
                   slug="vollmer-microscopy"
                   alt="A researcher at the scanning electron microscope, screens showing a fracture surface"
                   className={s.photo}
                 />
-                <figcaption className={s.caption}>
+                <figcaption data-edit="research.caption" data-edit-max="120" data-edit-multiline className={s.caption}>
                   Fig. 1. The scanning electron microscope in Hall B. A 316L
                   specimen goes on the stage at 15 kV after 4.1 million cycles.
                 </figcaption>
               </figure>
               <figure className={s.researchArt}>
-                <Figure
+                <Figure editId="photo.vollmer-porosity"
                   slug="vollmer-porosity"
                   alt="A greyscale micrograph of a polished cross-section scattered with dark pores"
                   className={s.photo}
                 />
-                <figcaption className={s.caption}>
+                <figcaption data-edit="research.caption2" data-edit-max="120" data-edit-multiline className={s.caption}>
                   Fig. 2. Porosity in the same specimen, imaged after sectioning.
                   Every dark mark is a void.
                 </figcaption>
@@ -455,28 +468,28 @@ export default function InstitutVollmerPage() {
                 label="Facilities"
                 note="Eight principal instruments, all bookable"
               />
-              <h2 id="t-facilities" className={s.sectionTitle}>
+              <h2 data-edit="facilities.sectionTitle" data-edit-max="60" id="t-facilities" className={s.sectionTitle}>
                 Instruments, what they do, and when they were installed.
               </h2>
 
               <ul className={s.facilities}>
-                {FACILITIES.map((f) => (
+                {FACILITIES.map((f, i) => (
                   <li key={f.name} className={s.facility}>
-                    <span className={s.facName}>{f.name}</span>
-                    <span className={s.facDetail}>{f.detail}</span>
-                    <span className={`${s.facYear} ${s.tabular}`}>{f.year}</span>
-                    <span className={s.facAccess}>{f.access}</span>
+                    <span data-edit={`facilities.facName.${i}`} data-edit-max="60" className={s.facName}>{f.name}</span>
+                    <span data-edit={`facilities.facDetail.${i}`} data-edit-max="60" className={s.facDetail}>{f.detail}</span>
+                    <span data-edit={`facilities.facYear.${i}`} data-edit-max="60" className={`${s.facYear} ${s.tabular}`}>{f.year}</span>
+                    <span data-edit={`facilities.facAccess.${i}`} data-edit-max="60" className={s.facAccess}>{f.access}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className={s.facilitiesNote}>
+              <p data-edit="facilities.facilitiesNote" data-edit-max="240" data-edit-multiline className={s.facilitiesNote}>
                 Hourly rates and the booking calendar are published at the
                 reception desk and revised each January. Academic users from
                 partner institutions pay the marginal cost of consumables only.
               </p>
               <div className={s.instrumentStage}>
-                <div className={`${s.stageField} ${s.fieldPale}`} aria-hidden="true">
+                <div data-edit-pattern="facilities.field" className={`${s.stageField} ${s.fieldPale}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={moire}
                     palette={FIELD_INSTRUMENT}
@@ -487,7 +500,7 @@ export default function InstitutVollmerPage() {
                   />
                 </div>
                 <span className={s.veil} aria-hidden="true" />
-                <Figure
+                <Figure editId="photo.vollmer-instrument-cutout"
                   slug="vollmer-instrument-cutout"
                   cutout
                   alt="A benchtop testing instrument with a sample stage, cut out against the pattern field"
@@ -511,10 +524,10 @@ export default function InstitutVollmerPage() {
                 label="Publications"
                 note="Ten of 112 papers, 2023 to 2026"
               />
-              <h2 id="t-publications" className={s.sectionTitle}>
+              <h2 data-edit="publications.sectionTitle" data-edit-max="60" id="t-publications" className={s.sectionTitle}>
                 Selected publications.
               </h2>
-              <p className={s.sectionNote}>
+              <p data-edit="publications.sectionNote" data-edit-max="240" data-edit-multiline className={s.sectionNote}>
                 Every paper below is deposited open access within six months of
                 acceptance. Underlying data is deposited at the same time.
               </p>
@@ -525,10 +538,10 @@ export default function InstitutVollmerPage() {
             <ol className={s.publications}>
               {PUBLICATIONS.map((p, i) => (
                 <li key={`${p.year}-${i}`} className={s.publication}>
-                  <span className={`${s.pubYear} ${s.tabular}`}>{p.year}</span>
-                  <span className={s.pubTitle}>{p.title}</span>
-                  <span className={s.pubAuthors}>{p.authors}</span>
-                  <span className={s.pubSource}>{p.source}</span>
+                  <span data-edit={`publications.pubYear.${i}`} data-edit-max="60" className={`${s.pubYear} ${s.tabular}`}>{p.year}</span>
+                  <span data-edit={`publications.pubTitle.${i}`} data-edit-max="60" className={s.pubTitle}>{p.title}</span>
+                  <span data-edit={`publications.pubAuthors.${i}`} data-edit-max="60" className={s.pubAuthors}>{p.authors}</span>
+                  <span data-edit={`publications.pubSource.${i}`} data-edit-max="60" className={s.pubSource}>{p.source}</span>
                 </li>
               ))}
             </ol>
@@ -544,7 +557,7 @@ export default function InstitutVollmerPage() {
                 label="People"
                 note="148 staff, 22 nationalities, 63 doctoral"
               />
-              <h2 id="t-people" className={s.sectionTitle}>
+              <h2 data-edit="people.sectionTitle" data-edit-max="60" id="t-people" className={s.sectionTitle}>
                 Programme heads.
               </h2>
             </div>
@@ -555,20 +568,20 @@ export default function InstitutVollmerPage() {
                   className={i === 0 ? s.personA : s.personB}
                 >
                   <div className={s.portraitFrame}>
-                    <Figure slug={p.slug} alt={p.alt} className={s.portrait} />
+                    <Figure editId={`personA.photo.${i}`} slug={p.slug} alt={p.alt} className={s.portrait} />
                   </div>
-                  <h3>{p.name}</h3>
-                  <p className={s.personRole}>{p.role}</p>
-                  <p>{p.body}</p>
+                  <h3 data-edit={`personA.h3.${i}`} data-edit-max="40">{p.name}</h3>
+                  <p data-edit={`personA.personRole.${i}`} data-edit-max="240" data-edit-multiline className={s.personRole}>{p.role}</p>
+                  <p data-edit={`personA.p.${i}`} data-edit-max="240" data-edit-multiline>{p.body}</p>
                 </article>
               ))}
               <figure className={s.peopleArt}>
-                <Figure
+                <Figure editId="photo.vollmer-team"
                   slug="vollmer-team"
                   alt="Four researchers in white coats in conversation around a laboratory bench"
                   className={s.photo}
                 />
-                <figcaption className={s.caption}>
+                <figcaption data-edit="people.caption" data-edit-max="120" data-edit-multiline className={s.caption}>
                   Fig. 3. The fatigue group at the Tuesday bench review. Ninety-two
                   of the 148 staff sit in one programme; the rest work across all four.
                 </figcaption>
@@ -586,28 +599,28 @@ export default function InstitutVollmerPage() {
                 label="Industry"
                 note="Ninety-one companies, 23 joint projects running"
               />
-              <h2 id="t-industry" className={s.sectionTitle}>
+              <h2 data-edit="industry.sectionTitle" data-edit-max="60" id="t-industry" className={s.sectionTitle}>
                 Four ways to use the institute.
               </h2>
 
               <ol className={s.industryList}>
-                {INDUSTRY.map((item) => (
+                {INDUSTRY.map((item, i) => (
                   <li key={item.no}>
-                    <span className={s.industryNo}>{item.no}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
+                    <span data-edit={`industry.industryNo.${i}`} data-edit-max="60" className={s.industryNo}>{item.no}</span>
+                    <h3 data-edit={`industry.h3.${i}`} data-edit-max="40">{item.title}</h3>
+                    <p data-edit={`industry.p.${i}`} data-edit-max="240" data-edit-multiline>{item.body}</p>
                   </li>
                 ))}
               </ol>
 
-              <p className={s.industryTerms}>
+              <p data-edit="industry.industryTerms" data-edit-max="240" data-edit-multiline className={s.industryTerms}>
                 Terms are the same for every client: fixed price, written scope,
                 no exclusivity beyond twelve months, and no result withheld
                 because it is unwelcome. Contracts that require otherwise are
                 declined, which happened four times in 2025.
               </p>
               <div className={s.samplesStage}>
-                <div className={`${s.stageField} ${s.fieldWhite}`} aria-hidden="true">
+                <div data-edit-pattern="industry.field" className={`${s.stageField} ${s.fieldWhite}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={subdivide}
                     palette={FIELD_SAMPLES}
@@ -618,7 +631,7 @@ export default function InstitutVollmerPage() {
                   />
                 </div>
                 <span className={s.veil} aria-hidden="true" />
-                <Figure
+                <Figure editId="photo.vollmer-samples-cutout"
                   slug="vollmer-samples-cutout"
                   cutout
                   alt="A row of prepared metal test coupons, cut out against the pattern field"
@@ -638,18 +651,18 @@ export default function InstitutVollmerPage() {
                 label="Figures"
                 note="Financial year 2025, audited March 2026"
               />
-              <h2 id="t-figures" className={s.sectionTitle}>
+              <h2 data-edit="figures.sectionTitle" data-edit-max="60" id="t-figures" className={s.sectionTitle}>
                 The year in six numbers.
               </h2>
               <ul className={s.figuresList}>
-                {FIGURES.map((f) => (
+                {FIGURES.map((f, i) => (
                   <li key={f.label}>
-                    <span className={s.figureValue}>{f.value}</span>
-                    <span className={s.figureLabel}>{f.label}</span>
+                    <span data-edit={`figures.figureValue.${i}`} data-edit-max="60" className={s.figureValue}>{f.value}</span>
+                    <span data-edit={`figures.figureLabel.${i}`} data-edit-max="60" className={s.figureLabel}>{f.label}</span>
                   </li>
                 ))}
               </ul>
-              <p className={s.figuresNote}>
+              <p data-edit="figures.figuresNote" data-edit-max="240" data-edit-multiline className={s.figuresNote}>
                 The full annual report, 64 pages including the auditor&rsquo;s
                 statement and every project title, is available on request and
                 is posted to members of the foundation council each April.
@@ -667,29 +680,29 @@ export default function InstitutVollmerPage() {
                 label="Contact"
                 note="Reception, sample intake and deliveries"
               />
-              <h2 id="t-contact" className={s.sectionTitle}>
+              <h2 data-edit="contact.sectionTitle" data-edit-max="60" id="t-contact" className={s.sectionTitle}>
                 Where we are.
               </h2>
               <dl className={s.contactList}>
-                {CONTACT.map((row) => (
+                {CONTACT.map((row, i) => (
                   <div key={row.label} className={s.factRow}>
-                    <dt>{row.label}</dt>
-                    <dd>{row.value}</dd>
+                    <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{row.label}</dt>
+                    <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{row.value}</dd>
                   </div>
                 ))}
               </dl>
               <figure className={s.contactPhoto}>
-                <Figure
+                <Figure editId="photo.vollmer-building"
                   slug="vollmer-building"
                   alt="The Institut Vollmer building, a low concrete laboratory block with a long band of glazing"
                   className={s.photo}
                 />
-                <figcaption className={s.caption}>
+                <figcaption data-edit="contact.caption" data-edit-max="120" data-edit-multiline className={s.caption}>
                   Nordstrasse 44, built 1968, laboratory wing added 2014.
                 </figcaption>
               </figure>
               <p className={s.contactMail}>
-                <a href="mailto:kontakt@institut-vollmer.ch">
+                <a data-edit="contact.a" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
                   kontakt@institut-vollmer.ch
                 </a>
               </p>
@@ -702,7 +715,7 @@ export default function InstitutVollmerPage() {
         <div className={s.wrap}>
           <div className={s.grid}>
             <div className={s.footBrand}>
-              <p className={s.footWordmark}>Institut Vollmer</p>
+              <p data-edit="footer.footWordmark" data-edit-max="240" data-edit-multiline className={s.footWordmark}>Institut Vollmer</p>
               <p>
                 Nordstrasse 44
                 <br />
@@ -712,11 +725,11 @@ export default function InstitutVollmerPage() {
               </p>
             </div>
             <div className={s.footContact}>
-              <p className={s.footLabel}>Enquiries</p>
+              <p data-edit="footer.footLabel" data-edit-max="240" data-edit-multiline className={s.footLabel}>Enquiries</p>
               <p>
-                <a href="tel:+41617204000">+41 61 720 40 00</a>
+                <a data-edit="footer.a" data-edit-max="28" href="tel:+41617204000">+41 61 720 40 00</a>
                 <br />
-                <a href="mailto:kontakt@institut-vollmer.ch">
+                <a data-edit="footer.a2" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
                   kontakt@institut-vollmer.ch
                 </a>
                 <br />
@@ -724,8 +737,8 @@ export default function InstitutVollmerPage() {
               </p>
             </div>
             <div className={s.footColophon}>
-              <p className={s.footLabel}>Colophon</p>
-              <p>
+              <p data-edit="footer.footLabel2" data-edit-max="240" data-edit-multiline className={s.footLabel}>Colophon</p>
+              <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
                 Stiftung Institut Vollmer, established 1951 by Anna Vollmer
                 (1899–1981). Registered as a non-profit foundation under federal
                 supervision. Set in Inter. Pattern fields generated with
@@ -733,7 +746,7 @@ export default function InstitutVollmerPage() {
               </p>
             </div>
             <div className={s.footArt}>
-              <div className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
+              <div data-edit-pattern="footer.field" className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
                 <TabbiedPattern
                   pattern={dotmatrix}
                   palette={FIELD_DARK}
@@ -745,7 +758,7 @@ export default function InstitutVollmerPage() {
               </div>
             </div>
             <span className={s.ruleLight} aria-hidden="true" />
-            <p className={s.footFine}>
+            <p data-edit="footer.footFine" data-edit-max="240" data-edit-multiline className={s.footFine}>
               A fictional institute, built to demonstrate Tabbied pattern
               fields. Names, figures and publications are invented.
             </p>

@@ -153,7 +153,20 @@ const ORDER_STEPS = [
 
 export default function ChronometrieBexPage() {
   return (
-    <div className={styles.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--bone': '#ededeb',
+        '--ink': '#0e0e0e',
+        '--orange': '#ff5a1f',
+        '--steel': '#9c9c98',
+        '--pale': '#dad9d5',
+        '--shadow': '#3a3a38',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="bone,ink,orange,steel,pale,shadow"
+      className={styles.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
         rel="preconnect"
@@ -168,7 +181,7 @@ export default function ChronometrieBexPage() {
 
       {/* Masthead and hero share one full-bleed pattern field. */}
       <div className={styles.top}>
-        <div className={styles.topField} aria-hidden="true">
+        <div data-edit-pattern="page.field" data-edit-roles="0,4" className={styles.topField} aria-hidden="true">
           <TabbiedPattern
             pattern={torsion}
             palette={[BONE, PALE]}
@@ -188,11 +201,11 @@ export default function ChronometrieBexPage() {
               Bex
             </p>
             <nav className={styles.nav} aria-label="Sections">
-              <a href="#manufacture">Manufacture</a>
-              <a href="#movement">Movement</a>
-              <a href="#collection">Collection</a>
-              <a href="#specifications">Specifications</a>
-              <a href="#ordering">Ordering</a>
+              <a data-edit="masthead.a" data-edit-max="28" href="#manufacture">Manufacture</a>
+              <a data-edit="masthead.a2" data-edit-max="28" href="#movement">Movement</a>
+              <a data-edit="masthead.a3" data-edit-max="28" href="#collection">Collection</a>
+              <a data-edit="masthead.a4" data-edit-max="28" href="#specifications">Specifications</a>
+              <a data-edit="masthead.a5" data-edit-max="28" href="#ordering">Ordering</a>
             </nav>
             <p className={styles.mastMeta}>
               Rue du Jura 12
@@ -204,21 +217,21 @@ export default function ChronometrieBexPage() {
 
         <section className={styles.hero} aria-labelledby="hero-title">
           <div className={`${styles.container} ${styles.grid}`}>
-            <p className={styles.kicker}>Manufacture since 1974</p>
-            <h1 id="hero-title" className={styles.heroTitle}>
+            <p data-edit="hero.kicker" data-edit-max="240" data-edit-multiline className={styles.kicker}>Manufacture since 1974</p>
+            <h1 data-edit="hero.heroTitle" data-edit-max="70" id="hero-title" className={styles.heroTitle}>
               Two hundred and forty watches a year, and no plans to make more.
             </h1>
-            <p className={styles.heroLede}>
+            <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
               Eleven people on one floor above the old salt road. Three
               references, three calibres, every escapement adjusted by hand in
               five positions. We do not run a boutique, we do not run a
               waiting-list auction, and we answer letters.
             </p>
             <dl className={styles.heroFigures}>
-              {HOUSE_FIGURES.map((f) => (
+              {HOUSE_FIGURES.map((f, i) => (
                 <div key={f.label}>
-                  <dt>{f.label}</dt>
-                  <dd>{f.value}</dd>
+                  <dt data-edit={`hero.dt.${i}`} data-edit-max="28">{f.label}</dt>
+                  <dd data-edit={`hero.dd.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -227,7 +240,7 @@ export default function ChronometrieBexPage() {
       </div>
 
       <div className={styles.heroPhoto}>
-        <Figure
+        <Figure editId="photo.bex-hero"
           slug="bex-hero"
           priority
           alt="A watchmaker's bench in daylight with hand tools laid out in a row and a movement under a loupe"
@@ -244,18 +257,18 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>01</span>
-              <h2 id="manufacture-title" className={styles.secTitle}>
+              <span data-edit="manufacture.secNo" data-edit-max="60" className={styles.secNo}>01</span>
+              <h2 data-edit="manufacture.secTitle" data-edit-max="60" id="manufacture-title" className={styles.secTitle}>
                 The manufacture
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="manufacture.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 Bex sits at the point where the Rhône valley narrows. The house
                 has occupied the same second floor since 1974.
               </p>
             </div>
 
             <div className={styles.proseCol}>
-              <p>
+              <p data-edit="manufacture.p" data-edit-max="240" data-edit-multiline>
                 Chronométrie Bex was founded by Henri Delessert, who had spent
                 nineteen years repairing pocket watches for the railway and
                 decided that a wristwatch could be made to the same standard if
@@ -263,14 +276,14 @@ export default function ChronometrieBexPage() {
                 March 1976. The design has been altered twice since, both times
                 by less than a millimetre.
               </p>
-              <p>
+              <p data-edit="manufacture.p2" data-edit-max="240" data-edit-multiline>
                 Cases are turned in Le Sentier by a supplier we have used since
                 1981. Hairsprings, balance staffs, wheels and bridges are made
                 here on machines that predate all of us: a Schaublin 102 lathe
                 from 1959, a jig borer from 1966, and a rose engine that was
                 already second-hand when Delessert bought it.
               </p>
-              <p>
+              <p data-edit="manufacture.p3" data-edit-max="240" data-edit-multiline>
                 Output is capped at 240 watches. Not as a marketing position:
                 that is what eleven people can finish properly in a working
                 year.
@@ -279,13 +292,13 @@ export default function ChronometrieBexPage() {
 
             <figure className={styles.atelierFig}>
               <div className={styles.frameWide}>
-                <Figure
+                <Figure editId="photo.bex-atelier"
                   slug="bex-atelier"
                   alt="The atelier interior with a row of watchmakers' benches under tall windows"
                   className={styles.img}
                 />
               </div>
-              <figcaption>
+              <figcaption data-edit="manufacture.figcaption" data-edit-max="120" data-edit-multiline>
                 The atelier. Eight benches, three machines, one window per
                 bench.
               </figcaption>
@@ -294,7 +307,7 @@ export default function ChronometrieBexPage() {
         </section>
 
         {/* Machined wells: the plate, run full width between sections. */}
-        <div className={styles.band}>
+        <div data-edit-pattern="main.field" data-edit-roles="transparent,3,4" className={styles.band}>
           <TabbiedPattern
             pattern={gravure}
             palette={['transparent', STEEL, PALE]}
@@ -314,11 +327,11 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>02</span>
-              <h2 id="movement-title" className={styles.secTitle}>
+              <span data-edit="movement.secNo" data-edit-max="60" className={styles.secNo}>02</span>
+              <h2 data-edit="movement.secTitle" data-edit-max="60" id="movement-title" className={styles.secTitle}>
                 Calibre CB-14
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="movement.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 The middle calibre, and the one the house is judged on. In
                 production since 2008, revised in 2017.
               </p>
@@ -326,28 +339,28 @@ export default function ChronometrieBexPage() {
 
             <figure className={styles.movementFig}>
               <div className={styles.frameSquare}>
-                <Figure
+                <Figure editId="photo.bex-movement"
                   slug="bex-movement"
                   alt="Macro view of a hand-finished mechanical watch movement showing bridges, jewels and the balance wheel"
                   className={styles.img}
                 />
               </div>
-              <figcaption>
+              <figcaption data-edit="movement.figcaption" data-edit-max="120" data-edit-multiline>
                 CB-14 before casing. Bridges are bevelled by hand at 45
                 degrees; the flanks are polished on a tin lap.
               </figcaption>
             </figure>
 
             <dl className={styles.specPairs}>
-              {MOVEMENT_SPECS.map((s) => (
+              {MOVEMENT_SPECS.map((s, i) => (
                 <div key={s.label}>
-                  <dt>{s.label}</dt>
-                  <dd>{s.value}</dd>
+                  <dt data-edit={`movement.dt.${i}`} data-edit-max="28">{s.label}</dt>
+                  <dd data-edit={`movement.dd.${i}`} data-edit-max="200" data-edit-multiline>{s.value}</dd>
                 </div>
               ))}
             </dl>
 
-            <p className={styles.movementNote}>
+            <p data-edit="movement.movementNote" data-edit-max="240" data-edit-multiline className={styles.movementNote}>
               Every CB-14 is regulated over ten days in five positions and
               leaves the bench inside minus one to plus six seconds a day. The
               timing sheet that comes with the watch is the sheet from your
@@ -364,11 +377,11 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>03</span>
-              <h2 id="collection-title" className={styles.secTitle}>
+              <span data-edit="collection.secNo" data-edit-max="60" className={styles.secNo}>03</span>
+              <h2 data-edit="collection.secTitle" data-edit-max="60" id="collection-title" className={styles.secTitle}>
                 The collection
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="collection.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 Three references, photographed on the pattern field. The dials
                 are blank in these plates; the reference is set beside the
                 picture, not on it.
@@ -376,10 +389,10 @@ export default function ChronometrieBexPage() {
             </div>
 
             <div className={styles.plates}>
-              {COLLECTION.map((w) => (
+              {COLLECTION.map((w, i) => (
                 <article key={w.ref} className={styles.plate}>
                   <p className={styles.plateNo}>Plate {w.ref}</p>
-                  <div className={styles.plateField}>
+                  <div data-edit-pattern={`plate.field.${i}`} data-edit-roles="4,0,3" className={styles.plateField}>
                     {/* Rings, one treatment for all three plates. */}
                     <TabbiedPattern
                       pattern={annulus}
@@ -391,31 +404,31 @@ export default function ChronometrieBexPage() {
                       style={{ position: 'absolute', inset: 0 }}
                     />
                     <div className={styles.veil} aria-hidden="true" />
-                    <Figure
+                    <Figure editId={`plate.photo.${i}`}
                       slug={w.slug}
                       cutout
                       alt={w.alt}
                       className={styles.cutout}
                     />
                   </div>
-                  <h3 className={styles.plateName}>{w.name}</h3>
-                  <p className={styles.plateLine}>{w.line}</p>
+                  <h3 data-edit={`plate.plateName.${i}`} data-edit-max="40" className={styles.plateName}>{w.name}</h3>
+                  <p data-edit={`plate.plateLine.${i}`} data-edit-max="240" data-edit-multiline className={styles.plateLine}>{w.line}</p>
                   <dl className={styles.plateSpecs}>
                     <div>
-                      <dt>Diameter</dt>
-                      <dd>{w.diameter}</dd>
+                      <dt data-edit={`plate.dt.${i}`} data-edit-max="28">Diameter</dt>
+                      <dd data-edit={`plate.dd.${i}`} data-edit-max="200" data-edit-multiline>{w.diameter}</dd>
                     </div>
                     <div>
-                      <dt>Calibre</dt>
-                      <dd>{w.calibre}</dd>
+                      <dt data-edit={`plate.dt2.${i}`} data-edit-max="28">Calibre</dt>
+                      <dd data-edit={`plate.dd2.${i}`} data-edit-max="200" data-edit-multiline>{w.calibre}</dd>
                     </div>
                     <div>
-                      <dt>Power reserve</dt>
-                      <dd>{w.reserve}</dd>
+                      <dt data-edit={`plate.dt3.${i}`} data-edit-max="28">Power reserve</dt>
+                      <dd data-edit={`plate.dd3.${i}`} data-edit-max="200" data-edit-multiline>{w.reserve}</dd>
                     </div>
                     <div>
-                      <dt>Price</dt>
-                      <dd className={styles.platePrice}>{w.price}</dd>
+                      <dt data-edit={`plate.dt4.${i}`} data-edit-max="28">Price</dt>
+                      <dd data-edit={`plate.platePrice.${i}`} data-edit-max="200" data-edit-multiline className={styles.platePrice}>{w.price}</dd>
                     </div>
                   </dl>
                 </article>
@@ -432,11 +445,11 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>04</span>
-              <h2 id="specifications-title" className={styles.secTitle}>
+              <span data-edit="specifications.secNo" data-edit-max="60" className={styles.secNo}>04</span>
+              <h2 data-edit="specifications.secTitle" data-edit-max="60" id="specifications-title" className={styles.secTitle}>
                 Specifications
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="specifications.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 All figures measured on finished watches, not on drawings.
                 Prices include Swiss VAT and are held for the calendar year.
               </p>
@@ -448,14 +461,14 @@ export default function ChronometrieBexPage() {
               aria-label="Reference specifications compared"
             >
               <div className={`${styles.specRow} ${styles.specHead}`} role="row">
-                <span role="columnheader">Reference</span>
-                <span role="columnheader">Type 01</span>
-                <span role="columnheader">Type 02</span>
-                <span role="columnheader">Type 03</span>
+                <span data-edit="specifications.span" data-edit-max="60" role="columnheader">Reference</span>
+                <span data-edit="specifications.span2" data-edit-max="60" role="columnheader">Type 01</span>
+                <span data-edit="specifications.span3" data-edit-max="60" role="columnheader">Type 02</span>
+                <span data-edit="specifications.span4" data-edit-max="60" role="columnheader">Type 03</span>
               </div>
-              {SPEC_ROWS.map((r) => (
+              {SPEC_ROWS.map((r, i) => (
                 <div key={r.label} className={styles.specRow} role="row">
-                  <span className={styles.specLabel} role="rowheader">
+                  <span data-edit={`specifications.specLabel.${i}`} data-edit-max="60" className={styles.specLabel} role="rowheader">
                     {r.label}
                   </span>
                   {r.values.map((v, i) => (
@@ -471,7 +484,7 @@ export default function ChronometrieBexPage() {
               ))}
             </div>
 
-            <p className={styles.specNote}>
+            <p data-edit="specifications.specNote" data-edit-max="240" data-edit-multiline className={styles.specNote}>
               Steel 316L is bar stock, not cast. Water resistance is tested at
               the stated depth plus 25 % and again after any service. Lug width
               is quoted between the lugs, so a 19 mm strap fits Type 02 without
@@ -489,31 +502,31 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>05</span>
-              <h2 id="servicing-title" className={styles.secTitle}>
+              <span data-edit="servicing.secNo" data-edit-max="60" className={styles.secNo}>05</span>
+              <h2 data-edit="servicing.secTitle" data-edit-max="60" id="servicing-title" className={styles.secTitle}>
                 Servicing
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="servicing.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 A watch made here is expected to outlive the person who ordered
                 it, which only works if it comes back.
               </p>
             </div>
 
             <ol className={styles.steps}>
-              {SERVICE_STEPS.map((s) => (
+              {SERVICE_STEPS.map((s, i) => (
                 <li key={s.no} className={styles.step}>
-                  <span className={styles.stepNo}>{s.no}</span>
-                  <h3 className={styles.stepTitle}>{s.title}</h3>
-                  <p>{s.body}</p>
+                  <span data-edit={`servicing.stepNo.${i}`} data-edit-max="60" className={styles.stepNo}>{s.no}</span>
+                  <h3 data-edit={`servicing.stepTitle.${i}`} data-edit-max="40" className={styles.stepTitle}>{s.title}</h3>
+                  <p data-edit={`servicing.p.${i}`} data-edit-max="240" data-edit-multiline>{s.body}</p>
                 </li>
               ))}
             </ol>
 
             <dl className={styles.termsList}>
-              {SERVICE_TERMS.map((t) => (
+              {SERVICE_TERMS.map((t, i) => (
                 <div key={t.label} className={styles.termRow}>
-                  <dt>{t.label}</dt>
-                  <dd>{t.value}</dd>
+                  <dt data-edit={`servicing.dt.${i}`} data-edit-max="28">{t.label}</dt>
+                  <dd data-edit={`servicing.dd.${i}`} data-edit-max="200" data-edit-multiline>{t.value}</dd>
                 </div>
               ))}
             </dl>
@@ -528,11 +541,11 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>06</span>
-              <h2 id="watchmaker-title" className={styles.secTitle}>
+              <span data-edit="watchmaker.secNo" data-edit-max="60" className={styles.secNo}>06</span>
+              <h2 data-edit="watchmaker.secTitle" data-edit-max="60" id="watchmaker-title" className={styles.secTitle}>
                 The watchmaker
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="watchmaker.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 Claire Reymond runs the bench. She joined in 2003 and has
                 assembled roughly 2 900 movements since.
               </p>
@@ -540,7 +553,7 @@ export default function ChronometrieBexPage() {
 
             <figure className={styles.portraitFig}>
               <div className={styles.framePortrait}>
-                <Figure
+                <Figure editId="photo.bex-watchmaker"
                   slug="bex-watchmaker"
                   alt="Portrait of a watchmaker in a light coat at a bench, photographed straight on in daylight"
                   className={styles.img}
@@ -554,19 +567,19 @@ export default function ChronometrieBexPage() {
             </figure>
 
             <div className={styles.proseColWide}>
-              <p>
+              <p data-edit="watchmaker.p" data-edit-max="240" data-edit-multiline>
                 Reymond trained at the technical school in Le Locle and spent
                 four years on restoration before coming to Bex. She sets the
                 house standard for finishing, which is written down in a folder
                 nobody has ever updated because it has not needed updating.
               </p>
-              <p>
+              <p data-edit="watchmaker.p2" data-edit-max="240" data-edit-multiline>
                 Three of the eleven people here were trained by her from
                 scratch. The apprenticeship is four years. The first year is
                 filing steel by hand until a surface is flat under a straight
                 edge, which she considers the only test worth setting.
               </p>
-              <p>
+              <p data-edit="watchmaker.p3" data-edit-max="240" data-edit-multiline>
                 She keeps the timing certificates of every watch she has
                 assembled in a drawer under the bench. If you send yours back
                 for service she will find the original sheet and compare it.
@@ -583,32 +596,32 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>07</span>
-              <h2 id="ordering-title" className={styles.secTitle}>
+              <span data-edit="ordering.secNo" data-edit-max="60" className={styles.secNo}>07</span>
+              <h2 data-edit="ordering.secTitle" data-edit-max="60" id="ordering-title" className={styles.secTitle}>
                 Ordering
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="ordering.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 There is no shop. Watches are ordered from the atelier, in
                 person or by post, and made in the order the list was joined.
               </p>
             </div>
 
             <dl className={styles.orderList}>
-              {ORDER_STEPS.map((o) => (
+              {ORDER_STEPS.map((o, i) => (
                 <div key={o.label} className={styles.orderRow}>
-                  <dt>{o.label}</dt>
-                  <dd>{o.value}</dd>
+                  <dt data-edit={`ordering.dt.${i}`} data-edit-max="28">{o.label}</dt>
+                  <dd data-edit={`ordering.dd.${i}`} data-edit-max="200" data-edit-multiline>{o.value}</dd>
                 </div>
               ))}
             </dl>
 
             <div className={styles.orderAside}>
-              <p className={styles.orderPrompt}>
+              <p data-edit="ordering.orderPrompt" data-edit-max="240" data-edit-multiline className={styles.orderPrompt}>
                 Appointments are held on Tuesday and Thursday afternoons and
                 last an hour. Bring the watch you wear now.
               </p>
               <p>
-                <a href="#visiting" className={styles.buttonFilled}>
+                <a data-edit="ordering.buttonFilled" data-edit-max="28" href="#visiting" className={styles.buttonFilled}>
                   Request an appointment
                 </a>
               </p>
@@ -629,11 +642,11 @@ export default function ChronometrieBexPage() {
         >
           <div className={`${styles.container} ${styles.grid}`}>
             <div className={styles.secHead}>
-              <span className={styles.secNo}>08</span>
-              <h2 id="visiting-title" className={styles.secTitle}>
+              <span data-edit="visiting.secNo" data-edit-max="60" className={styles.secNo}>08</span>
+              <h2 data-edit="visiting.secTitle" data-edit-max="60" id="visiting-title" className={styles.secTitle}>
                 Visiting
               </h2>
-              <p className={styles.secLede}>
+              <p data-edit="visiting.secLede" data-edit-max="240" data-edit-multiline className={styles.secLede}>
                 Second floor, no lift, forty-one steps. Tell us in advance if
                 that is a problem and we will meet you on the ground floor.
               </p>
@@ -641,7 +654,7 @@ export default function ChronometrieBexPage() {
 
             <dl className={styles.visitPairs}>
               <div>
-                <dt>Address</dt>
+                <dt data-edit="visiting.dt" data-edit-max="28">Address</dt>
                 <dd>
                   Rue du Jura 12
                   <br />
@@ -649,7 +662,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt>Open</dt>
+                <dt data-edit="visiting.dt2" data-edit-max="28">Open</dt>
                 <dd>
                   Tuesday and Thursday, 14:00 to 18:00
                   <br />
@@ -657,7 +670,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt>By train</dt>
+                <dt data-edit="visiting.dt3" data-edit-max="28">By train</dt>
                 <dd>
                   Bex station, 48 minutes from Lausanne
                   <br />
@@ -665,7 +678,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt>By car</dt>
+                <dt data-edit="visiting.dt4" data-edit-max="28">By car</dt>
                 <dd>
                   A9, exit Bex
                   <br />
@@ -678,7 +691,7 @@ export default function ChronometrieBexPage() {
       </main>
 
       <footer className={styles.footer}>
-        <div className={styles.footerField} aria-hidden="true">
+        <div data-edit-pattern="footer.field" data-edit-roles="5,3,4,0" className={styles.footerField} aria-hidden="true">
           <TabbiedPattern
             pattern={centroid}
             palette={[SHADOW, STEEL, PALE, BONE]}
@@ -691,45 +704,45 @@ export default function ChronometrieBexPage() {
         </div>
         <div className={`${styles.container} ${styles.grid} ${styles.footerGrid}`}>
           <div className={styles.footBrand}>
-            <p className={styles.footWordmark}>Chronométrie Bex</p>
-            <p className={styles.footTag}>
+            <p data-edit="footer.footWordmark" data-edit-max="240" data-edit-multiline className={styles.footWordmark}>Chronométrie Bex</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={styles.footTag}>
               Mechanical watches, made and serviced at Rue du Jura 12 since
               1974.
             </p>
           </div>
           <div className={styles.footCol}>
-            <h2 className={styles.footHead}>Catalogue</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={styles.footHead}>Catalogue</h2>
             <ul className={styles.footLinks}>
               <li>
-                <a href="#collection">Type 01 Secteur</a>
+                <a data-edit="footer.a" data-edit-max="28" href="#collection">Type 01 Secteur</a>
               </li>
               <li>
-                <a href="#collection">Type 02 Régulateur</a>
+                <a data-edit="footer.a2" data-edit-max="28" href="#collection">Type 02 Régulateur</a>
               </li>
               <li>
-                <a href="#collection">Type 03 Réserve</a>
+                <a data-edit="footer.a3" data-edit-max="28" href="#collection">Type 03 Réserve</a>
               </li>
               <li>
-                <a href="#specifications">Full specifications</a>
+                <a data-edit="footer.a4" data-edit-max="28" href="#specifications">Full specifications</a>
               </li>
             </ul>
           </div>
           <div className={styles.footCol}>
-            <h2 className={styles.footHead}>Owners</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={styles.footHead}>Owners</h2>
             <ul className={styles.footLinks}>
               <li>
-                <a href="#servicing">Book a service</a>
+                <a data-edit="footer.a5" data-edit-max="28" href="#servicing">Book a service</a>
               </li>
               <li>
-                <a href="#servicing">Parts and guarantee</a>
+                <a data-edit="footer.a6" data-edit-max="28" href="#servicing">Parts and guarantee</a>
               </li>
               <li>
-                <a href="#visiting">Find the atelier</a>
+                <a data-edit="footer.a7" data-edit-max="28" href="#visiting">Find the atelier</a>
               </li>
             </ul>
           </div>
           <div className={styles.footCol}>
-            <h2 className={styles.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={styles.footHead}>Contact</h2>
             <address className={styles.footAddress}>
               Rue du Jura 12
               <br />
@@ -741,13 +754,13 @@ export default function ChronometrieBexPage() {
             </address>
           </div>
           <div className={styles.footBase}>
-            <p>
+            <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
               Prices in Swiss francs, valid to 31 December 2026. Timing figures
               measured at 23 degrees, fully wound.
             </p>
             <p>
               Patterns by{' '}
-              <a
+              <a data-edit="footer.a8" data-edit-max="28"
                 href="https://tabbied.com"
                 target="_blank"
                 rel="noreferrer noopener"

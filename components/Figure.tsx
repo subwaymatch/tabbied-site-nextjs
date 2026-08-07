@@ -12,6 +12,13 @@ interface FigureProps {
   priority?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * Editable-slot id (see docs/editable-templates.md). Only emitted on the
+   * branch that renders a real <img>: the pending-image placeholder has
+   * nothing to replace, and annotating one would put a slot in the spec that
+   * resolves to nothing and fails the build gate.
+   */
+  editId?: string;
 }
 
 /**
@@ -29,6 +36,7 @@ export function Figure({
   priority = false,
   className,
   style,
+  editId,
 }: FigureProps) {
   const entry = imageManifest[slug];
 
@@ -59,6 +67,7 @@ export function Figure({
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
       fetchPriority={priority ? 'high' : 'auto'}
+      {...(editId ? { 'data-edit-image': editId } : {})}
     />
   );
 }

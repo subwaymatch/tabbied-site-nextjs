@@ -59,16 +59,29 @@ function templateSiteProperties(
 /**
  * Every custom property a palette implies, ready to write onto the root.
  *
- * The raw roles are always emitted, whatever the derivation: they are what a
- * pattern field's `paletteRoles` indexes into, and what a person editing a
- * downloaded template reads to find out which colour is which.
+ * `direct` and `templateSite` emit the raw `--brand-N` roles — what a person
+ * editing a downloaded template reads to find out which colour is which.
+ * `vars` emits the page's own names instead, because that is what its
+ * stylesheet reads. Either way a pattern field's `paletteRoles` indexes the
+ * palette array, not the properties, so the two derivations behave the same
+ * from an edits document's point of view.
  */
 export function derivePaletteProperties(
   colors: string[],
   derivation: PaletteDerivation = 'direct',
-  options: { flatSections?: boolean } = {}
+  options: { flatSections?: boolean; varNames?: readonly string[] } = {}
 ): PaletteProperties {
   const properties: PaletteProperties = {};
+
+  // A `vars` page owns its property names and its stylesheet reads those, so
+  // emitting `--brand-N` alongside them would be inert noise in the markup.
+  if (derivation === 'vars') {
+    (options.varNames ?? []).forEach((name, index) => {
+      if (index < colors.length) properties[`--${name}`] = colors[index];
+    });
+
+    return properties;
+  }
 
   colors.forEach((color, index) => {
     properties[brandProperty(index)] = color;
@@ -91,6 +104,7 @@ export function propertiesForPalette(
 ): PaletteProperties {
   return derivePaletteProperties(colors, palette.derivation, {
     flatSections: palette.flatSections,
+    varNames: palette.varNames,
   });
 }
 

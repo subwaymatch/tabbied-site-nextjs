@@ -75,6 +75,8 @@ behind is how a re-coloured page ends up with unreadable body copy. The
 - **`direct`** — `--brand-0…n` and nothing else.
 - **`templateSite`** — those, plus the variables the shared component works in
   (`--bg`, `--c1`, `--ink`, `--onC1`, `--card`, `--soft`, `--band`).
+- **`vars`** — the page's own property names, listed in role order by
+  `data-edit-vars`. This is what the 52 bespoke pages use; see below.
 
 `derivePaletteProperties()` is the single implementation, shared by
 `TemplateSite.tsx` (first render) and `applyEdits` (re-colour). They must agree
@@ -127,10 +129,9 @@ silent: the spec looks fine and the editor's control just does nothing. This
 repo has been there before, with 278 gallery thumbnail configs naming designs
 that no longer existed.
 
-**A site with no annotations is not a failure.** Coverage is deliberately
-incremental — the five shared-component sites first, the 52 bespoke pages in
-batches — so an unannotated page is just one the editor cannot open yet. The
-generator reports the count.
+**A site with no annotations is not a failure**, so a new template can land
+before it is annotated — the generator reports the count rather than failing.
+All 57 are annotated today: 9,797 text, 374 image, and 434 pattern slots.
 
 ## The engine
 
@@ -161,17 +162,67 @@ download with the matching rule missing.
 
 - `npm test --workspace tabbied-templates` — the planner, extraction, and
   palette derivation, exhaustively and without a browser.
-- `e2e/editable.spec.ts` — the real engine against the real packaged download:
-  annotations survived the export and the packager, ids still find their
-  elements, a re-colour reaches both the custom properties and the pattern
-  fields.
+- `e2e/editable.spec.ts` — the real engine against the real packaged download,
+  once per palette derivation: annotations survived the export and the
+  packager, ids still find their elements, and a re-colour reaches both the
+  custom properties and the pattern fields.
+
+## The two palette derivations
+
+The 52 bespoke pages already kept their colour in one place before any of this
+existed: each declares `--paper`, `--ink`, `--ochre`… on its root rule and its
+stylesheet only reads `var(--…)`. Renaming those to `--brand-N` would have
+meant a codemod over 52 stylesheets to gain nothing, so instead the page
+declares which name each role owns:
+
+```html
+<div data-edit-root="vars" data-edit-vars="paper,ink,ochre,grey,pale"
+     style="--paper:#eeede7;--ink:#131313;…">
+```
+
+A re-colour writes those names. The properties are set **inline**, which is
+what makes an edit win over the authored defaults still sitting in the class
+rule — so a page with no edits applied looks exactly as it always did.
+
+One trap the bespoke pages carry: colour interpolated into an inline style in
+JavaScript (`` style={{ background: `…${INK}…` }} ``) is baked at render time
+and a DOM-level re-colour cannot reach it. Write those as `var(--ink)` instead;
+custom properties resolve at computed-value time, so the inline style then
+follows the override.
 
 ## Adding a site
 
-1. Annotate it. Ids are dotted and stable; index repeated structures
-   (`items.2.title`).
+1. Annotate it — or run `npm run annotate:templates` (see below).
 2. `npm run build` (or `next build && npm run editable`) and read the gate.
 3. Check the generated spec says what the page says.
 
 Ids are **append-only within a `specVersion`**: renaming one orphans saved
 edits documents that reference it.
+
+## The annotation codemod
+
+`scripts/annotate-templates.mjs` added the annotations to the 52 bespoke pages
+— 29,000 lines of hand-written JSX that could not be hand-edited reviewably. It
+parses each page with `@babel/parser` (a build-time devDependency; typescript@7
+is the native port and no longer exposes its compiler API to JS) and emits text
+edits at node positions, so formatting and comments survive.
+
+**It writes to source and is meant to run once.** The annotations are then
+committed and maintained by hand, which is what keeps ids stable — an id that
+regenerated on every build would shift whenever a page changed. A page already
+carrying `data-edit-root` is skipped, so re-running is safe and a hand-annotated
+page is never overwritten. Run it after adding a new bespoke template.
+
+Three things it refuses to annotate rather than get wrong, each reported:
+
+- **A component the page renders more than once.** There is no static id that
+  could name each instance the way a `.map()` index does.
+- **Two nested maps binding the same index name.** The outer binding is
+  shadowed, so an id built from both would repeat one value. (This is not
+  hypothetical — it produced 224 colliding slots on the first run, every one
+  caught by the build gate.)
+- **A pattern wrapped in a fragment**, which gives no element to annotate.
+
+Its correctness claim is that it changes nothing a visitor sees. That was
+checked the only way worth checking: building the export before and after and
+diffing the rendered text of all 57 pages, which came back identical.

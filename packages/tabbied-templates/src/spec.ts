@@ -171,7 +171,7 @@ export type Slot = TextSlot | ImageSlot | PatternSlot;
  * `--soft`, …), which are functions of the palette rather than members of it —
  * so a re-colour has to recompute them or the page keeps its old contrast.
  */
-export type PaletteDerivation = 'direct' | 'templateSite';
+export type PaletteDerivation = 'direct' | 'templateSite' | 'vars';
 
 export type PaletteSpec = {
   /** Colours, background (role 0) first — the shape used everywhere else. */
@@ -184,6 +184,19 @@ export type PaletteSpec = {
    * resolves to the page colour.
    */
   flatSections?: boolean;
+  /**
+   * `vars` only: the page's own custom-property names, in role order — so role
+   * 0 writes `--<varNames[0]>`.
+   *
+   * The 52 bespoke template pages already had their colour in one place before
+   * any of this existed: each declares `--paper`, `--ink`, `--ochre`… on its
+   * root rule and the stylesheet only ever reads `var(--…)`. Renaming those to
+   * `--brand-N` would have meant a codemod over 52 stylesheets to gain nothing,
+   * so instead the page declares which name each role owns and a re-colour
+   * writes those. An inline property beats the class rule that holds the
+   * authored default, so the page keeps working with no edits applied.
+   */
+  varNames?: string[];
 };
 
 // ---- the spec -------------------------------------------------------------

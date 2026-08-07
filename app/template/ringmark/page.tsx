@@ -106,7 +106,19 @@ const SIGNUP_META: [string, string][] = [
 
 export default function RingmarkPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--ground': '#efede3',
+        '--ink': '#16180f',
+        '--accent': '#6b7f1e',
+        '--grey': '#8c8b7c',
+        '--panel': '#dedcce',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="ground,ink,accent,grey,panel"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -116,20 +128,20 @@ export default function RingmarkPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Ringmark</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Ringmark</a>
         <nav aria-label="Sections">
-          <a href="#species">Species</a>
-          <a href="#making">The day</a>
-          <a href="#totals">Totals</a>
-          <a href="#record">What we record</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#species">Species</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#making">The day</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#totals">Totals</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#record">What we record</a>
         </nav>
-        <span className={s.now}>Vogelwarte / Helgoland</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Vogelwarte / Helgoland</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={birdsmouth}
               palette={['transparent', PANEL, GREY, ACCENT]}
@@ -139,19 +151,19 @@ export default function RingmarkPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Bird observatory / Helgoland / every day since 1909</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Bird observatory / Helgoland / every day since 1909</p>
           <h1 className={s.heroType}>
-            <span>Thirty-one</span>
-            <span>thousand</span>
-            <span className={s.hi}>birds. One island.</span>
+            <span data-edit="hero.span" data-edit-max="60">Thirty-one</span>
+            <span data-edit="hero.span2" data-edit-max="60">thousand</span>
+            <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>birds. One island.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               One trap, hourly rounds from first light, and a hundred and
               seventeen years of the same nine measurements written down in the
               same order.
             </p>
-            <a className={s.cta} href="#making">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#making">
               A day at the station
             </a>
           </div>
@@ -159,12 +171,12 @@ export default function RingmarkPage() {
 
         {/* ------------------------------------------------------ BLEED SCENE */}
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.ringmark-trap"
             slug="ringmark-trap"
             alt="A large timber and netting Heligoland funnel trap running through low dune scrub"
             priority
           />
-          <figcaption>The funnel, from the wide end. Sixty metres to the catching box.</figcaption>
+          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>The funnel, from the wide end. Sixty metres to the catching box.</figcaption>
         </figure>
 
         {/* --------------------------------------------------------- SPECIES
@@ -172,8 +184,8 @@ export default function RingmarkPage() {
             that happens to read as a poster. */}
         <section id="species" className={s.species} aria-labelledby="species-h">
           <div className={s.secHead}>
-            <h2 id="species-h">Last year, in order</h2>
-            <p>
+            <h2 data-edit="species.h2" data-edit-max="60" id="species-h">Last year, in order</h2>
+            <p data-edit="species.p" data-edit-max="240" data-edit-multiline>
               Twenty-two species of the hundred and sixty-four recorded.
               Everything under twenty birds is in the appendix, not on the
               front page.
@@ -191,19 +203,19 @@ export default function RingmarkPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             The value of this station is not any single year. It is that
             somebody walked the same trap on the same island every day for a
             hundred and seventeen years and wrote down what was in it, on days
             when there was nothing in it at all.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Ringmark is a working ringing station, not a visitor centre.
               Three staff, six volunteers at a time, one trap and a hut that
               has been rebuilt four times.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               Everything we catch is measured, ringed and released inside about
               ninety seconds. Everything we record is published, including the
               years that make no sense.
@@ -212,7 +224,7 @@ export default function RingmarkPage() {
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,1,4" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={curl}
             palette={['transparent', ACCENT, INK, PANEL]}
@@ -226,33 +238,33 @@ export default function RingmarkPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 id="making-h">A day, five times over</h2>
-            <p>Sixteen rounds between first light and dusk, and the same five things every time.</p>
+            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">A day, five times over</h2>
+            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>Sixteen rounds between first light and dusk, and the same five things every time.</p>
           </div>
           <ol className={s.rows}>
-            {ROUNDS.map((r) => (
+            {ROUNDS.map((r, i) => (
               <li key={r.n}>
-                <span className={s.rowN}>{r.n}</span>
-                <h3 className={s.rowTitle}>{r.t}</h3>
-                <span className={s.rowSub}>{r.d}</span>
-                <span className={s.rowDays}>{r.at}</span>
+                <span data-edit={`making.rowN.${i}`} data-edit-max="60" className={s.rowN}>{r.n}</span>
+                <h3 data-edit={`making.rowTitle.${i}`} data-edit-max="40" className={s.rowTitle}>{r.t}</h3>
+                <span data-edit={`making.rowSub.${i}`} data-edit-max="60" className={s.rowSub}>{r.d}</span>
+                <span data-edit={`making.rowDays.${i}`} data-edit-max="60" className={s.rowDays}>{r.at}</span>
               </li>
             ))}
           </ol>
           <div className={s.pair}>
             <figure>
-              <Figure
+              <Figure editId="photo.ringmark-hut"
                 slug="ringmark-hut"
                 alt="A small whitewashed bird observatory hut standing among dunes under a pale sky"
               />
-              <figcaption>The hut. Rebuilt in 1947, 1962, 1991 and 2018, in the same footprint.</figcaption>
+              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>The hut. Rebuilt in 1947, 1962, 1991 and 2018, in the same footprint.</figcaption>
             </figure>
             <figure>
-              <Figure
+              <Figure editId="photo.ringmark-bench"
                 slug="ringmark-bench"
                 alt="A ringing bench seen from above with calipers, a spring balance and small paper bags"
               />
-              <figcaption>The bench. Nine measurements, in this order, since 1909.</figcaption>
+              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>The bench. Nine measurements, in this order, since 1909.</figcaption>
             </figure>
           </div>
         </section>
@@ -260,14 +272,14 @@ export default function RingmarkPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 id="pr-h">Three things we do not bend</h2>
-            <p>Two are about the birds. The third is about what a long series is worth.</p>
+            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three things we do not bend</h2>
+            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>Two are about the birds. The third is about what a long series is worth.</p>
           </div>
           <div className={s.pGrid}>
-            {PRINCIPLES.map((p) => (
+            {PRINCIPLES.map((p, i) => (
               <article key={p.n}>
                 <div className={s.pPlate}>
-                  <div className={s.pField} aria-hidden="true">
+                  <div data-edit-pattern={`pr.field.${i}`} data-edit-roles="transparent,3,2" className={s.pField} aria-hidden="true">
                     <TabbiedPattern
                       pattern={p.art}
                       palette={['transparent', GREY, ACCENT]}
@@ -277,11 +289,11 @@ export default function RingmarkPage() {
                       style={{ position: 'absolute', inset: 0 }}
                     />
                   </div>
-                  <Figure slug={p.img} alt={p.alt} cutout className={s.pObject} />
+                  <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
-                <p className={s.pN}>{p.n}</p>
-                <h3>{p.t}</h3>
-                <p className={s.pBody}>{p.d}</p>
+                <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
+                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
           </div>
@@ -290,17 +302,17 @@ export default function RingmarkPage() {
         {/* ---------------------------------------------------------- TOTALS */}
         <section id="totals" className={s.listing} aria-labelledby="totals-h">
           <div className={s.secHead}>
-            <h2 id="totals-h">Eight years</h2>
-            <p>Published every January. A control is one of our rings read by somebody else, somewhere else.</p>
+            <h2 data-edit="totals.h2" data-edit-max="60" id="totals-h">Eight years</h2>
+            <p data-edit="totals.p" data-edit-max="240" data-edit-multiline>Published every January. A control is one of our rings read by somebody else, somewhere else.</p>
           </div>
           <ol className={s.table}>
             {TOTALS.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`totals.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`totals.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`totals.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`totals.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`totals.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -308,7 +320,7 @@ export default function RingmarkPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={wander}
               palette={['transparent', ACCENT, GREY]}
@@ -319,25 +331,25 @@ export default function RingmarkPage() {
             />
           </div>
           <blockquote>
-            <p>A day with nothing in the trap is a data point. It took us forty years to start writing those down.</p>
-            <cite>Dr Heike Stolzenberg, station head</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A day with nothing in the trap is a data point. It took us forty years to start writing those down.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Dr Heike Stolzenberg, station head</cite>
           </blockquote>
         </section>
 
         {/* ---------------------------------------------------------- RECORD */}
         <section id="record" className={s.listing} aria-labelledby="record-h">
           <div className={s.secHead}>
-            <h2 id="record-h">What goes on the card</h2>
-            <p>Nine measurements and an initial. The order has not changed since the first ledger.</p>
+            <h2 data-edit="record.h2" data-edit-max="60" id="record-h">What goes on the card</h2>
+            <p data-edit="record.p" data-edit-max="240" data-edit-multiline>Nine measurements and an initial. The order has not changed since the first ledger.</p>
           </div>
           <ol className={s.table}>
             {RECORD.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
+                <span data-edit={`record.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`record.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`record.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
                 <span className={s.tMid} />
-                <span className={s.tEnd}>{r[3]}</span>
+                <span data-edit={`record.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -345,7 +357,7 @@ export default function RingmarkPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,3,4" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={baste}
               palette={['transparent', GREY, PANEL]}
@@ -355,12 +367,12 @@ export default function RingmarkPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="visit-h">Coming up the hill</h2>
+          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming up the hill</h2>
           <dl className={s.visitList}>
-            {VISIT.map(([k, v]) => (
+            {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -368,24 +380,24 @@ export default function RingmarkPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Placements, recoveries, data requests</p>
-          <h2 id="contact-h" className={s.signupTitle}>The ringing report</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Placements, recoveries, data requests</p>
+          <h2 data-edit="contact.signupTitle" data-edit-max="60" id="contact-h" className={s.signupTitle}>The ringing report</h2>
           <form className={s.signup}>
-            <label className={s.srOnly} htmlFor="signup-mail">
+            <label data-edit="contact.srOnly" className={s.srOnly} htmlFor="signup-mail">
               Email address
             </label>
             <input id="signup-mail" name="email" type="email" placeholder="you@example.com" />
-            <button type="submit">Put me on it</button>
+            <button data-edit="contact.button" data-edit-max="24" type="submit">Put me on it</button>
           </form>
           <dl className={s.signupMeta}>
-            {SIGNUP_META.map(([k, v]) => (
+            {SIGNUP_META.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Am Fallberg, 27498 Helgoland. If you have found one of our rings,
             send the number and the place and we will tell you where the bird
             has been — that is a letter, not a newsletter, and it is always
@@ -394,7 +406,7 @@ export default function RingmarkPage() {
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={cleat}
           palette={['transparent', ACCENT, PANEL, GREY]}
@@ -408,7 +420,7 @@ export default function RingmarkPage() {
       <footer className={s.footer}>
         <div className={s.footObject}>
           <div className={s.footPlate}>
-            <div className={s.footPlateField} aria-hidden="true">
+            <div data-edit-pattern="footer.field" data-edit-roles="transparent,3,2" className={s.footPlateField} aria-hidden="true">
               <TabbiedPattern
                 pattern={curl}
                 palette={['transparent', GREY, ACCENT]}
@@ -418,29 +430,29 @@ export default function RingmarkPage() {
                 style={{ position: 'absolute', inset: 0 }}
               />
             </div>
-            <Figure slug="ringmark-tile-logbook-cutout" alt="A weathered field logbook with a pencil under its elastic loop" cutout className={s.footCut} />
+            <Figure editId="photo.ringmark-tile-logbook-cutout" slug="ringmark-tile-logbook-cutout" alt="A weathered field logbook with a pencil under its elastic loop" cutout className={s.footCut} />
           </div>
-          <p className={s.footLine}>A ring is only worth the line somebody wrote down beside it.</p>
+          <p data-edit="footer.footLine" data-edit-max="240" data-edit-multiline className={s.footLine}>A ring is only worth the line somebody wrote down beside it.</p>
         </div>
         <div className={s.footGrid}>
           <div>
-            <h2>Station</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Station</h2>
             <ul>
-              <li><a href="#making">A day at the trap</a></li>
-              <li><a href="#record">What we record</a></li>
-              <li><a href="#visit">Volunteering</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#making">A day at the trap</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#record">What we record</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#visit">Volunteering</a></li>
             </ul>
           </div>
           <div>
-            <h2>Results</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Results</h2>
             <ul>
-              <li><a href="#species">Last year</a></li>
-              <li><a href="#totals">Eight years</a></li>
-              <li><a href="#visit">The archive</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#species">Last year</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#totals">Eight years</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">The archive</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Am Fallberg
               <br />
@@ -451,10 +463,10 @@ export default function RingmarkPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional bird observatory. Totals, species counts and dates are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional bird observatory. Totals, species counts and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

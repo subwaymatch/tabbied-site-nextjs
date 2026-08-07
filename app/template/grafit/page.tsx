@@ -12,6 +12,7 @@ export const metadata = {
 
 /* Warm grey paper, ink, one ochre. Fields take `transparent` in the
    background slot so the paper of the page is the paper of the pattern. */
+const PAPER = '#eeede7';
 const INK = '#131313';
 const OCHRE = '#e5a000';
 const GREY = '#8a887f';
@@ -104,7 +105,21 @@ const SHOP = [
 
 export default function GrafitPage() {
   return (
-    <div className={s.page}>
+    <div
+      className={s.page}
+      // Colour, declared where the stylesheet's own rule already declares it —
+      // inline so it wins, and so a re-colour has one place to write. The
+      // authored defaults stay in grafit.module.css as the fallback.
+      style={{
+        '--paper': PAPER,
+        '--ink': INK,
+        '--ochre': OCHRE,
+        '--grey': GREY,
+        '--pale': PALE,
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,ochre,grey,pale"
+    >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -114,20 +129,20 @@ export default function GrafitPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Grafit</a>
+        <a className={s.mark} href="#top" data-edit="brand.name" data-edit-max="20">Grafit</a>
         <nav aria-label="Sections">
-          <a href="#grades">Grades</a>
-          <a href="#lines">Lines</a>
-          <a href="#making">Making</a>
-          <a href="#history">History</a>
+          <a href="#grades" data-edit="nav.0" data-edit-max="16">Grades</a>
+          <a href="#lines" data-edit="nav.1" data-edit-max="16">Lines</a>
+          <a href="#making" data-edit="nav.2" data-edit-max="16">Making</a>
+          <a href="#history" data-edit="nav.3" data-edit-max="16">History</a>
         </nav>
-        <span className={s.now}>Bleistiftfabrik / Nürnberg</span>
+        <span className={s.now} data-edit="brand.tagline" data-edit-max="40">Bleistiftfabrik / Nürnberg</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div className={s.heroField} aria-hidden="true" data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2">
             <TabbiedPattern
               pattern={reeding}
               palette={['transparent', PALE, GREY, OCHRE]}
@@ -137,17 +152,19 @@ export default function GrafitPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Pencil works / Nuremberg / since 1868</p>
+          <p className={s.heroKicker} data-edit="hero.kicker" data-edit-max="52">Pencil works / Nuremberg / since 1868</p>
           <h1 className={s.heroType}>
-            <span>Nine H</span>
-            <span className={s.ochre}>to nine B.</span>
+            {/* Two spans rather than one accented run: the second is tinted by
+                the page's accent colour, so each is its own editable line. */}
+            <span data-edit="hero.title.0" data-edit-max="24">Nine H</span>
+            <span className={s.ochre} data-edit="hero.title.1" data-edit-max="24">to nine B.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.lede" data-edit-multiline data-edit-max="180">
               Seventeen grades, one wood, one graphite, and a recipe we have
               changed twice in a hundred and fifty-eight years.
             </p>
-            <a className={s.cta} href="#grades">
+            <a className={s.cta} href="#grades" data-edit="hero.cta" data-edit-max="20">
               The scale
             </a>
           </div>
@@ -162,28 +179,32 @@ export default function GrafitPage() {
             <div
               key={g}
               className={s.grade}
-              style={{ background: `color-mix(in srgb, ${INK} ${k}%, ${PALE})` }}
+              // var(), not the constant: an inline style built from the JS
+              // value would keep the authored ink after a re-colour, because
+              // applyEdits rewrites custom properties and cannot reach a hex
+              // that was interpolated at render time.
+              style={{ background: `color-mix(in srgb, var(--ink) ${k}%, var(--pale))` }}
             >
-              <span style={{ color: k > 52 ? '#f2f0ea' : INK }}>{g}</span>
+              <span style={{ color: k > 52 ? '#f2f0ea' : 'var(--ink)' }}>{g}</span>
             </div>
           ))}
         </section>
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p className={s.big} data-edit="statement.lead" data-edit-multiline data-edit-max="320">
             A pencil is clay and graphite in a ratio, wrapped in a wood that
             sharpens cleanly. Everything else — the lacquer, the ferrule, the
             name on the side — is decoration, and we would rather spend the
             money on the clay.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.body.0" data-edit-multiline data-edit-max="260">
               Grafit has made pencils on the Pegnitz since 1868. Eighty-one
               people work in the building, the extruder is two years old and the
               mill it feeds is from 1954.
             </p>
-            <p>
+            <p data-edit="statement.body.1" data-edit-multiline data-edit-max="260">
               Every grade is matched by hand against a reference card that lives
               in a drawer in the laboratory. When the recipe changed in 2007 it
               took eleven months to match all seventeen again.
@@ -193,13 +214,13 @@ export default function GrafitPage() {
 
         {/* ----------------------------------------------------------- FACTS */}
         <section className={s.facts} aria-label="The works in numbers">
-          {FACTS.map(([v, k]) => (
+          {FACTS.map(([v, k], i) => (
             <div key={k}>
-              <p className={s.fVal}>{v}</p>
-              <p className={s.fKey}>{k}</p>
+              <p className={s.fVal} data-edit={`facts.${i}.value`} data-edit-max="10">{v}</p>
+              <p className={s.fKey} data-edit={`facts.${i}.label`} data-edit-max="32">{k}</p>
             </div>
           ))}
-          <div className={s.factsField} aria-hidden="true">
+          <div className={s.factsField} aria-hidden="true" data-edit-pattern="facts.field" data-edit-roles="transparent,3,4">
             <TabbiedPattern
               pattern={bevelset}
               palette={['transparent', GREY, PALE]}
@@ -214,24 +235,24 @@ export default function GrafitPage() {
         {/* ----------------------------------------------------------- LINES */}
         <section id="lines" className={s.lines} aria-labelledby="lines-h">
           <div className={s.secHead}>
-            <h2 id="lines-h">Five lines</h2>
-            <p>The year is when the line was introduced. None has ever been withdrawn.</p>
+            <h2 id="lines-h" data-edit="lines.title" data-edit-max="48">Five lines</h2>
+            <p data-edit="lines.sub" data-edit-multiline data-edit-max="160">The year is when the line was introduced. None has ever been withdrawn.</p>
           </div>
           <ol className={s.rows}>
-            {LINES.map((l) => (
+            {LINES.map((l, i) => (
               <li key={l.n}>
-                <span className={s.rowN}>{l.n}</span>
-                <h3 className={s.rowTitle}>{l.t}</h3>
-                <span className={s.rowSub}>{l.d}</span>
-                <span className={s.rowYear}>Since {l.made}</span>
-                <span className={s.rowPrice}>{l.price}</span>
+                <span className={s.rowN} data-edit={`lines.${i}.n`} data-edit-max="4">{l.n}</span>
+                <h3 className={s.rowTitle} data-edit={`lines.${i}.title`} data-edit-max="28">{l.t}</h3>
+                <span className={s.rowSub} data-edit={`lines.${i}.body`} data-edit-max="120">{l.d}</span>
+                <span className={s.rowYear}>Since <span data-edit={`lines.${i}.year`} data-edit-max="8">{l.made}</span></span>
+                <span className={s.rowPrice} data-edit={`lines.${i}.price`} data-edit-max="12">{l.price}</span>
               </li>
             ))}
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div className={s.band} aria-hidden="true" data-edit-pattern="band.field" data-edit-roles="transparent,2,4,3">
           <TabbiedPattern
             pattern={louvre}
             palette={['transparent', OCHRE, PALE, GREY]}
@@ -245,13 +266,13 @@ export default function GrafitPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 id="making-h">Four operations</h2>
-            <p>Slats, core, glue, finish. Nine days from cedar board to a pencil in a sleeve.</p>
+            <h2 id="making-h" data-edit="making.title" data-edit-max="48">Four operations</h2>
+            <p data-edit="making.sub" data-edit-multiline data-edit-max="160">Slats, core, glue, finish. Nine days from cedar board to a pencil in a sleeve.</p>
           </div>
           <div className={s.mGrid}>
-            {MAKING.map((m) => (
+            {MAKING.map((m, i) => (
               <article key={m.n}>
-                <div className={s.mPlate} aria-hidden="true">
+                <div className={s.mPlate} aria-hidden="true" data-edit-pattern={`making.${i}.field`} data-edit-roles="transparent,3,2">
                   <TabbiedPattern
                     pattern={m.art}
                     palette={['transparent', GREY, OCHRE]}
@@ -261,9 +282,9 @@ export default function GrafitPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.mN}>{m.n}</p>
-                <h3>{m.t}</h3>
-                <p className={s.mBody}>{m.d}</p>
+                <p className={s.mN} data-edit={`making.${i}.n`} data-edit-max="4">{m.n}</p>
+                <h3 data-edit={`making.${i}.title`} data-edit-max="28">{m.t}</h3>
+                <p className={s.mBody} data-edit={`making.${i}.body`} data-edit-multiline data-edit-max="260">{m.d}</p>
               </article>
             ))}
           </div>
@@ -272,16 +293,16 @@ export default function GrafitPage() {
         {/* -------------------------------------------------------- THE SPEC */}
         <section id="spec" className={s.listing} aria-labelledby="spec-h">
           <div className={s.secHead}>
-            <h2 id="spec-h">Dimensions, published</h2>
-            <p>The whole specification. If a pencil of ours is out by more than a tenth, send it back.</p>
+            <h2 id="spec-h" data-edit="spec.title" data-edit-max="48">Dimensions, published</h2>
+            <p data-edit="spec.sub" data-edit-multiline data-edit-max="160">The whole specification. If a pencil of ours is out by more than a tenth, send it back.</p>
           </div>
           <ol className={s.table}>
             {SPEC.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tEnd}>{r[3]}</span>
+                <span className={s.tKey} data-edit={`spec.${i}.0`} data-edit-max="28">{r[0]}</span>
+                <span className={s.tMain} data-edit={`spec.${i}.1`} data-edit-max="28">{r[1]}</span>
+                <span className={s.tMid} data-edit={`spec.${i}.2`} data-edit-max="40">{r[2]}</span>
+                <span className={s.tEnd} data-edit={`spec.${i}.3`} data-edit-max="28">{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -289,7 +310,7 @@ export default function GrafitPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div className={s.quoteField} aria-hidden="true" data-edit-pattern="quote.field" data-edit-roles="transparent,2,3">
             <TabbiedPattern
               pattern={charcoal}
               palette={['transparent', OCHRE, GREY]}
@@ -300,24 +321,24 @@ export default function GrafitPage() {
             />
           </div>
           <blockquote>
-            <p>Nobody has ever asked us for a harder pencil. They ask for a blacker one, and then they buy an H.</p>
-            <cite>Renate Föhr, laboratory</cite>
+            <p data-edit="quote.text" data-edit-multiline data-edit-max="220">Nobody has ever asked us for a harder pencil. They ask for a blacker one, and then they buy an H.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Renate Föhr, laboratory</cite>
           </blockquote>
         </section>
 
         {/* --------------------------------------------------------- HISTORY */}
         <section id="history" className={s.listing} aria-labelledby="hist-h">
           <div className={s.secHead}>
-            <h2 id="hist-h">A hundred and fifty-eight years</h2>
-            <p>Everything that changed. It is a short list on purpose.</p>
+            <h2 id="hist-h" data-edit="history.title" data-edit-max="48">A hundred and fifty-eight years</h2>
+            <p data-edit="history.sub" data-edit-multiline data-edit-max="160">Everything that changed. It is a short list on purpose.</p>
           </div>
           <ol className={s.table}>
-            {HISTORY.map((r) => (
+            {HISTORY.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tEnd}>{r[3]}</span>
+                <span className={s.tKey} data-edit={`history.${i}.0`} data-edit-max="12">{r[0]}</span>
+                <span className={s.tMain} data-edit={`history.${i}.1`} data-edit-max="40">{r[1]}</span>
+                <span className={s.tMid} data-edit={`history.${i}.2`} data-edit-max="48">{r[2]}</span>
+                <span className={s.tEnd} data-edit={`history.${i}.3`} data-edit-max="28">{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -325,7 +346,7 @@ export default function GrafitPage() {
 
         {/* ------------------------------------------------------------ SHOP */}
         <section id="shop" className={s.shop} aria-labelledby="shop-h">
-          <div className={s.shopField} aria-hidden="true">
+          <div className={s.shopField} aria-hidden="true" data-edit-pattern="shop.field" data-edit-roles="transparent,3,4">
             <TabbiedPattern
               pattern={nosing}
               palette={['transparent', GREY, PALE]}
@@ -336,12 +357,12 @@ export default function GrafitPage() {
             />
           </div>
           <div className={s.shopInner}>
-            <h2 id="shop-h">The factory shop</h2>
+            <h2 id="shop-h" data-edit="shop.title" data-edit-max="40">The factory shop</h2>
             <dl className={s.shopList}>
-              {SHOP.map(([k, v]) => (
+              {SHOP.map(([k, v], i) => (
                 <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
+                  <dt data-edit={`shop.${i}.term`} data-edit-max="24">{k}</dt>
+                  <dd data-edit={`shop.${i}.body`} data-edit-multiline data-edit-max="140">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -350,18 +371,18 @@ export default function GrafitPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section className={s.contact}>
-          <p className={s.contactPre}>Orders, grades, complaints about a 6B</p>
-          <a className={s.contactMail} href="mailto:kern@grafit.example">
+          <p className={s.contactPre} data-edit="contact.kicker" data-edit-max="60">Orders, grades, complaints about a 6B</p>
+          <a className={s.contactMail} href="mailto:kern@grafit.example" data-edit="contact.email" data-edit-max="48">
             kern@grafit.example
           </a>
-          <p className={s.contactFine}>
+          <p className={s.contactFine} data-edit="contact.fine" data-edit-multiline data-edit-max="200">
             Pegnitzstrasse 22, 90429 Nürnberg. The shop is open Tuesday to
             Friday; the works are shut for two weeks in August.
           </p>
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div className={s.coda} aria-hidden="true" data-edit-pattern="coda.field" data-edit-roles="transparent,4,2,3">
         <TabbiedPattern
           pattern={kerf}
           palette={['transparent', PALE, OCHRE, GREY]}
@@ -373,27 +394,27 @@ export default function GrafitPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>9B</p>
+        <p className={s.footMark} data-edit="footer.mark" data-edit-max="6">9B</p>
         <div className={s.footGrid}>
           <div>
-            <h2>Product</h2>
+            <h2 data-edit="footer.0.title" data-edit-max="20">Product</h2>
             <ul>
-              <li><a href="#grades">Seventeen grades</a></li>
-              <li><a href="#lines">Five lines</a></li>
-              <li><a href="#spec">Dimensions</a></li>
+              <li><a href="#grades" data-edit="footer.0.0" data-edit-max="28">Seventeen grades</a></li>
+              <li><a href="#lines" data-edit="footer.0.1" data-edit-max="28">Five lines</a></li>
+              <li><a href="#spec" data-edit="footer.0.2" data-edit-max="28">Dimensions</a></li>
             </ul>
           </div>
           <div>
-            <h2>Works</h2>
+            <h2 data-edit="footer.1.title" data-edit-max="20">Works</h2>
             <ul>
-              <li><a href="#making">Four operations</a></li>
-              <li><a href="#history">History</a></li>
-              <li><a href="#shop">Factory shop</a></li>
+              <li><a href="#making" data-edit="footer.1.0" data-edit-max="28">Four operations</a></li>
+              <li><a href="#history" data-edit="footer.1.1" data-edit-max="28">History</a></li>
+              <li><a href="#shop" data-edit="footer.1.2" data-edit-max="28">Factory shop</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
-            <p>
+            <h2 data-edit="footer.2.title" data-edit-max="20">Here</h2>
+            <p data-edit="footer.2.address" data-edit-multiline data-edit-max="120">
               Pegnitzstrasse 22
               <br />
               90429 Nürnberg
@@ -403,7 +424,7 @@ export default function GrafitPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional pencil factory. Grades, prices and dates are invented.</p>
+          <p data-edit="footer.disclaimer" data-edit-multiline data-edit-max="140">A fictional pencil factory. Grades, prices and dates are invented.</p>
           <p>
             Patterns by{' '}
             <a href="https://tabbied.com" rel="noopener">

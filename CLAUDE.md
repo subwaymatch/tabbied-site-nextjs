@@ -298,6 +298,23 @@ Four things worth not re-litigating:
   footer) and an edit reaches all of them; the generator fails the build if
   they don't currently agree.
 
+All 57 sites are annotated. The 52 bespoke pages were done by
+`scripts/annotate-templates.mjs`, a one-time codemod (`npm run
+annotate:templates`) — run it after adding a new bespoke template, and note it
+skips any page already carrying `data-edit-root`, so a hand-annotated page is
+never overwritten. It refuses to annotate a component rendered more than once,
+two nested maps sharing an index name, or a pattern wrapped in a fragment, and
+says so; those need a wrapper or an id by hand.
+
+**Two palette derivations, and the bespoke one is not `--brand-N`.** Those 52
+pages each declare their own property names on their root rule (`--paper`,
+`--ink`, …) with the stylesheet reading `var(--…)`, so they use
+`data-edit-root="vars"` plus `data-edit-vars` naming the role order. The
+properties are written *inline*, which is what makes an edit beat the authored
+default still in the class rule. A colour interpolated into an inline style in
+JS is baked at render time and a re-colour cannot reach it — write those as
+`var(--ink)`.
+
 `page.tsx` sources that import `tabbied-templates` get it added to the React
 download's dependencies automatically — `EXTERNAL_DEPENDENCIES` in
 `scripts/package-templates.mjs` is derived from the shipped source, not

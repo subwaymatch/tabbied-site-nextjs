@@ -152,6 +152,10 @@ for (const slug of slugs) {
       colors: root.colors,
       derivation: root.derivation,
       ...(root.flatSections ? { flatSections: true } : {}),
+      // A `vars` page owns its property names, so the spec has to carry them:
+      // without them a re-colour would compute the right colours and write
+      // them nowhere.
+      ...(root.varNames ? { varNames: root.varNames } : {}),
     },
     ...(fontsOf(html) ? { fonts: fontsOf(html) } : {}),
     slots,

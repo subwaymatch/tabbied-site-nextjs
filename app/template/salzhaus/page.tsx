@@ -170,7 +170,19 @@ const NEXT_UP: [string, string, string][] = [
 
 export default function SalzhausPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--paper': '#f3f1ec',
+        '--ink': '#101014',
+        '--red': '#ff2d00',
+        '--grey': '#8b8b85',
+        '--pale': '#dedcd4',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,red,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -180,14 +192,14 @@ export default function SalzhausPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Salzhaus</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Salzhaus</a>
         <nav aria-label="Sections">
-          <a href="#season">Season</a>
-          <a href="#work">Work</a>
-          <a href="#ensemble">Ensemble</a>
-          <a href="#visit">Visit</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#season">Season</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#ensemble">Ensemble</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#visit">Visit</a>
         </nav>
-        <span className={s.now}>Spielzeit 26 / 27</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Spielzeit 26 / 27</span>
       </header>
 
       <main id="top">
@@ -195,7 +207,7 @@ export default function SalzhausPage() {
             One field, edge to edge, and three words at the largest size the
             viewport will carry. No box, no rule, no container. */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={pivot}
               palette={['transparent', PALE, GREY, RED]}
@@ -205,18 +217,18 @@ export default function SalzhausPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Contemporary dance / Basel / since 2019</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Contemporary dance / Basel / since 2019</p>
           <h1 className={s.heroType}>
-            <span>Bodies</span>
-            <span>in a</span>
-            <span className={s.red}>room.</span>
+            <span data-edit="hero.span" data-edit-max="60">Bodies</span>
+            <span data-edit="hero.span2" data-edit-max="60">in a</span>
+            <span data-edit="hero.red" data-edit-max="60" className={s.red}>room.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Fourteen dancers in a salt warehouse on the Rhine. Six pieces a
               year, each one made in the hall it is shown in.
             </p>
-            <a className={s.cta} href="#season">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#season">
               Season 26/27
             </a>
           </div>
@@ -236,23 +248,23 @@ export default function SalzhausPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement} aria-labelledby="statement-h">
-          <h2 className={s.srOnly} id="statement-h">
+          <h2 data-edit="statement.srOnly" data-edit-max="60" className={s.srOnly} id="statement-h">
             What the company is
           </h2>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             We do not tour a repertoire. Every piece is built where you will sit
             to watch it, out of the size of that hall, the temperature of that
             month, and the fourteen people who happen to be in the company that
             year. When any of those change, the piece is over.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Salzhaus took the lease on a disused salt store in 2019 and has
               never rehearsed anywhere else. The floor is the original one,
               sanded twice, and it is the loudest surface any of us have worked
               on.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               The company is funded by the canton, by a small foundation that
               asked not to be named on the poster, and by ticket income that
               covers a third of the year.
@@ -261,7 +273,7 @@ export default function SalzhausPage() {
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,1,4" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={drift}
             palette={['transparent', RED, INK, PALE]}
@@ -275,17 +287,17 @@ export default function SalzhausPage() {
         {/* ---------------------------------------------------------- SEASON */}
         <section id="season" className={s.season} aria-labelledby="season-h">
           <div className={s.secHead}>
-            <h2 id="season-h">Six pieces</h2>
-            <p>Spielzeit 26 / 27. Every date is in this building unless it says otherwise.</p>
+            <h2 data-edit="season.h2" data-edit-max="60" id="season-h">Six pieces</h2>
+            <p data-edit="season.p" data-edit-max="240" data-edit-multiline>Spielzeit 26 / 27. Every date is in this building unless it says otherwise.</p>
           </div>
           <ol className={s.rows}>
-            {SEASON.map((p) => (
+            {SEASON.map((p, i) => (
               <li key={p.n}>
-                <span className={s.rowN}>{p.n}</span>
-                <h3 className={s.rowTitle}>{p.title}</h3>
-                <span className={s.rowSub}>{p.sub}</span>
-                <span className={s.rowWhen}>{p.when}</span>
-                <span className={s.rowRoom}>{p.room}</span>
+                <span data-edit={`season.rowN.${i}`} data-edit-max="60" className={s.rowN}>{p.n}</span>
+                <h3 data-edit={`season.rowTitle.${i}`} data-edit-max="40" className={s.rowTitle}>{p.title}</h3>
+                <span data-edit={`season.rowSub.${i}`} data-edit-max="60" className={s.rowSub}>{p.sub}</span>
+                <span data-edit={`season.rowWhen.${i}`} data-edit-max="60" className={s.rowWhen}>{p.when}</span>
+                <span data-edit={`season.rowRoom.${i}`} data-edit-max="60" className={s.rowRoom}>{p.room}</span>
                 <span className={s.rowMin}>{p.min}′</span>
               </li>
             ))}
@@ -294,13 +306,13 @@ export default function SalzhausPage() {
 
         {/* --------------------------------------------------------- FIGURES */}
         <section className={s.figures} aria-label="The company in numbers">
-          {FIGURES.map(([v, k]) => (
+          {FIGURES.map(([v, k], i) => (
             <div key={k}>
-              <p className={s.figVal}>{v}</p>
-              <p className={s.figKey}>{k}</p>
+              <p data-edit={`figures.figVal.${i}`} data-edit-max="240" data-edit-multiline className={s.figVal}>{v}</p>
+              <p data-edit={`figures.figKey.${i}`} data-edit-max="240" data-edit-multiline className={s.figKey}>{k}</p>
             </div>
           ))}
-          <div className={s.figuresField} aria-hidden="true">
+          <div data-edit-pattern="figures.field" data-edit-roles="transparent,3,4" className={s.figuresField} aria-hidden="true">
             <TabbiedPattern
               pattern={hourglass}
               palette={['transparent', GREY, PALE]}
@@ -314,7 +326,7 @@ export default function SalzhausPage() {
 
         {/* ------------------------------------------------------------ WORK */}
         <section id="work" className={s.work} aria-labelledby="work-h">
-          <div className={s.workField} aria-hidden="true">
+          <div data-edit-pattern="work.field" data-edit-roles="transparent,4,3" className={s.workField} aria-hidden="true">
             <TabbiedPattern
               pattern={skewblock}
               palette={['transparent', PALE, GREY]}
@@ -328,26 +340,26 @@ export default function SalzhausPage() {
             Wie wir arbeiten
           </span>
           <div className={s.workInner}>
-            <h2 id="work-h">How a piece gets made</h2>
+            <h2 data-edit="work.h2" data-edit-max="60" id="work-h">How a piece gets made</h2>
             <div className={s.workCols}>
-              <p className={s.lead}>
+              <p data-edit="work.lead" data-edit-max="240" data-edit-multiline className={s.lead}>
                 Eleven weeks in the hall, and the first six of them have no
                 audience, no title and no lights.
               </p>
               <div>
-                <p>
+                <p data-edit="work.p" data-edit-max="240" data-edit-multiline>
                   Week one is spent walking. The company crosses the hall in
                   every direction it can be crossed, and somebody counts. It
                   sounds like a joke until the fourth day, when the room stops
                   being neutral and starts having corners that mean something.
                 </p>
-                <p>
+                <p data-edit="work.p2" data-edit-max="240" data-edit-multiline>
                   From week seven the lighting designer is in the room for every
                   minute of rehearsal, because a piece lit afterwards is a
                   different piece. From week nine we invite ten people in, on a
                   Tuesday, and watch them rather than the stage.
                 </p>
-                <p>
+                <p data-edit="work.p3" data-edit-max="240" data-edit-multiline>
                   Nothing is filmed until the last week. A camera in the room
                   turns rehearsal into documentation and the dancers start
                   performing to it within about twenty minutes.
@@ -360,13 +372,13 @@ export default function SalzhausPage() {
         {/* ----------------------------------------------------- PRINCIPLES */}
         <section className={s.principles} aria-labelledby="principles-h">
           <div className={s.secHead}>
-            <h2 id="principles-h">Three things we do not negotiate</h2>
-            <p>Written down in 2019 and unchanged since, which surprises us as much as anybody.</p>
+            <h2 data-edit="principles.h2" data-edit-max="60" id="principles-h">Three things we do not negotiate</h2>
+            <p data-edit="principles.p" data-edit-max="240" data-edit-multiline>Written down in 2019 and unchanged since, which surprises us as much as anybody.</p>
           </div>
           <div className={s.pGrid}>
-            {PRINCIPLES.map((p) => (
+            {PRINCIPLES.map((p, i) => (
               <article key={p.n}>
-                <div className={s.pPlate} aria-hidden="true">
+                <div data-edit-pattern={`principles.field.${i}`} data-edit-roles="transparent,3,4,2" className={s.pPlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={p.art}
                     palette={['transparent', GREY, PALE, RED]}
@@ -376,9 +388,9 @@ export default function SalzhausPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.pN}>{p.n}</p>
-                <h3>{p.t}</h3>
-                <p className={s.pBody}>{p.d}</p>
+                <p data-edit={`principles.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
+                <h3 data-edit={`principles.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <p data-edit={`principles.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
           </div>
@@ -386,7 +398,7 @@ export default function SalzhausPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,1,2" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={bilateral}
               palette={['transparent', INK, RED]}
@@ -397,23 +409,23 @@ export default function SalzhausPage() {
             />
           </div>
           <blockquote>
-            <p>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>
               A hall this size gives you two honest options. Fill it, or admit
               how small a person is in it.
             </p>
-            <cite>Ada Vermeulen, artistic direction</cite>
+            <cite data-edit="quote.cite" data-edit-max="48">Ada Vermeulen, artistic direction</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- ENSEMBLE */}
         <section id="ensemble" className={s.ensemble} aria-labelledby="ensemble-h">
           <div className={s.secHead}>
-            <h2 id="ensemble-h">The fourteen</h2>
-            <p>Contracted for the whole season, paid the same, listed alphabetically by nothing in particular.</p>
+            <h2 data-edit="ensemble.h2" data-edit-max="60" id="ensemble-h">The fourteen</h2>
+            <p data-edit="ensemble.p" data-edit-max="240" data-edit-multiline>Contracted for the whole season, paid the same, listed alphabetically by nothing in particular.</p>
           </div>
           <ul className={s.names}>
-            {ENSEMBLE.map((n) => (
-              <li key={n}>{n}</li>
+            {ENSEMBLE.map((n, i) => (
+              <li data-edit={`ensemble.li.${i}`} data-edit-max="80" key={n}>{n}</li>
             ))}
           </ul>
         </section>
@@ -421,17 +433,17 @@ export default function SalzhausPage() {
         {/* -------------------------------------------------------- CALENDAR */}
         <section id="calendar" className={s.calendar} aria-labelledby="calendar-h">
           <div className={s.secHead}>
-            <h2 id="calendar-h">Autumn dates</h2>
-            <p>September and November. Winter goes on sale in October.</p>
+            <h2 data-edit="calendar.h2" data-edit-max="60" id="calendar-h">Autumn dates</h2>
+            <p data-edit="calendar.p" data-edit-max="240" data-edit-multiline>September and November. Winter goes on sale in October.</p>
           </div>
           <ol className={s.table}>
-            {CALENDAR.map((r) => (
+            {CALENDAR.map((r, i) => (
               <li key={r[0] + r[1]}>
-                <span className={s.tDate}>{r[0]}</span>
-                <span className={s.tTitle}>{r[1]}</span>
-                <span className={s.tRoom}>{r[2]}</span>
-                <span className={s.tTime}>{r[3]}</span>
-                <span className={s.tNote}>{r[4]}</span>
+                <span data-edit={`calendar.tDate.${i}`} data-edit-max="60" className={s.tDate}>{r[0]}</span>
+                <span data-edit={`calendar.tTitle.${i}`} data-edit-max="60" className={s.tTitle}>{r[1]}</span>
+                <span data-edit={`calendar.tRoom.${i}`} data-edit-max="60" className={s.tRoom}>{r[2]}</span>
+                <span data-edit={`calendar.tTime.${i}`} data-edit-max="60" className={s.tTime}>{r[3]}</span>
+                <span data-edit={`calendar.tNote.${i}`} data-edit-max="60" className={s.tNote}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -440,17 +452,17 @@ export default function SalzhausPage() {
         {/* ------------------------------------------------------ REPERTOIRE */}
         <section id="repertoire" className={s.repertoire} aria-labelledby="rep-h">
           <div className={s.secHead}>
-            <h2 id="rep-h">Everything, since 2019</h2>
-            <p>Retired pieces stay retired. None of these can be booked.</p>
+            <h2 data-edit="repertoire.h2" data-edit-max="60" id="rep-h">Everything, since 2019</h2>
+            <p data-edit="repertoire.p" data-edit-max="240" data-edit-multiline>Retired pieces stay retired. None of these can be booked.</p>
           </div>
           <ol className={s.table}>
-            {REPERTOIRE.map((r) => (
+            {REPERTOIRE.map((r, i) => (
               <li key={r[1]}>
-                <span className={s.tDate}>{r[0]}</span>
-                <span className={s.tTitle}>{r[1]}</span>
-                <span className={s.tRoom}>{r[2]}</span>
-                <span className={s.tTime}>{r[3]}</span>
-                <span className={s.tNote}>{r[4]}</span>
+                <span data-edit={`repertoire.tDate.${i}`} data-edit-max="60" className={s.tDate}>{r[0]}</span>
+                <span data-edit={`repertoire.tTitle.${i}`} data-edit-max="60" className={s.tTitle}>{r[1]}</span>
+                <span data-edit={`repertoire.tRoom.${i}`} data-edit-max="60" className={s.tRoom}>{r[2]}</span>
+                <span data-edit={`repertoire.tTime.${i}`} data-edit-max="60" className={s.tTime}>{r[3]}</span>
+                <span data-edit={`repertoire.tNote.${i}`} data-edit-max="60" className={s.tNote}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -458,7 +470,7 @@ export default function SalzhausPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,3,4" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={foldback}
               palette={['transparent', GREY, PALE]}
@@ -468,12 +480,12 @@ export default function SalzhausPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="visit-h">Coming to the Salzhaus</h2>
+          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to the Salzhaus</h2>
           <dl className={s.visitList}>
-            {VISIT.map(([k, v]) => (
+            {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -482,11 +494,11 @@ export default function SalzhausPage() {
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <div>
-            <p className={s.contactPre}>Box office</p>
-            <a id="contact-h" className={s.deskTel} href="tel:+41610009090">
+            <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Box office</p>
+            <a data-edit="contact.deskTel" data-edit-max="28" id="contact-h" className={s.deskTel} href="tel:+41610009090">
               +41 61 000 90 90
             </a>
-            <p className={s.contactFine}>
+            <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
               Uferstrasse 90, 4057 Basel. The office answers between 10 and 16,
               and nobody answers during a technical rehearsal, which is most of
               the afternoon before a première.
@@ -494,14 +506,14 @@ export default function SalzhausPage() {
           </div>
           <div>
             <dl className={s.hours}>
-              {HOURS.map(([d, h, shut]) => (
+              {HOURS.map(([d, h, shut], i) => (
                 <div key={d} className={shut ? s.hoursShut : undefined}>
-                  <dt>{d}</dt>
-                  <dd>{h}</dd>
+                  <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{d}</dt>
+                  <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{h}</dd>
                 </div>
               ))}
             </dl>
-            <p className={s.hoursNote}>
+            <p data-edit="contact.hoursNote" data-edit-max="240" data-edit-multiline className={s.hoursNote}>
               Returns go back on sale an hour before curtain, at the hall, for
               cash, to whoever is standing there.
             </p>
@@ -510,7 +522,7 @@ export default function SalzhausPage() {
       </main>
 
       {/* A coda: the pattern at working size, nothing to read. */}
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,4,3,2" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={sheared}
           palette={['transparent', PALE, GREY, RED]}
@@ -523,33 +535,33 @@ export default function SalzhausPage() {
 
       <footer className={s.footer}>
         <ol className={s.footNext} aria-label="Next performances">
-          {NEXT_UP.map(([when, what, tag]) => (
+          {NEXT_UP.map(([when, what, tag], i) => (
             <li key={when}>
-              <span className={s.fnWhen}>{when}</span>
-              <span className={s.fnWhat}>{what}</span>
-              <span className={s.fnTag}>{tag}</span>
+              <span data-edit={`footer.fnWhen.${i}`} data-edit-max="60" className={s.fnWhen}>{when}</span>
+              <span data-edit={`footer.fnWhat.${i}`} data-edit-max="60" className={s.fnWhat}>{what}</span>
+              <span data-edit={`footer.fnTag.${i}`} data-edit-max="60" className={s.fnTag}>{tag}</span>
             </li>
           ))}
         </ol>
         <div className={s.footGrid}>
           <div>
-            <h2>Season</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Season</h2>
             <ul>
-              <li><a href="#season">Six pieces</a></li>
-              <li><a href="#calendar">Autumn dates</a></li>
-              <li><a href="#repertoire">Archive</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#season">Six pieces</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#calendar">Autumn dates</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#repertoire">Archive</a></li>
             </ul>
           </div>
           <div>
-            <h2>Company</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Company</h2>
             <ul>
-              <li><a href="#work">How a piece is made</a></li>
-              <li><a href="#ensemble">The fourteen</a></li>
-              <li><a href="#visit">Access</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#work">How a piece is made</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#ensemble">The fourteen</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Access</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Uferstrasse 90
               <br />
@@ -560,10 +572,10 @@ export default function SalzhausPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional dance company. Dates, prices and people are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional dance company. Dates, prices and people are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

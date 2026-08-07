@@ -187,3 +187,92 @@ test.describe('editable templates', () => {
     expect(problems[0].level).toBe('error');
   });
 });
+
+// The other palette derivation. The 52 bespoke pages each own their custom
+// property names (`--navy`, `--bone`, …) rather than the shared component's,
+// and their annotations were added by a codemod rather than by hand — so the
+// thing worth proving here is that a re-colour reaches a page whose stylesheet
+// never heard of `--brand-0`, and that the codemod's generated slot ids
+// actually find their elements.
+test.describe('editable templates (bespoke page)', () => {
+  const BESPOKE = 'beaufort';
+  const bespokeDir = path.join(REPO_ROOT, 'out', 'downloads', BESPOKE);
+  const bespokeSpecPath = [
+    path.join(REPO_ROOT, 'out', 'editable', `${BESPOKE}.json`),
+    path.join(REPO_ROOT, 'public', 'editable', `${BESPOKE}.json`),
+  ].find((candidate) => fs.existsSync(candidate));
+
+  test.skip(
+    !bespokeSpecPath || !fs.existsSync(ENGINE) || !fs.existsSync(bespokeDir),
+    'run `npm run build` first'
+  );
+
+  test('a vars-derivation page re-colours through its own property names', async ({
+    page,
+  }) => {
+    const spec = JSON.parse(fs.readFileSync(bespokeSpecPath as string, 'utf8'));
+
+    expect(spec.palette.derivation).toBe('vars');
+    expect(spec.palette.varNames.length).toBeGreaterThan(1);
+
+    await serveEngine(page);
+    await page.goto(`/downloads/${BESPOKE}/`);
+
+    const colors = ['#0B2545', '#EEF4ED', '#13A8A8', '#8DA9C4', '#FF7B00'];
+    const result = await page.evaluate(
+      async ([engineUrl, specJson, colorsJson]) => {
+        const module = await import(/* webpackIgnore: true */ engineUrl);
+        const parsed = JSON.parse(specJson);
+
+        return module.applyEdits(document, parsed, {
+          specVersion: parsed.specVersion,
+          slug: parsed.site.slug,
+          edits: {
+            palette: JSON.parse(colorsJson),
+            text: { 'bar.mark': 'Northline Sail Co.' },
+          },
+        });
+      },
+      [
+        `${ENGINE_ORIGIN}/index.js`,
+        JSON.stringify(spec),
+        JSON.stringify(colors),
+      ]
+    );
+
+    expect(result.problems).toEqual([]);
+
+    // The page's own property, not --brand-0, and it actually resolves: the
+    // stylesheet's authored default sits in a class rule, so the inline
+    // property has to win for a re-colour to be visible at all.
+    const ground = await page.evaluate((name) => {
+      const root = document.querySelector('[data-edit-root]') as HTMLElement;
+      return {
+        inline: root.style.getPropertyValue(`--${name}`),
+        computed: getComputedStyle(root).getPropertyValue(`--${name}`),
+      };
+    }, spec.palette.varNames[0]);
+
+    expect(ground.inline.trim()).toBe('#0B2545');
+    expect(ground.computed.trim()).toBe('#0B2545');
+
+    await expect(page.locator('[data-edit="bar.mark"]')).toHaveText(
+      'Northline Sail Co.'
+    );
+
+    // Every field that follows the brand palette moved, and the literal
+    // `transparent` in colour 0 survived — these pages draw their patterns on
+    // the page ground, so filling that slot would black out the section.
+    const palettes = await page
+      .locator('[data-edit-pattern] [data-pattern]')
+      .evaluateAll((nodes) =>
+        nodes.map((node) => node.getAttribute('data-palette') ?? '')
+      );
+
+    expect(palettes.length).toBeGreaterThan(4);
+    for (const palette of palettes) {
+      expect(palette.startsWith('transparent')).toBe(true);
+      expect(palette).toMatch(/#(0B2545|EEF4ED|13A8A8|8DA9C4|FF7B00)/);
+    }
+  });
+});

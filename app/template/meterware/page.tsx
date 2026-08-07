@@ -52,7 +52,19 @@ const NUMBERS = [
 
 export default function MeterwarePage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--ecru': '#efebe1',
+        '--ink': '#14161f',
+        '--indigo': '#2b3fae',
+        '--grey': '#8e8a7e',
+        '--pale': '#dcd7c9',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="ecru,ink,indigo,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -67,17 +79,17 @@ export default function MeterwarePage() {
           <i>Weberei, Vorarlberg</i>
         </a>
         <nav aria-label="Sections">
-          <a href="#book">The book</a>
-          <a href="#house">House rules</a>
-          <a href="#mill">Mill</a>
-          <a href="#order">Order</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#book">The book</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#house">House rules</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#mill">Mill</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#order">Order</a>
         </nav>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={weave}
               palette={['transparent', PALE, GREY]}
@@ -88,15 +100,15 @@ export default function MeterwarePage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Weberei seit 1908 / Bregenzerwald</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Weberei seit 1908 / Bregenzerwald</p>
             <h1>
               Cloth by the metre,
               <br />
               and one metre
               <br />
-              <span>is a real order.</span>
+              <span data-edit="hero.span" data-edit-max="60">is a real order.</span>
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Forty-one qualities, yarn-dyed in the house, woven on looms a
               hundred and fifty centimetres wide because that is the reed.
             </p>
@@ -104,45 +116,45 @@ export default function MeterwarePage() {
         </section>
 
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.meterware-loom"
             slug="meterware-loom"
             alt="A wide industrial loom mid-weave with warp threads stretched under even light"
             priority
           />
-          <figcaption>Loom 4, article 2208. Eleven metres an hour, on a good day.</figcaption>
+          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Loom 4, article 2208. Eleven metres an hour, on a good day.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
-          {NUMBERS.map(([v, k]) => (
+          {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt>{v}</dt>
-              <dd>{k}</dd>
+              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
 
         {/* ----------------------------------------------------------- BOOK */}
         <section id="book" className={s.book} aria-labelledby="book-h">
-          <h2 className={s.h2} id="book-h">
+          <h2 data-edit="book.h2" data-edit-max="60" className={s.h2} id="book-h">
             Six from the book
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span>Art.</span>
-              <span>Quality</span>
-              <span>Composition</span>
-              <span>Weight</span>
-              <span>Width</span>
-              <span>Price</span>
+              <span data-edit="book.span" data-edit-max="60">Art.</span>
+              <span data-edit="book.span2" data-edit-max="60">Quality</span>
+              <span data-edit="book.span3" data-edit-max="60">Composition</span>
+              <span data-edit="book.span4" data-edit-max="60">Weight</span>
+              <span data-edit="book.span5" data-edit-max="60">Width</span>
+              <span data-edit="book.span6" data-edit-max="60">Price</span>
             </li>
-            {QUALITIES.map((q) => (
+            {QUALITIES.map((q, i) => (
               <li key={q.art}>
-                <span className={s.art}>{q.art}</span>
-                <span className={s.qname}>{q.name}</span>
-                <span>{q.comp}</span>
-                <span className={s.num}>{q.weight}</span>
-                <span className={s.num}>{q.width}</span>
-                <span className={s.price}>{q.price}</span>
+                <span data-edit={`book.art.${i}`} data-edit-max="60" className={s.art}>{q.art}</span>
+                <span data-edit={`book.qname.${i}`} data-edit-max="60" className={s.qname}>{q.name}</span>
+                <span data-edit={`book.span7.${i}`} data-edit-max="60">{q.comp}</span>
+                <span data-edit={`book.num.${i}`} data-edit-max="60" className={s.num}>{q.weight}</span>
+                <span data-edit={`book.num2.${i}`} data-edit-max="60" className={s.num}>{q.width}</span>
+                <span data-edit={`book.price.${i}`} data-edit-max="60" className={s.price}>{q.price}</span>
               </li>
             ))}
           </ol>
@@ -150,7 +162,7 @@ export default function MeterwarePage() {
 
         {/* ------------------------------------------------------ WARP BAND */}
         <section className={s.warpBand} aria-hidden="true">
-          <div className={s.warpField}>
+          <div data-edit-pattern="warpBand.field" data-edit-roles="transparent,2,1,3" className={s.warpField}>
             <TabbiedPattern
               pattern={plait}
               palette={['transparent', INDIGO, INK, GREY]}
@@ -164,7 +176,7 @@ export default function MeterwarePage() {
 
         {/* ---------------------------------------------------------- HOUSE */}
         <section id="house" className={s.house} aria-labelledby="house-h">
-          <div className={s.houseField} aria-hidden="true">
+          <div data-edit-pattern="house.field" data-edit-roles="transparent,3,4" className={s.houseField} aria-hidden="true">
             <TabbiedPattern
               pattern={corduroy}
               palette={['transparent', GREY, PALE]}
@@ -175,32 +187,32 @@ export default function MeterwarePage() {
             />
           </div>
           <div className={s.houseInner}>
-            <h2 className={s.h2} id="house-h">
+            <h2 data-edit="house.h2" data-edit-max="60" className={s.h2} id="house-h">
               Four house rules
             </h2>
             <ol className={s.houseList}>
-              {HOUSE.map((h) => (
+              {HOUSE.map((h, i) => (
                 <li key={h.n}>
-                  <span className={s.hN}>{h.n}</span>
-                  <h3>{h.t}</h3>
-                  <p>{h.d}</p>
+                  <span data-edit={`house.hN.${i}`} data-edit-max="60" className={s.hN}>{h.n}</span>
+                  <h3 data-edit={`house.h3.${i}`} data-edit-max="40">{h.t}</h3>
+                  <p data-edit={`house.p.${i}`} data-edit-max="240" data-edit-multiline>{h.d}</p>
                 </li>
               ))}
             </ol>
             <div className={s.pair}>
               <figure>
-                <Figure
+                <Figure editId="photo.meterware-creel"
                   slug="meterware-creel"
                   alt="A warping creel filled with cones of indigo and undyed yarn"
                 />
-                <figcaption>Creel, 384 ends. Set up takes longer than the weaving.</figcaption>
+                <figcaption data-edit="house.figcaption" data-edit-max="120" data-edit-multiline>Creel, 384 ends. Set up takes longer than the weaving.</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.meterware-rolls"
                   slug="meterware-rolls"
                   alt="Rolls of woven cloth stacked on end in a mill store"
                 />
-                <figcaption>The store. Nothing here is dyed after weaving.</figcaption>
+                <figcaption data-edit="house.figcaption2" data-edit-max="120" data-edit-multiline>The store. Nothing here is dyed after weaving.</figcaption>
               </figure>
             </div>
           </div>
@@ -208,22 +220,22 @@ export default function MeterwarePage() {
 
         {/* ----------------------------------------------------------- MILL */}
         <section id="mill" className={s.mill} aria-labelledby="mill-h">
-          <h2 className={s.h2} id="mill-h">
+          <h2 data-edit="mill.h2" data-edit-max="60" className={s.h2} id="mill-h">
             The mill
           </h2>
           <div className={s.millGrid}>
-            <p className={s.big}>
+            <p data-edit="mill.big" data-edit-max="240" data-edit-multiline className={s.big}>
               Six looms, two warping frames, one indigo vat and eleven people,
               three of whom are the grandchildren of people who worked the same
               floor.
             </p>
             <div className={s.millCol}>
-              <p>
+              <p data-edit="mill.p" data-edit-max="240" data-edit-multiline>
                 The building is on the Bregenzerach because the water used to
                 turn the wheel. It now cools the dye house, which is a less
                 romantic job and a more useful one.
               </p>
-              <p>
+              <p data-edit="mill.p2" data-edit-max="240" data-edit-multiline>
                 We sell direct and to about sixty makers. There is no wholesale
                 price and no retail price. There is a price, and it is on the
                 list above.
@@ -231,17 +243,17 @@ export default function MeterwarePage() {
             </div>
           </div>
           <figure className={s.wide}>
-            <Figure
+            <Figure editId="photo.meterware-swatch"
               slug="meterware-swatch"
               alt="An open swatch book of woven cloth samples on a plain table"
             />
-            <figcaption>The book. Posted free anywhere, once, to anyone who asks.</figcaption>
+            <figcaption data-edit="mill.figcaption" data-edit-max="120" data-edit-multiline>The book. Posted free anywhere, once, to anyone who asks.</figcaption>
           </figure>
         </section>
 
         {/* ---------------------------------------------------------- ORDER */}
         <section id="order" className={s.order} aria-labelledby="order-h">
-          <div className={s.orderField} aria-hidden="true">
+          <div data-edit-pattern="order.field" data-edit-roles="transparent,2,3" className={s.orderField} aria-hidden="true">
             <TabbiedPattern
               pattern={damier}
               palette={['transparent', INDIGO, GREY]}
@@ -252,12 +264,12 @@ export default function MeterwarePage() {
             />
           </div>
           <div className={s.orderInner}>
-            <h2 className={s.h2} id="order-h">
+            <h2 data-edit="order.h2" data-edit-max="60" className={s.h2} id="order-h">
               Ordering
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt>Mill</dt>
+                <dt data-edit="order.dt" data-edit-max="28">Mill</dt>
                 <dd>
                   Achstrasse 8
                   <br />
@@ -265,29 +277,29 @@ export default function MeterwarePage() {
                 </dd>
               </div>
               <div>
-                <dt>Write</dt>
+                <dt data-edit="order.dt2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a href="mailto:weberei@meterware.example">weberei@meterware.example</a>
+                  <a data-edit="order.a" data-edit-max="28" href="mailto:weberei@meterware.example">weberei@meterware.example</a>
                 </dd>
               </div>
               <div>
-                <dt>Swatch book</dt>
-                <dd>Free, once per address. Ask by post or by mail.</dd>
+                <dt data-edit="order.dt3" data-edit-max="28">Swatch book</dt>
+                <dd data-edit="order.dd" data-edit-max="200" data-edit-multiline>Free, once per address. Ask by post or by mail.</dd>
               </div>
               <div>
-                <dt>Lead time</dt>
-                <dd>From stock, three days. Woven to order, five weeks.</dd>
+                <dt data-edit="order.dt4" data-edit-max="28">Lead time</dt>
+                <dd data-edit="order.dd2" data-edit-max="200" data-edit-multiline>From stock, three days. Woven to order, five weeks.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three decisions before the loom</h2>
-          <p className={s.secNote}>By the time the shuttle moves, the cloth has already been decided.</p>
+          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three decisions before the loom</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>By the time the shuttle moves, the cloth has already been decided.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={weave}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -303,14 +315,14 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="meterware-tile-cone-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.meterware-tile-cone-cutout" slug="meterware-tile-cone-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The yarn</h3>
-                <p className={s.tileBody}>Count, twist and origin. A high-twist cotton and a low-twist cotton at the same weight make two completely different cloths.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.h3" data-edit-max="40">The yarn</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Count, twist and origin. A high-twist cotton and a low-twist cotton at the same weight make two completely different cloths.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={plait}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -326,14 +338,14 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="meterware-tile-skein-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.meterware-tile-skein-cutout" slug="meterware-tile-skein-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The dye</h3>
-                <p className={s.tileBody}>Yarn dyed, in the house, before warping. It costs more and it is the only way to get an indigo that goes grey rather than patchy.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.h32" data-edit-max="40">The dye</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Yarn dyed, in the house, before warping. It costs more and it is the only way to get an indigo that goes grey rather than patchy.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={thickset}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -349,84 +361,84 @@ export default function MeterwarePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="meterware-tile-cloth-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.meterware-tile-cloth-cutout" slug="meterware-tile-cloth-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>The sett</h3>
-                <p className={s.tileBody}>Ends per centimetre. Too open and it grins; too close and it boards. This is the number that takes the longest to get right.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.h33" data-edit-max="40">The sett</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Ends per centimetre. Too open and it grins; too close and it boards. This is the number that takes the longest to get right.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">Finishing</h2>
-          <p className={s.secNote}>What happens after the loom. Every article is finished the same way every time, which is why repeat orders match.</p>
+          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Finishing</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What happens after the loom. Every article is finished the same way every time, which is why repeat orders match.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Step</span>
-                <span>Method</span>
-                <span>Duration</span>
-                <span>Effect</span>
+                <span data-edit="index.span" data-edit-max="60">Step</span>
+                <span data-edit="index.span2" data-edit-max="60">Method</span>
+                <span data-edit="index.span3" data-edit-max="60">Duration</span>
+                <span data-edit="index.span4" data-edit-max="60">Effect</span>
             </li>
               <li key="Mending">
-                <span>Mending</span>
-                <span>By hand, on a frame</span>
-                <span>2 h per 30 m</span>
-                <span>Faults marked and repaired</span>
+                <span data-edit="index.span5" data-edit-max="60">Mending</span>
+                <span data-edit="index.span6" data-edit-max="60">By hand, on a frame</span>
+                <span data-edit="index.span7" data-edit-max="60">2 h per 30 m</span>
+                <span data-edit="index.span8" data-edit-max="60">Faults marked and repaired</span>
               </li>
               <li key="Scour">
-                <span>Scour</span>
-                <span>Warm, mild</span>
-                <span>40 min</span>
-                <span>Removes size and oil</span>
+                <span data-edit="index.span9" data-edit-max="60">Scour</span>
+                <span data-edit="index.span10" data-edit-max="60">Warm, mild</span>
+                <span data-edit="index.span11" data-edit-max="60">40 min</span>
+                <span data-edit="index.span12" data-edit-max="60">Removes size and oil</span>
               </li>
               <li key="Full">
-                <span>Full</span>
-                <span>Mechanical, wool only</span>
-                <span>20 to 90 min</span>
-                <span>Density and handle</span>
+                <span data-edit="index.span13" data-edit-max="60">Full</span>
+                <span data-edit="index.span14" data-edit-max="60">Mechanical, wool only</span>
+                <span data-edit="index.span15" data-edit-max="60">20 to 90 min</span>
+                <span data-edit="index.span16" data-edit-max="60">Density and handle</span>
               </li>
               <li key="Dry">
-                <span>Dry</span>
-                <span>Frame, no tension</span>
-                <span>12 h</span>
-                <span>Stable width</span>
+                <span data-edit="index.span17" data-edit-max="60">Dry</span>
+                <span data-edit="index.span18" data-edit-max="60">Frame, no tension</span>
+                <span data-edit="index.span19" data-edit-max="60">12 h</span>
+                <span data-edit="index.span20" data-edit-max="60">Stable width</span>
               </li>
               <li key="Press">
-                <span>Press</span>
-                <span>Steam, one pass</span>
-                <span>15 min</span>
-                <span>Surface only</span>
+                <span data-edit="index.span21" data-edit-max="60">Press</span>
+                <span data-edit="index.span22" data-edit-max="60">Steam, one pass</span>
+                <span data-edit="index.span23" data-edit-max="60">15 min</span>
+                <span data-edit="index.span24" data-edit-max="60">Surface only</span>
               </li>
               <li key="Measure">
-                <span>Measure</span>
-                <span>Twice, by two people</span>
-                <span>n/a</span>
-                <span>Printed on the ticket</span>
+                <span data-edit="index.span25" data-edit-max="60">Measure</span>
+                <span data-edit="index.span26" data-edit-max="60">Twice, by two people</span>
+                <span data-edit="index.span27" data-edit-max="60">n/a</span>
+                <span data-edit="index.span28" data-edit-max="60">Printed on the ticket</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Ordering questions</h2>
+          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Ordering questions</h2>
           <dl className={s.faqList}>
               <div key="Will the next roll match">
-                <dt>Will the next roll match?</dt>
-                <dd>Within a batch, yes. Across batches there is a shade difference we will show you before shipping. Order the whole quantity at once if it matters.</dd>
+                <dt data-edit="faq.dt" data-edit-max="28">Will the next roll match?</dt>
+                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Within a batch, yes. Across batches there is a shade difference we will show you before shipping. Order the whole quantity at once if it matters.</dd>
               </div>
               <div key="Do you sell to the trade">
-                <dt>Do you sell to the trade?</dt>
-                <dd>There is no trade price and no retail price. There is a price, and it is the one on the list.</dd>
+                <dt data-edit="faq.dt2" data-edit-max="28">Do you sell to the trade?</dt>
+                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>There is no trade price and no retail price. There is a price, and it is the one on the list.</dd>
               </div>
               <div key="Can you weave my design?">
-                <dt>Can you weave my design?</dt>
-                <dd>Above four hundred metres, yes, on 150 cm. Below that it is our book or another mill, and we will tell you which mill.</dd>
+                <dt data-edit="faq.dt3" data-edit-max="28">Can you weave my design?</dt>
+                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Above four hundred metres, yes, on 150 cm. Below that it is our book or another mill, and we will tell you which mill.</dd>
               </div>
               <div key="Will it shrink?">
-                <dt>Will it shrink?</dt>
-                <dd>Everything is finished before sale, so about one per cent. Wash the sample we send you before you cut forty metres.</dd>
+                <dt data-edit="faq.dt4" data-edit-max="28">Will it shrink?</dt>
+                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Everything is finished before sale, so about one per cent. Wash the sample we send you before you cut forty metres.</dd>
               </div>
           </dl>
         </section>
@@ -437,7 +449,7 @@ export default function MeterwarePage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={quilt}
               palette={['transparent', PALE, GREY]}
@@ -452,39 +464,39 @@ export default function MeterwarePage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Meterware</p>
-            <p className={s.footTag}>Weberei seit 1908, Achstrasse 8, Bezau, Vorarlberg.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Meterware</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Weberei seit 1908, Achstrasse 8, Bezau, Vorarlberg.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Cloth</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Cloth</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#book">Six from the book</a>
+                <a data-edit="footer.a" data-edit-max="28" href="#book">Six from the book</a>
               </li>
               <li>
-                <a href="#house">House rules</a>
+                <a data-edit="footer.a2" data-edit-max="28" href="#house">House rules</a>
               </li>
               <li>
-                <a href="#mill">The mill</a>
+                <a data-edit="footer.a3" data-edit-max="28" href="#mill">The mill</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Ordering</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Ordering</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#order">Ordering</a>
+                <a data-edit="footer.a4" data-edit-max="28" href="#order">Ordering</a>
               </li>
               <li>
-                <a href="#order">Swatch book</a>
+                <a data-edit="footer.a5" data-edit-max="28" href="#order">Swatch book</a>
               </li>
               <li>
-                <a href="#order">Lead times</a>
+                <a data-edit="footer.a6" data-edit-max="28" href="#order">Lead times</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Achstrasse 8
               <br />
@@ -497,10 +509,10 @@ export default function MeterwarePage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional weaving mill. Prices and times are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional weaving mill. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

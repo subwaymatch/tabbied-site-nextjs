@@ -125,7 +125,19 @@ const OFFICES = [
 
 export default function TiefseePage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--water': '#04121a',
+        '--bone': '#e6eef0',
+        '--cyan': '#00d2e0',
+        '--grey': '#5d7480',
+        '--deep': '#0a1f2b',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="water,bone,cyan,grey,deep"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -135,20 +147,20 @@ export default function TiefseePage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Tiefsee</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Tiefsee</a>
         <nav aria-label="Sections">
-          <a href="#zones">Zones</a>
-          <a href="#fleet">Fleet</a>
-          <a href="#cruises">Cruises</a>
-          <a href="#policy">Data</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#zones">Zones</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#fleet">Fleet</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#cruises">Cruises</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#policy">Data</a>
         </nav>
-        <span className={s.now}>Deep-sea programme</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Deep-sea programme</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={dipole}
               palette={['transparent', DEEP, GREY, CYAN]}
@@ -158,18 +170,18 @@ export default function TiefseePage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Deep-sea research / one ship, two vehicles / since 1986</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Deep-sea research / one ship, two vehicles / since 1986</p>
           <h1 className={s.heroType}>
-            <span>Eleven</span>
-            <span>thousand</span>
-            <span className={s.cyan}>metres down.</span>
+            <span data-edit="hero.span" data-edit-max="60">Eleven</span>
+            <span data-edit="hero.span2" data-edit-max="60">thousand</span>
+            <span data-edit="hero.cyan" data-edit-max="60" className={s.cyan}>metres down.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Five zones, a hundred and twenty-eight standing stations, and
               everything we find published inside a year of the ship docking.
             </p>
-            <a className={s.cta} href="#zones">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#zones">
               Go down
             </a>
           </div>
@@ -186,7 +198,7 @@ export default function TiefseePage() {
               className={s.zone}
               style={{ background: `color-mix(in srgb, #000 ${z.shade}%, ${DEEP})` }}
             >
-              <div className={s.zoneField} aria-hidden="true">
+              <div data-edit-pattern={`zone.field.${i}`} data-edit-roles="transparent,2,3,1" className={s.zoneField} aria-hidden="true">
                 <TabbiedPattern
                   pattern={z.art}
                   palette={['transparent', CYAN, GREY, BONE]}
@@ -199,17 +211,17 @@ export default function TiefseePage() {
               <div className={s.zoneInner}>
                 <p className={s.zDepth}>
                   {z.depth}
-                  <span>m</span>
+                  <span data-edit={`zone.span.${i}`} data-edit-max="60">m</span>
                 </p>
                 <div className={s.zBody}>
-                  <h2>{z.name}</h2>
-                  <p className={s.zLatin}>{z.latin}</p>
-                  <p className={s.zText}>{z.body}</p>
+                  <h2 data-edit={`zone.h2.${i}`} data-edit-max="60">{z.name}</h2>
+                  <p data-edit={`zone.zLatin.${i}`} data-edit-max="240" data-edit-multiline className={s.zLatin}>{z.latin}</p>
+                  <p data-edit={`zone.zText.${i}`} data-edit-max="240" data-edit-multiline className={s.zText}>{z.body}</p>
                   <dl className={s.zFacts}>
-                    {z.facts.map(([v, k]) => (
+                    {z.facts.map(([v, k], i2) => (
                       <div key={k}>
-                        <dt>{v}</dt>
-                        <dd>{k}</dd>
+                        <dt data-edit={`zone.dt.${i}.${i2}`} data-edit-max="28">{v}</dt>
+                        <dd data-edit={`zone.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{k}</dd>
                       </div>
                     ))}
                   </dl>
@@ -221,20 +233,20 @@ export default function TiefseePage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             Below a thousand metres there is no seasonality, no daylight and
             almost no data. Four fifths of the living space on this planet is
             down there and we have looked at a fraction of one per cent of it
             with our own eyes.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Tiefsee is a consortium programme: one ship, two crewed and
               uncrewed vehicles, six landers, and a hundred and twenty-eight
               stations that have been reoccupied on the same coordinates since
               1986.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               The oldest of those time-series is now forty years long, which is
               the only reason anybody can say anything at all about whether the
               abyssal plain is changing.
@@ -244,7 +256,7 @@ export default function TiefseePage() {
 
         {/* --------------------------------------------------------- NUMBERS */}
         <section className={s.numbers} aria-label="The programme in numbers">
-          <div className={s.numbersField} aria-hidden="true">
+          <div data-edit-pattern="numbers.field" data-edit-roles="transparent,3,4" className={s.numbersField} aria-hidden="true">
             <TabbiedPattern
               pattern={sandfield}
               palette={['transparent', GREY, DEEP]}
@@ -254,10 +266,10 @@ export default function TiefseePage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          {NUMBERS.map(([v, k]) => (
+          {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <p className={s.nVal}>{v}</p>
-              <p className={s.nKey}>{k}</p>
+              <p data-edit={`numbers.nVal.${i}`} data-edit-max="240" data-edit-multiline className={s.nVal}>{v}</p>
+              <p data-edit={`numbers.nKey.${i}`} data-edit-max="240" data-edit-multiline className={s.nKey}>{k}</p>
             </div>
           ))}
         </section>
@@ -265,17 +277,17 @@ export default function TiefseePage() {
         {/* ----------------------------------------------------------- FLEET */}
         <section id="fleet" className={s.listing} aria-labelledby="fleet-h">
           <div className={s.secHead}>
-            <h2 id="fleet-h">What goes down</h2>
-            <p>One ship, five kinds of vehicle. The landers are the cheapest and have done the most work.</p>
+            <h2 data-edit="fleet.h2" data-edit-max="60" id="fleet-h">What goes down</h2>
+            <p data-edit="fleet.p" data-edit-max="240" data-edit-multiline>One ship, five kinds of vehicle. The landers are the cheapest and have done the most work.</p>
           </div>
           <ol className={s.table}>
-            {FLEET.map((r) => (
+            {FLEET.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tKey}>{r[1]}</span>
-                <span className={s.tMain}>{r[0]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`fleet.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[1]}</span>
+                <span data-edit={`fleet.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[0]}</span>
+                <span data-edit={`fleet.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`fleet.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`fleet.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -283,7 +295,7 @@ export default function TiefseePage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3,1" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={comet}
               palette={['transparent', CYAN, GREY, BONE]}
@@ -294,25 +306,25 @@ export default function TiefseePage() {
             />
           </div>
           <blockquote>
-            <p>We have better maps of Mars. Mars does not have four kilometres of water on top of it.</p>
-            <cite>Dr Salla Vainio, chief scientist</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>We have better maps of Mars. Mars does not have four kilometres of water on top of it.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Dr Salla Vainio, chief scientist</cite>
           </blockquote>
         </section>
 
         {/* --------------------------------------------------------- CRUISES */}
         <section id="cruises" className={s.listing} aria-labelledby="cr-h">
           <div className={s.secHead}>
-            <h2 id="cr-h">Recent cruises</h2>
-            <p>Every one of these has its full dataset online. The number is the cruise, not the year.</p>
+            <h2 data-edit="cruises.h2" data-edit-max="60" id="cr-h">Recent cruises</h2>
+            <p data-edit="cruises.p" data-edit-max="240" data-edit-multiline>Every one of these has its full dataset online. The number is the cruise, not the year.</p>
           </div>
           <ol className={s.table}>
-            {CRUISES.map((r) => (
+            {CRUISES.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[2]}</span>
-                <span className={s.tMid}>{r[1]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`cruises.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`cruises.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[2]}</span>
+                <span data-edit={`cruises.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[1]}</span>
+                <span data-edit={`cruises.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`cruises.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -320,7 +332,7 @@ export default function TiefseePage() {
 
         {/* ---------------------------------------------------------- POLICY */}
         <section id="policy" className={s.policy} aria-labelledby="policy-h">
-          <div className={s.policyField} aria-hidden="true">
+          <div data-edit-pattern="policy.field" data-edit-roles="transparent,3,2" className={s.policyField} aria-hidden="true">
             <TabbiedPattern
               pattern={dustfall}
               palette={['transparent', GREY, CYAN]}
@@ -331,12 +343,12 @@ export default function TiefseePage() {
             />
           </div>
           <div className={s.policyInner}>
-            <h2 id="policy-h">What we do with it</h2>
+            <h2 data-edit="policy.h2" data-edit-max="60" id="policy-h">What we do with it</h2>
             <dl className={s.policyList}>
-              {POLICY.map(([k, v]) => (
+              {POLICY.map(([k, v], i) => (
                 <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
+                  <dt data-edit={`policy.dt.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`policy.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -345,21 +357,21 @@ export default function TiefseePage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Berths, data, collaboration</p>
-          <h2 id="contact-h" className={s.officesHead}>A shore office and two turns</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Berths, data, collaboration</p>
+          <h2 data-edit="contact.officesHead" data-edit-max="60" id="contact-h" className={s.officesHead}>A shore office and two turns</h2>
           <div className={s.officeCols}>
             <ul className={s.offices}>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <li key={o.city}>
-                  <p className={s.oCity}>{o.city}</p>
-                  <p className={s.oRole}>{o.role}</p>
-                  <p className={s.oAddr}>{o.addr}</p>
-                  <p className={s.oFix}>{o.fix}</p>
+                  <p data-edit={`contact.oCity.${i}`} data-edit-max="240" data-edit-multiline className={s.oCity}>{o.city}</p>
+                  <p data-edit={`contact.oRole.${i}`} data-edit-max="240" data-edit-multiline className={s.oRole}>{o.role}</p>
+                  <p data-edit={`contact.oAddr.${i}`} data-edit-max="240" data-edit-multiline className={s.oAddr}>{o.addr}</p>
+                  <p data-edit={`contact.oFix.${i}`} data-edit-max="240" data-edit-multiline className={s.oFix}>{o.fix}</p>
                 </li>
               ))}
             </ul>
             <div className={s.locator} aria-hidden="true">
-              <div className={s.locatorField}>
+              <div data-edit-pattern="contact.field" data-edit-roles="transparent,3,2" className={s.locatorField}>
                 <TabbiedPattern
                   pattern={bowl}
                   palette={['transparent', GREY, CYAN]}
@@ -369,19 +381,19 @@ export default function TiefseePage() {
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <span
                   key={o.city}
                   className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span>{o.city}</span>
+                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
           </div>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             The ship is at sea about two hundred days a year and the shore
             office answers within a week, faster if the request is for data
             that should already be public.
@@ -389,7 +401,7 @@ export default function TiefseePage() {
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,1,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={sparkle}
           palette={['transparent', CYAN, BONE, GREY]}
@@ -406,23 +418,23 @@ export default function TiefseePage() {
         </p>
         <div className={s.footGrid}>
           <div>
-            <h2>Science</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Science</h2>
             <ul>
-              <li><a href="#zones">The five zones</a></li>
-              <li><a href="#cruises">Cruises</a></li>
-              <li><a href="#policy">Data policy</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#zones">The five zones</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#cruises">Cruises</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#policy">Data policy</a></li>
             </ul>
           </div>
           <div>
-            <h2>Programme</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Programme</h2>
             <ul>
-              <li><a href="#fleet">The fleet</a></li>
-              <li><a href="#policy">Berths</a></li>
-              <li><a href="#policy">Imagery</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#fleet">The fleet</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#policy">Berths</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#policy">Imagery</a></li>
             </ul>
           </div>
           <div>
-            <h2>Ashore</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Ashore</h2>
             <p>
               Kaianlage 3
               <br />
@@ -433,10 +445,10 @@ export default function TiefseePage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional research programme. Ships, cruises and figures are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional research programme. Ships, cruises and figures are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

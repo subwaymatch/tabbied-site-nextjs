@@ -97,12 +97,14 @@ export {
   labelFromId,
   parsePaletteRoles,
   parseBrandColors,
+  parseNamedColors,
   FORMAT_ATTRIBUTE,
   MAX_ATTRIBUTE,
   MULTILINE_ATTRIBUTE,
   LABEL_ATTRIBUTE,
   ROLES_ATTRIBUTE,
   FLAT_ATTRIBUTE,
+  VARS_ATTRIBUTE,
 } from './extract.js';
 
 export type {

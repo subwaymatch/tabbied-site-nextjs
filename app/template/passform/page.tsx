@@ -52,7 +52,19 @@ const NUMBERS = [
 
 export default function PassformPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--linen': '#f5f1ea',
+        '--ink': '#191512',
+        '--rust': '#c1440e',
+        '--grey': '#9a9086',
+        '--pale': '#e5dfd4',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="linen,ink,rust,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -62,22 +74,22 @@ export default function PassformPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Passform
         </a>
         <nav aria-label="Sections">
-          <a href="#how">How</a>
-          <a href="#cloth">Cloth</a>
-          <a href="#prices">Prices</a>
-          <a href="#bench">Bench</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#how">How</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#cloth">Cloth</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#prices">Prices</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#bench">Bench</a>
         </nav>
-        <span className={s.since}>Maßschneiderei seit 1972</span>
+        <span data-edit="bar.since" data-edit-max="60" className={s.since}>Maßschneiderei seit 1972</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={stitch}
               palette={['transparent', PALE, GREY]}
@@ -88,15 +100,15 @@ export default function PassformPage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Hamburg / Neuer Wall 44, Hinterhof</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Hamburg / Neuer Wall 44, Hinterhof</p>
             <h1>
               A pattern drawn
               <br />
               once and kept
               <br />
-              <span>for the rest of it.</span>
+              <span data-edit="hero.span" data-edit-max="60">for the rest of it.</span>
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Bespoke, cut by hand, four fittings. Sixty-two hours the first
               time and forty every time after, because the hard part is already
               on paper with your name on it.
@@ -105,61 +117,61 @@ export default function PassformPage() {
         </section>
 
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.passform-table"
             slug="passform-table"
             alt="A long tailor's cutting table covered with brown paper pattern pieces, shears and chalk"
             priority
           />
-          <figcaption>Bench 1. The pattern for a coat begun in 1996 and altered eleven times.</figcaption>
+          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Bench 1. The pattern for a coat begun in 1996 and altered eleven times.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
-          {NUMBERS.map(([v, k]) => (
+          {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt>{v}</dt>
-              <dd>{k}</dd>
+              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
 
         {/* ------------------------------------------------------------ HOW */}
         <section id="how" className={s.how} aria-labelledby="how-h">
-          <h2 className={s.h2} id="how-h">
+          <h2 data-edit="how.h2" data-edit-max="60" className={s.h2} id="how-h">
             Five stages
           </h2>
           <ol className={s.stages}>
-            {STAGES.map((x) => (
+            {STAGES.map((x, i) => (
               <li key={x.n}>
-                <span className={s.stN}>{x.n}</span>
+                <span data-edit={`how.stN.${i}`} data-edit-max="60" className={s.stN}>{x.n}</span>
                 <div>
-                  <h3>{x.t}</h3>
-                  <p>{x.d}</p>
+                  <h3 data-edit={`how.h3.${i}`} data-edit-max="40">{x.t}</h3>
+                  <p data-edit={`how.p.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
                 </div>
-                <span className={s.stHrs}>{x.hrs}</span>
+                <span data-edit={`how.stHrs.${i}`} data-edit-max="60" className={s.stHrs}>{x.hrs}</span>
               </li>
             ))}
           </ol>
           <div className={s.pair}>
             <figure>
-              <Figure
+              <Figure editId="photo.passform-stand"
                 slug="passform-stand"
                 alt="A half-made jacket in canvas basted onto a tailor's dress stand"
               />
-              <figcaption>Stage III. White thread, on purpose.</figcaption>
+              <figcaption data-edit="how.figcaption" data-edit-max="120" data-edit-multiline>Stage III. White thread, on purpose.</figcaption>
             </figure>
             <figure>
-              <Figure
+              <Figure editId="photo.passform-chalk"
                 slug="passform-chalk"
                 alt="A close view of chalk marks and basting stitches on dark wool cloth"
               />
-              <figcaption>Chalk survives one pressing. Say what you mean the first time.</figcaption>
+              <figcaption data-edit="how.figcaption2" data-edit-max="120" data-edit-multiline>Chalk survives one pressing. Say what you mean the first time.</figcaption>
             </figure>
           </div>
         </section>
 
         {/* ------------------------------------------------------ WEAVE BAND */}
         <section className={s.weaveBand} aria-hidden="true">
-          <div className={s.weaveField}>
+          <div data-edit-pattern="weaveBand.field" data-edit-roles="transparent,1,2,3" className={s.weaveField}>
             <TabbiedPattern
               pattern={damier}
               palette={['transparent', INK, RUST, GREY]}
@@ -173,7 +185,7 @@ export default function PassformPage() {
 
         {/* ---------------------------------------------------------- CLOTH */}
         <section id="cloth" className={s.cloth} aria-labelledby="cloth-h">
-          <div className={s.clothField} aria-hidden="true">
+          <div data-edit-pattern="cloth.field" data-edit-roles="transparent,3,4" className={s.clothField} aria-hidden="true">
             <TabbiedPattern
               pattern={bias}
               palette={['transparent', GREY, PALE]}
@@ -184,70 +196,70 @@ export default function PassformPage() {
             />
           </div>
           <div className={s.clothInner}>
-            <h2 className={s.h2} id="cloth-h">
+            <h2 data-edit="cloth.h2" data-edit-max="60" className={s.h2} id="cloth-h">
               Cloth we keep on the shelf
             </h2>
-            <p className={s.note}>
+            <p data-edit="cloth.note" data-edit-max="240" data-edit-multiline className={s.note}>
               About four hundred lengths in the room, and a merchant two streets
               away for everything else. We will talk you out of anything under
               nine ounces for a first suit.
             </p>
             <ol className={s.clothList}>
-              {CLOTHS.map(([name, from, note]) => (
+              {CLOTHS.map(([name, from, note], i) => (
                 <li key={name}>
-                  <span className={s.cName}>{name}</span>
-                  <span className={s.cFrom}>{from}</span>
-                  <span className={s.cNote}>{note}</span>
+                  <span data-edit={`cloth.cName.${i}`} data-edit-max="60" className={s.cName}>{name}</span>
+                  <span data-edit={`cloth.cFrom.${i}`} data-edit-max="60" className={s.cFrom}>{from}</span>
+                  <span data-edit={`cloth.cNote.${i}`} data-edit-max="60" className={s.cNote}>{note}</span>
                 </li>
               ))}
             </ol>
             <figure className={s.wide}>
-              <Figure
+              <Figure editId="photo.passform-threads"
                 slug="passform-threads"
                 alt="A wall of thread spools arranged by shade in a tailoring workroom"
               />
-              <figcaption>Silk thread, arranged by shade because the light changes.</figcaption>
+              <figcaption data-edit="cloth.figcaption" data-edit-max="120" data-edit-multiline>Silk thread, arranged by shade because the light changes.</figcaption>
             </figure>
           </div>
         </section>
 
         {/* --------------------------------------------------------- PRICES */}
         <section id="prices" className={s.prices} aria-labelledby="prices-h">
-          <h2 className={s.h2} id="prices-h">
+          <h2 data-edit="prices.h2" data-edit-max="60" className={s.h2} id="prices-h">
             Prices
           </h2>
           <ol className={s.priceList}>
             <li>
-              <span>Two-piece suit</span>
-              <span className={s.pFrom}>from €4,600</span>
-              <span className={s.pNote}>62 hours, four fittings, pattern kept</span>
+              <span data-edit="prices.span" data-edit-max="60">Two-piece suit</span>
+              <span data-edit="prices.pFrom" data-edit-max="60" className={s.pFrom}>from €4,600</span>
+              <span data-edit="prices.pNote" data-edit-max="60" className={s.pNote}>62 hours, four fittings, pattern kept</span>
             </li>
             <li>
-              <span>Repeat order</span>
-              <span className={s.pFrom}>from €3,400</span>
-              <span className={s.pNote}>40 hours, two fittings, same pattern</span>
+              <span data-edit="prices.span2" data-edit-max="60">Repeat order</span>
+              <span data-edit="prices.pFrom2" data-edit-max="60" className={s.pFrom}>from €3,400</span>
+              <span data-edit="prices.pNote2" data-edit-max="60" className={s.pNote}>40 hours, two fittings, same pattern</span>
             </li>
             <li>
-              <span>Jacket alone</span>
-              <span className={s.pFrom}>from €3,200</span>
-              <span className={s.pNote}>44 hours, three fittings</span>
+              <span data-edit="prices.span3" data-edit-max="60">Jacket alone</span>
+              <span data-edit="prices.pFrom3" data-edit-max="60" className={s.pFrom}>from €3,200</span>
+              <span data-edit="prices.pNote3" data-edit-max="60" className={s.pNote}>44 hours, three fittings</span>
             </li>
             <li>
-              <span>Overcoat</span>
-              <span className={s.pFrom}>from €5,100</span>
-              <span className={s.pNote}>70 hours, four fittings</span>
+              <span data-edit="prices.span4" data-edit-max="60">Overcoat</span>
+              <span data-edit="prices.pFrom4" data-edit-max="60" className={s.pFrom}>from €5,100</span>
+              <span data-edit="prices.pNote4" data-edit-max="60" className={s.pNote}>70 hours, four fittings</span>
             </li>
             <li>
-              <span>Alterations, our work</span>
-              <span className={s.pFrom}>free, forever</span>
-              <span className={s.pNote}>Bodies change. The pattern is still here.</span>
+              <span data-edit="prices.span5" data-edit-max="60">Alterations, our work</span>
+              <span data-edit="prices.pFrom5" data-edit-max="60" className={s.pFrom}>free, forever</span>
+              <span data-edit="prices.pNote5" data-edit-max="60" className={s.pNote}>Bodies change. The pattern is still here.</span>
             </li>
           </ol>
         </section>
 
         {/* ---------------------------------------------------------- BENCH */}
         <section id="bench" className={s.bench} aria-labelledby="bench-h">
-          <div className={s.benchField} aria-hidden="true">
+          <div data-edit-pattern="bench.field" data-edit-roles="transparent,2,3" className={s.benchField} aria-hidden="true">
             <TabbiedPattern
               pattern={taper}
               palette={['transparent', RUST, GREY]}
@@ -258,12 +270,12 @@ export default function PassformPage() {
             />
           </div>
           <div className={s.benchInner}>
-            <h2 className={s.h2} id="bench-h">
+            <h2 data-edit="bench.h2" data-edit-max="60" className={s.h2} id="bench-h">
               Come and be measured
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt>Workroom</dt>
+                <dt data-edit="bench.dt" data-edit-max="28">Workroom</dt>
                 <dd>
                   Neuer Wall 44, Hinterhof
                   <br />
@@ -271,29 +283,29 @@ export default function PassformPage() {
                 </dd>
               </div>
               <div>
-                <dt>Write</dt>
+                <dt data-edit="bench.dt2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a href="mailto:mass@passform.example">mass@passform.example</a>
+                  <a data-edit="bench.a" data-edit-max="28" href="mailto:mass@passform.example">mass@passform.example</a>
                 </dd>
               </div>
               <div>
-                <dt>Appointments</dt>
-                <dd>Tue to Fri. Allow two hours for the first.</dd>
+                <dt data-edit="bench.dt3" data-edit-max="28">Appointments</dt>
+                <dd data-edit="bench.dd" data-edit-max="200" data-edit-multiline>Tue to Fri. Allow two hours for the first.</dd>
               </div>
               <div>
-                <dt>Waiting list</dt>
-                <dd>Fourteen weeks to the first fitting.</dd>
+                <dt data-edit="bench.dt4" data-edit-max="28">Waiting list</dt>
+                <dd data-edit="bench.dd2" data-edit-max="200" data-edit-multiline>Fourteen weeks to the first fitting.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three things a machine cannot do</h2>
-          <p className={s.secNote}>Not romance. Three specific operations that decide whether a coat hangs.</p>
+          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three things a machine cannot do</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Not romance. Three specific operations that decide whether a coat hangs.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={damier}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -309,14 +321,14 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="passform-tile-hanger-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.passform-tile-hanger-cutout" slug="passform-tile-hanger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The shoulder</h3>
-                <p className={s.tileBody}>Pad stitched by hand so the canvas and the cloth move independently. A fused shoulder is flat on the hanger and flat on you.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.h3" data-edit-max="40">The shoulder</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Pad stitched by hand so the canvas and the cloth move independently. A fused shoulder is flat on the hanger and flat on you.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={bias}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -332,14 +344,14 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="passform-tile-canvas-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.passform-tile-canvas-cutout" slug="passform-tile-canvas-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The canvas</h3>
-                <p className={s.tileBody}>Floating, not glued. It takes the shape of your chest over about a year, which is a feature and cannot be simulated.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.h32" data-edit-max="40">The canvas</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Floating, not glued. It takes the shape of your chest over about a year, which is a feature and cannot be simulated.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={corduroy}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -355,84 +367,84 @@ export default function PassformPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="passform-tile-tape-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.passform-tile-tape-cutout" slug="passform-tile-tape-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>The second fitting</h3>
-                <p className={s.tileBody}>Where the coat stops being a size and starts being yours. Nothing measured at the start survives it unchanged.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.h33" data-edit-max="40">The second fitting</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Where the coat stops being a size and starts being yours. Nothing measured at the start survives it unchanged.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">What we make besides suits</h2>
-          <p className={s.secNote}>Same bench, same pattern, smaller commitment. All prices before cloth.</p>
+          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">What we make besides suits</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Same bench, same pattern, smaller commitment. All prices before cloth.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Garment</span>
-                <span>Hours</span>
-                <span>Fittings</span>
-                <span>From</span>
+                <span data-edit="index.span" data-edit-max="60">Garment</span>
+                <span data-edit="index.span2" data-edit-max="60">Hours</span>
+                <span data-edit="index.span3" data-edit-max="60">Fittings</span>
+                <span data-edit="index.span4" data-edit-max="60">From</span>
             </li>
               <li key="Overcoat">
-                <span>Overcoat</span>
-                <span>70</span>
-                <span>4</span>
-                <span>€5,100</span>
+                <span data-edit="index.span5" data-edit-max="60">Overcoat</span>
+                <span data-edit="index.span6" data-edit-max="60">70</span>
+                <span data-edit="index.span7" data-edit-max="60">4</span>
+                <span data-edit="index.span8" data-edit-max="60">€5,100</span>
               </li>
               <li key="Odd jacket">
-                <span>Odd jacket</span>
-                <span>44</span>
-                <span>3</span>
-                <span>€3,200</span>
+                <span data-edit="index.span9" data-edit-max="60">Odd jacket</span>
+                <span data-edit="index.span10" data-edit-max="60">44</span>
+                <span data-edit="index.span11" data-edit-max="60">3</span>
+                <span data-edit="index.span12" data-edit-max="60">€3,200</span>
               </li>
               <li key="Trousers, alone">
-                <span>Trousers, alone</span>
-                <span>16</span>
-                <span>2</span>
-                <span>€1,150</span>
+                <span data-edit="index.span13" data-edit-max="60">Trousers, alone</span>
+                <span data-edit="index.span14" data-edit-max="60">16</span>
+                <span data-edit="index.span15" data-edit-max="60">2</span>
+                <span data-edit="index.span16" data-edit-max="60">€1,150</span>
               </li>
               <li key="Waistcoat">
-                <span>Waistcoat</span>
-                <span>14</span>
-                <span>2</span>
-                <span>€980</span>
+                <span data-edit="index.span17" data-edit-max="60">Waistcoat</span>
+                <span data-edit="index.span18" data-edit-max="60">14</span>
+                <span data-edit="index.span19" data-edit-max="60">2</span>
+                <span data-edit="index.span20" data-edit-max="60">€980</span>
               </li>
               <li key="Dinner suit">
-                <span>Dinner suit</span>
-                <span>68</span>
-                <span>4</span>
-                <span>€5,400</span>
+                <span data-edit="index.span21" data-edit-max="60">Dinner suit</span>
+                <span data-edit="index.span22" data-edit-max="60">68</span>
+                <span data-edit="index.span23" data-edit-max="60">4</span>
+                <span data-edit="index.span24" data-edit-max="60">€5,400</span>
               </li>
               <li key="Alteration, our work">
-                <span>Alteration, our work</span>
-                <span>n/a</span>
-                <span>As needed</span>
-                <span>Free</span>
+                <span data-edit="index.span25" data-edit-max="60">Alteration, our work</span>
+                <span data-edit="index.span26" data-edit-max="60">n/a</span>
+                <span data-edit="index.span27" data-edit-max="60">As needed</span>
+                <span data-edit="index.span28" data-edit-max="60">Free</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Before your first appointment</h2>
+          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Before your first appointment</h2>
           <dl className={s.faqList}>
               <div key="What should I bring?">
-                <dt>What should I bring?</dt>
-                <dd>The shoes you will wear with it, and a jacket you already like, even if you like it for reasons you cannot articulate. Especially then.</dd>
+                <dt data-edit="faq.dt" data-edit-max="28">What should I bring?</dt>
+                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>The shoes you will wear with it, and a jacket you already like, even if you like it for reasons you cannot articulate. Especially then.</dd>
               </div>
               <div key="How long does it take?">
-                <dt>How long does it take?</dt>
-                <dd>Fourteen weeks to the first fitting, and about six months to delivery. Repeat orders are half that because the pattern already exists.</dd>
+                <dt data-edit="faq.dt2" data-edit-max="28">How long does it take?</dt>
+                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Fourteen weeks to the first fitting, and about six months to delivery. Repeat orders are half that because the pattern already exists.</dd>
               </div>
               <div key="Can I supply my own clot">
-                <dt>Can I supply my own cloth?</dt>
-                <dd>Yes, and we will tell you honestly if it is not enough or not suitable. Three and a half metres for a two-piece, more if it has a check.</dd>
+                <dt data-edit="faq.dt3" data-edit-max="28">Can I supply my own cloth?</dt>
+                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Yes, and we will tell you honestly if it is not enough or not suitable. Three and a half metres for a two-piece, more if it has a check.</dd>
               </div>
               <div key="What if I change shape?">
-                <dt>What if I change shape?</dt>
-                <dd>We alter our own work free, for as long as the garment lasts. Bodies change; the pattern is still in the drawer.</dd>
+                <dt data-edit="faq.dt4" data-edit-max="28">What if I change shape?</dt>
+                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>We alter our own work free, for as long as the garment lasts. Bodies change; the pattern is still in the drawer.</dd>
               </div>
           </dl>
         </section>
@@ -443,7 +455,7 @@ export default function PassformPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={dogtooth}
               palette={['transparent', PALE, GREY]}
@@ -458,39 +470,39 @@ export default function PassformPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Passform</p>
-            <p className={s.footTag}>Maßschneiderei, Neuer Wall 44, Hamburg, seit 1972.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Passform</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Maßschneiderei, Neuer Wall 44, Hamburg, seit 1972.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Making</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Making</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#how">Five stages</a>
+                <a data-edit="footer.a" data-edit-max="28" href="#how">Five stages</a>
               </li>
               <li>
-                <a href="#cloth">Cloth on the shelf</a>
+                <a data-edit="footer.a2" data-edit-max="28" href="#cloth">Cloth on the shelf</a>
               </li>
               <li>
-                <a href="#prices">Prices</a>
+                <a data-edit="footer.a3" data-edit-max="28" href="#prices">Prices</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Customers</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Customers</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#bench">Be measured</a>
+                <a data-edit="footer.a4" data-edit-max="28" href="#bench">Be measured</a>
               </li>
               <li>
-                <a href="#prices">Alterations</a>
+                <a data-edit="footer.a5" data-edit-max="28" href="#prices">Alterations</a>
               </li>
               <li>
-                <a href="#bench">Waiting list</a>
+                <a data-edit="footer.a6" data-edit-max="28" href="#bench">Waiting list</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Neuer Wall 44, Hinterhof
               <br />
@@ -503,10 +515,10 @@ export default function PassformPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional tailoring house. Prices and times are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional tailoring house. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

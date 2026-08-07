@@ -143,7 +143,19 @@ const VISIT = [
 
 export default function ZwoelftonPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--night': '#0b0b0f',
+        '--bone': '#efeee7',
+        '--acid': '#e8ff00',
+        '--grey': '#6d6d66',
+        '--deep': '#22222a',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="night,bone,acid,grey,deep"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -153,20 +165,20 @@ export default function ZwoelftonPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Zwölfton</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Zwölfton</a>
         <nav aria-label="Sections">
-          <a href="#season">Season</a>
-          <a href="#players">Players</a>
-          <a href="#commissions">Commissions</a>
-          <a href="#records">Records</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#season">Season</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#players">Players</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#commissions">Commissions</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#records">Records</a>
         </nav>
-        <span className={s.now}>Wien / 26–27</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Wien / 26–27</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={raking}
               palette={['transparent', DEEP, GREY, ACID]}
@@ -176,17 +188,17 @@ export default function ZwoelftonPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Ensemble for new music / Vienna / twelve players</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Ensemble for new music / Vienna / twelve players</p>
           <h1 className={s.heroType}>
-            <span>Zwölf</span>
-            <span className={s.acid}>ton</span>
+            <span data-edit="hero.span" data-edit-max="60">Zwölf</span>
+            <span data-edit="hero.acid" data-edit-max="60" className={s.acid}>ton</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Music written in the last five years, played by twelve people who
               can hear each other, with nobody standing at the front.
             </p>
-            <a className={s.cta} href="#season">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#season">
               Season 26 / 27
             </a>
           </div>
@@ -198,7 +210,7 @@ export default function ZwoelftonPage() {
         <section className={s.row} aria-label="The house tone row">
           {ROW.map((n, i) => (
             <div key={n} className={s.rowCell}>
-              <div className={s.rowField} aria-hidden="true">
+              <div data-edit-pattern={`row.field.${i}`} className={s.rowField} aria-hidden="true">
                 <TabbiedPattern
                   pattern={reedpen}
                   palette={['transparent', i % 4 === 0 ? ACID : GREY, DEEP]}
@@ -208,15 +220,15 @@ export default function ZwoelftonPage() {
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>
-              <span className={s.rowPc}>{n}</span>
-              <span className={s.rowPitch}>{PITCHES[i]}</span>
+              <span data-edit={`row.rowPc.${i}`} data-edit-max="60" className={s.rowPc}>{n}</span>
+              <span data-edit={`row.rowPitch.${i}`} data-edit-max="60" className={s.rowPitch}>{PITCHES[i]}</span>
             </div>
           ))}
         </section>
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             A row is only an order. It tells you what comes next and nothing at
             all about how loud, how long, or whether anybody should enjoy it.
             We have taken that as a working method rather than a style.
@@ -228,22 +240,22 @@ export default function ZwoelftonPage() {
             an inversion, on purpose: a concert is a night before it is a name. */}
         <section id="season" className={s.season} aria-labelledby="season-h">
           <div className={s.secHead}>
-            <h2 id="season-h">Six nights</h2>
-            <p>Season 26 / 27. Two of them are somewhere other than the Konzerthaus.</p>
+            <h2 data-edit="season.h2" data-edit-max="60" id="season-h">Six nights</h2>
+            <p data-edit="season.p" data-edit-max="240" data-edit-multiline>Season 26 / 27. Two of them are somewhere other than the Konzerthaus.</p>
           </div>
           <ol className={s.nights}>
-            {CONCERTS.map((c) => (
+            {CONCERTS.map((c, i) => (
               <li key={c.date}>
                 <p className={s.nDate}>
                   {c.date}
-                  <span>{c.year}</span>
+                  <span data-edit={`season.span.${i}`} data-edit-max="60">{c.year}</span>
                 </p>
                 <div className={s.nBody}>
-                  <h3>{c.title}</h3>
-                  <p className={s.nWorks}>{c.works}</p>
-                  <p className={s.nRoom}>{c.room}</p>
+                  <h3 data-edit={`season.h3.${i}`} data-edit-max="40">{c.title}</h3>
+                  <p data-edit={`season.nWorks.${i}`} data-edit-max="240" data-edit-multiline className={s.nWorks}>{c.works}</p>
+                  <p data-edit={`season.nRoom.${i}`} data-edit-max="240" data-edit-multiline className={s.nRoom}>{c.room}</p>
                 </div>
-                {c.tag ? <span className={s.nTag}>{c.tag}</span> : <span />}
+                {c.tag ? <span data-edit={`season.nTag.${i}`} data-edit-max="60" className={s.nTag}>{c.tag}</span> : <span />}
               </li>
             ))}
           </ol>
@@ -252,13 +264,13 @@ export default function ZwoelftonPage() {
         {/* ------------------------------------------------------------ RULES */}
         <section className={s.rules} aria-labelledby="rules-h">
           <div className={s.secHead}>
-            <h2 id="rules-h">Three rules</h2>
-            <p>Agreed in 2019, tested every season, still standing.</p>
+            <h2 data-edit="rules.h2" data-edit-max="60" id="rules-h">Three rules</h2>
+            <p data-edit="rules.p" data-edit-max="240" data-edit-multiline>Agreed in 2019, tested every season, still standing.</p>
           </div>
           <div className={s.rGrid}>
-            {RULES.map((r) => (
+            {RULES.map((r, i) => (
               <article key={r.n}>
-                <div className={s.rPlate} aria-hidden="true">
+                <div data-edit-pattern={`rules.field.${i}`} data-edit-roles="transparent,4,2" className={s.rPlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={r.art}
                     palette={['transparent', DEEP, ACID]}
@@ -268,9 +280,9 @@ export default function ZwoelftonPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.rN}>{r.n}</p>
-                <h3>{r.t}</h3>
-                <p className={s.rBody}>{r.d}</p>
+                <p data-edit={`rules.rN.${i}`} data-edit-max="240" data-edit-multiline className={s.rN}>{r.n}</p>
+                <h3 data-edit={`rules.h3.${i}`} data-edit-max="40">{r.t}</h3>
+                <p data-edit={`rules.rBody.${i}`} data-edit-max="240" data-edit-multiline className={s.rBody}>{r.d}</p>
               </article>
             ))}
           </div>
@@ -278,7 +290,7 @@ export default function ZwoelftonPage() {
 
         {/* ---------------------------------------------------------- PLAYERS */}
         <section id="players" className={s.players} aria-labelledby="players-h">
-          <div className={s.playersField} aria-hidden="true">
+          <div data-edit-pattern="players.field" data-edit-roles="transparent,4,3" className={s.playersField} aria-hidden="true">
             <TabbiedPattern
               pattern={parity}
               palette={['transparent', DEEP, GREY]}
@@ -290,15 +302,15 @@ export default function ZwoelftonPage() {
           </div>
           <div className={s.playersInner}>
             <div className={s.secHead}>
-              <h2 id="players-h">Twelve</h2>
-              <p>Fixed personnel. Substitutes are named on the night, on the door, in the same size type.</p>
+              <h2 data-edit="players.h2" data-edit-max="60" id="players-h">Twelve</h2>
+              <p data-edit="players.p" data-edit-max="240" data-edit-multiline>Fixed personnel. Substitutes are named on the night, on the door, in the same size type.</p>
             </div>
             <ol className={s.playerList}>
               {PLAYERS.map(([inst, name], i) => (
                 <li key={inst}>
                   <span className={s.pIdx}>{String(i + 1).padStart(2, '0')}</span>
-                  <span className={s.pName}>{name}</span>
-                  <span className={s.pInst}>{inst}</span>
+                  <span data-edit={`players.pName.${i}`} data-edit-max="60" className={s.pName}>{name}</span>
+                  <span data-edit={`players.pInst.${i}`} data-edit-max="60" className={s.pInst}>{inst}</span>
                 </li>
               ))}
             </ol>
@@ -307,7 +319,7 @@ export default function ZwoelftonPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={subside}
               palette={['transparent', ACID, GREY]}
@@ -318,25 +330,25 @@ export default function ZwoelftonPage() {
             />
           </div>
           <blockquote>
-            <p>Twelve people is the largest group that can still argue properly.</p>
-            <cite>Vera Lindqvist, piano, on why the ensemble never grew</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>Twelve people is the largest group that can still argue properly.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Vera Lindqvist, piano, on why the ensemble never grew</cite>
           </blockquote>
         </section>
 
         {/* ------------------------------------------------------ COMMISSIONS */}
         <section id="commissions" className={s.listing} aria-labelledby="comm-h">
           <div className={s.secHead}>
-            <h2 id="comm-h">Everything we asked for</h2>
-            <p>Every commission since the first season, including the ones nobody plays now.</p>
+            <h2 data-edit="commissions.h2" data-edit-max="60" id="comm-h">Everything we asked for</h2>
+            <p data-edit="commissions.p" data-edit-max="240" data-edit-multiline>Every commission since the first season, including the ones nobody plays now.</p>
           </div>
           <ol className={s.table}>
-            {COMMISSIONS.map((r) => (
+            {COMMISSIONS.map((r, i) => (
               <li key={r[1] + r[2]}>
-                <span className={s.tYear}>{r[0]}</span>
-                <span className={s.tWho}>{r[1]}</span>
-                <span className={s.tWhat}>{r[2]}</span>
-                <span className={s.tForce}>{r[3]}</span>
-                <span className={s.tNote}>{r[4]}</span>
+                <span data-edit={`commissions.tYear.${i}`} data-edit-max="60" className={s.tYear}>{r[0]}</span>
+                <span data-edit={`commissions.tWho.${i}`} data-edit-max="60" className={s.tWho}>{r[1]}</span>
+                <span data-edit={`commissions.tWhat.${i}`} data-edit-max="60" className={s.tWhat}>{r[2]}</span>
+                <span data-edit={`commissions.tForce.${i}`} data-edit-max="60" className={s.tForce}>{r[3]}</span>
+                <span data-edit={`commissions.tNote.${i}`} data-edit-max="60" className={s.tNote}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -345,17 +357,17 @@ export default function ZwoelftonPage() {
         {/* ---------------------------------------------------------- RECORDS */}
         <section id="records" className={s.listing} aria-labelledby="rec-h">
           <div className={s.secHead}>
-            <h2 id="rec-h">On record</h2>
-            <p>Our own label, pressed in runs of five hundred, never repressed.</p>
+            <h2 data-edit="records.h2" data-edit-max="60" id="rec-h">On record</h2>
+            <p data-edit="records.p" data-edit-max="240" data-edit-multiline>Our own label, pressed in runs of five hundred, never repressed.</p>
           </div>
           <ol className={s.table}>
-            {RECORDS.map((r) => (
+            {RECORDS.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tYear}>{r[0]}</span>
-                <span className={s.tWho}>{r[1]}</span>
-                <span className={s.tWhat}>{r[2]}</span>
-                <span className={s.tForce}>{r[3]}</span>
-                <span className={s.tNote}>{r[4]}</span>
+                <span data-edit={`records.tYear.${i}`} data-edit-max="60" className={s.tYear}>{r[0]}</span>
+                <span data-edit={`records.tWho.${i}`} data-edit-max="60" className={s.tWho}>{r[1]}</span>
+                <span data-edit={`records.tWhat.${i}`} data-edit-max="60" className={s.tWhat}>{r[2]}</span>
+                <span data-edit={`records.tForce.${i}`} data-edit-max="60" className={s.tForce}>{r[3]}</span>
+                <span data-edit={`records.tNote.${i}`} data-edit-max="60" className={s.tNote}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -364,24 +376,24 @@ export default function ZwoelftonPage() {
         {/* -------------------------------------------------------- WORKSHOP */}
         <section id="workshop" className={s.workshop} aria-labelledby="workshop-h">
           <span className={s.sideLabel} aria-hidden="true">Probe / Werkstatt</span>
-          <h2 id="workshop-h">What a rehearsal week looks like</h2>
+          <h2 data-edit="workshop.h2" data-edit-max="60" id="workshop-h">What a rehearsal week looks like</h2>
           <div className={s.wCols}>
-            <p className={s.lead}>
+            <p data-edit="workshop.lead" data-edit-max="240" data-edit-multiline className={s.lead}>
               Four days on a piece nobody has heard, and the first of them is
               spent reading it out loud, badly, all the way through.
             </p>
             <div>
-              <p>
+              <p data-edit="workshop.p" data-edit-max="240" data-edit-multiline>
                 Day one is a read-through with no stopping. It is unpleasant and
                 it is the only time the whole shape of a piece is audible before
                 we have opinions about the bars.
               </p>
-              <p>
+              <p data-edit="workshop.p2" data-edit-max="240" data-edit-multiline>
                 Day two is sections, day three is the composer's day, and on day
                 four we play it twice with a stopwatch and pick the take that was
                 worse but more alive.
               </p>
-              <p>
+              <p data-edit="workshop.p3" data-edit-max="240" data-edit-multiline>
                 Anybody can call a halt. In practice it is the percussionist,
                 because she is the only one who can see everyone.
               </p>
@@ -391,7 +403,7 @@ export default function ZwoelftonPage() {
 
         {/* ------------------------------------------------------------ VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,3,4" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={stepramp}
               palette={['transparent', GREY, DEEP]}
@@ -401,12 +413,12 @@ export default function ZwoelftonPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="visit-h">Coming to hear it</h2>
+          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to hear it</h2>
           <dl className={s.visitList}>
-            {VISIT.map(([k, v]) => (
+            {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -414,18 +426,18 @@ export default function ZwoelftonPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section className={s.contact}>
-          <p className={s.contactPre}>Scores, invitations, complaints</p>
-          <a className={s.contactMail} href="mailto:reihe@zwoelfton.example">
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Scores, invitations, complaints</p>
+          <a data-edit="contact.contactMail" data-edit-max="28" className={s.contactMail} href="mailto:reihe@zwoelfton.example">
             reihe@zwoelfton.example
           </a>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Ungargasse 14/2, 1030 Wien. We read every score that arrives and
             answer in about six weeks, which is slow and honest.
           </p>
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,3,4,2" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={seamband}
           palette={['transparent', GREY, DEEP, ACID]}
@@ -437,26 +449,26 @@ export default function ZwoelftonPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>12</p>
+        <p data-edit="footer.footMark" data-edit-max="240" data-edit-multiline className={s.footMark}>12</p>
         <div className={s.footGrid}>
           <div>
-            <h2>Season</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Season</h2>
             <ul>
-              <li><a href="#season">Six nights</a></li>
-              <li><a href="#commissions">Commissions</a></li>
-              <li><a href="#records">On record</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#season">Six nights</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#commissions">Commissions</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#records">On record</a></li>
             </ul>
           </div>
           <div>
-            <h2>Ensemble</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Ensemble</h2>
             <ul>
-              <li><a href="#players">Twelve players</a></li>
-              <li><a href="#workshop">Rehearsal week</a></li>
-              <li><a href="#visit">Tickets</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#players">Twelve players</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#workshop">Rehearsal week</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Tickets</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Ungargasse 14/2
               <br />
@@ -467,10 +479,10 @@ export default function ZwoelftonPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional ensemble. Composers, dates and catalogue numbers are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional ensemble. Composers, dates and catalogue numbers are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

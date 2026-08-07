@@ -16,6 +16,7 @@
     "typecheck:worker": "tsc -p worker/tsconfig.json",
     "llms": "node scripts/generate-llms.mjs",
     "editable": "node scripts/generate-editable.mjs",
+    "annotate:templates": "node scripts/annotate-templates.mjs",
     "templates": "node scripts/package-templates.mjs",
     "build:images": "node scripts/build-image-manifest.mjs",
     "check:thumbnails": "node scripts/check-gallery-thumbnails.mjs",
@@ -46,6 +47,7 @@
     "tabbied-templates": "*"
   },
   "devDependencies": {
+    "@babel/parser": "^8.0.4",
     "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.31.1",
     "@cloudflare/workers-types": "^5.20260801.1",

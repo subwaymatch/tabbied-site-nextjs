@@ -60,7 +60,19 @@ const FACTS = [
 
 export default function SecondePage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--paper': '#f7f7f5',
+        '--ink': '#101010',
+        '--magenta': '#ff0059',
+        '--grey': '#8e8e8e',
+        '--pale': '#d6d6d2',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,magenta,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -70,22 +82,22 @@ export default function SecondePage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Seconde
         </a>
         <nav aria-label="Sections">
-          <a href="#systems">Systems</a>
-          <a href="#results">Results</a>
-          <a href="#season">Season</a>
-          <a href="#book">Book</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#systems">Systems</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#results">Results</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#season">Season</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#book">Book</a>
         </nav>
-        <span className={s.clock}>Chronométrage sportif</span>
+        <span data-edit="bar.clock" data-edit-max="60" className={s.clock}>Chronométrage sportif</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={fadedbar}
               palette={['transparent', PALE, MAGENTA]}
@@ -96,15 +108,15 @@ export default function SecondePage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Lausanne / depuis 1991</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Lausanne / depuis 1991</p>
             <h1>
               The result exists
               <br />
               before the crowd
               <br />
-              <span>finishes shouting.</span>
+              <span data-edit="hero.span" data-edit-max="60">finishes shouting.</span>
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We time races to one ten-thousandth of a second and publish inside
               four. Thirty-five seasons, no result ever withdrawn.
             </p>
@@ -114,7 +126,7 @@ export default function SecondePage() {
         {/* Full-bleed, and deliberately the tallest thing on the page: the
             finish line down the lanes, cropped to a long strip. */}
         <figure className={s.strip}>
-          <Figure
+          <Figure editId="photo.seconde-gate"
             slug="seconde-gate"
             alt="A photo-finish timing gate at the end of an empty athletics track seen down the lanes"
             priority
@@ -122,52 +134,52 @@ export default function SecondePage() {
         </figure>
 
         <dl className={s.facts}>
-          {FACTS.map(([v, k]) => (
+          {FACTS.map(([v, k], i) => (
             <div key={k}>
-              <dt>{v}</dt>
-              <dd>{k}</dd>
+              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
 
         {/* ------------------------------------------------------- SYSTEMS */}
         <section id="systems" className={s.systems} aria-labelledby="systems-h">
-          <h2 className={s.h2} id="systems-h">
+          <h2 data-edit="systems.h2" data-edit-max="60" className={s.h2} id="systems-h">
             Four systems
           </h2>
           <ol className={s.sysList}>
-            {SYSTEMS.map((x) => (
+            {SYSTEMS.map((x, i) => (
               <li key={x.code}>
-                <span className={s.sysCode}>{x.code}</span>
+                <span data-edit={`systems.sysCode.${i}`} data-edit-max="60" className={s.sysCode}>{x.code}</span>
                 <div>
-                  <h3>{x.name}</h3>
-                  <p>{x.body}</p>
+                  <h3 data-edit={`systems.h3.${i}`} data-edit-max="40">{x.name}</h3>
+                  <p data-edit={`systems.p.${i}`} data-edit-max="240" data-edit-multiline>{x.body}</p>
                 </div>
-                <span className={s.sysRes}>{x.res}</span>
+                <span data-edit={`systems.sysRes.${i}`} data-edit-max="60" className={s.sysRes}>{x.res}</span>
               </li>
             ))}
           </ol>
           <div className={s.pair}>
             <figure>
-              <Figure
+              <Figure editId="photo.seconde-console"
                 slug="seconde-console"
                 alt="A timing console with cables and a small screen on a folding table beside a track"
               />
-              <figcaption>Console 2, trackside. Two operators, one kettle.</figcaption>
+              <figcaption data-edit="systems.figcaption" data-edit-max="120" data-edit-multiline>Console 2, trackside. Two operators, one kettle.</figcaption>
             </figure>
             <figure>
-              <Figure
+              <Figure editId="photo.seconde-lane"
                 slug="seconde-lane"
                 alt="A close overhead view of painted lane numbers on a running track surface"
               />
-              <figcaption>Lane 4, surveyed to 0.2 mm before every meeting.</figcaption>
+              <figcaption data-edit="systems.figcaption2" data-edit-max="120" data-edit-multiline>Lane 4, surveyed to 0.2 mm before every meeting.</figcaption>
             </figure>
           </div>
         </section>
 
         {/* ------------------------------------------------------ LANE BAND */}
         <section className={s.laneBand} aria-hidden="true">
-          <div className={s.laneField}>
+          <div data-edit-pattern="laneBand.field" data-edit-roles="transparent,2,1,3" className={s.laneField}>
             <TabbiedPattern
               pattern={tailoff}
               palette={['transparent', MAGENTA, INK, GREY]}
@@ -181,7 +193,7 @@ export default function SecondePage() {
 
         {/* ------------------------------------------------------- RESULTS */}
         <section id="results" className={s.results} aria-labelledby="results-h">
-          <div className={s.resField} aria-hidden="true">
+          <div data-edit-pattern="results.field" data-edit-roles="transparent,4,3" className={s.resField} aria-hidden="true">
             <TabbiedPattern
               pattern={taper}
               palette={['transparent', PALE, GREY]}
@@ -192,21 +204,21 @@ export default function SecondePage() {
             />
           </div>
           <div className={s.resInner}>
-            <h2 className={s.h2} id="results-h">
+            <h2 data-edit="results.h2" data-edit-max="60" className={s.h2} id="results-h">
               100 m women, final
             </h2>
-            <p className={s.note}>
+            <p data-edit="results.note" data-edit-max="240" data-edit-multiline className={s.note}>
               Meeting de Lausanne, 18.04.2026, 19:42. Wind +0.4 m/s. Times
               official four seconds after the last athlete crossed.
             </p>
             <ol className={s.table}>
-              {RESULTS.map((r) => (
+              {RESULTS.map((r, i) => (
                 <li key={r.pos}>
-                  <span className={s.pos}>{r.pos}</span>
-                  <span className={s.athlete}>{r.name}</span>
-                  <span className={s.club}>{r.club}</span>
-                  <span className={s.time}>{r.time}</span>
-                  <span className={s.gap}>{r.gap}</span>
+                  <span data-edit={`results.pos.${i}`} data-edit-max="60" className={s.pos}>{r.pos}</span>
+                  <span data-edit={`results.athlete.${i}`} data-edit-max="60" className={s.athlete}>{r.name}</span>
+                  <span data-edit={`results.club.${i}`} data-edit-max="60" className={s.club}>{r.club}</span>
+                  <span data-edit={`results.time.${i}`} data-edit-max="60" className={s.time}>{r.time}</span>
+                  <span data-edit={`results.gap.${i}`} data-edit-max="60" className={s.gap}>{r.gap}</span>
                 </li>
               ))}
             </ol>
@@ -215,31 +227,31 @@ export default function SecondePage() {
 
         {/* -------------------------------------------------------- SEASON */}
         <section id="season" className={s.season} aria-labelledby="season-h">
-          <h2 className={s.h2} id="season-h">
+          <h2 data-edit="season.h2" data-edit-max="60" className={s.h2} id="season-h">
             Season 2026
           </h2>
           <ol className={s.dates}>
-            {SEASON.map(([d, name, kind, place]) => (
+            {SEASON.map(([d, name, kind, place], i) => (
               <li key={name}>
-                <span className={s.dDate}>{d}</span>
-                <span className={s.dName}>{name}</span>
-                <span className={s.dKind}>{kind}</span>
-                <span className={s.dPlace}>{place}</span>
+                <span data-edit={`season.dDate.${i}`} data-edit-max="60" className={s.dDate}>{d}</span>
+                <span data-edit={`season.dName.${i}`} data-edit-max="60" className={s.dName}>{name}</span>
+                <span data-edit={`season.dKind.${i}`} data-edit-max="60" className={s.dKind}>{kind}</span>
+                <span data-edit={`season.dPlace.${i}`} data-edit-max="60" className={s.dPlace}>{place}</span>
               </li>
             ))}
           </ol>
           <figure className={s.wide}>
-            <Figure
+            <Figure editId="photo.seconde-board"
               slug="seconde-board"
               alt="A large blank stadium scoreboard against an overcast sky seen from below"
             />
-            <figcaption>The board waits. It is the only part of the job that does.</figcaption>
+            <figcaption data-edit="season.figcaption" data-edit-max="120" data-edit-multiline>The board waits. It is the only part of the job that does.</figcaption>
           </figure>
         </section>
 
         {/* ---------------------------------------------------------- BOOK */}
         <section id="book" className={s.book} aria-labelledby="book-h">
-          <div className={s.bookField} aria-hidden="true">
+          <div data-edit-pattern="book.field" data-edit-roles="transparent,2,3" className={s.bookField} aria-hidden="true">
             <TabbiedPattern
               pattern={dotset}
               palette={['transparent', MAGENTA, GREY]}
@@ -250,24 +262,24 @@ export default function SecondePage() {
             />
           </div>
           <div className={s.bookInner}>
-            <h2 className={s.h2} id="book-h">
+            <h2 data-edit="book.h2" data-edit-max="60" className={s.h2} id="book-h">
               Book the timing
             </h2>
             <div className={s.bookGrid}>
-              <p className={s.big}>
+              <p data-edit="book.big" data-edit-max="240" data-edit-multiline className={s.big}>
                 Tell us the discipline, the field size and the date. We reply
                 with a crew, a rate and the list of things your venue needs to
                 have flat.
               </p>
               <dl>
                 <div>
-                  <dt>Write</dt>
+                  <dt data-edit="book.dt" data-edit-max="28">Write</dt>
                   <dd>
-                    <a href="mailto:chrono@seconde.example">chrono@seconde.example</a>
+                    <a data-edit="book.a" data-edit-max="28" href="mailto:chrono@seconde.example">chrono@seconde.example</a>
                   </dd>
                 </div>
                 <div>
-                  <dt>Office</dt>
+                  <dt data-edit="book.dt2" data-edit-max="28">Office</dt>
                   <dd>
                     Avenue de Rhodanie 12
                     <br />
@@ -275,12 +287,12 @@ export default function SecondePage() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Day rate</dt>
-                  <dd>From CHF 2,400, crew of three, all systems</dd>
+                  <dt data-edit="book.dt3" data-edit-max="28">Day rate</dt>
+                  <dd data-edit="book.dd" data-edit-max="200" data-edit-multiline>From CHF 2,400, crew of three, all systems</dd>
                 </div>
                 <div>
-                  <dt>Notice</dt>
-                  <dd>Six weeks. Four if the surface is already surveyed.</dd>
+                  <dt data-edit="book.dt4" data-edit-max="28">Notice</dt>
+                  <dd data-edit="book.dd2" data-edit-max="200" data-edit-multiline>Six weeks. Four if the surface is already surveyed.</dd>
                 </div>
               </dl>
             </div>
@@ -288,11 +300,11 @@ export default function SecondePage() {
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Where a hundredth actually goes</h2>
-          <p className={s.secNote}>Three places a result is won or lost before anybody runs.</p>
+          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Where a hundredth actually goes</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Three places a result is won or lost before anybody runs.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotmatrix}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -308,14 +320,14 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="seconde-tile-watch-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.seconde-tile-watch-cutout" slug="seconde-tile-watch-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The finish plane</h3>
-                <p className={s.tileBody}>Levelled to 0.2 mm over eight metres. A finish line that is two millimetres out of plumb is worth more than most tailwinds.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.h3" data-edit-max="40">The finish plane</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Levelled to 0.2 mm over eight metres. A finish line that is two millimetres out of plumb is worth more than most tailwinds.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ring}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -331,14 +343,14 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="seconde-tile-block-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.seconde-tile-block-cutout" slug="seconde-tile-block-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The start</h3>
-                <p className={s.tileBody}>Force-sensing blocks at 1 kHz. We keep the trace for every start, contested or not, and hand it over on request.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.h32" data-edit-max="40">The start</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Force-sensing blocks at 1 kHz. We keep the trace for every start, contested or not, and hand it over on request.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={fadedbar}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -354,84 +366,84 @@ export default function SecondePage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="seconde-tile-chip-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.seconde-tile-chip-cutout" slug="seconde-tile-chip-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>Synchronisation</h3>
-                <p className={s.tileBody}>One clock, distributed by cable, never by wireless. Two clocks agreeing is not the same as one clock being right.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.h33" data-edit-max="40">Synchronisation</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>One clock, distributed by cable, never by wireless. Two clocks agreeing is not the same as one clock being right.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">What we bring</h2>
-          <p className={s.secNote}>One van, two crew, and the list below. Venues supply power and a flat place to put it.</p>
+          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">What we bring</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>One van, two crew, and the list below. Venues supply power and a flat place to put it.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Item</span>
-                <span>Count</span>
-                <span>Detail</span>
-                <span>Weight</span>
+                <span data-edit="index.span" data-edit-max="60">Item</span>
+                <span data-edit="index.span2" data-edit-max="60">Count</span>
+                <span data-edit="index.span3" data-edit-max="60">Detail</span>
+                <span data-edit="index.span4" data-edit-max="60">Weight</span>
             </li>
               <li key="Line-scan camera">
-                <span>Line-scan camera</span>
-                <span>2</span>
-                <span>10 000 fps, twin plane</span>
-                <span>14 kg</span>
+                <span data-edit="index.span5" data-edit-max="60">Line-scan camera</span>
+                <span data-edit="index.span6" data-edit-max="60">2</span>
+                <span data-edit="index.span7" data-edit-max="60">10 000 fps, twin plane</span>
+                <span data-edit="index.span8" data-edit-max="60">14 kg</span>
               </li>
               <li key="Timing console">
-                <span>Timing console</span>
-                <span>2</span>
-                <span>Primary and hot spare</span>
-                <span>22 kg</span>
+                <span data-edit="index.span9" data-edit-max="60">Timing console</span>
+                <span data-edit="index.span10" data-edit-max="60">2</span>
+                <span data-edit="index.span11" data-edit-max="60">Primary and hot spare</span>
+                <span data-edit="index.span12" data-edit-max="60">22 kg</span>
               </li>
               <li key="Start blocks, sensing">
-                <span>Start blocks, sensing</span>
-                <span>8</span>
-                <span>1 kHz force trace</span>
-                <span>96 kg</span>
+                <span data-edit="index.span13" data-edit-max="60">Start blocks, sensing</span>
+                <span data-edit="index.span14" data-edit-max="60">8</span>
+                <span data-edit="index.span15" data-edit-max="60">1 kHz force trace</span>
+                <span data-edit="index.span16" data-edit-max="60">96 kg</span>
               </li>
               <li key="Transponder loops">
-                <span>Transponder loops</span>
-                <span>6</span>
-                <span>Surface or buried</span>
-                <span>40 kg</span>
+                <span data-edit="index.span17" data-edit-max="60">Transponder loops</span>
+                <span data-edit="index.span18" data-edit-max="60">6</span>
+                <span data-edit="index.span19" data-edit-max="60">Surface or buried</span>
+                <span data-edit="index.span20" data-edit-max="60">40 kg</span>
               </li>
               <li key="Light gates">
-                <span>Light gates</span>
-                <span>12</span>
-                <span>Twin beam</span>
-                <span>18 kg</span>
+                <span data-edit="index.span21" data-edit-max="60">Light gates</span>
+                <span data-edit="index.span22" data-edit-max="60">12</span>
+                <span data-edit="index.span23" data-edit-max="60">Twin beam</span>
+                <span data-edit="index.span24" data-edit-max="60">18 kg</span>
               </li>
               <li key="Cable, distribution">
-                <span>Cable, distribution</span>
-                <span>1 200 m</span>
-                <span>Fibre and copper</span>
-                <span>140 kg</span>
+                <span data-edit="index.span25" data-edit-max="60">Cable, distribution</span>
+                <span data-edit="index.span26" data-edit-max="60">1 200 m</span>
+                <span data-edit="index.span27" data-edit-max="60">Fibre and copper</span>
+                <span data-edit="index.span28" data-edit-max="60">140 kg</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Asked by organisers</h2>
+          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Asked by organisers</h2>
           <dl className={s.faqList}>
               <div key="How long do you need on ">
-                <dt>How long do you need on site?</dt>
-                <dd>Half a day before the first event for a track, a full day for a road course. Most of it is surveying the finish, not plugging things in.</dd>
+                <dt data-edit="faq.dt" data-edit-max="28">How long do you need on site?</dt>
+                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Half a day before the first event for a track, a full day for a road course. Most of it is surveying the finish, not plugging things in.</dd>
               </div>
               <div key="Can we use our own score">
-                <dt>Can we use our own scoreboard?</dt>
-                <dd>Yes, if it speaks a protocol from this century. We will test it the day before, not on the morning.</dd>
+                <dt data-edit="faq.dt2" data-edit-max="28">Can we use our own scoreboard?</dt>
+                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Yes, if it speaks a protocol from this century. We will test it the day before, not on the morning.</dd>
               </div>
               <div key="What happens if a system">
-                <dt>What happens if a system fails?</dt>
-                <dd>Two of everything, hot. The photo finish and the transponders are independent chains, so losing one never loses the meeting.</dd>
+                <dt data-edit="faq.dt3" data-edit-max="28">What happens if a system fails?</dt>
+                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Two of everything, hot. The photo finish and the transponders are independent chains, so losing one never loses the meeting.</dd>
               </div>
               <div key="Do you publish results y">
-                <dt>Do you publish results yourselves?</dt>
-                <dd>To your board and your feed, four seconds after the last athlete. What happens after that is your press officer, not us.</dd>
+                <dt data-edit="faq.dt4" data-edit-max="28">Do you publish results yourselves?</dt>
+                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>To your board and your feed, four seconds after the last athlete. What happens after that is your press officer, not us.</dd>
               </div>
           </dl>
         </section>
@@ -442,7 +454,7 @@ export default function SecondePage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={hairpin}
               palette={['transparent', PALE, GREY]}
@@ -457,39 +469,39 @@ export default function SecondePage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Seconde</p>
-            <p className={s.footTag}>Chronométrage sportif, Avenue de Rhodanie 12, Lausanne, depuis 1991.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Seconde</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Chronométrage sportif, Avenue de Rhodanie 12, Lausanne, depuis 1991.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Timing</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Timing</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#systems">Four systems</a>
+                <a data-edit="footer.a" data-edit-max="28" href="#systems">Four systems</a>
               </li>
               <li>
-                <a href="#results">Live results</a>
+                <a data-edit="footer.a2" data-edit-max="28" href="#results">Live results</a>
               </li>
               <li>
-                <a href="#season">Season 2026</a>
+                <a data-edit="footer.a3" data-edit-max="28" href="#season">Season 2026</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Organisers</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Organisers</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#book">Book the timing</a>
+                <a data-edit="footer.a4" data-edit-max="28" href="#book">Book the timing</a>
               </li>
               <li>
-                <a href="#book">Day rates</a>
+                <a data-edit="footer.a5" data-edit-max="28" href="#book">Day rates</a>
               </li>
               <li>
-                <a href="#systems">Start detection</a>
+                <a data-edit="footer.a6" data-edit-max="28" href="#systems">Start detection</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Avenue de Rhodanie 12
               <br />
@@ -502,10 +514,10 @@ export default function SecondePage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional timing company. Prices and times are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional timing company. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

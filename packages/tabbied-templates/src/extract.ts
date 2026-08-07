@@ -37,6 +37,8 @@ export const MULTILINE_ATTRIBUTE = 'data-edit-multiline';
 export const LABEL_ATTRIBUTE = 'data-edit-label';
 export const ROLES_ATTRIBUTE = 'data-edit-roles';
 export const FLAT_ATTRIBUTE = 'data-edit-flat';
+/** `vars` roots only: the page's own custom-property names, in role order. */
+export const VARS_ATTRIBUTE = 'data-edit-vars';
 
 export type ExtractOptions = {
   /**
@@ -291,6 +293,8 @@ function patternSlotFrom(
 export type ExtractedRoot = {
   derivation: PaletteDerivation;
   flatSections?: boolean;
+  /** `vars` roots: the property names role 0 upward write to. */
+  varNames?: string[];
   /**
    * The brand palette, read back off the root's inline `--brand-*` properties.
    *
@@ -309,6 +313,27 @@ export type ExtractResult = {
   /** Annotations that named nothing usable — the build gate reports these. */
   problems: string[];
 };
+
+/** Read named custom properties out of an inline style, in the order asked. */
+export function parseNamedColors(
+  style: string,
+  names: readonly string[]
+): string[] {
+  const colors: string[] = [];
+
+  for (const name of names) {
+    const match = new RegExp(`--${name}\\s*:\\s*([^;]+)`).exec(style);
+
+    // Stop at the first name the page does not actually set: a gap would
+    // renumber every role after it, so role 2 in a saved edits document would
+    // land on a different colour than the page it was made from.
+    if (!match) break;
+
+    colors.push(match[1].trim());
+  }
+
+  return colors;
+}
 
 /** `--brand-0:#F5F1E8;--brand-1:#2E2A25` -> the ordered palette. */
 export function parseBrandColors(style: string): string[] {
@@ -358,12 +383,24 @@ export function extractFromHtml(
 
     if (attribute === EDIT_ROOT_ATTRIBUTE) {
       const derivation: PaletteDerivation =
-        id === 'templateSite' ? 'templateSite' : 'direct';
+        id === 'templateSite' || id === 'vars' ? id : 'direct';
+      const style = attributes['style'] ?? '';
+      const varNames =
+        derivation === 'vars'
+          ? (attributes[VARS_ATTRIBUTE] ?? '')
+              .split(',')
+              .map((name) => name.trim())
+              .filter((name) => name.length > 0)
+          : [];
 
       root = {
         derivation,
         ...(FLAT_ATTRIBUTE in attributes ? { flatSections: true } : {}),
-        colors: parseBrandColors(attributes['style'] ?? ''),
+        ...(derivation === 'vars' ? { varNames } : {}),
+        colors:
+          derivation === 'vars'
+            ? parseNamedColors(style, varNames)
+            : parseBrandColors(style),
       };
       continue;
     }

@@ -116,7 +116,20 @@ export default function IsobarPage() {
   const hi = Math.max(...NORMALS.map(([, v]) => Number(v)));
 
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--paper': '#e9edf0',
+        '--ink': '#0d1418',
+        '--violet': '#6b2be0',
+        '--grey': '#7c8792',
+        '--pale': '#d3dae1',
+        '--white': '#f7f9fa',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,violet,grey,pale,white"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -126,20 +139,20 @@ export default function IsobarPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Isobar</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Isobar</a>
         <nav aria-label="Sections">
-          <a href="#forecast">Forecast</a>
-          <a href="#warnings">Warnings</a>
-          <a href="#stations">Stations</a>
-          <a href="#climate">Climate</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#forecast">Forecast</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#warnings">Warnings</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#stations">Stations</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#climate">Climate</a>
         </nav>
-        <span className={s.now}>Meteorologisk / Bergen</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Meteorologisk / Bergen</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={annulus}
               palette={['transparent', PALE, GREY, VIOLET]}
@@ -149,17 +162,17 @@ export default function IsobarPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Meteorological service / the west coast / since 1867</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Meteorological service / the west coast / since 1867</p>
           <h1 className={s.heroType}>
-            <span>988</span>
-            <span className={s.violet}>hPa</span>
+            <span data-edit="hero.span" data-edit-max="60">988</span>
+            <span data-edit="hero.violet" data-edit-max="60" className={s.violet}>hPa</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Falling. A deep low crossing on Saturday, sixty-two stations
               watching it, and a forecast that will tell you how sure it is.
             </p>
-            <a className={s.cta} href="#forecast">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#forecast">
               Seven days
             </a>
           </div>
@@ -170,15 +183,15 @@ export default function IsobarPage() {
             confidence is drawn as the height of a violet foot, so the row
             can be read as a chart before it is read as a table. */}
         <section id="forecast" className={s.week} aria-label="Seven day forecast">
-          {DAYS.map((d) => (
+          {DAYS.map((d, i) => (
             <div key={d.d} className={s.day}>
-              <p className={s.dName}>{d.d}</p>
+              <p data-edit={`forecast.dName.${i}`} data-edit-max="240" data-edit-multiline className={s.dName}>{d.d}</p>
               <p className={s.dTemp}>
                 {d.t}
-                <span>°</span>
+                <span data-edit={`forecast.span.${i}`} data-edit-max="60">°</span>
               </p>
               <p className={s.dLo}>{d.lo}° overnight</p>
-              <p className={s.dW}>{d.w}</p>
+              <p data-edit={`forecast.dW.${i}`} data-edit-max="240" data-edit-multiline className={s.dW}>{d.w}</p>
               <p className={s.dP}>{d.p} hPa</p>
               <div className={s.dConf} aria-hidden="true">
                 <div style={{ height: `${d.c}%` }} />
@@ -190,18 +203,18 @@ export default function IsobarPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             The useful part of a forecast is not the number. It is how far the
             fifty runs of the model disagreed with each other, and we have
             published that on the front page since 1994.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Isobar is the regional meteorological service for the western
               seaboard. It keeps sixty-two stations, eleven of them still read
               by hand at six in the morning, and an archive going back to 1867.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               Everything the service produces is free to use, including the
               observations, the model output and the mistakes, which are
               catalogued in the same archive as everything else.
@@ -212,13 +225,13 @@ export default function IsobarPage() {
         {/* ---------------------------------------------------------- METHOD */}
         <section id="method" className={s.method} aria-labelledby="method-h">
           <div className={s.secHead}>
-            <h2 id="method-h">How a forecast is made</h2>
-            <p>Three steps, and the third is the one that took a reorganisation to get right.</p>
+            <h2 data-edit="method.h2" data-edit-max="60" id="method-h">How a forecast is made</h2>
+            <p data-edit="method.p" data-edit-max="240" data-edit-multiline>Three steps, and the third is the one that took a reorganisation to get right.</p>
           </div>
           <div className={s.mGrid}>
-            {METHOD.map((m) => (
+            {METHOD.map((m, i) => (
               <article key={m.n}>
-                <div className={s.mPlate} aria-hidden="true">
+                <div data-edit-pattern={`method.field.${i}`} data-edit-roles="transparent,3,2" className={s.mPlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={m.art}
                     palette={['transparent', GREY, VIOLET]}
@@ -228,16 +241,16 @@ export default function IsobarPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.mN}>{m.n}</p>
-                <h3>{m.t}</h3>
-                <p className={s.mBody}>{m.d}</p>
+                <p data-edit={`method.mN.${i}`} data-edit-max="240" data-edit-multiline className={s.mN}>{m.n}</p>
+                <h3 data-edit={`method.h3.${i}`} data-edit-max="40">{m.t}</h3>
+                <p data-edit={`method.mBody.${i}`} data-edit-max="240" data-edit-multiline className={s.mBody}>{m.d}</p>
               </article>
             ))}
           </div>
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,4,3" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={rimband}
             palette={['transparent', VIOLET, PALE, GREY]}
@@ -251,17 +264,17 @@ export default function IsobarPage() {
         {/* -------------------------------------------------------- WARNINGS */}
         <section id="warnings" className={s.listing} aria-labelledby="warn-h">
           <div className={s.secHead}>
-            <h2 id="warn-h">In force this week</h2>
-            <p>Colour is severity. The percentage is how likely the event is, not how bad it will be.</p>
+            <h2 data-edit="warnings.h2" data-edit-max="60" id="warn-h">In force this week</h2>
+            <p data-edit="warnings.p" data-edit-max="240" data-edit-multiline>Colour is severity. The percentage is how likely the event is, not how bad it will be.</p>
           </div>
           <ol className={s.table}>
             {WARNINGS.map((r, i) => (
               <li key={i}>
-                <span className={s.tLevel} data-level={r[0].toLowerCase()}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`warnings.tLevel.${i}`} data-edit-max="60" className={s.tLevel} data-level={r[0].toLowerCase()}>{r[0]}</span>
+                <span data-edit={`warnings.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`warnings.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`warnings.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`warnings.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -272,11 +285,11 @@ export default function IsobarPage() {
             axis, which is all a normal needs. */}
         <section id="climate" className={s.climate} aria-labelledby="climate-h">
           <div className={s.secHead}>
-            <h2 id="climate-h">The 1991–2020 normal</h2>
-            <p>Mean temperature by month at the city station, in degrees. The tint is the number.</p>
+            <h2 data-edit="climate.h2" data-edit-max="60" id="climate-h">The 1991–2020 normal</h2>
+            <p data-edit="climate.p" data-edit-max="240" data-edit-multiline>Mean temperature by month at the city station, in degrees. The tint is the number.</p>
           </div>
           <div className={s.strip}>
-            {NORMALS.map(([m, v]) => {
+            {NORMALS.map(([m, v], i) => {
               const k = (Number(v) - lo) / (hi - lo);
               // Mixed against the pale, not against transparent: an opaque
               // swatch is the only way the label's contrast is predictable.
@@ -290,7 +303,7 @@ export default function IsobarPage() {
                   <span className={s.stripV} style={{ color: dark ? '#fff' : INK }}>
                     {Number(v).toFixed(1)}
                   </span>
-                  <span
+                  <span data-edit={`climate.stripK.${i}`} data-edit-max="60"
                     className={s.stripK}
                     style={{ color: dark ? 'rgb(255 255 255 / 0.78)' : 'rgb(13 20 24 / 0.55)' }}
                   >
@@ -301,10 +314,10 @@ export default function IsobarPage() {
             })}
           </div>
           <dl className={s.records}>
-            {RECORDS.map(([v, k]) => (
+            {RECORDS.map(([v, k], i) => (
               <div key={k}>
-                <dt>{v}</dt>
-                <dd>{k}</dd>
+                <dt data-edit={`climate.dt.${i}`} data-edit-max="28">{v}</dt>
+                <dd data-edit={`climate.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
               </div>
             ))}
           </dl>
@@ -312,7 +325,7 @@ export default function IsobarPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={softedge}
               palette={['transparent', VIOLET, GREY]}
@@ -323,25 +336,25 @@ export default function IsobarPage() {
             />
           </div>
           <blockquote>
-            <p>A forecast that is right and was lucky is worth less than one that was wrong and said so.</p>
-            <cite>Ingrid Hovden, chief forecaster</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A forecast that is right and was lucky is worth less than one that was wrong and said so.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Ingrid Hovden, chief forecaster</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- STATIONS */}
         <section id="stations" className={s.listing} aria-labelledby="st-h">
           <div className={s.secHead}>
-            <h2 id="st-h">Sixty-two stations</h2>
-            <p>Fourteen of the long-running ones. Every reading any of them has ever made is downloadable.</p>
+            <h2 data-edit="stations.h2" data-edit-max="60" id="st-h">Sixty-two stations</h2>
+            <p data-edit="stations.p" data-edit-max="240" data-edit-multiline>Fourteen of the long-running ones. Every reading any of them has ever made is downloadable.</p>
           </div>
           <ol className={s.table}>
-            {STATIONS.map((r) => (
+            {STATIONS.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tId}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`stations.tId.${i}`} data-edit-max="60" className={s.tId}>{r[0]}</span>
+                <span data-edit={`stations.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`stations.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`stations.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`stations.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -349,7 +362,7 @@ export default function IsobarPage() {
 
         {/* --------------------------------------------------------- SERVICE */}
         <section id="service" className={s.service} aria-labelledby="service-h">
-          <div className={s.serviceField} aria-hidden="true">
+          <div data-edit-pattern="service.field" data-edit-roles="transparent,3,4" className={s.serviceField} aria-hidden="true">
             <TabbiedPattern
               pattern={dotdrift}
               palette={['transparent', GREY, PALE]}
@@ -360,12 +373,12 @@ export default function IsobarPage() {
             />
           </div>
           <div className={s.serviceInner}>
-            <h2 id="service-h">What we publish</h2>
+            <h2 data-edit="service.h2" data-edit-max="60" id="service-h">What we publish</h2>
             <dl className={s.serviceList}>
-              {SERVICE.map(([k, v]) => (
+              {SERVICE.map(([k, v], i) => (
                 <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
+                  <dt data-edit={`service.dt.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`service.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -374,21 +387,21 @@ export default function IsobarPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Observations, data, corrections</p>
-          <h2 id="contact-h" className={s.officesHead}>Four stations on the watch</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Observations, data, corrections</p>
+          <h2 data-edit="contact.officesHead" data-edit-max="60" id="contact-h" className={s.officesHead}>Four stations on the watch</h2>
           <div className={s.officeCols}>
             <ul className={s.offices}>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <li key={o.city}>
-                  <p className={s.oCity}>{o.city}</p>
-                  <p className={s.oRole}>{o.role}</p>
-                  <p className={s.oAddr}>{o.addr}</p>
-                  <p className={s.oFix}>{o.fix}</p>
+                  <p data-edit={`contact.oCity.${i}`} data-edit-max="240" data-edit-multiline className={s.oCity}>{o.city}</p>
+                  <p data-edit={`contact.oRole.${i}`} data-edit-max="240" data-edit-multiline className={s.oRole}>{o.role}</p>
+                  <p data-edit={`contact.oAddr.${i}`} data-edit-max="240" data-edit-multiline className={s.oAddr}>{o.addr}</p>
+                  <p data-edit={`contact.oFix.${i}`} data-edit-max="240" data-edit-multiline className={s.oFix}>{o.fix}</p>
                 </li>
               ))}
             </ul>
             <div className={s.locator} aria-hidden="true">
-              <div className={s.locatorField}>
+              <div data-edit-pattern="contact.field" data-edit-roles="transparent,3,2" className={s.locatorField}>
                 <TabbiedPattern
                   pattern={ringfield}
                   palette={['transparent', GREY, VIOLET]}
@@ -398,26 +411,26 @@ export default function IsobarPage() {
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <span
                   key={o.city}
                   className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span>{o.city}</span>
+                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
           </div>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             The forecast desk is staffed at all hours; everybody else answers
             between eight and four, and the archive answers when it can.
           </p>
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={shading}
           palette={['transparent', VIOLET, PALE, GREY]}
@@ -430,33 +443,33 @@ export default function IsobarPage() {
 
       <footer className={s.footer}>
         <ol className={s.footNext} aria-label="Issue times">
-          {NEXT_UP.map(([when, what, tag]) => (
+          {NEXT_UP.map(([when, what, tag], i) => (
             <li key={when}>
-              <span className={s.fnWhen}>{when}</span>
-              <span className={s.fnWhat}>{what}</span>
-              <span className={s.fnTag}>{tag}</span>
+              <span data-edit={`footer.fnWhen.${i}`} data-edit-max="60" className={s.fnWhen}>{when}</span>
+              <span data-edit={`footer.fnWhat.${i}`} data-edit-max="60" className={s.fnWhat}>{what}</span>
+              <span data-edit={`footer.fnTag.${i}`} data-edit-max="60" className={s.fnTag}>{tag}</span>
             </li>
           ))}
         </ol>
         <div className={s.footGrid}>
           <div>
-            <h2>Forecast</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Forecast</h2>
             <ul>
-              <li><a href="#forecast">Seven days</a></li>
-              <li><a href="#warnings">Warnings</a></li>
-              <li><a href="#climate">Normals</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#forecast">Seven days</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#warnings">Warnings</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#climate">Normals</a></li>
             </ul>
           </div>
           <div>
-            <h2>Network</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Network</h2>
             <ul>
-              <li><a href="#stations">Stations</a></li>
-              <li><a href="#service">Data and API</a></li>
-              <li><a href="#method">Method</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#stations">Stations</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#service">Data and API</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#method">Method</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Allégaten 70
               <br />
@@ -467,10 +480,10 @@ export default function IsobarPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional weather service. Every observation on this page is invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional weather service. Every observation on this page is invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

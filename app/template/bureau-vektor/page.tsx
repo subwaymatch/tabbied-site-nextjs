@@ -114,7 +114,19 @@ export default function BureauVektorPage() {
   const max = Math.max(...SERIES_2026.map(([, v]) => Number(v)));
 
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--paper': '#ffffff',
+        '--ink': '#0c0d10',
+        '--blue': '#1f3cff',
+        '--grey': '#8a8f99',
+        '--pale': '#e8eaf0',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,blue,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -124,22 +136,22 @@ export default function BureauVektorPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Bureau Vektor
         </a>
         <nav aria-label="Sections">
-          <a href="#indicators">Indicators</a>
-          <a href="#catalogue">Catalogue</a>
-          <a href="#calendar">Calendar</a>
-          <a href="#reuse">Reuse</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#indicators">Indicators</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#catalogue">Catalogue</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#calendar">Calendar</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#reuse">Reuse</a>
         </nav>
-        <span className={s.now}>Office of statistics</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Office of statistics</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={gutter}
               palette={['transparent', PALE, GREY, BLUE]}
@@ -149,20 +161,20 @@ export default function BureauVektorPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Official statistics / the canton / since 1919</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Official statistics / the canton / since 1919</p>
           <h1 className={s.heroType}>
             Numbers,
             <br />
             published
             <br />
-            <span className={s.blue}>whole.</span>
+            <span data-edit="hero.blue" data-edit-max="60" className={s.blue}>whole.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Seventy series on a fixed calendar, at nine in the morning, with
               the method attached and nothing held back for a press conference.
             </p>
-            <a className={s.cta} href="#catalogue">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#catalogue">
               Browse the catalogue
             </a>
           </div>
@@ -172,7 +184,7 @@ export default function BureauVektorPage() {
             Four figures at poster size on the blue ground. The change of
             ground does the separating; there is not a rule on the page. */}
         <section id="indicators" className={s.indicators} aria-label="Headline indicators">
-          <div className={s.indicatorsField} aria-hidden="true">
+          <div data-edit-pattern="indicators.field" data-edit-roles="transparent,3,4" className={s.indicatorsField} aria-hidden="true">
             <TabbiedPattern
               pattern={lattice}
               palette={['transparent', GREY, PALE]}
@@ -182,10 +194,10 @@ export default function BureauVektorPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          {HEADLINE.map((h) => (
+          {HEADLINE.map((h, i) => (
             <div key={h.k}>
-              <p className={s.iVal}>{h.v}</p>
-              <p className={s.iKey}>{h.k}</p>
+              <p data-edit={`indicators.iVal.${i}`} data-edit-max="240" data-edit-multiline className={s.iVal}>{h.v}</p>
+              <p data-edit={`indicators.iKey.${i}`} data-edit-max="240" data-edit-multiline className={s.iKey}>{h.k}</p>
               <p className={s.iDelta} data-up={h.up ? 'yes' : 'no'}>
                 {h.d} on the year
               </p>
@@ -195,19 +207,19 @@ export default function BureauVektorPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             A statistic that arrives without its method is decoration. We
             publish the method, the sample, the interval and the revision
             history in the same release, at the same hour, whether the number
             is convenient or not.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Bureau Vektor is the canton&rsquo;s statistical office. It has been
               publishing since 1919 and has missed its own calendar four times,
               each of which is documented on the methods page.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               Nothing here is embargoed. Ministers read the figures at the same
               moment as everybody else, which is a rule the bureau fought for in
               1974 and would fight for again.
@@ -221,8 +233,8 @@ export default function BureauVektorPage() {
             thing on the page for the same reason a poster has a picture. */}
         <section className={s.chart} aria-labelledby="chart-h">
           <div className={s.secHead}>
-            <h2 id="chart-h">VK-042, one year</h2>
-            <p>
+            <h2 data-edit="chart.h2" data-edit-max="60" id="chart-h">VK-042, one year</h2>
+            <p data-edit="chart.p" data-edit-max="240" data-edit-multiline>
               Public transport journeys, millions, by month. Provisional for
               November and December, as always at this point in the year.
             </p>
@@ -230,20 +242,20 @@ export default function BureauVektorPage() {
           <div className={s.bars}>
             {SERIES_2026.map(([m, v], i) => (
               <div className={s.barCol} key={String(m)}>
-                <span className={s.barVal}>{v}</span>
+                <span data-edit={`chart.barVal.${i}`} data-edit-max="60" className={s.barVal}>{v}</span>
                 <div
                   className={s.barFill}
                   style={{ height: `${(Number(v) / max) * 100}%` }}
                   data-prov={i > 9 ? 'yes' : 'no'}
                 />
-                <span className={s.barKey}>{m}</span>
+                <span data-edit={`chart.barKey.${i}`} data-edit-max="60" className={s.barKey}>{m}</span>
               </div>
             ))}
           </div>
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,4,3" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={stylobate}
             palette={['transparent', BLUE, PALE, GREY]}
@@ -257,13 +269,13 @@ export default function BureauVektorPage() {
         {/* --------------------------------------------------------- METHODS */}
         <section className={s.methods} aria-labelledby="methods-h">
           <div className={s.secHead}>
-            <h2 id="methods-h">Three commitments</h2>
-            <p>In the enabling act of 1919, in almost these words.</p>
+            <h2 data-edit="methods.h2" data-edit-max="60" id="methods-h">Three commitments</h2>
+            <p data-edit="methods.p" data-edit-max="240" data-edit-multiline>In the enabling act of 1919, in almost these words.</p>
           </div>
           <div className={s.mGrid}>
-            {METHODS.map((m) => (
+            {METHODS.map((m, i) => (
               <article key={m.n}>
-                <div className={s.mPlate} aria-hidden="true">
+                <div data-edit-pattern={`methods.field.${i}`} data-edit-roles="transparent,3,2" className={s.mPlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={m.art}
                     palette={['transparent', GREY, BLUE]}
@@ -273,9 +285,9 @@ export default function BureauVektorPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.mN}>{m.n}</p>
-                <h3>{m.t}</h3>
-                <p className={s.mBody}>{m.d}</p>
+                <p data-edit={`methods.mN.${i}`} data-edit-max="240" data-edit-multiline className={s.mN}>{m.n}</p>
+                <h3 data-edit={`methods.h3.${i}`} data-edit-max="40">{m.t}</h3>
+                <p data-edit={`methods.mBody.${i}`} data-edit-max="240" data-edit-multiline className={s.mBody}>{m.d}</p>
               </article>
             ))}
           </div>
@@ -284,17 +296,17 @@ export default function BureauVektorPage() {
         {/* ------------------------------------------------------- CATALOGUE */}
         <section id="catalogue" className={s.listing} aria-labelledby="cat-h">
           <div className={s.secHead}>
-            <h2 id="cat-h">Seventy series</h2>
-            <p>Fourteen of them below. Every one is downloadable in full, back to its first year.</p>
+            <h2 data-edit="catalogue.h2" data-edit-max="60" id="cat-h">Seventy series</h2>
+            <p data-edit="catalogue.p" data-edit-max="240" data-edit-multiline>Fourteen of them below. Every one is downloadable in full, back to its first year.</p>
           </div>
           <ol className={s.table}>
-            {CATALOGUE.map((r) => (
+            {CATALOGUE.map((r, i) => (
               <li key={r[0]}>
-                <span className={s.tId}>{r[0]}</span>
-                <span className={s.tName}>{r[1]}</span>
-                <span className={s.tFreq}>{r[2]}</span>
-                <span className={s.tSpan}>{r[3]}</span>
-                <span className={s.tFmt}>{r[4]}</span>
+                <span data-edit={`catalogue.tId.${i}`} data-edit-max="60" className={s.tId}>{r[0]}</span>
+                <span data-edit={`catalogue.tName.${i}`} data-edit-max="60" className={s.tName}>{r[1]}</span>
+                <span data-edit={`catalogue.tFreq.${i}`} data-edit-max="60" className={s.tFreq}>{r[2]}</span>
+                <span data-edit={`catalogue.tSpan.${i}`} data-edit-max="60" className={s.tSpan}>{r[3]}</span>
+                <span data-edit={`catalogue.tFmt.${i}`} data-edit-max="60" className={s.tFmt}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -303,17 +315,17 @@ export default function BureauVektorPage() {
         {/* -------------------------------------------------------- CALENDAR */}
         <section id="calendar" className={s.listing} aria-labelledby="cal-h">
           <div className={s.secHead}>
-            <h2 id="cal-h">The release calendar</h2>
-            <p>Set a year ahead and not moved for convenience. First quarter shown.</p>
+            <h2 data-edit="calendar.h2" data-edit-max="60" id="cal-h">The release calendar</h2>
+            <p data-edit="calendar.p" data-edit-max="240" data-edit-multiline>Set a year ahead and not moved for convenience. First quarter shown.</p>
           </div>
           <ol className={s.table}>
-            {CALENDAR.map((r) => (
+            {CALENDAR.map((r, i) => (
               <li key={r[0] + r[1]}>
-                <span className={s.tId}>{r[0]}</span>
-                <span className={s.tName}>{r[2]}</span>
-                <span className={s.tFreq}>{r[1]}</span>
+                <span data-edit={`calendar.tId.${i}`} data-edit-max="60" className={s.tId}>{r[0]}</span>
+                <span data-edit={`calendar.tName.${i}`} data-edit-max="60" className={s.tName}>{r[2]}</span>
+                <span data-edit={`calendar.tFreq.${i}`} data-edit-max="60" className={s.tFreq}>{r[1]}</span>
                 <span className={s.tSpan} />
-                <span className={s.tFmt}>{r[3]}</span>
+                <span data-edit={`calendar.tFmt.${i}`} data-edit-max="60" className={s.tFmt}>{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -321,7 +333,7 @@ export default function BureauVektorPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,4,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={grainfall}
               palette={['transparent', PALE, GREY]}
@@ -332,14 +344,14 @@ export default function BureauVektorPage() {
             />
           </div>
           <blockquote>
-            <p>The interesting figure and the reliable figure are rarely the same figure, and only one of them is ours to publish.</p>
-            <cite>Tarek Hamdi, head of methods</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>The interesting figure and the reliable figure are rarely the same figure, and only one of them is ours to publish.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Tarek Hamdi, head of methods</cite>
           </blockquote>
         </section>
 
         {/* ----------------------------------------------------------- DESKS */}
         <section id="desks" className={s.desks} aria-labelledby="desks-h">
-          <div className={s.desksField} aria-hidden="true">
+          <div data-edit-pattern="desks.field" data-edit-roles="transparent,4,3" className={s.desksField} aria-hidden="true">
             <TabbiedPattern
               pattern={speckfield}
               palette={['transparent', PALE, GREY]}
@@ -351,16 +363,16 @@ export default function BureauVektorPage() {
           </div>
           <div className={s.desksInner}>
             <div className={s.secHead}>
-              <h2 id="desks-h">Six desks</h2>
-              <p>Thirty statisticians and a librarian. Every series has a named owner who answers mail.</p>
+              <h2 data-edit="desks.h2" data-edit-max="60" id="desks-h">Six desks</h2>
+              <p data-edit="desks.p" data-edit-max="240" data-edit-multiline>Thirty statisticians and a librarian. Every series has a named owner who answers mail.</p>
             </div>
             <ol className={s.deskList}>
               {DESKS.map(([area, who, n], i) => (
                 <li key={area}>
                   <span className={s.dIdx}>{String(i + 1).padStart(2, '0')}</span>
-                  <span className={s.dArea}>{area}</span>
-                  <span className={s.dWho}>{who}</span>
-                  <span className={s.dN}>{n}</span>
+                  <span data-edit={`desks.dArea.${i}`} data-edit-max="60" className={s.dArea}>{area}</span>
+                  <span data-edit={`desks.dWho.${i}`} data-edit-max="60" className={s.dWho}>{who}</span>
+                  <span data-edit={`desks.dN.${i}`} data-edit-max="60" className={s.dN}>{n}</span>
                 </li>
               ))}
             </ol>
@@ -369,7 +381,7 @@ export default function BureauVektorPage() {
 
         {/* ----------------------------------------------------------- REUSE */}
         <section id="reuse" className={s.reuse} aria-labelledby="reuse-h">
-          <div className={s.reuseField} aria-hidden="true">
+          <div data-edit-pattern="reuse.field" data-edit-roles="transparent,3,4" className={s.reuseField} aria-hidden="true">
             <TabbiedPattern
               pattern={blindfold}
               palette={['transparent', GREY, PALE]}
@@ -379,12 +391,12 @@ export default function BureauVektorPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="reuse-h">Take it and use it</h2>
+          <h2 data-edit="reuse.h2" data-edit-max="60" id="reuse-h">Take it and use it</h2>
           <dl className={s.reuseList}>
-            {REUSE.map(([k, v]) => (
+            {REUSE.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`reuse.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`reuse.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -392,21 +404,21 @@ export default function BureauVektorPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Corrections, queries, freedom-of-information</p>
-          <h2 id="contact-h" className={s.officesHead}>Four offices, one series</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Corrections, queries, freedom-of-information</p>
+          <h2 data-edit="contact.officesHead" data-edit-max="60" id="contact-h" className={s.officesHead}>Four offices, one series</h2>
           <div className={s.officeCols}>
             <ul className={s.offices}>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <li key={o.city}>
-                  <p className={s.oCity}>{o.city}</p>
-                  <p className={s.oRole}>{o.role}</p>
-                  <p className={s.oAddr}>{o.addr}</p>
-                  <p className={s.oFix}>{o.fix}</p>
+                  <p data-edit={`contact.oCity.${i}`} data-edit-max="240" data-edit-multiline className={s.oCity}>{o.city}</p>
+                  <p data-edit={`contact.oRole.${i}`} data-edit-max="240" data-edit-multiline className={s.oRole}>{o.role}</p>
+                  <p data-edit={`contact.oAddr.${i}`} data-edit-max="240" data-edit-multiline className={s.oAddr}>{o.addr}</p>
+                  <p data-edit={`contact.oFix.${i}`} data-edit-max="240" data-edit-multiline className={s.oFix}>{o.fix}</p>
                 </li>
               ))}
             </ul>
             <div className={s.locator} aria-hidden="true">
-              <div className={s.locatorField}>
+              <div data-edit-pattern="contact.field" data-edit-roles="transparent,3,2" className={s.locatorField}>
                 <TabbiedPattern
                   pattern={blindfold}
                   palette={['transparent', GREY, BLUE]}
@@ -416,26 +428,26 @@ export default function BureauVektorPage() {
                   style={{ position: 'absolute', inset: 0 }}
                 />
               </div>
-              {OFFICES.map((o) => (
+              {OFFICES.map((o, i) => (
                 <span
                   key={o.city}
                   className={o.head ? `${s.pin} ${s.pinHead}` : s.pin}
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span>{o.city}</span>
+                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
           </div>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             A correction request is answered within five working days, and if
             we were wrong the correction is published, not quietly applied.
           </p>
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={dotfade}
           palette={['transparent', BLUE, PALE, GREY]}
@@ -452,23 +464,23 @@ export default function BureauVektorPage() {
         </p>
         <div className={s.footGrid}>
           <div>
-            <h2>Data</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Data</h2>
             <ul>
-              <li><a href="#catalogue">Series catalogue</a></li>
-              <li><a href="#calendar">Release calendar</a></li>
-              <li><a href="#reuse">Licence and API</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#catalogue">Series catalogue</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#calendar">Release calendar</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#reuse">Licence and API</a></li>
             </ul>
           </div>
           <div>
-            <h2>Bureau</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Bureau</h2>
             <ul>
-              <li><a href="#indicators">Headline indicators</a></li>
-              <li><a href="#desks">The desks</a></li>
-              <li><a href="#reuse">Citation</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#indicators">Headline indicators</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#desks">The desks</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#reuse">Citation</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Rue du Recensement 4
               <br />
@@ -479,10 +491,10 @@ export default function BureauVektorPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional statistical office. Every figure on this page is invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional statistical office. Every figure on this page is invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

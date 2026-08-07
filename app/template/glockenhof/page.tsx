@@ -115,7 +115,19 @@ export default function GlockenhofPage() {
   const widest = Math.max(...PEAL.map((b) => b.mm));
 
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--ground': '#141210',
+        '--ink': '#f0ead8',
+        '--accent': '#c89b3c',
+        '--grey': '#7c736a',
+        '--panel': '#221d18',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="ground,ink,accent,grey,panel"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -125,20 +137,20 @@ export default function GlockenhofPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Glockenhof</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Glockenhof</a>
         <nav aria-label="Sections">
-          <a href="#peal">The peal</a>
-          <a href="#making">Making</a>
-          <a href="#cast">Cast here</a>
-          <a href="#tuning">Tuning</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#peal">The peal</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#making">Making</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#cast">Cast here</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#tuning">Tuning</a>
         </nav>
-        <span className={s.now}>Glockengiesserei / Innsbruck</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Glockengiesserei / Innsbruck</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={cupola}
               palette={['transparent', PANEL, GREY, ACCENT]}
@@ -148,17 +160,17 @@ export default function GlockenhofPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Bell foundry / Innsbruck / since 1782</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Bell foundry / Innsbruck / since 1782</p>
           <h1 className={s.heroType}>
-            <span>One pour.</span>
-            <span className={s.hi}>Three hundred years.</span>
+            <span data-edit="hero.span" data-edit-max="60">One pour.</span>
+            <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>Three hundred years.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               Cast in loam, broken out of its own mould, and tuned by taking
               metal away until all five partials agree.
             </p>
-            <a className={s.cta} href="#making">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#making">
               How a bell is made
             </a>
           </div>
@@ -168,12 +180,12 @@ export default function GlockenhofPage() {
             The photograph runs edge to edge on its own: the patterns live
             beside the pictures on this page, never underneath them. */}
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.glockenhof-hall"
             slug="glockenhof-hall"
             alt="The casting hall of a bell foundry seen from a gantry, loam moulds set into a sand floor"
             priority
           />
-          <figcaption>The hall, moulds set into the floor. Nine of them, all different.</figcaption>
+          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>The hall, moulds set into the floor. Nine of them, all different.</figcaption>
         </figure>
 
         {/* ------------------------------------------------------------ PEAL
@@ -181,8 +193,8 @@ export default function GlockenhofPage() {
             "to scale" because it is. */}
         <section id="peal" className={s.peal} aria-labelledby="peal-h">
           <div className={s.secHead}>
-            <h2 id="peal-h">Eight bells</h2>
-            <p>The peal at Wilten, drawn to diameter. Three of them are ours from 1782 and two are replacements for metal taken in 1943.</p>
+            <h2 data-edit="peal.h2" data-edit-max="60" id="peal-h">Eight bells</h2>
+            <p data-edit="peal.p" data-edit-max="240" data-edit-multiline>The peal at Wilten, drawn to diameter. Three of them are ours from 1782 and two are replacements for metal taken in 1943.</p>
           </div>
           <ol className={s.pealRow}>
             {PEAL.map((b, i) => (
@@ -190,7 +202,7 @@ export default function GlockenhofPage() {
                 <div className={s.pealDisc} aria-hidden="true">
                   <span style={{ width: `${(b.mm / widest) * 100}%` }} />
                 </div>
-                <p className={s.pealNote}>{b.note}</p>
+                <p data-edit={`peal.pealNote.${i}`} data-edit-max="240" data-edit-multiline className={s.pealNote}>{b.note}</p>
                 <p className={s.pealMeta}>
                   {b.mm} mm
                   <br />
@@ -206,19 +218,19 @@ export default function GlockenhofPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             A bell is the only instrument that is finished by destroying part
             of it. You cast it deliberately too sharp, then cut metal out of
             the inside until five separate notes inside one lump of bronze
             fall into tune with each other.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               Glockenhof has cast on the Höttinger Au since 1782, in loam, by
               the same method, with fourteen people and one crane that predates
               all of them.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               We are not the cheapest way to get a bell and we have never
               pretended to be. What we sell is a casting that will still be in
               tune when everybody involved in ordering it is dead.
@@ -227,7 +239,7 @@ export default function GlockenhofPage() {
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,4,3" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={bangle}
             palette={['transparent', ACCENT, PANEL, GREY]}
@@ -241,33 +253,33 @@ export default function GlockenhofPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 id="making-h">Five operations</h2>
-            <p>Forty days of mould-making for one hour of pouring, and then eleven days of cutting it back.</p>
+            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">Five operations</h2>
+            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>Forty days of mould-making for one hour of pouring, and then eleven days of cutting it back.</p>
           </div>
           <ol className={s.rows}>
-            {OPERATIONS.map((o) => (
+            {OPERATIONS.map((o, i) => (
               <li key={o.n}>
-                <span className={s.rowN}>{o.n}</span>
-                <h3 className={s.rowTitle}>{o.t}</h3>
-                <span className={s.rowSub}>{o.d}</span>
-                <span className={s.rowDays}>{o.days}</span>
+                <span data-edit={`making.rowN.${i}`} data-edit-max="60" className={s.rowN}>{o.n}</span>
+                <h3 data-edit={`making.rowTitle.${i}`} data-edit-max="40" className={s.rowTitle}>{o.t}</h3>
+                <span data-edit={`making.rowSub.${i}`} data-edit-max="60" className={s.rowSub}>{o.d}</span>
+                <span data-edit={`making.rowDays.${i}`} data-edit-max="60" className={s.rowDays}>{o.days}</span>
               </li>
             ))}
           </ol>
           <div className={s.pair}>
             <figure>
-              <Figure
+              <Figure editId="photo.glockenhof-pour"
                 slug="glockenhof-pour"
                 alt="Molten bronze running from a tilted crucible into a mould in a dark foundry"
               />
-              <figcaption>1 150 °C. The mould is buried to the neck in sand for this.</figcaption>
+              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>1 150 °C. The mould is buried to the neck in sand for this.</figcaption>
             </figure>
             <figure>
-              <Figure
+              <Figure editId="photo.glockenhof-lathe"
                 slug="glockenhof-lathe"
                 alt="A large bronze bell mounted mouth-up on a tuning lathe with shavings on the bed"
               />
-              <figcaption>Mouth-up on the lathe. Everything from here is subtraction.</figcaption>
+              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>Mouth-up on the lathe. Everything from here is subtraction.</figcaption>
             </figure>
           </div>
         </section>
@@ -278,14 +290,14 @@ export default function GlockenhofPage() {
             object is the subject. */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 id="pr-h">Three things that do not change</h2>
-            <p>Two of them are physics. The third is a drawing in a locked cupboard.</p>
+            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three things that do not change</h2>
+            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>Two of them are physics. The third is a drawing in a locked cupboard.</p>
           </div>
           <div className={s.pGrid}>
-            {PRINCIPLES.map((p) => (
+            {PRINCIPLES.map((p, i) => (
               <article key={p.n}>
                 <div className={s.pPlate}>
-                  <div className={s.pField} aria-hidden="true">
+                  <div data-edit-pattern={`pr.field.${i}`} data-edit-roles="transparent,3,2" className={s.pField} aria-hidden="true">
                     <TabbiedPattern
                       pattern={p.art}
                       palette={['transparent', GREY, ACCENT]}
@@ -295,11 +307,11 @@ export default function GlockenhofPage() {
                       style={{ position: 'absolute', inset: 0 }}
                     />
                   </div>
-                  <Figure slug={p.img} alt={p.alt} cutout className={s.pObject} />
+                  <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
-                <p className={s.pN}>{p.n}</p>
-                <h3>{p.t}</h3>
-                <p className={s.pBody}>{p.d}</p>
+                <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
+                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
           </div>
@@ -308,17 +320,17 @@ export default function GlockenhofPage() {
         {/* ------------------------------------------------------------ CAST */}
         <section id="cast" className={s.listing} aria-labelledby="cast-h">
           <div className={s.secHead}>
-            <h2 id="cast-h">Cast here</h2>
-            <p>Recent work. A recast keeps the old bell&rsquo;s metal and, where we can read it, its inscription.</p>
+            <h2 data-edit="cast.h2" data-edit-max="60" id="cast-h">Cast here</h2>
+            <p data-edit="cast.p" data-edit-max="240" data-edit-multiline>Recent work. A recast keeps the old bell&rsquo;s metal and, where we can read it, its inscription.</p>
           </div>
           <ol className={s.table}>
             {CAST.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`cast.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`cast.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`cast.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`cast.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`cast.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -326,7 +338,7 @@ export default function GlockenhofPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={haunch}
               palette={['transparent', ACCENT, GREY]}
@@ -337,25 +349,25 @@ export default function GlockenhofPage() {
             />
           </div>
           <blockquote>
-            <p>A bell out of tune with itself is not a bad bell. It is a very heavy mistake nobody can move.</p>
-            <cite>Anneliese Ruetz, tuning</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A bell out of tune with itself is not a bad bell. It is a very heavy mistake nobody can move.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Anneliese Ruetz, tuning</cite>
           </blockquote>
         </section>
 
         {/* ---------------------------------------------------------- TUNING */}
         <section id="tuning" className={s.listing} aria-labelledby="tuning-h">
           <div className={s.secHead}>
-            <h2 id="tuning-h">The five partials</h2>
-            <p>What is cut, where, and how close it has to land. Every bell leaves with its own measured sheet.</p>
+            <h2 data-edit="tuning.h2" data-edit-max="60" id="tuning-h">The five partials</h2>
+            <p data-edit="tuning.p" data-edit-max="240" data-edit-multiline>What is cut, where, and how close it has to land. Every bell leaves with its own measured sheet.</p>
           </div>
           <ol className={s.table}>
             {TUNING.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
+                <span data-edit={`tuning.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`tuning.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`tuning.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
                 <span className={s.tMid} />
-                <span className={s.tEnd}>{r[3]}</span>
+                <span data-edit={`tuning.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -363,7 +375,7 @@ export default function GlockenhofPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,3,4" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={scotia}
               palette={['transparent', GREY, PANEL]}
@@ -373,12 +385,12 @@ export default function GlockenhofPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="visit-h">Coming to a pour</h2>
+          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to a pour</h2>
           <dl className={s.visitList}>
-            {VISIT.map(([k, v]) => (
+            {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -386,20 +398,20 @@ export default function GlockenhofPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Commissions, recasts, tuning reports</p>
-          <h2 id="contact-h" className={s.datesTitle}>Stand at the edge of a pour</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Commissions, recasts, tuning reports</p>
+          <h2 data-edit="contact.datesTitle" data-edit-max="60" id="contact-h" className={s.datesTitle}>Stand at the edge of a pour</h2>
           <ul className={s.dates}>
-            {SLOTS.map((d) => (
+            {SLOTS.map((d, i) => (
               <li key={`${d.day}-${d.month}`}>
                 <button type="button" className={s.slot} disabled={d.full}>
-                  <span className={s.slotDay}>{d.day}</span>
-                  <span className={s.slotMonth}>{d.month}</span>
-                  <span className={s.slotState}>{d.state}</span>
+                  <span data-edit={`contact.slotDay.${i}`} data-edit-max="60" className={s.slotDay}>{d.day}</span>
+                  <span data-edit={`contact.slotMonth.${i}`} data-edit-max="60" className={s.slotMonth}>{d.month}</span>
+                  <span data-edit={`contact.slotState.${i}`} data-edit-max="60" className={s.slotState}>{d.state}</span>
                 </button>
               </li>
             ))}
           </ul>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Höttinger Au 41, 6020 Innsbruck. Twelve people, closed shoes, and
             an hour of nothing happening before the ninety seconds that matter.
             The office answers between eight and four, and nobody answers on
@@ -408,7 +420,7 @@ export default function GlockenhofPage() {
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={chain}
           palette={['transparent', ACCENT, PANEL, GREY]}
@@ -422,7 +434,7 @@ export default function GlockenhofPage() {
       <footer className={s.footer}>
         <div className={s.footObject}>
           <div className={s.footPlate}>
-            <div className={s.footPlateField} aria-hidden="true">
+            <div data-edit-pattern="footer.field" data-edit-roles="transparent,3,2" className={s.footPlateField} aria-hidden="true">
               <TabbiedPattern
                 pattern={bangle}
                 palette={['transparent', GREY, ACCENT]}
@@ -432,29 +444,29 @@ export default function GlockenhofPage() {
                 style={{ position: 'absolute', inset: 0 }}
               />
             </div>
-            <Figure slug="glockenhof-tile-fork-cutout" alt="A polished steel tuning fork standing on its stem" cutout className={s.footCut} />
+            <Figure editId="photo.glockenhof-tile-fork-cutout" slug="glockenhof-tile-fork-cutout" alt="A polished steel tuning fork standing on its stem" cutout className={s.footCut} />
           </div>
-          <p className={s.footLine}>A bell is tuned by removing metal, so every decision it contains is final.</p>
+          <p data-edit="footer.footLine" data-edit-max="240" data-edit-multiline className={s.footLine}>A bell is tuned by removing metal, so every decision it contains is final.</p>
         </div>
         <div className={s.footGrid}>
           <div>
-            <h2>Foundry</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Foundry</h2>
             <ul>
-              <li><a href="#making">Five operations</a></li>
-              <li><a href="#tuning">The five partials</a></li>
-              <li><a href="#cast">Cast here</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#making">Five operations</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#tuning">The five partials</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#cast">Cast here</a></li>
             </ul>
           </div>
           <div>
-            <h2>Bells</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Bells</h2>
             <ul>
-              <li><a href="#peal">Eight bells</a></li>
-              <li><a href="#visit">Watching a pour</a></li>
-              <li><a href="#visit">Recasting</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#peal">Eight bells</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#visit">Watching a pour</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Recasting</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Höttinger Au 41
               <br />
@@ -465,10 +477,10 @@ export default function GlockenhofPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional bell foundry. Bells, weights and dates are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional bell foundry. Bells, weights and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

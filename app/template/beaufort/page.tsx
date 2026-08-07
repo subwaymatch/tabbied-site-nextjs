@@ -108,7 +108,19 @@ const NEXT_UP: [string, string, string][] = [
 
 export default function BeaufortPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--navy': '#0b1b2b',
+        '--bone': '#efeae0',
+        '--green': '#00b37a',
+        '--grey': '#6e808f',
+        '--deep': '#14293d',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="navy,bone,green,grey,deep"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -118,20 +130,20 @@ export default function BeaufortPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Ateliers Beaufort</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Ateliers Beaufort</a>
         <nav aria-label="Sections">
-          <a href="#scale">The scale</a>
-          <a href="#work">Work</a>
-          <a href="#cloth">Cloth</a>
-          <a href="#built">Built here</a>
+          <a data-edit="bar.a" data-edit-max="28" href="#scale">The scale</a>
+          <a data-edit="bar.a2" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.a3" data-edit-max="28" href="#cloth">Cloth</a>
+          <a data-edit="bar.a4" data-edit-max="28" href="#built">Built here</a>
         </nav>
-        <span className={s.now}>Voilerie / Lorient</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Voilerie / Lorient</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={sail}
               palette={['transparent', DEEP, GREY, GREEN]}
@@ -141,19 +153,19 @@ export default function BeaufortPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Sailmakers / Lorient / since 1971</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Sailmakers / Lorient / since 1971</p>
           <h1 className={s.heroType}>
-            <span>Cut for</span>
-            <span>force</span>
-            <span className={s.green}>four.</span>
+            <span data-edit="hero.span" data-edit-max="60">Cut for</span>
+            <span data-edit="hero.span2" data-edit-max="60">force</span>
+            <span data-edit="hero.green" data-edit-max="60" className={s.green}>four.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
               A sail cut for the wind you get, not the wind in the brochure.
               Eight hundred square metres of floor on the Blavet and fifty-five
               years of doing it here.
             </p>
-            <a className={s.cta} href="#work">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#work">
               What we make
             </a>
           </div>
@@ -165,23 +177,23 @@ export default function BeaufortPage() {
             spine of the page and the reason it is as long as it is. */}
         <section id="scale" className={s.scale} aria-labelledby="scale-h">
           <div className={s.secHead}>
-            <h2 id="scale-h">Nought to twelve</h2>
-            <p>
+            <h2 data-edit="scale.h2" data-edit-max="60" id="scale-h">Nought to twelve</h2>
+            <p data-edit="scale.p" data-edit-max="240" data-edit-multiline>
               The scale Admiral Beaufort wrote down in 1805, and what each force
               means on our floor. Force four is where a cruising wardrobe should
               be at its best.
             </p>
           </div>
           <ol className={s.scaleList}>
-            {SCALE.map((f) => (
+            {SCALE.map((f, i) => (
               <li key={f[0]} data-key={f[0] === '4' ? 'yes' : 'no'}>
-                <span className={s.fN}>{f[0]}</span>
+                <span data-edit={`scale.fN.${i}`} data-edit-max="60" className={s.fN}>{f[0]}</span>
                 <div className={s.fBody}>
-                  <h3>{f[1]}</h3>
-                  <p className={s.fSea}>{f[3]}</p>
+                  <h3 data-edit={`scale.h3.${i}`} data-edit-max="40">{f[1]}</h3>
+                  <p data-edit={`scale.fSea.${i}`} data-edit-max="240" data-edit-multiline className={s.fSea}>{f[3]}</p>
                 </div>
                 <span className={s.fKt}>{f[2]} kt</span>
-                <span className={s.fCut}>{f[4]}</span>
+                <span data-edit={`scale.fCut.${i}`} data-edit-max="60" className={s.fCut}>{f[4]}</span>
               </li>
             ))}
           </ol>
@@ -189,19 +201,19 @@ export default function BeaufortPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             Most sails are designed for the wind a brochure photograph is taken
             in. We ask what you actually sail in, which is usually less wind,
             more chop and shorter-handed than anybody admits, and we cut for
             that.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
               The loft has been on the Quai des Indes since 1971 and on the same
               floor since 1988. Eleven of us: six on the floor, two on the
               machines, one in the rigging and two who do everything else.
             </p>
-            <p>
+            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
               We make membrane sails here rather than buying them in, which is
               unusual for a loft this size and is the single most expensive
               decision the business has ever taken.
@@ -212,24 +224,24 @@ export default function BeaufortPage() {
         {/* ------------------------------------------------------------ WORK */}
         <section id="work" className={s.work} aria-labelledby="work-h">
           <div className={s.secHead}>
-            <h2 id="work-h">What we make</h2>
-            <p>Lead times are from the day we measure, not the day you call.</p>
+            <h2 data-edit="work.h2" data-edit-max="60" id="work-h">What we make</h2>
+            <p data-edit="work.p" data-edit-max="240" data-edit-multiline>Lead times are from the day we measure, not the day you call.</p>
           </div>
           <ol className={s.rows}>
-            {WORK.map((x) => (
+            {WORK.map((x, i) => (
               <li key={x.n}>
-                <span className={s.rowN}>{x.n}</span>
-                <h3 className={s.rowTitle}>{x.t}</h3>
-                <span className={s.rowSub}>{x.d}</span>
-                <span className={s.rowLead}>{x.lead}</span>
-                <span className={s.rowFrom}>{x.from}</span>
+                <span data-edit={`work.rowN.${i}`} data-edit-max="60" className={s.rowN}>{x.n}</span>
+                <h3 data-edit={`work.rowTitle.${i}`} data-edit-max="40" className={s.rowTitle}>{x.t}</h3>
+                <span data-edit={`work.rowSub.${i}`} data-edit-max="60" className={s.rowSub}>{x.d}</span>
+                <span data-edit={`work.rowLead.${i}`} data-edit-max="60" className={s.rowLead}>{x.lead}</span>
+                <span data-edit={`work.rowFrom.${i}`} data-edit-max="60" className={s.rowFrom}>{x.from}</span>
               </li>
             ))}
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,4,3" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={quoinwedge}
             palette={['transparent', GREEN, DEEP, GREY]}
@@ -243,13 +255,13 @@ export default function BeaufortPage() {
         {/* ----------------------------------------------------------- CRAFT */}
         <section id="craft" className={s.craft} aria-labelledby="craft-h">
           <div className={s.secHead}>
-            <h2 id="craft-h">Three habits</h2>
-            <p>None of them fast, all of them the reason a sail lasts a decade.</p>
+            <h2 data-edit="craft.h2" data-edit-max="60" id="craft-h">Three habits</h2>
+            <p data-edit="craft.p" data-edit-max="240" data-edit-multiline>None of them fast, all of them the reason a sail lasts a decade.</p>
           </div>
           <div className={s.cGrid}>
-            {CRAFT.map((c) => (
+            {CRAFT.map((c, i) => (
               <article key={c.n}>
-                <div className={s.cPlate} aria-hidden="true">
+                <div data-edit-pattern={`craft.field.${i}`} data-edit-roles="transparent,3,2" className={s.cPlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={c.art}
                     palette={['transparent', GREY, GREEN]}
@@ -259,9 +271,9 @@ export default function BeaufortPage() {
                     style={{ position: 'absolute', inset: 0 }}
                   />
                 </div>
-                <p className={s.cN}>{c.n}</p>
-                <h3>{c.t}</h3>
-                <p className={s.cBody}>{c.d}</p>
+                <p data-edit={`craft.cN.${i}`} data-edit-max="240" data-edit-multiline className={s.cN}>{c.n}</p>
+                <h3 data-edit={`craft.h3.${i}`} data-edit-max="40">{c.t}</h3>
+                <p data-edit={`craft.cBody.${i}`} data-edit-max="240" data-edit-multiline className={s.cBody}>{c.d}</p>
               </article>
             ))}
           </div>
@@ -270,17 +282,17 @@ export default function BeaufortPage() {
         {/* ----------------------------------------------------------- CLOTH */}
         <section id="cloth" className={s.listing} aria-labelledby="cloth-h">
           <div className={s.secHead}>
-            <h2 id="cloth-h">Cloth on the shelf</h2>
-            <p>Held means it is in the building. Made here means it is laid up on our own floor.</p>
+            <h2 data-edit="cloth.h2" data-edit-max="60" id="cloth-h">Cloth on the shelf</h2>
+            <p data-edit="cloth.p" data-edit-max="240" data-edit-multiline>Held means it is in the building. Made here means it is laid up on our own floor.</p>
           </div>
           <ol className={s.table}>
             {CLOTH.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[1]}</span>
-                <span className={s.tMain}>{r[0]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`cloth.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[1]}</span>
+                <span data-edit={`cloth.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[0]}</span>
+                <span data-edit={`cloth.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`cloth.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`cloth.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -288,7 +300,7 @@ export default function BeaufortPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={mitre}
               palette={['transparent', GREEN, GREY]}
@@ -299,25 +311,25 @@ export default function BeaufortPage() {
             />
           </div>
           <blockquote>
-            <p>A sail is a wing you have to fold up and put in a bag. Everything difficult about it comes from the second half of that sentence.</p>
-            <cite>Yann Le Guillou, master sailmaker</cite>
+            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A sail is a wing you have to fold up and put in a bag. Everything difficult about it comes from the second half of that sentence.</p>
+            <cite data-edit="quote.cite" data-edit-max="48">Yann Le Guillou, master sailmaker</cite>
           </blockquote>
         </section>
 
         {/* ----------------------------------------------------------- BUILT */}
         <section id="built" className={s.listing} aria-labelledby="built-h">
           <div className={s.secHead}>
-            <h2 id="built-h">Built here</h2>
-            <p>Recent wardrobes. Owners who asked not to appear are not on the list, which is why it is short.</p>
+            <h2 data-edit="built.h2" data-edit-max="60" id="built-h">Built here</h2>
+            <p data-edit="built.p" data-edit-max="240" data-edit-multiline>Recent wardrobes. Owners who asked not to appear are not on the list, which is why it is short.</p>
           </div>
           <ol className={s.table}>
-            {BUILT.map((r) => (
+            {BUILT.map((r, i) => (
               <li key={r[1]}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`built.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`built.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`built.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`built.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`built.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -325,7 +337,7 @@ export default function BeaufortPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,2,3" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={angleoff}
               palette={['transparent', GREEN, GREY]}
@@ -336,12 +348,12 @@ export default function BeaufortPage() {
             />
           </div>
           <div className={s.visitInner}>
-            <h2 id="visit-h">Coming to the loft</h2>
+            <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to the loft</h2>
             <dl className={s.visitList}>
-              {VISIT.map(([k, v]) => (
+              {VISIT.map(([k, v], i) => (
                 <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
+                  <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -351,9 +363,9 @@ export default function BeaufortPage() {
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
           <div>
-            <p className={s.contactPre}>Measure, quote, argue</p>
-            <h2 id="contact-h" className={s.formTitle}>Start a sail</h2>
-            <p className={s.contactFine}>
+            <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Measure, quote, argue</p>
+            <h2 data-edit="contact.formTitle" data-edit-max="60" id="contact-h" className={s.formTitle}>Start a sail</h2>
+            <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
               Quai des Indes 9, 56100 Lorient. Somebody is on the floor from
               seven in the morning; the telephone is answered from nine, and a
               quote takes about a fortnight because we would rather measure
@@ -362,11 +374,11 @@ export default function BeaufortPage() {
           </div>
           <form className={s.form}>
             <p className={s.field}>
-              <label htmlFor="boat">Boat</label>
+              <label data-edit="contact.label" htmlFor="boat">Boat</label>
               <input id="boat" name="boat" type="text" placeholder="Class, or length overall" />
             </p>
             <p className={s.field}>
-              <label htmlFor="sail">Sail</label>
+              <label data-edit="contact.label2" htmlFor="sail">Sail</label>
               <select id="sail" name="sail" defaultValue="">
                 <option value="" disabled>
                   Choose
@@ -379,7 +391,7 @@ export default function BeaufortPage() {
               </select>
             </p>
             <p className={s.field}>
-              <label htmlFor="rig">Rig measurements</label>
+              <label data-edit="contact.label3" htmlFor="rig">Rig measurements</label>
               <select id="rig" name="rig" defaultValue="">
                 <option value="" disabled>
                   Choose
@@ -390,21 +402,21 @@ export default function BeaufortPage() {
               </select>
             </p>
             <p className={s.field}>
-              <label htmlFor="when">Wanted by</label>
+              <label data-edit="contact.label4" htmlFor="when">Wanted by</label>
               <input id="when" name="when" type="text" placeholder="A month is enough" />
             </p>
             <p className={`${s.field} ${s.fieldWide}`}>
-              <label htmlFor="notes">What it is for</label>
+              <label data-edit="contact.label5" htmlFor="notes">What it is for</label>
               <textarea id="notes" name="notes" placeholder="Cruising, racing, delivery, or something you have not told a sailmaker before" />
             </p>
-            <button type="submit" className={s.submit}>
+            <button data-edit="contact.submit" data-edit-max="24" type="submit" className={s.submit}>
               Send it over
             </button>
           </form>
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={skewback}
           palette={['transparent', GREEN, DEEP, GREY]}
@@ -417,33 +429,33 @@ export default function BeaufortPage() {
 
       <footer className={s.footer}>
         <ol className={s.footNext} aria-label="On the floor">
-          {NEXT_UP.map(([when, what, tag]) => (
+          {NEXT_UP.map(([when, what, tag], i) => (
             <li key={when}>
-              <span className={s.fnWhen}>{when}</span>
-              <span className={s.fnWhat}>{what}</span>
-              <span className={s.fnTag}>{tag}</span>
+              <span data-edit={`footer.fnWhen.${i}`} data-edit-max="60" className={s.fnWhen}>{when}</span>
+              <span data-edit={`footer.fnWhat.${i}`} data-edit-max="60" className={s.fnWhat}>{what}</span>
+              <span data-edit={`footer.fnTag.${i}`} data-edit-max="60" className={s.fnTag}>{tag}</span>
             </li>
           ))}
         </ol>
         <div className={s.footGrid}>
           <div>
-            <h2>Loft</h2>
+            <h2 data-edit="footer.h2" data-edit-max="60">Loft</h2>
             <ul>
-              <li><a href="#work">What we make</a></li>
-              <li><a href="#cloth">Cloth</a></li>
-              <li><a href="#built">Built here</a></li>
+              <li><a data-edit="footer.a" data-edit-max="28" href="#work">What we make</a></li>
+              <li><a data-edit="footer.a2" data-edit-max="28" href="#cloth">Cloth</a></li>
+              <li><a data-edit="footer.a3" data-edit-max="28" href="#built">Built here</a></li>
             </ul>
           </div>
           <div>
-            <h2>Reference</h2>
+            <h2 data-edit="footer.h22" data-edit-max="60">Reference</h2>
             <ul>
-              <li><a href="#scale">The scale</a></li>
-              <li><a href="#craft">Three habits</a></li>
-              <li><a href="#visit">Visiting</a></li>
+              <li><a data-edit="footer.a4" data-edit-max="28" href="#scale">The scale</a></li>
+              <li><a data-edit="footer.a5" data-edit-max="28" href="#craft">Three habits</a></li>
+              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Visiting</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
             <p>
               Quai des Indes 9
               <br />
@@ -454,10 +466,10 @@ export default function BeaufortPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional sail loft. Boats, prices and cloth weights are invented.</p>
+          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional sail loft. Boats, prices and cloth weights are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.
