@@ -58,10 +58,14 @@ Three things that are explicit here and were implicit or automatic on Vercel:
   POST to `/mcp` with a 308 to `/mcp/`. Redirecting an MCP client's POST breaks
   it. Do not drop these patterns.
 
-The export is comfortably inside the platform limits — 5,738 files against a
-20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but both are
-counted per Worker *version*, and `public/downloads/` is 1,711 of those files.
-A batch of new template sites is the thing most likely to move the number.
+The export is comfortably inside the platform limits — roughly 4,300 files
+against a 20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but
+both are counted per Worker *version*. Don't treat that file count as stable:
+most of it is per-route RSC payloads, and a Next minor can move it a lot (16.3
+cut ~1,400 files off 16.2's output without changing a page). What is stable is
+`public/downloads/`, a flat 1,711 files, so a batch of new template sites is
+the thing most likely to actually threaten the ceiling. `wrangler deploy`
+prints the count it uploaded.
 
 `vercel.json` and `scripts/vercel-ignore-build.sh` are gone. The ignore-build
 script's job — don't redeploy when only `agent-outputs/` changed — has no
