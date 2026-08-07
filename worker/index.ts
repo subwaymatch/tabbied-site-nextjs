@@ -15,14 +15,18 @@
 // then describe exactly the bytes this deployment serves, so a design added in
 // the same commit can't be missing from the catalog the agent queries, and a
 // 384 KB JSON file stays out of the Worker bundle.
+//
+// `createMcpHandler` is MCP v2's stateless entry point: it builds one server
+// per request, which is exactly what the 2026-07-28 revision made possible by
+// dropping the initialize/initialized handshake and the session id. That is
+// why this endpoint needs no Durable Object — the protocol no longer needs one
+// to be spoken. The same function is re-exported by `agents/mcp/server`; taking
+// it from the SDK avoids pulling partyserver, esbuild, and babel into a Worker
+// that wants none of them.
+import { createMcpHandler } from '@modelcontextprotocol/server';
 import {
+  buildServer,
   catalogTools,
-  createHttpHandler,
-  createMcpServer,
-  createToolset,
-  INSTRUCTIONS,
-  SERVER_NAME,
-  VERSION,
   type Catalog,
   type CatalogDesign,
 } from 'tabbied-mcp';
@@ -103,23 +107,22 @@ async function handleMcp(request: Request, env: Env): Promise<Response> {
     };
   };
 
-  const toolset = createToolset(
-    // No render_design: rendering a css-doodle pattern needs a real browser,
-    // and a Worker has none. Agents that need a rendered asset use the local
-    // stdio server (`npx tabbied-mcp`) or the `tabbied` CLI.
-    catalogTools({
-      catalog,
-      fetchPreview,
-      fetchDocs: () => loadDocs(env, request),
-    })
-  );
+  // No render_design: rendering a css-doodle pattern needs a real browser, and
+  // a Worker has none. Agents that need a rendered asset use the local stdio
+  // server (`npx tabbied-mcp`) or the `tabbied` CLI.
+  const tools = catalogTools({
+    catalog,
+    fetchPreview,
+    fetchDocs: () => loadDocs(env, request),
+  });
 
-  const server = createMcpServer(
-    { name: SERVER_NAME, version: VERSION, instructions: INSTRUCTIONS },
-    toolset
-  );
-
-  return createHttpHandler(server)(request);
+  // A factory, per the stateless model — the handler builds a server per
+  // request. `legacy: 'stateless'` (the default, spelled out here because it is
+  // load-bearing) keeps 2025-era clients working: they still open with
+  // `initialize`, and every shipping client does so today.
+  return createMcpHandler(() => buildServer(tools), {
+    legacy: 'stateless',
+  }).fetch(request);
 }
 
 export default {

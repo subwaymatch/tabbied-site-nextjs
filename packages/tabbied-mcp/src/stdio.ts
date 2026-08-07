@@ -1,80 +1,42 @@
 #!/usr/bin/env node
-// The `tabbied-mcp` bin: the same server the site exposes at /mcp, speaking the
-// stdio binding instead — newline-delimited JSON-RPC over the standard streams
-// of a client-launched subprocess.
+// The `tabbied-mcp` bin: the same server the site exposes at /mcp, over stdio.
 //
-// Two things must hold and are easy to break:
-//   - stdout carries the protocol and nothing else. Every diagnostic goes to
-//     stderr; one stray console.log corrupts the stream and the client sees a
-//     parse error rather than a hint about what went wrong.
-//   - one message per line, no embedded newlines. JSON.stringify escapes
-//     control characters, so this holds for anything a tool can return.
+// `serveStdio` owns the whole transport — framing, the era decision on the
+// opening exchange, and pinning one instance for the connection — so this file
+// is just "load the catalog, build the toolset, hand over the factory".
+//
+// The catalog is loaded once here rather than inside the factory: it is
+// immutable per process, and re-reading it per connection would buy nothing.
 //
 // Configure it in an MCP client as:
 //   { "command": "npx", "args": ["-y", "tabbied-mcp"] }
-import { createInterface } from 'node:readline';
+import { serveStdio } from '@modelcontextprotocol/server/stdio';
 
-import { createMcpServer, errorResponse, ERROR_PARSE } from './protocol.js';
-import { catalogTools, createToolset } from './tools.js';
-import { INSTRUCTIONS, SERVER_NAME, VERSION } from './info.js';
+import { buildServer } from './server.js';
+import { catalogTools } from './tools.js';
 import { fetchDocs, fetchPreview, loadCatalog } from './node/resources.js';
 import { renderTool } from './node/render.js';
 
 async function main(): Promise<void> {
   const catalog = await loadCatalog();
 
-  const toolset = createToolset([
+  const tools = [
     ...catalogTools({ catalog, fetchPreview, fetchDocs }),
     // Only the local server can render: it has a browser to render with.
     renderTool(catalog),
-  ]);
+  ];
 
-  const server = createMcpServer(
-    { name: SERVER_NAME, version: VERSION, instructions: INSTRUCTIONS },
-    toolset
-  );
+  const handle = serveStdio(() => buildServer(tools));
 
-  const send = (message: unknown): void => {
-    process.stdout.write(`${JSON.stringify(message)}\n`);
-  };
-
-  const lines = createInterface({ input: process.stdin });
-
-  // Lines are handled in order: a client may pipeline requests, and answering
-  // them out of order is legal JSON-RPC but needlessly surprising.
-  let queue: Promise<void> = Promise.resolve();
-
-  lines.on('line', (line) => {
-    const trimmed = line.trim();
-    if (!trimmed) return;
-
-    queue = queue.then(async () => {
-      let message: unknown;
-      try {
-        message = JSON.parse(trimmed);
-      } catch {
-        send(errorResponse(null, ERROR_PARSE, 'Message is not valid JSON.'));
-        return;
-      }
-
-      try {
-        const { message: reply } = await server.dispatch(message);
-        if (reply) send(reply);
-      } catch (error) {
-        process.stderr.write(
-          `tabbied-mcp: ${error instanceof Error ? error.stack : String(error)}\n`
-        );
-      }
-    });
+  // The client closing stdin is the shutdown signal. Without this the process
+  // lingers after the client has gone.
+  process.stdin.on('close', () => {
+    void handle.close();
   });
-
-  // The client closing stdin is the shutdown signal; drain what's in flight
-  // before exiting so a final response isn't lost.
-  await new Promise<void>((resolve) => lines.on('close', resolve));
-  await queue;
 }
 
 main().catch((error) => {
+  // stdout is the protocol channel and nothing else may touch it.
   process.stderr.write(
     `tabbied-mcp: ${error instanceof Error ? error.message : String(error)}\n`
   );

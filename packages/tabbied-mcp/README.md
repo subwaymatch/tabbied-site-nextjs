@@ -57,26 +57,26 @@ options. Choosing off tags alone is the main way this goes wrong.
 ## Programmatic use
 
 The package's main entry point is runtime-agnostic (no node imports), so it can
-be embedded in a Worker or any Web-standard server:
+be embedded in a Worker or any Web-standard server. It exposes the tools and an
+`McpServer` factory; the transport is the MCP SDK's:
 
 ```ts
-import {
-  catalogTools,
-  createToolset,
-  createMcpServer,
-  createHttpHandler,
-} from 'tabbied-mcp';
+import { createMcpHandler } from '@modelcontextprotocol/server';
+import { buildServer, catalogTools } from 'tabbied-mcp';
 
-const server = createMcpServer(
-  { name: 'tabbied', version: '0.1.0' },
-  createToolset(catalogTools({ catalog }))
-);
+const tools = catalogTools({ catalog, fetchPreview, fetchDocs });
 
-const handler = createHttpHandler(server); // (Request) => Promise<Response>
+export default {
+  fetch: createMcpHandler(() => buildServer(tools)).fetch,
+};
 ```
 
-`docs/mcp-server.md` in the repository has the protocol details, including why
-this speaks both the modern (`2026-07-28`) and legacy MCP eras.
+Pass the *factory*, not a built server: MCP v2 is stateless and the handler
+constructs one server per request.
+
+Built on [`@modelcontextprotocol/server`](https://www.npmjs.com/package/@modelcontextprotocol/server)
+v2, so it speaks the stateless `2026-07-28` revision and still serves 2025-era
+clients. `docs/mcp-server.md` in the repository has the details.
 
 ## License
 

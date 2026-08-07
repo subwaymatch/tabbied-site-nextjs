@@ -28,9 +28,9 @@ jobs:
         run: npm run build:packages
       - name: Test tabbied
         run: npm test --workspace tabbied
-      # The MCP protocol layer is hand-written rather than wrapped around the
-      # reference SDK (see docs/mcp-server.md), so this suite is what stands in
-      # for the SDK's own tests. It is not optional.
+      # The protocol is the MCP SDK's, so this suite pins the seam instead: that
+      # our tools register with schemas the SDK accepts, and that both protocol
+      # eras see the same toolset (see docs/mcp-server.md).
       - name: Test tabbied-mcp
         run: npm test --workspace tabbied-mcp
 

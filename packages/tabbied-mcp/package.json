@@ -41,6 +41,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
     "tabbied": "^0.4.0"
   },
   "devDependencies": {

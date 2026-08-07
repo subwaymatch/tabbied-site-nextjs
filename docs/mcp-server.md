@@ -76,55 +76,63 @@ toolset is built around a single flow: **narrow on metadata, then look.**
   (see `svg-export.md`). That is also why it cannot be remote — a Worker has no
   browser.
 
-## Protocol notes
+## Protocol: MCP v2, and why there is no Durable Object here
 
-The server is **dual-era**, and that is not gold-plating.
+Revision `2026-07-28` ("MCP v2") made the protocol **stateless**. It dropped
+the `initialize` / `initialized` handshake and the `Mcp-Session-Id` header;
+every request now carries its protocol version, client identity, and
+capabilities in `params._meta`, and `server/discover` replaces `initialize` as
+the optional way to ask what a server supports.
 
-As of revision `2026-07-28` MCP has two incompatible ways to open a
-conversation. Older revisions (`2025-11-25` and earlier, "legacy") do an
-`initialize` handshake that establishes a session. The current revision
-("modern") has no handshake at all: every request declares its protocol version
-in `params._meta`, the server answers each one independently, and
-`server/discover` replaces `initialize` as the optional way to ask what a server
-supports.
+That is the whole reason this endpoint is a plain Worker route. Cloudflare
+previously recommended hosting MCP servers on Durable Objects to hold the
+session open, and deprecated that guidance with v2 — the protocol no longer
+needs one to be spoken. `createMcpHandler` builds one server per request, which
+is why `buildServer` is passed as a *factory* and must never capture
+per-request state.
 
-Every shipping client speaks legacy today — `@modelcontextprotocol/sdk` itself
-still pins `LATEST_PROTOCOL_VERSION` to `2025-11-25`. Supporting only modern
-would mean supporting nobody; supporting only legacy dates the server the moment
-clients move. The spec explicitly allows serving both from one endpoint and
-defines how to pick: a request carrying modern `_meta` is modern, an
-`initialize` is legacy. Since every tool is a read of a static catalog there is
-no session state either way, so both eras are served statelessly.
+We do not implement any of this ourselves. `@modelcontextprotocol/server` (SDK
+v2, replatformed onto Web Standards so it runs on workerd) owns the wire in
+both transports:
 
-This is why the protocol layer is hand-written instead of wrapping the SDK: the
-SDK cannot speak the modern era yet, and hand-writing it also leaves
-`tabbied-mcp` with exactly one dependency (`tabbied`) and lets the same code
-bundle into a Worker. `packages/tabbied-mcp/test/protocol.test.mjs` stands in
-for the SDK's own test suite — treat it as load-bearing.
+| | Built with |
+| --- | --- |
+| `https://tabbied.com/mcp` | `createMcpHandler(() => buildServer(tools), { legacy: 'stateless' })` |
+| `tabbied-mcp` bin | `serveStdio(() => buildServer(tools))` |
 
-Details of the HTTP binding:
+**`createMcpHandler` is taken from the SDK, not from `agents/mcp/server`.**
+Cloudflare's Agents SDK re-exports the same function — it originated there and
+graduated upstream — but importing it from `agents` pulls partyserver,
+partysocket, esbuild, and babel into a Worker that uses none of them. The SDK's
+own dependencies are `zod` and `@modelcontextprotocol/core`, and the deployed
+bundle is ~122 KB gzipped.
 
-- **POST only.** The modern revision removed the GET stream and the DELETE
-  session teardown, so both return `405`. `Mcp-Session-Id` is ignored and never
-  minted.
-- **Always a single JSON object**, never SSE. Every tool finishes in
-  microseconds, and the client is required to support both forms.
-- **Mirrored headers are validated.** If `MCP-Protocol-Version` disagrees with
-  the body's `_meta`, the request is rejected with `-32020` — the whole reason
-  the transport mirrors the value is so an intermediary can route on it, which
-  is only safe if the two cannot disagree. Missing `Mcp-Method` / `Mcp-Name`
-  hints are tolerated rather than rejected: this is a public, unauthenticated,
-  read-only endpoint behind no MCP-aware intermediary, so refusing an otherwise
-  valid request over a routing hint would trade real interoperability for no
-  security.
-- **CORS is open** (`Access-Control-Allow-Origin: *`). The spec's Origin-
-  validation requirement targets DNS rebinding against *local* servers holding
-  private data; this endpoint serves the same bytes the public site already
-  does. `createHttpHandler` takes an `allowedOrigins` option if that changes.
-- **Legacy JSON-RPC batches** (revision `2025-03-26`) are accepted, since
-  supporting them costs a `map`.
+### Backward compatibility
 
-Error codes follow the spec's split: a malformed request or an unknown tool is
+`legacy: 'stateless'` (the default, spelled out at the call site because it is
+load-bearing) keeps 2025-era clients working: they still open with
+`initialize`, each request is answered by a fresh instance, and GET/DELETE —
+the 2025 session operations — return `405`. Every shipping client still speaks
+that era today, so this is not hypothetical. Setting `'reject'` would strand
+them.
+
+One consequence worth knowing when reading raw responses: with the default
+`responseMode: 'auto'`, legacy exchanges come back as a one-event SSE stream
+(`text/event-stream`) while modern ones are plain JSON. Both are spec-legal and
+every client handles both; `test/server.test.mjs` unwraps either.
+
+### What the SDK gives us that hand-rolling did not
+
+- **Argument validation.** Tool schemas are registered with the server, so an
+  out-of-vocabulary tag is rejected — with the allowed values named — before
+  any handler runs.
+- **The full modern envelope.** `_meta` must carry protocol version, client
+  info, *and* client capabilities; an incomplete one is refused with a precise
+  error rather than quietly accepted.
+- **MRTR, caching hints, task and subscription plumbing** — none of which this
+  server uses today, but none of which it now has to grow by hand.
+
+Errors still follow the spec's split: a malformed request or an unknown tool is
 a JSON-RPC error, while a bad slug or a failed render comes back as a tool
 result with `isError: true`, so the model sees it and can correct itself.
 
@@ -165,5 +173,11 @@ curl -s -X POST http://127.0.0.1:8787/mcp -H 'Content-Type: application/json' \
 
 Adding a tool means adding it in `src/tools.ts` (if both transports can serve
 it) or in the host that can (`src/stdio.ts` for anything needing node or a
-browser). Anything reachable from `src/index.ts` must stay free of node
-imports — that entry point is what the Worker bundles.
+browser). Two rules hold:
+
+- Anything reachable from `src/index.ts` must stay free of node imports — that
+  entry point is what the Worker bundles.
+- Tool input schemas stay plain JSON Schema and are adapted by
+  `fromJsonSchema` in `src/server.ts`. Not Zod: `search_designs`'s enums come
+  from the catalog being served, so a static schema would drift from what is
+  actually queryable.

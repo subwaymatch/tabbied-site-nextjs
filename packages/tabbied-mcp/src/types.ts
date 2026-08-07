@@ -1,5 +1,8 @@
 // The shapes this server reads and writes.
 //
+import type { JsonSchemaType } from '@modelcontextprotocol/server';
+
+//
 // The catalog types mirror what packages/tabbied/scripts/codegen.mjs emits into
 // catalog.json — deliberately structural rather than imported, so the MCP
 // server can also run against a catalog fetched over HTTP from a *different*
@@ -65,12 +68,14 @@ export type ToolResult = {
   isError?: boolean;
 };
 
-export type JsonSchema = {
-  type: 'object';
-  properties?: Record<string, unknown>;
-  required?: string[];
-  additionalProperties?: boolean;
-};
+/**
+ * Tool input schemas stay plain JSON Schema rather than Zod, because
+ * `search_designs`'s enums are derived from the catalog at runtime (see
+ * tools.ts) and so cannot be authored statically. Aliasing the SDK's own type
+ * — a type-only import, no runtime weight — means a schema this package can't
+ * actually register fails at `tsc` rather than at the first `tools/list`.
+ */
+export type JsonSchema = JsonSchemaType;
 
 export type ToolDefinition = {
   name: string;

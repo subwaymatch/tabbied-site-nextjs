@@ -15,7 +15,7 @@ the site's `/mcp` endpoint and a `tabbied-mcp` stdio bin).
 npm run dev                          # site (predev builds both packages)
 npm run build:packages               # codegen + tsc for tabbied, then tabbied-mcp
 npm test --workspace tabbied         # package unit tests (node --test)
-npm test --workspace tabbied-mcp     # MCP toolset + protocol tests
+npm test --workspace tabbied-mcp     # MCP toolset + both protocol eras
 npm run build && npm run test:e2e    # static export + Playwright suite
 npm run preview                      # run the real Worker over out/ (wrangler dev)
 npm run deploy                       # build, then wrangler deploy
@@ -74,33 +74,44 @@ dashboard rather than in git.
 `packages/tabbied-mcp/` exposes the catalog to agents over the Model Context
 Protocol. Full reference: `docs/mcp-server.md`.
 
-The layering is the whole point, and it is load-bearing:
+The protocol comes from `@modelcontextprotocol/server` (MCP SDK v2). We own
+the tools; the SDK owns the wire.
 
 - `src/tools.ts` — the four catalog tools, with no runtime imports at all. The
   host injects what differs (preview bytes, docs text) through `ToolContext`.
-- `src/protocol.ts` — a dual-era JSON-RPC dispatcher.
-- `src/http.ts` — the Streamable HTTP binding, written against Web `Request`/
-  `Response` so it runs on workerd unchanged.
+- `src/server.ts` — registers those tools onto an `McpServer`. The seam.
 - `src/stdio.ts`, `src/node/` — the bin, the local catalog reader, and
   `render_design`. Node only, never reached from the Worker.
 
-So the remote endpoint and the local bin answer `tools/list` identically, and
-the Worker bundles no node shims. **A tool that needs a browser cannot be
-remote**: `render_design` exists only over stdio, because rendering a
-css-doodle pattern needs a real browser and a Worker has none.
+Both transports are the SDK's: the Worker wraps the factory in
+`createMcpHandler`, the bin hands it to `serveStdio`. So the remote endpoint
+and the local bin answer `tools/list` identically. **A tool that needs a
+browser cannot be remote**: `render_design` exists only over stdio, because
+rendering a css-doodle pattern needs a real browser and a Worker has none.
 
-Two decisions worth not re-litigating:
+Four things worth not re-litigating:
 
-- **The protocol is hand-written, not `@modelcontextprotocol/sdk`.** The SDK
-  still pins `LATEST_PROTOCOL_VERSION` to `2025-11-25`, so it cannot speak the
-  modern (`2026-07-28`) era — the one that dropped the `initialize` handshake
-  in favour of per-request `_meta`. Hand-writing it buys dual-era support, and
-  a `tabbied-mcp` whose only dependency is `tabbied`. `test/protocol.test.mjs`
-  is what stands in for the SDK's test suite; keep it that way.
+- **`buildServer` is a factory, and must stay one.** MCP v2 is stateless — the
+  SDK builds a server per request (per connection on stdio). Capturing
+  per-request state in it would work locally and break under concurrency.
+- **Tool schemas stay plain JSON Schema, adapted with `fromJsonSchema`,** not
+  authored as Zod. `search_designs`'s enums are derived from the catalog being
+  served, so static Zod could not express them without drifting from what is
+  actually queryable. Registering the schema is also what buys argument
+  validation — the SDK rejects an out-of-vocabulary tag before our handler runs.
+- **`createMcpHandler` comes from the SDK, not from `agents/mcp/server`.**
+  Cloudflare's is a re-export of the same function (it graduated upstream), but
+  taking it from `agents` drags partyserver, esbuild, and babel into a Worker
+  that needs none of them. The SDK's own deps are `zod` and
+  `@modelcontextprotocol/core`; the bundle is ~122 KB gzipped.
 - **The Worker reads the catalog through `env.ASSETS`, not from its bundle.**
   The tools then describe exactly the bytes that deployment serves — a design
   added in the same commit cannot be missing from the catalog an agent queries
   — and 384 KB of JSON stays out of the Worker.
+
+`legacy: 'stateless'` is spelled out at the call site even though it is the
+default: it is what keeps 2025-era clients working, and every shipping client
+still opens with `initialize`. Dropping it to `'reject'` would strand them.
 
 ## Downloadable templates — derived from the export, never hand-ported
 

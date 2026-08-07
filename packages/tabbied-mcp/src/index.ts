@@ -1,24 +1,15 @@
-// The runtime-agnostic half of the server: tool definitions, the JSON-RPC
-// dispatcher, and the Streamable HTTP binding. Nothing here imports node, so
-// this entry point is what the Cloudflare Worker bundles.
+// The runtime-agnostic half of the server: the tool definitions and the
+// `McpServer` factory built from them. Nothing here imports node, so this entry
+// point is what the Cloudflare Worker bundles.
 //
-// The node-only pieces — the stdio transport, the local catalog reader, and the
-// browser-backed `render_design` — live behind ./stdio and are reached through
-// the bin, never through this file.
+// The protocol and both transports come from `@modelcontextprotocol/server` —
+// the Worker wraps `buildServer` in `createMcpHandler`, the bin hands it to
+// `serveStdio`. See docs/mcp-server.md.
+//
+// The node-only pieces — the local catalog reader and the browser-backed
+// `render_design` — live behind the bin and are never reached through here.
+export { buildServer } from './server.js';
 export { catalogTools, createToolset, type Toolset } from './tools.js';
-export {
-  createMcpServer,
-  declaredVersion,
-  errorResponse,
-  LEGACY_VERSIONS,
-  MODERN_VERSIONS,
-  SUPPORTED_VERSIONS,
-  type Dispatched,
-  type JsonRpcResponse,
-  type McpServer,
-  type ServerInfo,
-} from './protocol.js';
-export { createHttpHandler, type HttpHandlerOptions } from './http.js';
 export { INSTRUCTIONS, SERVER_NAME, VERSION } from './info.js';
 export type {
   Catalog,
