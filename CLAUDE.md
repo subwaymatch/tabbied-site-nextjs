@@ -148,6 +148,19 @@ deploy's own build is the only thing that ever produces the `/downloads/*.zip`
 the site links to — which is why this is wired into `build` rather than left
 to be remembered.
 
+**The archives are written in-process, and must stay that way.** The packager
+used to shell out to `zip -qr`. That binary is on GitHub Actions' runner and on
+most developer machines, but Cloudflare's Workers Builds image ships `unzip`
+and *not* `zip` — so CI stayed green while the first Workers deploy died with
+`spawn zip ENOENT` on all 57 sites. `zipDirectory` now builds the archive with
+fflate (zero dependencies), so the only thing the packaging step needs is the
+Node that is already running it. Don't reintroduce a PATH lookup here. Two
+details it depends on: every directory gets its own zero-length `<name>/`
+entry, because 10 of the 57 sites reference no images and their empty `images/`
+(and the React package's `public/`) would otherwise vanish from the download;
+and entries carry the source file's real mtime, which `zip -r` did and fflate
+does not do on its own.
+
 **Cloudflare would tolerate a cheaper shape, and it is deliberately not used.**
 `wrangler deploy` uploads `out/` from disk after the build command has already
 exited, so a single pass plus a `postbuild` packaging step into `out/downloads/`

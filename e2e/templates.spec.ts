@@ -10,6 +10,7 @@
 // the suite skips (loudly) rather than failing when the templates aren't there,
 // so the rest of the e2e run isn't blocked by a missing optional build step.
 import { test, expect } from '@playwright/test';
+import { unzipSync } from 'fflate';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -332,7 +333,23 @@ test.describe('the /templates gallery offers both formats', () => {
       expect(file.suggestedFilename()).toMatch(
         new RegExp(`-${label.toLowerCase()}\\.zip$`)
       );
-      expect(fs.statSync(await file.path()).size).toBeGreaterThan(2000);
+      const bytes = fs.readFileSync(await file.path());
+      expect(bytes.byteLength).toBeGreaterThan(2000);
+
+      // Actually parse it. A size check alone passes on a corrupt archive, and
+      // the packager writes these itself now (fflate, not the `zip` binary —
+      // Cloudflare's build image has no `zip`), so nothing else would notice a
+      // malformed one: the deploy would happily serve 114 unopenable
+      // downloads. unzipSync throws on a bad central directory, and CRCs are
+      // checked per entry on inflate.
+      const entries = unzipSync(bytes);
+      const names = Object.keys(entries);
+      expect(names.length).toBeGreaterThan(3);
+      // Every entry sits under the one top-level folder the archive expands
+      // into, rather than scattering into the download directory.
+      const roots = new Set(names.map((name) => name.split('/')[0]));
+      expect(roots.size).toBe(1);
+      expect(names).toContain(`${[...roots][0]}/index.html`);
     }
   });
 

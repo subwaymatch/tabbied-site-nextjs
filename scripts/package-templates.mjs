@@ -27,14 +27,11 @@
 //   node scripts/package-templates.mjs                # every packageable site
 //   node scripts/package-templates.mjs werkraum       # one site
 //   node scripts/package-templates.mjs --out-dir dist/downloads
-import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { promisify } from 'node:util';
-
-const run = promisify(execFile);
+import { zipSync } from 'fflate';
 
 const repoRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const exportDir = path.join(repoRoot, 'out');
@@ -47,6 +44,75 @@ const globalsCss = path.join(repoRoot, 'styles', 'globals.css');
 // exits non-zero, which is what makes this safe to wire into a build.
 // Currently empty — all 57 sites package.
 const KNOWN_UNSUPPORTED = new Map();
+
+// ---- archiving -----------------------------------------------------------
+
+// What `zip -qr <name>.zip <dir>` did, in-process.
+//
+// This used to shell out to the `zip` binary, which is on GitHub Actions'
+// runner and on most developer machines but is NOT in Cloudflare's Workers
+// Builds image — that image ships `unzip` and not `zip`. So CI stayed green
+// while the deploy died with `spawn zip ENOENT` on all 57 sites, which is the
+// same shape of failure the two-pass build exists to prevent: the packaging
+// step is the one part of the build whose output nothing else validates.
+//
+// Deriving the download from the export is supposed to assume nothing about
+// the host (see agent-outputs/template-packaging-plan.md), and a binary on
+// PATH is an assumption. fflate is a zero-dependency deflate/zip
+// implementation, so the archive is written by the same Node that walked the
+// tree and there is no host tool left to be missing.
+//
+// Archived from the *parent* so the zip expands into a named folder rather
+// than scattering files into the download directory — hence `dirName` being
+// relative to `parentDir` and forming the first path segment of every entry.
+async function zipDirectory(parentDir, dirName, zipName) {
+  /** @type {Record<string, [Uint8Array, { mtime: Date }]>} */
+  const entries = {};
+
+  // Zip entry names are always POSIX-separated, whatever the host uses.
+  const entryName = (relativePath) => relativePath.split(path.sep).join('/');
+
+  const walk = async (relativeDir) => {
+    const absoluteDir = path.join(parentDir, relativeDir);
+    // A directory gets an entry of its own — zero bytes, name ending in `/` —
+    // exactly as `zip -r` writes one. For a directory with children this is
+    // redundant (every extractor creates parents on the way to a file), but
+    // for an *empty* one it is the only record that it existed, and 10 of the
+    // 57 sites reference no images: without this their `images/` (and the
+    // React package's `public/`) silently vanish from the download while the
+    // README still lists them.
+    entries[`${entryName(relativeDir)}/`] = [
+      new Uint8Array(0),
+      { mtime: (await fs.stat(absoluteDir)).mtime },
+    ];
+
+    const dirents = await fs.readdir(absoluteDir, { withFileTypes: true });
+    for (const dirent of dirents) {
+      const relativePath = path.join(relativeDir, dirent.name);
+      if (dirent.isDirectory()) {
+        await walk(relativePath);
+        continue;
+      }
+      const absolutePath = path.join(parentDir, relativePath);
+      entries[entryName(relativePath)] = [
+        await fs.readFile(absolutePath),
+        // Carry the real mtime across, as `zip -r` did. Without this fflate
+        // stamps every entry with the time the archive was written.
+        { mtime: (await fs.stat(absolutePath)).mtime },
+      ];
+    }
+  };
+
+  await walk(dirName);
+
+  const target = path.join(parentDir, zipName);
+  await fs.rm(target, { force: true });
+  // level 6 is both `zip`'s default and fflate's, so the archives stay the
+  // size the /templates copy quotes.
+  await fs.writeFile(target, zipSync(entries, { level: 6 }));
+
+  return (await fs.stat(target)).size;
+}
 
 // ---- HTML surgery --------------------------------------------------------
 
@@ -669,11 +735,7 @@ async function packageReactSite(slug, outDir, version, name, images) {
     REACT_README(slug, name, version)
   );
 
-  const zipName = `${slug}-react.zip`;
-  await fs.rm(path.join(outDir, zipName), { force: true });
-  await run('zip', ['-qr', zipName, `${slug}-react`], { cwd: outDir });
-
-  return (await fs.stat(path.join(outDir, zipName))).size;
+  return zipDirectory(outDir, `${slug}-react`, `${slug}-react.zip`);
 }
 
 // ---- emit ----------------------------------------------------------------
@@ -808,13 +870,7 @@ async function packageSite(slug, outDir, version) {
     README(slug, name, version, slugs)
   );
 
-  // zip -r from the parent so the archive expands into a named folder rather
-  // than scattering files into the download directory.
-  const zipName = `${slug}-html.zip`;
-  await fs.rm(path.join(outDir, zipName), { force: true });
-  await run('zip', ['-qr', zipName, slug], { cwd: outDir });
-
-  const { size } = await fs.stat(path.join(outDir, zipName));
+  const size = await zipDirectory(outDir, slug, `${slug}-html.zip`);
 
   const reactSize = await packageReactSite(slug, outDir, version, name, images.used);
 
