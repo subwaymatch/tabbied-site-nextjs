@@ -38,6 +38,8 @@ import {
   catalogTools,
   type Catalog,
   type CatalogDesign,
+  type TemplateCatalog,
+  type TemplateSpec,
 } from 'tabbied-mcp';
 
 export type Env = {
@@ -114,6 +116,19 @@ async function handleMcp(request: Request, env: Env): Promise<Response> {
     };
   };
 
+  // The template tools read the same generated artefacts the site serves, so
+  // an agent and the web builder see one set of bytes — and a template
+  // annotated in this commit cannot be missing from the index an agent
+  // queries. Unlike the catalog these are not worth memoising per isolate: the
+  // per-slug specs are many and each is read rarely, and the index is small.
+  const fetchTemplateCatalog = async () =>
+    (await readAsset(env, request, '/editable-catalog.json')).json() as
+      Promise<TemplateCatalog>;
+
+  const fetchTemplate = async (slug: string) =>
+    (await readAsset(env, request, `/editable/${slug}.json`)).json() as
+      Promise<TemplateSpec>;
+
   // No render_design: rendering a css-doodle pattern needs a real browser, and
   // a Worker has none. Agents that need a rendered asset use the local stdio
   // server (`npx tabbied-mcp`) or the `tabbied` CLI.
@@ -121,6 +136,8 @@ async function handleMcp(request: Request, env: Env): Promise<Response> {
     catalog,
     fetchPreview,
     fetchDocs: () => loadDocs(env, request),
+    fetchTemplateCatalog,
+    fetchTemplate,
   });
 
   // A factory, per the stateless model — the handler builds a server per
