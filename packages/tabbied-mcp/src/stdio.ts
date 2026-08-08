@@ -14,14 +14,26 @@ import { serveStdio } from '@modelcontextprotocol/server/stdio';
 
 import { buildServer } from './server.js';
 import { catalogTools } from './tools.js';
-import { fetchDocs, fetchPreview, loadCatalog } from './node/resources.js';
+import {
+  fetchDocs,
+  fetchPreview,
+  fetchTemplate,
+  fetchTemplateCatalog,
+  loadCatalog,
+} from './node/resources.js';
 import { renderTool } from './node/render.js';
 
 async function main(): Promise<void> {
   const catalog = await loadCatalog();
 
   const tools = [
-    ...catalogTools({ catalog, fetchPreview, fetchDocs }),
+    ...catalogTools({
+      catalog,
+      fetchPreview,
+      fetchDocs,
+      fetchTemplateCatalog,
+      fetchTemplate,
+    }),
     // Only the local server can render: it has a browser to render with.
     renderTool(catalog),
   ];

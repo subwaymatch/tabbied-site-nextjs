@@ -7,9 +7,11 @@ Guidance for coding agents working in this repository.
 Tabbied: generative patterns built on css-doodle. npm workspaces — the
 Next.js site at the root consumes the `tabbied` package in
 `packages/tabbied/` (framework-free core + React wrapper + 295 pattern
-presets as JSON in `packages/tabbied/patterns/`, embedded by codegen) and the
+presets as JSON in `packages/tabbied/patterns/`, embedded by codegen), the
 `tabbied-mcp` package in `packages/tabbied-mcp/` (the MCP server, shared by
-the site's `/mcp` endpoint and a `tabbied-mcp` stdio bin).
+the site's `/mcp` endpoint and a `tabbied-mcp` stdio bin), and
+`tabbied-templates` in `packages/tabbied-templates/` (the editable-section
+spec and its apply engine — see below).
 
 ```bash
 npm run dev                          # site (predev builds both packages)
@@ -22,6 +24,7 @@ npm run deploy                       # build, then wrangler deploy
 npm run typecheck:worker             # worker/ is excluded from the site tsconfig
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
+npm run editable [slug]              # derive editable specs from out/ (also the gate)
 npm run check:thumbnails             # gallery configs all name a real design
 ```
 
@@ -52,11 +55,21 @@ Three things that are explicit here and were implicit or automatic on Vercel:
   it — and wrangler *consumes* it rather than serving it. `wrangler dev` prints
   `Parsed N valid header rules` on boot, which is the cheapest way to catch a
   typo. Limits: 100 rules, 2,000 characters per line.
-- **`run_worker_first: ["/mcp", "/mcp/*", "/health"]`.** `/mcp` is not a file,
-  so it would reach the Worker anyway — but only after the asset router looked
-  at it, and with `trailingSlash: true` the default `html_handling` answers a
-  POST to `/mcp` with a 308 to `/mcp/`. Redirecting an MCP client's POST breaks
-  it. Do not drop these patterns.
+- **`run_worker_first: ["/mcp", "/mcp/*", "/health", "/api", "/api/*"]`.**
+  `/mcp` is not a file, so it would reach the Worker anyway — but only after
+  the asset router looked at it, and with `trailingSlash: true` the default
+  `html_handling` answers a POST to `/mcp` with a 308 to `/mcp/`. Redirecting
+  an MCP client's POST breaks it. `/api` is listed for exactly the same reason
+  and it is not optional: every POST to the platform tier would otherwise be
+  answered with a redirect before the Worker saw it. **Any new non-asset route
+  must join this list.**
+
+The Worker routes with Hono (`worker/index.ts`). That was added for the
+platform tier — the right shape for two routes was the wrong one for twenty —
+and it changed no behaviour: same MCP handler, same statelessness, same
+`env.ASSETS` fallthrough. `/api` is scaffolding today (`/api/health` and a
+JSON 404); auth, projects, and the AI gateway land with the bindings they need.
+See `agent-outputs/platform-auth-ai-plan.md`.
 
 The export is comfortably inside the platform limits — roughly 4,300 files
 against a 20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but
@@ -254,6 +267,65 @@ resolves a level too high and 404s — which once had this spec passing against
 a completely unstyled page. What actually proves a template is the pixel diff
 against its live page (see the packaging commit); the spec is the cheap guard
 that runs every time.
+
+## Editable templates (full reference: docs/editable-templates.md)
+
+`data-edit*` attributes in a template page name the parts a person or an agent
+may change; `scripts/generate-editable.mjs` reads them back out of the export
+into `public/editable/<slug>.json`, and `packages/tabbied-templates` validates
+and applies an *edits document* against a DOM. Five sites are annotated (the
+shared `TemplateSite` ones); the 52 bespoke pages follow in batches, and an
+unannotated page is not a failure.
+
+Four things worth not re-litigating:
+
+- **The generator is the gate.** It runs inside `npm run build` (between the
+  two `next build` passes, so the second exports it) and exits non-zero on an
+  annotation that resolves to nothing. That failure is otherwise silent — the
+  spec looks fine and the editor's control just does nothing, which is the
+  `galleryThumbnails` rot in a new costume.
+- **The engine never sets classes**, only text, attributes, and inline custom
+  properties. `trimUnusedRules` ships a stylesheet trimmed to the classes the
+  markup already uses, and that is safe *only* because nothing adds one after
+  load.
+- **Colour derivation has one implementation.** `derivePaletteProperties()` is
+  shared by `TemplateSite.tsx` (first render) and `applyEdits` (re-colour); a
+  second copy of that maths is how a re-coloured page gets unreadable body
+  copy. Pattern fields re-colour through a declared role map, and a literal
+  `transparent` in colour 0 must survive it — that is what lets a field read
+  over a photograph.
+- **One slot id may sit on several elements** (brand name in masthead and
+  footer) and an edit reaches all of them; the generator fails the build if
+  they don't currently agree.
+
+All 57 sites are annotated. The 52 bespoke pages were done by
+`scripts/annotate-templates.mjs`, a one-time codemod (`npm run
+annotate:templates`) — run it after adding a new bespoke template, and note it
+skips any page already carrying `data-edit-root`, so a hand-annotated page is
+never overwritten. It refuses to annotate a component rendered more than once,
+two nested maps sharing an index name, or a pattern wrapped in a fragment, and
+says so; those need a wrapper or an id by hand.
+
+When resolving a pattern's palette into a role map it chases **aliased
+constants** (`const TILE_A = STEEL`) and **array constants** (`palette={FULL}`);
+not doing so left 109 of 434 fields unable to re-colour. The 31 that remain
+take a per-item palette from a data array or a conditional, so no static map
+can describe them — they re-colour only through an explicit `palette` in the
+edits document.
+
+**Two palette derivations, and the bespoke one is not `--brand-N`.** Those 52
+pages each declare their own property names on their root rule (`--paper`,
+`--ink`, …) with the stylesheet reading `var(--…)`, so they use
+`data-edit-root="vars"` plus `data-edit-vars` naming the role order. The
+properties are written *inline*, which is what makes an edit beat the authored
+default still in the class rule. A colour interpolated into an inline style in
+JS is baked at render time and a re-colour cannot reach it — write those as
+`var(--ink)`.
+
+`page.tsx` sources that import `tabbied-templates` get it added to the React
+download's dependencies automatically — `EXTERNAL_DEPENDENCIES` in
+`scripts/package-templates.mjs` is derived from the shipped source, not
+maintained by hand.
 
 ## Agent-facing docs — all generated, never hand-edited
 

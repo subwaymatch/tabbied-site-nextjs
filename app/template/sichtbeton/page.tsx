@@ -50,7 +50,19 @@ const NUMBERS = [
 
 export default function SichtbetonPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--grey-p': '#e9e9e6',
+        '--ink': '#131313',
+        '--orange': '#ff5a00',
+        '--steel': '#8b8b87',
+        '--pale': '#d3d3ce',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="grey-p,ink,orange,steel,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -60,22 +72,22 @@ export default function SichtbetonPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Sichtbeton
         </a>
         <nav aria-label="Sections">
-          <a href="#classes">Classes</a>
-          <a href="#checks">Checks</a>
-          <a href="#trials">Trials</a>
-          <a href="#office">Office</a>
+          <a data-edit="bar.classes" data-edit-max="28" href="#classes">Classes</a>
+          <a data-edit="bar.checks" data-edit-max="28" href="#checks">Checks</a>
+          <a data-edit="bar.trials" data-edit-max="28" href="#trials">Trials</a>
+          <a data-edit="bar.office" data-edit-max="28" href="#office">Office</a>
         </nav>
-        <span className={s.meta}>Betontechnologie / Zürich</span>
+        <span data-edit="bar.meta" data-edit-max="60" className={s.meta}>Betontechnologie / Zürich</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={subdivide}
               palette={['transparent', PALE, STEEL]}
@@ -86,15 +98,15 @@ export default function SichtbetonPage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Betontechnologie / seit 1996</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Betontechnologie / seit 1996</p>
             <h1>
               A fair-faced wall
               <br />
               is decided before
               <br />
-              <span>anybody pours it.</span>
+              <span data-edit="hero.text" data-edit-max="60">anybody pours it.</span>
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Mix design, formwork strategy, trial panels and curing. We are the
               people who say no in week four so nobody has to say it in week
               forty.
@@ -105,43 +117,43 @@ export default function SichtbetonPage() {
         {/* The wall itself, edge to edge, cropped so the tie holes set the
             page's rhythm before any text does. */}
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.sichtbeton-wall"
             slug="sichtbeton-wall"
             alt="A large board-marked fair-faced concrete wall with tie holes in a regular grid"
             priority
           />
-          <figcaption>SB 4, board-marked, tie grid at 1,200 mm. Cast in November.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>SB 4, board-marked, tie grid at 1,200 mm. Cast in November.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
-          {NUMBERS.map(([v, k]) => (
+          {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt>{v}</dt>
-              <dd>{k}</dd>
+              <dt data-edit={`top.term.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
 
         {/* -------------------------------------------------------- CLASSES */}
         <section id="classes" className={s.classes} aria-labelledby="classes-h">
-          <h2 className={s.h2} id="classes-h">
+          <h2 data-edit="classes.h2" data-edit-max="60" className={s.h2} id="classes-h">
             Four classes
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span>Class</span>
-              <span>Typical use</span>
-              <span>Formwork</span>
-              <span>Tolerance</span>
-              <span>Trial</span>
+              <span data-edit="classes.text" data-edit-max="60">Class</span>
+              <span data-edit="classes.text2" data-edit-max="60">Typical use</span>
+              <span data-edit="classes.text3" data-edit-max="60">Formwork</span>
+              <span data-edit="classes.text4" data-edit-max="60">Tolerance</span>
+              <span data-edit="classes.text5" data-edit-max="60">Trial</span>
             </li>
-            {CLASSES.map((c) => (
+            {CLASSES.map((c, i) => (
               <li key={c.c}>
-                <span className={s.cls}>{c.c}</span>
-                <span className={s.use}>{c.use}</span>
-                <span>{c.form}</span>
-                <span className={s.num}>{c.tol}</span>
-                <span className={c.trial === 'None' ? s.none : s.req}>{c.trial}</span>
+                <span data-edit={`classes.cls.${i}`} data-edit-max="60" className={s.cls}>{c.c}</span>
+                <span data-edit={`classes.use.${i}`} data-edit-max="60" className={s.use}>{c.use}</span>
+                <span data-edit={`classes.text6.${i}`} data-edit-max="60">{c.form}</span>
+                <span data-edit={`classes.num.${i}`} data-edit-max="60" className={s.num}>{c.tol}</span>
+                <span data-edit={`classes.none.${i}`} data-edit-max="60" className={c.trial === 'None' ? s.none : s.req}>{c.trial}</span>
               </li>
             ))}
           </ol>
@@ -149,7 +161,7 @@ export default function SichtbetonPage() {
 
         {/* ------------------------------------------------------- TIE BAND */}
         <section className={s.tieBand} aria-hidden="true">
-          <div className={s.tieField}>
+          <div data-edit-pattern="tieBand.field" data-edit-roles="transparent,1,2,3" className={s.tieField}>
             <TabbiedPattern
               pattern={chase}
               palette={['transparent', INK, ORANGE, STEEL]}
@@ -163,7 +175,7 @@ export default function SichtbetonPage() {
 
         {/* --------------------------------------------------------- CHECKS */}
         <section id="checks" className={s.checks} aria-labelledby="checks-h">
-          <div className={s.checksField} aria-hidden="true">
+          <div data-edit-pattern="checks.field" data-edit-roles="transparent,3,4" className={s.checksField} aria-hidden="true">
             <TabbiedPattern
               pattern={keyway}
               palette={['transparent', STEEL, PALE]}
@@ -174,32 +186,32 @@ export default function SichtbetonPage() {
             />
           </div>
           <div className={s.checksInner}>
-            <h2 className={s.h2} id="checks-h">
+            <h2 data-edit="checks.h2" data-edit-max="60" className={s.h2} id="checks-h">
               Four things that decide the wall
             </h2>
             <ol className={s.checkList}>
-              {CHECKS.map((c) => (
+              {CHECKS.map((c, i) => (
                 <li key={c.n}>
-                  <span className={s.chN}>{c.n}</span>
-                  <h3>{c.t}</h3>
-                  <p>{c.d}</p>
+                  <span data-edit={`checks.chN.${i}`} data-edit-max="60" className={s.chN}>{c.n}</span>
+                  <h3 data-edit={`checks.title.${i}`} data-edit-max="40">{c.t}</h3>
+                  <p data-edit={`checks.body.${i}`} data-edit-max="240" data-edit-multiline>{c.d}</p>
                 </li>
               ))}
             </ol>
             <div className={s.pair}>
               <figure>
-                <Figure
+                <Figure editId="photo.sichtbeton-formwork"
                   slug="sichtbeton-formwork"
                   alt="Timber formwork panels stacked and braced on a construction site"
                 />
-                <figcaption>Panels numbered and sequenced. Reuse is capped at four.</figcaption>
+                <figcaption data-edit="checks.caption" data-edit-max="120" data-edit-multiline>Panels numbered and sequenced. Reuse is capped at four.</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.sichtbeton-rebar"
                   slug="sichtbeton-rebar"
                   alt="A dense reinforcement cage tied and waiting for a pour, seen from above"
                 />
-                <figcaption>Cover checked twice: once by the steelfixer, once by us.</figcaption>
+                <figcaption data-edit="checks.caption2" data-edit-max="120" data-edit-multiline>Cover checked twice: once by the steelfixer, once by us.</figcaption>
               </figure>
             </div>
           </div>
@@ -207,22 +219,22 @@ export default function SichtbetonPage() {
 
         {/* --------------------------------------------------------- TRIALS */}
         <section id="trials" className={s.trials} aria-labelledby="trials-h">
-          <h2 className={s.h2} id="trials-h">
+          <h2 data-edit="trials.h2" data-edit-max="60" className={s.h2} id="trials-h">
             Trial panels
           </h2>
           <div className={s.trialGrid}>
-            <p className={s.big}>
+            <p data-edit="trials.big" data-edit-max="240" data-edit-multiline className={s.big}>
               Two panels, full height, cast on the site by the crew who will do
               the real pour, in whatever weather turns up. Then everybody stands
               in front of them and agrees, in writing, what acceptable means.
             </p>
             <div className={s.trialCol}>
-              <p>
+              <p data-edit="trials.body" data-edit-max="240" data-edit-multiline>
                 A photograph is not a trial panel. Neither is a sample from
                 another job, another supplier or another season. Concrete is a
                 local material and the panel is the only honest specification.
               </p>
-              <p>
+              <p data-edit="trials.body2" data-edit-max="240" data-edit-multiline>
                 The signed panel stays on site until practical completion. When
                 a dispute happens, and it does, the wall is compared to the
                 panel and not to anybody&rsquo;s memory of the panel.
@@ -230,17 +242,17 @@ export default function SichtbetonPage() {
             </div>
           </div>
           <figure className={s.wide}>
-            <Figure
+            <Figure editId="photo.sichtbeton-cylinder"
               slug="sichtbeton-cylinder"
               alt="Concrete test cylinders standing on a laboratory bench beside a compression machine"
             />
-            <figcaption>Cubes at 7 and 28 days. Colour is judged on the panel, not on these.</figcaption>
+            <figcaption data-edit="trials.caption" data-edit-max="120" data-edit-multiline>Cubes at 7 and 28 days. Colour is judged on the panel, not on these.</figcaption>
           </figure>
         </section>
 
         {/* --------------------------------------------------------- OFFICE */}
         <section id="office" className={s.office} aria-labelledby="office-h">
-          <div className={s.officeField} aria-hidden="true">
+          <div data-edit-pattern="office.field" data-edit-roles="transparent,2,3" className={s.officeField} aria-hidden="true">
             <TabbiedPattern
               pattern={gritfield}
               palette={['transparent', ORANGE, STEEL]}
@@ -251,12 +263,12 @@ export default function SichtbetonPage() {
             />
           </div>
           <div className={s.officeInner}>
-            <h2 className={s.h2} id="office-h">
+            <h2 data-edit="office.h2" data-edit-max="60" className={s.h2} id="office-h">
               Engaging us
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt>Office</dt>
+                <dt data-edit="office.term" data-edit-max="28">Office</dt>
                 <dd>
                   Hardturmstrasse 260
                   <br />
@@ -264,29 +276,29 @@ export default function SichtbetonPage() {
                 </dd>
               </div>
               <div>
-                <dt>Write</dt>
+                <dt data-edit="office.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a href="mailto:beton@sichtbeton.example">beton@sichtbeton.example</a>
+                  <a data-edit="office.link" data-edit-max="28" href="mailto:beton@sichtbeton.example">beton@sichtbeton.example</a>
                 </dd>
               </div>
               <div>
-                <dt>When</dt>
-                <dd>At concept design. Later is possible and more expensive.</dd>
+                <dt data-edit="office.term3" data-edit-max="28">When</dt>
+                <dd data-edit="office.body" data-edit-max="200" data-edit-multiline>At concept design. Later is possible and more expensive.</dd>
               </div>
               <div>
-                <dt>Site work</dt>
-                <dd>Trial panel witnessing, first lift, and a weekly walk.</dd>
+                <dt data-edit="office.term4" data-edit-max="28">Site work</dt>
+                <dd data-edit="office.body2" data-edit-max="200" data-edit-multiline>Trial panel witnessing, first lift, and a weekly walk.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three things that show on a finished wall</h2>
-          <p className={s.secNote}>Invisible in the specification, unmissable in daylight, permanent either way.</p>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three things that show on a finished wall</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Invisible in the specification, unmissable in daylight, permanent either way.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={gritfield}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -302,14 +314,14 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="sichtbeton-tile-cube-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.sichtbeton-tile-cube-cutout" slug="sichtbeton-tile-cube-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The joint</h3>
-                <p className={s.tileBody}>Day joints and panel joints are the drawing. Set them out with the architect at 1:20 and they read as intent rather than as an accident.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.title2" data-edit-max="40">The joint</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Day joints and panel joints are the drawing. Set them out with the architect at 1:20 and they read as intent rather than as an accident.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={keyway}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -325,14 +337,14 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="sichtbeton-tile-cone-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.sichtbeton-tile-cone-cutout" slug="sichtbeton-tile-cone-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The pour</h3>
-                <p className={s.tileBody}>Rate, vibration and lift height. Most blowholes and most colour variation are decided in the ninety minutes the concrete is moving.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.title3" data-edit-max="40">The pour</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Rate, vibration and lift height. Most blowholes and most colour variation are decided in the ninety minutes the concrete is moving.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={subdivide}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -348,84 +360,84 @@ export default function SichtbetonPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="sichtbeton-tile-cylinder-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.sichtbeton-tile-cylinder-cutout" slug="sichtbeton-tile-cylinder-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>The cure</h3>
-                <p className={s.tileBody}>Seven days minimum, and the wall is finished in the first three. Strip early and you get a lighter, chalkier surface nobody can fix later.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.title4" data-edit-max="40">The cure</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Seven days minimum, and the wall is finished in the first three. Strip early and you get a lighter, chalkier surface nobody can fix later.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">Typical mix, SB 4</h2>
-          <p className={s.secNote}>One example, published because clients ask what a fair-faced specification actually contains.</p>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Typical mix, SB 4</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>One example, published because clients ask what a fair-faced specification actually contains.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Constituent</span>
-                <span>Quantity</span>
-                <span>Source</span>
-                <span>Note</span>
+                <span data-edit="index.text" data-edit-max="60">Constituent</span>
+                <span data-edit="index.text2" data-edit-max="60">Quantity</span>
+                <span data-edit="index.text3" data-edit-max="60">Source</span>
+                <span data-edit="index.text4" data-edit-max="60">Note</span>
             </li>
               <li key="CEM I 42,5 N">
-                <span>CEM I 42,5 N</span>
-                <span>340 kg/m³</span>
-                <span>Single works</span>
-                <span>No change mid-project</span>
+                <span data-edit="index.text5" data-edit-max="60">CEM I 42,5 N</span>
+                <span data-edit="index.text6" data-edit-max="60">340 kg/m³</span>
+                <span data-edit="index.text7" data-edit-max="60">Single works</span>
+                <span data-edit="index.text8" data-edit-max="60">No change mid-project</span>
               </li>
               <li key="Aggregate, 0/16">
-                <span>Aggregate, 0/16</span>
-                <span>1 810 kg/m³</span>
-                <span>Single quarry</span>
-                <span>Washed, graded</span>
+                <span data-edit="index.text9" data-edit-max="60">Aggregate, 0/16</span>
+                <span data-edit="index.text10" data-edit-max="60">1 810 kg/m³</span>
+                <span data-edit="index.text11" data-edit-max="60">Single quarry</span>
+                <span data-edit="index.text12" data-edit-max="60">Washed, graded</span>
               </li>
               <li key="Water">
-                <span>Water</span>
-                <span>153 l/m³</span>
-                <span>Mains</span>
-                <span>w/c 0.45</span>
+                <span data-edit="index.text13" data-edit-max="60">Water</span>
+                <span data-edit="index.text14" data-edit-max="60">153 l/m³</span>
+                <span data-edit="index.text15" data-edit-max="60">Mains</span>
+                <span data-edit="index.text16" data-edit-max="60">w/c 0.45</span>
               </li>
               <li key="Plasticiser">
-                <span>Plasticiser</span>
-                <span>1.2 %</span>
-                <span>One supplier</span>
-                <span>No retarder</span>
+                <span data-edit="index.text17" data-edit-max="60">Plasticiser</span>
+                <span data-edit="index.text18" data-edit-max="60">1.2 %</span>
+                <span data-edit="index.text19" data-edit-max="60">One supplier</span>
+                <span data-edit="index.text20" data-edit-max="60">No retarder</span>
               </li>
               <li key="Air content">
-                <span>Air content</span>
-                <span>2.0 %</span>
-                <span>Measured</span>
-                <span>Every load</span>
+                <span data-edit="index.text21" data-edit-max="60">Air content</span>
+                <span data-edit="index.text22" data-edit-max="60">2.0 %</span>
+                <span data-edit="index.text23" data-edit-max="60">Measured</span>
+                <span data-edit="index.text24" data-edit-max="60">Every load</span>
               </li>
               <li key="Slump class">
-                <span>Slump class</span>
-                <span>F4</span>
-                <span>Measured</span>
-                <span>Every load</span>
+                <span data-edit="index.text25" data-edit-max="60">Slump class</span>
+                <span data-edit="index.text26" data-edit-max="60">F4</span>
+                <span data-edit="index.text27" data-edit-max="60">Measured</span>
+                <span data-edit="index.text28" data-edit-max="60">Every load</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Questions from contractors</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Questions from contractors</h2>
           <dl className={s.faqList}>
               <div key="Can we reuse the formwor">
-                <dt>Can we reuse the formwork more than four times?</dt>
-                <dd>Not on a visible face. Panel wear shows as a progressive lightening across a facade and there is no remedy short of replacement.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Can we reuse the formwork more than four times?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Not on a visible face. Panel wear shows as a progressive lightening across a facade and there is no remedy short of replacement.</dd>
               </div>
               <div key="What if the trial panel ">
-                <dt>What if the trial panel is rejected?</dt>
-                <dd>We cast another. Two panels are in the price precisely so that rejecting the first is a normal outcome and not an argument.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">What if the trial panel is rejected?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>We cast another. Two panels are in the price precisely so that rejecting the first is a normal outcome and not an argument.</dd>
               </div>
               <div key="Do you accept a photogra">
-                <dt>Do you accept a photographic sample?</dt>
-                <dd>No. Concrete is a local material; a photograph of somebody else’s wall tells us nothing about your aggregate or your crew.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Do you accept a photographic sample?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>No. Concrete is a local material; a photograph of somebody else’s wall tells us nothing about your aggregate or your crew.</dd>
               </div>
               <div key="Can defects be repaired?">
-                <dt>Can defects be repaired?</dt>
-                <dd>Small blowholes, sometimes, by a specialist, on a sample first. Colour variation across a lift, no. That one is permanent.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Can defects be repaired?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Small blowholes, sometimes, by a specialist, on a sample first. Colour variation across a lift, no. That one is permanent.</dd>
               </div>
           </dl>
         </section>
@@ -436,7 +448,7 @@ export default function SichtbetonPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={dieblock}
               palette={['transparent', PALE, STEEL]}
@@ -451,39 +463,39 @@ export default function SichtbetonPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Sichtbeton</p>
-            <p className={s.footTag}>Betontechnologie, Hardturmstrasse 260, Zürich, seit 1996.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Sichtbeton</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Betontechnologie, Hardturmstrasse 260, Zürich, seit 1996.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Advice</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Advice</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#classes">Four classes</a>
+                <a data-edit="footer.classes" data-edit-max="28" href="#classes">Four classes</a>
               </li>
               <li>
-                <a href="#checks">What decides the wall</a>
+                <a data-edit="footer.checks" data-edit-max="28" href="#checks">What decides the wall</a>
               </li>
               <li>
-                <a href="#trials">Trial panels</a>
+                <a data-edit="footer.trials" data-edit-max="28" href="#trials">Trial panels</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Engagement</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Engagement</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#office">Engaging us</a>
+                <a data-edit="footer.office" data-edit-max="28" href="#office">Engaging us</a>
               </li>
               <li>
-                <a href="#office">Site work</a>
+                <a data-edit="footer.office2" data-edit-max="28" href="#office">Site work</a>
               </li>
               <li>
-                <a href="#classes">Tolerances</a>
+                <a data-edit="footer.classes2" data-edit-max="28" href="#classes">Tolerances</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Hardturmstrasse 260
               <br />
@@ -496,10 +508,10 @@ export default function SichtbetonPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional consultancy. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional consultancy. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

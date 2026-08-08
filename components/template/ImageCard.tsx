@@ -28,10 +28,17 @@ export default function ImageCard({
   id,
   prompt,
   colors,
+  editId,
 }: {
   id: string;
   prompt: string;
   colors: string[];
+  /**
+   * Editable-slot id (see docs/editable-templates.md). Only emitted on the
+   * branch that renders a real <img>: a placeholder has no image to replace,
+   * and annotating one would put a slot in the spec that resolves to nothing.
+   */
+  editId?: string;
 }) {
   const full = withPalette(prompt, colors);
   const hasImage = GENERATED_IMAGES.includes(id);
@@ -66,7 +73,12 @@ export default function ImageCard({
 
   if (hasImage) {
     return (
-      <figure className={`${s.imgph} ${s.imgphFilled}`} data-image-id={id} data-image-prompt={full}>
+      <figure
+        className={`${s.imgph} ${s.imgphFilled}`}
+        data-image-id={id}
+        data-image-prompt={full}
+        {...(editId ? { 'data-edit-image': editId } : {})}
+      >
         {/* Plain <img>: the site is a static export, so there is no /_next/image
             optimizer at runtime and import-batch already sized the file. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -55,7 +55,19 @@ const NUMBERS = [
 
 export default function FrequenzPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--dark': '#121014',
+        '--cream': '#f2efe6',
+        '--amber': '#ffa200',
+        '--grey': '#6b6560',
+        '--panel': '#1d1a20',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="dark,cream,amber,grey,panel"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -66,13 +78,13 @@ export default function FrequenzPage() {
 
       <header className={s.bar}>
         <a className={s.mark} href="#top">
-          Frequenz <span>94,6</span>
+          Frequenz <span data-edit="bar.text" data-edit-max="60">94,6</span>
         </a>
         <nav aria-label="Sections">
-          <a href="#schedule">Programm</a>
-          <a href="#strands">What we do</a>
-          <a href="#support">Support</a>
-          <a href="#studio">Studio</a>
+          <a data-edit="bar.schedule" data-edit-max="28" href="#schedule">Programm</a>
+          <a data-edit="bar.strands" data-edit-max="28" href="#strands">What we do</a>
+          <a data-edit="bar.support" data-edit-max="28" href="#support">Support</a>
+          <a data-edit="bar.studio" data-edit-max="28" href="#studio">Studio</a>
         </nav>
         <p className={s.onair}>
           <span aria-hidden="true" />
@@ -83,7 +95,7 @@ export default function FrequenzPage() {
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,2,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={flux}
               palette={['transparent', AMBER, GREY]}
@@ -94,16 +106,16 @@ export default function FrequenzPage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Freies Radio Graz / seit 1979</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Freies Radio Graz / seit 1979</p>
             <h1>
               Twenty-four hours
               <br />
               a day, and nobody
               <br />
-              <span>here is paid.</span>
+              <span data-edit="hero.text" data-edit-max="60">here is paid.</span>
             </h1>
             <div className={s.nowBox}>
-              <p className={s.nowLabel}>On air now</p>
+              <p data-edit="hero.nowLabel" data-edit-max="240" data-edit-multiline className={s.nowLabel}>On air now</p>
               <p className={s.nowShow}>
                 <b>{NOW.time}</b> {NOW.show}
               </p>
@@ -115,35 +127,35 @@ export default function FrequenzPage() {
         </section>
 
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.frequenz-studio"
             slug="frequenz-studio"
             alt="A radio broadcast studio at night with a microphone on a boom and an amber on-air lamp"
             priority
           />
-          <figcaption>Studio 1, 23.48. Nachtstück, hour three.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Studio 1, 23.48. Nachtstück, hour three.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
-          {NUMBERS.map(([v, k]) => (
+          {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt>{v}</dt>
-              <dd>{k}</dd>
+              <dt data-edit={`top.term.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
 
         {/* ------------------------------------------------------ SCHEDULE */}
         <section id="schedule" className={s.schedule} aria-labelledby="schedule-h">
-          <h2 className={s.h2} id="schedule-h">
+          <h2 data-edit="schedule.h2" data-edit-max="60" className={s.h2} id="schedule-h">
             Today
           </h2>
           <ol className={s.grid}>
-            {SCHEDULE.map(([t, show, host, note]) => (
+            {SCHEDULE.map(([t, show, host, note], i) => (
               <li key={t} className={show === NOW.show ? s.live : undefined}>
-                <span className={s.gTime}>{t}</span>
-                <span className={s.gShow}>{show}</span>
-                <span className={s.gHost}>{host}</span>
-                <span className={s.gNote}>{note}</span>
+                <span data-edit={`schedule.gTime.${i}`} data-edit-max="60" className={s.gTime}>{t}</span>
+                <span data-edit={`schedule.gShow.${i}`} data-edit-max="60" className={s.gShow}>{show}</span>
+                <span data-edit={`schedule.gHost.${i}`} data-edit-max="60" className={s.gHost}>{host}</span>
+                <span data-edit={`schedule.gNote.${i}`} data-edit-max="60" className={s.gNote}>{note}</span>
               </li>
             ))}
           </ol>
@@ -151,7 +163,7 @@ export default function FrequenzPage() {
 
         {/* ---------------------------------------------------- CARRIER BAND */}
         <section className={s.carrier} aria-hidden="true">
-          <div className={s.carrierField}>
+          <div data-edit-pattern="carrier.field" data-edit-roles="transparent,2,1,3" className={s.carrierField}>
             <TabbiedPattern
               pattern={ribline}
               palette={['transparent', AMBER, CREAM, GREY]}
@@ -165,7 +177,7 @@ export default function FrequenzPage() {
 
         {/* ------------------------------------------------------- STRANDS */}
         <section id="strands" className={s.strands} aria-labelledby="strands-h">
-          <div className={s.strandsField} aria-hidden="true">
+          <div data-edit-pattern="strands.field" data-edit-roles="transparent,3,2" className={s.strandsField} aria-hidden="true">
             <TabbiedPattern
               pattern={streaking}
               palette={['transparent', GREY, AMBER]}
@@ -176,32 +188,32 @@ export default function FrequenzPage() {
             />
           </div>
           <div className={s.strandsInner}>
-            <h2 className={s.h2} id="strands-h">
+            <h2 data-edit="strands.h2" data-edit-max="60" className={s.h2} id="strands-h">
               Four things we insist on
             </h2>
             <ol className={s.strandList}>
-              {STRANDS.map((x) => (
+              {STRANDS.map((x, i) => (
                 <li key={x.n}>
-                  <span className={s.stN}>{x.n}</span>
-                  <h3>{x.t}</h3>
-                  <p>{x.d}</p>
+                  <span data-edit={`strands.stN.${i}`} data-edit-max="60" className={s.stN}>{x.n}</span>
+                  <h3 data-edit={`strands.title.${i}`} data-edit-max="40">{x.t}</h3>
+                  <p data-edit={`strands.body.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
                 </li>
               ))}
             </ol>
             <div className={s.pair}>
               <figure>
-                <Figure
+                <Figure editId="photo.frequenz-archive"
                   slug="frequenz-archive"
                   alt="Shelves of tape reels and record sleeves in a station archive lit by one lamp"
                 />
-                <figcaption>The archive. Eleven thousand hours, four a week.</figcaption>
+                <figcaption data-edit="strands.caption" data-edit-max="120" data-edit-multiline>The archive. Eleven thousand hours, four a week.</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.frequenz-desk"
                   slug="frequenz-desk"
                   alt="A close view of a broadcast mixing desk with faders and amber meter lamps"
                 />
-                <figcaption>Desk 2. Channel 7 has been crackling since 2011.</figcaption>
+                <figcaption data-edit="strands.caption2" data-edit-max="120" data-edit-multiline>Desk 2. Channel 7 has been crackling since 2011.</figcaption>
               </figure>
             </div>
           </div>
@@ -209,21 +221,21 @@ export default function FrequenzPage() {
 
         {/* ------------------------------------------------------- SUPPORT */}
         <section id="support" className={s.support} aria-labelledby="support-h">
-          <h2 className={s.h2} id="support-h">
+          <h2 data-edit="support.h2" data-edit-max="60" className={s.h2} id="support-h">
             Membership
           </h2>
           <div className={s.supGrid}>
-            <p className={s.big}>
+            <p data-edit="support.big" data-edit-max="240" data-edit-multiline className={s.big}>
               Five euro a month keeps the transmitter on, the licence paid and
               the coffee tin full. There is no other tier and no premium feed.
             </p>
             <div className={s.supCol}>
-              <p>
+              <p data-edit="support.body" data-edit-max="240" data-edit-multiline>
                 Members get nothing extra, on purpose. The point of a free radio
                 station is that the person who pays and the person who does not
                 hear exactly the same thing.
               </p>
-              <p>
+              <p data-edit="support.body2" data-edit-max="240" data-edit-multiline>
                 Our accounts are posted every January on the noticeboard by the
                 door and, since 2016, on this website as a scan of the
                 noticeboard.
@@ -231,17 +243,17 @@ export default function FrequenzPage() {
             </div>
           </div>
           <figure className={s.tall}>
-            <Figure
+            <Figure editId="photo.frequenz-mast"
               slug="frequenz-mast"
               alt="A lattice transmitter mast against a deep dusk sky with a single warning light"
             />
-            <figcaption>Schöckl, 1,445 m. 300 W ERP, which is plenty.</figcaption>
+            <figcaption data-edit="support.caption" data-edit-max="120" data-edit-multiline>Schöckl, 1,445 m. 300 W ERP, which is plenty.</figcaption>
           </figure>
         </section>
 
         {/* -------------------------------------------------------- STUDIO */}
         <section id="studio" className={s.studio} aria-labelledby="studio-h">
-          <div className={s.studioField} aria-hidden="true">
+          <div data-edit-pattern="studio.field" data-edit-roles="transparent,2,3" className={s.studioField} aria-hidden="true">
             <TabbiedPattern
               pattern={dotwash}
               palette={['transparent', AMBER, GREY]}
@@ -252,12 +264,12 @@ export default function FrequenzPage() {
             />
           </div>
           <div className={s.studioInner}>
-            <h2 className={s.h2} id="studio-h">
+            <h2 data-edit="studio.h2" data-edit-max="60" className={s.h2} id="studio-h">
               Come in
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt>Studio</dt>
+                <dt data-edit="studio.term" data-edit-max="28">Studio</dt>
                 <dd>
                   Lendkai 94, Hof
                   <br />
@@ -265,29 +277,29 @@ export default function FrequenzPage() {
                 </dd>
               </div>
               <div>
-                <dt>Write</dt>
+                <dt data-edit="studio.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a href="mailto:studio@frequenz946.example">studio@frequenz946.example</a>
+                  <a data-edit="studio.link" data-edit-max="28" href="mailto:studio@frequenz946.example">studio@frequenz946.example</a>
                 </dd>
               </div>
               <div>
-                <dt>Studio line</dt>
-                <dd>+43 316 000 000, open during live shows</dd>
+                <dt data-edit="studio.term3" data-edit-max="28">Studio line</dt>
+                <dd data-edit="studio.body" data-edit-max="200" data-edit-multiline>+43 316 000 000, open during live shows</dd>
               </div>
               <div>
-                <dt>Open desk</dt>
-                <dd>First Monday of the month, 19.00. Bring an idea.</dd>
+                <dt data-edit="studio.term4" data-edit-max="28">Open desk</dt>
+                <dd data-edit="studio.body2" data-edit-max="200" data-edit-multiline>First Monday of the month, 19.00. Bring an idea.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three rules of the desk</h2>
-          <p className={s.secNote}>Pinned above the fader panel since 1984 and never once revised.</p>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three rules of the desk</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Pinned above the fader panel since 1984 and never once revised.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={spraydown}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -303,14 +315,14 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="frequenz-tile-mic-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.frequenz-tile-mic-cutout" slug="frequenz-tile-mic-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>Do not talk over the intro</h3>
-                <p className={s.tileBody}>If the piece has a beginning, let it begin. The listener came for the music and can read the time on their own phone.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Do not talk over the intro</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>If the piece has a beginning, let it begin. The listener came for the music and can read the time on their own phone.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotwash}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -326,14 +338,14 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="frequenz-tile-cans-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.frequenz-tile-cans-cutout" slug="frequenz-tile-cans-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>Silence is allowed</h3>
-                <p className={s.tileBody}>Four seconds of nothing is not dead air. It is four seconds. The transmitter is fine and so is everybody listening.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Silence is allowed</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Four seconds of nothing is not dead air. It is four seconds. The transmitter is fine and so is everybody listening.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ribline}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -349,84 +361,84 @@ export default function FrequenzPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="frequenz-tile-fader-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.frequenz-tile-fader-cutout" slug="frequenz-tile-fader-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>Say what it was</h3>
-                <p className={s.tileBody}>Every track, back-announced, with the label. Somebody is always trying to find it again and we are the only record.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Say what it was</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Every track, back-announced, with the label. Somebody is always trying to find it again and we are the only record.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">Technical</h2>
-          <p className={s.secNote}>What the station runs on. Most of it is older than most of the presenters.</p>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Technical</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What the station runs on. Most of it is older than most of the presenters.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Item</span>
-                <span>Detail</span>
-                <span>Since</span>
-                <span>State</span>
+                <span data-edit="index.text" data-edit-max="60">Item</span>
+                <span data-edit="index.text2" data-edit-max="60">Detail</span>
+                <span data-edit="index.text3" data-edit-max="60">Since</span>
+                <span data-edit="index.text4" data-edit-max="60">State</span>
             </li>
               <li key="Transmitter, Schöckl">
-                <span>Transmitter, Schöckl</span>
-                <span>300 W ERP, 94.6 MHz</span>
-                <span>1979</span>
-                <span>Rebuilt 2011</span>
+                <span data-edit="index.text5" data-edit-max="60">Transmitter, Schöckl</span>
+                <span data-edit="index.text6" data-edit-max="60">300 W ERP, 94.6 MHz</span>
+                <span data-edit="index.text7" data-edit-max="60">1979</span>
+                <span data-edit="index.text8" data-edit-max="60">Rebuilt 2011</span>
               </li>
               <li key="Studio desk 1">
-                <span>Studio desk 1</span>
-                <span>Analogue, 24 channel</span>
-                <span>1998</span>
-                <span>Channel 7 crackles</span>
+                <span data-edit="index.text9" data-edit-max="60">Studio desk 1</span>
+                <span data-edit="index.text10" data-edit-max="60">Analogue, 24 channel</span>
+                <span data-edit="index.text11" data-edit-max="60">1998</span>
+                <span data-edit="index.text12" data-edit-max="60">Channel 7 crackles</span>
               </li>
               <li key="Studio desk 2">
-                <span>Studio desk 2</span>
-                <span>Analogue, 16 channel</span>
-                <span>1991</span>
-                <span>Spare, and fine</span>
+                <span data-edit="index.text13" data-edit-max="60">Studio desk 2</span>
+                <span data-edit="index.text14" data-edit-max="60">Analogue, 16 channel</span>
+                <span data-edit="index.text15" data-edit-max="60">1991</span>
+                <span data-edit="index.text16" data-edit-max="60">Spare, and fine</span>
               </li>
               <li key="Playout">
-                <span>Playout</span>
-                <span>Own software, on Linux</span>
-                <span>2007</span>
-                <span>Nobody understands it</span>
+                <span data-edit="index.text17" data-edit-max="60">Playout</span>
+                <span data-edit="index.text18" data-edit-max="60">Own software, on Linux</span>
+                <span data-edit="index.text19" data-edit-max="60">2007</span>
+                <span data-edit="index.text20" data-edit-max="60">Nobody understands it</span>
               </li>
               <li key="Archive, tape">
-                <span>Archive, tape</span>
-                <span>11 000 hours</span>
-                <span>1979</span>
-                <span>Digitising, slowly</span>
+                <span data-edit="index.text21" data-edit-max="60">Archive, tape</span>
+                <span data-edit="index.text22" data-edit-max="60">11 000 hours</span>
+                <span data-edit="index.text23" data-edit-max="60">1979</span>
+                <span data-edit="index.text24" data-edit-max="60">Digitising, slowly</span>
               </li>
               <li key="Stream">
-                <span>Stream</span>
-                <span>Ogg and AAC, self hosted</span>
-                <span>2004</span>
-                <span>Same audio as air</span>
+                <span data-edit="index.text25" data-edit-max="60">Stream</span>
+                <span data-edit="index.text26" data-edit-max="60">Ogg and AAC, self hosted</span>
+                <span data-edit="index.text27" data-edit-max="60">2004</span>
+                <span data-edit="index.text28" data-edit-max="60">Same audio as air</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Getting involved</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Getting involved</h2>
           <dl className={s.faqList}>
               <div key="How do I propose a progr">
-                <dt>How do I propose a programme?</dt>
-                <dd>Come to the open desk on the first Monday of the month with an idea and, ideally, twenty minutes of something you have already made.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">How do I propose a programme?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Come to the open desk on the first Monday of the month with an idea and, ideally, twenty minutes of something you have already made.</dd>
               </div>
               <div key="Will I be paid?">
-                <dt>Will I be paid?</dt>
-                <dd>No. Nobody here is, including the people who have been doing it since the eighties. The membership pays the transmitter and the licence.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Will I be paid?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>No. Nobody here is, including the people who have been doing it since the eighties. The membership pays the transmitter and the licence.</dd>
               </div>
               <div key="Do I need experience?">
-                <dt>Do I need experience?</dt>
-                <dd>No. You will be shown the desk twice, then left alone with it at three in the morning, which is how everybody learned.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Do I need experience?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>No. You will be shown the desk twice, then left alone with it at three in the morning, which is how everybody learned.</dd>
               </div>
               <div key="Can I play whatever I wa">
-                <dt>Can I play whatever I want?</dt>
-                <dd>Within the licence, yes. Nobody vets a running order and nobody ever has.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Can I play whatever I want?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Within the licence, yes. Nobody vets a running order and nobody ever has.</dd>
               </div>
           </dl>
         </section>
@@ -437,7 +449,7 @@ export default function FrequenzPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,1,3" className={s.codaField}>
             <TabbiedPattern
               pattern={comet}
               palette={['transparent', CREAM, GREY]}
@@ -452,39 +464,39 @@ export default function FrequenzPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Frequenz 94,6</p>
-            <p className={s.footTag}>Freies Radio Graz, Lendkai 94, on air since 1979.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Frequenz 94,6</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Freies Radio Graz, Lendkai 94, on air since 1979.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>On air</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>On air</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#schedule">Today</a>
+                <a data-edit="footer.schedule" data-edit-max="28" href="#schedule">Today</a>
               </li>
               <li>
-                <a href="#strands">What we do</a>
+                <a data-edit="footer.strands" data-edit-max="28" href="#strands">What we do</a>
               </li>
               <li>
-                <a href="#studio">Open desk</a>
+                <a data-edit="footer.studio" data-edit-max="28" href="#studio">Open desk</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Support</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Support</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#support">Membership</a>
+                <a data-edit="footer.support" data-edit-max="28" href="#support">Membership</a>
               </li>
               <li>
-                <a href="#support">Our accounts</a>
+                <a data-edit="footer.support2" data-edit-max="28" href="#support">Our accounts</a>
               </li>
               <li>
-                <a href="#studio">Come in</a>
+                <a data-edit="footer.studio2" data-edit-max="28" href="#studio">Come in</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Lendkai 94, Hof
               <br />
@@ -497,10 +509,10 @@ export default function FrequenzPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional radio station. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional radio station. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

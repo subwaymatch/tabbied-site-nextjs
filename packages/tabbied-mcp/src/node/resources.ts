@@ -8,7 +8,12 @@ import { createRequire } from 'node:module';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import type { Catalog, CatalogDesign } from '../types.js';
+import type {
+  Catalog,
+  CatalogDesign,
+  TemplateCatalog,
+  TemplateSpec,
+} from '../types.js';
 
 const require = createRequire(import.meta.url);
 
@@ -92,4 +97,32 @@ export async function fetchDocs(): Promise<string> {
     throw new Error(`${SITE}/llms-full.txt returned ${response.status}`);
   }
   return await response.text();
+}
+
+/**
+ * The editable-template index and one site's spec.
+ *
+ * These come from the network with no local fallback, and that is not an
+ * oversight: they are *site* artefacts, generated from the static export
+ * (docs/editable-templates.md), and the `tabbied` package does not contain
+ * them. There is nothing local to prefer.
+ */
+export async function fetchTemplateCatalog(): Promise<TemplateCatalog> {
+  const response = await fetch(`${SITE}/editable-catalog.json`);
+
+  if (!response.ok) {
+    throw new Error(`${SITE}/editable-catalog.json returned ${response.status}`);
+  }
+
+  return (await response.json()) as TemplateCatalog;
+}
+
+export async function fetchTemplate(slug: string): Promise<TemplateSpec> {
+  const response = await fetch(`${SITE}/editable/${slug}.json`);
+
+  if (!response.ok) {
+    throw new Error(`${SITE}/editable/${slug}.json returned ${response.status}`);
+  }
+
+  return (await response.json()) as TemplateSpec;
 }

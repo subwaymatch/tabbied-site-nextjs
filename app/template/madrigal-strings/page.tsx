@@ -167,7 +167,20 @@ function Ornament() {
 
 export default function MadrigalStringsPage() {
   return (
-    <div className={styles.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--aubergine': '#2d132c',
+        '--wine': '#801336',
+        '--carmine': '#c72c41',
+        '--vermilion': '#ee4540',
+        '--gold': '#f0c419',
+        '--parchment': '#ffe9c7',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="aubergine,wine,carmine,vermilion,gold,parchment"
+      className={styles.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
         rel="preconnect"
@@ -181,24 +194,24 @@ export default function MadrigalStringsPage() {
       />
 
       <header className={styles.masthead}>
-        <p className={styles.mastheadEst}>Anno MCMLXVIII</p>
-        <a href="#programme" className={styles.mastheadTitle}>
+        <p data-edit="masthead.mastheadEst" data-edit-max="240" data-edit-multiline className={styles.mastheadEst}>Anno MCMLXVIII</p>
+        <a data-edit="masthead.mastheadTitle" data-edit-max="28" href="#programme" className={styles.mastheadTitle}>
           Madrigal
         </a>
-        <p className={styles.mastheadSub}>Atelier di Liuteria · Casteldoro</p>
+        <p data-edit="masthead.mastheadSub" data-edit-max="240" data-edit-multiline className={styles.mastheadSub}>Atelier di Liuteria · Casteldoro</p>
         <nav aria-label="Programme" className={styles.mastheadNav}>
-          <a href="#history">History</a>
-          <a href="#instruments">Instruments</a>
-          <a href="#varnish">Varnish</a>
-          <a href="#commission">Commissions</a>
-          <a href="#visiting">Visiting</a>
+          <a data-edit="masthead.history" data-edit-max="28" href="#history">History</a>
+          <a data-edit="masthead.instruments" data-edit-max="28" href="#instruments">Instruments</a>
+          <a data-edit="masthead.varnish" data-edit-max="28" href="#varnish">Varnish</a>
+          <a data-edit="masthead.commission" data-edit-max="28" href="#commission">Commissions</a>
+          <a data-edit="masthead.visiting" data-edit-max="28" href="#visiting">Visiting</a>
         </nav>
       </header>
 
       <main id="programme">
         {/* --------------------------------------------------------- HERO */}
         <section className={styles.hero} aria-labelledby="hero-h">
-          <div className={styles.heroField}>
+          <div data-edit-pattern="hero.field" data-edit-roles="0,4,2,1,5" className={styles.heroField}>
             <TabbiedPattern
               pattern={lunette}
               palette={[AUBERGINE, GOLD, CARMINE, WINE, PARCHMENT]}
@@ -210,7 +223,7 @@ export default function MadrigalStringsPage() {
             <div className={styles.heroFieldScrim} aria-hidden="true" />
           </div>
           <div className={styles.heroArch}>
-            <Figure
+            <Figure editId="photo.madrigal-violin-cutout"
               slug="madrigal-violin-cutout"
               cutout
               alt="A Madrigal violin standing upright against a carved linocut pattern, varnish glowing amber"
@@ -219,27 +232,27 @@ export default function MadrigalStringsPage() {
             />
           </div>
           <div className={styles.heroCartouche}>
-            <h1 id="hero-h" className={styles.heroTitle}>
+            <h1 data-edit="hero.heroTitle" data-edit-max="70" id="hero-h" className={styles.heroTitle}>
               Instruments in the old manner
             </h1>
-            <p className={styles.heroLede}>
+            <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
               Two benches, one varnish room, and fifty-eight years of morning
               light. The Madrigal workshop builds violins, bows, and cases for
               players who intend to keep them for life, and then leave them to
               someone who will.
             </p>
             <p className={styles.heroNote}>
-              <span className={styles.smallCaps}>Commissions open</span> ·
+              <span data-edit="hero.smallCaps" data-edit-max="60" className={styles.smallCaps}>Commissions open</span> ·
               autumn waitlist, from September the 1st
             </p>
           </div>
           <figure className={styles.heroBench}>
-            <Figure
+            <Figure editId="photo.madrigal-hero"
               slug="madrigal-hero"
               alt="A violin in progress resting on the workbench among shavings, gouges, and a pot of varnish"
               className={styles.framedImg}
             />
-            <figcaption className={styles.caption}>
+            <figcaption data-edit="hero.caption" data-edit-max="120" data-edit-multiline className={styles.caption}>
               The front bench, a little after seven in the morning.
             </figcaption>
           </figure>
@@ -249,10 +262,10 @@ export default function MadrigalStringsPage() {
 
         {/* ------------------------------------------------------ HISTORY */}
         <section className={styles.history} aria-labelledby="history">
-          <h2 className={styles.sectionTitle} id="history">
+          <h2 data-edit="history.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="history">
             A Short History of the House
           </h2>
-          <p className={`${styles.prose} ${styles.dropCap}`}>
+          <p data-edit="history.prose" data-edit-max="240" data-edit-multiline className={`${styles.prose} ${styles.dropCap}`}>
             Madrigal is not an old workshop by the standards of this town,
             where the pavement remembers three centuries of shavings. It is,
             however, a stubborn one. Founded in 1968 in a single corner room,
@@ -261,21 +274,21 @@ export default function MadrigalStringsPage() {
             consider worth engraving.
           </p>
           <figure className={styles.historyFigure}>
-            <Figure
+            <Figure editId="photo.madrigal-workshop"
               slug="madrigal-workshop"
               alt="The workshop wall: tools on hooks, violin bodies in the white hanging in a patient row"
               className={styles.framedImg}
             />
-            <figcaption className={styles.caption}>
+            <figcaption data-edit="history.caption" data-edit-max="120" data-edit-multiline className={styles.caption}>
               The north wall, instruments in the white, waiting on the varnish
               room.
             </figcaption>
           </figure>
           <ol className={styles.timeline}>
-            {HISTORY.map((h) => (
+            {HISTORY.map((h, i) => (
               <li key={h.year} className={styles.timelineRow}>
-                <span className={styles.timelineYear}>{h.year}</span>
-                <p className={styles.timelineText}>{h.text}</p>
+                <span data-edit={`history.timelineYear.${i}`} data-edit-max="60" className={styles.timelineYear}>{h.year}</span>
+                <p data-edit={`history.timelineText.${i}`} data-edit-max="240" data-edit-multiline className={styles.timelineText}>{h.text}</p>
               </li>
             ))}
           </ol>
@@ -285,7 +298,7 @@ export default function MadrigalStringsPage() {
 
         {/* -------------------------------------------------- INSTRUMENTS */}
         <section className={styles.instruments} aria-labelledby="instruments">
-          <div className={styles.sectionField}>
+          <div data-edit-pattern="instruments.field" data-edit-roles="0,1,2,4" className={styles.sectionField}>
             <TabbiedPattern
               pattern={linocut}
               palette={[AUBERGINE, WINE, CARMINE, GOLD]}
@@ -296,22 +309,22 @@ export default function MadrigalStringsPage() {
             />
             <div className={styles.sectionScrim} aria-hidden="true" />
           </div>
-          <h2 className={styles.sectionTitle} id="instruments">
+          <h2 data-edit="instruments.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="instruments">
             The Instruments
           </h2>
-          <p className={styles.prose}>
+          <p data-edit="instruments.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
             Three things leave this workshop, each numbered in the ledger
             Aurelio opened in 1968. We make eight or nine violins in a year, a
             handful of bows, and cases as the bending forms allow. Prices are
             those of the current ledger page and include the adjustment year.
           </p>
-          {INSTRUMENTS.map((inst) => (
+          {INSTRUMENTS.map((inst, i) => (
             <article key={inst.name} className={styles.instrument}>
               <div
                 className={`${styles.pedestal} ${inst.wide ? styles.pedestalWide : ''}`}
                 style={{ '--plate-tint': inst.palette[0] } as CSSProperties}
               >
-                <Figure
+                <Figure editId={`instrument.photo.${i}`}
                   slug={inst.slug}
                   cutout
                   alt={inst.alt}
@@ -322,19 +335,19 @@ export default function MadrigalStringsPage() {
                 <p className={styles.instrumentNumeral} aria-hidden="true">
                   {inst.numeral}
                 </p>
-                <h3 className={styles.instrumentName}>{inst.name}</h3>
-                <p className={styles.instrumentSubtitle}>{inst.subtitle}</p>
-                <p className={styles.prose}>{inst.copy}</p>
+                <h3 data-edit={`instrument.instrumentName.${i}`} data-edit-max="40" className={styles.instrumentName}>{inst.name}</h3>
+                <p data-edit={`instrument.instrumentSubtitle.${i}`} data-edit-max="240" data-edit-multiline className={styles.instrumentSubtitle}>{inst.subtitle}</p>
+                <p data-edit={`instrument.prose.${i}`} data-edit-max="240" data-edit-multiline className={styles.prose}>{inst.copy}</p>
                 <dl className={styles.specList}>
-                  {inst.specs.map(([k, v]) => (
+                  {inst.specs.map(([k, v], i2) => (
                     <div key={k} className={styles.specRow}>
-                      <dt>{k}</dt>
-                      <dd>{v}</dd>
+                      <dt data-edit={`instrument.term.${i}.${i2}`} data-edit-max="28">{k}</dt>
+                      <dd data-edit={`instrument.body.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                     </div>
                   ))}
                 </dl>
                 <p className={styles.instrumentPrice}>
-                  <span className={styles.smallCaps}>From the ledger</span>{' '}
+                  <span data-edit={`instrument.smallCaps.${i}`} data-edit-max="60" className={styles.smallCaps}>From the ledger</span>{' '}
                   {inst.price}
                 </p>
               </div>
@@ -346,7 +359,7 @@ export default function MadrigalStringsPage() {
 
         {/* ------------------------------------------------------ VARNISH */}
         <section className={styles.varnish} aria-labelledby="varnish">
-          <div className={styles.sectionField}>
+          <div data-edit-pattern="varnish.field" data-edit-roles="0,4,1,2" className={styles.sectionField}>
             <TabbiedPattern
               pattern={lunette}
               palette={[AUBERGINE, GOLD, WINE, CARMINE]}
@@ -357,40 +370,40 @@ export default function MadrigalStringsPage() {
             />
             <div className={styles.sectionScrim} aria-hidden="true" />
           </div>
-          <h2 className={styles.sectionTitle} id="varnish">
+          <h2 data-edit="varnish.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="varnish">
             The Varnish Room
           </h2>
           <div className={styles.varnishSplit}>
             <figure className={styles.varnishFigure}>
-              <Figure
+              <Figure editId="photo.madrigal-varnish"
                 slug="madrigal-varnish"
                 alt="A varnish brush laying a coat of deep amber over a violin top, close enough to see the grain"
                 className={styles.framedImg}
               />
-              <figcaption className={styles.caption}>
+              <figcaption data-edit="varnish.caption" data-edit-max="120" data-edit-multiline className={styles.caption}>
                 The eleventh coat, laid before nine in the morning.
               </figcaption>
             </figure>
             <div>
-              <p className={`${styles.prose} ${styles.dropCap}`}>
+              <p data-edit="varnish.prose" data-edit-max="240" data-edit-multiline className={`${styles.prose} ${styles.dropCap}`}>
                 Our varnish is cooked in autumn, in the yard, from oil and
                 resins whose proportions are written in a hand we can no longer
                 consult. Twenty-two coats, each thinner than the last, each
                 cured in the south window until the surface will take a
                 thumbprint and give it back.
               </p>
-              <p className={styles.prose}>
+              <p data-edit="varnish.prose2" data-edit-max="240" data-edit-multiline className={styles.prose}>
                 Colour is the wood&rsquo;s decision. We only escort it: a
                 golden ground, then reds laid over like late light on brick.
                 Asked to match a photograph, we decline politely and pour the
                 visitor more coffee.
               </p>
               <blockquote className={styles.pullQuote}>
-                <p>
+                <p data-edit="varnish.body" data-edit-max="240" data-edit-multiline>
                   &ldquo;Varnish is the part of the violin that keeps arriving
                   after the maker has stopped.&rdquo;
                 </p>
-                <cite>Aurelio Madrigal, ledger margin, 1989</cite>
+                <cite data-edit="varnish.attribution" data-edit-max="48">Aurelio Madrigal, ledger margin, 1989</cite>
               </blockquote>
             </div>
           </div>
@@ -400,7 +413,7 @@ export default function MadrigalStringsPage() {
 
         {/* --------------------------------------------------- COMMISSION */}
         <section className={styles.commission} aria-labelledby="commission">
-          <div className={styles.sectionField}>
+          <div data-edit-pattern="commission.field" data-edit-roles="0,2,4,1" className={styles.sectionField}>
             <TabbiedPattern
               pattern={linocut}
               palette={[AUBERGINE, CARMINE, GOLD, WINE]}
@@ -411,16 +424,16 @@ export default function MadrigalStringsPage() {
             />
             <div className={styles.sectionScrim} aria-hidden="true" />
           </div>
-          <h2 className={styles.sectionTitle} id="commission">
+          <h2 data-edit="commission.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="commission">
             A Commission, in Four Movements
           </h2>
-          <p className={styles.prose}>
+          <p data-edit="commission.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
             From first letter to delivered instrument is, at present, a little
             under two years. The programme is unchanged since 1994 and is
             performed without intermission.
           </p>
           <ol className={styles.movements}>
-            {MOVEMENTS.map((m) => (
+            {MOVEMENTS.map((m, i) => (
               <li key={m.numeral} className={styles.movement}>
                 <p className={styles.movementNumeral} aria-hidden="true">
                   {m.numeral}
@@ -430,7 +443,7 @@ export default function MadrigalStringsPage() {
                     {m.title}
                     <span className={styles.movementTempo}> · {m.tempo}</span>
                   </h3>
-                  <p className={styles.prose}>{m.copy}</p>
+                  <p data-edit={`commission.prose2.${i}`} data-edit-max="240" data-edit-multiline className={styles.prose}>{m.copy}</p>
                 </div>
               </li>
             ))}
@@ -443,26 +456,26 @@ export default function MadrigalStringsPage() {
         <section className={styles.luthier} aria-labelledby="luthier-h">
           <figure className={styles.luthierPlate}>
             <div className={styles.luthierPortrait}>
-              <Figure
+              <Figure editId="photo.madrigal-luthier"
                 slug="madrigal-luthier"
                 alt="Ottavio Madrigal, white-haired and spectacled, in his burgundy work apron"
                 className={styles.luthierImg}
               />
             </div>
-            <figcaption className={styles.luthierCaption}>
+            <figcaption data-edit="luthier.luthierCaption" data-edit-max="120" data-edit-multiline className={styles.luthierCaption}>
               Ottavio at the front bench, photographed in the varnish room
               window.
             </figcaption>
           </figure>
           <div className={styles.luthierBody}>
-            <h2 className={styles.sectionTitle} id="luthier-h">
+            <h2 data-edit="luthier.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="luthier-h">
               The Luthier
             </h2>
             <p className={styles.luthierName}>
-              <span className={styles.smallCaps}>Ottavio Madrigal</span> ·
+              <span data-edit="luthier.smallCaps" data-edit-max="60" className={styles.smallCaps}>Ottavio Madrigal</span> ·
               second of the name
             </p>
-            <p className={styles.prose}>
+            <p data-edit="luthier.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
               Ottavio has kept the front bench since 1994 and the glue pot
               since 1979. He trained under his father and, by his own account,
               under every instrument that came in for repair: &ldquo;the
@@ -470,7 +483,7 @@ export default function MadrigalStringsPage() {
               house model forward with a slightly fuller lower bout and a
               varnish he will discuss only in the past tense.
             </p>
-            <p className={styles.prose}>
+            <p data-edit="luthier.prose2" data-edit-max="240" data-edit-multiline className={styles.prose}>
               He is assisted three days a week by his daughter Bianca, who
               rehairs the bows, keeps the ledger, and is teaching the workshop
               cat nothing, because the cat was here first.
@@ -482,29 +495,29 @@ export default function MadrigalStringsPage() {
 
         {/* ----------------------------------------------------- CONCERTS */}
         <section className={styles.concerts} aria-labelledby="concerts-h">
-          <h2 className={styles.sectionTitle} id="concerts-h">
+          <h2 data-edit="concerts.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="concerts-h">
             Concerts &amp; Placements
           </h2>
           <figure className={styles.concertFigure}>
-            <Figure
+            <Figure editId="photo.madrigal-concert"
               slug="madrigal-concert"
               alt="A string quartet on a warmly lit stage, two Madrigal instruments among them"
               className={styles.framedImg}
             />
-            <figcaption className={styles.caption}>
+            <figcaption data-edit="concerts.caption" data-edit-max="120" data-edit-multiline className={styles.caption}>
               The Merle Quartet at the Teatro Aurelio, spring programme, 2026.
             </figcaption>
           </figure>
-          <p className={styles.prose}>
+          <p data-edit="concerts.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
             Our instruments work for a living. The ledger currently places
             them in the following hands, among others who prefer not to be
             listed:
           </p>
           <ul className={styles.placements}>
-            {PLACEMENTS.map((p) => (
+            {PLACEMENTS.map((p, i) => (
               <li key={p.holder} className={styles.placementRow}>
-                <span className={styles.placementHolder}>{p.holder}</span>
-                <span className={styles.placementDetail}>{p.detail}</span>
+                <span data-edit={`concerts.placementHolder.${i}`} data-edit-max="60" className={styles.placementHolder}>{p.holder}</span>
+                <span data-edit={`concerts.placementDetail.${i}`} data-edit-max="60" className={styles.placementDetail}>{p.detail}</span>
               </li>
             ))}
           </ul>
@@ -514,7 +527,7 @@ export default function MadrigalStringsPage() {
 
         {/* ----------------------------------------------------- VISITING */}
         <section className={styles.visiting} aria-labelledby="visiting">
-          <div className={styles.visitingField}>
+          <div data-edit-pattern="visiting.field" data-edit-roles="0,1,4,2" className={styles.visitingField}>
             <TabbiedPattern
               pattern={lunette}
               palette={[AUBERGINE, WINE, GOLD, CARMINE]}
@@ -525,24 +538,24 @@ export default function MadrigalStringsPage() {
             />
             <div className={styles.visitingScrim} aria-hidden="true" />
           </div>
-          <h2 className={styles.sectionTitle} id="visiting">
+          <h2 data-edit="visiting.sectionTitle" data-edit-max="60" className={styles.sectionTitle} id="visiting">
             Visiting the Atelier
           </h2>
-          <p className={styles.prose}>
+          <p data-edit="visiting.prose" data-edit-max="240" data-edit-multiline className={styles.prose}>
             The workshop is open to players, students, and the politely
             curious. Ring the lower bell; the upper one has been ornamental
             since 1983.
           </p>
           <div className={styles.visitGrid}>
             <div className={styles.visitCell}>
-              <h3 className={styles.visitLabel}>Address</h3>
+              <h3 data-edit="visiting.visitLabel" data-edit-max="40" className={styles.visitLabel}>Address</h3>
               <p className={styles.visitValue}>
                 Vicolo dei Liutai 7<br />
                 Casteldoro, 53077
               </p>
             </div>
             <div className={styles.visitCell}>
-              <h3 className={styles.visitLabel}>Hours</h3>
+              <h3 data-edit="visiting.visitLabel2" data-edit-max="40" className={styles.visitLabel}>Hours</h3>
               <p className={styles.visitValue}>
                 Tuesday – Friday, 10–18
                 <br />
@@ -550,9 +563,9 @@ export default function MadrigalStringsPage() {
               </p>
             </div>
             <div className={styles.visitCell}>
-              <h3 className={styles.visitLabel}>Correspondence</h3>
+              <h3 data-edit="visiting.visitLabel3" data-edit-max="40" className={styles.visitLabel}>Correspondence</h3>
               <p className={styles.visitValue}>
-                <a href="mailto:bottega@madrigal.example">
+                <a data-edit="visiting.link" data-edit-max="28" href="mailto:bottega@madrigal.example">
                   bottega@madrigal.example
                 </a>
                 <br />
@@ -560,7 +573,7 @@ export default function MadrigalStringsPage() {
               </p>
             </div>
           </div>
-          <p className={styles.visitNote}>
+          <p data-edit="visiting.visitNote" data-edit-max="240" data-edit-multiline className={styles.visitNote}>
             Repairs and rehairs are taken Tuesday mornings, in the order the
             cases arrive.
           </p>
@@ -569,7 +582,7 @@ export default function MadrigalStringsPage() {
 
       {/* --------------------------------------------------------- FOOTER */}
       <footer className={styles.footer}>
-        <div className={styles.footerBand}>
+        <div data-edit-pattern="footer.field" data-edit-roles="0,1,2,3,4" className={styles.footerBand}>
           <TabbiedPattern
             pattern={linocut}
             palette={[AUBERGINE, WINE, CARMINE, VERMILION, GOLD]}
@@ -580,15 +593,15 @@ export default function MadrigalStringsPage() {
           />
         </div>
         <div className={styles.colophon}>
-          <p className={styles.colophonTitle}>Madrigal</p>
-          <p className={styles.colophonLine}>
+          <p data-edit="footer.colophonTitle" data-edit-max="240" data-edit-multiline className={styles.colophonTitle}>Madrigal</p>
+          <p data-edit="footer.colophonLine" data-edit-max="240" data-edit-multiline className={styles.colophonLine}>
             Atelier di Liuteria · Vicolo dei Liutai 7, Casteldoro · Anno
             MCMLXVIII
           </p>
           <p className={styles.colophonFine}>
             This programme is set in Garamond&rsquo;s manner; the engravings
             are cut fresh at every printing by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             . A fictional workshop, engraved with real affection. © 2026.

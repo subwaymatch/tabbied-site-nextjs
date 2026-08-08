@@ -37,10 +37,18 @@ next-env.d.ts
 # tabbied-mcp build output
 /packages/tabbied-mcp/dist/
 
+# tabbied-templates build output
+/packages/tabbied-templates/dist/
+
 # agent-facing docs generated from the catalog by scripts/generate-llms.mjs
 /public/llms.txt
 /public/llms-full.txt
 /public/catalog.json
+
+# editable-section specs, derived from the export by scripts/generate-editable.mjs
+# (runs inside `npm run build`, between the two `next build` passes)
+/public/editable/
+/public/editable-catalog.json
 
 # misc
 .DS_Store

@@ -53,7 +53,19 @@ const RULES = [
 
 export default function NachtzugPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--night': '#0b0e1a',
+        '--bone': '#ede8da',
+        '--gold': '#e0a83c',
+        '--steel': '#545c74',
+        '--deep': '#141827',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="night,bone,gold,steel,deep"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -63,22 +75,22 @@ export default function NachtzugPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Nachtzug
         </a>
         <nav aria-label="Sections">
-          <a href="#lines">Lines</a>
-          <a href="#berths">Berths</a>
-          <a href="#aboard">Aboard</a>
-          <a href="#book">Book</a>
+          <a data-edit="bar.lines" data-edit-max="28" href="#lines">Lines</a>
+          <a data-edit="bar.berths" data-edit-max="28" href="#berths">Berths</a>
+          <a data-edit="bar.aboard" data-edit-max="28" href="#aboard">Aboard</a>
+          <a data-edit="bar.book" data-edit-max="28" href="#book">Book</a>
         </nav>
-        <span className={s.tag}>Schlafwagen seit 1994</span>
+        <span data-edit="bar.tag" data-edit-max="60" className={s.tag}>Schlafwagen seit 1994</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={rungs}
               palette={['transparent', STEEL, GOLD]}
@@ -89,15 +101,15 @@ export default function NachtzugPage() {
             />
           </div>
           <div className={s.heroInner}>
-            <p className={s.eyebrow}>Six lines / eleven countries / one timetable</p>
+            <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={s.eyebrow}>Six lines / eleven countries / one timetable</p>
             <h1>
               Go to sleep in
               <br />
               one country and
               <br />
-              <span>wake in another.</span>
+              <span data-edit="hero.text" data-edit-max="60">wake in another.</span>
             </h1>
-            <p className={s.lede}>
+            <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Six sleeper services across Europe, every one of them slower than
               flying and better than arriving.
             </p>
@@ -107,38 +119,38 @@ export default function NachtzugPage() {
         {/* The compartment at night, full width and tall: the single image the
             whole proposition rests on. */}
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.nachtzug-compartment"
             slug="nachtzug-compartment"
             alt="A sleeper compartment at night with a made-up bunk, a warm reading lamp and a dark window"
             priority
           />
-          <figcaption>NZ 401, compartment 7. Somewhere south of Villach, 02.10.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>NZ 401, compartment 7. Somewhere south of Villach, 02.10.</figcaption>
         </figure>
 
         {/* ---------------------------------------------------------- LINES */}
         <section id="lines" className={s.lines} aria-labelledby="lines-h">
-          <h2 className={s.h2} id="lines-h">
+          <h2 data-edit="lines.h2" data-edit-max="60" className={s.h2} id="lines-h">
             The six lines
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span>Service</span>
-              <span>From</span>
-              <span>To</span>
-              <span>Dep</span>
-              <span>Arr</span>
-              <span>Nights</span>
-              <span>Runs</span>
+              <span data-edit="lines.text" data-edit-max="60">Service</span>
+              <span data-edit="lines.text2" data-edit-max="60">From</span>
+              <span data-edit="lines.text3" data-edit-max="60">To</span>
+              <span data-edit="lines.text4" data-edit-max="60">Dep</span>
+              <span data-edit="lines.text5" data-edit-max="60">Arr</span>
+              <span data-edit="lines.text6" data-edit-max="60">Nights</span>
+              <span data-edit="lines.text7" data-edit-max="60">Runs</span>
             </li>
-            {LINES.map((l) => (
+            {LINES.map((l, i) => (
               <li key={l.no}>
-                <span className={s.no}>{l.no}</span>
-                <span className={s.from}>{l.from}</span>
-                <span className={s.to}>{l.to}</span>
-                <span className={s.time}>{l.dep}</span>
-                <span className={s.time}>{l.arr}</span>
-                <span className={s.nights}>{l.nights}</span>
-                <span className={s.runs}>{l.runs}</span>
+                <span data-edit={`lines.no.${i}`} data-edit-max="60" className={s.no}>{l.no}</span>
+                <span data-edit={`lines.from.${i}`} data-edit-max="60" className={s.from}>{l.from}</span>
+                <span data-edit={`lines.to.${i}`} data-edit-max="60" className={s.to}>{l.to}</span>
+                <span data-edit={`lines.time.${i}`} data-edit-max="60" className={s.time}>{l.dep}</span>
+                <span data-edit={`lines.time2.${i}`} data-edit-max="60" className={s.time}>{l.arr}</span>
+                <span data-edit={`lines.nights.${i}`} data-edit-max="60" className={s.nights}>{l.nights}</span>
+                <span data-edit={`lines.runs.${i}`} data-edit-max="60" className={s.runs}>{l.runs}</span>
               </li>
             ))}
           </ol>
@@ -146,7 +158,7 @@ export default function NachtzugPage() {
 
         {/* ------------------------------------------------------ RAIL BAND */}
         <section className={s.railBand} aria-hidden="true">
-          <div className={s.railField}>
+          <div data-edit-pattern="railBand.field" data-edit-roles="transparent,2,1,3" className={s.railField}>
             <TabbiedPattern
               pattern={bothways}
               palette={['transparent', GOLD, BONE, STEEL]}
@@ -160,7 +172,7 @@ export default function NachtzugPage() {
 
         {/* --------------------------------------------------------- BERTHS */}
         <section id="berths" className={s.berths} aria-labelledby="berths-h">
-          <div className={s.berthsField} aria-hidden="true">
+          <div data-edit-pattern="berths.field" data-edit-roles="transparent,3,2" className={s.berthsField} aria-hidden="true">
             <TabbiedPattern
               pattern={dotfield}
               palette={['transparent', STEEL, GOLD]}
@@ -171,32 +183,32 @@ export default function NachtzugPage() {
             />
           </div>
           <div className={s.berthsInner}>
-            <h2 className={s.h2} id="berths-h">
+            <h2 data-edit="berths.h2" data-edit-max="60" className={s.h2} id="berths-h">
               Four ways to lie down
             </h2>
             <ol className={s.berthList}>
-              {BERTHS.map((b) => (
+              {BERTHS.map((b, i) => (
                 <li key={b.name}>
-                  <h3>{b.name}</h3>
-                  <p className={s.bPrice}>{b.price}</p>
-                  <p className={s.bBody}>{b.body}</p>
+                  <h3 data-edit={`berths.title.${i}`} data-edit-max="40">{b.name}</h3>
+                  <p data-edit={`berths.bPrice.${i}`} data-edit-max="240" data-edit-multiline className={s.bPrice}>{b.price}</p>
+                  <p data-edit={`berths.bBody.${i}`} data-edit-max="240" data-edit-multiline className={s.bBody}>{b.body}</p>
                 </li>
               ))}
             </ol>
             <div className={s.pair}>
               <figure>
-                <Figure
+                <Figure editId="photo.nachtzug-platform"
                   slug="nachtzug-platform"
                   alt="A long sleeper train standing at a lit platform late at night"
                 />
-                <figcaption>Wien Hbf, platform 9. Boarding from 19.10.</figcaption>
+                <figcaption data-edit="berths.caption" data-edit-max="120" data-edit-multiline>Wien Hbf, platform 9. Boarding from 19.10.</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.nachtzug-dining"
                   slug="nachtzug-dining"
                   alt="An empty dining car set for breakfast with lamps lit and night outside"
                 />
-                <figcaption>The dining car opens at 06.30 and closes when it empties.</figcaption>
+                <figcaption data-edit="berths.caption2" data-edit-max="120" data-edit-multiline>The dining car opens at 06.30 and closes when it empties.</figcaption>
               </figure>
             </div>
           </div>
@@ -204,28 +216,28 @@ export default function NachtzugPage() {
 
         {/* --------------------------------------------------------- ABOARD */}
         <section id="aboard" className={s.aboard} aria-labelledby="aboard-h">
-          <h2 className={s.h2} id="aboard-h">
+          <h2 data-edit="aboard.h2" data-edit-max="60" className={s.h2} id="aboard-h">
             Aboard
           </h2>
           <div className={s.aboardGrid}>
             <ul className={s.rules}>
-              {RULES.map((r) => (
-                <li key={r}>{r}</li>
+              {RULES.map((r, i) => (
+                <li data-edit={`aboard.item.${i}`} data-edit-max="80" key={r}>{r}</li>
               ))}
             </ul>
             <figure className={s.tall}>
-              <Figure
+              <Figure editId="photo.nachtzug-corridor"
                 slug="nachtzug-corridor"
                 alt="The narrow corridor of a sleeping car at night with warm lamps receding"
               />
-              <figcaption>Carriage 274, built 1988, refitted 2019.</figcaption>
+              <figcaption data-edit="aboard.caption" data-edit-max="120" data-edit-multiline>Carriage 274, built 1988, refitted 2019.</figcaption>
             </figure>
           </div>
         </section>
 
         {/* ----------------------------------------------------------- BOOK */}
         <section id="book" className={s.book} aria-labelledby="book-h">
-          <div className={s.bookField} aria-hidden="true">
+          <div data-edit-pattern="book.field" data-edit-roles="transparent,2,3" className={s.bookField} aria-hidden="true">
             <TabbiedPattern
               pattern={sliver}
               palette={['transparent', GOLD, STEEL]}
@@ -236,38 +248,38 @@ export default function NachtzugPage() {
             />
           </div>
           <div className={s.bookInner}>
-            <h2 className={s.h2} id="book-h">
+            <h2 data-edit="book.h2" data-edit-max="60" className={s.h2} id="book-h">
               Booking
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt>Reservations</dt>
+                <dt data-edit="book.term" data-edit-max="28">Reservations</dt>
                 <dd>
-                  <a href="mailto:schlafwagen@nachtzug.example">schlafwagen@nachtzug.example</a>
+                  <a data-edit="book.link" data-edit-max="28" href="mailto:schlafwagen@nachtzug.example">schlafwagen@nachtzug.example</a>
                 </dd>
               </div>
               <div>
-                <dt>Telephone</dt>
-                <dd>+43 1 000 000, 07.00 to 21.00</dd>
+                <dt data-edit="book.term2" data-edit-max="28">Telephone</dt>
+                <dd data-edit="book.body" data-edit-max="200" data-edit-multiline>+43 1 000 000, 07.00 to 21.00</dd>
               </div>
               <div>
-                <dt>Opens</dt>
-                <dd>Six months ahead, at 08.00 Vienna time</dd>
+                <dt data-edit="book.term3" data-edit-max="28">Opens</dt>
+                <dd data-edit="book.body2" data-edit-max="200" data-edit-multiline>Six months ahead, at 08.00 Vienna time</dd>
               </div>
               <div>
-                <dt>Whole carriage</dt>
-                <dd>Thirty berths, by arrangement, six weeks notice</dd>
+                <dt data-edit="book.term4" data-edit-max="28">Whole carriage</dt>
+                <dd data-edit="book.body3" data-edit-max="200" data-edit-multiline>Thirty berths, by arrangement, six weeks notice</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 id="tiles-h">Three reasons the night train survived</h2>
-          <p className={s.secNote}>It was written off four times between 1998 and 2016. Here is what kept it running.</p>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three reasons the night train survived</h2>
+          <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>It was written off four times between 1998 and 2016. Here is what kept it running.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotfield}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -283,14 +295,14 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nachtzug-tile-bed-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nachtzug-tile-bed-cutout" slug="nachtzug-tile-bed-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>01</p>
-                <h3>The bed</h3>
-                <p className={s.tileBody}>A night on a train is a night of accommodation. Costed that way, the sleeper stops looking expensive and starts looking obvious.</p>
+                <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
+                <h3 data-edit="tiles.title2" data-edit-max="40">The bed</h3>
+                <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>A night on a train is a night of accommodation. Costed that way, the sleeper stops looking expensive and starts looking obvious.</p>
               </article>
               <article key="02">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={sliver}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -306,14 +318,14 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nachtzug-tile-border-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nachtzug-tile-border-cutout" slug="nachtzug-tile-border-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>02</p>
-                <h3>The border</h3>
-                <p className={s.tileBody}>Nobody wakes you. Schengen did more for the sleeper than any marketing campaign, and a whole generation has never been asked for a passport at 03.00.</p>
+                <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
+                <h3 data-edit="tiles.title3" data-edit-max="40">The border</h3>
+                <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Nobody wakes you. Schengen did more for the sleeper than any marketing campaign, and a whole generation has never been asked for a passport at 03.00.</p>
               </article>
               <article key="03">
-                <div className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={rungs}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -329,84 +341,84 @@ export default function NachtzugPage() {
                       height: TILE_BOX,
                     }}
                   />
-                  <Figure slug="nachtzug-tile-ticket-cutout" alt="" cutout className={s.tileObject} />
+                  <Figure editId="photo.nachtzug-tile-ticket-cutout" slug="nachtzug-tile-ticket-cutout" alt="" cutout className={s.tileObject} />
                 </div>
-                <p className={s.tileN}>03</p>
-                <h3>The arithmetic</h3>
-                <p className={s.tileBody}>Twelve hours that would otherwise be spent awake, in an airport, being processed. The train is slower and the day is longer.</p>
+                <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
+                <h3 data-edit="tiles.title4" data-edit-max="40">The arithmetic</h3>
+                <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Twelve hours that would otherwise be spent awake, in an airport, being processed. The train is slower and the day is longer.</p>
               </article>
           </div>
         </section>
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 id="idx-h">Rolling stock</h2>
-          <p className={s.secNote}>Everything is owned and maintained at Wien Simmering. Ages are honest.</p>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Rolling stock</h2>
+          <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Everything is owned and maintained at Wien Simmering. Ages are honest.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span>Type</span>
-                <span>Built</span>
-                <span>Refit</span>
-                <span>In service</span>
+                <span data-edit="index.text" data-edit-max="60">Type</span>
+                <span data-edit="index.text2" data-edit-max="60">Built</span>
+                <span data-edit="index.text3" data-edit-max="60">Refit</span>
+                <span data-edit="index.text4" data-edit-max="60">In service</span>
             </li>
               <li key="Sleeping car, WLABmz">
-                <span>Sleeping car, WLABmz</span>
-                <span>1988</span>
-                <span>2019</span>
-                <span>24</span>
+                <span data-edit="index.text5" data-edit-max="60">Sleeping car, WLABmz</span>
+                <span data-edit="index.text6" data-edit-max="60">1988</span>
+                <span data-edit="index.text7" data-edit-max="60">2019</span>
+                <span data-edit="index.text8" data-edit-max="60">24</span>
               </li>
               <li key="Couchette, Bcmz">
-                <span>Couchette, Bcmz</span>
-                <span>1991</span>
-                <span>2021</span>
-                <span>31</span>
+                <span data-edit="index.text9" data-edit-max="60">Couchette, Bcmz</span>
+                <span data-edit="index.text10" data-edit-max="60">1991</span>
+                <span data-edit="index.text11" data-edit-max="60">2021</span>
+                <span data-edit="index.text12" data-edit-max="60">31</span>
               </li>
               <li key="Seating, Bmz">
-                <span>Seating, Bmz</span>
-                <span>1986</span>
-                <span>2017</span>
-                <span>12</span>
+                <span data-edit="index.text13" data-edit-max="60">Seating, Bmz</span>
+                <span data-edit="index.text14" data-edit-max="60">1986</span>
+                <span data-edit="index.text15" data-edit-max="60">2017</span>
+                <span data-edit="index.text16" data-edit-max="60">12</span>
               </li>
               <li key="Dining, WRmz">
-                <span>Dining, WRmz</span>
-                <span>1978</span>
-                <span>2015</span>
-                <span>6</span>
+                <span data-edit="index.text17" data-edit-max="60">Dining, WRmz</span>
+                <span data-edit="index.text18" data-edit-max="60">1978</span>
+                <span data-edit="index.text19" data-edit-max="60">2015</span>
+                <span data-edit="index.text20" data-edit-max="60">6</span>
               </li>
               <li key="Van, Dms">
-                <span>Van, Dms</span>
-                <span>1994</span>
-                <span>2020</span>
-                <span>8</span>
+                <span data-edit="index.text21" data-edit-max="60">Van, Dms</span>
+                <span data-edit="index.text22" data-edit-max="60">1994</span>
+                <span data-edit="index.text23" data-edit-max="60">2020</span>
+                <span data-edit="index.text24" data-edit-max="60">8</span>
               </li>
               <li key="Locomotive, hired">
-                <span>Locomotive, hired</span>
-                <span>n/a</span>
-                <span>n/a</span>
-                <span>Per section</span>
+                <span data-edit="index.text25" data-edit-max="60">Locomotive, hired</span>
+                <span data-edit="index.text26" data-edit-max="60">n/a</span>
+                <span data-edit="index.text27" data-edit-max="60">n/a</span>
+                <span data-edit="index.text28" data-edit-max="60">Per section</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 id="faq-h">Before you board</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Before you board</h2>
           <dl className={s.faqList}>
               <div key="Is there a shower?">
-                <dt>Is there a shower?</dt>
-                <dd>In the two-berth and single sleepers, yes, at the end of the carriage. In couchettes, a washbasin in the compartment and nothing else.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Is there a shower?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>In the two-berth and single sleepers, yes, at the end of the carriage. In couchettes, a washbasin in the compartment and nothing else.</dd>
               </div>
               <div key="Can I book a compartment">
-                <dt>Can I book a compartment to myself?</dt>
-                <dd>Yes, at the whole-compartment rate, which is less than the sum of the berths. Most solo travellers who have tried it never go back.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can I book a compartment to myself?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Yes, at the whole-compartment rate, which is less than the sum of the berths. Most solo travellers who have tried it never go back.</dd>
               </div>
               <div key="What if I miss my connec">
-                <dt>What if I miss my connection?</dt>
-                <dd>Our tickets are through-ticketed, so the next service is on us. This is not generosity; it is the rule the whole network runs on.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">What if I miss my connection?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Our tickets are through-ticketed, so the next service is on us. This is not generosity; it is the rule the whole network runs on.</dd>
               </div>
               <div key="Does the window really o">
-                <dt>Does the window really open?</dt>
-                <dd>Twelve centimetres, in every sleeper and every couchette. We have replaced entire carriages and kept the mechanism.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Does the window really open?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Twelve centimetres, in every sleeper and every couchette. We have replaced entire carriages and kept the mechanism.</dd>
               </div>
           </dl>
         </section>
@@ -417,7 +429,7 @@ export default function NachtzugPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,1,3" className={s.codaField}>
             <TabbiedPattern
               pattern={picket}
               palette={['transparent', BONE, STEEL]}
@@ -432,39 +444,39 @@ export default function NachtzugPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Nachtzug</p>
-            <p className={s.footTag}>Schlafwagen quer durch Europa, six lines, since 1994.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Nachtzug</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>Schlafwagen quer durch Europa, six lines, since 1994.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Travel</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Travel</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#lines">The six lines</a>
+                <a data-edit="footer.lines" data-edit-max="28" href="#lines">The six lines</a>
               </li>
               <li>
-                <a href="#berths">Four kinds of berth</a>
+                <a data-edit="footer.berths" data-edit-max="28" href="#berths">Four kinds of berth</a>
               </li>
               <li>
-                <a href="#aboard">Aboard</a>
+                <a data-edit="footer.aboard" data-edit-max="28" href="#aboard">Aboard</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Booking</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Booking</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#book">Reservations</a>
+                <a data-edit="footer.book" data-edit-max="28" href="#book">Reservations</a>
               </li>
               <li>
-                <a href="#book">Whole carriage</a>
+                <a data-edit="footer.book2" data-edit-max="28" href="#book">Whole carriage</a>
               </li>
               <li>
-                <a href="#aboard">Bicycles and dogs</a>
+                <a data-edit="footer.aboard2" data-edit-max="28" href="#aboard">Bicycles and dogs</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Reservations, 07.00 to 21.00
               <br />
@@ -477,10 +489,10 @@ export default function NachtzugPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional sleeper operator. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional sleeper operator. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

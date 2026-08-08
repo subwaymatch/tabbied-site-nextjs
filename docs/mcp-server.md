@@ -11,7 +11,7 @@ It exists in two forms that share one implementation:
 | Where | `https://tabbied.com/mcp` | `npx -y tabbied-mcp` |
 | Transport | Streamable HTTP | stdio |
 | Install | nothing | `tabbied-mcp` (+ Playwright for rendering) |
-| Tools | `search_designs`, `get_design`, `preview_design`, `get_docs` | those four **plus `render_design`** |
+| Tools | `search_designs`, `get_design`, `preview_design`, `get_docs`, `list_templates`, `get_template` | those six **plus `render_design`** |
 
 ## Adding it to a client
 
@@ -68,6 +68,22 @@ toolset is built around a single flow: **narrow on metadata, then look.**
   renders the gallery shows, so the agent and a human see the same image.
 
 - **`get_docs`** returns `llms-full.txt`, the complete API contract and recipes.
+
+- **`list_templates`** and **`get_template`** answer a different question from
+  the four above: not "which pattern?" but "which *site*, and what may I change
+  about it?". A template site is a whole page somebody designed, and the useful
+  move is to swap the brand out of it rather than regenerate it. `get_template`
+  returns the editable-section spec — every text, image, and pattern slot with
+  its id and current value, the brand palette, the fonts, both download URLs —
+  plus usage notes, because the two formats are edited in opposite ways and
+  nothing about the spec implies which.
+
+  The slot ids are the contract: they exist in the downloaded markup as
+  `data-edit*` attributes, so an id from a tool response is directly greppable
+  in the files the agent then downloads. See `editable-templates.md`.
+
+  Both work remotely — neither needs a browser. Only annotated sites appear;
+  coverage is incremental, so the list grows as pages are annotated.
 
 - **`render_design`** (local only) renders any slug to SVG or PNG at any size,
   seed, palette, and option set, either inline or to a path you name. It shells
@@ -138,11 +154,21 @@ result with `isError: true`, so the model sees it and can correct itself.
 
 ## Where the data comes from
 
-The remote server reads `/catalog.json`, `/previews/*.webp`, and
-`/llms-full.txt` **through its own assets binding** rather than bundling them.
-The tools therefore describe exactly the bytes that deployment serves, and a
-384 KB catalog stays out of the Worker. Reads are memoised per isolate, and a
-failed read is not cached.
+The remote server reads `/catalog.json`, `/previews/*.webp`,
+`/llms-full.txt`, `/editable-catalog.json`, and `/editable/<slug>.json`
+**through its own assets binding** rather than bundling them. The tools
+therefore describe exactly the bytes that deployment serves, and a 384 KB
+catalog stays out of the Worker. Reads are memoised per isolate, and a failed
+read is not cached — except the template specs, which are many and each read
+rarely, so they are fetched per call.
+
+The template artefacts are *site* artefacts, generated from the static export
+(see `editable-templates.md`), which is why the local server fetches those two
+over the network with no local fallback: the `tabbied` package does not contain
+them, so there is nothing local to prefer. A host that cannot resolve them
+simply does not advertise the two tools — the same rule the preview and docs
+tools already follow, since a listed tool that always fails is worse than a
+missing one.
 
 The local server reads the catalog from the installed `tabbied` package, so it
 describes the version you are about to `npm install` — an agent told about a

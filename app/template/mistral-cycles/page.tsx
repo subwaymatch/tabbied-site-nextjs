@@ -142,7 +142,22 @@ const FAQS = [
 
 export default function MistralCyclesPage() {
   return (
-    <div className={styles.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--navy': '#0d1b2a',
+        '--navy-2': '#0a1622',
+        '--navy-3': '#122439',
+        '--azure': '#1b98e0',
+        '--ice': '#e0fbfc',
+        '--orange': '#ff7b00',
+        '--yellow': '#ffd23f',
+        '--grey': '#eaeaea',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="navy,navy-2,navy-3,azure,ice,orange,yellow,grey"
+      className={styles.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -153,22 +168,22 @@ export default function MistralCyclesPage() {
 
       <header className={styles.topbar}>
         <p className={styles.brand}>
-          MISTRAL<span className={styles.brandTick}>▲</span>CYCLES
+          MISTRAL<span data-edit="topbar.brandTick" data-edit-max="60" className={styles.brandTick}>▲</span>CYCLES
         </p>
         <nav className={styles.nav} aria-label="Sections">
-          <a href="#builds">Builds</a>
-          <a href="#geometry">Geometry</a>
-          <a href="#workshop">Workshop</a>
-          <a href="#process">Ordering</a>
-          <a href="#faq">FAQ</a>
+          <a data-edit="topbar.builds" data-edit-max="28" href="#builds">Builds</a>
+          <a data-edit="topbar.geometry" data-edit-max="28" href="#geometry">Geometry</a>
+          <a data-edit="topbar.workshop" data-edit-max="28" href="#workshop">Workshop</a>
+          <a data-edit="topbar.process" data-edit-max="28" href="#process">Ordering</a>
+          <a data-edit="topbar.faq" data-edit-max="28" href="#faq">FAQ</a>
         </nav>
-        <p className={styles.dwg}>DWG MC-26 · REV C · SCALE 1:1</p>
+        <p data-edit="topbar.dwg" data-edit-max="240" data-edit-multiline className={styles.dwg}>DWG MC-26 · REV C · SCALE 1:1</p>
       </header>
 
       <main>
         {/* HERO */}
         <section className={styles.hero} aria-labelledby="hero-title">
-          <div className={styles.heroPattern} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="0,#14385C,3,#0F2A45,4" className={styles.heroPattern} aria-hidden="true">
             <TabbiedPattern
               pattern={gasket}
               palette={BLUEPRINT_PALETTE}
@@ -181,33 +196,33 @@ export default function MistralCyclesPage() {
           <div className={styles.heroScrim} aria-hidden="true" />
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>HANDBUILT FRAMES · PROVIDENCE, RI · EST. 2011</p>
+              <p data-edit="hero.eyebrow" data-edit-max="240" data-edit-multiline className={styles.eyebrow}>HANDBUILT FRAMES · PROVIDENCE, RI · EST. 2011</p>
               <h1 id="hero-title" className={styles.title}>
                 The frame is a drawing <em>you can ride.</em>
               </h1>
-              <p className={styles.lede}>
+              <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={styles.lede}>
                 Every Mistral begins as a full-scale pencil drawing and ends as mitred,
                 brazed chromoly, checked on the alignment plate to a half millimetre,
                 twice. Two builders. Around forty frames a year. No two alike, all of
                 them true.
               </p>
               <div className={styles.ctaRow}>
-                <a className={styles.btnPrimary} href="#process">
+                <a data-edit="hero.btnPrimary" data-edit-max="28" className={styles.btnPrimary} href="#process">
                   Commission a frame
                 </a>
-                <a className={styles.btnGhost} href="#geometry">
+                <a data-edit="hero.btnGhost" data-edit-max="28" className={styles.btnGhost} href="#geometry">
                   Read the geometry
                 </a>
               </div>
               <ul className={styles.chipRow} aria-label="Shop numbers">
                 <li>
-                  <strong>612</strong> frames since 2011
+                  <strong data-edit="hero.emphasis">612</strong> frames since 2011
                 </li>
                 <li>
-                  <strong>0.5 mm</strong> mitre tolerance
+                  <strong data-edit="hero.emphasis2">0.5 mm</strong> mitre tolerance
                 </li>
                 <li>
-                  <strong>≈7 mo</strong> door to door
+                  <strong data-edit="hero.emphasis3">≈7 mo</strong> door to door
                 </li>
               </ul>
             </div>
@@ -215,7 +230,7 @@ export default function MistralCyclesPage() {
             <div className={styles.heroPanel}>
               <div className={styles.heroPanelVeil} aria-hidden="true" />
               <div className={styles.heroFrameWrap}>
-                <Figure
+                <Figure editId="photo.mistral-frame-cutout"
                   slug="mistral-frame-cutout"
                   cutout
                   priority
@@ -224,15 +239,15 @@ export default function MistralCyclesPage() {
                 />
               </div>
               <p className={`${styles.callout} ${styles.calloutA}`}>
-                <span>72.5°</span> HEAD ANGLE
+                <span data-edit="hero.text" data-edit-max="60">72.5°</span> HEAD ANGLE
               </p>
               <p className={`${styles.callout} ${styles.calloutB}`}>
-                <span>385</span> REACH, MM
+                <span data-edit="hero.text2" data-edit-max="60">385</span> REACH, MM
               </p>
               <p className={`${styles.callout} ${styles.calloutC}`}>
-                <span>9/6/9</span> BUTTED CRMO
+                <span data-edit="hero.text3" data-edit-max="60">9/6/9</span> BUTTED CRMO
               </p>
-              <p className={styles.panelStamp}>FIG. 1 / FRAMESET, SIZE 55</p>
+              <p data-edit="hero.panelStamp" data-edit-max="240" data-edit-multiline className={styles.panelStamp}>FIG. 1 / FRAMESET, SIZE 55</p>
             </div>
           </div>
         </section>
@@ -240,45 +255,45 @@ export default function MistralCyclesPage() {
         {/* PHILOSOPHY */}
         <section className={styles.philosophy} aria-labelledby="phil-title">
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 01</p>
-            <h2 id="phil-title">Why we still light the torch</h2>
+            <p data-edit="phil.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 01</p>
+            <h2 data-edit="phil.title" data-edit-max="60" id="phil-title">Why we still light the torch</h2>
           </div>
           <div className={styles.philGrid}>
             <article>
-              <p className={styles.philIndex}>1.1</p>
-              <h3>Steel is honest</h3>
-              <p>
+              <p data-edit="phil.philIndex" data-edit-max="240" data-edit-multiline className={styles.philIndex}>1.1</p>
+              <h3 data-edit="phil.title2" data-edit-max="40">Steel is honest</h3>
+              <p data-edit="phil.body" data-edit-max="240" data-edit-multiline>
                 A chromoly tube tells you what it is doing: under the torch, under
                 the file, under you at 60 km/h on a bad descent. It flexes, warns,
                 and forgives. We have never met a spreadsheet that does that.
               </p>
             </article>
             <article>
-              <p className={styles.philIndex}>1.2</p>
-              <h3>Fit is geometry</h3>
-              <p>
+              <p data-edit="phil.philIndex2" data-edit-max="240" data-edit-multiline className={styles.philIndex}>1.2</p>
+              <h3 data-edit="phil.title3" data-edit-max="40">Fit is geometry</h3>
+              <p data-edit="phil.body2" data-edit-max="240" data-edit-multiline>
                 A stem swap is a patch; geometry is the cure. We move the tubes,
                 not your spine. Reach, stack, trail and front-centre are drawn
                 around your body and your loads before a single mitre is cut.
               </p>
             </article>
             <article>
-              <p className={styles.philIndex}>1.3</p>
-              <h3>Repair is a feature</h3>
-              <p>
+              <p data-edit="phil.philIndex3" data-edit-max="240" data-edit-multiline className={styles.philIndex}>1.3</p>
+              <h3 data-edit="phil.title4" data-edit-max="40">Repair is a feature</h3>
+              <p data-edit="phil.body3" data-edit-max="240" data-edit-multiline>
                 Every joint we braze can be un-brazed. A dented top tube is an
                 afternoon, not a funeral. We build objects meant to outlive their
                 paint, their parts, and quite possibly us.
               </p>
             </article>
           </div>
-          <p className={styles.pullLine}>
+          <p data-edit="phil.pullLine" data-edit-max="240" data-edit-multiline className={styles.pullLine}>
             “A frame should be quiet. The road has enough to say.”
           </p>
         </section>
 
         {/* pattern rule */}
-        <div className={styles.patternRule} aria-hidden="true">
+        <div data-edit-pattern="main.field" data-edit-roles="0,3,4,5,6,7" className={styles.patternRule} aria-hidden="true">
           <TabbiedPattern
             pattern={gasket}
             palette={FULL_PALETTE}
@@ -292,15 +307,15 @@ export default function MistralCyclesPage() {
         {/* BUILDS */}
         <section id="builds" className={styles.builds} aria-labelledby="builds-title">
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 02</p>
-            <h2 id="builds-title">The builds</h2>
-            <p className={styles.sectionSub}>
+            <p data-edit="builds.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 02</p>
+            <h2 data-edit="builds.title" data-edit-max="60" id="builds-title">The builds</h2>
+            <p data-edit="builds.sectionSub" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>
               Three starting drawings. Each one is redrawn around you.
             </p>
           </div>
 
           <div className={styles.buildFeature}>
-            <div className={styles.buildFeatureMedia}>
+            <div data-edit-pattern="builds.field" data-edit-roles="0,#14385C,3,#0F2A45,4" className={styles.buildFeatureMedia}>
               <TabbiedPattern
                 pattern={isometry}
                 palette={BLUEPRINT_PALETTE}
@@ -310,7 +325,7 @@ export default function MistralCyclesPage() {
                 style={{ position: 'absolute', inset: 0 }}
               />
               <div className={styles.buildMediaVeil} aria-hidden="true" />
-              <Figure
+              <Figure editId="photo.mistral-bike-cutout"
                 slug="mistral-bike-cutout"
                 cutout
                 alt="Complete randonneur bicycle with front rack, fenders and dynamo lighting"
@@ -319,31 +334,31 @@ export default function MistralCyclesPage() {
             </div>
             <div className={styles.buildFeatureBody}>
               <p className={styles.buildCode}>{BUILDS[0].code} / FLAGSHIP</p>
-              <h3>{BUILDS[0].name}</h3>
-              <p className={styles.buildKind}>{BUILDS[0].kind}</p>
-              <p className={styles.buildCopy}>{BUILDS[0].copy}</p>
+              <h3 data-edit="builds.title2" data-edit-max="40">{BUILDS[0].name}</h3>
+              <p data-edit="builds.buildKind" data-edit-max="240" data-edit-multiline className={styles.buildKind}>{BUILDS[0].kind}</p>
+              <p data-edit="builds.buildCopy" data-edit-max="240" data-edit-multiline className={styles.buildCopy}>{BUILDS[0].copy}</p>
               <ul className={styles.specList}>
-                {BUILDS[0].specs.map((s) => (
-                  <li key={s}>{s}</li>
+                {BUILDS[0].specs.map((s, i) => (
+                  <li data-edit={`builds.item.${i}`} data-edit-max="80" key={s}>{s}</li>
                 ))}
               </ul>
-              <p className={styles.buildPrice}>{BUILDS[0].price}</p>
+              <p data-edit="builds.buildPrice" data-edit-max="240" data-edit-multiline className={styles.buildPrice}>{BUILDS[0].price}</p>
             </div>
           </div>
 
           <div className={styles.buildCards}>
-            {BUILDS.filter((b) => !b.featured).map((b) => (
+            {BUILDS.filter((b) => !b.featured).map((b, i) => (
               <article key={b.name} className={styles.buildCard}>
-                <p className={styles.buildCode}>{b.code}</p>
-                <h3>{b.name}</h3>
-                <p className={styles.buildKind}>{b.kind}</p>
-                <p className={styles.buildCopy}>{b.copy}</p>
+                <p data-edit={`buildCard.buildCode.${i}`} data-edit-max="240" data-edit-multiline className={styles.buildCode}>{b.code}</p>
+                <h3 data-edit={`buildCard.title.${i}`} data-edit-max="40">{b.name}</h3>
+                <p data-edit={`buildCard.buildKind.${i}`} data-edit-max="240" data-edit-multiline className={styles.buildKind}>{b.kind}</p>
+                <p data-edit={`buildCard.buildCopy.${i}`} data-edit-max="240" data-edit-multiline className={styles.buildCopy}>{b.copy}</p>
                 <ul className={styles.specList}>
-                  {b.specs.map((s) => (
-                    <li key={s}>{s}</li>
+                  {b.specs.map((s, i2) => (
+                    <li data-edit={`buildCard.item.${i}.${i2}`} data-edit-max="80" key={s}>{s}</li>
                   ))}
                 </ul>
-                <p className={styles.buildPrice}>{b.price}</p>
+                <p data-edit={`buildCard.buildPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.buildPrice}>{b.price}</p>
               </article>
             ))}
           </div>
@@ -351,7 +366,7 @@ export default function MistralCyclesPage() {
 
         {/* GEOMETRY */}
         <section id="geometry" className={styles.geometry} aria-labelledby="geo-title">
-          <div className={styles.geoField} aria-hidden="true">
+          <div data-edit-pattern="geometry.field" data-edit-roles="0,#14385C,3,#0F2A45,4" className={styles.geoField} aria-hidden="true">
             <TabbiedPattern
               pattern={isometry}
               palette={BLUEPRINT_PALETTE}
@@ -363,9 +378,9 @@ export default function MistralCyclesPage() {
           </div>
           <div className={styles.geoScrim} aria-hidden="true" />
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 03</p>
-            <h2 id="geo-title">Geometry: Tramontane, stock drawings</h2>
-            <p className={styles.sectionSub}>
+            <p data-edit="geometry.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 03</p>
+            <h2 data-edit="geometry.title" data-edit-max="60" id="geo-title">Geometry: Tramontane, stock drawings</h2>
+            <p data-edit="geometry.sectionSub" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>
               Millimetres unless noted. Custom drawings deviate freely; these are
               where the pencil starts.
             </p>
@@ -381,23 +396,23 @@ export default function MistralCyclesPage() {
                 <table className={styles.geoTable}>
                   <thead>
                     <tr>
-                      {GEO_COLS.map((c) => (
-                        <th key={c} scope="col">
+                      {GEO_COLS.map((c, i) => (
+                        <th data-edit={`geometry.heading.${i}`} key={c} scope="col">
                           {c}
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {GEO_ROWS.map((row) => (
+                    {GEO_ROWS.map((row, i2) => (
                       <tr key={row[0]}>
                         {row.map((cell, i) =>
                           i === 0 ? (
-                            <th key={i} scope="row">
+                            <th data-edit={`geometry.heading2.${i2}.${i}`} key={i} scope="row">
                               {cell}
                             </th>
                           ) : (
-                            <td key={i}>{cell}</td>
+                            <td data-edit={`geometry.cell.${i2}.${i}`} key={i}>{cell}</td>
                           )
                         )}
                       </tr>
@@ -407,7 +422,7 @@ export default function MistralCyclesPage() {
               </div>
             </div>
           </div>
-          <p className={styles.tableNote}>
+          <p data-edit="geometry.tableNote" data-edit-max="240" data-edit-multiline className={styles.tableNote}>
             HT∠ head-tube angle · ST∠ seat-tube angle · CS chainstay length · WB
             wheelbase. Trail figures assume 650B × 42 at size 51–55, 700C × 35
             above.
@@ -417,54 +432,54 @@ export default function MistralCyclesPage() {
         {/* WORKSHOP */}
         <section id="workshop" className={styles.workshop} aria-labelledby="ws-title">
           <div className={styles.wsBand}>
-            <Figure
+            <Figure editId="photo.mistral-hero"
               slug="mistral-hero"
               alt="Workshop wall hung with steel frames in various stages of finish"
               className={styles.wsBandImg}
             />
-            <p className={styles.wsBandCaption}>THE WALL / EVERY FRAME HANGS HERE FOR ONE NIGHT BEFORE PAINT</p>
+            <p data-edit="workshop.wsBandCaption" data-edit-max="240" data-edit-multiline className={styles.wsBandCaption}>THE WALL / EVERY FRAME HANGS HERE FOR ONE NIGHT BEFORE PAINT</p>
           </div>
           <div className={styles.wsBody}>
             <div className={styles.sectionHead}>
-              <p className={styles.sectionNo}>§ 04</p>
-              <h2 id="ws-title">One room, two benches</h2>
+              <p data-edit="workshop.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 04</p>
+              <h2 data-edit="workshop.title" data-edit-max="60" id="ws-title">One room, two benches</h2>
             </div>
             <div className={styles.wsGrid}>
               <div className={styles.wsText}>
-                <p>
+                <p data-edit="workshop.body" data-edit-max="240" data-edit-multiline>
                   The shop is a former die-cutting room on Anvil Street: north
                   light, a concrete floor with forty years of other people&rsquo;s
                   work in it, and a ventilation fan we argue with every winter.
                   One bench holds the torch, the other holds the files. Frames
                   move between them slowly.
                 </p>
-                <p>
+                <p data-edit="workshop.body2" data-edit-max="240" data-edit-multiline>
                   We braze with silver at the lugs and brass at the fillets, and
                   we let joints cool at their own pace, because hurried steel keeps a
                   grudge. Alignment happens on a cast-iron plate older than both
                   of us, and the last hour of every build is spent with a
                   half-round file and the radio off.
                 </p>
-                <p>
+                <p data-edit="workshop.body3" data-edit-max="240" data-edit-multiline>
                   Visitors are welcome on Fridays. You will be handed coffee and,
                   if you linger near the vice, possibly emery cloth.
                 </p>
               </div>
               <figure className={styles.wsFig}>
-                <Figure
+                <Figure editId="photo.mistral-workshop"
                   slug="mistral-workshop"
                   alt="Builder brazing a frame joint at the bench, torch flame lit"
                   className={styles.wsFigImg}
                 />
-                <figcaption>SILVER BRAZING, SEAT CLUSTER / 745 °C, GIVE OR TAKE A FEELING</figcaption>
+                <figcaption data-edit="workshop.caption" data-edit-max="120" data-edit-multiline>SILVER BRAZING, SEAT CLUSTER / 745 °C, GIVE OR TAKE A FEELING</figcaption>
               </figure>
               <figure className={styles.wsFigSmall}>
-                <Figure
+                <Figure editId="photo.mistral-lug"
                   slug="mistral-lug"
                   alt="Close-up of a polished lug joining two frame tubes"
                   className={styles.wsFigImg}
                 />
-                <figcaption>LUG № 3, THINNED TO 1.2 MM AT THE POINTS</figcaption>
+                <figcaption data-edit="workshop.caption2" data-edit-max="120" data-edit-multiline>LUG № 3, THINNED TO 1.2 MM AT THE POINTS</figcaption>
               </figure>
             </div>
           </div>
@@ -472,7 +487,7 @@ export default function MistralCyclesPage() {
 
         {/* PROVISIONS */}
         <section className={styles.provisions} aria-labelledby="prov-title">
-          <div className={styles.provField} aria-hidden="true">
+          <div data-edit-pattern="prov.field" data-edit-roles="0,#14385C,3,#0F2A45,4" className={styles.provField} aria-hidden="true">
             <TabbiedPattern
               pattern={isometry}
               palette={BLUEPRINT_PALETTE}
@@ -484,22 +499,22 @@ export default function MistralCyclesPage() {
           </div>
           <div className={styles.provScrim} aria-hidden="true" />
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 05</p>
-            <h2 id="prov-title">Outfitting</h2>
-            <p className={styles.sectionSub}>
+            <p data-edit="prov.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 05</p>
+            <h2 data-edit="prov.title" data-edit-max="60" id="prov-title">Outfitting</h2>
+            <p data-edit="prov.sectionSub" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>
               The few objects we trust enough to sell alongside the frames.
             </p>
           </div>
           <ul className={styles.provGrid}>
-            {PROVISIONS.map((p) => (
+            {PROVISIONS.map((p, i) => (
               <li key={p.slug} className={styles.provCard}>
                 <div className={styles.provMedia}>
-                  <Figure slug={p.slug} cutout alt={p.alt} className={styles.provImg} />
+                  <Figure editId={`prov.photo.${i}`} slug={p.slug} cutout alt={p.alt} className={styles.provImg} />
                 </div>
                 <div className={styles.provMeta}>
-                  <h3>{p.name}</h3>
-                  <p className={styles.provNote}>{p.note}</p>
-                  <p className={styles.provPrice}>{p.price}</p>
+                  <h3 data-edit={`prov.title2.${i}`} data-edit-max="40">{p.name}</h3>
+                  <p data-edit={`prov.provNote.${i}`} data-edit-max="240" data-edit-multiline className={styles.provNote}>{p.note}</p>
+                  <p data-edit={`prov.provPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.provPrice}>{p.price}</p>
                 </div>
               </li>
             ))}
@@ -509,21 +524,21 @@ export default function MistralCyclesPage() {
         {/* FOUNDERS */}
         <section className={styles.founders} aria-labelledby="founders-title">
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 06</p>
-            <h2 id="founders-title">The two of us</h2>
+            <p data-edit="founders.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 06</p>
+            <h2 data-edit="founders.title" data-edit-max="60" id="founders-title">The two of us</h2>
           </div>
           <div className={styles.founderGrid}>
             <article className={styles.founder}>
               <div className={styles.founderTile}>
-                <Figure
+                <Figure editId="photo.mistral-founder-1"
                   slug="mistral-founder-1"
                   alt="Portrait of Mara Voss, framebuilder, in a navy work shirt"
                   className={styles.founderImg}
                 />
               </div>
-              <h3>Mara Voss</h3>
-              <p className={styles.founderRole}>FRAMES · TORCH · GEOMETRY</p>
-              <p>
+              <h3 data-edit="founder.title" data-edit-max="40">Mara Voss</h3>
+              <p data-edit="founder.founderRole" data-edit-max="240" data-edit-multiline className={styles.founderRole}>FRAMES · TORCH · GEOMETRY</p>
+              <p data-edit="founder.body" data-edit-max="240" data-edit-multiline>
                 Twenty-one years at the torch, the last fourteen on her own
                 drawings. Mara apprenticed in a Bremen randonneur shop, kept the
                 metric habit, and will defend low-trail geometry at any dinner
@@ -532,15 +547,15 @@ export default function MistralCyclesPage() {
             </article>
             <article className={styles.founder}>
               <div className={styles.founderTile}>
-                <Figure
+                <Figure editId="photo.mistral-founder-2"
                   slug="mistral-founder-2"
                   alt="Portrait of Arjun Mehta, painter and fitter, in a grey shop apron"
                   className={styles.founderImg}
                 />
               </div>
-              <h3>Arjun Mehta</h3>
-              <p className={styles.founderRole}>PAINT · FIT · THE DRAWINGS</p>
-              <p>
+              <h3 data-edit="founder.title2" data-edit-max="40">Arjun Mehta</h3>
+              <p data-edit="founder.founderRole2" data-edit-max="240" data-edit-multiline className={styles.founderRole}>PAINT · FIT · THE DRAWINGS</p>
+              <p data-edit="founder.body2" data-edit-max="240" data-edit-multiline>
                 Trained as an industrial designer, converted by a borrowed 1974
                 tourer with a bent fork he fixed in a stairwell. Arjun runs the
                 fit jig, mixes every paint colour in-house, and letters the
@@ -553,18 +568,18 @@ export default function MistralCyclesPage() {
         {/* PROCESS */}
         <section id="process" className={styles.process} aria-labelledby="process-title">
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 07</p>
-            <h2 id="process-title">Ordering in five operations</h2>
+            <p data-edit="process.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 07</p>
+            <h2 data-edit="process.title" data-edit-max="60" id="process-title">Ordering in five operations</h2>
           </div>
           <ol className={styles.steps}>
-            {PROCESS.map((s) => (
+            {PROCESS.map((s, i) => (
               <li key={s.n} className={styles.step}>
-                <p className={styles.stepNo}>{s.n}</p>
+                <p data-edit={`process.stepNo.${i}`} data-edit-max="240" data-edit-multiline className={styles.stepNo}>{s.n}</p>
                 <div className={styles.stepBody}>
                   <h3>
-                    {s.title} <span className={styles.stepTime}>{s.time}</span>
+                    {s.title} <span data-edit={`process.stepTime.${i}`} data-edit-max="60" className={styles.stepTime}>{s.time}</span>
                   </h3>
-                  <p>{s.copy}</p>
+                  <p data-edit={`process.body.${i}`} data-edit-max="240" data-edit-multiline>{s.copy}</p>
                 </div>
               </li>
             ))}
@@ -574,21 +589,21 @@ export default function MistralCyclesPage() {
         {/* FAQ */}
         <section id="faq" className={styles.faq} aria-labelledby="faq-title">
           <div className={styles.sectionHead}>
-            <p className={styles.sectionNo}>§ 08</p>
-            <h2 id="faq-title">Field notes & questions</h2>
+            <p data-edit="faq.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>§ 08</p>
+            <h2 data-edit="faq.title" data-edit-max="60" id="faq-title">Field notes & questions</h2>
           </div>
           <div className={styles.faqList}>
-            {FAQS.map((f) => (
+            {FAQS.map((f, i) => (
               <details key={f.q} className={styles.faqItem}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <summary data-edit={`faq.question.${i}`} data-edit-max="80">{f.q}</summary>
+                <p data-edit={`faq.body.${i}`} data-edit-max="240" data-edit-multiline>{f.a}</p>
               </details>
             ))}
           </div>
         </section>
 
         {/* CTA BAND */}
-        <section className={styles.ctaBand} aria-labelledby="cta-title">
+        <section data-edit-pattern="cta.field" data-edit-roles="#081220,5,6,#14385C,3" className={styles.ctaBand} aria-labelledby="cta-title">
           <TabbiedPattern
             pattern={gasket}
             palette={EMBER_PALETTE}
@@ -598,9 +613,9 @@ export default function MistralCyclesPage() {
             style={{ position: 'absolute', inset: 0 }}
           />
           <div className={styles.ctaInner}>
-            <h2 id="cta-title">The queue opens on the first Monday of each month.</h2>
-            <p>Six slots. A drawing with your name on it.</p>
-            <a className={styles.btnPrimary} href="mailto:frames@mistralcycles.example">
+            <h2 data-edit="cta.title" data-edit-max="60" id="cta-title">The queue opens on the first Monday of each month.</h2>
+            <p data-edit="cta.body" data-edit-max="240" data-edit-multiline>Six slots. A drawing with your name on it.</p>
+            <a data-edit="cta.btnPrimary" data-edit-max="28" className={styles.btnPrimary} href="mailto:frames@mistralcycles.example">
               Write to the workshop
             </a>
           </div>
@@ -610,7 +625,7 @@ export default function MistralCyclesPage() {
       <footer className={styles.footer}>
         <div className={styles.footerGrid}>
           <div>
-            <p className={styles.footerBrand}>MISTRAL▲CYCLES</p>
+            <p data-edit="footer.footerBrand" data-edit-max="240" data-edit-multiline className={styles.footerBrand}>MISTRAL▲CYCLES</p>
             <p className={styles.footerFine}>
               Handbuilt steel frames.
               <br />
@@ -618,7 +633,7 @@ export default function MistralCyclesPage() {
             </p>
           </div>
           <address className={styles.footerCol}>
-            <p className={styles.footerLabel}>WORKSHOP</p>
+            <p data-edit="footer.footerLabel" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>WORKSHOP</p>
             <p>
               Unit 4, 118 Anvil Street
               <br />
@@ -626,7 +641,7 @@ export default function MistralCyclesPage() {
             </p>
           </address>
           <div className={styles.footerCol}>
-            <p className={styles.footerLabel}>HOURS</p>
+            <p data-edit="footer.footerLabel2" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>HOURS</p>
             <p>
               Tue–Fri 09:00–17:00
               <br />
@@ -634,20 +649,20 @@ export default function MistralCyclesPage() {
             </p>
           </div>
           <div className={styles.footerCol}>
-            <p className={styles.footerLabel}>WRITE</p>
+            <p data-edit="footer.footerLabel3" data-edit-max="240" data-edit-multiline className={styles.footerLabel}>WRITE</p>
             <p>
-              <a href="mailto:frames@mistralcycles.example">frames@mistralcycles.example</a>
+              <a data-edit="footer.link" data-edit-max="28" href="mailto:frames@mistralcycles.example">frames@mistralcycles.example</a>
               <br />
-              <a href="tel:+14015550172">(401) 555-0172</a>
+              <a data-edit="footer.link2" data-edit-max="28" href="tel:+14015550172">(401) 555-0172</a>
             </p>
           </div>
         </div>
         <div className={styles.footerRule} />
         <div className={styles.footerBase}>
-          <p>© 2026 Mistral Cycles. A fictional workshop, regrettably.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>© 2026 Mistral Cycles. A fictional workshop, regrettably.</p>
           <p className={styles.credit}>
             Bolt circles by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link3" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
           </p>

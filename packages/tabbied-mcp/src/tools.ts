@@ -12,6 +12,7 @@
 // either, because these are pictures. So: search narrows on closed-vocabulary
 // enums, then preview_design puts the shortlist in front of the model's eyes
 // before it commits.
+import { templateTools } from './templates.js';
 import type {
   Catalog,
   CatalogDesign,
@@ -465,13 +466,21 @@ function docsTool(context: ToolContext): Tool | null {
 
 // ---- assembly --------------------------------------------------------------
 
-/** The catalog-backed tools available in every runtime. */
+/**
+ * The catalog-backed tools available in every runtime.
+ *
+ * The template tools join them here rather than in a separate assembly so a
+ * host opts in by supplying their fetchers, exactly as it already does for
+ * previews and docs — one context, and the tool list follows from what the
+ * host can actually resolve.
+ */
 export function catalogTools(context: ToolContext): Tool[] {
   return [
     searchTool(context.catalog),
     getDesignTool(context.catalog),
     previewTool(context),
     docsTool(context),
+    ...templateTools(context),
   ].filter((tool): tool is Tool => tool !== null);
 }
 

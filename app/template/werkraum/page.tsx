@@ -122,7 +122,19 @@ const FACTS = [
 
 export default function WerkraumPage() {
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--paper': '#f4f3ef',
+        '--ink': '#16161a',
+        '--red': '#d6001c',
+        '--grey': '#8e8e88',
+        '--pale': '#c9c8c1',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="paper,ink,red,grey,pale"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -132,24 +144,24 @@ export default function WerkraumPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">
           Werkraum
         </a>
         <nav className={s.nav} aria-label="Sections">
-          {NAV.map(([no, label, href]) => (
+          {NAV.map(([no, label, href], i) => (
             <a key={href} href={href}>
-              <span>{no}</span>
+              <span data-edit={`bar.text.${i}`} data-edit-max="60">{no}</span>
               {label}
             </a>
           ))}
         </nav>
-        <span className={s.barMeta}>Basel</span>
+        <span data-edit="bar.barMeta" data-edit-max="60" className={s.barMeta}>Basel</span>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div className={s.field} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.field} aria-hidden="true">
             <TabbiedPattern
               pattern={ortho}
               palette={['transparent', PALE, GREY]}
@@ -160,7 +172,7 @@ export default function WerkraumPage() {
             />
           </div>
           <div className={s.heroGrid}>
-            <p className={s.heroTag}>Architektur / Basel / seit 2009</p>
+            <p data-edit="hero.heroTag" data-edit-max="240" data-edit-multiline className={s.heroTag}>Architektur / Basel / seit 2009</p>
             <h1 className={s.heroTitle}>
               We draw buildings that
               <br />
@@ -168,16 +180,16 @@ export default function WerkraumPage() {
               <br />
               <em>hard to throw away.</em>
             </h1>
-            <p className={s.heroLede}>
+            <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={s.heroLede}>
               Werkraum is eleven people in one room on Klybeckstrasse. Housing,
               schools, workshops, one footbridge. We take on six projects a year
               and finish them.
             </p>
             <dl className={s.facts}>
-              {FACTS.map(([v, k]) => (
+              {FACTS.map(([v, k], i) => (
                 <div key={k}>
-                  <dt>{v}</dt>
-                  <dd>{k}</dd>
+                  <dt data-edit={`hero.term.${i}`} data-edit-max="28">{v}</dt>
+                  <dd data-edit={`hero.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
                 </div>
               ))}
             </dl>
@@ -187,12 +199,12 @@ export default function WerkraumPage() {
         {/* The one full-bleed photograph on the page, held to a letterbox so it
             reads as a plate between two pattern fields rather than as a hero. */}
         <figure className={s.plate}>
-          <Figure
+          <Figure editId="photo.werkraum-hero"
             slug="werkraum-hero"
             alt="A concrete housing block with deep window reveals under an overcast sky"
             priority
           />
-          <figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>
             42 / Wohnhaus Sperrstrasse, Basel. On site, completion autumn 2026.
           </figcaption>
         </figure>
@@ -200,24 +212,24 @@ export default function WerkraumPage() {
         {/* ------------------------------------------------------ PRACTICE */}
         <section id="practice" className={s.practice} aria-labelledby="practice-h">
           <div className={s.rail}>
-            <span>01</span>
+            <span data-edit="practice.text" data-edit-max="60">01</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.practiceBody}>
-            <h2 id="practice-h">The practice</h2>
+            <h2 data-edit="practice.title" data-edit-max="60" id="practice-h">The practice</h2>
             <div className={s.twoCol}>
-              <p className={s.lead}>
+              <p data-edit="practice.lead" data-edit-max="240" data-edit-multiline className={s.lead}>
                 We were two people and a borrowed plotter in 2009. The plotter
                 is still here. So is the habit of drawing every project at full
                 size before anybody talks about a facade.
               </p>
-              <p>
+              <p data-edit="practice.body" data-edit-max="240" data-edit-multiline>
                 The office takes work in three sizes: a house, a block, and a
                 building the town has to live with. We do not chase competitions
                 we would not want to win, which means we enter about four a
                 year and lose most of them cheerfully.
               </p>
-              <p>
+              <p data-edit="practice.body2" data-edit-max="240" data-edit-multiline>
                 Everything is built in Switzerland with people we can visit on a
                 Tuesday. The furthest site from this desk is one hundred and
                 sixty kilometres, and we would rather it stayed that way.
@@ -225,18 +237,18 @@ export default function WerkraumPage() {
             </div>
             <div className={s.pair}>
               <figure>
-                <Figure
+                <Figure editId="photo.werkraum-room"
                   slug="werkraum-room"
                   alt="A long studio table under north light with rolled drawings and cardboard models"
                 />
-                <figcaption>The room, Tuesday, half past nine.</figcaption>
+                <figcaption data-edit="practice.caption" data-edit-max="120" data-edit-multiline>The room, Tuesday, half past nine.</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.werkraum-model"
                   slug="werkraum-model"
                   alt="A grey cardboard massing model of six housing blocks on a plywood base"
                 />
-                <figcaption>Massing study, 1:500, Feldrain.</figcaption>
+                <figcaption data-edit="practice.caption2" data-edit-max="120" data-edit-multiline>Massing study, 1:500, Feldrain.</figcaption>
               </figure>
             </div>
           </div>
@@ -244,7 +256,7 @@ export default function WerkraumPage() {
 
         {/* ---------------------------------------------------- BAND / WORK */}
         <section className={s.band} aria-hidden="true">
-          <div className={s.bandField}>
+          <div data-edit-pattern="band.field" data-edit-roles="transparent,1,2,3" className={s.bandField}>
             <TabbiedPattern
               pattern={windowpane}
               palette={['transparent', INK, RED, GREY]}
@@ -258,61 +270,61 @@ export default function WerkraumPage() {
 
         <section id="work" className={s.work} aria-labelledby="work-h">
           <div className={s.rail}>
-            <span>02</span>
+            <span data-edit="work.text" data-edit-max="60">02</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.workBody}>
-            <h2 id="work-h">Selected work</h2>
-            <p className={s.workNote}>
+            <h2 data-edit="work.title" data-edit-max="60" id="work-h">Selected work</h2>
+            <p data-edit="work.workNote" data-edit-max="240" data-edit-multiline className={s.workNote}>
               Forty-two built projects. Eight shown, newest first. Numbering runs
               in the order jobs were opened, which is why it skips.
             </p>
             <ol className={s.table}>
               <li className={s.tableHead} aria-hidden="true">
-                <span>No.</span>
-                <span>Project</span>
-                <span>Place</span>
-                <span>Programme</span>
-                <span>Area</span>
-                <span>Year</span>
+                <span data-edit="work.text2" data-edit-max="60">No.</span>
+                <span data-edit="work.text3" data-edit-max="60">Project</span>
+                <span data-edit="work.text4" data-edit-max="60">Place</span>
+                <span data-edit="work.text5" data-edit-max="60">Programme</span>
+                <span data-edit="work.text6" data-edit-max="60">Area</span>
+                <span data-edit="work.text7" data-edit-max="60">Year</span>
               </li>
-              {WORK.map((p) => (
+              {WORK.map((p, i) => (
                 <li key={p.no} className={s.row}>
-                  <span className={s.rowNo}>{p.no}</span>
+                  <span data-edit={`work.rowNo.${i}`} data-edit-max="60" className={s.rowNo}>{p.no}</span>
                   <span className={s.rowName}>
                     {p.name}
                     <i className={p.status === 'On site' ? s.live : undefined}>
                       {p.status}
                     </i>
                   </span>
-                  <span>{p.place}</span>
-                  <span>{p.programme}</span>
-                  <span className={s.num}>{p.area}</span>
-                  <span className={s.num}>{p.year}</span>
+                  <span data-edit={`work.text8.${i}`} data-edit-max="60">{p.place}</span>
+                  <span data-edit={`work.text9.${i}`} data-edit-max="60">{p.programme}</span>
+                  <span data-edit={`work.num.${i}`} data-edit-max="60" className={s.num}>{p.area}</span>
+                  <span data-edit={`work.num2.${i}`} data-edit-max="60" className={s.num}>{p.year}</span>
                 </li>
               ))}
             </ol>
             <div className={s.trio}>
               <figure>
-                <Figure
+                <Figure editId="photo.werkraum-school"
                   slug="werkraum-school"
                   alt="A school courtyard with a concrete colonnade and pale timber soffits"
                 />
-                <figcaption>41 / Primarschule Rüti</figcaption>
+                <figcaption data-edit="work.caption" data-edit-max="120" data-edit-multiline>41 / Primarschule Rüti</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.werkraum-bridge"
                   slug="werkraum-bridge"
                   alt="A slender steel footbridge crossing a river between bare trees"
                 />
-                <figcaption>37 / Steg über die Birs</figcaption>
+                <figcaption data-edit="work.caption2" data-edit-max="120" data-edit-multiline>37 / Steg über die Birs</figcaption>
               </figure>
               <figure>
-                <Figure
+                <Figure editId="photo.werkraum-detail"
                   slug="werkraum-detail"
                   alt="A close view of a timber-to-concrete junction left visible on a facade"
                 />
-                <figcaption>39 / Werkhof, junction at 1:20</figcaption>
+                <figcaption data-edit="work.caption3" data-edit-max="120" data-edit-multiline>39 / Werkhof, junction at 1:20</figcaption>
               </figure>
             </div>
           </div>
@@ -320,7 +332,7 @@ export default function WerkraumPage() {
 
         {/* -------------------------------------------------------- METHOD */}
         <section id="method" className={s.method} aria-labelledby="method-h">
-          <div className={s.methodField} aria-hidden="true">
+          <div data-edit-pattern="method.field" data-edit-roles="transparent,3,4" className={s.methodField} aria-hidden="true">
             <TabbiedPattern
               pattern={keyway}
               palette={['transparent', GREY, PALE]}
@@ -332,17 +344,17 @@ export default function WerkraumPage() {
           </div>
           <div className={s.methodInner}>
             <div className={s.rail}>
-              <span>03</span>
+              <span data-edit="method.text" data-edit-max="60">03</span>
               <span className={s.railRule} aria-hidden="true" />
             </div>
             <div>
-              <h2 id="method-h">Four working rules</h2>
+              <h2 data-edit="method.title" data-edit-max="60" id="method-h">Four working rules</h2>
               <div className={s.methodGrid}>
-                {METHOD.map((m) => (
+                {METHOD.map((m, i) => (
                   <article key={m.no}>
-                    <p className={s.mNo}>{m.no}</p>
-                    <h3>{m.title}</h3>
-                    <p>{m.body}</p>
+                    <p data-edit={`method.mNo.${i}`} data-edit-max="240" data-edit-multiline className={s.mNo}>{m.no}</p>
+                    <h3 data-edit={`method.title2.${i}`} data-edit-max="40">{m.title}</h3>
+                    <p data-edit={`method.body.${i}`} data-edit-max="240" data-edit-multiline>{m.body}</p>
                   </article>
                 ))}
               </div>
@@ -353,17 +365,17 @@ export default function WerkraumPage() {
         {/* -------------------------------------------------------- PEOPLE */}
         <section id="people" className={s.people} aria-labelledby="people-h">
           <div className={s.rail}>
-            <span>04</span>
+            <span data-edit="people.text" data-edit-max="60">04</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.peopleBody}>
-            <h2 id="people-h">Eleven people</h2>
+            <h2 data-edit="people.title" data-edit-max="60" id="people-h">Eleven people</h2>
             <ul className={s.peopleList}>
-              {PEOPLE.map(([name, role, since]) => (
+              {PEOPLE.map(([name, role, since], i) => (
                 <li key={name}>
-                  <span className={s.pName}>{name}</span>
-                  <span className={s.pRole}>{role}</span>
-                  <span className={s.pSince}>{since}</span>
+                  <span data-edit={`people.pName.${i}`} data-edit-max="60" className={s.pName}>{name}</span>
+                  <span data-edit={`people.pRole.${i}`} data-edit-max="60" className={s.pRole}>{role}</span>
+                  <span data-edit={`people.pSince.${i}`} data-edit-max="60" className={s.pSince}>{since}</span>
                 </li>
               ))}
             </ul>
@@ -373,22 +385,22 @@ export default function WerkraumPage() {
         {/* ----------------------------------------------------- MATERIALS */}
         <section id="materials" className={s.materials} aria-labelledby="materials-h">
           <div className={s.rail}>
-            <span>05</span>
+            <span data-edit="materials.text" data-edit-max="60">05</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.materialsBody}>
-            <h2 id="materials-h">Three materials, mostly</h2>
-            <p className={s.workNote}>
+            <h2 data-edit="materials.title" data-edit-max="60" id="materials-h">Three materials, mostly</h2>
+            <p data-edit="materials.workNote" data-edit-max="240" data-edit-multiline className={s.workNote}>
               A short palette is not a style. It is what happens when the same
               eleven people specify the same things for seventeen years and get
               better at them.
             </p>
             <div className={s.matGrid}>
-              {MATERIALS.map((m) => (
+              {MATERIALS.map((m, i) => (
                 <article key={m.n}>
                   {/* The decorative plate: a Tabbied pattern on a transparent
                       ground, standing in for a material sample. */}
-                  <div className={s.matTile} aria-hidden="true">
+                  <div data-edit-pattern={`materials.field.${i}`} data-edit-roles="transparent,3,4" className={s.matTile} aria-hidden="true">
                     <TabbiedPattern
                       pattern={m.art === 'chase' ? chase : m.art === 'mortise' ? mortise : quire}
                       palette={['transparent', GREY, PALE]}
@@ -404,11 +416,11 @@ export default function WerkraumPage() {
                       height: TILE_BOX,
                     }}
                     />
-                    <Figure slug={m.img} alt="" cutout className={s.tileObject} />
+                    <Figure editId={`materials.photo.${i}`} slug={m.img} alt="" cutout className={s.tileObject} />
                   </div>
-                  <p className={s.matN}>{m.n}</p>
-                  <h3>{m.name}</h3>
-                  <p className={s.matBody}>{m.body}</p>
+                  <p data-edit={`materials.matN.${i}`} data-edit-max="240" data-edit-multiline className={s.matN}>{m.n}</p>
+                  <h3 data-edit={`materials.title2.${i}`} data-edit-max="40">{m.name}</h3>
+                  <p data-edit={`materials.matBody.${i}`} data-edit-max="240" data-edit-multiline className={s.matBody}>{m.body}</p>
                 </article>
               ))}
             </div>
@@ -418,18 +430,18 @@ export default function WerkraumPage() {
         {/* -------------------------------------------------------- AWARDS */}
         <section id="awards" className={s.awards} aria-labelledby="awards-h">
           <div className={s.rail}>
-            <span>06</span>
+            <span data-edit="awards.text" data-edit-max="60">06</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.awardsBody}>
-            <h2 id="awards-h">Competitions and prizes</h2>
+            <h2 data-edit="awards.title" data-edit-max="60" id="awards-h">Competitions and prizes</h2>
             <ol className={s.awardList}>
-              {AWARDS.map(([year, what, where, result]) => (
+              {AWARDS.map(([year, what, where, result], i) => (
                 <li key={`${year}-${what}`}>
-                  <span className={s.aYear}>{year}</span>
-                  <span className={s.aWhat}>{what}</span>
-                  <span className={s.aWhere}>{where}</span>
-                  <span className={result.startsWith('Won') ? s.aWon : s.aResult}>
+                  <span data-edit={`awards.aYear.${i}`} data-edit-max="60" className={s.aYear}>{year}</span>
+                  <span data-edit={`awards.aWhat.${i}`} data-edit-max="60" className={s.aWhat}>{what}</span>
+                  <span data-edit={`awards.aWhere.${i}`} data-edit-max="60" className={s.aWhere}>{where}</span>
+                  <span data-edit={`awards.aWon.${i}`} data-edit-max="60" className={result.startsWith('Won') ? s.aWon : s.aResult}>
                     {result}
                   </span>
                 </li>
@@ -441,16 +453,16 @@ export default function WerkraumPage() {
         {/* ------------------------------------------------------ QUESTIONS */}
         <section id="questions" className={s.questions} aria-labelledby="questions-h">
           <div className={s.rail}>
-            <span>07</span>
+            <span data-edit="questions.text" data-edit-max="60">07</span>
             <span className={s.railRule} aria-hidden="true" />
           </div>
           <div className={s.questionsBody}>
-            <h2 id="questions-h">Four questions we get</h2>
+            <h2 data-edit="questions.title" data-edit-max="60" id="questions-h">Four questions we get</h2>
             <dl className={s.qList}>
-              {QUESTIONS.map((x) => (
+              {QUESTIONS.map((x, i) => (
                 <div key={x.q}>
-                  <dt>{x.q}</dt>
-                  <dd>{x.a}</dd>
+                  <dt data-edit={`questions.term.${i}`} data-edit-max="28">{x.q}</dt>
+                  <dd data-edit={`questions.body.${i}`} data-edit-max="200" data-edit-multiline>{x.a}</dd>
                 </div>
               ))}
             </dl>
@@ -459,7 +471,7 @@ export default function WerkraumPage() {
 
         {/* -------------------------------------------------------- OFFICE */}
         <section id="office" className={s.office} aria-labelledby="office-h">
-          <div className={s.officeField} aria-hidden="true">
+          <div data-edit-pattern="office.field" data-edit-roles="transparent,2,1" className={s.officeField} aria-hidden="true">
             <TabbiedPattern
               pattern={subdivide}
               palette={['transparent', RED, INK]}
@@ -471,20 +483,20 @@ export default function WerkraumPage() {
           </div>
           <div className={s.officeInner}>
             <div className={s.rail}>
-              <span>08</span>
+              <span data-edit="office.text" data-edit-max="60">08</span>
               <span className={s.railRule} aria-hidden="true" />
             </div>
             <div className={s.officeGrid}>
               <div>
-                <h2 id="office-h">Klybeckstrasse 191</h2>
-                <p className={s.officeLead}>
+                <h2 data-edit="office.title" data-edit-max="60" id="office-h">Klybeckstrasse 191</h2>
+                <p data-edit="office.officeLead" data-edit-max="240" data-edit-multiline className={s.officeLead}>
                   Ground floor, courtyard side. Model shop at the back, plotter
                   by the window, the good coffee on the shelf nobody can reach.
                 </p>
               </div>
               <dl className={s.contact}>
                 <div>
-                  <dt>Post</dt>
+                  <dt data-edit="office.term" data-edit-max="28">Post</dt>
                   <dd>
                     Klybeckstrasse 191
                     <br />
@@ -492,22 +504,22 @@ export default function WerkraumPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Write</dt>
+                  <dt data-edit="office.term2" data-edit-max="28">Write</dt>
                   <dd>
-                    <a href="mailto:buero@werkraum.example">buero@werkraum.example</a>
+                    <a data-edit="office.link" data-edit-max="28" href="mailto:buero@werkraum.example">buero@werkraum.example</a>
                   </dd>
                 </div>
                 <div>
-                  <dt>Call</dt>
-                  <dd>+41 61 000 00 00</dd>
+                  <dt data-edit="office.term3" data-edit-max="28">Call</dt>
+                  <dd data-edit="office.body" data-edit-max="200" data-edit-multiline>+41 61 000 00 00</dd>
                 </div>
                 <div>
-                  <dt>Open</dt>
-                  <dd>Mon to Thu, 09.00 to 17.00</dd>
+                  <dt data-edit="office.term4" data-edit-max="28">Open</dt>
+                  <dd data-edit="office.body2" data-edit-max="200" data-edit-multiline>Mon to Thu, 09.00 to 17.00</dd>
                 </div>
               </dl>
             </div>
-            <p className={s.officeApply}>
+            <p data-edit="office.officeApply" data-edit-max="240" data-edit-multiline className={s.officeApply}>
               We read every application. Portfolios as one PDF under 10 MB, to
               the address above, any time of year.
             </p>
@@ -519,7 +531,7 @@ export default function WerkraumPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={spandrel}
               palette={['transparent', PALE, GREY]}
@@ -534,39 +546,39 @@ export default function WerkraumPage() {
       <footer className={s.footer}>
         <div className={s.footGrid}>
           <div className={s.footBrand}>
-            <p className={s.footName}>Werkraum</p>
-            <p className={s.footTag}>An architecture practice at Klybeckstrasse 191, Basel, since 2009.</p>
+            <p data-edit="footer.footName" data-edit-max="240" data-edit-multiline className={s.footName}>Werkraum</p>
+            <p data-edit="footer.footTag" data-edit-max="240" data-edit-multiline className={s.footTag}>An architecture practice at Klybeckstrasse 191, Basel, since 2009.</p>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Practice</h2>
+            <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Practice</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#work">Selected work</a>
+                <a data-edit="footer.work" data-edit-max="28" href="#work">Selected work</a>
               </li>
               <li>
-                <a href="#method">Working rules</a>
+                <a data-edit="footer.method" data-edit-max="28" href="#method">Working rules</a>
               </li>
               <li>
-                <a href="#people">Eleven people</a>
+                <a data-edit="footer.people" data-edit-max="28" href="#people">Eleven people</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Office</h2>
+            <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Office</h2>
             <ul className={s.footLinks}>
               <li>
-                <a href="#office">Klybeckstrasse 191</a>
+                <a data-edit="footer.office" data-edit-max="28" href="#office">Klybeckstrasse 191</a>
               </li>
               <li>
-                <a href="#office">Applications</a>
+                <a data-edit="footer.office2" data-edit-max="28" href="#office">Applications</a>
               </li>
               <li>
-                <a href="#practice">About the practice</a>
+                <a data-edit="footer.practice" data-edit-max="28" href="#practice">About the practice</a>
               </li>
             </ul>
           </div>
           <div className={s.footCol}>
-            <h2 className={s.footHead}>Contact</h2>
+            <h2 data-edit="footer.footHead3" data-edit-max="60" className={s.footHead}>Contact</h2>
             <p className={s.footAddr}>
               Klybeckstrasse 191
               <br />
@@ -579,10 +591,10 @@ export default function WerkraumPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional architecture practice. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional architecture practice. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

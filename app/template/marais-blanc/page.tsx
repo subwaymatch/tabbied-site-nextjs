@@ -109,7 +109,19 @@ export default function MaraisBlancPage() {
   const strongest = Math.max(...PANS.flat());
 
   return (
-    <div className={s.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--ground': '#fbfaf7',
+        '--ink': '#171519',
+        '--accent': '#c2456b',
+        '--grey': '#8c8a90',
+        '--panel': '#e4e1dc',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="ground,ink,accent,grey,panel"
+      className={s.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -119,20 +131,20 @@ export default function MaraisBlancPage() {
       />
 
       <header className={s.bar}>
-        <a className={s.mark} href="#top">Marais Blanc</a>
+        <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Marais Blanc</a>
         <nav aria-label="Sections">
-          <a href="#marsh">The marsh</a>
-          <a href="#making">The year</a>
-          <a href="#grades">Grades</a>
-          <a href="#calendar">Calendar</a>
+          <a data-edit="bar.marsh" data-edit-max="28" href="#marsh">The marsh</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">The year</a>
+          <a data-edit="bar.grades" data-edit-max="28" href="#grades">Grades</a>
+          <a data-edit="bar.calendar" data-edit-max="28" href="#calendar">Calendar</a>
         </nav>
-        <span className={s.now}>Paludier / Guérande</span>
+        <span data-edit="bar.now" data-edit-max="60" className={s.now}>Paludier / Guérande</span>
       </header>
 
       <main id="top">
         {/* ------------------------------------------------------------ HERO */}
         <section className={s.hero}>
-          <div className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3,2" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={clipcorner}
               palette={['transparent', PANEL, GREY, ACCENT]}
@@ -142,17 +154,17 @@ export default function MaraisBlancPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <p className={s.heroKicker}>Sea salt / Guérande / worked since 1611</p>
+          <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Sea salt / Guérande / worked since 1611</p>
           <h1 className={s.heroType}>
-            <span>Sun, wind,</span>
-            <span className={s.hi}>and a wooden rake.</span>
+            <span data-edit="hero.text" data-edit-max="60">Sun, wind,</span>
+            <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>and a wooden rake.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Thirty-six clay pans, no pump and no machine. Sea water walks
               across the marsh for a fortnight and comes out as salt.
             </p>
-            <a className={s.cta} href="#marsh">
+            <a data-edit="hero.cta" data-edit-max="28" className={s.cta} href="#marsh">
               How the marsh works
             </a>
           </div>
@@ -160,19 +172,19 @@ export default function MaraisBlancPage() {
 
         {/* ------------------------------------------------------ BLEED SCENE */}
         <figure className={s.bleed}>
-          <Figure
+          <Figure editId="photo.marais-blanc-pans"
             slug="marais-blanc-pans"
             alt="Sea salt pans seen from directly above, a grid of shallow clay basins of pink brine"
             priority
           />
-          <figcaption>From above, in July. The pink is the brine, not the light.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>From above, in July. The pink is the brine, not the light.</figcaption>
         </figure>
 
         {/* ----------------------------------------------------------- MARSH */}
         <section id="marsh" className={s.marsh} aria-labelledby="marsh-h">
           <div className={s.secHead}>
-            <h2 id="marsh-h">Thirty-six pans</h2>
-            <p>
+            <h2 data-edit="marsh.title" data-edit-max="60" id="marsh-h">Thirty-six pans</h2>
+            <p data-edit="marsh.body" data-edit-max="240" data-edit-multiline>
               The whole works, drawn as a plan and tinted by the strength of
               the brine standing in each pan. Water enters at the top left and
               leaves as salt at the bottom right.
@@ -198,7 +210,7 @@ export default function MaraisBlancPage() {
               }),
             )}
           </div>
-          <p className={s.marshNote}>
+          <p data-edit="marsh.marshNote" data-edit-max="240" data-edit-multiline className={s.marshNote}>
             Degrees Baumé, measured every morning. Salt begins to fall out of
             solution at about 25°, which is why only the last rank is ever
             raked.
@@ -207,19 +219,19 @@ export default function MaraisBlancPage() {
 
         {/* ------------------------------------------------------- STATEMENT */}
         <section className={s.statement}>
-          <p className={s.big}>
+          <p data-edit="statement.big" data-edit-max="240" data-edit-multiline className={s.big}>
             Nobody here makes salt. The sun and the wind make it, at a rate
             neither can be asked to change, and the work is entirely a matter
             of moving water slowly enough and getting the crop off the floor
             before the weather turns.
           </p>
           <div className={s.statementMeta}>
-            <p>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Marais Blanc is one family and two employees working pans first
               cut in 1611. The clay is repaired every winter by hand, because
               the works and the tool are the same object.
             </p>
-            <p>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               A good year is twenty-six tonnes and a bad one is nine. We have
               never had two good years in a row and we do not expect to.
             </p>
@@ -227,7 +239,7 @@ export default function MaraisBlancPage() {
         </section>
 
         {/* ------------------------------------------------------------ BAND */}
-        <div className={s.band} aria-hidden="true">
+        <div data-edit-pattern="top.field" data-edit-roles="transparent,2,1,4" className={s.band} aria-hidden="true">
           <TabbiedPattern
             pattern={notchcut}
             palette={['transparent', ACCENT, INK, PANEL]}
@@ -241,33 +253,33 @@ export default function MaraisBlancPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 id="making-h">Five movements</h2>
-            <p>Nine months of preparation for a harvest that lasts, in a good year, about ninety days.</p>
+            <h2 data-edit="making.title" data-edit-max="60" id="making-h">Five movements</h2>
+            <p data-edit="making.body" data-edit-max="240" data-edit-multiline>Nine months of preparation for a harvest that lasts, in a good year, about ninety days.</p>
           </div>
           <ol className={s.rows}>
-            {WORK.map((w) => (
+            {WORK.map((w, i) => (
               <li key={w.n}>
-                <span className={s.rowN}>{w.n}</span>
-                <h3 className={s.rowTitle}>{w.t}</h3>
-                <span className={s.rowSub}>{w.d}</span>
-                <span className={s.rowDays}>{w.when}</span>
+                <span data-edit={`making.rowN.${i}`} data-edit-max="60" className={s.rowN}>{w.n}</span>
+                <h3 data-edit={`making.rowTitle.${i}`} data-edit-max="40" className={s.rowTitle}>{w.t}</h3>
+                <span data-edit={`making.rowSub.${i}`} data-edit-max="60" className={s.rowSub}>{w.d}</span>
+                <span data-edit={`making.rowDays.${i}`} data-edit-max="60" className={s.rowDays}>{w.when}</span>
               </li>
             ))}
           </ol>
           <div className={s.pair}>
             <figure>
-              <Figure
+              <Figure editId="photo.marais-blanc-rake"
                 slug="marais-blanc-rake"
                 alt="A long-handled wooden salt rake resting across a clay bund beside a shallow brine pan"
               />
-              <figcaption>The lousse. Five metres of wood and no metal anywhere on it.</figcaption>
+              <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>The lousse. Five metres of wood and no metal anywhere on it.</figcaption>
             </figure>
             <figure>
-              <Figure
+              <Figure editId="photo.marais-blanc-mound"
                 slug="marais-blanc-mound"
                 alt="A conical mound of freshly harvested white sea salt on a clay path"
               />
-              <figcaption>A day&rsquo;s raking, drying on the path for a week before it is carried in.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>A day&rsquo;s raking, drying on the path for a week before it is carried in.</figcaption>
             </figure>
           </div>
         </section>
@@ -275,14 +287,14 @@ export default function MaraisBlancPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 id="pr-h">Three rules of the marsh</h2>
-            <p>None of them is a marketing position. They are all just what happens if you do otherwise.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three rules of the marsh</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>None of them is a marketing position. They are all just what happens if you do otherwise.</p>
           </div>
           <div className={s.pGrid}>
-            {PRINCIPLES.map((p) => (
+            {PRINCIPLES.map((p, i) => (
               <article key={p.n}>
                 <div className={s.pPlate}>
-                  <div className={s.pField} aria-hidden="true">
+                  <div data-edit-pattern={`pr.field.${i}`} data-edit-roles="transparent,3,2" className={s.pField} aria-hidden="true">
                     <TabbiedPattern
                       pattern={p.art}
                       palette={['transparent', GREY, ACCENT]}
@@ -292,11 +304,11 @@ export default function MaraisBlancPage() {
                       style={{ position: 'absolute', inset: 0 }}
                     />
                   </div>
-                  <Figure slug={p.img} alt={p.alt} cutout className={s.pObject} />
+                  <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
-                <p className={s.pN}>{p.n}</p>
-                <h3>{p.t}</h3>
-                <p className={s.pBody}>{p.d}</p>
+                <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
+                <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
           </div>
@@ -305,17 +317,17 @@ export default function MaraisBlancPage() {
         {/* ---------------------------------------------------------- GRADES */}
         <section id="grades" className={s.listing} aria-labelledby="grades-h">
           <div className={s.secHead}>
-            <h2 id="grades-h">What comes off the marsh</h2>
-            <p>Three grades and a weed. Prices are at the hut; post is at cost and slow.</p>
+            <h2 data-edit="grades.title" data-edit-max="60" id="grades-h">What comes off the marsh</h2>
+            <p data-edit="grades.body" data-edit-max="240" data-edit-multiline>Three grades and a weed. Prices are at the hut; post is at cost and slow.</p>
           </div>
           <ol className={s.table}>
             {GRADES.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[1]}</span>
-                <span className={s.tMain}>{r[0]}</span>
-                <span className={s.tMid}>{r[2]}</span>
-                <span className={s.tMid}>{r[3]}</span>
-                <span className={s.tEnd}>{r[4]}</span>
+                <span data-edit={`grades.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[1]}</span>
+                <span data-edit={`grades.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[0]}</span>
+                <span data-edit={`grades.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
+                <span data-edit={`grades.tMid2.${i}`} data-edit-max="60" className={s.tMid}>{r[3]}</span>
+                <span data-edit={`grades.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[4]}</span>
               </li>
             ))}
           </ol>
@@ -323,7 +335,7 @@ export default function MaraisBlancPage() {
 
         {/* ------------------------------------------------------- QUOTE BAND */}
         <section className={s.quote}>
-          <div className={s.quoteField} aria-hidden="true">
+          <div data-edit-pattern="quote.field" data-edit-roles="transparent,2,3" className={s.quoteField} aria-hidden="true">
             <TabbiedPattern
               pattern={pindot}
               palette={['transparent', ACCENT, GREY]}
@@ -334,25 +346,25 @@ export default function MaraisBlancPage() {
             />
           </div>
           <blockquote>
-            <p>You cannot hurry it and you cannot store the weather. Everything else about this job is repairing clay.</p>
-            <cite>Loïc Guéhenneuc, paludier</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>You cannot hurry it and you cannot store the weather. Everything else about this job is repairing clay.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Loïc Guéhenneuc, paludier</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- CALENDAR */}
         <section id="calendar" className={s.listing} aria-labelledby="cal-h">
           <div className={s.secHead}>
-            <h2 id="cal-h">One year</h2>
-            <p>Last year&rsquo;s, which was an average one: twenty-five point nine tonnes.</p>
+            <h2 data-edit="calendar.title" data-edit-max="60" id="cal-h">One year</h2>
+            <p data-edit="calendar.body" data-edit-max="240" data-edit-multiline>Last year&rsquo;s, which was an average one: twenty-five point nine tonnes.</p>
           </div>
           <ol className={s.table}>
             {YEAR.map((r, i) => (
               <li key={i}>
-                <span className={s.tKey}>{r[0]}</span>
-                <span className={s.tMain}>{r[1]}</span>
-                <span className={s.tMid}>{r[2]}</span>
+                <span data-edit={`calendar.tKey.${i}`} data-edit-max="60" className={s.tKey}>{r[0]}</span>
+                <span data-edit={`calendar.tMain.${i}`} data-edit-max="60" className={s.tMain}>{r[1]}</span>
+                <span data-edit={`calendar.tMid.${i}`} data-edit-max="60" className={s.tMid}>{r[2]}</span>
                 <span className={s.tMid} />
-                <span className={s.tEnd}>{r[3]}</span>
+                <span data-edit={`calendar.tEnd.${i}`} data-edit-max="60" className={s.tEnd}>{r[3]}</span>
               </li>
             ))}
           </ol>
@@ -360,7 +372,7 @@ export default function MaraisBlancPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <div className={s.visitField} aria-hidden="true">
+          <div data-edit-pattern="visit.field" data-edit-roles="transparent,3,4" className={s.visitField} aria-hidden="true">
             <TabbiedPattern
               pattern={snipcorner}
               palette={['transparent', GREY, PANEL]}
@@ -370,12 +382,12 @@ export default function MaraisBlancPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 id="visit-h">Coming out to the pans</h2>
+          <h2 data-edit="visit.title" data-edit-max="60" id="visit-h">Coming out to the pans</h2>
           <dl className={s.visitList}>
-            {VISIT.map(([k, v]) => (
+            {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+                <dt data-edit={`visit.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -383,20 +395,20 @@ export default function MaraisBlancPage() {
 
         {/* --------------------------------------------------------- CONTACT */}
         <section id="contact" className={s.contact} aria-labelledby="contact-h">
-          <p className={s.contactPre}>Orders, restaurants, visits</p>
-          <h2 id="contact-h" className={s.datesTitle}>Walk the pans with a saunier</h2>
+          <p data-edit="contact.contactPre" data-edit-max="240" data-edit-multiline className={s.contactPre}>Orders, restaurants, visits</p>
+          <h2 data-edit="contact.datesTitle" data-edit-max="60" id="contact-h" className={s.datesTitle}>Walk the pans with a saunier</h2>
           <ul className={s.dates}>
-            {SLOTS.map((d) => (
+            {SLOTS.map((d, i) => (
               <li key={`${d.day}-${d.month}`}>
                 <button type="button" className={s.slot} disabled={d.full}>
-                  <span className={s.slotDay}>{d.day}</span>
-                  <span className={s.slotMonth}>{d.month}</span>
-                  <span className={s.slotState}>{d.state}</span>
+                  <span data-edit={`contact.slotDay.${i}`} data-edit-max="60" className={s.slotDay}>{d.day}</span>
+                  <span data-edit={`contact.slotMonth.${i}`} data-edit-max="60" className={s.slotMonth}>{d.month}</span>
+                  <span data-edit={`contact.slotState.${i}`} data-edit-max="60" className={s.slotState}>{d.state}</span>
                 </button>
               </li>
             ))}
           </ul>
-          <p className={s.contactFine}>
+          <p data-edit="contact.contactFine" data-edit-max="240" data-edit-multiline className={s.contactFine}>
             Route des Marais, 44350 Guérande. Two hours, flat, no shade, and
             it is called off without ceremony if it rains. From June to
             September nobody reads mail before dark, and in August nobody
@@ -405,7 +417,7 @@ export default function MaraisBlancPage() {
         </section>
       </main>
 
-      <div className={s.coda} aria-hidden="true">
+      <div data-edit-pattern="page.field" data-edit-roles="transparent,2,4,3" className={s.coda} aria-hidden="true">
         <TabbiedPattern
           pattern={fadein}
           palette={['transparent', ACCENT, PANEL, GREY]}
@@ -417,26 +429,26 @@ export default function MaraisBlancPage() {
       </div>
 
       <footer className={s.footer}>
-        <p className={s.footMark}>1611</p>
+        <p data-edit="footer.footMark" data-edit-max="240" data-edit-multiline className={s.footMark}>1611</p>
         <div className={s.footGrid}>
           <div>
-            <h2>The marsh</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">The marsh</h2>
             <ul>
-              <li><a href="#marsh">Thirty-six pans</a></li>
-              <li><a href="#making">Five movements</a></li>
-              <li><a href="#calendar">One year</a></li>
+              <li><a data-edit="footer.marsh" data-edit-max="28" href="#marsh">Thirty-six pans</a></li>
+              <li><a data-edit="footer.making" data-edit-max="28" href="#making">Five movements</a></li>
+              <li><a data-edit="footer.calendar" data-edit-max="28" href="#calendar">One year</a></li>
             </ul>
           </div>
           <div>
-            <h2>Salt</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Salt</h2>
             <ul>
-              <li><a href="#grades">Grades and prices</a></li>
-              <li><a href="#visit">Buying at the hut</a></li>
-              <li><a href="#visit">Walking the bunds</a></li>
+              <li><a data-edit="footer.grades" data-edit-max="28" href="#grades">Grades and prices</a></li>
+              <li><a data-edit="footer.visit" data-edit-max="28" href="#visit">Buying at the hut</a></li>
+              <li><a data-edit="footer.visit2" data-edit-max="28" href="#visit">Walking the bunds</a></li>
             </ul>
           </div>
           <div>
-            <h2>Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Route des Marais
               <br />
@@ -447,10 +459,10 @@ export default function MaraisBlancPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p>A fictional salt works. Tonnages, prices and dates are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional salt works. Tonnages, prices and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

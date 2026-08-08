@@ -190,7 +190,20 @@ const faqs = [
 
 export default function HopscotchMuseumPage() {
   return (
-    <div className={styles.page}>
+    <div
+      // Colour, declared inline so an edit can override it. The authored
+      // defaults stay in the stylesheet as the fallback.
+      style={{
+        '--cream': '#fff9ef',
+        '--ink': '#2b2b33',
+        '--red': '#ff5c4d',
+        '--blue': '#2e86de',
+        '--green': '#27c093',
+        '--yellow': '#ffc53d',
+      } as React.CSSProperties}
+      data-edit-root="vars"
+      data-edit-vars="cream,ink,red,blue,green,yellow"
+      className={styles.page}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
@@ -202,18 +215,18 @@ export default function HopscotchMuseumPage() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <a href="#top" className={styles.logo}>
-            <span className={styles.logoHopRed}>hop</span>
-            <span className={styles.logoHopBlue}>scotch</span>
-            <span className={styles.logoBang}>!</span>
+            <span data-edit="header.logoHopRed" data-edit-max="60" className={styles.logoHopRed}>hop</span>
+            <span data-edit="header.logoHopBlue" data-edit-max="60" className={styles.logoHopBlue}>scotch</span>
+            <span data-edit="header.logoBang" data-edit-max="60" className={styles.logoBang}>!</span>
           </a>
           <nav className={styles.nav} aria-label="Site">
-            <a href="#exhibits">Exhibits</a>
-            <a href="#visit">Visit</a>
-            <a href="#birthdays">Birthdays</a>
-            <a href="#membership">Membership</a>
-            <a href="#faq">FAQ</a>
+            <a data-edit="header.exhibits" data-edit-max="28" href="#exhibits">Exhibits</a>
+            <a data-edit="header.visit" data-edit-max="28" href="#visit">Visit</a>
+            <a data-edit="header.birthdays" data-edit-max="28" href="#birthdays">Birthdays</a>
+            <a data-edit="header.membership" data-edit-max="28" href="#membership">Membership</a>
+            <a data-edit="header.faq" data-edit-max="28" href="#faq">FAQ</a>
           </nav>
-          <a href="#visit" className={styles.ticketBtn}>
+          <a data-edit="header.ticketBtn" data-edit-max="28" href="#visit" className={styles.ticketBtn}>
             Get tickets
           </a>
         </div>
@@ -222,7 +235,7 @@ export default function HopscotchMuseumPage() {
       <main id="top">
         {/* HERO */}
         <section className={styles.hero} aria-labelledby="hero-title">
-          <div className={styles.heroPattern} role="presentation">
+          <div data-edit-pattern="hero.field" data-edit-roles="0,2,3,4,5" className={styles.heroPattern} role="presentation">
             <TabbiedPattern
               pattern={glyph}
               palette={[CREAM, RED, BLUE, GREEN, YELLOW]}
@@ -233,55 +246,55 @@ export default function HopscotchMuseumPage() {
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
               <h1 id="hero-title" className={styles.heroTitle}>
-                Where <span className={styles.underRed}>“don’t touch”</span> isn’t a thing.
+                Where <span data-edit="hero.underRed" data-edit-max="60" className={styles.underRed}>“don’t touch”</span> isn’t a thing.
               </h1>
-              <p className={styles.heroLede}>
+              <p data-edit="hero.heroLede" data-edit-max="240" data-edit-multiline className={styles.heroLede}>
                 Three floors of climbing, splashing, launching and why-ing for ages 0–12, and
                 the lucky grown-ups they bring along.
               </p>
               <div className={styles.heroBtns}>
-                <a href="#visit" className={styles.bigBtn}>
+                <a data-edit="hero.bigBtn" data-edit-max="28" href="#visit" className={styles.bigBtn}>
                   Plan a visit
                 </a>
-                <a href="#today" className={styles.bigBtnGhost}>
+                <a data-edit="hero.bigBtnGhost" data-edit-max="28" href="#today" className={styles.bigBtnGhost}>
                   What’s on today
                 </a>
               </div>
-              <p className={styles.heroSmall}>
+              <p data-edit="hero.heroSmall" data-edit-max="240" data-edit-multiline className={styles.heroSmall}>
                 Open today 9 – 5 · 88 Marble Run Way, Pemberton Falls
               </p>
             </div>
             <div className={styles.heroPhotoWrap}>
               <div className={styles.heroPhoto}>
-                <Figure
+                <Figure editId="photo.hopscotch-hero"
                   slug="hopscotch-hero"
                   alt="Children gazing up at a glowing model solar system hanging from the museum ceiling"
                   priority
                 />
               </div>
-              <span className={`${styles.sticker} ${styles.stickerYellow}`}>open today 9–5</span>
-              <span className={`${styles.sticker} ${styles.stickerGreen}`}>ages 0–12ish</span>
-              <span className={`${styles.sticker} ${styles.stickerRed}`}>yes, there’s coffee</span>
+              <span data-edit="hero.sticker" data-edit-max="60" className={`${styles.sticker} ${styles.stickerYellow}`}>open today 9–5</span>
+              <span data-edit="hero.sticker2" data-edit-max="60" className={`${styles.sticker} ${styles.stickerGreen}`}>ages 0–12ish</span>
+              <span data-edit="hero.sticker3" data-edit-max="60" className={`${styles.sticker} ${styles.stickerRed}`}>yes, there’s coffee</span>
             </div>
           </div>
         </section>
 
         {/* TODAY */}
         <section id="today" className={styles.today} aria-labelledby="today-title">
-          <h2 id="today-title" className={styles.h2}>
+          <h2 data-edit="today.h2" data-edit-max="60" id="today-title" className={styles.h2}>
             Today at the museum
           </h2>
-          <p className={styles.sectionLede}>
+          <p data-edit="today.sectionLede" data-edit-max="240" data-edit-multiline className={styles.sectionLede}>
             Drop-in, no sign-up, included with admission. Times are firm-ish; enthusiasm is
             guaranteed.
           </p>
           <div className={styles.todayGrid}>
             {todayProgram.map((slot, i) => (
               <article key={slot.name} className={styles.todayCard} data-tilt={i % 2}>
-                <span className={`${styles.timeChip} ${slot.color}`}>{slot.time}</span>
-                <h3>{slot.name}</h3>
-                <p className={styles.todayAges}>{slot.ages}</p>
-                <p>{slot.blurb}</p>
+                <span data-edit={`todayCard.timeChip.${i}`} data-edit-max="60" className={`${styles.timeChip} ${slot.color}`}>{slot.time}</span>
+                <h3 data-edit={`todayCard.title.${i}`} data-edit-max="40">{slot.name}</h3>
+                <p data-edit={`todayCard.todayAges.${i}`} data-edit-max="240" data-edit-multiline className={styles.todayAges}>{slot.ages}</p>
+                <p data-edit={`todayCard.body.${i}`} data-edit-max="240" data-edit-multiline>{slot.blurb}</p>
               </article>
             ))}
           </div>
@@ -289,10 +302,10 @@ export default function HopscotchMuseumPage() {
 
         {/* EXHIBITS */}
         <section id="exhibits" className={styles.exhibits} aria-labelledby="exhibits-title">
-          <h2 id="exhibits-title" className={styles.h2}>
+          <h2 data-edit="exhibits.h2" data-edit-max="60" id="exhibits-title" className={styles.h2}>
             The exhibits
           </h2>
-          <p className={styles.sectionLede}>
+          <p data-edit="exhibits.sectionLede" data-edit-max="240" data-edit-multiline className={styles.sectionLede}>
             Built for small hands, sturdy enough for big ones. Every single thing is a
             please-touch thing.
           </p>
@@ -317,26 +330,26 @@ export default function HopscotchMuseumPage() {
                       className={styles.exhibitPattern}
                     />
                   )}
-                  <Figure slug={ex.slug} cutout alt={ex.alt} className={styles.exhibitImg} />
+                  <Figure editId={`exhibitCard.photo.${i}`} slug={ex.slug} cutout alt={ex.alt} className={styles.exhibitImg} />
                 </div>
                 <div className={styles.exhibitBody}>
-                  <h3>{ex.name}</h3>
-                  <span className={styles.ageBadge}>{ex.ages}</span>
-                  <p>{ex.blurb}</p>
+                  <h3 data-edit={`exhibitCard.title.${i}`} data-edit-max="40">{ex.name}</h3>
+                  <span data-edit={`exhibitCard.ageBadge.${i}`} data-edit-max="60" className={styles.ageBadge}>{ex.ages}</span>
+                  <p data-edit={`exhibitCard.body.${i}`} data-edit-max="240" data-edit-multiline>{ex.blurb}</p>
                 </div>
               </article>
             ))}
             <article className={styles.exhibitCard} data-tilt={2}>
               <div className={styles.exhibitPhoto}>
-                <Figure
+                <Figure editId="photo.hopscotch-water"
                   slug="hopscotch-water"
                   alt="Kids steering boats and building dams along a winding water channel exhibit"
                 />
               </div>
               <div className={styles.exhibitBody}>
-                <h3>River Works</h3>
-                <span className={styles.ageBadge}>All ages</span>
-                <p>
+                <h3 data-edit="exhibitCard.title2" data-edit-max="40">River Works</h3>
+                <span data-edit="exhibitCard.ageBadge2" data-edit-max="60" className={styles.ageBadge}>All ages</span>
+                <p data-edit="exhibitCard.body2" data-edit-max="240" data-edit-multiline>
                   Forty feet of winding water: dams to build, locks to open, boats to race.
                   The dryers by the exit are, honestly, also very popular.
                 </p>
@@ -348,7 +361,7 @@ export default function HopscotchMuseumPage() {
         {/* VISIT */}
         <section id="visit" className={styles.visit} aria-labelledby="visit-title">
           <div className={styles.zigTopBlue} role="presentation" />
-          <div className={styles.visitBand}>
+          <div data-edit-pattern="visit.field" data-edit-roles="3,0,5,4" className={styles.visitBand}>
             <TabbiedPattern
               pattern={polkadot}
               palette={[BLUE, CREAM, YELLOW, GREEN]}
@@ -358,53 +371,53 @@ export default function HopscotchMuseumPage() {
               className={styles.visitPattern}
             />
             <div className={styles.visitScrim} aria-hidden="true" />
-            <h2 id="visit-title" className={styles.h2Light}>
+            <h2 data-edit="visit.h2Light" data-edit-max="60" id="visit-title" className={styles.h2Light}>
               Plan your visit
             </h2>
             <div className={styles.visitGrid}>
               <div className={styles.visitCard}>
-                <h3>Admission</h3>
+                <h3 data-edit="visit.title" data-edit-max="40">Admission</h3>
                 <ul className={styles.priceList}>
-                  {admission.map((row) => (
+                  {admission.map((row, i) => (
                     <li key={row.who}>
-                      <span>{row.who}</span>
+                      <span data-edit={`visit.text.${i}`} data-edit-max="60">{row.who}</span>
                       <span className={styles.priceDots} aria-hidden="true" />
-                      <strong>{row.price}</strong>
+                      <strong data-edit={`visit.emphasis.${i}`}>{row.price}</strong>
                     </li>
                   ))}
                 </ul>
-                <p className={styles.visitFine}>
+                <p data-edit="visit.visitFine" data-edit-max="240" data-edit-multiline className={styles.visitFine}>
                   Tickets at the door or online; online skips the queue, which on rainy
                   Saturdays is a superpower.
                 </p>
               </div>
               <div className={styles.visitCard}>
-                <h3>Hours</h3>
+                <h3 data-edit="visit.title2" data-edit-max="40">Hours</h3>
                 <ul className={styles.hourList}>
-                  {hours.map((h) => (
+                  {hours.map((h, i) => (
                     <li key={h.day}>
-                      <span>{h.day}</span>
-                      <strong>{h.open}</strong>
+                      <span data-edit={`visit.text2.${i}`} data-edit-max="60">{h.day}</span>
+                      <strong data-edit={`visit.emphasis2.${i}`}>{h.open}</strong>
                     </li>
                   ))}
                 </ul>
-                <p className={styles.visitFine}>
+                <p data-edit="visit.visitFine2" data-edit-max="240" data-edit-multiline className={styles.visitFine}>
                   Quietest: weekday afternoons. Liveliest: Saturday 10 am, bring snacks and
                   a plan.
                 </p>
               </div>
               <div className={styles.visitCard}>
-                <h3>Getting here</h3>
+                <h3 data-edit="visit.title3" data-edit-max="40">Getting here</h3>
                 <p className={styles.visitAddress}>
                   88 Marble Run Way
                   <br />
                   Pemberton Falls
                 </p>
                 <ul className={styles.funList}>
-                  <li>Two blocks from Fountain Square station</li>
-                  <li>Free stroller garage past the ticket desk</li>
-                  <li>Bike racks shaped like dinosaurs (really)</li>
-                  <li>Accessible entrance & lifts to every floor</li>
+                  <li data-edit="visit.item" data-edit-max="80">Two blocks from Fountain Square station</li>
+                  <li data-edit="visit.item2" data-edit-max="80">Free stroller garage past the ticket desk</li>
+                  <li data-edit="visit.item3" data-edit-max="80">Bike racks shaped like dinosaurs (really)</li>
+                  <li data-edit="visit.item4" data-edit-max="80">Accessible entrance & lifts to every floor</li>
                 </ul>
               </div>
             </div>
@@ -413,7 +426,7 @@ export default function HopscotchMuseumPage() {
         </section>
 
         {/* BIRTHDAYS */}
-        <section id="birthdays" className={styles.birthdays} aria-labelledby="birthdays-title">
+        <section data-edit-pattern="birthdays.field" data-edit-roles="0,5,2,4,3" id="birthdays" className={styles.birthdays} aria-labelledby="birthdays-title">
           <TabbiedPattern
             pattern={polkadot}
             palette={[CREAM, YELLOW, RED, GREEN, BLUE]}
@@ -424,30 +437,30 @@ export default function HopscotchMuseumPage() {
           />
           <div className={styles.birthdayScrim} aria-hidden="true" />
           <div className={styles.birthdaysInner}>
-            <h2 id="birthdays-title" className={styles.h2}>
+            <h2 data-edit="birthdays.h2" data-edit-max="60" id="birthdays-title" className={styles.h2}>
               Birthdays & parties
             </h2>
-            <p className={styles.sectionLede}>
+            <p data-edit="birthdays.sectionLede" data-edit-max="240" data-edit-multiline className={styles.sectionLede}>
               You bring the birthday kid. We bring a museum. Cake crumbs are cleaned by
               professionals (us).
             </p>
             <div className={styles.partyGrid}>
-              {parties.map((p) => (
+              {parties.map((p, i) => (
                 <article key={p.name} className={`${styles.partyCard} ${p.color}`}>
-                  <h3>{p.name}</h3>
-                  <p className={styles.partyPrice}>{p.price}</p>
+                  <h3 data-edit={`partyCard.title.${i}`} data-edit-max="40">{p.name}</h3>
+                  <p data-edit={`partyCard.partyPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.partyPrice}>{p.price}</p>
                   <ul className={styles.funList}>
-                    {p.perks.map((perk) => (
-                      <li key={perk}>{perk}</li>
+                    {p.perks.map((perk, i2) => (
+                      <li data-edit={`partyCard.item.${i}.${i2}`} data-edit-max="80" key={perk}>{perk}</li>
                     ))}
                   </ul>
-                  <a href="#footer-contact" className={styles.partyBtn}>
+                  <a data-edit={`partyCard.partyBtn.${i}`} data-edit-max="28" href="#footer-contact" className={styles.partyBtn}>
                     Book this one
                   </a>
                 </article>
               ))}
             </div>
-            <p className={styles.partyFine}>
+            <p data-edit="birthdays.partyFine" data-edit-max="240" data-edit-multiline className={styles.partyFine}>
               Saturdays book out about six weeks ahead. Sundays are the sleeper hit.
             </p>
           </div>
@@ -455,7 +468,7 @@ export default function HopscotchMuseumPage() {
 
         {/* MEMBERSHIP */}
         <section id="membership" className={styles.membership} aria-labelledby="membership-title">
-          <div className={styles.memberPanel}>
+          <div data-edit-pattern="membership.field" data-edit-roles="1,2,3,4,5" className={styles.memberPanel}>
             <TabbiedPattern
               pattern={glyph}
               palette={[INK, RED, BLUE, GREEN, YELLOW]}
@@ -469,27 +482,27 @@ export default function HopscotchMuseumPage() {
                 <br />
                 single week
               </h2>
-              <p className={styles.memberLede}>
+              <p data-edit="membership.memberLede" data-edit-max="240" data-edit-multiline className={styles.memberLede}>
                 Members break even in three visits. Most break even by February.
               </p>
               <div className={styles.memberTiers}>
-                {memberships.map((m) => (
+                {memberships.map((m, i) => (
                   <div key={m.name} className={styles.memberTier}>
-                    <h3>{m.name}</h3>
+                    <h3 data-edit={`membership.title.${i}`} data-edit-max="40">{m.name}</h3>
                     <p className={styles.memberPrice}>
                       {m.price}
-                      <span>{m.per}</span>
+                      <span data-edit={`membership.text.${i}`} data-edit-max="60">{m.per}</span>
                     </p>
-                    <p className={styles.memberNote}>{m.note}</p>
+                    <p data-edit={`membership.memberNote.${i}`} data-edit-max="240" data-edit-multiline className={styles.memberNote}>{m.note}</p>
                   </div>
                 ))}
               </div>
               <ul className={styles.memberPerks}>
-                {memberPerks.map((perk) => (
-                  <li key={perk}>{perk}</li>
+                {memberPerks.map((perk, i) => (
+                  <li data-edit={`membership.item.${i}`} data-edit-max="80" key={perk}>{perk}</li>
                 ))}
               </ul>
-              <a href="#footer-contact" className={styles.bigBtnYellow}>
+              <a data-edit="membership.bigBtnYellow" data-edit-max="28" href="#footer-contact" className={styles.bigBtnYellow}>
                 Become a member
               </a>
             </div>
@@ -499,7 +512,7 @@ export default function HopscotchMuseumPage() {
         {/* FIELD TRIPS */}
         <section id="fieldtrips" className={styles.fieldTrips} aria-labelledby="ft-title">
           <div className={styles.ftCopy}>
-            <h2 id="ft-title" className={styles.h2}>
+            <h2 data-edit="fieldtrips.h2" data-edit-max="60" id="ft-title" className={styles.h2}>
               Field trips that don’t feel like worksheets
             </h2>
             <p>
@@ -508,41 +521,41 @@ export default function HopscotchMuseumPage() {
               with the rule we are famous for: <em>go ahead, touch it.</em>
             </p>
             <ul className={styles.funList}>
-              <li>$8 per student, chaperones free, 1 per 5 kids</li>
-              <li>Science, water, light & simple machines modules</li>
-              <li>Reserved lunchroom slot, bus drop-off at the door</li>
-              <li>Scholarship spots every term, just ask</li>
+              <li data-edit="fieldtrips.item" data-edit-max="80">$8 per student, chaperones free, 1 per 5 kids</li>
+              <li data-edit="fieldtrips.item2" data-edit-max="80">Science, water, light & simple machines modules</li>
+              <li data-edit="fieldtrips.item3" data-edit-max="80">Reserved lunchroom slot, bus drop-off at the door</li>
+              <li data-edit="fieldtrips.item4" data-edit-max="80">Scholarship spots every term, just ask</li>
             </ul>
-            <a href="#footer-contact" className={styles.bigBtn}>
+            <a data-edit="fieldtrips.bigBtn" data-edit-max="28" href="#footer-contact" className={styles.bigBtn}>
               Book a school visit
             </a>
           </div>
           <div className={styles.ftStats}>
             <div className={styles.ftStat}>
-              <strong>212</strong>
-              <span>school visits last year</span>
+              <strong data-edit="fieldtrips.emphasis">212</strong>
+              <span data-edit="fieldtrips.text" data-edit-max="60">school visits last year</span>
             </div>
             <div className={styles.ftStat}>
-              <strong>14</strong>
-              <span>school districts served</span>
+              <strong data-edit="fieldtrips.emphasis2">14</strong>
+              <span data-edit="fieldtrips.text2" data-edit-max="60">school districts served</span>
             </div>
             <div className={styles.ftStat}>
-              <strong>1</strong>
-              <span>rule: go ahead, touch it</span>
+              <strong data-edit="fieldtrips.emphasis3">1</strong>
+              <span data-edit="fieldtrips.text3" data-edit-max="60">rule: go ahead, touch it</span>
             </div>
           </div>
         </section>
 
         {/* FAQ */}
         <section id="faq" className={styles.faq} aria-labelledby="faq-title">
-          <h2 id="faq-title" className={styles.h2}>
+          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-title" className={styles.h2}>
             Questions grown-ups ask
           </h2>
           <div className={styles.faqList}>
-            {faqs.map((f) => (
+            {faqs.map((f, i) => (
               <details key={f.q} className={styles.faqItem}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <summary data-edit={`faq.question.${i}`} data-edit-max="80">{f.q}</summary>
+                <p data-edit={`faq.body.${i}`} data-edit-max="240" data-edit-multiline>{f.a}</p>
               </details>
             ))}
           </div>
@@ -556,12 +569,12 @@ export default function HopscotchMuseumPage() {
           <div className={styles.footerGrid}>
             <div>
               <p className={styles.footerLogo}>
-                hopscotch<span>!</span>
+                hopscotch<span data-edit="footerContact.text" data-edit-max="60">!</span>
               </p>
-              <p className={styles.footerTag}>The children’s discovery museum</p>
+              <p data-edit="footerContact.footerTag" data-edit-max="240" data-edit-multiline className={styles.footerTag}>The children’s discovery museum</p>
             </div>
             <div>
-              <h3>Find us</h3>
+              <h3 data-edit="footerContact.title" data-edit-max="40">Find us</h3>
               <p>
                 88 Marble Run Way
                 <br />
@@ -569,7 +582,7 @@ export default function HopscotchMuseumPage() {
               </p>
             </div>
             <div>
-              <h3>Say hi</h3>
+              <h3 data-edit="footerContact.title2" data-edit-max="40">Say hi</h3>
               <p>
                 hello@hopscotchmuseum.example
                 <br />
@@ -577,7 +590,7 @@ export default function HopscotchMuseumPage() {
               </p>
             </div>
             <div>
-              <h3>Open</h3>
+              <h3 data-edit="footerContact.title3" data-edit-max="40">Open</h3>
               <p>
                 Tue – Sun, from 9 am
                 <br />
@@ -585,7 +598,7 @@ export default function HopscotchMuseumPage() {
               </p>
             </div>
           </div>
-          <div className={styles.footerField} role="presentation">
+          <div data-edit-pattern="footerContact.field" data-edit-roles="1,5,2,3,4" className={styles.footerField} role="presentation">
             <TabbiedPattern
               pattern={polkadot}
               palette={[INK, YELLOW, RED, BLUE, GREEN]}
@@ -595,7 +608,7 @@ export default function HopscotchMuseumPage() {
           </div>
           <p className={styles.footerCredit}>
             Confetti patterns by{' '}
-            <a href="https://tabbied.com" rel="noopener">
+            <a data-edit="footerContact.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>{' '}
             · © Hopscotch Discovery Museum
