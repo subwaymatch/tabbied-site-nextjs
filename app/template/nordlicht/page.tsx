@@ -99,11 +99,11 @@ export default function NordlichtPage() {
       <header className={s.top}>
         <a className={s.brand} href="#top">
           Nordlicht
-          <span data-edit="top.span" data-edit-max="60">Kartografi &amp; Oppmåling</span>
+          <span data-edit="top.text" data-edit-max="60">Kartografi &amp; Oppmåling</span>
         </a>
         <nav aria-label="Sections">
           {NAV.map((n, i) => (
-            <a data-edit={`top.a.${i}`} data-edit-max="28" key={n} href={`#${n.toLowerCase()}`}>
+            <a data-edit={`top.link.${i}`} data-edit-max="28" key={n} href={`#${n.toLowerCase()}`}>
               {n}
             </a>
           ))}
@@ -161,20 +161,20 @@ export default function NordlichtPage() {
             alt="An aerial view of an Arctic coastline, pale water and dark rock under flat light"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Kvaløya, north coast. Flown 04.06.2025, 1,200 m AGL.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Kvaløya, north coast. Flown 04.06.2025, 1,200 m AGL.</figcaption>
         </figure>
 
         {/* -------------------------------------------------------- SURVEY */}
         <section id="survey" className={s.survey} aria-labelledby="survey-h">
           <div className={s.secHead}>
             <span data-edit="survey.secNo" data-edit-max="60" className={s.secNo}>01</span>
-            <h2 data-edit="survey.h2" data-edit-max="60" id="survey-h">What we do, in four parts</h2>
+            <h2 data-edit="survey.title" data-edit-max="60" id="survey-h">What we do, in four parts</h2>
           </div>
           <div className={s.services}>
             {SERVICES.map((x, i) => (
               <article key={x.k}>
                 <p data-edit={`survey.sKey.${i}`} data-edit-max="240" data-edit-multiline className={s.sKey}>{x.k}</p>
-                <h3 data-edit={`survey.h3.${i}`} data-edit-max="40">{x.title}</h3>
+                <h3 data-edit={`survey.title2.${i}`} data-edit-max="40">{x.title}</h3>
                 <p data-edit={`survey.sBody.${i}`} data-edit-max="240" data-edit-multiline className={s.sBody}>{x.body}</p>
                 <p data-edit={`survey.sUnit.${i}`} data-edit-max="240" data-edit-multiline className={s.sUnit}>{x.unit}</p>
               </article>
@@ -199,7 +199,7 @@ export default function NordlichtPage() {
         <section id="charts" className={s.charts} aria-labelledby="charts-h">
           <div className={s.secHead}>
             <span data-edit="charts.secNo" data-edit-max="60" className={s.secNo}>02</span>
-            <h2 data-edit="charts.h2" data-edit-max="60" id="charts-h">Published sheets</h2>
+            <h2 data-edit="charts.title" data-edit-max="60" id="charts-h">Published sheets</h2>
           </div>
           <p data-edit="charts.note" data-edit-max="240" data-edit-multiline className={s.note}>
             Sold at the office and by six chandlers along the coast. Every sheet
@@ -209,12 +209,12 @@ export default function NordlichtPage() {
           <table className={s.sheets}>
             <thead>
               <tr>
-                <th data-edit="charts.th">Sheet</th>
-                <th data-edit="charts.th2">Area</th>
-                <th data-edit="charts.th3">Scale</th>
-                <th data-edit="charts.th4">Projection</th>
-                <th data-edit="charts.th5">Ed.</th>
-                <th data-edit="charts.th6">Year</th>
+                <th data-edit="charts.heading">Sheet</th>
+                <th data-edit="charts.heading2">Area</th>
+                <th data-edit="charts.heading3">Scale</th>
+                <th data-edit="charts.heading4">Projection</th>
+                <th data-edit="charts.heading5">Ed.</th>
+                <th data-edit="charts.heading6">Year</th>
               </tr>
             </thead>
             <tbody>
@@ -223,7 +223,7 @@ export default function NordlichtPage() {
                   <td data-edit={`charts.mono.${i}`} className={s.mono}>{x.id}</td>
                   <td data-edit={`charts.sheetName.${i}`} className={s.sheetName}>{x.name}</td>
                   <td data-edit={`charts.mono2.${i}`} className={s.mono}>{x.scale}</td>
-                  <td data-edit={`charts.td.${i}`}>{x.proj}</td>
+                  <td data-edit={`charts.cell.${i}`}>{x.proj}</td>
                   <td data-edit={`charts.mono3.${i}`} className={s.mono}>{x.issue}</td>
                   <td data-edit={`charts.mono4.${i}`} className={s.mono}>{x.year}</td>
                 </tr>
@@ -247,7 +247,7 @@ export default function NordlichtPage() {
           <div className={s.terrainInner}>
             <div className={s.secHead}>
               <span data-edit="terrain.secNo" data-edit-max="60" className={s.secNo}>03</span>
-              <h2 data-edit="terrain.h2" data-edit-max="60" id="terrain-h">Terrain, honestly generalised</h2>
+              <h2 data-edit="terrain.title" data-edit-max="60" id="terrain-h">Terrain, honestly generalised</h2>
             </div>
             <div className={s.terrainGrid}>
               <p data-edit="terrain.big" data-edit-max="240" data-edit-multiline className={s.big}>
@@ -256,12 +256,12 @@ export default function NordlichtPage() {
                 which one you are looking at.
               </p>
               <div className={s.terrainCol}>
-                <p data-edit="terrain.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="terrain.body" data-edit-max="240" data-edit-multiline>
                   Our terrain models come out of lidar we flew ourselves, so we
                   know what the vegetation was doing that week and how much of
                   the ground we actually saw through it.
                 </p>
-                <p data-edit="terrain.p2" data-edit-max="240" data-edit-multiline>
+                <p data-edit="terrain.body2" data-edit-max="240" data-edit-multiline>
                   Where the point cloud is thin, the sheet says so. There is a
                   small grey tint on the reverse index for every square
                   kilometre we would not stake a boat on.
@@ -274,14 +274,14 @@ export default function NordlichtPage() {
                   slug="nordlicht-plotter"
                   alt="A wide-format plotter drawing a contour map in a survey office"
                 />
-                <figcaption data-edit="terrain.figcaption" data-edit-max="120" data-edit-multiline>Sheet N-114 coming off the plotter, third proof.</figcaption>
+                <figcaption data-edit="terrain.caption" data-edit-max="120" data-edit-multiline>Sheet N-114 coming off the plotter, third proof.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.nordlicht-model"
                   slug="nordlicht-model"
                   alt="A milled physical relief model of a fjord landscape on a table"
                 />
-                <figcaption data-edit="terrain.figcaption2" data-edit-max="120" data-edit-multiline>Milled relief model, Lyngen, 1:60 000.</figcaption>
+                <figcaption data-edit="terrain.caption2" data-edit-max="120" data-edit-multiline>Milled relief model, Lyngen, 1:60 000.</figcaption>
               </figure>
             </div>
           </div>
@@ -291,7 +291,7 @@ export default function NordlichtPage() {
         <section id="field" className={s.field} aria-labelledby="field-h">
           <div className={s.secHead}>
             <span data-edit="field.secNo" data-edit-max="60" className={s.secNo}>04</span>
-            <h2 data-edit="field.h2" data-edit-max="60" id="field-h">Where the instruments are</h2>
+            <h2 data-edit="field.title" data-edit-max="60" id="field-h">Where the instruments are</h2>
           </div>
           <div className={s.fieldGrid}>
             <ol className={s.stations}>
@@ -299,7 +299,7 @@ export default function NordlichtPage() {
                 <li key={what}>
                   <span data-edit={`field.mono.${i}`} data-edit-max="60" className={s.mono}>{lat}</span>
                   <span data-edit={`field.mono2.${i}`} data-edit-max="60" className={s.mono}>{lon}</span>
-                  <span data-edit={`field.span.${i}`} data-edit-max="60">{what}</span>
+                  <span data-edit={`field.text.${i}`} data-edit-max="60">{what}</span>
                 </li>
               ))}
             </ol>
@@ -308,7 +308,7 @@ export default function NordlichtPage() {
                 slug="nordlicht-field"
                 alt="A survey tripod and total station set up on bare rock above a fjord"
               />
-              <figcaption data-edit="field.figcaption" data-edit-max="120" data-edit-multiline>Control pillar KV-2, occupied 11 hours.</figcaption>
+              <figcaption data-edit="field.caption" data-edit-max="120" data-edit-multiline>Control pillar KV-2, occupied 11 hours.</figcaption>
             </figure>
           </div>
         </section>
@@ -328,11 +328,11 @@ export default function NordlichtPage() {
           <div className={s.officeInner}>
             <div className={s.secHead}>
               <span data-edit="office.secNo" data-edit-max="60" className={s.secNo}>05</span>
-              <h2 data-edit="office.h2" data-edit-max="60" id="office-h">Storgata 62, Tromsø</h2>
+              <h2 data-edit="office.title" data-edit-max="60" id="office-h">Storgata 62, Tromsø</h2>
             </div>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="office.dt" data-edit-max="28">Office</dt>
+                <dt data-edit="office.term" data-edit-max="28">Office</dt>
                 <dd>
                   Storgata 62, 9008 Tromsø
                   <br />
@@ -340,15 +340,15 @@ export default function NordlichtPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="office.dt2" data-edit-max="28">Enquiries</dt>
+                <dt data-edit="office.term2" data-edit-max="28">Enquiries</dt>
                 <dd>
-                  <a data-edit="office.a" data-edit-max="28" href="mailto:post@nordlicht.example">post@nordlicht.example</a>
+                  <a data-edit="office.link" data-edit-max="28" href="mailto:post@nordlicht.example">post@nordlicht.example</a>
                   <br />
                   +47 00 00 00 00
                 </dd>
               </div>
               <div>
-                <dt data-edit="office.dt3" data-edit-max="28">Sheets</dt>
+                <dt data-edit="office.term3" data-edit-max="28">Sheets</dt>
                 <dd>
                   Over the counter, or by post anywhere in Norway.
                   <br />
@@ -356,7 +356,7 @@ export default function NordlichtPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="office.dt4" data-edit-max="28">Field season</dt>
+                <dt data-edit="office.term4" data-edit-max="28">Field season</dt>
                 <dd>
                   Airborne work March to October.
                   <br />
@@ -368,11 +368,11 @@ export default function NordlichtPage() {
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">How a sheet is coloured</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">How a sheet is coloured</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Three tints, printed in that order. Every sheet in the catalogue uses the same three and nothing else.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={glazing}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -391,11 +391,11 @@ export default function NordlichtPage() {
                   <Figure editId="photo.nordlicht-tile-chart-cutout" slug="nordlicht-tile-chart-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Water and depth</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Water and depth</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Flat tint under everything. Two steps only: charted depth and the rest. A third step would imply a survey we have not done.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={protractor}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -414,11 +414,11 @@ export default function NordlichtPage() {
                   <Figure editId="photo.nordlicht-tile-theodolite-cutout" slug="nordlicht-tile-theodolite-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Relief and slope</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Relief and slope</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Hillshade from our own lidar, never from a public model. Where the cloud is thin the tint stops and the sheet says so.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={stipplefade}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -437,7 +437,7 @@ export default function NordlichtPage() {
                   <Figure editId="photo.nordlicht-tile-compass-cutout" slug="nordlicht-tile-compass-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Culture and route</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Culture and route</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>The only layer allowed the accent blue. Roads, tracks, cairns, and the two ferries that still run in winter.</p>
               </article>
           </div>
@@ -445,73 +445,73 @@ export default function NordlichtPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Instruments on the shelf</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Instruments on the shelf</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Everything is owned, calibrated annually, and taken to the field by the person who booked it.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Instrument</span>
-                <span data-edit="index.span2" data-edit-max="60">Make</span>
-                <span data-edit="index.span3" data-edit-max="60">Use</span>
-                <span data-edit="index.span4" data-edit-max="60">Calibrated</span>
+                <span data-edit="index.text" data-edit-max="60">Instrument</span>
+                <span data-edit="index.text2" data-edit-max="60">Make</span>
+                <span data-edit="index.text3" data-edit-max="60">Use</span>
+                <span data-edit="index.text4" data-edit-max="60">Calibrated</span>
             </li>
               <li key="Total station">
-                <span data-edit="index.span5" data-edit-max="60">Total station</span>
-                <span data-edit="index.span6" data-edit-max="60">Leica TS16</span>
-                <span data-edit="index.span7" data-edit-max="60">Control and detail</span>
-                <span data-edit="index.span8" data-edit-max="60">Feb 2026</span>
+                <span data-edit="index.text5" data-edit-max="60">Total station</span>
+                <span data-edit="index.text6" data-edit-max="60">Leica TS16</span>
+                <span data-edit="index.text7" data-edit-max="60">Control and detail</span>
+                <span data-edit="index.text8" data-edit-max="60">Feb 2026</span>
               </li>
               <li key="GNSS pair">
-                <span data-edit="index.span9" data-edit-max="60">GNSS pair</span>
-                <span data-edit="index.span10" data-edit-max="60">Trimble R12i</span>
-                <span data-edit="index.span11" data-edit-max="60">Static and RTK</span>
-                <span data-edit="index.span12" data-edit-max="60">Jan 2026</span>
+                <span data-edit="index.text9" data-edit-max="60">GNSS pair</span>
+                <span data-edit="index.text10" data-edit-max="60">Trimble R12i</span>
+                <span data-edit="index.text11" data-edit-max="60">Static and RTK</span>
+                <span data-edit="index.text12" data-edit-max="60">Jan 2026</span>
               </li>
               <li key="Digital level">
-                <span data-edit="index.span13" data-edit-max="60">Digital level</span>
-                <span data-edit="index.span14" data-edit-max="60">Leica LS15</span>
-                <span data-edit="index.span15" data-edit-max="60">Precise levelling</span>
-                <span data-edit="index.span16" data-edit-max="60">Feb 2026</span>
+                <span data-edit="index.text13" data-edit-max="60">Digital level</span>
+                <span data-edit="index.text14" data-edit-max="60">Leica LS15</span>
+                <span data-edit="index.text15" data-edit-max="60">Precise levelling</span>
+                <span data-edit="index.text16" data-edit-max="60">Feb 2026</span>
               </li>
               <li key="Lidar, airborne">
-                <span data-edit="index.span17" data-edit-max="60">Lidar, airborne</span>
-                <span data-edit="index.span18" data-edit-max="60">Riegl VUX-1</span>
-                <span data-edit="index.span19" data-edit-max="60">Terrain capture</span>
-                <span data-edit="index.span20" data-edit-max="60">Mar 2026</span>
+                <span data-edit="index.text17" data-edit-max="60">Lidar, airborne</span>
+                <span data-edit="index.text18" data-edit-max="60">Riegl VUX-1</span>
+                <span data-edit="index.text19" data-edit-max="60">Terrain capture</span>
+                <span data-edit="index.text20" data-edit-max="60">Mar 2026</span>
               </li>
               <li key="Multibeam">
-                <span data-edit="index.span21" data-edit-max="60">Multibeam</span>
-                <span data-edit="index.span22" data-edit-max="60">Kongsberg EM 2040</span>
-                <span data-edit="index.span23" data-edit-max="60">Bathymetry</span>
-                <span data-edit="index.span24" data-edit-max="60">Nov 2025</span>
+                <span data-edit="index.text21" data-edit-max="60">Multibeam</span>
+                <span data-edit="index.text22" data-edit-max="60">Kongsberg EM 2040</span>
+                <span data-edit="index.text23" data-edit-max="60">Bathymetry</span>
+                <span data-edit="index.text24" data-edit-max="60">Nov 2025</span>
               </li>
               <li key="Tide gauges">
-                <span data-edit="index.span25" data-edit-max="60">Tide gauges</span>
-                <span data-edit="index.span26" data-edit-max="60">Own build, 4 off</span>
-                <span data-edit="index.span27" data-edit-max="60">Reduction</span>
-                <span data-edit="index.span28" data-edit-max="60">Continuous</span>
+                <span data-edit="index.text25" data-edit-max="60">Tide gauges</span>
+                <span data-edit="index.text26" data-edit-max="60">Own build, 4 off</span>
+                <span data-edit="index.text27" data-edit-max="60">Reduction</span>
+                <span data-edit="index.text28" data-edit-max="60">Continuous</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Asked at the counter</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Asked at the counter</h2>
           <dl className={s.faqList}>
               <div key="Why is my house not on t">
-                <dt data-edit="faq.dt" data-edit-max="28">Why is my house not on the sheet?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Buildings under twelve square metres are omitted at 1:25 000 and everything is omitted at 1:50 000. It is on the survey; it is not on the print.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Why is my house not on the sheet?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Buildings under twelve square metres are omitted at 1:25 000 and everything is omitted at 1:50 000. It is on the survey; it is not on the print.</dd>
               </div>
               <div key="Can I have the data inst">
-                <dt data-edit="faq.dt2" data-edit-max="28">Can I have the data instead of the sheet?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Yes, as LAZ or GeoPackage, at the same price. We will ask what you intend to do with it, not to refuse you but because the answer changes which product is right.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can I have the data instead of the sheet?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Yes, as LAZ or GeoPackage, at the same price. We will ask what you intend to do with it, not to refuse you but because the answer changes which product is right.</dd>
               </div>
               <div key="Do you correct errors?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Do you correct errors?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Every reported error is checked within a fortnight and the sheet is reissued at the next printing. The errata list is on the counter, on paper, going back to 1998.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Do you correct errors?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Every reported error is checked within a fortnight and the sheet is reissued at the next printing. The errata list is on the counter, on paper, going back to 1998.</dd>
               </div>
               <div key="Why no digital hillshade">
-                <dt data-edit="faq.dt4" data-edit-max="28">Why no digital hillshade on the 1:50 000?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Because at that scale it hides the contours, which are the thing you actually navigate by.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Why no digital hillshade on the 1:50 000?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Because at that scale it hides the contours, which are the thing you actually navigate by.</dd>
               </div>
           </dl>
         </section>
@@ -544,13 +544,13 @@ export default function NordlichtPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Survey</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#survey">What we do</a>
+                <a data-edit="footer.survey" data-edit-max="28" href="#survey">What we do</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#terrain">Terrain models</a>
+                <a data-edit="footer.terrain" data-edit-max="28" href="#terrain">Terrain models</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#field">Field stations</a>
+                <a data-edit="footer.field" data-edit-max="28" href="#field">Field stations</a>
               </li>
             </ul>
           </div>
@@ -558,13 +558,13 @@ export default function NordlichtPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Sheets</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#charts">Published sheets</a>
+                <a data-edit="footer.charts" data-edit-max="28" href="#charts">Published sheets</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#office">Buy over the counter</a>
+                <a data-edit="footer.office" data-edit-max="28" href="#office">Buy over the counter</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#office">By post</a>
+                <a data-edit="footer.office2" data-edit-max="28" href="#office">By post</a>
               </li>
             </ul>
           </div>
@@ -582,10 +582,10 @@ export default function NordlichtPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional survey office. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional survey office. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

@@ -231,12 +231,12 @@ export default function CalderaRailPage() {
         <p data-edit="masthead.brand" data-edit-max="240" data-edit-multiline className={styles.brand}>Caldera</p>
         <p data-edit="masthead.tagline" data-edit-max="240" data-edit-multiline className={styles.tagline}>Scenic railway journeys, kept slow on purpose</p>
         <nav className={styles.nav} aria-label="Sections">
-          <a data-edit="masthead.a" data-edit-max="28" href="#routes">The Routes</a>
-          <a data-edit="masthead.a2" data-edit-max="28" href="#line">The Line</a>
-          <a data-edit="masthead.a3" data-edit-max="28" href="#aboard">Aboard</a>
-          <a data-edit="masthead.a4" data-edit-max="28" href="#fleet">The Fleet</a>
-          <a data-edit="masthead.a5" data-edit-max="28" href="#journal">Journal</a>
-          <a data-edit="masthead.a6" data-edit-max="28" href="#timetable">Timetable</a>
+          <a data-edit="masthead.routes" data-edit-max="28" href="#routes">The Routes</a>
+          <a data-edit="masthead.line" data-edit-max="28" href="#line">The Line</a>
+          <a data-edit="masthead.aboard" data-edit-max="28" href="#aboard">Aboard</a>
+          <a data-edit="masthead.fleet" data-edit-max="28" href="#fleet">The Fleet</a>
+          <a data-edit="masthead.journal" data-edit-max="28" href="#journal">Journal</a>
+          <a data-edit="masthead.timetable" data-edit-max="28" href="#timetable">Timetable</a>
         </nav>
       </header>
 
@@ -245,7 +245,7 @@ export default function CalderaRailPage() {
         <section className={styles.hero} aria-labelledby="hero-heading">
           {/* Full-bleed arcade of arches behind the whole hero — the viaduct
               motif the railway is built on, scrimmed back where type sits. */}
-          <div data-edit-pattern="hero.field" className={styles.heroPattern} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="0,3,4,5,6,7" className={styles.heroPattern} aria-hidden="true">
             <TabbiedPattern
               pattern={lunette}
               palette={FULL}
@@ -276,16 +276,16 @@ export default function CalderaRailPage() {
               </div>
               <dl className={styles.heroFacts}>
                 <div>
-                  <dt data-edit="hero.dt" data-edit-max="28">Routes</dt>
-                  <dd data-edit="hero.dd" data-edit-max="200" data-edit-multiline>3 + night car</dd>
+                  <dt data-edit="hero.term" data-edit-max="28">Routes</dt>
+                  <dd data-edit="hero.body" data-edit-max="200" data-edit-multiline>3 + night car</dd>
                 </div>
                 <div>
-                  <dt data-edit="hero.dt2" data-edit-max="28">Viaducts</dt>
-                  <dd data-edit="hero.dd2" data-edit-max="200" data-edit-multiline>17 crossed</dd>
+                  <dt data-edit="hero.term2" data-edit-max="28">Viaducts</dt>
+                  <dd data-edit="hero.body2" data-edit-max="200" data-edit-multiline>17 crossed</dd>
                 </div>
                 <div>
-                  <dt data-edit="hero.dt3" data-edit-max="28">Punctuality</dt>
-                  <dd data-edit="hero.dd3" data-edit-max="200" data-edit-multiline>98.4% (1927–)</dd>
+                  <dt data-edit="hero.term3" data-edit-max="28">Punctuality</dt>
+                  <dd data-edit="hero.body3" data-edit-max="200" data-edit-multiline>98.4% (1927–)</dd>
                 </div>
               </dl>
             </div>
@@ -304,7 +304,7 @@ export default function CalderaRailPage() {
                 </figcaption>
               </figure>
               <p className={styles.stamp} aria-hidden="true">
-                <span data-edit="hero.span" data-edit-max="60">Caldera Rly Co · Est 1927 ·</span>
+                <span data-edit="hero.text" data-edit-max="60">Caldera Rly Co · Est 1927 ·</span>
               </p>
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function CalderaRailPage() {
         >
           <header className={styles.sectionHead}>
             <p data-edit="sectionHead.sectionNo" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section I</p>
-            <h2 data-edit="sectionHead.h2" data-edit-max="60" id="routes-heading">The Three Routes</h2>
+            <h2 data-edit="sectionHead.title" data-edit-max="60" id="routes-heading">The Three Routes</h2>
             <p data-edit="sectionHead.sectionLead" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
               Every ticket is printed on board, punched at the gorge, and, by
               a habit no one remembers starting, kept forever.
@@ -352,15 +352,15 @@ export default function CalderaRailPage() {
                 <div className={styles.ticketStub}>
                   <dl className={styles.ticketFacts}>
                     <div>
-                      <dt data-edit={`ticket.dt.${i}`} data-edit-max="28">Duration</dt>
-                      <dd data-edit={`ticket.dd.${i}`} data-edit-max="200" data-edit-multiline>{route.duration}</dd>
+                      <dt data-edit={`ticket.term.${i}`} data-edit-max="28">Duration</dt>
+                      <dd data-edit={`ticket.body.${i}`} data-edit-max="200" data-edit-multiline>{route.duration}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`ticket.dt2.${i}`} data-edit-max="28">Distance</dt>
-                      <dd data-edit={`ticket.dd2.${i}`} data-edit-max="200" data-edit-multiline>{route.distance}</dd>
+                      <dt data-edit={`ticket.term2.${i}`} data-edit-max="28">Distance</dt>
+                      <dd data-edit={`ticket.body2.${i}`} data-edit-max="200" data-edit-multiline>{route.distance}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`ticket.dt3.${i}`} data-edit-max="28">Fare</dt>
+                      <dt data-edit={`ticket.term3.${i}`} data-edit-max="28">Fare</dt>
                       <dd data-edit={`ticket.fare.${i}`} data-edit-max="200" data-edit-multiline className={styles.fare}>{route.fare}</dd>
                     </div>
                   </dl>
@@ -392,7 +392,7 @@ export default function CalderaRailPage() {
 
           <header className={styles.sectionHead}>
             <p data-edit="sectionHead.sectionNo2" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section II</p>
-            <h2 data-edit="sectionHead.h22" data-edit-max="60" id="line-heading">Down the Line: Service 101</h2>
+            <h2 data-edit="sectionHead.title2" data-edit-max="60" id="line-heading">Down the Line: Service 101</h2>
             <p data-edit="sectionHead.sectionLead2" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
               The Coast Cantata, called stop by stop. Times are kept; views are
               guaranteed by geography.
@@ -421,7 +421,7 @@ export default function CalderaRailPage() {
         >
           <header className={styles.sectionHead}>
             <p data-edit="sectionHead.sectionNo3" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section III</p>
-            <h2 data-edit="sectionHead.h23" data-edit-max="60" id="aboard-heading">Aboard</h2>
+            <h2 data-edit="sectionHead.title3" data-edit-max="60" id="aboard-heading">Aboard</h2>
             <p data-edit="sectionHead.sectionLead3" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
               The train is the destination’s first act. Everything on board is
               original, restored, or made by the same hands that restore.
@@ -434,20 +434,20 @@ export default function CalderaRailPage() {
                 slug="caldera-dining"
                 alt="Interior of a restored railway dining car with walnut panelling, brass lamps and white tablecloths"
               />
-              <figcaption data-edit="aboard.figcaption" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="aboard.caption" data-edit-max="120" data-edit-multiline>
                 The Meridian Car: walnut, brass, and three seatings a day
               </figcaption>
             </figure>
             <div className={styles.aboardCopy}>
-              <h3 data-edit="aboard.h3" data-edit-max="40">The dining car</h3>
-              <p data-edit="aboard.p" data-edit-max="240" data-edit-multiline>
+              <h3 data-edit="aboard.title" data-edit-max="40">The dining car</h3>
+              <p data-edit="aboard.body" data-edit-max="240" data-edit-multiline>
                 Lunch is cooked in a galley the width of a corridor and tastes
                 like it took the whole valley to make, because it did. Bread
                 from Miradora, trout from the gorge, wine from the Arc. First
                 seating is called at Casteldoro; the last coffee is poured on
                 the Lighthouse Curve, timed to the minute.
               </p>
-              <h3 data-edit="aboard.h32" data-edit-max="40">Cabins &amp; seating</h3>
+              <h3 data-edit="aboard.title2" data-edit-max="40">Cabins &amp; seating</h3>
               <ul className={styles.cabinList}>
                 {cabins.map((cabin, i) => (
                   <li key={cabin.name}>
@@ -480,7 +480,7 @@ export default function CalderaRailPage() {
                   className={styles.vignetteCutout}
                 />
               </div>
-              <figcaption data-edit="aboard.figcaption2" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="aboard.caption2" data-edit-max="120" data-edit-multiline>
                 Left luggage, kept lovingly. Porters at every staffed halt.
               </figcaption>
             </figure>
@@ -501,7 +501,7 @@ export default function CalderaRailPage() {
                   className={styles.vignetteCutout}
                 />
               </div>
-              <figcaption data-edit="aboard.figcaption3" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="aboard.caption3" data-edit-max="120" data-edit-multiline>
                 Company time. Every guard’s watch is set against the great
                 clock at Terra Alta.
               </figcaption>
@@ -528,7 +528,7 @@ export default function CalderaRailPage() {
           <div className={styles.fleetInner}>
             <header className={styles.fleetHead}>
               <p data-edit="fleetHead.sectionNoLight" data-edit-max="240" data-edit-multiline className={styles.sectionNoLight}>Section IV</p>
-              <h2 data-edit="fleetHead.h2" data-edit-max="60" id="fleet-heading">The Fleet</h2>
+              <h2 data-edit="fleetHead.title" data-edit-max="60" id="fleet-heading">The Fleet</h2>
             </header>
             <div className={styles.fleetLoco}>
               <Figure editId="photo.caldera-locomotive-cutout"
@@ -542,7 +542,7 @@ export default function CalderaRailPage() {
               <h3>
                 No. 7 · <em>Vesper</em>
               </h3>
-              <p data-edit="fleet.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="fleet.body" data-edit-max="240" data-edit-multiline>
                 Built 1931 at the Harlow &amp; Finch works; oil-fired since
                 1974; returned to steam after a nut-and-bolt restoration in
                 2019. She takes the Cantata six days a week and the Night
@@ -550,20 +550,20 @@ export default function CalderaRailPage() {
               </p>
               <dl className={styles.fleetSpecs}>
                 <div>
-                  <dt data-edit="fleet.dt" data-edit-max="28">Arrangement</dt>
-                  <dd data-edit="fleet.dd" data-edit-max="200" data-edit-multiline>4-6-2 “Pacific”</dd>
+                  <dt data-edit="fleet.term" data-edit-max="28">Arrangement</dt>
+                  <dd data-edit="fleet.body2" data-edit-max="200" data-edit-multiline>4-6-2 “Pacific”</dd>
                 </div>
                 <div>
-                  <dt data-edit="fleet.dt2" data-edit-max="28">Line speed</dt>
-                  <dd data-edit="fleet.dd2" data-edit-max="200" data-edit-multiline>96 km/h, rarely used</dd>
+                  <dt data-edit="fleet.term2" data-edit-max="28">Line speed</dt>
+                  <dd data-edit="fleet.body3" data-edit-max="200" data-edit-multiline>96 km/h, rarely used</dd>
                 </div>
                 <div>
-                  <dt data-edit="fleet.dt3" data-edit-max="28">Livery</dt>
-                  <dd data-edit="fleet.dd3" data-edit-max="200" data-edit-multiline>Caldera teal, gold lining</dd>
+                  <dt data-edit="fleet.term3" data-edit-max="28">Livery</dt>
+                  <dd data-edit="fleet.body4" data-edit-max="200" data-edit-multiline>Caldera teal, gold lining</dd>
                 </div>
                 <div>
-                  <dt data-edit="fleet.dt4" data-edit-max="28">Whistle</dt>
-                  <dd data-edit="fleet.dd4" data-edit-max="200" data-edit-multiline>One long note, at the Curve</dd>
+                  <dt data-edit="fleet.term4" data-edit-max="28">Whistle</dt>
+                  <dd data-edit="fleet.body5" data-edit-max="200" data-edit-multiline>One long note, at the Curve</dd>
                 </div>
               </dl>
             </div>
@@ -578,7 +578,7 @@ export default function CalderaRailPage() {
         >
           <header className={styles.sectionHead}>
             <p data-edit="sectionHead.sectionNo4" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section V</p>
-            <h2 data-edit="sectionHead.h24" data-edit-max="60" id="journal-heading">From the Journal</h2>
+            <h2 data-edit="sectionHead.title4" data-edit-max="60" id="journal-heading">From the Journal</h2>
             <p data-edit="sectionHead.sectionLead4" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
               Ninety-eight years of margin notes, press clippings and letters
               to the stationmaster.
@@ -587,7 +587,7 @@ export default function CalderaRailPage() {
           <div className={styles.quoteRow}>
             {quotes.map((quote, i) => (
               <blockquote className={styles.quote} key={quote.source}>
-                <p data-edit={`journal.p.${i}`} data-edit-max="240" data-edit-multiline>{quote.text}</p>
+                <p data-edit={`journal.body.${i}`} data-edit-max="240" data-edit-multiline>{quote.text}</p>
                 <footer>
                   {quote.source}, {quote.year}
                 </footer>
@@ -604,7 +604,7 @@ export default function CalderaRailPage() {
         >
           <header className={styles.sectionHead}>
             <p data-edit="sectionHead.sectionNo5" data-edit-max="240" data-edit-multiline className={styles.sectionNo}>Section VI</p>
-            <h2 data-edit="sectionHead.h25" data-edit-max="60" id="timetable-heading">Timetable &amp; Booking</h2>
+            <h2 data-edit="sectionHead.title5" data-edit-max="60" id="timetable-heading">Timetable &amp; Booking</h2>
             <p data-edit="sectionHead.sectionLead5" data-edit-max="240" data-edit-multiline className={styles.sectionLead}>
               Summer working timetable, 12 May to 28 September. Winter services
               are published on the feast of St. Alban.
@@ -619,22 +619,22 @@ export default function CalderaRailPage() {
               </caption>
               <thead>
                 <tr>
-                  <th data-edit="timetable.th" scope="col">Service</th>
-                  <th data-edit="timetable.th2" scope="col">Route</th>
-                  <th data-edit="timetable.th3" scope="col">Direction</th>
-                  <th data-edit="timetable.th4" scope="col">Days</th>
-                  <th data-edit="timetable.th5" scope="col">Dep.</th>
-                  <th data-edit="timetable.th6" scope="col">Arr.</th>
-                  <th data-edit="timetable.th7" scope="col">Fare</th>
+                  <th data-edit="timetable.heading" scope="col">Service</th>
+                  <th data-edit="timetable.heading2" scope="col">Route</th>
+                  <th data-edit="timetable.heading3" scope="col">Direction</th>
+                  <th data-edit="timetable.heading4" scope="col">Days</th>
+                  <th data-edit="timetable.heading5" scope="col">Dep.</th>
+                  <th data-edit="timetable.heading6" scope="col">Arr.</th>
+                  <th data-edit="timetable.heading7" scope="col">Fare</th>
                 </tr>
               </thead>
               <tbody>
                 {timetable.map((row, i) => (
                   <tr key={row.service}>
                     <td data-edit={`timetable.mono.${i}`} className={styles.mono}>{row.service}</td>
-                    <td data-edit={`timetable.td.${i}`}>{row.route}</td>
-                    <td data-edit={`timetable.td2.${i}`}>{row.dir}</td>
-                    <td data-edit={`timetable.td3.${i}`}>{row.days}</td>
+                    <td data-edit={`timetable.cell.${i}`}>{row.route}</td>
+                    <td data-edit={`timetable.cell2.${i}`}>{row.dir}</td>
+                    <td data-edit={`timetable.cell3.${i}`}>{row.days}</td>
                     <td data-edit={`timetable.mono2.${i}`} className={styles.mono}>{row.dep}</td>
                     <td data-edit={`timetable.mono3.${i}`} className={styles.mono}>{row.arr}</td>
                     <td data-edit={`timetable.mono4.${i}`} className={styles.mono}>{row.fare}</td>
@@ -646,24 +646,24 @@ export default function CalderaRailPage() {
 
           <div className={styles.bookingRow}>
             <div className={styles.bookingCard}>
-              <h3 data-edit="timetable.h3" data-edit-max="40">The Booking Hall</h3>
-              <p data-edit="timetable.p" data-edit-max="240" data-edit-multiline>
+              <h3 data-edit="timetable.title" data-edit-max="40">The Booking Hall</h3>
+              <p data-edit="timetable.body" data-edit-max="240" data-edit-multiline>
                 Terra Alta Central, 2 Viaduct Approach. Open 07:00 to 19:00
                 daily; the brass grille closes for lunch between 12:30 and
                 13:15, as it has since 1927.
               </p>
             </div>
             <div className={styles.bookingCard}>
-              <h3 data-edit="timetable.h32" data-edit-max="40">By wire or telephone</h3>
-              <p data-edit="timetable.p2" data-edit-max="240" data-edit-multiline>
+              <h3 data-edit="timetable.title2" data-edit-max="40">By wire or telephone</h3>
+              <p data-edit="timetable.body2" data-edit-max="240" data-edit-multiline>
                 Telephone (0)55 214 88, or write to reservations@caldera.rail.
                 Reserved fares hold for seven days; the seat map is drawn by
                 hand and honoured absolutely.
               </p>
             </div>
             <div className={styles.bookingCard}>
-              <h3 data-edit="timetable.h33" data-edit-max="40">Fair-weather promise</h3>
-              <p data-edit="timetable.p3" data-edit-max="240" data-edit-multiline>
+              <h3 data-edit="timetable.title3" data-edit-max="40">Fair-weather promise</h3>
+              <p data-edit="timetable.body3" data-edit-max="240" data-edit-multiline>
                 If cloud sits below the Col du Miroir for your whole Ascent,
                 your next mountain ticket is half price. The guard’s word is
                 final and generously given.
@@ -697,19 +697,19 @@ export default function CalderaRailPage() {
             <div>
               <h3 data-edit="footer.footerHead" data-edit-max="40" className={styles.footerHead}>Principal stations</h3>
               <ul className={styles.footerList}>
-                <li data-edit="footer.li" data-edit-max="80">Terra Alta Central</li>
-                <li data-edit="footer.li2" data-edit-max="80">Miradora</li>
-                <li data-edit="footer.li3" data-edit-max="80">Casteldoro</li>
-                <li data-edit="footer.li4" data-edit-max="80">Vespergate</li>
-                <li data-edit="footer.li5" data-edit-max="80">Port Lumen Harbour</li>
+                <li data-edit="footer.item" data-edit-max="80">Terra Alta Central</li>
+                <li data-edit="footer.item2" data-edit-max="80">Miradora</li>
+                <li data-edit="footer.item3" data-edit-max="80">Casteldoro</li>
+                <li data-edit="footer.item4" data-edit-max="80">Vespergate</li>
+                <li data-edit="footer.item5" data-edit-max="80">Port Lumen Harbour</li>
               </ul>
             </div>
             <div>
               <h3 data-edit="footer.footerHead2" data-edit-max="40" className={styles.footerHead}>Correspondence</h3>
               <ul className={styles.footerList}>
-                <li data-edit="footer.li6" data-edit-max="80">2 Viaduct Approach, Terra Alta</li>
-                <li data-edit="footer.li7" data-edit-max="80">Telephone (0)55 214 88</li>
-                <li data-edit="footer.li8" data-edit-max="80">reservations@caldera.rail</li>
+                <li data-edit="footer.item6" data-edit-max="80">2 Viaduct Approach, Terra Alta</li>
+                <li data-edit="footer.item7" data-edit-max="80">Telephone (0)55 214 88</li>
+                <li data-edit="footer.item8" data-edit-max="80">reservations@caldera.rail</li>
               </ul>
             </div>
           </div>

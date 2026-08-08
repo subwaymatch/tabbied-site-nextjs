@@ -79,10 +79,10 @@ export default function SammlungWeissPage() {
           Sammlung Weiss
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#collection">Collection</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#rooms">Rooms</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#visiting">Visiting</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#research">Research</a>
+          <a data-edit="bar.collection" data-edit-max="28" href="#collection">Collection</a>
+          <a data-edit="bar.rooms" data-edit-max="28" href="#rooms">Rooms</a>
+          <a data-edit="bar.visiting" data-edit-max="28" href="#visiting">Visiting</a>
+          <a data-edit="bar.research" data-edit-max="28" href="#research">Research</a>
         </nav>
       </header>
 
@@ -146,13 +146,13 @@ export default function SammlungWeissPage() {
                 money set aside for a car, and their last in 1994, three weeks
                 before Martin died.
               </p>
-              <p data-edit="collection.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="collection.body" data-edit-max="240" data-edit-multiline>
                 They collected against the market rather than with it: the
                 unfashionable years of artists who later became fashionable, and
                 a stubborn number of artists who never did. Roughly a third of
                 the collection is by people with no monograph.
               </p>
-              <p data-edit="collection.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="collection.body2" data-edit-max="240" data-edit-multiline>
                 Nothing has been sold. Nothing will be. The foundation deed
                 forbids deaccession in terms a lawyer described, admiringly, as
                 unhelpfully absolute.
@@ -196,8 +196,8 @@ export default function SammlungWeissPage() {
                 <li key={r.n}>
                   <span data-edit={`rooms.rN.${i}`} data-edit-max="60" className={s.rN}>{r.n}</span>
                   <div>
-                    <h3 data-edit={`rooms.h3.${i}`} data-edit-max="40">{r.name}</h3>
-                    <p data-edit={`rooms.p.${i}`} data-edit-max="240" data-edit-multiline>{r.note}</p>
+                    <h3 data-edit={`rooms.title.${i}`} data-edit-max="40">{r.name}</h3>
+                    <p data-edit={`rooms.body.${i}`} data-edit-max="240" data-edit-multiline>{r.note}</p>
                   </div>
                   <span data-edit={`rooms.rHangs.${i}`} data-edit-max="60" className={s.rHangs}>{r.hangs}</span>
                 </li>
@@ -209,14 +209,14 @@ export default function SammlungWeissPage() {
                   slug="weiss-plinth"
                   alt="A rough grey stone sculpture on a plain white plinth in a bare room"
                 />
-                <figcaption data-edit="rooms.figcaption" data-edit-max="120" data-edit-multiline>Room III. One work, one bench, no label.</figcaption>
+                <figcaption data-edit="rooms.caption" data-edit-max="120" data-edit-multiline>Room III. One work, one bench, no label.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.weiss-crate"
                   slug="weiss-crate"
                   alt="A plywood art crate standing closed in an empty white room"
                 />
-                <figcaption data-edit="rooms.figcaption2" data-edit-max="120" data-edit-multiline>Arrived Tuesday. Opens Friday, once it has acclimatised.</figcaption>
+                <figcaption data-edit="rooms.caption2" data-edit-max="120" data-edit-multiline>Arrived Tuesday. Opens Friday, once it has acclimatised.</figcaption>
               </figure>
             </div>
           </div>
@@ -265,7 +265,7 @@ export default function SammlungWeissPage() {
               </p>
               <dl>
                 <div>
-                  <dt data-edit="research.dt" data-edit-max="28">Foundation</dt>
+                  <dt data-edit="research.term" data-edit-max="28">Foundation</dt>
                   <dd>
                     Rychenbergstrasse 210
                     <br />
@@ -273,20 +273,20 @@ export default function SammlungWeissPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt data-edit="research.dt2" data-edit-max="28">Write</dt>
+                  <dt data-edit="research.term2" data-edit-max="28">Write</dt>
                   <dd>
-                    <a data-edit="research.a" data-edit-max="28" href="mailto:stiftung@sammlung-weiss.example">
+                    <a data-edit="research.link" data-edit-max="28" href="mailto:stiftung@sammlung-weiss.example">
                       stiftung@sammlung-weiss.example
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt data-edit="research.dt3" data-edit-max="28">Ballot</dt>
-                  <dd data-edit="research.dd" data-edit-max="200" data-edit-multiline>One entry per person per day. Results by post.</dd>
+                  <dt data-edit="research.term3" data-edit-max="28">Ballot</dt>
+                  <dd data-edit="research.body" data-edit-max="200" data-edit-multiline>One entry per person per day. Results by post.</dd>
                 </div>
                 <div>
-                  <dt data-edit="research.dt4" data-edit-max="28">Loans</dt>
-                  <dd data-edit="research.dd2" data-edit-max="200" data-edit-multiline>Two a year, to public institutions, for exhibitions with a catalogue.</dd>
+                  <dt data-edit="research.term4" data-edit-max="28">Loans</dt>
+                  <dd data-edit="research.body2" data-edit-max="200" data-edit-multiline>Two a year, to public institutions, for exhibitions with a catalogue.</dd>
                 </div>
               </dl>
             </div>
@@ -295,17 +295,17 @@ export default function SammlungWeissPage() {
                 slug="weiss-racks"
                 alt="Sliding storage racks holding framed works in a windowless art store"
               />
-              <figcaption data-edit="research.figcaption" data-edit-max="120" data-edit-multiline>The store. Three hundred and eighty-eight works, waiting their turn.</figcaption>
+              <figcaption data-edit="research.caption" data-edit-max="120" data-edit-multiline>The store. Three hundred and eighty-eight works, waiting their turn.</figcaption>
             </figure>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three conditions the works live under</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three conditions the works live under</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Not policy for its own sake. Each of these is the reason something has survived seventy years.</p>
           <div className={s.tileGrid}>
               <article key="I">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,2,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={veil}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -324,11 +324,11 @@ export default function SammlungWeissPage() {
                   <Figure editId="photo.sammlung-weiss-tile-frame-cutout" slug="sammlung-weiss-tile-frame-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>I</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Light</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Light</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Fifty lux on works on paper, a hundred and fifty on paintings, and eleven days of opening a year. The store is the default state; display is the exception.</p>
               </article>
               <article key="II">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,2,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={lantern}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -347,11 +347,11 @@ export default function SammlungWeissPage() {
                   <Figure editId="photo.sammlung-weiss-tile-logger-cutout" slug="sammlung-weiss-tile-logger-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>II</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Air</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Air</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Nineteen degrees, fifty per cent, moved slowly. The plant is oversized so it never has to work hard, which is also why it has never failed.</p>
               </article>
               <article key="III">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,2,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={recession}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -370,7 +370,7 @@ export default function SammlungWeissPage() {
                   <Figure editId="photo.sammlung-weiss-tile-gloves-cutout" slug="sammlung-weiss-tile-gloves-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>III</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Handling</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Handling</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Two people, cotton, no jewellery, and a written condition report before and after every movement, including the ones inside the building.</p>
               </article>
           </div>
@@ -378,73 +378,73 @@ export default function SammlungWeissPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Conservation record</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Conservation record</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Treatments carried out since 2015, listed because the deed requires it and because researchers ask.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Year</span>
-                <span data-edit="index.span2" data-edit-max="60">Work</span>
-                <span data-edit="index.span3" data-edit-max="60">Treatment</span>
-                <span data-edit="index.span4" data-edit-max="60">Conservator</span>
+                <span data-edit="index.text" data-edit-max="60">Year</span>
+                <span data-edit="index.text2" data-edit-max="60">Work</span>
+                <span data-edit="index.text3" data-edit-max="60">Treatment</span>
+                <span data-edit="index.text4" data-edit-max="60">Conservator</span>
             </li>
               <li key="2025">
-                <span data-edit="index.span5" data-edit-max="60">2025</span>
-                <span data-edit="index.span6" data-edit-max="60">Painting, FA 118</span>
-                <span data-edit="index.span7" data-edit-max="60">Consolidation, local</span>
-                <span data-edit="index.span8" data-edit-max="60">R. Frei, Basel</span>
+                <span data-edit="index.text5" data-edit-max="60">2025</span>
+                <span data-edit="index.text6" data-edit-max="60">Painting, FA 118</span>
+                <span data-edit="index.text7" data-edit-max="60">Consolidation, local</span>
+                <span data-edit="index.text8" data-edit-max="60">R. Frei, Basel</span>
               </li>
               <li key="2024">
-                <span data-edit="index.span9" data-edit-max="60">2024</span>
-                <span data-edit="index.span10" data-edit-max="60">Works on paper, 14 items</span>
-                <span data-edit="index.span11" data-edit-max="60">Rehousing, deacidification</span>
-                <span data-edit="index.span12" data-edit-max="60">M. Bähler, Bern</span>
+                <span data-edit="index.text9" data-edit-max="60">2024</span>
+                <span data-edit="index.text10" data-edit-max="60">Works on paper, 14 items</span>
+                <span data-edit="index.text11" data-edit-max="60">Rehousing, deacidification</span>
+                <span data-edit="index.text12" data-edit-max="60">M. Bähler, Bern</span>
               </li>
               <li key="2023">
-                <span data-edit="index.span13" data-edit-max="60">2023</span>
-                <span data-edit="index.span14" data-edit-max="60">Sculpture, FA 019</span>
-                <span data-edit="index.span15" data-edit-max="60">Surface clean, wax</span>
-                <span data-edit="index.span16" data-edit-max="60">Studio Lang, Zürich</span>
+                <span data-edit="index.text13" data-edit-max="60">2023</span>
+                <span data-edit="index.text14" data-edit-max="60">Sculpture, FA 019</span>
+                <span data-edit="index.text15" data-edit-max="60">Surface clean, wax</span>
+                <span data-edit="index.text16" data-edit-max="60">Studio Lang, Zürich</span>
               </li>
               <li key="2021">
-                <span data-edit="index.span17" data-edit-max="60">2021</span>
-                <span data-edit="index.span18" data-edit-max="60">Painting, FA 072</span>
-                <span data-edit="index.span19" data-edit-max="60">Varnish removal</span>
-                <span data-edit="index.span20" data-edit-max="60">R. Frei, Basel</span>
+                <span data-edit="index.text17" data-edit-max="60">2021</span>
+                <span data-edit="index.text18" data-edit-max="60">Painting, FA 072</span>
+                <span data-edit="index.text19" data-edit-max="60">Varnish removal</span>
+                <span data-edit="index.text20" data-edit-max="60">R. Frei, Basel</span>
               </li>
               <li key="2019">
-                <span data-edit="index.span21" data-edit-max="60">2019</span>
-                <span data-edit="index.span22" data-edit-max="60">Photographs, 27 items</span>
-                <span data-edit="index.span23" data-edit-max="60">Cold storage, rehoused</span>
-                <span data-edit="index.span24" data-edit-max="60">In house</span>
+                <span data-edit="index.text21" data-edit-max="60">2019</span>
+                <span data-edit="index.text22" data-edit-max="60">Photographs, 27 items</span>
+                <span data-edit="index.text23" data-edit-max="60">Cold storage, rehoused</span>
+                <span data-edit="index.text24" data-edit-max="60">In house</span>
               </li>
               <li key="2016">
-                <span data-edit="index.span25" data-edit-max="60">2016</span>
-                <span data-edit="index.span26" data-edit-max="60">Painting, FA 004</span>
-                <span data-edit="index.span27" data-edit-max="60">Structural, tear repair</span>
-                <span data-edit="index.span28" data-edit-max="60">R. Frei, Basel</span>
+                <span data-edit="index.text25" data-edit-max="60">2016</span>
+                <span data-edit="index.text26" data-edit-max="60">Painting, FA 004</span>
+                <span data-edit="index.text27" data-edit-max="60">Structural, tear repair</span>
+                <span data-edit="index.text28" data-edit-max="60">R. Frei, Basel</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Practical questions</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Practical questions</h2>
           <dl className={s.faqList}>
               <div key="How does the ballot work">
-                <dt data-edit="faq.dt" data-edit-max="28">How does the ballot work?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>One entry per person per day, by post or by mail, closing six weeks ahead. Twelve names are drawn and answered by post. There is no waiting list.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">How does the ballot work?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>One entry per person per day, by post or by mail, closing six weeks ahead. Twelve names are drawn and answered by post. There is no waiting list.</dd>
               </div>
               <div key="Can I see a specific wor">
-                <dt data-edit="faq.dt2" data-edit-max="28">Can I see a specific work?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>If it is catalogued and not on display, yes, twice a year, in writing, with a reason. Uncatalogued material we cannot retrieve reliably and we say so.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can I see a specific work?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>If it is catalogued and not on display, yes, twice a year, in writing, with a reason. Uncatalogued material we cannot retrieve reliably and we say so.</dd>
               </div>
               <div key="Why is entry free?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Why is entry free?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Because the deed says so. Elsa Weiss thought charging for a private collection was a category error and left no mechanism to reverse it.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Why is entry free?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Because the deed says so. Elsa Weiss thought charging for a private collection was a category error and left no mechanism to reverse it.</dd>
               </div>
               <div key="Do you lend?">
-                <dt data-edit="faq.dt4" data-edit-max="28">Do you lend?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Two loans a year, to public institutions, for exhibitions with a catalogue. Nothing travels in January or August.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Do you lend?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Two loans a year, to public institutions, for exhibitions with a catalogue. Nothing travels in January or August.</dd>
               </div>
           </dl>
         </section>
@@ -477,13 +477,13 @@ export default function SammlungWeissPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Collection</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#collection">What is here</a>
+                <a data-edit="footer.collection" data-edit-max="28" href="#collection">What is here</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#rooms">Four rooms</a>
+                <a data-edit="footer.rooms" data-edit-max="28" href="#rooms">Four rooms</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#research">Research</a>
+                <a data-edit="footer.research" data-edit-max="28" href="#research">Research</a>
               </li>
             </ul>
           </div>
@@ -491,13 +491,13 @@ export default function SammlungWeissPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Visiting</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#visiting">Eleven days</a>
+                <a data-edit="footer.visiting" data-edit-max="28" href="#visiting">Eleven days</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#visiting">The ballot</a>
+                <a data-edit="footer.visiting2" data-edit-max="28" href="#visiting">The ballot</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#research">Loans</a>
+                <a data-edit="footer.research2" data-edit-max="28" href="#research">Loans</a>
               </li>
             </ul>
           </div>
@@ -515,10 +515,10 @@ export default function SammlungWeissPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional foundation. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional foundation. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

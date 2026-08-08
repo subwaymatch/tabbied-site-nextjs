@@ -200,11 +200,11 @@ export default function MadrigalStringsPage() {
         </a>
         <p data-edit="masthead.mastheadSub" data-edit-max="240" data-edit-multiline className={styles.mastheadSub}>Atelier di Liuteria · Casteldoro</p>
         <nav aria-label="Programme" className={styles.mastheadNav}>
-          <a data-edit="masthead.a" data-edit-max="28" href="#history">History</a>
-          <a data-edit="masthead.a2" data-edit-max="28" href="#instruments">Instruments</a>
-          <a data-edit="masthead.a3" data-edit-max="28" href="#varnish">Varnish</a>
-          <a data-edit="masthead.a4" data-edit-max="28" href="#commission">Commissions</a>
-          <a data-edit="masthead.a5" data-edit-max="28" href="#visiting">Visiting</a>
+          <a data-edit="masthead.history" data-edit-max="28" href="#history">History</a>
+          <a data-edit="masthead.instruments" data-edit-max="28" href="#instruments">Instruments</a>
+          <a data-edit="masthead.varnish" data-edit-max="28" href="#varnish">Varnish</a>
+          <a data-edit="masthead.commission" data-edit-max="28" href="#commission">Commissions</a>
+          <a data-edit="masthead.visiting" data-edit-max="28" href="#visiting">Visiting</a>
         </nav>
       </header>
 
@@ -341,8 +341,8 @@ export default function MadrigalStringsPage() {
                 <dl className={styles.specList}>
                   {inst.specs.map(([k, v], i2) => (
                     <div key={k} className={styles.specRow}>
-                      <dt data-edit={`instrument.dt.${i}.${i2}`} data-edit-max="28">{k}</dt>
-                      <dd data-edit={`instrument.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                      <dt data-edit={`instrument.term.${i}.${i2}`} data-edit-max="28">{k}</dt>
+                      <dd data-edit={`instrument.body.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -399,11 +399,11 @@ export default function MadrigalStringsPage() {
                 visitor more coffee.
               </p>
               <blockquote className={styles.pullQuote}>
-                <p data-edit="varnish.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="varnish.body" data-edit-max="240" data-edit-multiline>
                   &ldquo;Varnish is the part of the violin that keeps arriving
                   after the maker has stopped.&rdquo;
                 </p>
-                <cite data-edit="varnish.cite" data-edit-max="48">Aurelio Madrigal, ledger margin, 1989</cite>
+                <cite data-edit="varnish.attribution" data-edit-max="48">Aurelio Madrigal, ledger margin, 1989</cite>
               </blockquote>
             </div>
           </div>
@@ -565,7 +565,7 @@ export default function MadrigalStringsPage() {
             <div className={styles.visitCell}>
               <h3 data-edit="visiting.visitLabel3" data-edit-max="40" className={styles.visitLabel}>Correspondence</h3>
               <p className={styles.visitValue}>
-                <a data-edit="visiting.a" data-edit-max="28" href="mailto:bottega@madrigal.example">
+                <a data-edit="visiting.link" data-edit-max="28" href="mailto:bottega@madrigal.example">
                   bottega@madrigal.example
                 </a>
                 <br />
@@ -601,7 +601,7 @@ export default function MadrigalStringsPage() {
           <p className={styles.colophonFine}>
             This programme is set in Garamond&rsquo;s manner; the engravings
             are cut fresh at every printing by{' '}
-            <a data-edit="footer.a" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             . A fictional workshop, engraved with real affection. © 2026.

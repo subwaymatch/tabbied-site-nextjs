@@ -140,10 +140,10 @@ export default function BureauVektorPage() {
           Bureau Vektor
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#indicators">Indicators</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#catalogue">Catalogue</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#calendar">Calendar</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#reuse">Reuse</a>
+          <a data-edit="bar.indicators" data-edit-max="28" href="#indicators">Indicators</a>
+          <a data-edit="bar.catalogue" data-edit-max="28" href="#catalogue">Catalogue</a>
+          <a data-edit="bar.calendar" data-edit-max="28" href="#calendar">Calendar</a>
+          <a data-edit="bar.reuse" data-edit-max="28" href="#reuse">Reuse</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Office of statistics</span>
       </header>
@@ -170,7 +170,7 @@ export default function BureauVektorPage() {
             <span data-edit="hero.blue" data-edit-max="60" className={s.blue}>whole.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Seventy series on a fixed calendar, at nine in the morning, with
               the method attached and nothing held back for a press conference.
             </p>
@@ -214,12 +214,12 @@ export default function BureauVektorPage() {
             is convenient or not.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Bureau Vektor is the canton&rsquo;s statistical office. It has been
               publishing since 1919 and has missed its own calendar four times,
               each of which is documented on the methods page.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               Nothing here is embargoed. Ministers read the figures at the same
               moment as everybody else, which is a rule the bureau fought for in
               1974 and would fight for again.
@@ -233,8 +233,8 @@ export default function BureauVektorPage() {
             thing on the page for the same reason a poster has a picture. */}
         <section className={s.chart} aria-labelledby="chart-h">
           <div className={s.secHead}>
-            <h2 data-edit="chart.h2" data-edit-max="60" id="chart-h">VK-042, one year</h2>
-            <p data-edit="chart.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="chart.title" data-edit-max="60" id="chart-h">VK-042, one year</h2>
+            <p data-edit="chart.body" data-edit-max="240" data-edit-multiline>
               Public transport journeys, millions, by month. Provisional for
               November and December, as always at this point in the year.
             </p>
@@ -269,8 +269,8 @@ export default function BureauVektorPage() {
         {/* --------------------------------------------------------- METHODS */}
         <section className={s.methods} aria-labelledby="methods-h">
           <div className={s.secHead}>
-            <h2 data-edit="methods.h2" data-edit-max="60" id="methods-h">Three commitments</h2>
-            <p data-edit="methods.p" data-edit-max="240" data-edit-multiline>In the enabling act of 1919, in almost these words.</p>
+            <h2 data-edit="methods.title" data-edit-max="60" id="methods-h">Three commitments</h2>
+            <p data-edit="methods.body" data-edit-max="240" data-edit-multiline>In the enabling act of 1919, in almost these words.</p>
           </div>
           <div className={s.mGrid}>
             {METHODS.map((m, i) => (
@@ -286,7 +286,7 @@ export default function BureauVektorPage() {
                   />
                 </div>
                 <p data-edit={`methods.mN.${i}`} data-edit-max="240" data-edit-multiline className={s.mN}>{m.n}</p>
-                <h3 data-edit={`methods.h3.${i}`} data-edit-max="40">{m.t}</h3>
+                <h3 data-edit={`methods.title2.${i}`} data-edit-max="40">{m.t}</h3>
                 <p data-edit={`methods.mBody.${i}`} data-edit-max="240" data-edit-multiline className={s.mBody}>{m.d}</p>
               </article>
             ))}
@@ -296,8 +296,8 @@ export default function BureauVektorPage() {
         {/* ------------------------------------------------------- CATALOGUE */}
         <section id="catalogue" className={s.listing} aria-labelledby="cat-h">
           <div className={s.secHead}>
-            <h2 data-edit="catalogue.h2" data-edit-max="60" id="cat-h">Seventy series</h2>
-            <p data-edit="catalogue.p" data-edit-max="240" data-edit-multiline>Fourteen of them below. Every one is downloadable in full, back to its first year.</p>
+            <h2 data-edit="catalogue.title" data-edit-max="60" id="cat-h">Seventy series</h2>
+            <p data-edit="catalogue.body" data-edit-max="240" data-edit-multiline>Fourteen of them below. Every one is downloadable in full, back to its first year.</p>
           </div>
           <ol className={s.table}>
             {CATALOGUE.map((r, i) => (
@@ -315,8 +315,8 @@ export default function BureauVektorPage() {
         {/* -------------------------------------------------------- CALENDAR */}
         <section id="calendar" className={s.listing} aria-labelledby="cal-h">
           <div className={s.secHead}>
-            <h2 data-edit="calendar.h2" data-edit-max="60" id="cal-h">The release calendar</h2>
-            <p data-edit="calendar.p" data-edit-max="240" data-edit-multiline>Set a year ahead and not moved for convenience. First quarter shown.</p>
+            <h2 data-edit="calendar.title" data-edit-max="60" id="cal-h">The release calendar</h2>
+            <p data-edit="calendar.body" data-edit-max="240" data-edit-multiline>Set a year ahead and not moved for convenience. First quarter shown.</p>
           </div>
           <ol className={s.table}>
             {CALENDAR.map((r, i) => (
@@ -344,8 +344,8 @@ export default function BureauVektorPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>The interesting figure and the reliable figure are rarely the same figure, and only one of them is ours to publish.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Tarek Hamdi, head of methods</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>The interesting figure and the reliable figure are rarely the same figure, and only one of them is ours to publish.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Tarek Hamdi, head of methods</cite>
           </blockquote>
         </section>
 
@@ -363,8 +363,8 @@ export default function BureauVektorPage() {
           </div>
           <div className={s.desksInner}>
             <div className={s.secHead}>
-              <h2 data-edit="desks.h2" data-edit-max="60" id="desks-h">Six desks</h2>
-              <p data-edit="desks.p" data-edit-max="240" data-edit-multiline>Thirty statisticians and a librarian. Every series has a named owner who answers mail.</p>
+              <h2 data-edit="desks.title" data-edit-max="60" id="desks-h">Six desks</h2>
+              <p data-edit="desks.body" data-edit-max="240" data-edit-multiline>Thirty statisticians and a librarian. Every series has a named owner who answers mail.</p>
             </div>
             <ol className={s.deskList}>
               {DESKS.map(([area, who, n], i) => (
@@ -391,12 +391,12 @@ export default function BureauVektorPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 data-edit="reuse.h2" data-edit-max="60" id="reuse-h">Take it and use it</h2>
+          <h2 data-edit="reuse.title" data-edit-max="60" id="reuse-h">Take it and use it</h2>
           <dl className={s.reuseList}>
             {REUSE.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`reuse.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`reuse.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`reuse.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`reuse.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -435,7 +435,7 @@ export default function BureauVektorPage() {
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
+                  <span data-edit={`contact.text.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
@@ -464,23 +464,23 @@ export default function BureauVektorPage() {
         </p>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Data</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Data</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#catalogue">Series catalogue</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#calendar">Release calendar</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#reuse">Licence and API</a></li>
+              <li><a data-edit="footer.catalogue" data-edit-max="28" href="#catalogue">Series catalogue</a></li>
+              <li><a data-edit="footer.calendar" data-edit-max="28" href="#calendar">Release calendar</a></li>
+              <li><a data-edit="footer.reuse" data-edit-max="28" href="#reuse">Licence and API</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Bureau</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Bureau</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#indicators">Headline indicators</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#desks">The desks</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#reuse">Citation</a></li>
+              <li><a data-edit="footer.indicators" data-edit-max="28" href="#indicators">Headline indicators</a></li>
+              <li><a data-edit="footer.desks" data-edit-max="28" href="#desks">The desks</a></li>
+              <li><a data-edit="footer.reuse2" data-edit-max="28" href="#reuse">Citation</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Rue du Recensement 4
               <br />
@@ -491,10 +491,10 @@ export default function BureauVektorPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional statistical office. Every figure on this page is invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional statistical office. Every figure on this page is invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

@@ -220,11 +220,11 @@ export default function HopscotchMuseumPage() {
             <span data-edit="header.logoBang" data-edit-max="60" className={styles.logoBang}>!</span>
           </a>
           <nav className={styles.nav} aria-label="Site">
-            <a data-edit="header.a" data-edit-max="28" href="#exhibits">Exhibits</a>
-            <a data-edit="header.a2" data-edit-max="28" href="#visit">Visit</a>
-            <a data-edit="header.a3" data-edit-max="28" href="#birthdays">Birthdays</a>
-            <a data-edit="header.a4" data-edit-max="28" href="#membership">Membership</a>
-            <a data-edit="header.a5" data-edit-max="28" href="#faq">FAQ</a>
+            <a data-edit="header.exhibits" data-edit-max="28" href="#exhibits">Exhibits</a>
+            <a data-edit="header.visit" data-edit-max="28" href="#visit">Visit</a>
+            <a data-edit="header.birthdays" data-edit-max="28" href="#birthdays">Birthdays</a>
+            <a data-edit="header.membership" data-edit-max="28" href="#membership">Membership</a>
+            <a data-edit="header.faq" data-edit-max="28" href="#faq">FAQ</a>
           </nav>
           <a data-edit="header.ticketBtn" data-edit-max="28" href="#visit" className={styles.ticketBtn}>
             Get tickets
@@ -292,9 +292,9 @@ export default function HopscotchMuseumPage() {
             {todayProgram.map((slot, i) => (
               <article key={slot.name} className={styles.todayCard} data-tilt={i % 2}>
                 <span data-edit={`todayCard.timeChip.${i}`} data-edit-max="60" className={`${styles.timeChip} ${slot.color}`}>{slot.time}</span>
-                <h3 data-edit={`todayCard.h3.${i}`} data-edit-max="40">{slot.name}</h3>
+                <h3 data-edit={`todayCard.title.${i}`} data-edit-max="40">{slot.name}</h3>
                 <p data-edit={`todayCard.todayAges.${i}`} data-edit-max="240" data-edit-multiline className={styles.todayAges}>{slot.ages}</p>
-                <p data-edit={`todayCard.p.${i}`} data-edit-max="240" data-edit-multiline>{slot.blurb}</p>
+                <p data-edit={`todayCard.body.${i}`} data-edit-max="240" data-edit-multiline>{slot.blurb}</p>
               </article>
             ))}
           </div>
@@ -333,9 +333,9 @@ export default function HopscotchMuseumPage() {
                   <Figure editId={`exhibitCard.photo.${i}`} slug={ex.slug} cutout alt={ex.alt} className={styles.exhibitImg} />
                 </div>
                 <div className={styles.exhibitBody}>
-                  <h3 data-edit={`exhibitCard.h3.${i}`} data-edit-max="40">{ex.name}</h3>
+                  <h3 data-edit={`exhibitCard.title.${i}`} data-edit-max="40">{ex.name}</h3>
                   <span data-edit={`exhibitCard.ageBadge.${i}`} data-edit-max="60" className={styles.ageBadge}>{ex.ages}</span>
-                  <p data-edit={`exhibitCard.p.${i}`} data-edit-max="240" data-edit-multiline>{ex.blurb}</p>
+                  <p data-edit={`exhibitCard.body.${i}`} data-edit-max="240" data-edit-multiline>{ex.blurb}</p>
                 </div>
               </article>
             ))}
@@ -347,9 +347,9 @@ export default function HopscotchMuseumPage() {
                 />
               </div>
               <div className={styles.exhibitBody}>
-                <h3 data-edit="exhibitCard.h32" data-edit-max="40">River Works</h3>
+                <h3 data-edit="exhibitCard.title2" data-edit-max="40">River Works</h3>
                 <span data-edit="exhibitCard.ageBadge2" data-edit-max="60" className={styles.ageBadge}>All ages</span>
-                <p data-edit="exhibitCard.p2" data-edit-max="240" data-edit-multiline>
+                <p data-edit="exhibitCard.body2" data-edit-max="240" data-edit-multiline>
                   Forty feet of winding water: dams to build, locks to open, boats to race.
                   The dryers by the exit are, honestly, also very popular.
                 </p>
@@ -376,13 +376,13 @@ export default function HopscotchMuseumPage() {
             </h2>
             <div className={styles.visitGrid}>
               <div className={styles.visitCard}>
-                <h3 data-edit="visit.h3" data-edit-max="40">Admission</h3>
+                <h3 data-edit="visit.title" data-edit-max="40">Admission</h3>
                 <ul className={styles.priceList}>
                   {admission.map((row, i) => (
                     <li key={row.who}>
-                      <span data-edit={`visit.span.${i}`} data-edit-max="60">{row.who}</span>
+                      <span data-edit={`visit.text.${i}`} data-edit-max="60">{row.who}</span>
                       <span className={styles.priceDots} aria-hidden="true" />
-                      <strong data-edit={`visit.strong.${i}`}>{row.price}</strong>
+                      <strong data-edit={`visit.emphasis.${i}`}>{row.price}</strong>
                     </li>
                   ))}
                 </ul>
@@ -392,12 +392,12 @@ export default function HopscotchMuseumPage() {
                 </p>
               </div>
               <div className={styles.visitCard}>
-                <h3 data-edit="visit.h32" data-edit-max="40">Hours</h3>
+                <h3 data-edit="visit.title2" data-edit-max="40">Hours</h3>
                 <ul className={styles.hourList}>
                   {hours.map((h, i) => (
                     <li key={h.day}>
-                      <span data-edit={`visit.span2.${i}`} data-edit-max="60">{h.day}</span>
-                      <strong data-edit={`visit.strong2.${i}`}>{h.open}</strong>
+                      <span data-edit={`visit.text2.${i}`} data-edit-max="60">{h.day}</span>
+                      <strong data-edit={`visit.emphasis2.${i}`}>{h.open}</strong>
                     </li>
                   ))}
                 </ul>
@@ -407,17 +407,17 @@ export default function HopscotchMuseumPage() {
                 </p>
               </div>
               <div className={styles.visitCard}>
-                <h3 data-edit="visit.h33" data-edit-max="40">Getting here</h3>
+                <h3 data-edit="visit.title3" data-edit-max="40">Getting here</h3>
                 <p className={styles.visitAddress}>
                   88 Marble Run Way
                   <br />
                   Pemberton Falls
                 </p>
                 <ul className={styles.funList}>
-                  <li data-edit="visit.li" data-edit-max="80">Two blocks from Fountain Square station</li>
-                  <li data-edit="visit.li2" data-edit-max="80">Free stroller garage past the ticket desk</li>
-                  <li data-edit="visit.li3" data-edit-max="80">Bike racks shaped like dinosaurs (really)</li>
-                  <li data-edit="visit.li4" data-edit-max="80">Accessible entrance & lifts to every floor</li>
+                  <li data-edit="visit.item" data-edit-max="80">Two blocks from Fountain Square station</li>
+                  <li data-edit="visit.item2" data-edit-max="80">Free stroller garage past the ticket desk</li>
+                  <li data-edit="visit.item3" data-edit-max="80">Bike racks shaped like dinosaurs (really)</li>
+                  <li data-edit="visit.item4" data-edit-max="80">Accessible entrance & lifts to every floor</li>
                 </ul>
               </div>
             </div>
@@ -447,11 +447,11 @@ export default function HopscotchMuseumPage() {
             <div className={styles.partyGrid}>
               {parties.map((p, i) => (
                 <article key={p.name} className={`${styles.partyCard} ${p.color}`}>
-                  <h3 data-edit={`partyCard.h3.${i}`} data-edit-max="40">{p.name}</h3>
+                  <h3 data-edit={`partyCard.title.${i}`} data-edit-max="40">{p.name}</h3>
                   <p data-edit={`partyCard.partyPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.partyPrice}>{p.price}</p>
                   <ul className={styles.funList}>
                     {p.perks.map((perk, i2) => (
-                      <li data-edit={`partyCard.li.${i}.${i2}`} data-edit-max="80" key={perk}>{perk}</li>
+                      <li data-edit={`partyCard.item.${i}.${i2}`} data-edit-max="80" key={perk}>{perk}</li>
                     ))}
                   </ul>
                   <a data-edit={`partyCard.partyBtn.${i}`} data-edit-max="28" href="#footer-contact" className={styles.partyBtn}>
@@ -488,10 +488,10 @@ export default function HopscotchMuseumPage() {
               <div className={styles.memberTiers}>
                 {memberships.map((m, i) => (
                   <div key={m.name} className={styles.memberTier}>
-                    <h3 data-edit={`membership.h3.${i}`} data-edit-max="40">{m.name}</h3>
+                    <h3 data-edit={`membership.title.${i}`} data-edit-max="40">{m.name}</h3>
                     <p className={styles.memberPrice}>
                       {m.price}
-                      <span data-edit={`membership.span.${i}`} data-edit-max="60">{m.per}</span>
+                      <span data-edit={`membership.text.${i}`} data-edit-max="60">{m.per}</span>
                     </p>
                     <p data-edit={`membership.memberNote.${i}`} data-edit-max="240" data-edit-multiline className={styles.memberNote}>{m.note}</p>
                   </div>
@@ -499,7 +499,7 @@ export default function HopscotchMuseumPage() {
               </div>
               <ul className={styles.memberPerks}>
                 {memberPerks.map((perk, i) => (
-                  <li data-edit={`membership.li.${i}`} data-edit-max="80" key={perk}>{perk}</li>
+                  <li data-edit={`membership.item.${i}`} data-edit-max="80" key={perk}>{perk}</li>
                 ))}
               </ul>
               <a data-edit="membership.bigBtnYellow" data-edit-max="28" href="#footer-contact" className={styles.bigBtnYellow}>
@@ -521,10 +521,10 @@ export default function HopscotchMuseumPage() {
               with the rule we are famous for: <em>go ahead, touch it.</em>
             </p>
             <ul className={styles.funList}>
-              <li data-edit="fieldtrips.li" data-edit-max="80">$8 per student, chaperones free, 1 per 5 kids</li>
-              <li data-edit="fieldtrips.li2" data-edit-max="80">Science, water, light & simple machines modules</li>
-              <li data-edit="fieldtrips.li3" data-edit-max="80">Reserved lunchroom slot, bus drop-off at the door</li>
-              <li data-edit="fieldtrips.li4" data-edit-max="80">Scholarship spots every term, just ask</li>
+              <li data-edit="fieldtrips.item" data-edit-max="80">$8 per student, chaperones free, 1 per 5 kids</li>
+              <li data-edit="fieldtrips.item2" data-edit-max="80">Science, water, light & simple machines modules</li>
+              <li data-edit="fieldtrips.item3" data-edit-max="80">Reserved lunchroom slot, bus drop-off at the door</li>
+              <li data-edit="fieldtrips.item4" data-edit-max="80">Scholarship spots every term, just ask</li>
             </ul>
             <a data-edit="fieldtrips.bigBtn" data-edit-max="28" href="#footer-contact" className={styles.bigBtn}>
               Book a school visit
@@ -532,16 +532,16 @@ export default function HopscotchMuseumPage() {
           </div>
           <div className={styles.ftStats}>
             <div className={styles.ftStat}>
-              <strong data-edit="fieldtrips.strong">212</strong>
-              <span data-edit="fieldtrips.span" data-edit-max="60">school visits last year</span>
+              <strong data-edit="fieldtrips.emphasis">212</strong>
+              <span data-edit="fieldtrips.text" data-edit-max="60">school visits last year</span>
             </div>
             <div className={styles.ftStat}>
-              <strong data-edit="fieldtrips.strong2">14</strong>
-              <span data-edit="fieldtrips.span2" data-edit-max="60">school districts served</span>
+              <strong data-edit="fieldtrips.emphasis2">14</strong>
+              <span data-edit="fieldtrips.text2" data-edit-max="60">school districts served</span>
             </div>
             <div className={styles.ftStat}>
-              <strong data-edit="fieldtrips.strong3">1</strong>
-              <span data-edit="fieldtrips.span3" data-edit-max="60">rule: go ahead, touch it</span>
+              <strong data-edit="fieldtrips.emphasis3">1</strong>
+              <span data-edit="fieldtrips.text3" data-edit-max="60">rule: go ahead, touch it</span>
             </div>
           </div>
         </section>
@@ -554,8 +554,8 @@ export default function HopscotchMuseumPage() {
           <div className={styles.faqList}>
             {faqs.map((f, i) => (
               <details key={f.q} className={styles.faqItem}>
-                <summary data-edit={`faq.summary.${i}`} data-edit-max="80">{f.q}</summary>
-                <p data-edit={`faq.p.${i}`} data-edit-max="240" data-edit-multiline>{f.a}</p>
+                <summary data-edit={`faq.question.${i}`} data-edit-max="80">{f.q}</summary>
+                <p data-edit={`faq.body.${i}`} data-edit-max="240" data-edit-multiline>{f.a}</p>
               </details>
             ))}
           </div>
@@ -569,12 +569,12 @@ export default function HopscotchMuseumPage() {
           <div className={styles.footerGrid}>
             <div>
               <p className={styles.footerLogo}>
-                hopscotch<span data-edit="footerContact.span" data-edit-max="60">!</span>
+                hopscotch<span data-edit="footerContact.text" data-edit-max="60">!</span>
               </p>
               <p data-edit="footerContact.footerTag" data-edit-max="240" data-edit-multiline className={styles.footerTag}>The children’s discovery museum</p>
             </div>
             <div>
-              <h3 data-edit="footerContact.h3" data-edit-max="40">Find us</h3>
+              <h3 data-edit="footerContact.title" data-edit-max="40">Find us</h3>
               <p>
                 88 Marble Run Way
                 <br />
@@ -582,7 +582,7 @@ export default function HopscotchMuseumPage() {
               </p>
             </div>
             <div>
-              <h3 data-edit="footerContact.h32" data-edit-max="40">Say hi</h3>
+              <h3 data-edit="footerContact.title2" data-edit-max="40">Say hi</h3>
               <p>
                 hello@hopscotchmuseum.example
                 <br />
@@ -590,7 +590,7 @@ export default function HopscotchMuseumPage() {
               </p>
             </div>
             <div>
-              <h3 data-edit="footerContact.h33" data-edit-max="40">Open</h3>
+              <h3 data-edit="footerContact.title3" data-edit-max="40">Open</h3>
               <p>
                 Tue – Sun, from 9 am
                 <br />
@@ -608,7 +608,7 @@ export default function HopscotchMuseumPage() {
           </div>
           <p className={styles.footerCredit}>
             Confetti patterns by{' '}
-            <a data-edit="footerContact.a" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footerContact.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>{' '}
             · © Hopscotch Discovery Museum

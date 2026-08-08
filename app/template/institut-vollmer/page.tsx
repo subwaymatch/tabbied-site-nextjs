@@ -380,7 +380,7 @@ export default function InstitutVollmerPage() {
             />
           </div>
           <div className={s.strip}>
-            <div data-edit-pattern="tHero.field" className={`${s.stripField} ${s.fieldWhite}`} aria-hidden="true">
+            <div data-edit-pattern="tHero.field" data-edit-roles="0,2,3,4,5,1" className={`${s.stripField} ${s.fieldWhite}`} aria-hidden="true">
               <TabbiedPattern
                 pattern={perforate}
                 palette={FIELD_STRIP}
@@ -411,17 +411,17 @@ export default function InstitutVollmerPage() {
               <div key={area.key} className={`${s.grid} ${s.areaRow}`}>
                 <div className={s.areaKey}>
                   <p data-edit={`research.areaLetter.${i}`} data-edit-max="240" data-edit-multiline className={s.areaLetter}>{area.key}</p>
-                  <h3 data-edit={`research.h3.${i}`} data-edit-max="40">{area.title}</h3>
+                  <h3 data-edit={`research.title.${i}`} data-edit-max="40">{area.title}</h3>
                 </div>
                 <div className={s.areaBody}>
                   <p data-edit={`research.areaLead.${i}`} data-edit-max="240" data-edit-multiline className={s.areaLead}>{area.lead}</p>
-                  <p data-edit={`research.p.${i}`} data-edit-max="240" data-edit-multiline>{area.body}</p>
+                  <p data-edit={`research.body.${i}`} data-edit-max="240" data-edit-multiline>{area.body}</p>
                 </div>
                 <dl className={s.areaFacts}>
                   {area.facts.map(([k, v], i2) => (
                     <div key={k} className={s.factRow}>
-                      <dt data-edit={`research.dt.${i}.${i2}`} data-edit-max="28">{k}</dt>
-                      <dd data-edit={`research.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                      <dt data-edit={`research.term.${i}.${i2}`} data-edit-max="28">{k}</dt>
+                      <dd data-edit={`research.body2.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -489,7 +489,7 @@ export default function InstitutVollmerPage() {
                 partner institutions pay the marginal cost of consumables only.
               </p>
               <div className={s.instrumentStage}>
-                <div data-edit-pattern="facilities.field" className={`${s.stageField} ${s.fieldPale}`} aria-hidden="true">
+                <div data-edit-pattern="facilities.field" data-edit-roles="4,3,2,5" className={`${s.stageField} ${s.fieldPale}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={moire}
                     palette={FIELD_INSTRUMENT}
@@ -570,9 +570,9 @@ export default function InstitutVollmerPage() {
                   <div className={s.portraitFrame}>
                     <Figure editId={`personA.photo.${i}`} slug={p.slug} alt={p.alt} className={s.portrait} />
                   </div>
-                  <h3 data-edit={`personA.h3.${i}`} data-edit-max="40">{p.name}</h3>
+                  <h3 data-edit={`personA.title.${i}`} data-edit-max="40">{p.name}</h3>
                   <p data-edit={`personA.personRole.${i}`} data-edit-max="240" data-edit-multiline className={s.personRole}>{p.role}</p>
-                  <p data-edit={`personA.p.${i}`} data-edit-max="240" data-edit-multiline>{p.body}</p>
+                  <p data-edit={`personA.body.${i}`} data-edit-max="240" data-edit-multiline>{p.body}</p>
                 </article>
               ))}
               <figure className={s.peopleArt}>
@@ -607,8 +607,8 @@ export default function InstitutVollmerPage() {
                 {INDUSTRY.map((item, i) => (
                   <li key={item.no}>
                     <span data-edit={`industry.industryNo.${i}`} data-edit-max="60" className={s.industryNo}>{item.no}</span>
-                    <h3 data-edit={`industry.h3.${i}`} data-edit-max="40">{item.title}</h3>
-                    <p data-edit={`industry.p.${i}`} data-edit-max="240" data-edit-multiline>{item.body}</p>
+                    <h3 data-edit={`industry.title.${i}`} data-edit-max="40">{item.title}</h3>
+                    <p data-edit={`industry.body.${i}`} data-edit-max="240" data-edit-multiline>{item.body}</p>
                   </li>
                 ))}
               </ol>
@@ -620,7 +620,7 @@ export default function InstitutVollmerPage() {
                 declined, which happened four times in 2025.
               </p>
               <div className={s.samplesStage}>
-                <div data-edit-pattern="industry.field" className={`${s.stageField} ${s.fieldWhite}`} aria-hidden="true">
+                <div data-edit-pattern="industry.field" data-edit-roles="0,4,3,5" className={`${s.stageField} ${s.fieldWhite}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={subdivide}
                     palette={FIELD_SAMPLES}
@@ -686,8 +686,8 @@ export default function InstitutVollmerPage() {
               <dl className={s.contactList}>
                 {CONTACT.map((row, i) => (
                   <div key={row.label} className={s.factRow}>
-                    <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{row.label}</dt>
-                    <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{row.value}</dd>
+                    <dt data-edit={`contact.term.${i}`} data-edit-max="28">{row.label}</dt>
+                    <dd data-edit={`contact.body.${i}`} data-edit-max="200" data-edit-multiline>{row.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -702,7 +702,7 @@ export default function InstitutVollmerPage() {
                 </figcaption>
               </figure>
               <p className={s.contactMail}>
-                <a data-edit="contact.a" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
+                <a data-edit="contact.link" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
                   kontakt@institut-vollmer.ch
                 </a>
               </p>
@@ -727,9 +727,9 @@ export default function InstitutVollmerPage() {
             <div className={s.footContact}>
               <p data-edit="footer.footLabel" data-edit-max="240" data-edit-multiline className={s.footLabel}>Enquiries</p>
               <p>
-                <a data-edit="footer.a" data-edit-max="28" href="tel:+41617204000">+41 61 720 40 00</a>
+                <a data-edit="footer.link" data-edit-max="28" href="tel:+41617204000">+41 61 720 40 00</a>
                 <br />
-                <a data-edit="footer.a2" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
+                <a data-edit="footer.link2" data-edit-max="28" href="mailto:kontakt@institut-vollmer.ch">
                   kontakt@institut-vollmer.ch
                 </a>
                 <br />
@@ -738,7 +738,7 @@ export default function InstitutVollmerPage() {
             </div>
             <div className={s.footColophon}>
               <p data-edit="footer.footLabel2" data-edit-max="240" data-edit-multiline className={s.footLabel}>Colophon</p>
-              <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>
                 Stiftung Institut Vollmer, established 1951 by Anna Vollmer
                 (1899–1981). Registered as a non-profit foundation under federal
                 supervision. Set in Inter. Pattern fields generated with
@@ -746,7 +746,7 @@ export default function InstitutVollmerPage() {
               </p>
             </div>
             <div className={s.footArt}>
-              <div data-edit-pattern="footer.field" className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
+              <div data-edit-pattern="footer.field" data-edit-roles="1,2,5,3" className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
                 <TabbiedPattern
                   pattern={dotmatrix}
                   palette={FIELD_DARK}

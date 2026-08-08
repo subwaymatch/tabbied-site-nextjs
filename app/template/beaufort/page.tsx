@@ -132,10 +132,10 @@ export default function BeaufortPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Ateliers Beaufort</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#scale">The scale</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#work">Work</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#cloth">Cloth</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#built">Built here</a>
+          <a data-edit="bar.scale" data-edit-max="28" href="#scale">The scale</a>
+          <a data-edit="bar.work" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.cloth" data-edit-max="28" href="#cloth">Cloth</a>
+          <a data-edit="bar.built" data-edit-max="28" href="#built">Built here</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Voilerie / Lorient</span>
       </header>
@@ -155,12 +155,12 @@ export default function BeaufortPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Sailmakers / Lorient / since 1971</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Cut for</span>
-            <span data-edit="hero.span2" data-edit-max="60">force</span>
+            <span data-edit="hero.text" data-edit-max="60">Cut for</span>
+            <span data-edit="hero.text2" data-edit-max="60">force</span>
             <span data-edit="hero.green" data-edit-max="60" className={s.green}>four.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               A sail cut for the wind you get, not the wind in the brochure.
               Eight hundred square metres of floor on the Blavet and fifty-five
               years of doing it here.
@@ -177,8 +177,8 @@ export default function BeaufortPage() {
             spine of the page and the reason it is as long as it is. */}
         <section id="scale" className={s.scale} aria-labelledby="scale-h">
           <div className={s.secHead}>
-            <h2 data-edit="scale.h2" data-edit-max="60" id="scale-h">Nought to twelve</h2>
-            <p data-edit="scale.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="scale.title" data-edit-max="60" id="scale-h">Nought to twelve</h2>
+            <p data-edit="scale.body" data-edit-max="240" data-edit-multiline>
               The scale Admiral Beaufort wrote down in 1805, and what each force
               means on our floor. Force four is where a cruising wardrobe should
               be at its best.
@@ -189,7 +189,7 @@ export default function BeaufortPage() {
               <li key={f[0]} data-key={f[0] === '4' ? 'yes' : 'no'}>
                 <span data-edit={`scale.fN.${i}`} data-edit-max="60" className={s.fN}>{f[0]}</span>
                 <div className={s.fBody}>
-                  <h3 data-edit={`scale.h3.${i}`} data-edit-max="40">{f[1]}</h3>
+                  <h3 data-edit={`scale.title2.${i}`} data-edit-max="40">{f[1]}</h3>
                   <p data-edit={`scale.fSea.${i}`} data-edit-max="240" data-edit-multiline className={s.fSea}>{f[3]}</p>
                 </div>
                 <span className={s.fKt}>{f[2]} kt</span>
@@ -208,12 +208,12 @@ export default function BeaufortPage() {
             that.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               The loft has been on the Quai des Indes since 1971 and on the same
               floor since 1988. Eleven of us: six on the floor, two on the
               machines, one in the rigging and two who do everything else.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               We make membrane sails here rather than buying them in, which is
               unusual for a loft this size and is the single most expensive
               decision the business has ever taken.
@@ -224,8 +224,8 @@ export default function BeaufortPage() {
         {/* ------------------------------------------------------------ WORK */}
         <section id="work" className={s.work} aria-labelledby="work-h">
           <div className={s.secHead}>
-            <h2 data-edit="work.h2" data-edit-max="60" id="work-h">What we make</h2>
-            <p data-edit="work.p" data-edit-max="240" data-edit-multiline>Lead times are from the day we measure, not the day you call.</p>
+            <h2 data-edit="work.title" data-edit-max="60" id="work-h">What we make</h2>
+            <p data-edit="work.body" data-edit-max="240" data-edit-multiline>Lead times are from the day we measure, not the day you call.</p>
           </div>
           <ol className={s.rows}>
             {WORK.map((x, i) => (
@@ -255,8 +255,8 @@ export default function BeaufortPage() {
         {/* ----------------------------------------------------------- CRAFT */}
         <section id="craft" className={s.craft} aria-labelledby="craft-h">
           <div className={s.secHead}>
-            <h2 data-edit="craft.h2" data-edit-max="60" id="craft-h">Three habits</h2>
-            <p data-edit="craft.p" data-edit-max="240" data-edit-multiline>None of them fast, all of them the reason a sail lasts a decade.</p>
+            <h2 data-edit="craft.title" data-edit-max="60" id="craft-h">Three habits</h2>
+            <p data-edit="craft.body" data-edit-max="240" data-edit-multiline>None of them fast, all of them the reason a sail lasts a decade.</p>
           </div>
           <div className={s.cGrid}>
             {CRAFT.map((c, i) => (
@@ -272,7 +272,7 @@ export default function BeaufortPage() {
                   />
                 </div>
                 <p data-edit={`craft.cN.${i}`} data-edit-max="240" data-edit-multiline className={s.cN}>{c.n}</p>
-                <h3 data-edit={`craft.h3.${i}`} data-edit-max="40">{c.t}</h3>
+                <h3 data-edit={`craft.title2.${i}`} data-edit-max="40">{c.t}</h3>
                 <p data-edit={`craft.cBody.${i}`} data-edit-max="240" data-edit-multiline className={s.cBody}>{c.d}</p>
               </article>
             ))}
@@ -282,8 +282,8 @@ export default function BeaufortPage() {
         {/* ----------------------------------------------------------- CLOTH */}
         <section id="cloth" className={s.listing} aria-labelledby="cloth-h">
           <div className={s.secHead}>
-            <h2 data-edit="cloth.h2" data-edit-max="60" id="cloth-h">Cloth on the shelf</h2>
-            <p data-edit="cloth.p" data-edit-max="240" data-edit-multiline>Held means it is in the building. Made here means it is laid up on our own floor.</p>
+            <h2 data-edit="cloth.title" data-edit-max="60" id="cloth-h">Cloth on the shelf</h2>
+            <p data-edit="cloth.body" data-edit-max="240" data-edit-multiline>Held means it is in the building. Made here means it is laid up on our own floor.</p>
           </div>
           <ol className={s.table}>
             {CLOTH.map((r, i) => (
@@ -311,16 +311,16 @@ export default function BeaufortPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A sail is a wing you have to fold up and put in a bag. Everything difficult about it comes from the second half of that sentence.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Yann Le Guillou, master sailmaker</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>A sail is a wing you have to fold up and put in a bag. Everything difficult about it comes from the second half of that sentence.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Yann Le Guillou, master sailmaker</cite>
           </blockquote>
         </section>
 
         {/* ----------------------------------------------------------- BUILT */}
         <section id="built" className={s.listing} aria-labelledby="built-h">
           <div className={s.secHead}>
-            <h2 data-edit="built.h2" data-edit-max="60" id="built-h">Built here</h2>
-            <p data-edit="built.p" data-edit-max="240" data-edit-multiline>Recent wardrobes. Owners who asked not to appear are not on the list, which is why it is short.</p>
+            <h2 data-edit="built.title" data-edit-max="60" id="built-h">Built here</h2>
+            <p data-edit="built.body" data-edit-max="240" data-edit-multiline>Recent wardrobes. Owners who asked not to appear are not on the list, which is why it is short.</p>
           </div>
           <ol className={s.table}>
             {BUILT.map((r, i) => (
@@ -348,12 +348,12 @@ export default function BeaufortPage() {
             />
           </div>
           <div className={s.visitInner}>
-            <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to the loft</h2>
+            <h2 data-edit="visit.title" data-edit-max="60" id="visit-h">Coming to the loft</h2>
             <dl className={s.visitList}>
               {VISIT.map(([k, v], i) => (
                 <div key={k}>
-                  <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
-                  <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                  <dt data-edit={`visit.term.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -439,23 +439,23 @@ export default function BeaufortPage() {
         </ol>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Loft</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Loft</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#work">What we make</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#cloth">Cloth</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#built">Built here</a></li>
+              <li><a data-edit="footer.work" data-edit-max="28" href="#work">What we make</a></li>
+              <li><a data-edit="footer.cloth" data-edit-max="28" href="#cloth">Cloth</a></li>
+              <li><a data-edit="footer.built" data-edit-max="28" href="#built">Built here</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Reference</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Reference</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#scale">The scale</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#craft">Three habits</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Visiting</a></li>
+              <li><a data-edit="footer.scale" data-edit-max="28" href="#scale">The scale</a></li>
+              <li><a data-edit="footer.craft" data-edit-max="28" href="#craft">Three habits</a></li>
+              <li><a data-edit="footer.visit" data-edit-max="28" href="#visit">Visiting</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Quai des Indes 9
               <br />
@@ -466,10 +466,10 @@ export default function BeaufortPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional sail loft. Boats, prices and cloth weights are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional sail loft. Boats, prices and cloth weights are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

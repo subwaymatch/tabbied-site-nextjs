@@ -85,10 +85,10 @@ export default function KaellaPage() {
           <i>Kommunalt vatten, Uppsala</i>
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#today">Today</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#chain">Treatment</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#works">Works</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#contact">Contact</a>
+          <a data-edit="bar.today" data-edit-max="28" href="#today">Today</a>
+          <a data-edit="bar.chain" data-edit-max="28" href="#chain">Treatment</a>
+          <a data-edit="bar.works" data-edit-max="28" href="#works">Works</a>
+          <a data-edit="bar.contact" data-edit-max="28" href="#contact">Contact</a>
         </nav>
       </header>
 
@@ -113,7 +113,7 @@ export default function KaellaPage() {
               <br />
               a hill, and we try
               <br />
-              <span data-edit="hero.span" data-edit-max="60">not to spoil it.</span>
+              <span data-edit="hero.text" data-edit-max="60">not to spoil it.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Fourteen wells in the esker, three works, nine hundred and forty
@@ -129,14 +129,14 @@ export default function KaellaPage() {
             alt="A still rectangular water treatment basin seen from a walkway at dawn with mist on the surface"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Slow filter 3, Galgbacken. 0.1 metres an hour, since 1957.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Slow filter 3, Galgbacken. 0.1 metres an hour, since 1957.</figcaption>
         </figure>
 
         {/* ---------------------------------------------------------- TODAY */}
         <section id="today" className={s.today} aria-labelledby="today-h">
           <div className={s.secHead}>
-            <h2 data-edit="today.h2" data-edit-max="60" id="today-h">This morning, at the works</h2>
-            <p data-edit="today.p" data-edit-max="240" data-edit-multiline>Sampled 06.00, published unedited. Yesterday and every day back to 2011 are in the archive.</p>
+            <h2 data-edit="today.title" data-edit-max="60" id="today-h">This morning, at the works</h2>
+            <p data-edit="today.body" data-edit-max="240" data-edit-multiline>Sampled 06.00, published unedited. Yesterday and every day back to 2011 are in the archive.</p>
           </div>
           <ol className={s.readings}>
             {TODAY.map((t, i) => (
@@ -153,8 +153,8 @@ export default function KaellaPage() {
           <dl className={s.numbers}>
             {NUMBERS.map(([v, k], i) => (
               <div key={k}>
-                <dt data-edit={`today.dt.${i}`} data-edit-max="28">{v}</dt>
-                <dd data-edit={`today.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+                <dt data-edit={`today.term.${i}`} data-edit-max="28">{v}</dt>
+                <dd data-edit={`today.body2.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
               </div>
             ))}
           </dl>
@@ -188,14 +188,14 @@ export default function KaellaPage() {
           </div>
           <div className={s.chainInner}>
             <div className={s.secHead}>
-              <h2 data-edit="chain.h2" data-edit-max="60" id="chain-h">Well to tap, in four steps</h2>
+              <h2 data-edit="chain.title" data-edit-max="60" id="chain-h">Well to tap, in four steps</h2>
             </div>
             <ol className={s.chainList}>
               {CHAIN.map((c, i) => (
                 <li key={c.n}>
                   <span data-edit={`chain.cN.${i}`} data-edit-max="60" className={s.cN}>{c.n}</span>
-                  <h3 data-edit={`chain.h3.${i}`} data-edit-max="40">{c.t}</h3>
-                  <p data-edit={`chain.p.${i}`} data-edit-max="240" data-edit-multiline>{c.d}</p>
+                  <h3 data-edit={`chain.title2.${i}`} data-edit-max="40">{c.t}</h3>
+                  <p data-edit={`chain.body.${i}`} data-edit-max="240" data-edit-multiline>{c.d}</p>
                 </li>
               ))}
             </ol>
@@ -205,14 +205,14 @@ export default function KaellaPage() {
                   slug="kaella-valves"
                   alt="A valve hall of large painted pipework and hand wheels, evenly lit"
                 />
-                <figcaption data-edit="chain.figcaption" data-edit-max="120" data-edit-multiline>Valve hall, Bäcklösa. Everything here is turned by hand.</figcaption>
+                <figcaption data-edit="chain.caption" data-edit-max="120" data-edit-multiline>Valve hall, Bäcklösa. Everything here is turned by hand.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.kaella-reservoir"
                   slug="kaella-reservoir"
                   alt="An open service reservoir at first light with flat water and a low concrete edge"
                 />
-                <figcaption data-edit="chain.figcaption2" data-edit-max="120" data-edit-multiline>Service reservoir, 14,000 m³, covered since 1988.</figcaption>
+                <figcaption data-edit="chain.caption2" data-edit-max="120" data-edit-multiline>Service reservoir, 14,000 m³, covered since 1988.</figcaption>
               </figure>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function KaellaPage() {
         {/* ---------------------------------------------------------- WORKS */}
         <section id="works" className={s.works} aria-labelledby="works-h">
           <div className={s.secHead}>
-            <h2 data-edit="works.h2" data-edit-max="60" id="works-h">Three works</h2>
+            <h2 data-edit="works.title" data-edit-max="60" id="works-h">Three works</h2>
           </div>
           <ol className={s.worksList}>
             {WORKS.map(([name, kind, year, cap], i) => (
@@ -238,7 +238,7 @@ export default function KaellaPage() {
               slug="kaella-sample"
               alt="A rack of clear water sample bottles on a laboratory bench"
             />
-            <figcaption data-edit="works.figcaption" data-edit-max="120" data-edit-multiline>Ninety-four samples a week, six of them from taps chosen at random.</figcaption>
+            <figcaption data-edit="works.caption" data-edit-max="120" data-edit-multiline>Ninety-four samples a week, six of them from taps chosen at random.</figcaption>
           </figure>
         </section>
 
@@ -256,21 +256,21 @@ export default function KaellaPage() {
           </div>
           <div className={s.contactInner}>
             <div className={s.secHead}>
-              <h2 data-edit="contact.h2" data-edit-max="60" id="contact-h">If something is wrong with the water</h2>
+              <h2 data-edit="contact.title" data-edit-max="60" id="contact-h">If something is wrong with the water</h2>
             </div>
             <dl className={s.dl}>
               <div>
-                <dt data-edit="contact.dt" data-edit-max="28">Report a fault, 24 h</dt>
-                <dd data-edit="contact.dd" data-edit-max="200" data-edit-multiline>018 000 000</dd>
+                <dt data-edit="contact.term" data-edit-max="28">Report a fault, 24 h</dt>
+                <dd data-edit="contact.body" data-edit-max="200" data-edit-multiline>018 000 000</dd>
               </div>
               <div>
-                <dt data-edit="contact.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="contact.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="contact.a" data-edit-max="28" href="mailto:vatten@kaella.example">vatten@kaella.example</a>
+                  <a data-edit="contact.link" data-edit-max="28" href="mailto:vatten@kaella.example">vatten@kaella.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="contact.dt3" data-edit-max="28">Office</dt>
+                <dt data-edit="contact.term3" data-edit-max="28">Office</dt>
                 <dd>
                   Kungsängsvägen 27
                   <br />
@@ -278,19 +278,19 @@ export default function KaellaPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="contact.dt4" data-edit-max="28">Discoloured water</dt>
-                <dd data-edit="contact.dd2" data-edit-max="200" data-edit-multiline>Run the cold tap for five minutes. If it persists, call the number above.</dd>
+                <dt data-edit="contact.term4" data-edit-max="28">Discoloured water</dt>
+                <dd data-edit="contact.body2" data-edit-max="200" data-edit-multiline>Run the cold tap for five minutes. If it persists, call the number above.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three things we test for that nobody asks about</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three things we test for that nobody asks about</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>The parameters on the front page are the ones people know. These are the ones that actually keep the supply safe.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ripplering}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -309,11 +309,11 @@ export default function KaellaPage() {
                   <Figure editId="photo.kaella-tile-petri-cutout" slug="kaella-tile-petri-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Coliforms</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Coliforms</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Ninety-four samples a week, six from taps chosen at random across the network. A single positive closes a zone until three consecutive clears.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotwash}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -332,11 +332,11 @@ export default function KaellaPage() {
                   <Figure editId="photo.kaella-tile-bottle-cutout" slug="kaella-tile-bottle-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Trihalomethanes</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Trihalomethanes</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>A by-product of chlorination, which is one of several reasons we do not chlorinate in normal operation. Measured anyway, monthly.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={lagoon}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -355,7 +355,7 @@ export default function KaellaPage() {
                   <Figure editId="photo.kaella-tile-gauge-cutout" slug="kaella-tile-gauge-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Pressure</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Pressure</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Not a quality parameter, but a low-pressure event is how contamination gets into a main. Logged continuously at forty points.</p>
               </article>
           </div>
@@ -363,73 +363,73 @@ export default function KaellaPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Network</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Network</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What the nine hundred and forty kilometres are actually made of, oldest first.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Material</span>
-                <span data-edit="index.span2" data-edit-max="60">Length</span>
-                <span data-edit="index.span3" data-edit-max="60">Laid</span>
-                <span data-edit="index.span4" data-edit-max="60">Replacement</span>
+                <span data-edit="index.text" data-edit-max="60">Material</span>
+                <span data-edit="index.text2" data-edit-max="60">Length</span>
+                <span data-edit="index.text3" data-edit-max="60">Laid</span>
+                <span data-edit="index.text4" data-edit-max="60">Replacement</span>
             </li>
               <li key="Cast iron">
-                <span data-edit="index.span5" data-edit-max="60">Cast iron</span>
-                <span data-edit="index.span6" data-edit-max="60">118 km</span>
-                <span data-edit="index.span7" data-edit-max="60">1876 to 1955</span>
-                <span data-edit="index.span8" data-edit-max="60">Priority, 4 km a year</span>
+                <span data-edit="index.text5" data-edit-max="60">Cast iron</span>
+                <span data-edit="index.text6" data-edit-max="60">118 km</span>
+                <span data-edit="index.text7" data-edit-max="60">1876 to 1955</span>
+                <span data-edit="index.text8" data-edit-max="60">Priority, 4 km a year</span>
               </li>
               <li key="Asbestos cement">
-                <span data-edit="index.span9" data-edit-max="60">Asbestos cement</span>
-                <span data-edit="index.span10" data-edit-max="60">96 km</span>
-                <span data-edit="index.span11" data-edit-max="60">1950 to 1974</span>
-                <span data-edit="index.span12" data-edit-max="60">Priority, on failure</span>
+                <span data-edit="index.text9" data-edit-max="60">Asbestos cement</span>
+                <span data-edit="index.text10" data-edit-max="60">96 km</span>
+                <span data-edit="index.text11" data-edit-max="60">1950 to 1974</span>
+                <span data-edit="index.text12" data-edit-max="60">Priority, on failure</span>
               </li>
               <li key="Ductile iron">
-                <span data-edit="index.span13" data-edit-max="60">Ductile iron</span>
-                <span data-edit="index.span14" data-edit-max="60">341 km</span>
-                <span data-edit="index.span15" data-edit-max="60">1970 to 2000</span>
-                <span data-edit="index.span16" data-edit-max="60">As required</span>
+                <span data-edit="index.text13" data-edit-max="60">Ductile iron</span>
+                <span data-edit="index.text14" data-edit-max="60">341 km</span>
+                <span data-edit="index.text15" data-edit-max="60">1970 to 2000</span>
+                <span data-edit="index.text16" data-edit-max="60">As required</span>
               </li>
               <li key="PE 100">
-                <span data-edit="index.span17" data-edit-max="60">PE 100</span>
-                <span data-edit="index.span18" data-edit-max="60">372 km</span>
-                <span data-edit="index.span19" data-edit-max="60">1995 onward</span>
-                <span data-edit="index.span20" data-edit-max="60">None expected</span>
+                <span data-edit="index.text17" data-edit-max="60">PE 100</span>
+                <span data-edit="index.text18" data-edit-max="60">372 km</span>
+                <span data-edit="index.text19" data-edit-max="60">1995 onward</span>
+                <span data-edit="index.text20" data-edit-max="60">None expected</span>
               </li>
               <li key="Steel, trunk">
-                <span data-edit="index.span21" data-edit-max="60">Steel, trunk</span>
-                <span data-edit="index.span22" data-edit-max="60">13 km</span>
-                <span data-edit="index.span23" data-edit-max="60">1962</span>
-                <span data-edit="index.span24" data-edit-max="60">Relined 2018</span>
+                <span data-edit="index.text21" data-edit-max="60">Steel, trunk</span>
+                <span data-edit="index.text22" data-edit-max="60">13 km</span>
+                <span data-edit="index.text23" data-edit-max="60">1962</span>
+                <span data-edit="index.text24" data-edit-max="60">Relined 2018</span>
               </li>
               <li key="Service pipes">
-                <span data-edit="index.span25" data-edit-max="60">Service pipes</span>
-                <span data-edit="index.span26" data-edit-max="60">n/a</span>
-                <span data-edit="index.span27" data-edit-max="60">Various</span>
-                <span data-edit="index.span28" data-edit-max="60">Lead: none remaining</span>
+                <span data-edit="index.text25" data-edit-max="60">Service pipes</span>
+                <span data-edit="index.text26" data-edit-max="60">n/a</span>
+                <span data-edit="index.text27" data-edit-max="60">Various</span>
+                <span data-edit="index.text28" data-edit-max="60">Lead: none remaining</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Questions from households</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Questions from households</h2>
           <dl className={s.faqList}>
               <div key="Why is my water cloudy?">
-                <dt data-edit="faq.dt" data-edit-max="28">Why is my water cloudy?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Almost always air, not dirt. Fill a glass and leave it for two minutes; if it clears from the bottom up it was air and there is nothing wrong.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Why is my water cloudy?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Almost always air, not dirt. Fill a glass and leave it for two minutes; if it clears from the bottom up it was air and there is nothing wrong.</dd>
               </div>
               <div key="Do I need a filter?">
-                <dt data-edit="faq.dt2" data-edit-max="28">Do I need a filter?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>No. If you dislike the taste, a jug in the fridge for an hour does more than any filter, and costs nothing.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Do I need a filter?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>No. If you dislike the taste, a jug in the fridge for an hour does more than any filter, and costs nothing.</dd>
               </div>
               <div key="Is it hard water?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Is it hard water?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Five point eight degrees, which is medium soft. You will use less detergent here than almost anywhere else in the country.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Is it hard water?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Five point eight degrees, which is medium soft. You will use less detergent here than almost anywhere else in the country.</dd>
               </div>
               <div key="Why does it taste differ">
-                <dt data-edit="faq.dt4" data-edit-max="28">Why does it taste different in summer?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Slightly warmer at the tap and slightly longer in the main. Same water, same source, different residence time.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Why does it taste different in summer?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Slightly warmer at the tap and slightly longer in the main. Same water, same source, different residence time.</dd>
               </div>
           </dl>
         </section>
@@ -462,13 +462,13 @@ export default function KaellaPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Water</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#today">This morning</a>
+                <a data-edit="footer.today" data-edit-max="28" href="#today">This morning</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#chain">Well to tap</a>
+                <a data-edit="footer.chain" data-edit-max="28" href="#chain">Well to tap</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#works">Three works</a>
+                <a data-edit="footer.works" data-edit-max="28" href="#works">Three works</a>
               </li>
             </ul>
           </div>
@@ -476,13 +476,13 @@ export default function KaellaPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Customers</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#contact">Report a fault</a>
+                <a data-edit="footer.contact" data-edit-max="28" href="#contact">Report a fault</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#contact">Discoloured water</a>
+                <a data-edit="footer.contact2" data-edit-max="28" href="#contact">Discoloured water</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#today">The archive</a>
+                <a data-edit="footer.today2" data-edit-max="28" href="#today">The archive</a>
               </li>
             </ul>
           </div>
@@ -500,10 +500,10 @@ export default function KaellaPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional water utility. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional water utility. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

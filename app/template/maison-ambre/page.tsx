@@ -150,11 +150,11 @@ export default function MaisonAmbrePage() {
           <span className={styles.wordmarkRule} aria-hidden="true" />
         </p>
         <nav aria-label="Sections" className={styles.mastheadNav}>
-          <a data-edit="masthead.a" data-edit-max="28" href="#maison">La Maison</a>
-          <a data-edit="masthead.a2" data-edit-max="28" href="#eaux">Les Eaux</a>
-          <a data-edit="masthead.a3" data-edit-max="28" href="#nez">Le Nez</a>
-          <a data-edit="masthead.a4" data-edit-max="28" href="#atelier">L’Atelier</a>
-          <a data-edit="masthead.a5" data-edit-max="28" href="#visites">Visites</a>
+          <a data-edit="masthead.maison" data-edit-max="28" href="#maison">La Maison</a>
+          <a data-edit="masthead.eaux" data-edit-max="28" href="#eaux">Les Eaux</a>
+          <a data-edit="masthead.nez" data-edit-max="28" href="#nez">Le Nez</a>
+          <a data-edit="masthead.atelier" data-edit-max="28" href="#atelier">L’Atelier</a>
+          <a data-edit="masthead.visites" data-edit-max="28" href="#visites">Visites</a>
         </nav>
       </header>
 
@@ -204,7 +204,7 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               I
             </span>
-            <h2 data-edit="sectionHead.h2" data-edit-max="60" id="maison-title">La Maison</h2>
+            <h2 data-edit="sectionHead.title" data-edit-max="60" id="maison-title">La Maison</h2>
             <p data-edit="sectionHead.sectionSub" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Founded 1987 · Independent since</p>
           </header>
           <div className={styles.maisonColumns}>
@@ -217,7 +217,7 @@ export default function MaisonAmbrePage() {
               perfume should behave like dusk: arriving slowly, and leaving something behind.
             </p>
             <div className={styles.maisonBody}>
-              <p data-edit="maison.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="maison.body" data-edit-max="240" data-edit-multiline>
                 We have grown carefully since: one atelier, three eaux, and editions small
                 enough to number in pencil. We do not launch by season. A composition joins the
                 house when it is finished, which has happened eleven times in thirty-nine years,
@@ -232,20 +232,20 @@ export default function MaisonAmbrePage() {
           </div>
           <dl className={styles.maisonFigures}>
             <div>
-              <dt data-edit="maison.dt" data-edit-max="28">Editions composed</dt>
-              <dd data-edit="maison.dd" data-edit-max="200" data-edit-multiline>XI</dd>
+              <dt data-edit="maison.term" data-edit-max="28">Editions composed</dt>
+              <dd data-edit="maison.body2" data-edit-max="200" data-edit-multiline>XI</dd>
             </div>
             <div>
-              <dt data-edit="maison.dt2" data-edit-max="28">Kept in the collection</dt>
-              <dd data-edit="maison.dd2" data-edit-max="200" data-edit-multiline>III</dd>
+              <dt data-edit="maison.term2" data-edit-max="28">Kept in the collection</dt>
+              <dd data-edit="maison.body3" data-edit-max="200" data-edit-multiline>III</dd>
             </div>
             <div>
-              <dt data-edit="maison.dt3" data-edit-max="28">Materials in the organ</dt>
-              <dd data-edit="maison.dd3" data-edit-max="200" data-edit-multiline>412</dd>
+              <dt data-edit="maison.term3" data-edit-max="28">Materials in the organ</dt>
+              <dd data-edit="maison.body4" data-edit-max="200" data-edit-multiline>412</dd>
             </div>
             <div>
-              <dt data-edit="maison.dt4" data-edit-max="28">Rooms in the atelier</dt>
-              <dd data-edit="maison.dd4" data-edit-max="200" data-edit-multiline>IV</dd>
+              <dt data-edit="maison.term4" data-edit-max="28">Rooms in the atelier</dt>
+              <dd data-edit="maison.body5" data-edit-max="200" data-edit-multiline>IV</dd>
             </div>
           </dl>
         </section>
@@ -267,11 +267,11 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               II
             </span>
-            <h2 data-edit="sectionHead.h22" data-edit-max="60" id="eaux-title">Les Trois Eaux</h2>
+            <h2 data-edit="sectionHead.title2" data-edit-max="60" id="eaux-title">Les Trois Eaux</h2>
             <p data-edit="sectionHead.sectionSub2" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>The collection entire; nothing else is made</p>
           </header>
           <p className={styles.eauxHint} aria-hidden="true">
-            Faites glisser <span data-edit="eaux.span" data-edit-max="60">⟶</span>
+            Faites glisser <span data-edit="eaux.text" data-edit-max="60">⟶</span>
           </p>
           <div className={styles.eauxRow} role="list">
             {EAUX.map((eau, i) => (
@@ -294,21 +294,21 @@ export default function MaisonAmbrePage() {
                   </span>
                 </div>
                 <div className={styles.eauBody}>
-                  <h3 data-edit={`eauCard.h3.${i}`} data-edit-max="40">{eau.name}</h3>
+                  <h3 data-edit={`eauCard.title.${i}`} data-edit-max="40">{eau.name}</h3>
                   <p data-edit={`eauCard.eauForm.${i}`} data-edit-max="240" data-edit-multiline className={styles.eauForm}>{eau.form}</p>
                   <p data-edit={`eauCard.eauLine.${i}`} data-edit-max="240" data-edit-multiline className={styles.eauLine}>{eau.line}</p>
                   <dl className={styles.eauNotes}>
                     <div>
-                      <dt data-edit={`eauCard.dt.${i}`} data-edit-max="28">Tête</dt>
-                      <dd data-edit={`eauCard.dd.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.tete}</dd>
+                      <dt data-edit={`eauCard.term.${i}`} data-edit-max="28">Tête</dt>
+                      <dd data-edit={`eauCard.body.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.tete}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`eauCard.dt2.${i}`} data-edit-max="28">Cœur</dt>
-                      <dd data-edit={`eauCard.dd2.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.coeur}</dd>
+                      <dt data-edit={`eauCard.term2.${i}`} data-edit-max="28">Cœur</dt>
+                      <dd data-edit={`eauCard.body2.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.coeur}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`eauCard.dt3.${i}`} data-edit-max="28">Fond</dt>
-                      <dd data-edit={`eauCard.dd3.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.fond}</dd>
+                      <dt data-edit={`eauCard.term3.${i}`} data-edit-max="28">Fond</dt>
+                      <dd data-edit={`eauCard.body3.${i}`} data-edit-max="200" data-edit-multiline>{eau.notes.fond}</dd>
                     </div>
                   </dl>
                   <p data-edit={`eauCard.eauPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.eauPrice}>{eau.price}</p>
@@ -336,8 +336,8 @@ export default function MaisonAmbrePage() {
             <dl className={styles.matieresList}>
               {INGREDIENTS.map(([name, origin], i) => (
                 <div key={name}>
-                  <dt data-edit={`matieres.dt.${i}`} data-edit-max="28">{name}</dt>
-                  <dd data-edit={`matieres.dd.${i}`} data-edit-max="200" data-edit-multiline>{origin}</dd>
+                  <dt data-edit={`matieres.term.${i}`} data-edit-max="28">{name}</dt>
+                  <dd data-edit={`matieres.body.${i}`} data-edit-max="200" data-edit-multiline>{origin}</dd>
                 </div>
               ))}
             </dl>
@@ -368,7 +368,7 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               III
             </span>
-            <h2 data-edit="sectionHead.h23" data-edit-max="60" id="nez-title">Le Nez</h2>
+            <h2 data-edit="sectionHead.title3" data-edit-max="60" id="nez-title">Le Nez</h2>
             <p data-edit="sectionHead.sectionSub3" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Hélène Verdier · perfumer since 1994</p>
           </header>
           <div className={styles.nezGrid}>
@@ -379,16 +379,16 @@ export default function MaisonAmbrePage() {
                   alt="Portrait of Hélène Verdier, silver chignon, black jacket, photographed against a charcoal wall"
                 />
               </div>
-              <figcaption data-edit="nez.figcaption" data-edit-max="120" data-edit-multiline>Hélène Verdier · atelier, Grasse</figcaption>
+              <figcaption data-edit="nez.caption" data-edit-max="120" data-edit-multiline>Hélène Verdier · atelier, Grasse</figcaption>
             </figure>
             <div className={styles.nezText}>
               <blockquote className={styles.nezQuote}>
-                <p data-edit="nez.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="nez.body" data-edit-max="240" data-edit-multiline>
                   “A perfume is finished when removing one material ruins it, and not one
                   moment before. Most of my work is removal.”
                 </p>
               </blockquote>
-              <p data-edit="nez.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="nez.body2" data-edit-max="240" data-edit-multiline>
                 Hélène Verdier trained beside her grandmother’s copper still and spent a decade
                 matching lost scents for the great houses before Maison Ambre gave her the one
                 thing the great houses could not: time. She has composed every edition since
@@ -408,7 +408,7 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               IV
             </span>
-            <h2 data-edit="sectionHead.h24" data-edit-max="60" id="atelier-title">L’Atelier</h2>
+            <h2 data-edit="sectionHead.title4" data-edit-max="60" id="atelier-title">L’Atelier</h2>
             <p data-edit="sectionHead.sectionSub4" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Four movements, forty days</p>
           </header>
           <figure className={styles.atelierFigure}>
@@ -416,7 +416,7 @@ export default function MaisonAmbrePage() {
               slug="ambre-atelier"
               alt="The perfumer’s organ: tiered shelves of labelled amber vials in low light"
             />
-            <figcaption data-edit="atelier.figcaption" data-edit-max="120" data-edit-multiline>The organ, photographed at closing. 412 materials, one chair.</figcaption>
+            <figcaption data-edit="atelier.caption" data-edit-max="120" data-edit-multiline>The organ, photographed at closing. 412 materials, one chair.</figcaption>
           </figure>
           <ol className={styles.atelierSteps}>
             {ATELIER_STEPS.map((step, i) => (
@@ -424,8 +424,8 @@ export default function MaisonAmbrePage() {
                 <span className={styles.stepNumeral} aria-hidden="true">
                   {step.numeral}
                 </span>
-                <h3 data-edit={`atelier.h3.${i}`} data-edit-max="40">{step.title}</h3>
-                <p data-edit={`atelier.p.${i}`} data-edit-max="240" data-edit-multiline>{step.body}</p>
+                <h3 data-edit={`atelier.title.${i}`} data-edit-max="40">{step.title}</h3>
+                <p data-edit={`atelier.body.${i}`} data-edit-max="240" data-edit-multiline>{step.body}</p>
               </li>
             ))}
           </ol>
@@ -437,15 +437,15 @@ export default function MaisonAmbrePage() {
             <span className={styles.sectionNumeral} aria-hidden="true">
               V
             </span>
-            <h2 data-edit="sectionHead.h25" data-edit-max="60" id="visites-title">Stockists &amp; Visites</h2>
+            <h2 data-edit="sectionHead.title5" data-edit-max="60" id="visites-title">Stockists &amp; Visites</h2>
             <p data-edit="sectionHead.sectionSub5" data-edit-max="240" data-edit-multiline className={styles.sectionSub}>Found in few places, on purpose</p>
           </header>
           <div className={styles.stockistRow}>
             {STOCKISTS.map((stockist, i) => (
               <article key={stockist.city} className={styles.stockist}>
-                <h3 data-edit={`stockist.h3.${i}`} data-edit-max="40">{stockist.city}</h3>
+                <h3 data-edit={`stockist.title.${i}`} data-edit-max="40">{stockist.city}</h3>
                 {stockist.lines.map((line, i2) => (
-                  <p data-edit={`stockist.p.${i}.${i2}`} data-edit-max="240" data-edit-multiline key={line}>{line}</p>
+                  <p data-edit={`stockist.body.${i}.${i2}`} data-edit-max="240" data-edit-multiline key={line}>{line}</p>
                 ))}
                 <p data-edit={`stockist.stockistNote.${i}`} data-edit-max="240" data-edit-multiline className={styles.stockistNote}>{stockist.note}</p>
               </article>
@@ -454,7 +454,7 @@ export default function MaisonAmbrePage() {
           <p className={styles.visitesCoda}>
             The atelier receives twelve visitors a week, in pairs, for the archive and a
             reading of the three eaux. Write to{' '}
-            <a data-edit="visites.a" data-edit-max="28" href="mailto:visites@maison-ambre.example">visites@maison-ambre.example</a>;
+            <a data-edit="visites.link" data-edit-max="28" href="mailto:visites@maison-ambre.example">visites@maison-ambre.example</a>;
             allow us a fortnight to reply; we are few.
           </p>
         </section>
@@ -477,13 +477,13 @@ export default function MaisonAmbrePage() {
             MCMLXXXVII to MMXXVI · A fictional house, faithfully imagined
           </p>
           <nav aria-label="Footer" className={styles.footerNav}>
-            <a data-edit="footer.a" data-edit-max="28" href="#maison">La Maison</a>
-            <a data-edit="footer.a2" data-edit-max="28" href="#eaux">Les Eaux</a>
-            <a data-edit="footer.a3" data-edit-max="28" href="#visites">Visites</a>
+            <a data-edit="footer.maison" data-edit-max="28" href="#maison">La Maison</a>
+            <a data-edit="footer.eaux" data-edit-max="28" href="#eaux">Les Eaux</a>
+            <a data-edit="footer.visites" data-edit-max="28" href="#visites">Visites</a>
           </nav>
           <p className={styles.footerCredit}>
             Motifs de fumée, patterns by{' '}
-            <a data-edit="footer.a4" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
           </p>

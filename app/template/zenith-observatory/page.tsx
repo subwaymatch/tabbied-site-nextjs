@@ -130,7 +130,7 @@ export default function ZenithObservatoryPage() {
       />
 
       {/* ——— HERO ——— */}
-      <header data-edit-pattern="hero.field" className={styles.hero}>
+      <header data-edit-pattern="hero.field" data-edit-roles="0,2,3,4,5,6" className={styles.hero}>
         <TabbiedPattern
           pattern={spark}
           palette={SKY_PALETTE}
@@ -146,11 +146,11 @@ export default function ZenithObservatoryPage() {
             <span aria-hidden="true">✦</span> ZENITH
           </p>
           <nav className={styles.nav} aria-label="Sections">
-            <a data-edit="hero.a" data-edit-max="28" href="#tonight">Tonight</a>
-            <a data-edit="hero.a2" data-edit-max="28" href="#exhibits">Exhibits</a>
-            <a data-edit="hero.a3" data-edit-max="28" href="#telescope">Telescope</a>
-            <a data-edit="hero.a4" data-edit-max="28" href="#visit">Visit</a>
-            <a data-edit="hero.a5" data-edit-max="28" href="#membership">Membership</a>
+            <a data-edit="hero.tonight" data-edit-max="28" href="#tonight">Tonight</a>
+            <a data-edit="hero.exhibits" data-edit-max="28" href="#exhibits">Exhibits</a>
+            <a data-edit="hero.telescope" data-edit-max="28" href="#telescope">Telescope</a>
+            <a data-edit="hero.visit" data-edit-max="28" href="#visit">Visit</a>
+            <a data-edit="hero.membership" data-edit-max="28" href="#membership">Membership</a>
           </nav>
           <p data-edit="hero.coords" data-edit-max="240" data-edit-multiline className={styles.coords}>44.02° N · 121.31° W · ELEV 1 280 M</p>
         </div>
@@ -220,7 +220,7 @@ export default function ZenithObservatoryPage() {
             {SHOWS.map((s, i) => (
               <article key={s.name} className={styles.showCard}>
                 <p data-edit={`showCard.showTime.${i}`} data-edit-max="240" data-edit-multiline className={styles.showTime}>{s.time}</p>
-                <h3 data-edit={`showCard.h3.${i}`} data-edit-max="40">{s.name}</h3>
+                <h3 data-edit={`showCard.title.${i}`} data-edit-max="40">{s.name}</h3>
                 <p data-edit={`showCard.showDetail.${i}`} data-edit-max="240" data-edit-multiline className={styles.showDetail}>{s.detail}</p>
                 <p data-edit={`showCard.showDur.${i}`} data-edit-max="240" data-edit-multiline className={styles.showDur}>{s.dur}</p>
               </article>
@@ -268,8 +268,8 @@ export default function ZenithObservatoryPage() {
                   <div className={styles.orbitRingInner} aria-hidden="true" />
                   <Figure editId={`exhibit.photo.${i}`} slug={e.slug} cutout alt={e.alt} className={styles.exhibitImg} />
                 </div>
-                <h3 data-edit={`exhibit.h3.${i}`} data-edit-max="40">{e.name}</h3>
-                <p data-edit={`exhibit.p.${i}`} data-edit-max="240" data-edit-multiline>{e.copy}</p>
+                <h3 data-edit={`exhibit.title.${i}`} data-edit-max="40">{e.name}</h3>
+                <p data-edit={`exhibit.body.${i}`} data-edit-max="240" data-edit-multiline>{e.copy}</p>
               </article>
             ))}
           </div>
@@ -300,28 +300,28 @@ export default function ZenithObservatoryPage() {
               </p>
               <dl className={styles.scopeSpecs}>
                 <div>
-                  <dt data-edit="telescope.dt" data-edit-max="28">APERTURE</dt>
-                  <dd data-edit="telescope.dd" data-edit-max="200" data-edit-multiline>0.61 m</dd>
+                  <dt data-edit="telescope.term" data-edit-max="28">APERTURE</dt>
+                  <dd data-edit="telescope.body" data-edit-max="200" data-edit-multiline>0.61 m</dd>
                 </div>
                 <div>
-                  <dt data-edit="telescope.dt2" data-edit-max="28">FOCAL RATIO</dt>
-                  <dd data-edit="telescope.dd2" data-edit-max="200" data-edit-multiline>f/8</dd>
+                  <dt data-edit="telescope.term2" data-edit-max="28">FOCAL RATIO</dt>
+                  <dd data-edit="telescope.body2" data-edit-max="200" data-edit-multiline>f/8</dd>
                 </div>
                 <div>
-                  <dt data-edit="telescope.dt3" data-edit-max="28">MOUNT</dt>
-                  <dd data-edit="telescope.dd3" data-edit-max="200" data-edit-multiline>Equatorial fork</dd>
+                  <dt data-edit="telescope.term3" data-edit-max="28">MOUNT</dt>
+                  <dd data-edit="telescope.body3" data-edit-max="200" data-edit-multiline>Equatorial fork</dd>
                 </div>
                 <div>
-                  <dt data-edit="telescope.dt4" data-edit-max="28">FIRST LIGHT</dt>
-                  <dd data-edit="telescope.dd4" data-edit-max="200" data-edit-multiline>14 MAR 1974</dd>
+                  <dt data-edit="telescope.term4" data-edit-max="28">FIRST LIGHT</dt>
+                  <dd data-edit="telescope.body4" data-edit-max="200" data-edit-multiline>14 MAR 1974</dd>
                 </div>
                 <div>
-                  <dt data-edit="telescope.dt5" data-edit-max="28">LIMITING MAG.</dt>
-                  <dd data-edit="telescope.dd5" data-edit-max="200" data-edit-multiline>+15.2 visual</dd>
+                  <dt data-edit="telescope.term5" data-edit-max="28">LIMITING MAG.</dt>
+                  <dd data-edit="telescope.body5" data-edit-max="200" data-edit-multiline>+15.2 visual</dd>
                 </div>
                 <div>
-                  <dt data-edit="telescope.dt6" data-edit-max="28">OLDEST PHOTON SHOWN</dt>
-                  <dd data-edit="telescope.dd6" data-edit-max="200" data-edit-multiline>≈ 12 billion yrs</dd>
+                  <dt data-edit="telescope.term6" data-edit-max="28">OLDEST PHOTON SHOWN</dt>
+                  <dd data-edit="telescope.body6" data-edit-max="200" data-edit-multiline>≈ 12 billion yrs</dd>
                 </div>
               </dl>
             </div>
@@ -336,8 +336,8 @@ export default function ZenithObservatoryPage() {
             className={styles.panoImg}
           />
           <blockquote className={styles.panoQuote}>
-            <p data-edit="panorama.p" data-edit-max="240" data-edit-multiline>&ldquo;The first time the dome opened, our six-year-old whispered. She whispered the whole drive home.&rdquo;</p>
-            <cite data-edit="panorama.cite" data-edit-max="48">Visitor log, 22 June 2025</cite>
+            <p data-edit="panorama.body" data-edit-max="240" data-edit-multiline>&ldquo;The first time the dome opened, our six-year-old whispered. She whispered the whole drive home.&rdquo;</p>
+            <cite data-edit="panorama.attribution" data-edit-max="48">Visitor log, 22 June 2025</cite>
           </blockquote>
         </section>
 
@@ -349,33 +349,33 @@ export default function ZenithObservatoryPage() {
           </h2>
           <div className={styles.visitGrid}>
             <div className={styles.visitCard}>
-              <h3 data-edit="visit.h3" data-edit-max="40">HOURS</h3>
+              <h3 data-edit="visit.title" data-edit-max="40">HOURS</h3>
               <ul className={styles.plainList}>
                 <li>
-                  <span data-edit="visit.span" data-edit-max="60">Wed – Sun</span>
-                  <span data-edit="visit.span2" data-edit-max="60">13:00 – 23:30</span>
+                  <span data-edit="visit.text" data-edit-max="60">Wed – Sun</span>
+                  <span data-edit="visit.text2" data-edit-max="60">13:00 – 23:30</span>
                 </li>
                 <li>
-                  <span data-edit="visit.span3" data-edit-max="60">Viewing nights</span>
-                  <span data-edit="visit.span4" data-edit-max="60">Sat, gates 21:00</span>
+                  <span data-edit="visit.text3" data-edit-max="60">Viewing nights</span>
+                  <span data-edit="visit.text4" data-edit-max="60">Sat, gates 21:00</span>
                 </li>
                 <li>
-                  <span data-edit="visit.span5" data-edit-max="60">Mon – Tue</span>
-                  <span data-edit="visit.span6" data-edit-max="60">Closed (we sleep)</span>
+                  <span data-edit="visit.text5" data-edit-max="60">Mon – Tue</span>
+                  <span data-edit="visit.text6" data-edit-max="60">Closed (we sleep)</span>
                 </li>
                 <li>
-                  <span data-edit="visit.span7" data-edit-max="60">Full-moon weeks</span>
-                  <span data-edit="visit.span8" data-edit-max="60">Planetarium only</span>
+                  <span data-edit="visit.text7" data-edit-max="60">Full-moon weeks</span>
+                  <span data-edit="visit.text8" data-edit-max="60">Planetarium only</span>
                 </li>
               </ul>
             </div>
             <div className={styles.visitCard}>
-              <h3 data-edit="visit.h32" data-edit-max="40">ADMISSION</h3>
+              <h3 data-edit="visit.title2" data-edit-max="40">ADMISSION</h3>
               <ul className={styles.plainList}>
                 {PRICES.map((p, i) => (
                   <li key={p.who}>
-                    <span data-edit={`visit.span9.${i}`} data-edit-max="60">{p.who}</span>
-                    <span data-edit={`visit.span10.${i}`} data-edit-max="60">{p.amt}</span>
+                    <span data-edit={`visit.text9.${i}`} data-edit-max="60">{p.who}</span>
+                    <span data-edit={`visit.text10.${i}`} data-edit-max="60">{p.amt}</span>
                   </li>
                 ))}
               </ul>
@@ -387,8 +387,8 @@ export default function ZenithObservatoryPage() {
                 className={styles.visitImg}
               />
               <div className={styles.visitCardTallBody}>
-                <h3 data-edit="visit.h33" data-edit-max="40">FINDING US</h3>
-                <p data-edit="visit.p" data-edit-max="240" data-edit-multiline>
+                <h3 data-edit="visit.title3" data-edit-max="40">FINDING US</h3>
+                <p data-edit="visit.body" data-edit-max="240" data-edit-multiline>
                   9 Cinder Ridge Road, forty minutes past the last streetlight.
                   Use red headlamp mode on the final path; your eyes will
                   thank you within the hour. Dress for ten degrees colder than
@@ -423,11 +423,11 @@ export default function ZenithObservatoryPage() {
                   />
                 )}
                 <div className={styles.tierBody}>
-                  <h3 data-edit={`tierFeatured.h3.${i}`} data-edit-max="40">{t.name}</h3>
+                  <h3 data-edit={`tierFeatured.title.${i}`} data-edit-max="40">{t.name}</h3>
                   <p data-edit={`tierFeatured.tierPrice.${i}`} data-edit-max="240" data-edit-multiline className={styles.tierPrice}>{t.price}</p>
                   <ul>
                     {t.perks.map((p, i2) => (
-                      <li data-edit={`tierFeatured.li.${i}.${i2}`} data-edit-max="80" key={p}>{p}</li>
+                      <li data-edit={`tierFeatured.item.${i}.${i2}`} data-edit-max="80" key={p}>{p}</li>
                     ))}
                   </ul>
                   <a className={styles.tierCta} href="mailto:members@zenithridge.example">
@@ -456,20 +456,20 @@ export default function ZenithObservatoryPage() {
             </p>
             <dl className={styles.schoolStats}>
               <div>
-                <dt data-edit="school.dt" data-edit-max="28">SCHOOLS HOSTED</dt>
-                <dd data-edit="school.dd" data-edit-max="200" data-edit-multiline>214</dd>
+                <dt data-edit="school.term" data-edit-max="28">SCHOOLS HOSTED</dt>
+                <dd data-edit="school.body" data-edit-max="200" data-edit-multiline>214</dd>
               </div>
               <div>
-                <dt data-edit="school.dt2" data-edit-max="28">STUDENTS / YEAR</dt>
-                <dd data-edit="school.dd2" data-edit-max="200" data-edit-multiline>11 400</dd>
+                <dt data-edit="school.term2" data-edit-max="28">STUDENTS / YEAR</dt>
+                <dd data-edit="school.body2" data-edit-max="200" data-edit-multiline>11 400</dd>
               </div>
               <div>
-                <dt data-edit="school.dt3" data-edit-max="28">COST PER STUDENT</dt>
-                <dd data-edit="school.dd3" data-edit-max="200" data-edit-multiline>$4</dd>
+                <dt data-edit="school.term3" data-edit-max="28">COST PER STUDENT</dt>
+                <dd data-edit="school.body3" data-edit-max="200" data-edit-multiline>$4</dd>
               </div>
               <div>
-                <dt data-edit="school.dt4" data-edit-max="28">BURSARY PLACES</dt>
-                <dd data-edit="school.dd4" data-edit-max="200" data-edit-multiline>1 IN 5</dd>
+                <dt data-edit="school.term4" data-edit-max="28">BURSARY PLACES</dt>
+                <dd data-edit="school.body4" data-edit-max="200" data-edit-multiline>1 IN 5</dd>
               </div>
             </dl>
             <a data-edit="school.cta" data-edit-max="28" className={styles.cta} href="mailto:schools@zenithridge.example">
@@ -481,7 +481,7 @@ export default function ZenithObservatoryPage() {
 
       {/* ——— FOOTER ——— */}
       <footer className={styles.footer}>
-        <div data-edit-pattern="footer.field" className={styles.footerBand} aria-hidden="true">
+        <div data-edit-pattern="footer.field" data-edit-roles="0,2,3,4,5,6" className={styles.footerBand} aria-hidden="true">
           <TabbiedPattern
             pattern={spark}
             palette={SKY_PALETTE}
@@ -497,7 +497,7 @@ export default function ZenithObservatoryPage() {
           </p>
           <div className={styles.footerCols}>
             <div>
-              <h3 data-edit="footer.h3" data-edit-max="40">VISIT</h3>
+              <h3 data-edit="footer.title" data-edit-max="40">VISIT</h3>
               <p>
                 9 Cinder Ridge Road
                 <br />
@@ -505,15 +505,15 @@ export default function ZenithObservatoryPage() {
               </p>
             </div>
             <div>
-              <h3 data-edit="footer.h32" data-edit-max="40">CONTACT</h3>
+              <h3 data-edit="footer.title2" data-edit-max="40">CONTACT</h3>
               <p>
-                <a data-edit="footer.a" data-edit-max="28" href="mailto:dome@zenithridge.example">dome@zenithridge.example</a>
+                <a data-edit="footer.link" data-edit-max="28" href="mailto:dome@zenithridge.example">dome@zenithridge.example</a>
                 <br />
-                <a data-edit="footer.a2" data-edit-max="28" href="tel:+15415550119">(541) 555-0119</a>
+                <a data-edit="footer.link2" data-edit-max="28" href="tel:+15415550119">(541) 555-0119</a>
               </p>
             </div>
             <div>
-              <h3 data-edit="footer.h33" data-edit-max="40">SKY CALL</h3>
+              <h3 data-edit="footer.title3" data-edit-max="40">SKY CALL</h3>
               <p>
                 Posted daily 17:00
                 <br />
@@ -527,7 +527,7 @@ export default function ZenithObservatoryPage() {
             <span className={styles.credit}>
               {' '}
               Star fields generated with{' '}
-              <a data-edit="footer.a3" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+              <a data-edit="footer.link3" data-edit-max="28" href="https://tabbied.com" rel="noopener">
                 Tabbied
               </a>
               .

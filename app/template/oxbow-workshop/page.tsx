@@ -189,13 +189,13 @@ export default function OxbowWorkshopPage() {
           <h1 data-edit="masthead.mastTitle" data-edit-max="70" className={styles.mastTitle}>OXBOW</h1>
           <p data-edit="masthead.mastSub" data-edit-max="240" data-edit-multiline className={styles.mastSub}>Furniture Workshop · Hudson Valley</p>
           <nav className={styles.mastNav} aria-label="Catalogue contents">
-            <a data-edit="masthead.a" data-edit-max="28" href="#collection">The Collection</a>
+            <a data-edit="masthead.collection" data-edit-max="28" href="#collection">The Collection</a>
             <span aria-hidden="true">·</span>
-            <a data-edit="masthead.a2" data-edit-max="28" href="#joinery">On Joinery</a>
+            <a data-edit="masthead.joinery" data-edit-max="28" href="#joinery">On Joinery</a>
             <span aria-hidden="true">·</span>
-            <a data-edit="masthead.a3" data-edit-max="28" href="#workshop">The Workshop</a>
+            <a data-edit="masthead.workshop" data-edit-max="28" href="#workshop">The Workshop</a>
             <span aria-hidden="true">·</span>
-            <a data-edit="masthead.a4" data-edit-max="28" href="#commissions">Commissions</a>
+            <a data-edit="masthead.commissions" data-edit-max="28" href="#commissions">Commissions</a>
           </nav>
         </div>
       </header>
@@ -289,8 +289,8 @@ export default function OxbowWorkshopPage() {
                 <dl className={styles.specSheet}>
                   {plate.specs.map(([label, value], i2) => (
                     <div key={label} className={styles.specRow}>
-                      <dt data-edit={`plate.dt.${i}.${i2}`} data-edit-max="28">{label}</dt>
-                      <dd data-edit={`plate.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{value}</dd>
+                      <dt data-edit={`plate.term.${i}.${i2}`} data-edit-max="28">{label}</dt>
+                      <dd data-edit={`plate.body.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -326,20 +326,20 @@ export default function OxbowWorkshopPage() {
               </figcaption>
             </figure>
             <div className={styles.joineryText}>
-              <p data-edit="joinery.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="joinery.body" data-edit-max="240" data-edit-multiline>
                 We use glue, and we do not trust it. Every joint in this
                 catalogue would hold with the glue omitted: the tenon is
                 wedged, the dovetail is tapered, the stool leg swells against
                 its socket as the seat dries around it.
               </p>
-              <p data-edit="joinery.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="joinery.body2" data-edit-max="240" data-edit-multiline>
                 The mortise and tenon is the oldest agreement in woodwork:
                 one piece gives way so another can enter, and both are
                 stronger for it. The pattern running through this catalogue is
                 that joint, drawn plainly. We chose it over a photograph of
                 one because the idea is the point.
               </p>
-              <p data-edit="joinery.p3" data-edit-max="240" data-edit-multiline>
+              <p data-edit="joinery.body3" data-edit-max="240" data-edit-multiline>
                 Wood moves. A tabletop grows and shrinks a few millimetres
                 every year, forever. Good joinery does not fight this; it
                 leaves room. Buttons, slots, elongated holes; the quiet
@@ -386,14 +386,14 @@ export default function OxbowWorkshopPage() {
             </figcaption>
           </figure>
           <div className={styles.workshopCols}>
-            <p data-edit="workshop.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="workshop.body" data-edit-max="240" data-edit-multiline>
               Oxbow occupies a former cider barn at 6 Millbrook Lane, ten
               minutes from the river whose bend named us. The bench room holds
               two benches, a wall of clamps, and the timber for the year,
               stickered and drying. The showroom holds whatever is finished
               and nothing that is not.
             </p>
-            <p data-edit="workshop.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="workshop.body2" data-edit-max="240" data-edit-multiline>
               We buy logs, not lumber, from two sawyers within an hour of the
               shop, and we dry them ourselves for eighteen months. It is the
               slowest possible way to work and the only one that lets us
@@ -402,20 +402,20 @@ export default function OxbowWorkshopPage() {
           </div>
           <dl className={styles.workshopFacts}>
             <div>
-              <dt data-edit="workshop.dt" data-edit-max="28">Founded</dt>
-              <dd data-edit="workshop.dd" data-edit-max="200" data-edit-multiline>2014</dd>
+              <dt data-edit="workshop.term" data-edit-max="28">Founded</dt>
+              <dd data-edit="workshop.body3" data-edit-max="200" data-edit-multiline>2014</dd>
             </div>
             <div>
-              <dt data-edit="workshop.dt2" data-edit-max="28">Makers</dt>
-              <dd data-edit="workshop.dd2" data-edit-max="200" data-edit-multiline>Two</dd>
+              <dt data-edit="workshop.term2" data-edit-max="28">Makers</dt>
+              <dd data-edit="workshop.body4" data-edit-max="200" data-edit-multiline>Two</dd>
             </div>
             <div>
-              <dt data-edit="workshop.dt3" data-edit-max="28">Timber drying</dt>
-              <dd data-edit="workshop.dd3" data-edit-max="200" data-edit-multiline>18 months</dd>
+              <dt data-edit="workshop.term3" data-edit-max="28">Timber drying</dt>
+              <dd data-edit="workshop.body5" data-edit-max="200" data-edit-multiline>18 months</dd>
             </div>
             <div>
-              <dt data-edit="workshop.dt4" data-edit-max="28">Showroom</dt>
-              <dd data-edit="workshop.dd4" data-edit-max="200" data-edit-multiline>Sat 10 to 4, or by note</dd>
+              <dt data-edit="workshop.term4" data-edit-max="28">Showroom</dt>
+              <dd data-edit="workshop.body6" data-edit-max="200" data-edit-multiline>Sat 10 to 4, or by note</dd>
             </div>
           </dl>
         </section>
@@ -491,7 +491,7 @@ export default function OxbowWorkshopPage() {
           </ol>
           <p className={styles.commissionsNote}>
             The book opens for autumn on the first of September. Write to{' '}
-            <a data-edit="commissions.a" data-edit-max="28" href="#colophon">bench@oxbow.example</a>.
+            <a data-edit="commissions.colophon" data-edit-max="28" href="#colophon">bench@oxbow.example</a>.
           </p>
         </section>
 
@@ -506,13 +506,13 @@ export default function OxbowWorkshopPage() {
           <div className={styles.careCols}>
             <div>
               <h3 data-edit="care.careHead" data-edit-max="40" className={styles.careHead}>Care of oiled wood</h3>
-              <p data-edit="care.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="care.body" data-edit-max="240" data-edit-multiline>
                 Dust with a dry cloth. Wipe spills when you notice them, not
                 urgently. Once a year, a coin-sized pool of the oil we send
                 with each piece, spread thin and buffed after twenty minutes.
                 No silicone polish, ever; it cannot be undone.
               </p>
-              <p data-edit="care.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="care.body2" data-edit-max="240" data-edit-multiline>
                 Walnut lightens toward honey in sunlight; oak deepens. Neither
                 is damage. A ring left by a glass will usually rub out with
                 the oil; a dent can be raised with a damp cloth and a warm
@@ -522,14 +522,14 @@ export default function OxbowWorkshopPage() {
             </div>
             <div>
               <h3 data-edit="care.careHead2" data-edit-max="40" className={styles.careHead}>Delivery</h3>
-              <p data-edit="care.p3" data-edit-max="240" data-edit-multiline>
+              <p data-edit="care.body3" data-edit-max="240" data-edit-multiline>
                 Within two hundred miles of the workshop we deliver ourselves,
                 blanket-wrapped, and place the piece where it will live.
                 Farther afield, work travels crated in ash offcuts with a
                 carrier we have used for nine years. Crates are returnable;
                 most come back as firewood, which is also fine.
               </p>
-              <p data-edit="care.p4" data-edit-max="240" data-edit-multiline>
+              <p data-edit="care.body4" data-edit-max="240" data-edit-multiline>
                 Lead times in this catalogue are honest, not optimistic. When
                 a date moves, you hear it from us first, with a reason.
               </p>

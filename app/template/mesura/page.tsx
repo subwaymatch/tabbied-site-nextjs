@@ -80,10 +80,10 @@ export default function MesuraPage() {
           <i>Enginyeria d&rsquo;Estructures</i>
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#what">Capabilities</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#work">Work</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#method">Method</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#office">Office</a>
+          <a data-edit="bar.what" data-edit-max="28" href="#what">Capabilities</a>
+          <a data-edit="bar.work" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.method" data-edit-max="28" href="#method">Method</a>
+          <a data-edit="bar.office" data-edit-max="28" href="#office">Office</a>
         </nav>
       </header>
 
@@ -107,7 +107,7 @@ export default function MesuraPage() {
               <br />
               an argument about
               <br />
-              <span data-edit="hero.span" data-edit-max="60">where the load goes.</span>
+              <span data-edit="hero.text" data-edit-max="60">where the load goes.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               We make that argument in writing, with numbers anyone in the room
@@ -117,8 +117,8 @@ export default function MesuraPage() {
           <dl className={s.numbers}>
             {NUMBERS.map(([v, k], i) => (
               <div key={k}>
-                <dt data-edit={`hero.dt.${i}`} data-edit-max="28">{v}</dt>
-                <dd data-edit={`hero.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+                <dt data-edit={`hero.term.${i}`} data-edit-max="28">{v}</dt>
+                <dd data-edit={`hero.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
               </div>
             ))}
           </dl>
@@ -130,7 +130,7 @@ export default function MesuraPage() {
             alt="A steel roof truss under construction against an overcast sky, joints in orange primer"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>M-231 / Mercat de la Vall. Arch closed 14.03.2026.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>M-231 / Mercat de la Vall. Arch closed 14.03.2026.</figcaption>
         </figure>
 
         {/* ---------------------------------------------------- CAPABILITIES */}
@@ -142,8 +142,8 @@ export default function MesuraPage() {
             {CAPABILITIES.map((c, i) => (
               <li key={c.n}>
                 <span data-edit={`what.capN.${i}`} data-edit-max="60" className={s.capN}>{c.n}</span>
-                <h3 data-edit={`what.h3.${i}`} data-edit-max="40">{c.t}</h3>
-                <p data-edit={`what.p.${i}`} data-edit-max="240" data-edit-multiline>{c.d}</p>
+                <h3 data-edit={`what.title.${i}`} data-edit-max="40">{c.t}</h3>
+                <p data-edit={`what.body.${i}`} data-edit-max="240" data-edit-multiline>{c.d}</p>
               </li>
             ))}
           </ol>
@@ -170,20 +170,20 @@ export default function MesuraPage() {
           </h2>
           <ol className={s.projects}>
             <li className={s.projHead} aria-hidden="true">
-              <span data-edit="work.span" data-edit-max="60">Job</span>
-              <span data-edit="work.span2" data-edit-max="60">Name</span>
-              <span data-edit="work.span3" data-edit-max="60">Span</span>
-              <span data-edit="work.span4" data-edit-max="60">Structure</span>
-              <span data-edit="work.span5" data-edit-max="60">Role</span>
-              <span data-edit="work.span6" data-edit-max="60">Year</span>
+              <span data-edit="work.text" data-edit-max="60">Job</span>
+              <span data-edit="work.text2" data-edit-max="60">Name</span>
+              <span data-edit="work.text3" data-edit-max="60">Span</span>
+              <span data-edit="work.text4" data-edit-max="60">Structure</span>
+              <span data-edit="work.text5" data-edit-max="60">Role</span>
+              <span data-edit="work.text6" data-edit-max="60">Year</span>
             </li>
             {PROJECTS.map((p, i) => (
               <li key={p.code}>
                 <span data-edit={`work.pCode.${i}`} data-edit-max="60" className={s.pCode}>{p.code}</span>
                 <span data-edit={`work.pName.${i}`} data-edit-max="60" className={s.pName}>{p.name}</span>
                 <span data-edit={`work.pSpan.${i}`} data-edit-max="60" className={s.pSpan}>{p.span}</span>
-                <span data-edit={`work.span7.${i}`} data-edit-max="60">{p.mat}</span>
-                <span data-edit={`work.span8.${i}`} data-edit-max="60">{p.role}</span>
+                <span data-edit={`work.text7.${i}`} data-edit-max="60">{p.mat}</span>
+                <span data-edit={`work.text8.${i}`} data-edit-max="60">{p.role}</span>
                 <span data-edit={`work.pYear.${i}`} data-edit-max="60" className={s.pYear}>{p.year}</span>
               </li>
             ))}
@@ -194,14 +194,14 @@ export default function MesuraPage() {
                 slug="mesura-testrig"
                 alt="A laboratory load test rig pressing a concrete beam to failure"
               />
-              <figcaption data-edit="work.figcaption" data-edit-max="120" data-edit-multiline>Beam test to failure, 486 kN. The model said 471.</figcaption>
+              <figcaption data-edit="work.caption" data-edit-max="120" data-edit-multiline>Beam test to failure, 486 kN. The model said 471.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.mesura-bearing"
                 slug="mesura-bearing"
                 alt="A close view of a large steel bridge bearing between abutment and deck"
               />
-              <figcaption data-edit="work.figcaption2" data-edit-max="120" data-edit-multiline>M-228, pot bearing at abutment B. ±48 mm.</figcaption>
+              <figcaption data-edit="work.caption2" data-edit-max="120" data-edit-multiline>M-228, pot bearing at abutment B. ±48 mm.</figcaption>
             </figure>
           </div>
         </section>
@@ -237,31 +237,31 @@ export default function MesuraPage() {
               </div>
               <ol className={s.steps}>
                 <li>
-                  <span data-edit="method.span" data-edit-max="60">A</span>
+                  <span data-edit="method.text" data-edit-max="60">A</span>
                   <div>
-                    <h3 data-edit="method.h3" data-edit-max="40">Scheme by hand</h3>
-                    <p data-edit="method.p" data-edit-max="240" data-edit-multiline>Sketch, span-to-depth, a load take-down on one sheet. Before any model exists.</p>
+                    <h3 data-edit="method.title" data-edit-max="40">Scheme by hand</h3>
+                    <p data-edit="method.body" data-edit-max="240" data-edit-multiline>Sketch, span-to-depth, a load take-down on one sheet. Before any model exists.</p>
                   </div>
                 </li>
                 <li>
-                  <span data-edit="method.span2" data-edit-max="60">B</span>
+                  <span data-edit="method.text2" data-edit-max="60">B</span>
                   <div>
-                    <h3 data-edit="method.h32" data-edit-max="40">Model and analyse</h3>
-                    <p data-edit="method.p2" data-edit-max="240" data-edit-multiline>Linear first, non-linear only where the answer depends on it. Every model is archived with its inputs.</p>
+                    <h3 data-edit="method.title2" data-edit-max="40">Model and analyse</h3>
+                    <p data-edit="method.body2" data-edit-max="240" data-edit-multiline>Linear first, non-linear only where the answer depends on it. Every model is archived with its inputs.</p>
                   </div>
                 </li>
                 <li>
-                  <span data-edit="method.span3" data-edit-max="60">C</span>
+                  <span data-edit="method.text3" data-edit-max="60">C</span>
                   <div>
-                    <h3 data-edit="method.h33" data-edit-max="40">Independent check</h3>
-                    <p data-edit="method.p3" data-edit-max="240" data-edit-multiline>A second engineer, a different method, no sight of the first result until both are finished.</p>
+                    <h3 data-edit="method.title3" data-edit-max="40">Independent check</h3>
+                    <p data-edit="method.body3" data-edit-max="240" data-edit-multiline>A second engineer, a different method, no sight of the first result until both are finished.</p>
                   </div>
                 </li>
                 <li>
-                  <span data-edit="method.span4" data-edit-max="60">D</span>
+                  <span data-edit="method.text4" data-edit-max="60">D</span>
                   <div>
-                    <h3 data-edit="method.h34" data-edit-max="40">On site</h3>
-                    <p data-edit="method.p4" data-edit-max="240" data-edit-multiline>We attend the first of every connection type. Drawings are wrong until proven otherwise.</p>
+                    <h3 data-edit="method.title4" data-edit-max="40">On site</h3>
+                    <p data-edit="method.body4" data-edit-max="240" data-edit-multiline>We attend the first of every connection type. Drawings are wrong until proven otherwise.</p>
                   </div>
                 </li>
               </ol>
@@ -271,7 +271,7 @@ export default function MesuraPage() {
                 slug="mesura-drawings"
                 alt="Structural drawings and a scale rule laid out on a plain table"
               />
-              <figcaption data-edit="method.figcaption" data-edit-max="120" data-edit-multiline>Issue C, M-231. Twelve sheets, one revision cloud.</figcaption>
+              <figcaption data-edit="method.caption" data-edit-max="120" data-edit-multiline>Issue C, M-231. Twelve sheets, one revision cloud.</figcaption>
             </figure>
           </div>
         </section>
@@ -294,7 +294,7 @@ export default function MesuraPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="office.dt" data-edit-max="28">Office</dt>
+                <dt data-edit="office.term" data-edit-max="28">Office</dt>
                 <dd>
                   Carrer de Pujades 118, 3r
                   <br />
@@ -302,29 +302,29 @@ export default function MesuraPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="office.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="office.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="office.a" data-edit-max="28" href="mailto:calcul@mesura.example">calcul@mesura.example</a>
+                  <a data-edit="office.link" data-edit-max="28" href="mailto:calcul@mesura.example">calcul@mesura.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="office.dt3" data-edit-max="28">Call</dt>
-                <dd data-edit="office.dd" data-edit-max="200" data-edit-multiline>+34 900 000 000</dd>
+                <dt data-edit="office.term3" data-edit-max="28">Call</dt>
+                <dd data-edit="office.body" data-edit-max="200" data-edit-multiline>+34 900 000 000</dd>
               </div>
               <div>
-                <dt data-edit="office.dt4" data-edit-max="28">Hiring</dt>
-                <dd data-edit="office.dd2" data-edit-max="200" data-edit-multiline>Two engineers, any level. Send calculations, not a CV.</dd>
+                <dt data-edit="office.term4" data-edit-max="28">Hiring</dt>
+                <dd data-edit="office.body2" data-edit-max="200" data-edit-multiline>Two engineers, any level. Send calculations, not a CV.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three failure modes we design against</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three failure modes we design against</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Collapse is rare. These three are what actually goes wrong and what most of the calculation is really for.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={trigram}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -343,11 +343,11 @@ export default function MesuraPage() {
                   <Figure editId="photo.mesura-tile-rule-cutout" slug="mesura-tile-rule-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Serviceability, not strength</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Serviceability, not strength</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Almost nothing fails in bending. Things fail by deflecting, cracking, or vibrating enough that people stop using the room.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={doublebar}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -366,11 +366,11 @@ export default function MesuraPage() {
                   <Figure editId="photo.mesura-tile-beam-cutout" slug="mesura-tile-beam-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">The connection, not the member</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">The connection, not the member</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>The member is a catalogue page. The joint is a decision, and it is where the load actually has to be believed.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={recession}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -389,7 +389,7 @@ export default function MesuraPage() {
                   <Figure editId="photo.mesura-tile-calipers-cutout" slug="mesura-tile-calipers-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Time</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Time</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Creep, shrinkage, thermal cycling, and the fact that a building is loaded for eighty years and analysed for an afternoon.</p>
               </article>
           </div>
@@ -397,73 +397,73 @@ export default function MesuraPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Codes and software</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Codes and software</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What we work to and what we work in. Listed because clients and checking engineers both ask.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Standard</span>
-                <span data-edit="index.span2" data-edit-max="60">Scope</span>
-                <span data-edit="index.span3" data-edit-max="60">Version</span>
-                <span data-edit="index.span4" data-edit-max="60">Note</span>
+                <span data-edit="index.text" data-edit-max="60">Standard</span>
+                <span data-edit="index.text2" data-edit-max="60">Scope</span>
+                <span data-edit="index.text3" data-edit-max="60">Version</span>
+                <span data-edit="index.text4" data-edit-max="60">Note</span>
             </li>
               <li key="Eurocode 0 to 8">
-                <span data-edit="index.span5" data-edit-max="60">Eurocode 0 to 8</span>
-                <span data-edit="index.span6" data-edit-max="60">All work</span>
-                <span data-edit="index.span7" data-edit-max="60">EN, Spanish NA</span>
-                <span data-edit="index.span8" data-edit-max="60">Plus CTE where it applies</span>
+                <span data-edit="index.text5" data-edit-max="60">Eurocode 0 to 8</span>
+                <span data-edit="index.text6" data-edit-max="60">All work</span>
+                <span data-edit="index.text7" data-edit-max="60">EN, Spanish NA</span>
+                <span data-edit="index.text8" data-edit-max="60">Plus CTE where it applies</span>
               </li>
               <li key="CTE DB SE">
-                <span data-edit="index.span9" data-edit-max="60">CTE DB SE</span>
-                <span data-edit="index.span10" data-edit-max="60">Buildings</span>
-                <span data-edit="index.span11" data-edit-max="60">2019</span>
-                <span data-edit="index.span12" data-edit-max="60">National</span>
+                <span data-edit="index.text9" data-edit-max="60">CTE DB SE</span>
+                <span data-edit="index.text10" data-edit-max="60">Buildings</span>
+                <span data-edit="index.text11" data-edit-max="60">2019</span>
+                <span data-edit="index.text12" data-edit-max="60">National</span>
               </li>
               <li key="EHE-08">
-                <span data-edit="index.span13" data-edit-max="60">EHE-08</span>
-                <span data-edit="index.span14" data-edit-max="60">Concrete</span>
-                <span data-edit="index.span15" data-edit-max="60">2008</span>
-                <span data-edit="index.span16" data-edit-max="60">Still current</span>
+                <span data-edit="index.text13" data-edit-max="60">EHE-08</span>
+                <span data-edit="index.text14" data-edit-max="60">Concrete</span>
+                <span data-edit="index.text15" data-edit-max="60">2008</span>
+                <span data-edit="index.text16" data-edit-max="60">Still current</span>
               </li>
               <li key="FEM, in house">
-                <span data-edit="index.span17" data-edit-max="60">FEM, in house</span>
-                <span data-edit="index.span18" data-edit-max="60">Analysis</span>
-                <span data-edit="index.span19" data-edit-max="60">Linear and non-linear</span>
-                <span data-edit="index.span20" data-edit-max="60">Every model archived with inputs</span>
+                <span data-edit="index.text17" data-edit-max="60">FEM, in house</span>
+                <span data-edit="index.text18" data-edit-max="60">Analysis</span>
+                <span data-edit="index.text19" data-edit-max="60">Linear and non-linear</span>
+                <span data-edit="index.text20" data-edit-max="60">Every model archived with inputs</span>
               </li>
               <li key="Hand check">
-                <span data-edit="index.span21" data-edit-max="60">Hand check</span>
-                <span data-edit="index.span22" data-edit-max="60">Everything</span>
-                <span data-edit="index.span23" data-edit-max="60">Paper</span>
-                <span data-edit="index.span24" data-edit-max="60">A second engineer, a different method</span>
+                <span data-edit="index.text21" data-edit-max="60">Hand check</span>
+                <span data-edit="index.text22" data-edit-max="60">Everything</span>
+                <span data-edit="index.text23" data-edit-max="60">Paper</span>
+                <span data-edit="index.text24" data-edit-max="60">A second engineer, a different method</span>
               </li>
               <li key="BIM">
-                <span data-edit="index.span25" data-edit-max="60">BIM</span>
-                <span data-edit="index.span26" data-edit-max="60">Coordination</span>
-                <span data-edit="index.span27" data-edit-max="60">IFC 4</span>
-                <span data-edit="index.span28" data-edit-max="60">We issue the model and the drawings</span>
+                <span data-edit="index.text25" data-edit-max="60">BIM</span>
+                <span data-edit="index.text26" data-edit-max="60">Coordination</span>
+                <span data-edit="index.text27" data-edit-max="60">IFC 4</span>
+                <span data-edit="index.text28" data-edit-max="60">We issue the model and the drawings</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Questions from architects</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Questions from architects</h2>
           <dl className={s.faqList}>
               <div key="When do you want to be i">
-                <dt data-edit="faq.dt" data-edit-max="28">When do you want to be involved?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>At the sketch. A structural scheme costs almost nothing in week two and costs a redesign in week forty.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">When do you want to be involved?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>At the sketch. A structural scheme costs almost nothing in week two and costs a redesign in week forty.</dd>
               </div>
               <div key="Will you tell us it cann">
-                <dt data-edit="faq.dt2" data-edit-max="28">Will you tell us it cannot be done?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Rarely. We will tell you what it costs, in depth, in money and in programme, and let you decide whether the idea is worth it.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Will you tell us it cannot be done?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Rarely. We will tell you what it costs, in depth, in money and in programme, and let you decide whether the idea is worth it.</dd>
               </div>
               <div key="Can we use your model?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Can we use your model?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Yes, as IFC, with a note saying what it is and is not for. It is an analysis model, not a fabrication model, and confusing the two is expensive.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Can we use your model?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Yes, as IFC, with a note saying what it is and is not for. It is an analysis model, not a fabrication model, and confusing the two is expensive.</dd>
               </div>
               <div key="Do you do the site work?">
-                <dt data-edit="faq.dt4" data-edit-max="28">Do you do the site work?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>We attend the first of every connection type and then monthly. Drawings are wrong until somebody has stood under them.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Do you do the site work?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>We attend the first of every connection type and then monthly. Drawings are wrong until somebody has stood under them.</dd>
               </div>
           </dl>
         </section>
@@ -496,13 +496,13 @@ export default function MesuraPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Engineering</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#what">Capabilities</a>
+                <a data-edit="footer.what" data-edit-max="28" href="#what">Capabilities</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#work">Recent work</a>
+                <a data-edit="footer.work" data-edit-max="28" href="#work">Recent work</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#method">How work is checked</a>
+                <a data-edit="footer.method" data-edit-max="28" href="#method">How work is checked</a>
               </li>
             </ul>
           </div>
@@ -510,13 +510,13 @@ export default function MesuraPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Practice</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#office">Carrer de Pujades 118</a>
+                <a data-edit="footer.office" data-edit-max="28" href="#office">Carrer de Pujades 118</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#office">Hiring</a>
+                <a data-edit="footer.office2" data-edit-max="28" href="#office">Hiring</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#what">Expert witness</a>
+                <a data-edit="footer.what2" data-edit-max="28" href="#what">Expert witness</a>
               </li>
             </ul>
           </div>
@@ -534,10 +534,10 @@ export default function MesuraPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional engineering office. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional engineering office. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

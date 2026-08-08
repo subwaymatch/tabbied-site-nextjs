@@ -139,10 +139,10 @@ export default function GlockenhofPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Glockenhof</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#peal">The peal</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#making">Making</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#cast">Cast here</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#tuning">Tuning</a>
+          <a data-edit="bar.peal" data-edit-max="28" href="#peal">The peal</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">Making</a>
+          <a data-edit="bar.cast" data-edit-max="28" href="#cast">Cast here</a>
+          <a data-edit="bar.tuning" data-edit-max="28" href="#tuning">Tuning</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Glockengiesserei / Innsbruck</span>
       </header>
@@ -162,11 +162,11 @@ export default function GlockenhofPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Bell foundry / Innsbruck / since 1782</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">One pour.</span>
+            <span data-edit="hero.text" data-edit-max="60">One pour.</span>
             <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>Three hundred years.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Cast in loam, broken out of its own mould, and tuned by taking
               metal away until all five partials agree.
             </p>
@@ -185,7 +185,7 @@ export default function GlockenhofPage() {
             alt="The casting hall of a bell foundry seen from a gantry, loam moulds set into a sand floor"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>The hall, moulds set into the floor. Nine of them, all different.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>The hall, moulds set into the floor. Nine of them, all different.</figcaption>
         </figure>
 
         {/* ------------------------------------------------------------ PEAL
@@ -193,8 +193,8 @@ export default function GlockenhofPage() {
             "to scale" because it is. */}
         <section id="peal" className={s.peal} aria-labelledby="peal-h">
           <div className={s.secHead}>
-            <h2 data-edit="peal.h2" data-edit-max="60" id="peal-h">Eight bells</h2>
-            <p data-edit="peal.p" data-edit-max="240" data-edit-multiline>The peal at Wilten, drawn to diameter. Three of them are ours from 1782 and two are replacements for metal taken in 1943.</p>
+            <h2 data-edit="peal.title" data-edit-max="60" id="peal-h">Eight bells</h2>
+            <p data-edit="peal.body" data-edit-max="240" data-edit-multiline>The peal at Wilten, drawn to diameter. Three of them are ours from 1782 and two are replacements for metal taken in 1943.</p>
           </div>
           <ol className={s.pealRow}>
             {PEAL.map((b, i) => (
@@ -225,12 +225,12 @@ export default function GlockenhofPage() {
             fall into tune with each other.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Glockenhof has cast on the Höttinger Au since 1782, in loam, by
               the same method, with fourteen people and one crane that predates
               all of them.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               We are not the cheapest way to get a bell and we have never
               pretended to be. What we sell is a casting that will still be in
               tune when everybody involved in ordering it is dead.
@@ -253,8 +253,8 @@ export default function GlockenhofPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">Five operations</h2>
-            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>Forty days of mould-making for one hour of pouring, and then eleven days of cutting it back.</p>
+            <h2 data-edit="making.title" data-edit-max="60" id="making-h">Five operations</h2>
+            <p data-edit="making.body" data-edit-max="240" data-edit-multiline>Forty days of mould-making for one hour of pouring, and then eleven days of cutting it back.</p>
           </div>
           <ol className={s.rows}>
             {OPERATIONS.map((o, i) => (
@@ -272,14 +272,14 @@ export default function GlockenhofPage() {
                 slug="glockenhof-pour"
                 alt="Molten bronze running from a tilted crucible into a mould in a dark foundry"
               />
-              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>1 150 °C. The mould is buried to the neck in sand for this.</figcaption>
+              <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>1 150 °C. The mould is buried to the neck in sand for this.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.glockenhof-lathe"
                 slug="glockenhof-lathe"
                 alt="A large bronze bell mounted mouth-up on a tuning lathe with shavings on the bed"
               />
-              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>Mouth-up on the lathe. Everything from here is subtraction.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>Mouth-up on the lathe. Everything from here is subtraction.</figcaption>
             </figure>
           </div>
         </section>
@@ -290,8 +290,8 @@ export default function GlockenhofPage() {
             object is the subject. */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three things that do not change</h2>
-            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>Two of them are physics. The third is a drawing in a locked cupboard.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three things that do not change</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>Two of them are physics. The third is a drawing in a locked cupboard.</p>
           </div>
           <div className={s.pGrid}>
             {PRINCIPLES.map((p, i) => (
@@ -310,7 +310,7 @@ export default function GlockenhofPage() {
                   <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
                 <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -320,8 +320,8 @@ export default function GlockenhofPage() {
         {/* ------------------------------------------------------------ CAST */}
         <section id="cast" className={s.listing} aria-labelledby="cast-h">
           <div className={s.secHead}>
-            <h2 data-edit="cast.h2" data-edit-max="60" id="cast-h">Cast here</h2>
-            <p data-edit="cast.p" data-edit-max="240" data-edit-multiline>Recent work. A recast keeps the old bell&rsquo;s metal and, where we can read it, its inscription.</p>
+            <h2 data-edit="cast.title" data-edit-max="60" id="cast-h">Cast here</h2>
+            <p data-edit="cast.body" data-edit-max="240" data-edit-multiline>Recent work. A recast keeps the old bell&rsquo;s metal and, where we can read it, its inscription.</p>
           </div>
           <ol className={s.table}>
             {CAST.map((r, i) => (
@@ -349,16 +349,16 @@ export default function GlockenhofPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A bell out of tune with itself is not a bad bell. It is a very heavy mistake nobody can move.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Anneliese Ruetz, tuning</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>A bell out of tune with itself is not a bad bell. It is a very heavy mistake nobody can move.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Anneliese Ruetz, tuning</cite>
           </blockquote>
         </section>
 
         {/* ---------------------------------------------------------- TUNING */}
         <section id="tuning" className={s.listing} aria-labelledby="tuning-h">
           <div className={s.secHead}>
-            <h2 data-edit="tuning.h2" data-edit-max="60" id="tuning-h">The five partials</h2>
-            <p data-edit="tuning.p" data-edit-max="240" data-edit-multiline>What is cut, where, and how close it has to land. Every bell leaves with its own measured sheet.</p>
+            <h2 data-edit="tuning.title" data-edit-max="60" id="tuning-h">The five partials</h2>
+            <p data-edit="tuning.body" data-edit-max="240" data-edit-multiline>What is cut, where, and how close it has to land. Every bell leaves with its own measured sheet.</p>
           </div>
           <ol className={s.table}>
             {TUNING.map((r, i) => (
@@ -385,12 +385,12 @@ export default function GlockenhofPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming to a pour</h2>
+          <h2 data-edit="visit.title" data-edit-max="60" id="visit-h">Coming to a pour</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`visit.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -450,23 +450,23 @@ export default function GlockenhofPage() {
         </div>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Foundry</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Foundry</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#making">Five operations</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#tuning">The five partials</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#cast">Cast here</a></li>
+              <li><a data-edit="footer.making" data-edit-max="28" href="#making">Five operations</a></li>
+              <li><a data-edit="footer.tuning" data-edit-max="28" href="#tuning">The five partials</a></li>
+              <li><a data-edit="footer.cast" data-edit-max="28" href="#cast">Cast here</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Bells</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Bells</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#peal">Eight bells</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#visit">Watching a pour</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Recasting</a></li>
+              <li><a data-edit="footer.peal" data-edit-max="28" href="#peal">Eight bells</a></li>
+              <li><a data-edit="footer.visit" data-edit-max="28" href="#visit">Watching a pour</a></li>
+              <li><a data-edit="footer.visit2" data-edit-max="28" href="#visit">Recasting</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Höttinger Au 41
               <br />
@@ -477,10 +477,10 @@ export default function GlockenhofPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional bell foundry. Bells, weights and dates are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional bell foundry. Bells, weights and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

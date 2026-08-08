@@ -108,10 +108,10 @@ export default function KlangwerkPage() {
           Klangwerk
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#rooms">Räume</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#residencies">Residencies</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#series">Reihe</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#apply">Apply</a>
+          <a data-edit="bar.rooms" data-edit-max="28" href="#rooms">Räume</a>
+          <a data-edit="bar.residencies" data-edit-max="28" href="#residencies">Residencies</a>
+          <a data-edit="bar.series" data-edit-max="28" href="#series">Reihe</a>
+          <a data-edit="bar.apply" data-edit-max="28" href="#apply">Apply</a>
         </nav>
         <span data-edit="bar.hz" data-edit-max="60" className={s.hz}>90 Hz to 20 kHz</span>
       </header>
@@ -135,7 +135,7 @@ export default function KlangwerkPage() {
             <br />
             instrument you
             <br />
-            <span data-edit="hero.span" data-edit-max="60">cannot pack away.</span>
+            <span data-edit="hero.text" data-edit-max="60">cannot pack away.</span>
           </h1>
           <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
             Three listening spaces, four residencies a year, and a concert
@@ -151,29 +151,29 @@ export default function KlangwerkPage() {
             alt="A large analogue mixing desk in a darkened studio lit by a single green indicator glow"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Studio Zwei, 02.40. Reel two of four.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Studio Zwei, 02.40. Reel two of four.</figcaption>
         </figure>
 
         {/* --------------------------------------------------------- ROOMS */}
         <section id="rooms" className={s.rooms} aria-labelledby="rooms-h">
           <div className={s.secHead}>
-            <span data-edit="rooms.span" data-edit-max="60">01</span>
-            <h2 data-edit="rooms.h2" data-edit-max="60" id="rooms-h">Three rooms</h2>
+            <span data-edit="rooms.text" data-edit-max="60">01</span>
+            <h2 data-edit="rooms.title" data-edit-max="60" id="rooms-h">Three rooms</h2>
           </div>
           <div className={s.roomList}>
             {ROOMS.map((r, i) => (
               <article key={r.id}>
                 <p data-edit={`rooms.rId.${i}`} data-edit-max="240" data-edit-multiline className={s.rId}>{r.id}</p>
                 <div>
-                  <h3 data-edit={`rooms.h3.${i}`} data-edit-max="40">{r.name}</h3>
+                  <h3 data-edit={`rooms.title2.${i}`} data-edit-max="40">{r.name}</h3>
                   <p data-edit={`rooms.rKind.${i}`} data-edit-max="240" data-edit-multiline className={s.rKind}>{r.kind}</p>
                   <p data-edit={`rooms.rBody.${i}`} data-edit-max="240" data-edit-multiline className={s.rBody}>{r.body}</p>
                 </div>
                 <dl className={s.rSpecs}>
                   {r.specs.map(([k, v], i2) => (
                     <div key={k}>
-                      <dt data-edit={`rooms.dt.${i}.${i2}`} data-edit-max="28">{k}</dt>
-                      <dd data-edit={`rooms.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                      <dt data-edit={`rooms.term.${i}.${i2}`} data-edit-max="28">{k}</dt>
+                      <dd data-edit={`rooms.body.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -186,14 +186,14 @@ export default function KlangwerkPage() {
                 slug="klangwerk-modular"
                 alt="A wall of modular synthesiser panels with patch cables, lit low"
               />
-              <figcaption data-edit="rooms.figcaption" data-edit-max="120" data-edit-multiline>The wall in Studio Zwei. Patched by whoever is in.</figcaption>
+              <figcaption data-edit="rooms.caption" data-edit-max="120" data-edit-multiline>The wall in Studio Zwei. Patched by whoever is in.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.klangwerk-chamber"
                 slug="klangwerk-chamber"
                 alt="The interior of an anechoic chamber, wedge foam on every surface"
               />
-              <figcaption data-edit="rooms.figcaption2" data-edit-max="120" data-edit-multiline>Free field above 90 Hz. Bring a jumper.</figcaption>
+              <figcaption data-edit="rooms.caption2" data-edit-max="120" data-edit-multiline>Free field above 90 Hz. Bring a jumper.</figcaption>
             </figure>
           </div>
         </section>
@@ -226,8 +226,8 @@ export default function KlangwerkPage() {
           </div>
           <div className={s.resInner}>
             <div className={s.secHead}>
-              <span data-edit="residencies.span" data-edit-max="60">02</span>
-              <h2 data-edit="residencies.h2" data-edit-max="60" id="res-h">Residencies, 2026</h2>
+              <span data-edit="residencies.text" data-edit-max="60">02</span>
+              <h2 data-edit="residencies.title" data-edit-max="60" id="res-h">Residencies, 2026</h2>
             </div>
             <p data-edit="residencies.note" data-edit-max="240" data-edit-multiline className={s.note}>
               Three months, one room, a small fee and no obligation to produce
@@ -250,8 +250,8 @@ export default function KlangwerkPage() {
         {/* -------------------------------------------------------- SERIES */}
         <section id="series" className={s.series} aria-labelledby="series-h">
           <div className={s.secHead}>
-            <span data-edit="series.span" data-edit-max="60">03</span>
-            <h2 data-edit="series.h2" data-edit-max="60" id="series-h">Reihe 41</h2>
+            <span data-edit="series.text" data-edit-max="60">03</span>
+            <h2 data-edit="series.title" data-edit-max="60" id="series-h">Reihe 41</h2>
           </div>
           <ol className={s.dates}>
             {SERIES.map(([date, no, what, room, time], i) => (
@@ -269,7 +269,7 @@ export default function KlangwerkPage() {
               slug="klangwerk-tape"
               alt="A reel-to-reel tape machine on a rack in a dark control room"
             />
-            <figcaption data-edit="series.figcaption" data-edit-max="120" data-edit-multiline>A80 number two. Aligned every Monday, whether it needs it or not.</figcaption>
+            <figcaption data-edit="series.caption" data-edit-max="120" data-edit-multiline>A80 number two. Aligned every Monday, whether it needs it or not.</figcaption>
           </figure>
         </section>
 
@@ -286,7 +286,7 @@ export default function KlangwerkPage() {
             />
           </div>
           <div className={s.applyInner}>
-            <h2 data-edit="apply.h2" data-edit-max="60" id="apply-h">Ask for a room</h2>
+            <h2 data-edit="apply.title" data-edit-max="60" id="apply-h">Ask for a room</h2>
             <div className={s.applyGrid}>
               <p data-edit="apply.big" data-edit-max="240" data-edit-multiline className={s.big}>
                 Send a link to something you have made and a paragraph about
@@ -295,13 +295,13 @@ export default function KlangwerkPage() {
               </p>
               <dl>
                 <div>
-                  <dt data-edit="apply.dt" data-edit-max="28">Write</dt>
+                  <dt data-edit="apply.term" data-edit-max="28">Write</dt>
                   <dd>
-                    <a data-edit="apply.a" data-edit-max="28" href="mailto:raum@klangwerk.example">raum@klangwerk.example</a>
+                    <a data-edit="apply.link" data-edit-max="28" href="mailto:raum@klangwerk.example">raum@klangwerk.example</a>
                   </dd>
                 </div>
                 <div>
-                  <dt data-edit="apply.dt2" data-edit-max="28">Studio</dt>
+                  <dt data-edit="apply.term2" data-edit-max="28">Studio</dt>
                   <dd>
                     Karl-Heine-Str. 41, Halle 4
                     <br />
@@ -309,12 +309,12 @@ export default function KlangwerkPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt data-edit="apply.dt3" data-edit-max="28">Day rate</dt>
-                  <dd data-edit="apply.dd" data-edit-max="200" data-edit-multiline>€90 Studio Eins, €60 Zwei, €140 Kammer</dd>
+                  <dt data-edit="apply.term3" data-edit-max="28">Day rate</dt>
+                  <dd data-edit="apply.body" data-edit-max="200" data-edit-multiline>€90 Studio Eins, €60 Zwei, €140 Kammer</dd>
                 </div>
                 <div>
-                  <dt data-edit="apply.dt4" data-edit-max="28">Residents</dt>
-                  <dd data-edit="apply.dd2" data-edit-max="200" data-edit-multiline>Free, with a key</dd>
+                  <dt data-edit="apply.term4" data-edit-max="28">Residents</dt>
+                  <dd data-edit="apply.body2" data-edit-max="200" data-edit-multiline>Free, with a key</dd>
                 </div>
               </dl>
             </div>
@@ -322,11 +322,11 @@ export default function KlangwerkPage() {
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">What the rooms are actually for</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">What the rooms are actually for</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Three ways of working that the building supports and a laptop does not.</p>
           <div className={s.tileGrid}>
               <article key="I">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ripplering}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -345,11 +345,11 @@ export default function KlangwerkPage() {
                   <Figure editId="photo.klangwerk-tile-monitor-cutout" slug="klangwerk-tile-monitor-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>I</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Hearing in space</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Hearing in space</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Sixteen speakers on a half-sphere means a sound can be put somewhere and left there. Most composers spend the first week just walking around.</p>
               </article>
               <article key="II">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotwash}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -368,11 +368,11 @@ export default function KlangwerkPage() {
                   <Figure editId="photo.klangwerk-tile-cans-cutout" slug="klangwerk-tile-cans-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>II</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Hearing without a room</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Hearing without a room</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>The anechoic chamber removes the argument. What you hear is the source, which is uncomfortable and extremely useful.</p>
               </article>
               <article key="III">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={streaking}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -391,7 +391,7 @@ export default function KlangwerkPage() {
                   <Figure editId="photo.klangwerk-tile-tape-cutout" slug="klangwerk-tile-tape-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>III</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Hearing on tape</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Hearing on tape</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Two Studers, because a tape delay that you can reach into behaves differently from one you can undo.</p>
               </article>
           </div>
@@ -399,73 +399,73 @@ export default function KlangwerkPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Available on request</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Available on request</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Kept in the store, signed out on a card, returned before the next resident arrives.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Item</span>
-                <span data-edit="index.span2" data-edit-max="60">Count</span>
-                <span data-edit="index.span3" data-edit-max="60">Detail</span>
-                <span data-edit="index.span4" data-edit-max="60">Condition</span>
+                <span data-edit="index.text" data-edit-max="60">Item</span>
+                <span data-edit="index.text2" data-edit-max="60">Count</span>
+                <span data-edit="index.text3" data-edit-max="60">Detail</span>
+                <span data-edit="index.text4" data-edit-max="60">Condition</span>
             </li>
               <li key="Neumann KM 184">
-                <span data-edit="index.span5" data-edit-max="60">Neumann KM 184</span>
-                <span data-edit="index.span6" data-edit-max="60">8</span>
-                <span data-edit="index.span7" data-edit-max="60">Matched pairs</span>
-                <span data-edit="index.span8" data-edit-max="60">Good</span>
+                <span data-edit="index.text5" data-edit-max="60">Neumann KM 184</span>
+                <span data-edit="index.text6" data-edit-max="60">8</span>
+                <span data-edit="index.text7" data-edit-max="60">Matched pairs</span>
+                <span data-edit="index.text8" data-edit-max="60">Good</span>
               </li>
               <li key="Schoeps CMC with caps">
-                <span data-edit="index.span9" data-edit-max="60">Schoeps CMC with caps</span>
-                <span data-edit="index.span10" data-edit-max="60">6</span>
-                <span data-edit="index.span11" data-edit-max="60">Cardioid, omni, fig-8</span>
-                <span data-edit="index.span12" data-edit-max="60">Excellent</span>
+                <span data-edit="index.text9" data-edit-max="60">Schoeps CMC with caps</span>
+                <span data-edit="index.text10" data-edit-max="60">6</span>
+                <span data-edit="index.text11" data-edit-max="60">Cardioid, omni, fig-8</span>
+                <span data-edit="index.text12" data-edit-max="60">Excellent</span>
               </li>
               <li key="DPA 4060 lavalier">
-                <span data-edit="index.span13" data-edit-max="60">DPA 4060 lavalier</span>
-                <span data-edit="index.span14" data-edit-max="60">12</span>
-                <span data-edit="index.span15" data-edit-max="60">For contact and internal</span>
-                <span data-edit="index.span16" data-edit-max="60">Good</span>
+                <span data-edit="index.text13" data-edit-max="60">DPA 4060 lavalier</span>
+                <span data-edit="index.text14" data-edit-max="60">12</span>
+                <span data-edit="index.text15" data-edit-max="60">For contact and internal</span>
+                <span data-edit="index.text16" data-edit-max="60">Good</span>
               </li>
               <li key="Hydrophone, own build">
-                <span data-edit="index.span17" data-edit-max="60">Hydrophone, own build</span>
-                <span data-edit="index.span18" data-edit-max="60">4</span>
-                <span data-edit="index.span19" data-edit-max="60">Aquarian element</span>
-                <span data-edit="index.span20" data-edit-max="60">Serviceable</span>
+                <span data-edit="index.text17" data-edit-max="60">Hydrophone, own build</span>
+                <span data-edit="index.text18" data-edit-max="60">4</span>
+                <span data-edit="index.text19" data-edit-max="60">Aquarian element</span>
+                <span data-edit="index.text20" data-edit-max="60">Serviceable</span>
               </li>
               <li key="Contact mic, own build">
-                <span data-edit="index.span21" data-edit-max="60">Contact mic, own build</span>
-                <span data-edit="index.span22" data-edit-max="60">20</span>
-                <span data-edit="index.span23" data-edit-max="60">Piezo, potted</span>
-                <span data-edit="index.span24" data-edit-max="60">Variable</span>
+                <span data-edit="index.text21" data-edit-max="60">Contact mic, own build</span>
+                <span data-edit="index.text22" data-edit-max="60">20</span>
+                <span data-edit="index.text23" data-edit-max="60">Piezo, potted</span>
+                <span data-edit="index.text24" data-edit-max="60">Variable</span>
               </li>
               <li key="Tape, 1/4 inch">
-                <span data-edit="index.span25" data-edit-max="60">Tape, 1/4 inch</span>
-                <span data-edit="index.span26" data-edit-max="60">40 reels</span>
-                <span data-edit="index.span27" data-edit-max="60">SM900, used</span>
-                <span data-edit="index.span28" data-edit-max="60">Bulk erased</span>
+                <span data-edit="index.text25" data-edit-max="60">Tape, 1/4 inch</span>
+                <span data-edit="index.text26" data-edit-max="60">40 reels</span>
+                <span data-edit="index.text27" data-edit-max="60">SM900, used</span>
+                <span data-edit="index.text28" data-edit-max="60">Bulk erased</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Before you apply</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Before you apply</h2>
           <dl className={s.faqList}>
               <div key="Do I need to be a compos">
-                <dt data-edit="faq.dt" data-edit-max="28">Do I need to be a composer?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>No. We have had a sound designer, two sculptors, an ornithologist and a person who makes maps of noise complaints. The room does not care.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Do I need to be a composer?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>No. We have had a sound designer, two sculptors, an ornithologist and a person who makes maps of noise complaints. The room does not care.</dd>
               </div>
               <div key="Is there a concert at th">
-                <dt data-edit="faq.dt2" data-edit-max="28">Is there a concert at the end?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Only if you want one. About half of residents present something in Reihe 41 and the other half leave with a hard drive, which is equally fine.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Is there a concert at the end?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Only if you want one. About half of residents present something in Reihe 41 and the other half leave with a hard drive, which is equally fine.</dd>
               </div>
               <div key="Can I bring my own equip">
-                <dt data-edit="faq.dt3" data-edit-max="28">Can I bring my own equipment?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Yes, and you can leave it plugged in for three months. Nothing is patched out overnight because somebody else has the room tomorrow.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Can I bring my own equipment?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Yes, and you can leave it plugged in for three months. Nothing is patched out overnight because somebody else has the room tomorrow.</dd>
               </div>
               <div key="Is there accommodation?">
-                <dt data-edit="faq.dt4" data-edit-max="28">Is there accommodation?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>A flat above the varnish store, one bedroom, no lift. It is included, and it is loud on Fridays.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Is there accommodation?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>A flat above the varnish store, one bedroom, no lift. It is included, and it is loud on Fridays.</dd>
               </div>
           </dl>
         </section>
@@ -498,13 +498,13 @@ export default function KlangwerkPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Rooms</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#rooms">Studio Eins</a>
+                <a data-edit="footer.rooms" data-edit-max="28" href="#rooms">Studio Eins</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#rooms">Studio Zwei</a>
+                <a data-edit="footer.rooms2" data-edit-max="28" href="#rooms">Studio Zwei</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#rooms">Anechoic chamber</a>
+                <a data-edit="footer.rooms3" data-edit-max="28" href="#rooms">Anechoic chamber</a>
               </li>
             </ul>
           </div>
@@ -512,13 +512,13 @@ export default function KlangwerkPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Programme</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#residencies">Residencies</a>
+                <a data-edit="footer.residencies" data-edit-max="28" href="#residencies">Residencies</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#series">Reihe 41</a>
+                <a data-edit="footer.series" data-edit-max="28" href="#series">Reihe 41</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#apply">Ask for a room</a>
+                <a data-edit="footer.apply" data-edit-max="28" href="#apply">Ask for a room</a>
               </li>
             </ul>
           </div>
@@ -536,10 +536,10 @@ export default function KlangwerkPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional studio. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional studio. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

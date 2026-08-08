@@ -130,10 +130,10 @@ export default function PurpurhausPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Purpurhaus</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#ladder">The ladder</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#making">Dyeing</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#dyes">Dyestuffs</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#batches">Batches</a>
+          <a data-edit="bar.ladder" data-edit-max="28" href="#ladder">The ladder</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">Dyeing</a>
+          <a data-edit="bar.dyes" data-edit-max="28" href="#dyes">Dyestuffs</a>
+          <a data-edit="bar.batches" data-edit-max="28" href="#batches">Batches</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Tinturaria / Porto</span>
       </header>
@@ -153,11 +153,11 @@ export default function PurpurhausPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Natural dye works / Porto / since 1954</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Fourteen dips</span>
+            <span data-edit="hero.text" data-edit-max="60">Fourteen dips</span>
             <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>to the bottom.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Plants, insects and iron. No synthetic correction, no boiling,
               and a published recipe for every colour that has ever left this
               building.
@@ -175,7 +175,7 @@ export default function PurpurhausPage() {
             alt="A row of open dye vats in a whitewashed dye house holding deep purple liquid, skeins hanging above"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Four vats, one dyestuff. The steam is the only thing here that is not measured.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Four vats, one dyestuff. The steam is the only thing here that is not measured.</figcaption>
         </figure>
 
         {/* ---------------------------------------------------------- LADDER
@@ -183,8 +183,8 @@ export default function PurpurhausPage() {
             the table under it cannot ever disagree. */}
         <section id="ladder" className={s.ladder} aria-labelledby="ladder-h">
           <div className={s.secHead}>
-            <h2 data-edit="ladder.h2" data-edit-max="60" id="ladder-h">One skein, fourteen times</h2>
-            <p data-edit="ladder.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="ladder.title" data-edit-max="60" id="ladder-h">One skein, fourteen times</h2>
+            <p data-edit="ladder.body" data-edit-max="240" data-edit-multiline>
               The same wool, the same cochineal vat, dipped again and again.
               The mordant changes at the eighth, which is why the second rank
               turns towards plum instead of getting darker red.
@@ -223,12 +223,12 @@ export default function PurpurhausPage() {
             the result is to number it and sell it as itself.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Purpurhaus has dyed on the Rua de Miragaia since 1954. Six of us,
               four vats, a drying loft, and a water supply we have had analysed
               every year since 1971 because the water is half the recipe.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               We are not a natural alternative to industrial dyeing. We are a
               slower, more expensive and less repeatable process that produces
               colours industry cannot make, and that is the entire offer.
@@ -251,8 +251,8 @@ export default function PurpurhausPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">Five steps</h2>
-            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>Two days of work and a fortnight of hanging still. The hanging is not waiting; it is part of it.</p>
+            <h2 data-edit="making.title" data-edit-max="60" id="making-h">Five steps</h2>
+            <p data-edit="making.body" data-edit-max="240" data-edit-multiline>Two days of work and a fortnight of hanging still. The hanging is not waiting; it is part of it.</p>
           </div>
           <ol className={s.rows}>
             {STEPS.map((x, i) => (
@@ -270,14 +270,14 @@ export default function PurpurhausPage() {
                 slug="purpurhaus-drying"
                 alt="Skeins of freshly dyed purple yarn hanging on a wooden drying rack in daylight"
               />
-              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>The loft. Out of direct sun, for two weeks, and no shortcut exists.</figcaption>
+              <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>The loft. Out of direct sun, for two weeks, and no shortcut exists.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.purpurhaus-pigment"
                 slug="purpurhaus-pigment"
                 alt="Small heaps of dry dye pigment on a stone bench, seen from above"
               />
-              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>Ground and weighed. From here on, everything is arithmetic.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>Ground and weighed. From here on, everything is arithmetic.</figcaption>
             </figure>
           </div>
         </section>
@@ -285,8 +285,8 @@ export default function PurpurhausPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three refusals</h2>
-            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>Each one makes the work less repeatable, which is the point rather than the cost.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three refusals</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>Each one makes the work less repeatable, which is the point rather than the cost.</p>
           </div>
           <div className={s.pGrid}>
             {PRINCIPLES.map((p, i) => (
@@ -305,7 +305,7 @@ export default function PurpurhausPage() {
                   <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
                 <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -315,8 +315,8 @@ export default function PurpurhausPage() {
         {/* ------------------------------------------------------------ DYES */}
         <section id="dyes" className={s.listing} aria-labelledby="dyes-h">
           <div className={s.secHead}>
-            <h2 data-edit="dyes.h2" data-edit-max="60" id="dyes-h">Ten dyestuffs</h2>
-            <p data-edit="dyes.p" data-edit-max="240" data-edit-multiline>Everything in the store room. The mordant column is doing most of the work in this table.</p>
+            <h2 data-edit="dyes.title" data-edit-max="60" id="dyes-h">Ten dyestuffs</h2>
+            <p data-edit="dyes.body" data-edit-max="240" data-edit-multiline>Everything in the store room. The mordant column is doing most of the work in this table.</p>
           </div>
           <ol className={s.table}>
             {DYES.map((r, i) => (
@@ -344,16 +344,16 @@ export default function PurpurhausPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>Anyone can match a colour. The difficult thing is admitting, in writing, that you did not.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Idalina Freire, dyer</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>Anyone can match a colour. The difficult thing is admitting, in writing, that you did not.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Idalina Freire, dyer</cite>
           </blockquote>
         </section>
 
         {/* --------------------------------------------------------- BATCHES */}
         <section id="batches" className={s.listing} aria-labelledby="batches-h">
           <div className={s.secHead}>
-            <h2 data-edit="batches.h2" data-edit-max="60" id="batches-h">Batches, numbered</h2>
-            <p data-edit="batches.p" data-edit-max="240" data-edit-multiline>Every band carries its batch number. When a batch is gone, that colour is gone with it.</p>
+            <h2 data-edit="batches.title" data-edit-max="60" id="batches-h">Batches, numbered</h2>
+            <p data-edit="batches.body" data-edit-max="240" data-edit-multiline>Every band carries its batch number. When a batch is gone, that colour is gone with it.</p>
           </div>
           <ol className={s.table}>
             {BATCHES.map((r, i) => (
@@ -380,12 +380,12 @@ export default function PurpurhausPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 data-edit="buying.h2" data-edit-max="60" id="buying-h">Buying and learning</h2>
+          <h2 data-edit="buying.title" data-edit-max="60" id="buying-h">Buying and learning</h2>
           <dl className={s.visitList}>
             {BUYING.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`buying.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`buying.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`buying.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`buying.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -407,8 +407,8 @@ export default function PurpurhausPage() {
             <dl className={s.hours}>
               {HOURS.map(([d, h, shut], i) => (
                 <div key={d} className={shut ? s.hoursShut : undefined}>
-                  <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{d}</dt>
-                  <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{h}</dd>
+                  <dt data-edit={`contact.term.${i}`} data-edit-max="28">{d}</dt>
+                  <dd data-edit={`contact.body.${i}`} data-edit-max="200" data-edit-multiline>{h}</dd>
                 </div>
               ))}
             </dl>
@@ -450,23 +450,23 @@ export default function PurpurhausPage() {
         </div>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Dye house</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Dye house</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#making">Five steps</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#ladder">The ladder</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#dyes">Dyestuffs</a></li>
+              <li><a data-edit="footer.making" data-edit-max="28" href="#making">Five steps</a></li>
+              <li><a data-edit="footer.ladder" data-edit-max="28" href="#ladder">The ladder</a></li>
+              <li><a data-edit="footer.dyes" data-edit-max="28" href="#dyes">Dyestuffs</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Yarn</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Yarn</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#batches">Batches</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#buying">Buying</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#buying">Teaching</a></li>
+              <li><a data-edit="footer.batches" data-edit-max="28" href="#batches">Batches</a></li>
+              <li><a data-edit="footer.buying" data-edit-max="28" href="#buying">Buying</a></li>
+              <li><a data-edit="footer.buying2" data-edit-max="28" href="#buying">Teaching</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Rua de Miragaia 88
               <br />
@@ -477,10 +477,10 @@ export default function PurpurhausPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional dye works. Batches, recipes and dates are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional dye works. Batches, recipes and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

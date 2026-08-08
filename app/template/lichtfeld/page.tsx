@@ -77,10 +77,10 @@ export default function LichtfeldPage() {
           Lichtfeld
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#work">Work</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#positions">Positions</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#method">Method</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#studio">Studio</a>
+          <a data-edit="bar.work" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.positions" data-edit-max="28" href="#positions">Positions</a>
+          <a data-edit="bar.method" data-edit-max="28" href="#method">Method</a>
+          <a data-edit="bar.studio" data-edit-max="28" href="#studio">Studio</a>
         </nav>
         <span data-edit="bar.tag" data-edit-max="60" className={s.tag}>Lichtplanung / München</span>
       </header>
@@ -105,7 +105,7 @@ export default function LichtfeldPage() {
               <br />
               never how bright.
               <br />
-              <span data-edit="hero.span" data-edit-max="60">It is what stays dark.</span>
+              <span data-edit="hero.text" data-edit-max="60">It is what stays dark.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Light for buildings, streets and one footbridge. We mock up on
@@ -120,14 +120,14 @@ export default function LichtfeldPage() {
             alt="A concrete stair at night lit only by a continuous recessed line of warm light"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>L-118, west stair. 80 lx on the tread, nothing on the wall.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>L-118, west stair. 80 lx on the tread, nothing on the wall.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
           {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
-              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+              <dt data-edit={`top.term.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
@@ -139,11 +139,11 @@ export default function LichtfeldPage() {
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span data-edit="work.span" data-edit-max="60">Job</span>
-              <span data-edit="work.span2" data-edit-max="60">Scheme</span>
-              <span data-edit="work.span3" data-edit-max="60">Type</span>
-              <span data-edit="work.span4" data-edit-max="60">Design level</span>
-              <span data-edit="work.span5" data-edit-max="60">Year</span>
+              <span data-edit="work.text" data-edit-max="60">Job</span>
+              <span data-edit="work.text2" data-edit-max="60">Scheme</span>
+              <span data-edit="work.text3" data-edit-max="60">Type</span>
+              <span data-edit="work.text4" data-edit-max="60">Design level</span>
+              <span data-edit="work.text5" data-edit-max="60">Year</span>
             </li>
             {WORK.map((w, i) => (
               <li key={w.code}>
@@ -191,8 +191,8 @@ export default function LichtfeldPage() {
               {POSITIONS.map((p, i) => (
                 <li key={p.n}>
                   <span data-edit={`positions.pN.${i}`} data-edit-max="60" className={s.pN}>{p.n}</span>
-                  <h3 data-edit={`positions.h3.${i}`} data-edit-max="40">{p.t}</h3>
-                  <p data-edit={`positions.p.${i}`} data-edit-max="240" data-edit-multiline>{p.d}</p>
+                  <h3 data-edit={`positions.title.${i}`} data-edit-max="40">{p.t}</h3>
+                  <p data-edit={`positions.body.${i}`} data-edit-max="240" data-edit-multiline>{p.d}</p>
                 </li>
               ))}
             </ol>
@@ -202,14 +202,14 @@ export default function LichtfeldPage() {
                   slug="lichtfeld-mockup"
                   alt="A lighting mock-up room with several fixtures aimed at a sample wall"
                 />
-                <figcaption data-edit="positions.figcaption" data-edit-max="120" data-edit-multiline>Mock-up, L-112. Four options, one night, one decision.</figcaption>
+                <figcaption data-edit="positions.caption" data-edit-max="120" data-edit-multiline>Mock-up, L-112. Four options, one night, one decision.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.lichtfeld-fixture"
                   slug="lichtfeld-fixture"
                   alt="A single machined luminaire on a plain workbench lit from the side"
                 />
-                <figcaption data-edit="positions.figcaption2" data-edit-max="120" data-edit-multiline>Bespoke, 2,700 K, machined in Augsburg.</figcaption>
+                <figcaption data-edit="positions.caption2" data-edit-max="120" data-edit-multiline>Bespoke, 2,700 K, machined in Augsburg.</figcaption>
               </figure>
             </div>
           </div>
@@ -227,12 +227,12 @@ export default function LichtfeldPage() {
               Then draw.
             </p>
             <div className={s.methodCol}>
-              <p data-edit="method.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="method.body" data-edit-max="240" data-edit-multiline>
                 We do not issue a lighting layout until a full-size condition has
                 been seen at night by somebody with the authority to change their
                 mind. It costs a fortnight and saves a year.
               </p>
-              <p data-edit="method.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="method.body2" data-edit-max="240" data-edit-multiline>
                 Commissioning is part of the fee, not an extra. We aim every
                 fixture ourselves, at night, and we come back once in the first
                 winter to do it again.
@@ -244,7 +244,7 @@ export default function LichtfeldPage() {
               slug="lichtfeld-facade"
               alt="A building facade at dusk washed with warm light from below"
             />
-            <figcaption data-edit="method.figcaption" data-edit-max="120" data-edit-multiline>L-112, colonnade. 12 lx, and the sky still legible above it.</figcaption>
+            <figcaption data-edit="method.caption" data-edit-max="120" data-edit-multiline>L-112, colonnade. 12 lx, and the sky still legible above it.</figcaption>
           </figure>
         </section>
 
@@ -266,7 +266,7 @@ export default function LichtfeldPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="studio.dt" data-edit-max="28">Office</dt>
+                <dt data-edit="studio.term" data-edit-max="28">Office</dt>
                 <dd>
                   Baaderstrasse 18, Rgb.
                   <br />
@@ -274,29 +274,29 @@ export default function LichtfeldPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="studio.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="studio.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="studio.a" data-edit-max="28" href="mailto:licht@lichtfeld.example">licht@lichtfeld.example</a>
+                  <a data-edit="studio.link" data-edit-max="28" href="mailto:licht@lichtfeld.example">licht@lichtfeld.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="studio.dt3" data-edit-max="28">Appointments</dt>
-                <dd data-edit="studio.dd" data-edit-max="200" data-edit-multiline>After dark, on site, by preference</dd>
+                <dt data-edit="studio.term3" data-edit-max="28">Appointments</dt>
+                <dd data-edit="studio.body" data-edit-max="200" data-edit-multiline>After dark, on site, by preference</dd>
               </div>
               <div>
-                <dt data-edit="studio.dt4" data-edit-max="28">Fees</dt>
-                <dd data-edit="studio.dd2" data-edit-max="200" data-edit-multiline>Percentage or lump sum. Commissioning always included.</dd>
+                <dt data-edit="studio.term4" data-edit-max="28">Fees</dt>
+                <dd data-edit="studio.body2" data-edit-max="200" data-edit-multiline>Percentage or lump sum. Commissioning always included.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three things we will not specify</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three things we will not specify</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Not taste. Each of these causes a specific, measurable problem we have been called back to fix.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dimmer}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -315,11 +315,11 @@ export default function LichtfeldPage() {
                   <Figure editId="photo.lichtfeld-tile-uplighter-cutout" slug="lichtfeld-tile-uplighter-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Uplighters</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Uplighters</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>They light the sky, the underside of leaves and the inside of your eye, in that order. Nothing that matters is above the fixture.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={falloff}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -338,11 +338,11 @@ export default function LichtfeldPage() {
                   <Figure editId="photo.lichtfeld-tile-bollard-cutout" slug="lichtfeld-tile-bollard-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Cool white outdoors</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Cool white outdoors</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Four thousand kelvin outdoors reads as institutional at any level, disturbs insects far more than warm white, and never flatters a facade.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={spraydown}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -361,7 +361,7 @@ export default function LichtfeldPage() {
                   <Figure editId="photo.lichtfeld-tile-lamp-cutout" slug="lichtfeld-tile-lamp-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Above 3 000 K near a bed</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Above 3 000 K near a bed</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>It is not about atmosphere. It is about the hour before sleep, and it is the one thing clients thank us for two years later.</p>
               </article>
           </div>
@@ -369,73 +369,73 @@ export default function LichtfeldPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">What we hand over</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">What we hand over</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>At practical completion, on paper and as files. The O&M is written to be read by a caretaker, not a lawyer.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Document</span>
-                <span data-edit="index.span2" data-edit-max="60">Format</span>
-                <span data-edit="index.span3" data-edit-max="60">For</span>
-                <span data-edit="index.span4" data-edit-max="60">Note</span>
+                <span data-edit="index.text" data-edit-max="60">Document</span>
+                <span data-edit="index.text2" data-edit-max="60">Format</span>
+                <span data-edit="index.text3" data-edit-max="60">For</span>
+                <span data-edit="index.text4" data-edit-max="60">Note</span>
             </li>
               <li key="Lighting layout">
-                <span data-edit="index.span5" data-edit-max="60">Lighting layout</span>
-                <span data-edit="index.span6" data-edit-max="60">PDF, DWG</span>
-                <span data-edit="index.span7" data-edit-max="60">Installer</span>
-                <span data-edit="index.span8" data-edit-max="60">Aiming angles marked</span>
+                <span data-edit="index.text5" data-edit-max="60">Lighting layout</span>
+                <span data-edit="index.text6" data-edit-max="60">PDF, DWG</span>
+                <span data-edit="index.text7" data-edit-max="60">Installer</span>
+                <span data-edit="index.text8" data-edit-max="60">Aiming angles marked</span>
               </li>
               <li key="Schedule">
-                <span data-edit="index.span9" data-edit-max="60">Schedule</span>
-                <span data-edit="index.span10" data-edit-max="60">PDF, XLSX</span>
-                <span data-edit="index.span11" data-edit-max="60">Client</span>
-                <span data-edit="index.span12" data-edit-max="60">With replacement lamps</span>
+                <span data-edit="index.text9" data-edit-max="60">Schedule</span>
+                <span data-edit="index.text10" data-edit-max="60">PDF, XLSX</span>
+                <span data-edit="index.text11" data-edit-max="60">Client</span>
+                <span data-edit="index.text12" data-edit-max="60">With replacement lamps</span>
               </li>
               <li key="Control strategy">
-                <span data-edit="index.span13" data-edit-max="60">Control strategy</span>
-                <span data-edit="index.span14" data-edit-max="60">PDF</span>
-                <span data-edit="index.span15" data-edit-max="60">Facilities</span>
-                <span data-edit="index.span16" data-edit-max="60">Scenes, times, overrides</span>
+                <span data-edit="index.text13" data-edit-max="60">Control strategy</span>
+                <span data-edit="index.text14" data-edit-max="60">PDF</span>
+                <span data-edit="index.text15" data-edit-max="60">Facilities</span>
+                <span data-edit="index.text16" data-edit-max="60">Scenes, times, overrides</span>
               </li>
               <li key="Commissioning record">
-                <span data-edit="index.span17" data-edit-max="60">Commissioning record</span>
-                <span data-edit="index.span18" data-edit-max="60">PDF</span>
-                <span data-edit="index.span19" data-edit-max="60">Client</span>
-                <span data-edit="index.span20" data-edit-max="60">Measured, not designed, levels</span>
+                <span data-edit="index.text17" data-edit-max="60">Commissioning record</span>
+                <span data-edit="index.text18" data-edit-max="60">PDF</span>
+                <span data-edit="index.text19" data-edit-max="60">Client</span>
+                <span data-edit="index.text20" data-edit-max="60">Measured, not designed, levels</span>
               </li>
               <li key="O&M">
-                <span data-edit="index.span21" data-edit-max="60">O&M</span>
-                <span data-edit="index.span22" data-edit-max="60">PDF, paper</span>
-                <span data-edit="index.span23" data-edit-max="60">Caretaker</span>
-                <span data-edit="index.span24" data-edit-max="60">Twelve pages, plain language</span>
+                <span data-edit="index.text21" data-edit-max="60">O&M</span>
+                <span data-edit="index.text22" data-edit-max="60">PDF, paper</span>
+                <span data-edit="index.text23" data-edit-max="60">Caretaker</span>
+                <span data-edit="index.text24" data-edit-max="60">Twelve pages, plain language</span>
               </li>
               <li key="Spares list">
-                <span data-edit="index.span25" data-edit-max="60">Spares list</span>
-                <span data-edit="index.span26" data-edit-max="60">PDF</span>
-                <span data-edit="index.span27" data-edit-max="60">Facilities</span>
-                <span data-edit="index.span28" data-edit-max="60">Ten years of availability</span>
+                <span data-edit="index.text25" data-edit-max="60">Spares list</span>
+                <span data-edit="index.text26" data-edit-max="60">PDF</span>
+                <span data-edit="index.text27" data-edit-max="60">Facilities</span>
+                <span data-edit="index.text28" data-edit-max="60">Ten years of availability</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Questions from clients</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Questions from clients</h2>
           <dl className={s.faqList}>
               <div key="Why do you insist on a m">
-                <dt data-edit="faq.dt" data-edit-max="28">Why do you insist on a mock-up?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Because everybody, including us, is wrong about light on paper. A fortnight of mock-up has saved every project we have run it on.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Why do you insist on a mock-up?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Because everybody, including us, is wrong about light on paper. A fortnight of mock-up has saved every project we have run it on.</dd>
               </div>
               <div key="Is LED still improving?">
-                <dt data-edit="faq.dt2" data-edit-max="28">Is LED still improving?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>The chips, marginally. The drivers and the optics, considerably. We specify for the driver being replaceable, which most fittings still do not allow.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Is LED still improving?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>The chips, marginally. The drivers and the optics, considerably. We specify for the driver being replaceable, which most fittings still do not allow.</dd>
               </div>
               <div key="Can you work with our el">
-                <dt data-edit="faq.dt3" data-edit-max="28">Can you work with our electrical engineer?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Always. We do the design intent and the aiming; they do the distribution and the compliance. It only goes wrong when nobody says which is which.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Can you work with our electrical engineer?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Always. We do the design intent and the aiming; they do the distribution and the compliance. It only goes wrong when nobody says which is which.</dd>
               </div>
               <div key="What does it cost?">
-                <dt data-edit="faq.dt4" data-edit-max="28">What does it cost?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Percentage or lump sum, and commissioning is always inside it. A scheme we do not commission is a scheme we did not design.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">What does it cost?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Percentage or lump sum, and commissioning is always inside it. A scheme we do not commission is a scheme we did not design.</dd>
               </div>
           </dl>
         </section>
@@ -468,13 +468,13 @@ export default function LichtfeldPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Work</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#work">Recent schemes</a>
+                <a data-edit="footer.work" data-edit-max="28" href="#work">Recent schemes</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#positions">Four positions</a>
+                <a data-edit="footer.positions" data-edit-max="28" href="#positions">Four positions</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#method">How a scheme happens</a>
+                <a data-edit="footer.method" data-edit-max="28" href="#method">How a scheme happens</a>
               </li>
             </ul>
           </div>
@@ -482,13 +482,13 @@ export default function LichtfeldPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Studio</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#studio">Baaderstrasse 18</a>
+                <a data-edit="footer.studio" data-edit-max="28" href="#studio">Baaderstrasse 18</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#studio">Fees</a>
+                <a data-edit="footer.studio2" data-edit-max="28" href="#studio">Fees</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#studio">Appointments after dark</a>
+                <a data-edit="footer.studio3" data-edit-max="28" href="#studio">Appointments after dark</a>
               </li>
             </ul>
           </div>
@@ -506,10 +506,10 @@ export default function LichtfeldPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional lighting practice. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional lighting practice. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

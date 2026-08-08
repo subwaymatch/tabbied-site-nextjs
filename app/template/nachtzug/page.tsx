@@ -79,10 +79,10 @@ export default function NachtzugPage() {
           Nachtzug
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#lines">Lines</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#berths">Berths</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#aboard">Aboard</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#book">Book</a>
+          <a data-edit="bar.lines" data-edit-max="28" href="#lines">Lines</a>
+          <a data-edit="bar.berths" data-edit-max="28" href="#berths">Berths</a>
+          <a data-edit="bar.aboard" data-edit-max="28" href="#aboard">Aboard</a>
+          <a data-edit="bar.book" data-edit-max="28" href="#book">Book</a>
         </nav>
         <span data-edit="bar.tag" data-edit-max="60" className={s.tag}>Schlafwagen seit 1994</span>
       </header>
@@ -107,7 +107,7 @@ export default function NachtzugPage() {
               <br />
               one country and
               <br />
-              <span data-edit="hero.span" data-edit-max="60">wake in another.</span>
+              <span data-edit="hero.text" data-edit-max="60">wake in another.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Six sleeper services across Europe, every one of them slower than
@@ -124,7 +124,7 @@ export default function NachtzugPage() {
             alt="A sleeper compartment at night with a made-up bunk, a warm reading lamp and a dark window"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>NZ 401, compartment 7. Somewhere south of Villach, 02.10.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>NZ 401, compartment 7. Somewhere south of Villach, 02.10.</figcaption>
         </figure>
 
         {/* ---------------------------------------------------------- LINES */}
@@ -134,13 +134,13 @@ export default function NachtzugPage() {
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span data-edit="lines.span" data-edit-max="60">Service</span>
-              <span data-edit="lines.span2" data-edit-max="60">From</span>
-              <span data-edit="lines.span3" data-edit-max="60">To</span>
-              <span data-edit="lines.span4" data-edit-max="60">Dep</span>
-              <span data-edit="lines.span5" data-edit-max="60">Arr</span>
-              <span data-edit="lines.span6" data-edit-max="60">Nights</span>
-              <span data-edit="lines.span7" data-edit-max="60">Runs</span>
+              <span data-edit="lines.text" data-edit-max="60">Service</span>
+              <span data-edit="lines.text2" data-edit-max="60">From</span>
+              <span data-edit="lines.text3" data-edit-max="60">To</span>
+              <span data-edit="lines.text4" data-edit-max="60">Dep</span>
+              <span data-edit="lines.text5" data-edit-max="60">Arr</span>
+              <span data-edit="lines.text6" data-edit-max="60">Nights</span>
+              <span data-edit="lines.text7" data-edit-max="60">Runs</span>
             </li>
             {LINES.map((l, i) => (
               <li key={l.no}>
@@ -189,7 +189,7 @@ export default function NachtzugPage() {
             <ol className={s.berthList}>
               {BERTHS.map((b, i) => (
                 <li key={b.name}>
-                  <h3 data-edit={`berths.h3.${i}`} data-edit-max="40">{b.name}</h3>
+                  <h3 data-edit={`berths.title.${i}`} data-edit-max="40">{b.name}</h3>
                   <p data-edit={`berths.bPrice.${i}`} data-edit-max="240" data-edit-multiline className={s.bPrice}>{b.price}</p>
                   <p data-edit={`berths.bBody.${i}`} data-edit-max="240" data-edit-multiline className={s.bBody}>{b.body}</p>
                 </li>
@@ -201,14 +201,14 @@ export default function NachtzugPage() {
                   slug="nachtzug-platform"
                   alt="A long sleeper train standing at a lit platform late at night"
                 />
-                <figcaption data-edit="berths.figcaption" data-edit-max="120" data-edit-multiline>Wien Hbf, platform 9. Boarding from 19.10.</figcaption>
+                <figcaption data-edit="berths.caption" data-edit-max="120" data-edit-multiline>Wien Hbf, platform 9. Boarding from 19.10.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.nachtzug-dining"
                   slug="nachtzug-dining"
                   alt="An empty dining car set for breakfast with lamps lit and night outside"
                 />
-                <figcaption data-edit="berths.figcaption2" data-edit-max="120" data-edit-multiline>The dining car opens at 06.30 and closes when it empties.</figcaption>
+                <figcaption data-edit="berths.caption2" data-edit-max="120" data-edit-multiline>The dining car opens at 06.30 and closes when it empties.</figcaption>
               </figure>
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function NachtzugPage() {
           <div className={s.aboardGrid}>
             <ul className={s.rules}>
               {RULES.map((r, i) => (
-                <li data-edit={`aboard.li.${i}`} data-edit-max="80" key={r}>{r}</li>
+                <li data-edit={`aboard.item.${i}`} data-edit-max="80" key={r}>{r}</li>
               ))}
             </ul>
             <figure className={s.tall}>
@@ -230,7 +230,7 @@ export default function NachtzugPage() {
                 slug="nachtzug-corridor"
                 alt="The narrow corridor of a sleeping car at night with warm lamps receding"
               />
-              <figcaption data-edit="aboard.figcaption" data-edit-max="120" data-edit-multiline>Carriage 274, built 1988, refitted 2019.</figcaption>
+              <figcaption data-edit="aboard.caption" data-edit-max="120" data-edit-multiline>Carriage 274, built 1988, refitted 2019.</figcaption>
             </figure>
           </div>
         </section>
@@ -253,33 +253,33 @@ export default function NachtzugPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="book.dt" data-edit-max="28">Reservations</dt>
+                <dt data-edit="book.term" data-edit-max="28">Reservations</dt>
                 <dd>
-                  <a data-edit="book.a" data-edit-max="28" href="mailto:schlafwagen@nachtzug.example">schlafwagen@nachtzug.example</a>
+                  <a data-edit="book.link" data-edit-max="28" href="mailto:schlafwagen@nachtzug.example">schlafwagen@nachtzug.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="book.dt2" data-edit-max="28">Telephone</dt>
-                <dd data-edit="book.dd" data-edit-max="200" data-edit-multiline>+43 1 000 000, 07.00 to 21.00</dd>
+                <dt data-edit="book.term2" data-edit-max="28">Telephone</dt>
+                <dd data-edit="book.body" data-edit-max="200" data-edit-multiline>+43 1 000 000, 07.00 to 21.00</dd>
               </div>
               <div>
-                <dt data-edit="book.dt3" data-edit-max="28">Opens</dt>
-                <dd data-edit="book.dd2" data-edit-max="200" data-edit-multiline>Six months ahead, at 08.00 Vienna time</dd>
+                <dt data-edit="book.term3" data-edit-max="28">Opens</dt>
+                <dd data-edit="book.body2" data-edit-max="200" data-edit-multiline>Six months ahead, at 08.00 Vienna time</dd>
               </div>
               <div>
-                <dt data-edit="book.dt4" data-edit-max="28">Whole carriage</dt>
-                <dd data-edit="book.dd3" data-edit-max="200" data-edit-multiline>Thirty berths, by arrangement, six weeks notice</dd>
+                <dt data-edit="book.term4" data-edit-max="28">Whole carriage</dt>
+                <dd data-edit="book.body3" data-edit-max="200" data-edit-multiline>Thirty berths, by arrangement, six weeks notice</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three reasons the night train survived</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three reasons the night train survived</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>It was written off four times between 1998 and 2016. Here is what kept it running.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotfield}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -298,11 +298,11 @@ export default function NachtzugPage() {
                   <Figure editId="photo.nachtzug-tile-bed-cutout" slug="nachtzug-tile-bed-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">The bed</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">The bed</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>A night on a train is a night of accommodation. Costed that way, the sleeper stops looking expensive and starts looking obvious.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={sliver}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -321,11 +321,11 @@ export default function NachtzugPage() {
                   <Figure editId="photo.nachtzug-tile-border-cutout" slug="nachtzug-tile-border-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">The border</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">The border</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Nobody wakes you. Schengen did more for the sleeper than any marketing campaign, and a whole generation has never been asked for a passport at 03.00.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={rungs}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -344,7 +344,7 @@ export default function NachtzugPage() {
                   <Figure editId="photo.nachtzug-tile-ticket-cutout" slug="nachtzug-tile-ticket-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">The arithmetic</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">The arithmetic</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Twelve hours that would otherwise be spent awake, in an airport, being processed. The train is slower and the day is longer.</p>
               </article>
           </div>
@@ -352,73 +352,73 @@ export default function NachtzugPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Rolling stock</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Rolling stock</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Everything is owned and maintained at Wien Simmering. Ages are honest.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Type</span>
-                <span data-edit="index.span2" data-edit-max="60">Built</span>
-                <span data-edit="index.span3" data-edit-max="60">Refit</span>
-                <span data-edit="index.span4" data-edit-max="60">In service</span>
+                <span data-edit="index.text" data-edit-max="60">Type</span>
+                <span data-edit="index.text2" data-edit-max="60">Built</span>
+                <span data-edit="index.text3" data-edit-max="60">Refit</span>
+                <span data-edit="index.text4" data-edit-max="60">In service</span>
             </li>
               <li key="Sleeping car, WLABmz">
-                <span data-edit="index.span5" data-edit-max="60">Sleeping car, WLABmz</span>
-                <span data-edit="index.span6" data-edit-max="60">1988</span>
-                <span data-edit="index.span7" data-edit-max="60">2019</span>
-                <span data-edit="index.span8" data-edit-max="60">24</span>
+                <span data-edit="index.text5" data-edit-max="60">Sleeping car, WLABmz</span>
+                <span data-edit="index.text6" data-edit-max="60">1988</span>
+                <span data-edit="index.text7" data-edit-max="60">2019</span>
+                <span data-edit="index.text8" data-edit-max="60">24</span>
               </li>
               <li key="Couchette, Bcmz">
-                <span data-edit="index.span9" data-edit-max="60">Couchette, Bcmz</span>
-                <span data-edit="index.span10" data-edit-max="60">1991</span>
-                <span data-edit="index.span11" data-edit-max="60">2021</span>
-                <span data-edit="index.span12" data-edit-max="60">31</span>
+                <span data-edit="index.text9" data-edit-max="60">Couchette, Bcmz</span>
+                <span data-edit="index.text10" data-edit-max="60">1991</span>
+                <span data-edit="index.text11" data-edit-max="60">2021</span>
+                <span data-edit="index.text12" data-edit-max="60">31</span>
               </li>
               <li key="Seating, Bmz">
-                <span data-edit="index.span13" data-edit-max="60">Seating, Bmz</span>
-                <span data-edit="index.span14" data-edit-max="60">1986</span>
-                <span data-edit="index.span15" data-edit-max="60">2017</span>
-                <span data-edit="index.span16" data-edit-max="60">12</span>
+                <span data-edit="index.text13" data-edit-max="60">Seating, Bmz</span>
+                <span data-edit="index.text14" data-edit-max="60">1986</span>
+                <span data-edit="index.text15" data-edit-max="60">2017</span>
+                <span data-edit="index.text16" data-edit-max="60">12</span>
               </li>
               <li key="Dining, WRmz">
-                <span data-edit="index.span17" data-edit-max="60">Dining, WRmz</span>
-                <span data-edit="index.span18" data-edit-max="60">1978</span>
-                <span data-edit="index.span19" data-edit-max="60">2015</span>
-                <span data-edit="index.span20" data-edit-max="60">6</span>
+                <span data-edit="index.text17" data-edit-max="60">Dining, WRmz</span>
+                <span data-edit="index.text18" data-edit-max="60">1978</span>
+                <span data-edit="index.text19" data-edit-max="60">2015</span>
+                <span data-edit="index.text20" data-edit-max="60">6</span>
               </li>
               <li key="Van, Dms">
-                <span data-edit="index.span21" data-edit-max="60">Van, Dms</span>
-                <span data-edit="index.span22" data-edit-max="60">1994</span>
-                <span data-edit="index.span23" data-edit-max="60">2020</span>
-                <span data-edit="index.span24" data-edit-max="60">8</span>
+                <span data-edit="index.text21" data-edit-max="60">Van, Dms</span>
+                <span data-edit="index.text22" data-edit-max="60">1994</span>
+                <span data-edit="index.text23" data-edit-max="60">2020</span>
+                <span data-edit="index.text24" data-edit-max="60">8</span>
               </li>
               <li key="Locomotive, hired">
-                <span data-edit="index.span25" data-edit-max="60">Locomotive, hired</span>
-                <span data-edit="index.span26" data-edit-max="60">n/a</span>
-                <span data-edit="index.span27" data-edit-max="60">n/a</span>
-                <span data-edit="index.span28" data-edit-max="60">Per section</span>
+                <span data-edit="index.text25" data-edit-max="60">Locomotive, hired</span>
+                <span data-edit="index.text26" data-edit-max="60">n/a</span>
+                <span data-edit="index.text27" data-edit-max="60">n/a</span>
+                <span data-edit="index.text28" data-edit-max="60">Per section</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Before you board</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Before you board</h2>
           <dl className={s.faqList}>
               <div key="Is there a shower?">
-                <dt data-edit="faq.dt" data-edit-max="28">Is there a shower?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>In the two-berth and single sleepers, yes, at the end of the carriage. In couchettes, a washbasin in the compartment and nothing else.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Is there a shower?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>In the two-berth and single sleepers, yes, at the end of the carriage. In couchettes, a washbasin in the compartment and nothing else.</dd>
               </div>
               <div key="Can I book a compartment">
-                <dt data-edit="faq.dt2" data-edit-max="28">Can I book a compartment to myself?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Yes, at the whole-compartment rate, which is less than the sum of the berths. Most solo travellers who have tried it never go back.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can I book a compartment to myself?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Yes, at the whole-compartment rate, which is less than the sum of the berths. Most solo travellers who have tried it never go back.</dd>
               </div>
               <div key="What if I miss my connec">
-                <dt data-edit="faq.dt3" data-edit-max="28">What if I miss my connection?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Our tickets are through-ticketed, so the next service is on us. This is not generosity; it is the rule the whole network runs on.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">What if I miss my connection?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Our tickets are through-ticketed, so the next service is on us. This is not generosity; it is the rule the whole network runs on.</dd>
               </div>
               <div key="Does the window really o">
-                <dt data-edit="faq.dt4" data-edit-max="28">Does the window really open?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Twelve centimetres, in every sleeper and every couchette. We have replaced entire carriages and kept the mechanism.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Does the window really open?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Twelve centimetres, in every sleeper and every couchette. We have replaced entire carriages and kept the mechanism.</dd>
               </div>
           </dl>
         </section>
@@ -451,13 +451,13 @@ export default function NachtzugPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Travel</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#lines">The six lines</a>
+                <a data-edit="footer.lines" data-edit-max="28" href="#lines">The six lines</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#berths">Four kinds of berth</a>
+                <a data-edit="footer.berths" data-edit-max="28" href="#berths">Four kinds of berth</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#aboard">Aboard</a>
+                <a data-edit="footer.aboard" data-edit-max="28" href="#aboard">Aboard</a>
               </li>
             </ul>
           </div>
@@ -465,13 +465,13 @@ export default function NachtzugPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Booking</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#book">Reservations</a>
+                <a data-edit="footer.book" data-edit-max="28" href="#book">Reservations</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#book">Whole carriage</a>
+                <a data-edit="footer.book2" data-edit-max="28" href="#book">Whole carriage</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#aboard">Bicycles and dogs</a>
+                <a data-edit="footer.aboard2" data-edit-max="28" href="#aboard">Bicycles and dogs</a>
               </li>
             </ul>
           </div>
@@ -489,10 +489,10 @@ export default function NachtzugPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional sleeper operator. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional sleeper operator. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

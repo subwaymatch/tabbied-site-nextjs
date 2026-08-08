@@ -149,10 +149,10 @@ export default function TiefseePage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Tiefsee</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#zones">Zones</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#fleet">Fleet</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#cruises">Cruises</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#policy">Data</a>
+          <a data-edit="bar.zones" data-edit-max="28" href="#zones">Zones</a>
+          <a data-edit="bar.fleet" data-edit-max="28" href="#fleet">Fleet</a>
+          <a data-edit="bar.cruises" data-edit-max="28" href="#cruises">Cruises</a>
+          <a data-edit="bar.policy" data-edit-max="28" href="#policy">Data</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Deep-sea programme</span>
       </header>
@@ -172,12 +172,12 @@ export default function TiefseePage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Deep-sea research / one ship, two vehicles / since 1986</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Eleven</span>
-            <span data-edit="hero.span2" data-edit-max="60">thousand</span>
+            <span data-edit="hero.text" data-edit-max="60">Eleven</span>
+            <span data-edit="hero.text2" data-edit-max="60">thousand</span>
             <span data-edit="hero.cyan" data-edit-max="60" className={s.cyan}>metres down.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Five zones, a hundred and twenty-eight standing stations, and
               everything we find published inside a year of the ship docking.
             </p>
@@ -211,17 +211,17 @@ export default function TiefseePage() {
               <div className={s.zoneInner}>
                 <p className={s.zDepth}>
                   {z.depth}
-                  <span data-edit={`zone.span.${i}`} data-edit-max="60">m</span>
+                  <span data-edit={`zone.text.${i}`} data-edit-max="60">m</span>
                 </p>
                 <div className={s.zBody}>
-                  <h2 data-edit={`zone.h2.${i}`} data-edit-max="60">{z.name}</h2>
+                  <h2 data-edit={`zone.title.${i}`} data-edit-max="60">{z.name}</h2>
                   <p data-edit={`zone.zLatin.${i}`} data-edit-max="240" data-edit-multiline className={s.zLatin}>{z.latin}</p>
                   <p data-edit={`zone.zText.${i}`} data-edit-max="240" data-edit-multiline className={s.zText}>{z.body}</p>
                   <dl className={s.zFacts}>
                     {z.facts.map(([v, k], i2) => (
                       <div key={k}>
-                        <dt data-edit={`zone.dt.${i}.${i2}`} data-edit-max="28">{v}</dt>
-                        <dd data-edit={`zone.dd.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+                        <dt data-edit={`zone.term.${i}.${i2}`} data-edit-max="28">{v}</dt>
+                        <dd data-edit={`zone.body.${i}.${i2}`} data-edit-max="200" data-edit-multiline>{k}</dd>
                       </div>
                     ))}
                   </dl>
@@ -240,13 +240,13 @@ export default function TiefseePage() {
             with our own eyes.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Tiefsee is a consortium programme: one ship, two crewed and
               uncrewed vehicles, six landers, and a hundred and twenty-eight
               stations that have been reoccupied on the same coordinates since
               1986.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               The oldest of those time-series is now forty years long, which is
               the only reason anybody can say anything at all about whether the
               abyssal plain is changing.
@@ -277,8 +277,8 @@ export default function TiefseePage() {
         {/* ----------------------------------------------------------- FLEET */}
         <section id="fleet" className={s.listing} aria-labelledby="fleet-h">
           <div className={s.secHead}>
-            <h2 data-edit="fleet.h2" data-edit-max="60" id="fleet-h">What goes down</h2>
-            <p data-edit="fleet.p" data-edit-max="240" data-edit-multiline>One ship, five kinds of vehicle. The landers are the cheapest and have done the most work.</p>
+            <h2 data-edit="fleet.title" data-edit-max="60" id="fleet-h">What goes down</h2>
+            <p data-edit="fleet.body" data-edit-max="240" data-edit-multiline>One ship, five kinds of vehicle. The landers are the cheapest and have done the most work.</p>
           </div>
           <ol className={s.table}>
             {FLEET.map((r, i) => (
@@ -306,16 +306,16 @@ export default function TiefseePage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>We have better maps of Mars. Mars does not have four kilometres of water on top of it.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Dr Salla Vainio, chief scientist</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>We have better maps of Mars. Mars does not have four kilometres of water on top of it.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Dr Salla Vainio, chief scientist</cite>
           </blockquote>
         </section>
 
         {/* --------------------------------------------------------- CRUISES */}
         <section id="cruises" className={s.listing} aria-labelledby="cr-h">
           <div className={s.secHead}>
-            <h2 data-edit="cruises.h2" data-edit-max="60" id="cr-h">Recent cruises</h2>
-            <p data-edit="cruises.p" data-edit-max="240" data-edit-multiline>Every one of these has its full dataset online. The number is the cruise, not the year.</p>
+            <h2 data-edit="cruises.title" data-edit-max="60" id="cr-h">Recent cruises</h2>
+            <p data-edit="cruises.body" data-edit-max="240" data-edit-multiline>Every one of these has its full dataset online. The number is the cruise, not the year.</p>
           </div>
           <ol className={s.table}>
             {CRUISES.map((r, i) => (
@@ -343,12 +343,12 @@ export default function TiefseePage() {
             />
           </div>
           <div className={s.policyInner}>
-            <h2 data-edit="policy.h2" data-edit-max="60" id="policy-h">What we do with it</h2>
+            <h2 data-edit="policy.title" data-edit-max="60" id="policy-h">What we do with it</h2>
             <dl className={s.policyList}>
               {POLICY.map(([k, v], i) => (
                 <div key={k}>
-                  <dt data-edit={`policy.dt.${i}`} data-edit-max="28">{k}</dt>
-                  <dd data-edit={`policy.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                  <dt data-edit={`policy.term.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`policy.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -388,7 +388,7 @@ export default function TiefseePage() {
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
+                  <span data-edit={`contact.text.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
@@ -418,23 +418,23 @@ export default function TiefseePage() {
         </p>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Science</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Science</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#zones">The five zones</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#cruises">Cruises</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#policy">Data policy</a></li>
+              <li><a data-edit="footer.zones" data-edit-max="28" href="#zones">The five zones</a></li>
+              <li><a data-edit="footer.cruises" data-edit-max="28" href="#cruises">Cruises</a></li>
+              <li><a data-edit="footer.policy" data-edit-max="28" href="#policy">Data policy</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Programme</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Programme</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#fleet">The fleet</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#policy">Berths</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#policy">Imagery</a></li>
+              <li><a data-edit="footer.fleet" data-edit-max="28" href="#fleet">The fleet</a></li>
+              <li><a data-edit="footer.policy2" data-edit-max="28" href="#policy">Berths</a></li>
+              <li><a data-edit="footer.policy3" data-edit-max="28" href="#policy">Imagery</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Ashore</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Ashore</h2>
             <p>
               Kaianlage 3
               <br />
@@ -445,10 +445,10 @@ export default function TiefseePage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional research programme. Ships, cruises and figures are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional research programme. Ships, cruises and figures are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

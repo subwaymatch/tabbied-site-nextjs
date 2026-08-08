@@ -201,11 +201,11 @@ export default function ChronometrieBexPage() {
               Bex
             </p>
             <nav className={styles.nav} aria-label="Sections">
-              <a data-edit="masthead.a" data-edit-max="28" href="#manufacture">Manufacture</a>
-              <a data-edit="masthead.a2" data-edit-max="28" href="#movement">Movement</a>
-              <a data-edit="masthead.a3" data-edit-max="28" href="#collection">Collection</a>
-              <a data-edit="masthead.a4" data-edit-max="28" href="#specifications">Specifications</a>
-              <a data-edit="masthead.a5" data-edit-max="28" href="#ordering">Ordering</a>
+              <a data-edit="masthead.manufacture" data-edit-max="28" href="#manufacture">Manufacture</a>
+              <a data-edit="masthead.movement" data-edit-max="28" href="#movement">Movement</a>
+              <a data-edit="masthead.collection" data-edit-max="28" href="#collection">Collection</a>
+              <a data-edit="masthead.specifications" data-edit-max="28" href="#specifications">Specifications</a>
+              <a data-edit="masthead.ordering" data-edit-max="28" href="#ordering">Ordering</a>
             </nav>
             <p className={styles.mastMeta}>
               Rue du Jura 12
@@ -230,8 +230,8 @@ export default function ChronometrieBexPage() {
             <dl className={styles.heroFigures}>
               {HOUSE_FIGURES.map((f, i) => (
                 <div key={f.label}>
-                  <dt data-edit={`hero.dt.${i}`} data-edit-max="28">{f.label}</dt>
-                  <dd data-edit={`hero.dd.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
+                  <dt data-edit={`hero.term.${i}`} data-edit-max="28">{f.label}</dt>
+                  <dd data-edit={`hero.body.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -268,7 +268,7 @@ export default function ChronometrieBexPage() {
             </div>
 
             <div className={styles.proseCol}>
-              <p data-edit="manufacture.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="manufacture.body" data-edit-max="240" data-edit-multiline>
                 Chronométrie Bex was founded by Henri Delessert, who had spent
                 nineteen years repairing pocket watches for the railway and
                 decided that a wristwatch could be made to the same standard if
@@ -276,14 +276,14 @@ export default function ChronometrieBexPage() {
                 March 1976. The design has been altered twice since, both times
                 by less than a millimetre.
               </p>
-              <p data-edit="manufacture.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="manufacture.body2" data-edit-max="240" data-edit-multiline>
                 Cases are turned in Le Sentier by a supplier we have used since
                 1981. Hairsprings, balance staffs, wheels and bridges are made
                 here on machines that predate all of us: a Schaublin 102 lathe
                 from 1959, a jig borer from 1966, and a rose engine that was
                 already second-hand when Delessert bought it.
               </p>
-              <p data-edit="manufacture.p3" data-edit-max="240" data-edit-multiline>
+              <p data-edit="manufacture.body3" data-edit-max="240" data-edit-multiline>
                 Output is capped at 240 watches. Not as a marketing position:
                 that is what eleven people can finish properly in a working
                 year.
@@ -298,7 +298,7 @@ export default function ChronometrieBexPage() {
                   className={styles.img}
                 />
               </div>
-              <figcaption data-edit="manufacture.figcaption" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="manufacture.caption" data-edit-max="120" data-edit-multiline>
                 The atelier. Eight benches, three machines, one window per
                 bench.
               </figcaption>
@@ -345,7 +345,7 @@ export default function ChronometrieBexPage() {
                   className={styles.img}
                 />
               </div>
-              <figcaption data-edit="movement.figcaption" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="movement.caption" data-edit-max="120" data-edit-multiline>
                 CB-14 before casing. Bridges are bevelled by hand at 45
                 degrees; the flanks are polished on a tin lap.
               </figcaption>
@@ -354,8 +354,8 @@ export default function ChronometrieBexPage() {
             <dl className={styles.specPairs}>
               {MOVEMENT_SPECS.map((s, i) => (
                 <div key={s.label}>
-                  <dt data-edit={`movement.dt.${i}`} data-edit-max="28">{s.label}</dt>
-                  <dd data-edit={`movement.dd.${i}`} data-edit-max="200" data-edit-multiline>{s.value}</dd>
+                  <dt data-edit={`movement.term.${i}`} data-edit-max="28">{s.label}</dt>
+                  <dd data-edit={`movement.body.${i}`} data-edit-max="200" data-edit-multiline>{s.value}</dd>
                 </div>
               ))}
             </dl>
@@ -415,19 +415,19 @@ export default function ChronometrieBexPage() {
                   <p data-edit={`plate.plateLine.${i}`} data-edit-max="240" data-edit-multiline className={styles.plateLine}>{w.line}</p>
                   <dl className={styles.plateSpecs}>
                     <div>
-                      <dt data-edit={`plate.dt.${i}`} data-edit-max="28">Diameter</dt>
-                      <dd data-edit={`plate.dd.${i}`} data-edit-max="200" data-edit-multiline>{w.diameter}</dd>
+                      <dt data-edit={`plate.term.${i}`} data-edit-max="28">Diameter</dt>
+                      <dd data-edit={`plate.body.${i}`} data-edit-max="200" data-edit-multiline>{w.diameter}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`plate.dt2.${i}`} data-edit-max="28">Calibre</dt>
-                      <dd data-edit={`plate.dd2.${i}`} data-edit-max="200" data-edit-multiline>{w.calibre}</dd>
+                      <dt data-edit={`plate.term2.${i}`} data-edit-max="28">Calibre</dt>
+                      <dd data-edit={`plate.body2.${i}`} data-edit-max="200" data-edit-multiline>{w.calibre}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`plate.dt3.${i}`} data-edit-max="28">Power reserve</dt>
-                      <dd data-edit={`plate.dd3.${i}`} data-edit-max="200" data-edit-multiline>{w.reserve}</dd>
+                      <dt data-edit={`plate.term3.${i}`} data-edit-max="28">Power reserve</dt>
+                      <dd data-edit={`plate.body3.${i}`} data-edit-max="200" data-edit-multiline>{w.reserve}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`plate.dt4.${i}`} data-edit-max="28">Price</dt>
+                      <dt data-edit={`plate.term4.${i}`} data-edit-max="28">Price</dt>
                       <dd data-edit={`plate.platePrice.${i}`} data-edit-max="200" data-edit-multiline className={styles.platePrice}>{w.price}</dd>
                     </div>
                   </dl>
@@ -461,10 +461,10 @@ export default function ChronometrieBexPage() {
               aria-label="Reference specifications compared"
             >
               <div className={`${styles.specRow} ${styles.specHead}`} role="row">
-                <span data-edit="specifications.span" data-edit-max="60" role="columnheader">Reference</span>
-                <span data-edit="specifications.span2" data-edit-max="60" role="columnheader">Type 01</span>
-                <span data-edit="specifications.span3" data-edit-max="60" role="columnheader">Type 02</span>
-                <span data-edit="specifications.span4" data-edit-max="60" role="columnheader">Type 03</span>
+                <span data-edit="specifications.text" data-edit-max="60" role="columnheader">Reference</span>
+                <span data-edit="specifications.text2" data-edit-max="60" role="columnheader">Type 01</span>
+                <span data-edit="specifications.text3" data-edit-max="60" role="columnheader">Type 02</span>
+                <span data-edit="specifications.text4" data-edit-max="60" role="columnheader">Type 03</span>
               </div>
               {SPEC_ROWS.map((r, i) => (
                 <div key={r.label} className={styles.specRow} role="row">
@@ -517,7 +517,7 @@ export default function ChronometrieBexPage() {
                 <li key={s.no} className={styles.step}>
                   <span data-edit={`servicing.stepNo.${i}`} data-edit-max="60" className={styles.stepNo}>{s.no}</span>
                   <h3 data-edit={`servicing.stepTitle.${i}`} data-edit-max="40" className={styles.stepTitle}>{s.title}</h3>
-                  <p data-edit={`servicing.p.${i}`} data-edit-max="240" data-edit-multiline>{s.body}</p>
+                  <p data-edit={`servicing.body.${i}`} data-edit-max="240" data-edit-multiline>{s.body}</p>
                 </li>
               ))}
             </ol>
@@ -525,8 +525,8 @@ export default function ChronometrieBexPage() {
             <dl className={styles.termsList}>
               {SERVICE_TERMS.map((t, i) => (
                 <div key={t.label} className={styles.termRow}>
-                  <dt data-edit={`servicing.dt.${i}`} data-edit-max="28">{t.label}</dt>
-                  <dd data-edit={`servicing.dd.${i}`} data-edit-max="200" data-edit-multiline>{t.value}</dd>
+                  <dt data-edit={`servicing.term.${i}`} data-edit-max="28">{t.label}</dt>
+                  <dd data-edit={`servicing.body2.${i}`} data-edit-max="200" data-edit-multiline>{t.value}</dd>
                 </div>
               ))}
             </dl>
@@ -567,19 +567,19 @@ export default function ChronometrieBexPage() {
             </figure>
 
             <div className={styles.proseColWide}>
-              <p data-edit="watchmaker.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="watchmaker.body" data-edit-max="240" data-edit-multiline>
                 Reymond trained at the technical school in Le Locle and spent
                 four years on restoration before coming to Bex. She sets the
                 house standard for finishing, which is written down in a folder
                 nobody has ever updated because it has not needed updating.
               </p>
-              <p data-edit="watchmaker.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="watchmaker.body2" data-edit-max="240" data-edit-multiline>
                 Three of the eleven people here were trained by her from
                 scratch. The apprenticeship is four years. The first year is
                 filing steel by hand until a surface is flat under a straight
                 edge, which she considers the only test worth setting.
               </p>
-              <p data-edit="watchmaker.p3" data-edit-max="240" data-edit-multiline>
+              <p data-edit="watchmaker.body3" data-edit-max="240" data-edit-multiline>
                 She keeps the timing certificates of every watch she has
                 assembled in a drawer under the bench. If you send yours back
                 for service she will find the original sheet and compare it.
@@ -609,8 +609,8 @@ export default function ChronometrieBexPage() {
             <dl className={styles.orderList}>
               {ORDER_STEPS.map((o, i) => (
                 <div key={o.label} className={styles.orderRow}>
-                  <dt data-edit={`ordering.dt.${i}`} data-edit-max="28">{o.label}</dt>
-                  <dd data-edit={`ordering.dd.${i}`} data-edit-max="200" data-edit-multiline>{o.value}</dd>
+                  <dt data-edit={`ordering.term.${i}`} data-edit-max="28">{o.label}</dt>
+                  <dd data-edit={`ordering.body.${i}`} data-edit-max="200" data-edit-multiline>{o.value}</dd>
                 </div>
               ))}
             </dl>
@@ -654,7 +654,7 @@ export default function ChronometrieBexPage() {
 
             <dl className={styles.visitPairs}>
               <div>
-                <dt data-edit="visiting.dt" data-edit-max="28">Address</dt>
+                <dt data-edit="visiting.term" data-edit-max="28">Address</dt>
                 <dd>
                   Rue du Jura 12
                   <br />
@@ -662,7 +662,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="visiting.dt2" data-edit-max="28">Open</dt>
+                <dt data-edit="visiting.term2" data-edit-max="28">Open</dt>
                 <dd>
                   Tuesday and Thursday, 14:00 to 18:00
                   <br />
@@ -670,7 +670,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="visiting.dt3" data-edit-max="28">By train</dt>
+                <dt data-edit="visiting.term3" data-edit-max="28">By train</dt>
                 <dd>
                   Bex station, 48 minutes from Lausanne
                   <br />
@@ -678,7 +678,7 @@ export default function ChronometrieBexPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="visiting.dt4" data-edit-max="28">By car</dt>
+                <dt data-edit="visiting.term4" data-edit-max="28">By car</dt>
                 <dd>
                   A9, exit Bex
                   <br />
@@ -714,16 +714,16 @@ export default function ChronometrieBexPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={styles.footHead}>Catalogue</h2>
             <ul className={styles.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#collection">Type 01 Secteur</a>
+                <a data-edit="footer.collection" data-edit-max="28" href="#collection">Type 01 Secteur</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#collection">Type 02 Régulateur</a>
+                <a data-edit="footer.collection2" data-edit-max="28" href="#collection">Type 02 Régulateur</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#collection">Type 03 Réserve</a>
+                <a data-edit="footer.collection3" data-edit-max="28" href="#collection">Type 03 Réserve</a>
               </li>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#specifications">Full specifications</a>
+                <a data-edit="footer.specifications" data-edit-max="28" href="#specifications">Full specifications</a>
               </li>
             </ul>
           </div>
@@ -731,13 +731,13 @@ export default function ChronometrieBexPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={styles.footHead}>Owners</h2>
             <ul className={styles.footLinks}>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#servicing">Book a service</a>
+                <a data-edit="footer.servicing" data-edit-max="28" href="#servicing">Book a service</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#servicing">Parts and guarantee</a>
+                <a data-edit="footer.servicing2" data-edit-max="28" href="#servicing">Parts and guarantee</a>
               </li>
               <li>
-                <a data-edit="footer.a7" data-edit-max="28" href="#visiting">Find the atelier</a>
+                <a data-edit="footer.visiting" data-edit-max="28" href="#visiting">Find the atelier</a>
               </li>
             </ul>
           </div>
@@ -754,13 +754,13 @@ export default function ChronometrieBexPage() {
             </address>
           </div>
           <div className={styles.footBase}>
-            <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>
               Prices in Swiss francs, valid to 31 December 2026. Timing figures
               measured at 23 degrees, fully wound.
             </p>
             <p>
               Patterns by{' '}
-              <a data-edit="footer.a8" data-edit-max="28"
+              <a data-edit="footer.link" data-edit-max="28"
                 href="https://tabbied.com"
                 target="_blank"
                 rel="noreferrer noopener"

@@ -126,10 +126,10 @@ export default function KupferwalzPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Kupferwalz</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#gauge">Gauges</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#making">The line</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#spec">Specification</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#shipped">Shipped</a>
+          <a data-edit="bar.gauge" data-edit-max="28" href="#gauge">Gauges</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">The line</a>
+          <a data-edit="bar.spec" data-edit-max="28" href="#spec">Specification</a>
+          <a data-edit="bar.shipped" data-edit-max="28" href="#shipped">Shipped</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Laminoir / Liège</span>
       </header>
@@ -149,12 +149,12 @@ export default function KupferwalzPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Copper rolling mill / Liège / since 1889</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Three</span>
-            <span data-edit="hero.span2" data-edit-max="60">millimetres</span>
+            <span data-edit="hero.text" data-edit-max="60">Three</span>
+            <span data-edit="hero.text2" data-edit-max="60">millimetres</span>
             <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>to a twentieth.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Cast, hot rolled, cold rolled, annealed and cut in one building.
               One alloy, ten gauges, and a scrap bin that never leaves the
               site.
@@ -172,7 +172,7 @@ export default function KupferwalzPage() {
             alt="The interior of a copper rolling mill, a wide sheet of copper running between steel rolls"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>The cold mill. Eleven passes behind it, four to go.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>The cold mill. Eleven passes behind it, four to go.</figcaption>
         </figure>
 
         {/* ----------------------------------------------------------- GAUGE
@@ -180,8 +180,8 @@ export default function KupferwalzPage() {
             not a quantity beside the number — it is the number. */}
         <section id="gauge" className={s.gauge} aria-labelledby="gauge-h">
           <div className={s.secHead}>
-            <h2 data-edit="gauge.h2" data-edit-max="60" id="gauge-h">Ten gauges</h2>
-            <p data-edit="gauge.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="gauge.title" data-edit-max="60" id="gauge-h">Ten gauges</h2>
+            <p data-edit="gauge.body" data-edit-max="240" data-edit-multiline>
               Drawn at forty times scale, so the thinnest one is still visible.
               Anything between them is a special and takes two weeks longer.
             </p>
@@ -215,12 +215,12 @@ export default function KupferwalzPage() {
             a lorry.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Kupferwalz has rolled on the Quai des Ardennes since 1889.
               Forty-one people, one casting bay, a hot mill from 1974 and a
               cold mill that has been rebuilt twice around its original frame.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               We roll one alloy. Everything else about the order — gauge,
               temper, width, finish — is a setting; the metal never changes.
             </p>
@@ -242,8 +242,8 @@ export default function KupferwalzPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">Five stations</h2>
-            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>A slab is 180 mm thick when it is cast and 0.05 mm when it leaves. Nothing else happens in between.</p>
+            <h2 data-edit="making.title" data-edit-max="60" id="making-h">Five stations</h2>
+            <p data-edit="making.body" data-edit-max="240" data-edit-multiline>A slab is 180 mm thick when it is cast and 0.05 mm when it leaves. Nothing else happens in between.</p>
           </div>
           <ol className={s.rows}>
             {LINE.map((x, i) => (
@@ -261,14 +261,14 @@ export default function KupferwalzPage() {
                 slug="kupferwalz-coil"
                 alt="A tall coil of rolled copper sheet standing on end on a mill floor"
               />
-              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>Two point four tonnes, on end, waiting for the slitter.</figcaption>
+              <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>Two point four tonnes, on end, waiting for the slitter.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.kupferwalz-stack"
                 slug="kupferwalz-stack"
                 alt="A stack of cut copper sheets on a pallet seen from a low angle"
               />
-              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>Cut sheet, 1.0 mm. The gauge is printed on the top one.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>Cut sheet, 1.0 mm. The gauge is printed on the top one.</figcaption>
             </figure>
           </div>
         </section>
@@ -276,8 +276,8 @@ export default function KupferwalzPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three habits of the mill</h2>
-            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>All three cost money and all three are the reason anybody buys from a mill this small.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three habits of the mill</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>All three cost money and all three are the reason anybody buys from a mill this small.</p>
           </div>
           <div className={s.pGrid}>
             {PRINCIPLES.map((p, i) => (
@@ -296,7 +296,7 @@ export default function KupferwalzPage() {
                   <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
                 <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -306,8 +306,8 @@ export default function KupferwalzPage() {
         {/* ------------------------------------------------------------ SPEC */}
         <section id="spec" className={s.listing} aria-labelledby="spec-h">
           <div className={s.secHead}>
-            <h2 data-edit="spec.h2" data-edit-max="60" id="spec-h">The specification</h2>
-            <p data-edit="spec.p" data-edit-max="240" data-edit-multiline>Published in full. If a job needs something not on this list, it is a conversation, not a form.</p>
+            <h2 data-edit="spec.title" data-edit-max="60" id="spec-h">The specification</h2>
+            <p data-edit="spec.body" data-edit-max="240" data-edit-multiline>Published in full. If a job needs something not on this list, it is a conversation, not a form.</p>
           </div>
           <ol className={s.table}>
             {SPEC.map((r, i) => (
@@ -335,16 +335,16 @@ export default function KupferwalzPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>Every kilo of copper ever mined is still copper. We are only ever borrowing it and changing its thickness.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Martine Delhaize, melt shop</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>Every kilo of copper ever mined is still copper. We are only ever borrowing it and changing its thickness.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Martine Delhaize, melt shop</cite>
           </blockquote>
         </section>
 
         {/* --------------------------------------------------------- SHIPPED */}
         <section id="shipped" className={s.listing} aria-labelledby="shipped-h">
           <div className={s.secHead}>
-            <h2 data-edit="shipped.h2" data-edit-max="60" id="shipped-h">Where it went</h2>
-            <p data-edit="shipped.p" data-edit-max="240" data-edit-multiline>Recent work, with the customer&rsquo;s permission. Roofs outlive everybody who argued about the budget.</p>
+            <h2 data-edit="shipped.title" data-edit-max="60" id="shipped-h">Where it went</h2>
+            <p data-edit="shipped.body" data-edit-max="240" data-edit-multiline>Recent work, with the customer&rsquo;s permission. Roofs outlive everybody who argued about the budget.</p>
           </div>
           <ol className={s.table}>
             {SHIPPED.map((r, i) => (
@@ -371,12 +371,12 @@ export default function KupferwalzPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 data-edit="ordering.h2" data-edit-max="60" id="ordering-h">Buying from a small mill</h2>
+          <h2 data-edit="ordering.title" data-edit-max="60" id="ordering-h">Buying from a small mill</h2>
           <dl className={s.visitList}>
             {ORDERING.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`ordering.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`ordering.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`ordering.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`ordering.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -460,23 +460,23 @@ export default function KupferwalzPage() {
         </div>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Mill</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Mill</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#making">Five stations</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#gauge">Ten gauges</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#spec">Specification</a></li>
+              <li><a data-edit="footer.making" data-edit-max="28" href="#making">Five stations</a></li>
+              <li><a data-edit="footer.gauge" data-edit-max="28" href="#gauge">Ten gauges</a></li>
+              <li><a data-edit="footer.spec" data-edit-max="28" href="#spec">Specification</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Trade</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Trade</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#shipped">Where it went</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#ordering">Ordering</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#ordering">Offcuts</a></li>
+              <li><a data-edit="footer.shipped" data-edit-max="28" href="#shipped">Where it went</a></li>
+              <li><a data-edit="footer.ordering" data-edit-max="28" href="#ordering">Ordering</a></li>
+              <li><a data-edit="footer.ordering2" data-edit-max="28" href="#ordering">Offcuts</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Quai des Ardennes 60
               <br />
@@ -487,10 +487,10 @@ export default function KupferwalzPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional rolling mill. Tonnages, tolerances and customers are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional rolling mill. Tonnages, tolerances and customers are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

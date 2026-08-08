@@ -133,10 +133,10 @@ export default function MaraisBlancPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Marais Blanc</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#marsh">The marsh</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#making">The year</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#grades">Grades</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#calendar">Calendar</a>
+          <a data-edit="bar.marsh" data-edit-max="28" href="#marsh">The marsh</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">The year</a>
+          <a data-edit="bar.grades" data-edit-max="28" href="#grades">Grades</a>
+          <a data-edit="bar.calendar" data-edit-max="28" href="#calendar">Calendar</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Paludier / Guérande</span>
       </header>
@@ -156,11 +156,11 @@ export default function MaraisBlancPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Sea salt / Guérande / worked since 1611</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Sun, wind,</span>
+            <span data-edit="hero.text" data-edit-max="60">Sun, wind,</span>
             <span data-edit="hero.hi" data-edit-max="60" className={s.hi}>and a wooden rake.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Thirty-six clay pans, no pump and no machine. Sea water walks
               across the marsh for a fortnight and comes out as salt.
             </p>
@@ -177,14 +177,14 @@ export default function MaraisBlancPage() {
             alt="Sea salt pans seen from directly above, a grid of shallow clay basins of pink brine"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>From above, in July. The pink is the brine, not the light.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>From above, in July. The pink is the brine, not the light.</figcaption>
         </figure>
 
         {/* ----------------------------------------------------------- MARSH */}
         <section id="marsh" className={s.marsh} aria-labelledby="marsh-h">
           <div className={s.secHead}>
-            <h2 data-edit="marsh.h2" data-edit-max="60" id="marsh-h">Thirty-six pans</h2>
-            <p data-edit="marsh.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="marsh.title" data-edit-max="60" id="marsh-h">Thirty-six pans</h2>
+            <p data-edit="marsh.body" data-edit-max="240" data-edit-multiline>
               The whole works, drawn as a plan and tinted by the strength of
               the brine standing in each pan. Water enters at the top left and
               leaves as salt at the bottom right.
@@ -226,12 +226,12 @@ export default function MaraisBlancPage() {
             before the weather turns.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Marais Blanc is one family and two employees working pans first
               cut in 1611. The clay is repaired every winter by hand, because
               the works and the tool are the same object.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               A good year is twenty-six tonnes and a bad one is nine. We have
               never had two good years in a row and we do not expect to.
             </p>
@@ -253,8 +253,8 @@ export default function MaraisBlancPage() {
         {/* ---------------------------------------------------------- MAKING */}
         <section id="making" className={s.making} aria-labelledby="making-h">
           <div className={s.secHead}>
-            <h2 data-edit="making.h2" data-edit-max="60" id="making-h">Five movements</h2>
-            <p data-edit="making.p" data-edit-max="240" data-edit-multiline>Nine months of preparation for a harvest that lasts, in a good year, about ninety days.</p>
+            <h2 data-edit="making.title" data-edit-max="60" id="making-h">Five movements</h2>
+            <p data-edit="making.body" data-edit-max="240" data-edit-multiline>Nine months of preparation for a harvest that lasts, in a good year, about ninety days.</p>
           </div>
           <ol className={s.rows}>
             {WORK.map((w, i) => (
@@ -272,14 +272,14 @@ export default function MaraisBlancPage() {
                 slug="marais-blanc-rake"
                 alt="A long-handled wooden salt rake resting across a clay bund beside a shallow brine pan"
               />
-              <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>The lousse. Five metres of wood and no metal anywhere on it.</figcaption>
+              <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>The lousse. Five metres of wood and no metal anywhere on it.</figcaption>
             </figure>
             <figure>
               <Figure editId="photo.marais-blanc-mound"
                 slug="marais-blanc-mound"
                 alt="A conical mound of freshly harvested white sea salt on a clay path"
               />
-              <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>A day&rsquo;s raking, drying on the path for a week before it is carried in.</figcaption>
+              <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>A day&rsquo;s raking, drying on the path for a week before it is carried in.</figcaption>
             </figure>
           </div>
         </section>
@@ -287,8 +287,8 @@ export default function MaraisBlancPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three rules of the marsh</h2>
-            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>None of them is a marketing position. They are all just what happens if you do otherwise.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three rules of the marsh</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>None of them is a marketing position. They are all just what happens if you do otherwise.</p>
           </div>
           <div className={s.pGrid}>
             {PRINCIPLES.map((p, i) => (
@@ -307,7 +307,7 @@ export default function MaraisBlancPage() {
                   <Figure editId={`pr.photo.${i}`} slug={p.img} alt={p.alt} cutout className={s.pObject} />
                 </div>
                 <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -317,8 +317,8 @@ export default function MaraisBlancPage() {
         {/* ---------------------------------------------------------- GRADES */}
         <section id="grades" className={s.listing} aria-labelledby="grades-h">
           <div className={s.secHead}>
-            <h2 data-edit="grades.h2" data-edit-max="60" id="grades-h">What comes off the marsh</h2>
-            <p data-edit="grades.p" data-edit-max="240" data-edit-multiline>Three grades and a weed. Prices are at the hut; post is at cost and slow.</p>
+            <h2 data-edit="grades.title" data-edit-max="60" id="grades-h">What comes off the marsh</h2>
+            <p data-edit="grades.body" data-edit-max="240" data-edit-multiline>Three grades and a weed. Prices are at the hut; post is at cost and slow.</p>
           </div>
           <ol className={s.table}>
             {GRADES.map((r, i) => (
@@ -346,16 +346,16 @@ export default function MaraisBlancPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>You cannot hurry it and you cannot store the weather. Everything else about this job is repairing clay.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Loïc Guéhenneuc, paludier</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>You cannot hurry it and you cannot store the weather. Everything else about this job is repairing clay.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Loïc Guéhenneuc, paludier</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- CALENDAR */}
         <section id="calendar" className={s.listing} aria-labelledby="cal-h">
           <div className={s.secHead}>
-            <h2 data-edit="calendar.h2" data-edit-max="60" id="cal-h">One year</h2>
-            <p data-edit="calendar.p" data-edit-max="240" data-edit-multiline>Last year&rsquo;s, which was an average one: twenty-five point nine tonnes.</p>
+            <h2 data-edit="calendar.title" data-edit-max="60" id="cal-h">One year</h2>
+            <p data-edit="calendar.body" data-edit-max="240" data-edit-multiline>Last year&rsquo;s, which was an average one: twenty-five point nine tonnes.</p>
           </div>
           <ol className={s.table}>
             {YEAR.map((r, i) => (
@@ -382,12 +382,12 @@ export default function MaraisBlancPage() {
               style={{ position: 'absolute', inset: 0 }}
             />
           </div>
-          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming out to the pans</h2>
+          <h2 data-edit="visit.title" data-edit-max="60" id="visit-h">Coming out to the pans</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`visit.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -432,23 +432,23 @@ export default function MaraisBlancPage() {
         <p data-edit="footer.footMark" data-edit-max="240" data-edit-multiline className={s.footMark}>1611</p>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">The marsh</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">The marsh</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#marsh">Thirty-six pans</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#making">Five movements</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#calendar">One year</a></li>
+              <li><a data-edit="footer.marsh" data-edit-max="28" href="#marsh">Thirty-six pans</a></li>
+              <li><a data-edit="footer.making" data-edit-max="28" href="#making">Five movements</a></li>
+              <li><a data-edit="footer.calendar" data-edit-max="28" href="#calendar">One year</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Salt</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Salt</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#grades">Grades and prices</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#visit">Buying at the hut</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Walking the bunds</a></li>
+              <li><a data-edit="footer.grades" data-edit-max="28" href="#grades">Grades and prices</a></li>
+              <li><a data-edit="footer.visit" data-edit-max="28" href="#visit">Buying at the hut</a></li>
+              <li><a data-edit="footer.visit2" data-edit-max="28" href="#visit">Walking the bunds</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Route des Marais
               <br />
@@ -459,10 +459,10 @@ export default function MaraisBlancPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional salt works. Tonnages, prices and dates are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional salt works. Tonnages, prices and dates are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground; imagery generated with GPT Image 2.

@@ -323,7 +323,7 @@ export default function KonzerthausHaldenPage() {
             <div className={s.grid}>
               <div className={s.heroType}>
                 <p data-edit="tHero.kicker" data-edit-max="240" data-edit-multiline className={s.kicker}>Season 2026/27</p>
-                <h1 data-edit="tHero.h1" data-edit-max="70" id="t-hero">
+                <h1 data-edit="tHero.title" data-edit-max="70" id="t-hero">
                   Ninety-two concerts in a room built to be heard from every
                   seat.
                 </h1>
@@ -374,7 +374,7 @@ export default function KonzerthausHaldenPage() {
                 A season is a shape, not a shopping list.
               </h2>
               <div className={s.seasonBodyA}>
-                <p data-edit="season.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="season.body" data-edit-max="240" data-edit-multiline>
                   We programme in arcs. The autumn is late romantic and loud
                   because the hall was designed for that repertoire and still
                   answers to it. Winter narrows: chamber music in the Kammersaal,
@@ -382,25 +382,25 @@ export default function KonzerthausHaldenPage() {
                   and ends with the Ninth, as it has done in eleven of the last
                   fourteen seasons.
                 </p>
-                <p data-edit="season.p2" data-edit-max="240" data-edit-multiline>
+                <p data-edit="season.body2" data-edit-max="240" data-edit-multiline>
                   Nothing is programmed to fill a gap. If a date has no argument
                   behind it, the date stays empty and the hall is given to the
                   education department instead.
                 </p>
               </div>
               <div className={s.seasonBodyB}>
-                <p data-edit="season.p3" data-edit-max="240" data-edit-multiline>
+                <p data-edit="season.body3" data-edit-max="240" data-edit-multiline>
                   Subscriptions open on 6 May 2026, single tickets on 3 June.
                   Renewal has run at 62 per cent for three seasons, which means
                   roughly 340 subscription seats reach the public each year.
                 </p>
-                <p data-edit="season.p4" data-edit-max="240" data-edit-multiline>
+                <p data-edit="season.body4" data-edit-max="240" data-edit-multiline>
                   The full printed season book, 96 pages, is free at the box
                   office and posted anywhere in Switzerland on request.
                 </p>
               </div>
               <div className={s.seasonArt}>
-                <div data-edit-pattern="season.field" className={`${s.artField} ${s.fieldPale}`} aria-hidden="true">
+                <div data-edit-pattern="season.field" data-edit-roles="4,1" className={`${s.artField} ${s.fieldPale}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={crescendo}
                     palette={FIELD_QUIET}
@@ -425,7 +425,7 @@ export default function KonzerthausHaldenPage() {
 
         {/* Band: pattern field with cello cut-out */}
         <div className={s.band}>
-          <div data-edit-pattern="main.field" className={s.bandField} aria-hidden="true">
+          <div data-edit-pattern="main.field" data-edit-roles="0,5,4,3" className={s.bandField} aria-hidden="true">
             <TabbiedPattern
               pattern={diminuendo}
               palette={FIELD_BAND}
@@ -515,7 +515,7 @@ export default function KonzerthausHaldenPage() {
 
         {/* Full-width ruled strip: the seat plan, reduced to its lines */}
         <div className={s.strip}>
-          <div data-edit-pattern="main.field2" className={`${s.stripField} ${s.fieldPaper}`} aria-hidden="true">
+          <div data-edit-pattern="main.field2" data-edit-roles="0,1,3,4,5" className={`${s.stripField} ${s.fieldPaper}`} aria-hidden="true">
             <TabbiedPattern
               pattern={ortho}
               palette={FIELD_STRIP}
@@ -537,7 +537,7 @@ export default function KonzerthausHaldenPage() {
                 The hall, and what it does to a sound.
               </h2>
               <div className={s.hallText}>
-                <p data-edit="hall.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="hall.body" data-edit-max="240" data-edit-multiline>
                   Reinhardt built a shoebox, narrow and tall, and refused the
                   fan shape that was fashionable in 1961. The side walls are
                   ribbed oak over 90 mm of plaster, which is heavy enough to
@@ -545,7 +545,7 @@ export default function KonzerthausHaldenPage() {
                   that flatters a string section and forgives a brass section
                   nothing.
                 </p>
-                <p data-edit="hall.p2" data-edit-max="240" data-edit-multiline>
+                <p data-edit="hall.body2" data-edit-max="240" data-edit-multiline>
                   The 2019 refit changed very little on purpose: a new stage
                   riser system, 140 replaced seats with matched absorption, and
                   the removal of a 1988 canopy that had been dulling the upper
@@ -566,7 +566,7 @@ export default function KonzerthausHaldenPage() {
               <dl className={`${s.specList} ${s.hallSpecs}`}>
                 {HALL_SPECS.map((spec, i) => (
                   <div key={spec.label} className={s.specRow}>
-                    <dt data-edit={`hall.dt.${i}`} data-edit-max="28">{spec.label}</dt>
+                    <dt data-edit={`hall.term.${i}`} data-edit-max="28">{spec.label}</dt>
                     <dd data-edit={`hall.tabular.${i}`} data-edit-max="200" data-edit-multiline className={s.tabular}>{spec.value}</dd>
                   </div>
                 ))}
@@ -579,16 +579,16 @@ export default function KonzerthausHaldenPage() {
                 />
               </div>
               <div className={s.organText}>
-                <h3 data-edit="hall.h3" data-edit-max="40">The organ</h3>
+                <h3 data-edit="hall.title" data-edit-max="40">The organ</h3>
                 <dl className={`${s.specList} ${s.organSpecs}`}>
                   {ORGAN_SPECS.map((spec, i) => (
                     <div key={spec.label} className={s.specRow}>
-                      <dt data-edit={`hall.dt2.${i}`} data-edit-max="28">{spec.label}</dt>
+                      <dt data-edit={`hall.term2.${i}`} data-edit-max="28">{spec.label}</dt>
                       <dd data-edit={`hall.tabular2.${i}`} data-edit-max="200" data-edit-multiline className={s.tabular}>{spec.value}</dd>
                     </div>
                   ))}
                 </dl>
-                <p data-edit="hall.p3" data-edit-max="240" data-edit-multiline>
+                <p data-edit="hall.body3" data-edit-max="240" data-edit-multiline>
                   Tuned twice a year, in March and in September, over four
                   nights each time. The instrument is available to students of
                   the conservatory on Monday afternoons at no charge.
@@ -620,10 +620,10 @@ export default function KonzerthausHaldenPage() {
                   <div className={s.portraitFrame}>
                     <Figure editId={`residentA.photo.${i}`} slug={r.slug} alt={r.alt} className={s.portrait} />
                   </div>
-                  <h3 data-edit={`residentA.h3.${i}`} data-edit-max="40">{r.name}</h3>
+                  <h3 data-edit={`residentA.title.${i}`} data-edit-max="40">{r.name}</h3>
                   <p data-edit={`residentA.residentRole.${i}`} data-edit-max="240" data-edit-multiline className={s.residentRole}>{r.role}</p>
                   <p data-edit={`residentA.residentSince.${i}`} data-edit-max="240" data-edit-multiline className={s.residentSince}>{r.since}</p>
-                  <p data-edit={`residentA.p.${i}`} data-edit-max="240" data-edit-multiline>{r.body}</p>
+                  <p data-edit={`residentA.body.${i}`} data-edit-max="240" data-edit-multiline>{r.body}</p>
                 </article>
               ))}
             </div>
@@ -650,7 +650,7 @@ export default function KonzerthausHaldenPage() {
                 />
               </div>
               <div className={s.eduArt}>
-                <div data-edit-pattern="education.field" className={`${s.artField} ${s.fieldPaper}`} aria-hidden="true">
+                <div data-edit-pattern="education.field" data-edit-roles="0,2,3,4" className={`${s.artField} ${s.fieldPaper}`} aria-hidden="true">
                   <TabbiedPattern
                     pattern={ortho}
                     palette={FIELD_EDU}
@@ -665,8 +665,8 @@ export default function KonzerthausHaldenPage() {
                 {EDUCATION.map((e, i) => (
                   <li key={e.no}>
                     <span data-edit={`education.eduNo.${i}`} data-edit-max="60" className={s.eduNo}>{e.no}</span>
-                    <h3 data-edit={`education.h3.${i}`} data-edit-max="40">{e.title}</h3>
-                    <p data-edit={`education.p.${i}`} data-edit-max="240" data-edit-multiline>{e.body}</p>
+                    <h3 data-edit={`education.title.${i}`} data-edit-max="40">{e.title}</h3>
+                    <p data-edit={`education.body.${i}`} data-edit-max="240" data-edit-multiline>{e.body}</p>
                     <p data-edit={`education.eduFigure.${i}`} data-edit-max="240" data-edit-multiline className={s.eduFigure}>{e.figure}</p>
                   </li>
                 ))}
@@ -684,7 +684,7 @@ export default function KonzerthausHaldenPage() {
                 Tickets.
               </h2>
               <div className={s.ticketIntro}>
-                <p data-edit="tickets.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="tickets.body" data-edit-max="240" data-edit-multiline>
                   Subscriptions open 6 May 2026 at 09.00. Single tickets open 3
                   June 2026 at 09.00. There is no booking fee, online or at the
                   counter, and there never has been.
@@ -698,7 +698,7 @@ export default function KonzerthausHaldenPage() {
               <dl className={`${s.specList} ${s.ticketSpecs}`}>
                 {TICKET_ROWS.map((row, i) => (
                   <div key={row.label} className={s.specRow}>
-                    <dt data-edit={`tickets.dt.${i}`} data-edit-max="28">{row.label}</dt>
+                    <dt data-edit={`tickets.term.${i}`} data-edit-max="28">{row.label}</dt>
                     <dd data-edit={`tickets.tabular.${i}`} data-edit-max="200" data-edit-multiline className={s.tabular}>{row.value}</dd>
                   </div>
                 ))}
@@ -718,8 +718,8 @@ export default function KonzerthausHaldenPage() {
               <dl className={`${s.specList} ${s.travelSpecs}`}>
                 {TRAVEL.map((row, i) => (
                   <div key={row.label} className={s.specRow}>
-                    <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{row.label}</dt>
-                    <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{row.value}</dd>
+                    <dt data-edit={`visit.term.${i}`} data-edit-max="28">{row.label}</dt>
+                    <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{row.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -756,9 +756,9 @@ export default function KonzerthausHaldenPage() {
             <div className={s.footContact}>
               <p data-edit="footer.footLabel" data-edit-max="240" data-edit-multiline className={s.footLabel}>Box office</p>
               <p>
-                <a data-edit="footer.a" data-edit-max="28" href="tel:+41445126000">+41 44 512 60 00</a>
+                <a data-edit="footer.link" data-edit-max="28" href="tel:+41445126000">+41 44 512 60 00</a>
                 <br />
-                <a data-edit="footer.a2" data-edit-max="28" href="mailto:kasse@konzerthaus-halden.ch">
+                <a data-edit="footer.link2" data-edit-max="28" href="mailto:kasse@konzerthaus-halden.ch">
                   kasse@konzerthaus-halden.ch
                 </a>
                 <br />
@@ -769,14 +769,14 @@ export default function KonzerthausHaldenPage() {
             </div>
             <div className={s.footColophon}>
               <p data-edit="footer.footLabel2" data-edit-max="240" data-edit-multiline className={s.footLabel}>Colophon</p>
-              <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>
                 Konzerthaus Halden AG, founded 1964. Supported by the Canton of
                 Halden and 2,140 members of the Freundeskreis. Set in Inter.
                 Season pattern generated with Tabbied.
               </p>
             </div>
             <div className={s.footArt}>
-              <div data-edit-pattern="footer.field" className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
+              <div data-edit-pattern="footer.field" data-edit-roles="1,2,5,3,4,0" className={`${s.artField} ${s.fieldInk}`} aria-hidden="true">
                 <TabbiedPattern
                   pattern={gravure}
                   palette={FIELD_DARK}

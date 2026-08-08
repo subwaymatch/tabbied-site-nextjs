@@ -90,10 +90,10 @@ export default function HafenSechsPage() {
           </span>
         </div>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#berths">Berths</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#schedule">Schedule</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#gate">Gate</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#contact">Contact</a>
+          <a data-edit="bar.berths" data-edit-max="28" href="#berths">Berths</a>
+          <a data-edit="bar.schedule" data-edit-max="28" href="#schedule">Schedule</a>
+          <a data-edit="bar.gate" data-edit-max="28" href="#gate">Gate</a>
+          <a data-edit="bar.contact" data-edit-max="28" href="#contact">Contact</a>
         </nav>
         <p className={s.live}>
           <span aria-hidden="true" />
@@ -120,7 +120,7 @@ export default function HafenSechsPage() {
             <br />
             Nineteen hundred
             <br />
-            <span data-edit="hero.span" data-edit-max="60">and eighty metres.</span>
+            <span data-edit="hero.text" data-edit-max="60">and eighty metres.</span>
           </h1>
           <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
             The deepwater terminal at the mouth of the Weser. Two point one
@@ -129,8 +129,8 @@ export default function HafenSechsPage() {
           <dl className={s.moves}>
             {MOVES.map(([v, k], i) => (
               <div key={k}>
-                <dt data-edit={`hero.dt.${i}`} data-edit-max="28">{v}</dt>
-                <dd data-edit={`hero.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+                <dt data-edit={`hero.term.${i}`} data-edit-max="28">{v}</dt>
+                <dd data-edit={`hero.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
               </div>
             ))}
           </dl>
@@ -144,31 +144,31 @@ export default function HafenSechsPage() {
             alt="Stacked shipping containers at a port at dusk under floodlights"
             priority
           />
-          <figcaption data-edit="main.figcaption" data-edit-max="120" data-edit-multiline>Block 4C, 21.40. Discharge running two hours ahead.</figcaption>
+          <figcaption data-edit="main.caption" data-edit-max="120" data-edit-multiline>Block 4C, 21.40. Discharge running two hours ahead.</figcaption>
         </figure>
 
         {/* -------------------------------------------------------- BERTHS */}
         <section id="berths" className={s.berths} aria-labelledby="berths-h">
           <div className={s.secHead}>
-            <span data-edit="berths.span" data-edit-max="60">01</span>
-            <h2 data-edit="berths.h2" data-edit-max="60" id="berths-h">Berth register</h2>
+            <span data-edit="berths.text" data-edit-max="60">01</span>
+            <h2 data-edit="berths.title" data-edit-max="60" id="berths-h">Berth register</h2>
           </div>
           <ol className={s.berthList}>
             <li className={s.berthHead} aria-hidden="true">
-              <span data-edit="berths.span2" data-edit-max="60">Berth</span>
-              <span data-edit="berths.span3" data-edit-max="60">Quay</span>
-              <span data-edit="berths.span4" data-edit-max="60">Depth</span>
-              <span data-edit="berths.span5" data-edit-max="60">Cranes</span>
-              <span data-edit="berths.span6" data-edit-max="60">Max call</span>
-              <span data-edit="berths.span7" data-edit-max="60">Now</span>
+              <span data-edit="berths.text2" data-edit-max="60">Berth</span>
+              <span data-edit="berths.text3" data-edit-max="60">Quay</span>
+              <span data-edit="berths.text4" data-edit-max="60">Depth</span>
+              <span data-edit="berths.text5" data-edit-max="60">Cranes</span>
+              <span data-edit="berths.text6" data-edit-max="60">Max call</span>
+              <span data-edit="berths.text7" data-edit-max="60">Now</span>
             </li>
             {BERTHS.map((b, i) => (
               <li key={b.no}>
                 <span data-edit={`berths.bNo.${i}`} data-edit-max="60" className={s.bNo}>{b.no}</span>
-                <span data-edit={`berths.span8.${i}`} data-edit-max="60">{b.length}</span>
-                <span data-edit={`berths.span9.${i}`} data-edit-max="60">{b.depth}</span>
-                <span data-edit={`berths.span10.${i}`} data-edit-max="60">{b.cranes}</span>
-                <span data-edit={`berths.span11.${i}`} data-edit-max="60">{b.max}</span>
+                <span data-edit={`berths.text8.${i}`} data-edit-max="60">{b.length}</span>
+                <span data-edit={`berths.text9.${i}`} data-edit-max="60">{b.depth}</span>
+                <span data-edit={`berths.text10.${i}`} data-edit-max="60">{b.cranes}</span>
+                <span data-edit={`berths.text11.${i}`} data-edit-max="60">{b.max}</span>
                 <span data-edit={`berths.free.${i}`} data-edit-max="60"
                   className={
                     b.status === 'Free'
@@ -213,8 +213,8 @@ export default function HafenSechsPage() {
           </div>
           <div className={s.scheduleInner}>
             <div className={s.secHead}>
-              <span data-edit="schedule.span" data-edit-max="60">02</span>
-              <h2 data-edit="schedule.h2" data-edit-max="60" id="schedule-h">Expected this week</h2>
+              <span data-edit="schedule.text" data-edit-max="60">02</span>
+              <h2 data-edit="schedule.title" data-edit-max="60" id="schedule-h">Expected this week</h2>
             </div>
             <p data-edit="schedule.note" data-edit-max="240" data-edit-multiline className={s.note}>
               Times are local, updated at 06.00 and 18.00. A vessel inside its
@@ -243,14 +243,14 @@ export default function HafenSechsPage() {
                   slug="hafen-crane"
                   alt="A tall yellow gantry crane against a dark evening sky"
                 />
-                <figcaption data-edit="schedule.figcaption" data-edit-max="120" data-edit-multiline>Gantry 09, boom raised between calls.</figcaption>
+                <figcaption data-edit="schedule.caption" data-edit-max="120" data-edit-multiline>Gantry 09, boom raised between calls.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.hafen-control"
                   slug="hafen-control"
                   alt="A dim port control room at night with monitors and a wide window"
                 />
-                <figcaption data-edit="schedule.figcaption2" data-edit-max="120" data-edit-multiline>Tower, night shift. Six screens, one kettle.</figcaption>
+                <figcaption data-edit="schedule.caption2" data-edit-max="120" data-edit-multiline>Tower, night shift. Six screens, one kettle.</figcaption>
               </figure>
             </div>
           </div>
@@ -259,8 +259,8 @@ export default function HafenSechsPage() {
         {/* ---------------------------------------------------------- GATE */}
         <section id="gate" className={s.gate} aria-labelledby="gate-h">
           <div className={s.secHead}>
-            <span data-edit="gate.span" data-edit-max="60">03</span>
-            <h2 data-edit="gate.h2" data-edit-max="60" id="gate-h">Gate and hinterland</h2>
+            <span data-edit="gate.text" data-edit-max="60">03</span>
+            <h2 data-edit="gate.title" data-edit-max="60" id="gate-h">Gate and hinterland</h2>
           </div>
           <ul className={s.gateList}>
             {GATE.map(([what, when, note], i) => (
@@ -276,7 +276,7 @@ export default function HafenSechsPage() {
               slug="hafen-bollard"
               alt="A heavy mooring rope over a steel bollard on a wet concrete quay"
             />
-            <figcaption data-edit="gate.figcaption" data-edit-max="120" data-edit-multiline>Bollard 61-04. Rated 200 tonnes, inspected quarterly.</figcaption>
+            <figcaption data-edit="gate.caption" data-edit-max="120" data-edit-multiline>Bollard 61-04. Rated 200 tonnes, inspected quarterly.</figcaption>
           </figure>
         </section>
 
@@ -293,20 +293,20 @@ export default function HafenSechsPage() {
             />
           </div>
           <div className={s.contactInner}>
-            <h2 data-edit="contact.h2" data-edit-max="60" id="contact-h">Terminal office</h2>
+            <h2 data-edit="contact.title" data-edit-max="60" id="contact-h">Terminal office</h2>
             <dl>
               <div>
-                <dt data-edit="contact.dt" data-edit-max="28">Operations, 24 h</dt>
-                <dd data-edit="contact.dd" data-edit-max="200" data-edit-multiline>+49 471 000 000</dd>
+                <dt data-edit="contact.term" data-edit-max="28">Operations, 24 h</dt>
+                <dd data-edit="contact.body" data-edit-max="200" data-edit-multiline>+49 471 000 000</dd>
               </div>
               <div>
-                <dt data-edit="contact.dt2" data-edit-max="28">Berth booking</dt>
+                <dt data-edit="contact.term2" data-edit-max="28">Berth booking</dt>
                 <dd>
-                  <a data-edit="contact.a" data-edit-max="28" href="mailto:berth@hafen-sechs.example">berth@hafen-sechs.example</a>
+                  <a data-edit="contact.link" data-edit-max="28" href="mailto:berth@hafen-sechs.example">berth@hafen-sechs.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="contact.dt3" data-edit-max="28">Address</dt>
+                <dt data-edit="contact.term3" data-edit-max="28">Address</dt>
                 <dd>
                   Senator-Borttscheller-Str. 6
                   <br />
@@ -314,19 +314,19 @@ export default function HafenSechsPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="contact.dt4" data-edit-max="28">VHF</dt>
-                <dd data-edit="contact.dd2" data-edit-max="200" data-edit-multiline>Channel 14, call sign HAFEN SECHS</dd>
+                <dt data-edit="contact.term4" data-edit-max="28">VHF</dt>
+                <dd data-edit="contact.body2" data-edit-max="200" data-edit-multiline>Channel 14, call sign HAFEN SECHS</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three things that stop a ship</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three things that stop a ship</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Everything else is scheduling. These three are the reasons a berth window is actually lost.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotmatrix}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -345,11 +345,11 @@ export default function HafenSechsPage() {
                   <Figure editId="photo.hafen-sechs-tile-container-cutout" slug="hafen-sechs-tile-container-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Wind on the boxes</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Wind on the boxes</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Above 20 m/s across the stack, gantries stop. A fully-laden 24,000 TEU vessel presents about the same sail area as a small hill.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={hurdle}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -368,11 +368,11 @@ export default function HafenSechsPage() {
                   <Figure editId="photo.hafen-sechs-tile-cleat-cutout" slug="hafen-sechs-tile-cleat-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Draught and tide</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Draught and tide</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Sixteen and a half metres at the berth, but the approach channel decides. Deep-laden arrivals take the tide, and the tide does not negotiate.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,1,3" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={staple}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -391,7 +391,7 @@ export default function HafenSechsPage() {
                   <Figure editId="photo.hafen-sechs-tile-clipboard-cutout" slug="hafen-sechs-tile-clipboard-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Documentation</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Documentation</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>More calls are delayed by a customs hold than by weather. The paperwork is a berth-critical system and we staff it like one.</p>
               </article>
           </div>
@@ -399,73 +399,73 @@ export default function HafenSechsPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Equipment on the terminal</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Equipment on the terminal</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Owned, maintained in the workshop at the rail head, and listed here because operators ask.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Equipment</span>
-                <span data-edit="index.span2" data-edit-max="60">Count</span>
-                <span data-edit="index.span3" data-edit-max="60">Capacity</span>
-                <span data-edit="index.span4" data-edit-max="60">Reach</span>
+                <span data-edit="index.text" data-edit-max="60">Equipment</span>
+                <span data-edit="index.text2" data-edit-max="60">Count</span>
+                <span data-edit="index.text3" data-edit-max="60">Capacity</span>
+                <span data-edit="index.text4" data-edit-max="60">Reach</span>
             </li>
               <li key="Ship-to-shore gantry">
-                <span data-edit="index.span5" data-edit-max="60">Ship-to-shore gantry</span>
-                <span data-edit="index.span6" data-edit-max="60">14</span>
-                <span data-edit="index.span7" data-edit-max="60">65 t under spreader</span>
-                <span data-edit="index.span8" data-edit-max="60">24 rows</span>
+                <span data-edit="index.text5" data-edit-max="60">Ship-to-shore gantry</span>
+                <span data-edit="index.text6" data-edit-max="60">14</span>
+                <span data-edit="index.text7" data-edit-max="60">65 t under spreader</span>
+                <span data-edit="index.text8" data-edit-max="60">24 rows</span>
               </li>
               <li key="Rail-mounted gantry">
-                <span data-edit="index.span9" data-edit-max="60">Rail-mounted gantry</span>
-                <span data-edit="index.span10" data-edit-max="60">36</span>
-                <span data-edit="index.span11" data-edit-max="60">40 t</span>
-                <span data-edit="index.span12" data-edit-max="60">9 wide, 1 over 5</span>
+                <span data-edit="index.text9" data-edit-max="60">Rail-mounted gantry</span>
+                <span data-edit="index.text10" data-edit-max="60">36</span>
+                <span data-edit="index.text11" data-edit-max="60">40 t</span>
+                <span data-edit="index.text12" data-edit-max="60">9 wide, 1 over 5</span>
               </li>
               <li key="Mobile harbour crane">
-                <span data-edit="index.span13" data-edit-max="60">Mobile harbour crane</span>
-                <span data-edit="index.span14" data-edit-max="60">4</span>
-                <span data-edit="index.span15" data-edit-max="60">124 t</span>
-                <span data-edit="index.span16" data-edit-max="60">51 m</span>
+                <span data-edit="index.text13" data-edit-max="60">Mobile harbour crane</span>
+                <span data-edit="index.text14" data-edit-max="60">4</span>
+                <span data-edit="index.text15" data-edit-max="60">124 t</span>
+                <span data-edit="index.text16" data-edit-max="60">51 m</span>
               </li>
               <li key="Terminal tractor">
-                <span data-edit="index.span17" data-edit-max="60">Terminal tractor</span>
-                <span data-edit="index.span18" data-edit-max="60">92</span>
-                <span data-edit="index.span19" data-edit-max="60">60 t drawbar</span>
-                <span data-edit="index.span20" data-edit-max="60">n/a</span>
+                <span data-edit="index.text17" data-edit-max="60">Terminal tractor</span>
+                <span data-edit="index.text18" data-edit-max="60">92</span>
+                <span data-edit="index.text19" data-edit-max="60">60 t drawbar</span>
+                <span data-edit="index.text20" data-edit-max="60">n/a</span>
               </li>
               <li key="Reach stacker">
-                <span data-edit="index.span21" data-edit-max="60">Reach stacker</span>
-                <span data-edit="index.span22" data-edit-max="60">11</span>
-                <span data-edit="index.span23" data-edit-max="60">45 t</span>
-                <span data-edit="index.span24" data-edit-max="60">4 high</span>
+                <span data-edit="index.text21" data-edit-max="60">Reach stacker</span>
+                <span data-edit="index.text22" data-edit-max="60">11</span>
+                <span data-edit="index.text23" data-edit-max="60">45 t</span>
+                <span data-edit="index.text24" data-edit-max="60">4 high</span>
               </li>
               <li key="Empty handler">
-                <span data-edit="index.span25" data-edit-max="60">Empty handler</span>
-                <span data-edit="index.span26" data-edit-max="60">6</span>
-                <span data-edit="index.span27" data-edit-max="60">9 t</span>
-                <span data-edit="index.span28" data-edit-max="60">8 high</span>
+                <span data-edit="index.text25" data-edit-max="60">Empty handler</span>
+                <span data-edit="index.text26" data-edit-max="60">6</span>
+                <span data-edit="index.text27" data-edit-max="60">9 t</span>
+                <span data-edit="index.text28" data-edit-max="60">8 high</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Operator questions</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Operator questions</h2>
           <dl className={s.faqList}>
               <div key="How is berthing priority">
-                <dt data-edit="faq.dt" data-edit-max="28">How is berthing priority decided?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>A vessel inside its window keeps its berth. A vessel outside it takes the next free one, regardless of line, size or how long it has been waiting.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">How is berthing priority decided?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>A vessel inside its window keeps its berth. A vessel outside it takes the next free one, regardless of line, size or how long it has been waiting.</dd>
               </div>
               <div key="Do you handle reefers?">
-                <dt data-edit="faq.dt2" data-edit-max="28">Do you handle reefers?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Yes, 1,840 plugs, monitored at fifteen-minute intervals with an alarm to the tower. Set-point deviations are logged and sent with the discharge report.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Do you handle reefers?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Yes, 1,840 plugs, monitored at fifteen-minute intervals with an alarm to the tower. Set-point deviations are logged and sent with the discharge report.</dd>
               </div>
               <div key="What about dangerous goo">
-                <dt data-edit="faq.dt3" data-edit-max="28">What about dangerous goods?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>IMDG classes 2 to 9 except class 1 and class 7. Segregation is planned before arrival and we will decline a stow we cannot segregate.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">What about dangerous goods?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>IMDG classes 2 to 9 except class 1 and class 7. Segregation is planned before arrival and we will decline a stow we cannot segregate.</dd>
               </div>
               <div key="Can we run a barge inste">
-                <dt data-edit="faq.dt4" data-edit-max="28">Can we run a barge instead of rail?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Two positions, 110 m each, 06.00 to 22.00. Slower and cheaper, and in a rail strike it is the only thing that moves.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Can we run a barge instead of rail?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Two positions, 110 m each, 06.00 to 22.00. Slower and cheaper, and in a rail strike it is the only thing that moves.</dd>
               </div>
           </dl>
         </section>
@@ -498,13 +498,13 @@ export default function HafenSechsPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Operations</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#berths">Berth register</a>
+                <a data-edit="footer.berths" data-edit-max="28" href="#berths">Berth register</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#schedule">Expected this week</a>
+                <a data-edit="footer.schedule" data-edit-max="28" href="#schedule">Expected this week</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#gate">Gate and hinterland</a>
+                <a data-edit="footer.gate" data-edit-max="28" href="#gate">Gate and hinterland</a>
               </li>
             </ul>
           </div>
@@ -512,13 +512,13 @@ export default function HafenSechsPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Shipping</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#contact">Berth booking</a>
+                <a data-edit="footer.contact" data-edit-max="28" href="#contact">Berth booking</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#gate">Rail and barge</a>
+                <a data-edit="footer.gate2" data-edit-max="28" href="#gate">Rail and barge</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#gate">Reefer plugs</a>
+                <a data-edit="footer.gate3" data-edit-max="28" href="#gate">Reefer plugs</a>
               </li>
             </ul>
           </div>
@@ -536,10 +536,10 @@ export default function HafenSechsPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional container terminal. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional container terminal. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

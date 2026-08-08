@@ -66,6 +66,18 @@ const MAX_CHARS = {
 
 const MULTILINE_TAGS = new Set(['p', 'blockquote', 'dd', 'figcaption']);
 
+// What to call a slot whose element has no class name to borrow. Better than
+// the tag itself: `faq.0.answer` says what it is where `faq.0.p` does not, and
+// these ids are what an agent reads and an LLM is asked to fill.
+const TAG_WORDS = {
+  a: 'link', p: 'body', span: 'text', li: 'item', dt: 'term', dd: 'body',
+  h1: 'title', h2: 'title', h3: 'title', h4: 'title', h5: 'title', h6: 'title',
+  blockquote: 'quote', cite: 'attribution', figcaption: 'caption',
+  summary: 'question', button: 'action', label: 'label', small: 'note',
+  strong: 'emphasis', time: 'date', th: 'heading', td: 'cell',
+  caption: 'caption', legend: 'legend',
+};
+
 const camel = (value) =>
   value.replace(/[-_ ]+(.)/g, (_m, c) => c.toUpperCase()).replace(/[^\w]/g, '');
 
@@ -177,26 +189,96 @@ function readPalette(cssPath) {
   };
 }
 
-/** Module-scope `const NAME = '#hex'` declarations, by identifier. */
+/**
+ * Module-scope colour constants, by identifier.
+ *
+ * Aliases are resolved: `const TILE_A = STEEL` is as much a colour constant as
+ * `const STEEL = '#9C9C98'`, and about twenty pages name their tile colours
+ * that way. Missing that is what left 109 pattern fields with no role map on
+ * the first pass — they had ordinary palettes, just written one indirection
+ * away.
+ */
 function readColorConstants(program) {
-  const constants = new Map();
+  const literals = new Map();
+  const aliases = new Map();
+
+  for (const statement of program.body) {
+    if (statement.type !== 'VariableDeclaration') continue;
+
+    for (const declaration of statement.declarations) {
+      if (declaration.id.type !== 'Identifier' || !declaration.init) continue;
+
+      const { name } = declaration.id;
+      const init = declaration.init;
+
+      if (init.type === 'StringLiteral' && /^#[0-9a-f]{3,8}$/i.test(init.value)) {
+        literals.set(name, init.value);
+      } else if (init.type === 'Identifier') {
+        aliases.set(name, init.name);
+      }
+    }
+  }
+
+  // Chase alias chains, with a bound so a cycle cannot hang the migration.
+  for (const [name, target] of aliases) {
+    let current = target;
+
+    for (let hop = 0; hop < 8; hop += 1) {
+      if (literals.has(current)) {
+        literals.set(name, literals.get(current));
+        break;
+      }
+
+      if (!aliases.has(current)) break;
+
+      current = aliases.get(current);
+    }
+  }
+
+  return literals;
+}
+
+/**
+ * Module-scope arrays of colours, by identifier — `const FULL = [NAVY, ICE]`.
+ *
+ * Several pages pass one of these straight to a pattern (`palette={FULL}`)
+ * rather than writing the array inline, so resolving them is what lets those
+ * fields follow a re-colour.
+ */
+function readColorArrays(program, constants) {
+  const arrays = new Map();
 
   for (const statement of program.body) {
     if (statement.type !== 'VariableDeclaration') continue;
 
     for (const declaration of statement.declarations) {
       if (
-        declaration.id.type === 'Identifier' &&
-        declaration.init &&
-        declaration.init.type === 'StringLiteral' &&
-        /^#[0-9a-f]{3,8}$/i.test(declaration.init.value)
+        declaration.id.type !== 'Identifier' ||
+        !declaration.init ||
+        declaration.init.type !== 'ArrayExpression'
       ) {
-        constants.set(declaration.id.name, declaration.init.value);
+        continue;
       }
+
+      const entries = [];
+      let usable = declaration.init.elements.length > 0;
+
+      for (const entry of declaration.init.elements) {
+        if (entry && entry.type === 'StringLiteral') {
+          entries.push(entry.value);
+        } else if (entry && entry.type === 'Identifier' && constants.has(entry.name)) {
+          entries.push(constants.get(entry.name));
+        } else {
+          usable = false;
+          break;
+        }
+      }
+
+      if (usable) arrays.set(declaration.id.name, entries);
     }
   }
 
-  return constants;
+  return arrays;
 }
 
 /**
@@ -393,6 +475,34 @@ function enclosingFunctionName(node) {
   return null;
 }
 
+/**
+ * What to call one text slot.
+ *
+ * The element's own class name where it has one — those are already
+ * descriptive (`heroKicker`, `rowTitle`). Failing that, a nav link's own
+ * anchor names it far better than its position does (`bar.making` rather than
+ * `bar.link2`), and otherwise the tag's semantic word.
+ */
+function keyFor(code, node, alias, tag) {
+  const own = classKeyOf(code, node, alias);
+
+  if (own) return own;
+
+  if (tag === 'a') {
+    const href = attributeNamed(node, 'href');
+
+    if (href && href.value && href.value.type === 'StringLiteral') {
+      const anchor = href.value.value;
+
+      if (anchor.startsWith('#') && anchor.length > 1) {
+        return camel(anchor.slice(1));
+      }
+    }
+  }
+
+  return TAG_WORDS[tag] ?? tag;
+}
+
 /** Nearest ancestor that names a region of the page. */
 function sectionKeyOf(code, node, alias) {
   let current = node.parent;
@@ -482,9 +592,7 @@ function annotate(slug) {
   const roleOfHex = new Map(
     palette.colors.map((color, index) => [color.toLowerCase(), index])
   );
-  const roleOfConstant = new Map(
-    [...constants].map(([name, hex]) => [name, roleOfHex.get(hex.toLowerCase())])
-  );
+  const colorArrays = readColorArrays(program, constants);
 
   const edits = [];
   const pendingParams = new Map();
@@ -541,37 +649,59 @@ function annotate(slug) {
     });
   };
 
+  // A colour becomes a role when it is one of the page's, and stays a literal
+  // when it is not — an off-palette accent is not part of the brand and must
+  // not move when the brand does. `transparent` is the important literal: it
+  // is what leaves real negative space so a field reads over what is beneath.
+  const roleOfColor = (value) => {
+    const role = roleOfHex.get(String(value).toLowerCase());
+
+    return role == null ? value : String(role);
+  };
+
   const patternRoles = (element) => {
     const attribute = attributeNamed(element, 'palette');
 
     if (
       !attribute ||
       !attribute.value ||
-      attribute.value.type !== 'JSXExpressionContainer' ||
-      attribute.value.expression.type !== 'ArrayExpression'
+      attribute.value.type !== 'JSXExpressionContainer'
     ) {
       return null;
     }
 
+    const expression = attribute.value.expression;
+
+    // `palette={FULL}` — a module-scope array, resolved above.
+    if (expression.type === 'Identifier') {
+      const entries = colorArrays.get(expression.name);
+
+      return entries ? entries.map(roleOfColor).join(',') : null;
+    }
+
+    if (expression.type !== 'ArrayExpression') return null;
+
     const roles = [];
 
-    for (const entry of attribute.value.expression.elements) {
+    for (const entry of expression.elements) {
       if (!entry) return null;
 
       if (entry.type === 'StringLiteral') {
-        roles.push(entry.value);
+        roles.push(roleOfColor(entry.value));
         continue;
       }
 
       if (entry.type === 'Identifier') {
-        const role = roleOfConstant.get(entry.name);
+        const hex = constants.get(entry.name);
 
-        if (role == null) return null;
+        if (hex == null) return null;
 
-        roles.push(String(role));
+        roles.push(roleOfColor(hex));
         continue;
       }
 
+      // A conditional or a per-item palette (`eau.palette`) genuinely varies
+      // per render, so no static role map can describe it.
       return null;
     }
 
@@ -718,7 +848,7 @@ function annotate(slug) {
 
       if (!maps) return;
 
-      const key = classKeyOf(code, node, alias) ?? tag;
+      const key = keyFor(code, node, alias, tag);
       const { id, templated } = idFor(
         `${sectionKeyOf(code, node, alias)}.${key}`,
         maps

@@ -190,10 +190,10 @@ export default function PresseNeunPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Presse Neun</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#work">Work</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#process">Process</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#prices">Prices</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#editions">Editions</a>
+          <a data-edit="bar.work" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.process" data-edit-max="28" href="#process">Process</a>
+          <a data-edit="bar.prices" data-edit-max="28" href="#prices">Prices</a>
+          <a data-edit="bar.editions" data-edit-max="28" href="#editions">Editions</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Zeefdruk / Rotterdam</span>
       </header>
@@ -227,11 +227,11 @@ export default function PresseNeunPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Hand screenprint / Rotterdam / nine colours</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Presse</span>
+            <span data-edit="hero.text" data-edit-max="60">Presse</span>
             <span data-edit="hero.pink" data-edit-max="60" className={s.pink}>Neun</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Flat colour you cannot get any other way, pulled by hand, one
               screen at a time, on paper we keep in the building.
             </p>
@@ -245,7 +245,7 @@ export default function PresseNeunPage() {
         <section className={s.inks} aria-label="The house ink rack">
           {INKS.map(([name, hex], i) => (
             <div key={name} style={{ background: hex }}>
-              <span data-edit={`inks.span.${i}`} data-edit-max="60" style={{ color: labelOn(hex) }}>{name}</span>
+              <span data-edit={`inks.text.${i}`} data-edit-max="60" style={{ color: labelOn(hex) }}>{name}</span>
             </div>
           ))}
         </section>
@@ -258,12 +258,12 @@ export default function PresseNeunPage() {
             colour printed digitally looks like a photograph of it.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Nine of us, one four-metre bed, two dryers and a rack that holds
               eleven hundred sheets. We print editions for artists, posters for
               anybody, and we mix every colour in the building.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               The workshop has been in the same brick shed on the Maashaven
               since 2013, and the lease says 2038, which is longer than most of
               our plans.
@@ -274,8 +274,8 @@ export default function PresseNeunPage() {
         {/* ------------------------------------------------------------ WORK */}
         <section id="work" className={s.work} aria-labelledby="work-h">
           <div className={s.secHead}>
-            <h2 data-edit="work.h2" data-edit-max="60" id="work-h">What we print</h2>
-            <p data-edit="work.p" data-edit-max="240" data-edit-multiline>Lead times are honest ones and include the day we spend arguing about the separation.</p>
+            <h2 data-edit="work.title" data-edit-max="60" id="work-h">What we print</h2>
+            <p data-edit="work.body" data-edit-max="240" data-edit-multiline>Lead times are honest ones and include the day we spend arguing about the separation.</p>
           </div>
           <ol className={s.rows}>
             {SERVICES.map((x, i) => (
@@ -305,8 +305,8 @@ export default function PresseNeunPage() {
         {/* --------------------------------------------------------- PROCESS */}
         <section id="process" className={s.process} aria-labelledby="process-h">
           <div className={s.secHead}>
-            <h2 data-edit="process.h2" data-edit-max="60" id="process-h">Four stages</h2>
-            <p data-edit="process.p" data-edit-max="240" data-edit-multiline>The same four whether it is one colour or nine. Only the third one gets longer.</p>
+            <h2 data-edit="process.title" data-edit-max="60" id="process-h">Four stages</h2>
+            <p data-edit="process.body" data-edit-max="240" data-edit-multiline>The same four whether it is one colour or nine. Only the third one gets longer.</p>
           </div>
           <div className={s.pGrid}>
             {PROCESS.map((p, i) => (
@@ -322,7 +322,7 @@ export default function PresseNeunPage() {
                   />
                 </div>
                 <p data-edit={`process.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`process.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`process.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`process.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -332,8 +332,8 @@ export default function PresseNeunPage() {
         {/* ---------------------------------------------------------- PRICES */}
         <section id="prices" className={s.listing} aria-labelledby="prices-h">
           <div className={s.secHead}>
-            <h2 data-edit="prices.h2" data-edit-max="60" id="prices-h">The price list</h2>
-            <p data-edit="prices.p" data-edit-max="240" data-edit-multiline>Published, unnegotiated, and the same for everybody. Setup is in the figure.</p>
+            <h2 data-edit="prices.title" data-edit-max="60" id="prices-h">The price list</h2>
+            <p data-edit="prices.body" data-edit-max="240" data-edit-multiline>Published, unnegotiated, and the same for everybody. Setup is in the figure.</p>
           </div>
           <ol className={s.table}>
             {PRICES.map((r, i) => (
@@ -351,8 +351,8 @@ export default function PresseNeunPage() {
         {/* ----------------------------------------------------------- STOCK */}
         <section id="stock" className={s.listing} aria-labelledby="stock-h">
           <div className={s.secHead}>
-            <h2 data-edit="stock.h2" data-edit-max="60" id="stock-h">Paper in the building</h2>
-            <p data-edit="stock.p" data-edit-max="240" data-edit-multiline>Held means we have it today. To order means four working days from Amsterdam.</p>
+            <h2 data-edit="stock.title" data-edit-max="60" id="stock-h">Paper in the building</h2>
+            <p data-edit="stock.body" data-edit-max="240" data-edit-multiline>Held means we have it today. To order means four working days from Amsterdam.</p>
           </div>
           <ol className={s.table}>
             {STOCK.map((r, i) => (
@@ -380,16 +380,16 @@ export default function PresseNeunPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>Nine colours is not nine times better than four. It is nine times more places to go wrong.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Halima Yusuf, master printer</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>Nine colours is not nine times better than four. It is nine times more places to go wrong.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Halima Yusuf, master printer</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- EDITIONS */}
         <section id="editions" className={s.listing} aria-labelledby="ed-h">
           <div className={s.secHead}>
-            <h2 data-edit="editions.h2" data-edit-max="60" id="ed-h">Editions we published</h2>
-            <p data-edit="editions.p" data-edit-max="240" data-edit-multiline>Our own imprint. Printed here, sold here, and never reprinted once an edition closes.</p>
+            <h2 data-edit="editions.title" data-edit-max="60" id="ed-h">Editions we published</h2>
+            <p data-edit="editions.body" data-edit-max="240" data-edit-multiline>Our own imprint. Printed here, sold here, and never reprinted once an edition closes.</p>
           </div>
           <ol className={s.table}>
             {EDITIONS.map((r, i) => (
@@ -407,14 +407,14 @@ export default function PresseNeunPage() {
         {/* ------------------------------------------------------------- FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
           <div className={s.secHead}>
-            <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Asked at the door</h2>
-            <p data-edit="faq.p" data-edit-max="240" data-edit-multiline>Usually while somebody is holding a wet sheet, so the answers are short.</p>
+            <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Asked at the door</h2>
+            <p data-edit="faq.body" data-edit-max="240" data-edit-multiline>Usually while somebody is holding a wet sheet, so the answers are short.</p>
           </div>
           <dl className={s.faqList}>
             {FAQ.map(([q, a], i) => (
               <div key={q}>
-                <dt data-edit={`faq.dt.${i}`} data-edit-max="28">{q}</dt>
-                <dd data-edit={`faq.dd.${i}`} data-edit-max="200" data-edit-multiline>{a}</dd>
+                <dt data-edit={`faq.term.${i}`} data-edit-max="28">{q}</dt>
+                <dd data-edit={`faq.body2.${i}`} data-edit-max="200" data-edit-multiline>{a}</dd>
               </div>
             ))}
           </dl>
@@ -429,13 +429,13 @@ export default function PresseNeunPage() {
               Email address
             </label>
             <input id="signup-mail" name="email" type="email" placeholder="you@example.com" />
-            <button data-edit="contact.button" data-edit-max="24" type="submit">Put me on it</button>
+            <button data-edit="contact.action" data-edit-max="24" type="submit">Put me on it</button>
           </form>
           <dl className={s.signupMeta}>
             {SIGNUP_META.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`contact.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`contact.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -461,14 +461,14 @@ export default function PresseNeunPage() {
 
       <footer className={s.footer}>
         <nav className={s.footIndex} aria-label="Sections">
-          <a data-edit="footer.a" data-edit-max="28" href="#work">What we print</a>
-          <a data-edit="footer.a2" data-edit-max="28" href="#process">Four stages</a>
-          <a data-edit="footer.a3" data-edit-max="28" href="#editions">Editions</a>
-          <a data-edit="footer.a4" data-edit-max="28" href="#prices">Prices</a>
+          <a data-edit="footer.work" data-edit-max="28" href="#work">What we print</a>
+          <a data-edit="footer.process" data-edit-max="28" href="#process">Four stages</a>
+          <a data-edit="footer.editions" data-edit-max="28" href="#editions">Editions</a>
+          <a data-edit="footer.prices" data-edit-max="28" href="#prices">Prices</a>
         </nav>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">On the floor</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">On the floor</h2>
             <p>
               A 1974 Heidelberg KORD, still on its original bed
               <br />
@@ -478,15 +478,15 @@ export default function PresseNeunPage() {
             </p>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Imprint</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Imprint</h2>
             <ul>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#editions">Editions</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#stock">Paper</a></li>
-              <li><a data-edit="footer.a7" data-edit-max="28" href="#faq">Questions</a></li>
+              <li><a data-edit="footer.editions2" data-edit-max="28" href="#editions">Editions</a></li>
+              <li><a data-edit="footer.stock" data-edit-max="28" href="#stock">Paper</a></li>
+              <li><a data-edit="footer.faq" data-edit-max="28" href="#faq">Questions</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Maashaven Oostzijde 9
               <br />
@@ -497,10 +497,10 @@ export default function PresseNeunPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional print workshop. Prices, editions and paper stocks are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional print workshop. Prices, editions and paper stocks are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a8" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

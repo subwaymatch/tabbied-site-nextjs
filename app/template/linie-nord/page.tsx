@@ -299,11 +299,11 @@ export default function LinieNordPage() {
         <div className={`${styles.container} ${styles.grid}`}>
           <p data-edit="masthead.wordmark" data-edit-max="240" data-edit-multiline className={styles.wordmark}>Linie Nord</p>
           <nav className={styles.nav} aria-label="Sections">
-            <a data-edit="masthead.a" data-edit-max="28" href="#network">Network</a>
-            <a data-edit="masthead.a2" data-edit-max="28" href="#lines">Lines</a>
-            <a data-edit="masthead.a3" data-edit-max="28" href="#departures">Departures</a>
-            <a data-edit="masthead.a4" data-edit-max="28" href="#fares">Fares</a>
-            <a data-edit="masthead.a5" data-edit-max="28" href="#updates">Updates</a>
+            <a data-edit="masthead.network" data-edit-max="28" href="#network">Network</a>
+            <a data-edit="masthead.lines" data-edit-max="28" href="#lines">Lines</a>
+            <a data-edit="masthead.departures" data-edit-max="28" href="#departures">Departures</a>
+            <a data-edit="masthead.fares" data-edit-max="28" href="#fares">Fares</a>
+            <a data-edit="masthead.updates" data-edit-max="28" href="#updates">Updates</a>
           </nav>
           <p className={styles.mastMeta}>
             Verkehrsbetrieb Steinhafen
@@ -378,14 +378,14 @@ export default function LinieNordPage() {
             </div>
 
             <div className={styles.netText}>
-              <p data-edit="network.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="network.body" data-edit-max="240" data-edit-multiline>
                 The network was assembled from three separate undertakings
                 between 1968 and 1974: the harbour tramway, the Bergkamp
                 mineral line and the municipal bus depot at Kaltenmoor. It has
                 been operated as a single authority since 01 January 1975.
                 Ownership is held by the region, not by an operating company.
               </p>
-              <p data-edit="network.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="network.body2" data-edit-max="240" data-edit-multiline>
                 Track gauge is 1435 mm throughout. Electrification at 15 kV
                 covers 178 of the 214 route kilometres; the Grenselund
                 extension remains diesel worked until 2029. Every line meets
@@ -433,7 +433,7 @@ export default function LinieNordPage() {
                 className={styles.img}
               />
             </div>
-            <figcaption data-edit="main.figcaption" data-edit-max="120" data-edit-multiline>Viadukt Wehr, 1971. 412 m, eleven spans.</figcaption>
+            <figcaption data-edit="main.caption" data-edit-max="120" data-edit-multiline>Viadukt Wehr, 1971. 412 m, eleven spans.</figcaption>
           </figure>
           <div className={styles.tileB}>
             <div data-edit-pattern="main.field2" data-edit-roles="4,1,3" className={styles.frameTall}>
@@ -459,7 +459,7 @@ export default function LinieNordPage() {
                 className={styles.img}
               />
             </div>
-            <figcaption data-edit="main.figcaption2" data-edit-max="120" data-edit-multiline>Kaltenmoor depot. 41 vehicles, 96 staff.</figcaption>
+            <figcaption data-edit="main.caption2" data-edit-max="120" data-edit-multiline>Kaltenmoor depot. 41 vehicles, 96 staff.</figcaption>
           </figure>
         </div>
 
@@ -562,22 +562,22 @@ export default function LinieNordPage() {
               <h3 data-edit="lines.subTitle2" data-edit-max="40" className={styles.subTitle}>Rolling stock</h3>
               <dl className={styles.pairs}>
                 <div>
-                  <dt data-edit="lines.dt" data-edit-max="28">Type 2</dt>
-                  <dd data-edit="lines.dd" data-edit-max="200" data-edit-multiline>Harbour tram, 1988, 92 places. Line N3 only.</dd>
+                  <dt data-edit="lines.term" data-edit-max="28">Type 2</dt>
+                  <dd data-edit="lines.body" data-edit-max="200" data-edit-multiline>Harbour tram, 1988, 92 places. Line N3 only.</dd>
                 </div>
                 <div>
-                  <dt data-edit="lines.dt2" data-edit-max="28">Type 3</dt>
-                  <dd data-edit="lines.dd2" data-edit-max="200" data-edit-multiline>Regional railcar, 2003, 148 places. Lines N5 and N9.</dd>
+                  <dt data-edit="lines.term2" data-edit-max="28">Type 3</dt>
+                  <dd data-edit="lines.body2" data-edit-max="200" data-edit-multiline>Regional railcar, 2003, 148 places. Lines N5 and N9.</dd>
                 </div>
                 <div>
-                  <dt data-edit="lines.dt3" data-edit-max="28">Type 4</dt>
-                  <dd data-edit="lines.dd3" data-edit-max="200" data-edit-multiline>
+                  <dt data-edit="lines.term3" data-edit-max="28">Type 4</dt>
+                  <dd data-edit="lines.body3" data-edit-max="200" data-edit-multiline>
                     Low-floor railcar, 2016, 176 places. Lines N1, N2 and N9.
                   </dd>
                 </div>
                 <div>
-                  <dt data-edit="lines.dt4" data-edit-max="28">Type 6</dt>
-                  <dd data-edit="lines.dd4" data-edit-max="200" data-edit-multiline>
+                  <dt data-edit="lines.term4" data-edit-max="28">Type 6</dt>
+                  <dd data-edit="lines.body4" data-edit-max="200" data-edit-multiline>
                     Airport express, 2024, 210 places, luggage racks. Line N4.
                   </dd>
                 </div>
@@ -614,11 +614,11 @@ export default function LinieNordPage() {
               aria-label="Departure board"
             >
               <div className={`${styles.boardRow} ${styles.listHead}`} role="row">
-                <span data-edit="departures.span" data-edit-max="60" role="columnheader">Departs</span>
-                <span data-edit="departures.span2" data-edit-max="60" role="columnheader">Line</span>
-                <span data-edit="departures.span3" data-edit-max="60" role="columnheader">Destination</span>
-                <span data-edit="departures.span4" data-edit-max="60" role="columnheader">Platform</span>
-                <span data-edit="departures.span5" data-edit-max="60" role="columnheader">Status</span>
+                <span data-edit="departures.text" data-edit-max="60" role="columnheader">Departs</span>
+                <span data-edit="departures.text2" data-edit-max="60" role="columnheader">Line</span>
+                <span data-edit="departures.text3" data-edit-max="60" role="columnheader">Destination</span>
+                <span data-edit="departures.text4" data-edit-max="60" role="columnheader">Platform</span>
+                <span data-edit="departures.text5" data-edit-max="60" role="columnheader">Status</span>
               </div>
               {DEPARTURES.map((d, i) => (
                 <div
@@ -632,7 +632,7 @@ export default function LinieNordPage() {
                   <span data-edit={`departures.boardLine.${i}`} data-edit-max="60" className={styles.boardLine} role="cell">
                     {d.line}
                   </span>
-                  <span data-edit={`departures.span6.${i}`} data-edit-max="60" role="cell">{d.dest}</span>
+                  <span data-edit={`departures.text6.${i}`} data-edit-max="60" role="cell">{d.dest}</span>
                   <span data-edit={`departures.boardNum.${i}`} data-edit-max="60" className={styles.boardNum} role="cell">
                     {d.platform}
                   </span>
@@ -647,12 +647,12 @@ export default function LinieNordPage() {
             </div>
 
             <div className={styles.boardNotes}>
-              <p data-edit="departures.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="departures.body" data-edit-max="240" data-edit-multiline>
                 Platforms 1 and 2 are on the harbour side. Platforms 3 to 5 are
                 reached by the underpass at the north end of the concourse, or
                 by lift from the ticket hall.
               </p>
-              <p data-edit="departures.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="departures.body2" data-edit-max="240" data-edit-multiline>
                 A service shown as short formation runs with one coach instead
                 of two. Seating is reduced by roughly half; the bicycle spaces
                 are unaffected.
@@ -739,8 +739,8 @@ export default function LinieNordPage() {
               <dl className={styles.priceList}>
                 {TICKETS.map((t, i) => (
                   <div key={t.name} className={styles.priceRow}>
-                    <dt data-edit={`fares.dt.${i}`} data-edit-max="28">{t.name}</dt>
-                    <dd data-edit={`fares.dd.${i}`} data-edit-max="200" data-edit-multiline>{t.price}</dd>
+                    <dt data-edit={`fares.term.${i}`} data-edit-max="28">{t.name}</dt>
+                    <dd data-edit={`fares.body.${i}`} data-edit-max="200" data-edit-multiline>{t.price}</dd>
                   </div>
                 ))}
               </dl>
@@ -771,13 +771,13 @@ export default function LinieNordPage() {
             </div>
 
             <div className={styles.accessText}>
-              <p data-edit="access.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="access.body" data-edit-max="240" data-edit-multiline>
                 Seven stops are not yet step-free: Speicherreihe, Hüttenwerk,
                 Talstation, Werftinsel Nord, Grenselund Dorf, Bergkamp Ost and
                 Nordbad. Work at Nordbad begins 06 Oct 2026 and is funded. The
                 remaining six are scheduled between 2027 and 2031.
               </p>
-              <p data-edit="access.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="access.body2" data-edit-max="240" data-edit-multiline>
                 Staff assistance can be booked with 60 minutes notice between
                 06:00 and 22:00 on 0800 41 41 41, or at any staffed window.
                 Booked assistance is met at the platform, not at the entrance.
@@ -787,8 +787,8 @@ export default function LinieNordPage() {
             <dl className={styles.pairs}>
               {ACCESS_FACTS.map((f, i) => (
                 <div key={f.label}>
-                  <dt data-edit={`access.dt.${i}`} data-edit-max="28">{f.label}</dt>
-                  <dd data-edit={`access.dd.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
+                  <dt data-edit={`access.term.${i}`} data-edit-max="28">{f.label}</dt>
+                  <dd data-edit={`access.body3.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -817,7 +817,7 @@ export default function LinieNordPage() {
                   className={styles.img}
                 />
               </div>
-              <figcaption data-edit="onboard.figcaption" data-edit-max="120" data-edit-multiline>
+              <figcaption data-edit="onboard.caption" data-edit-max="120" data-edit-multiline>
                 Type 4 interior. 176 places, 48 of them seated.
               </figcaption>
             </figure>
@@ -849,8 +849,8 @@ export default function LinieNordPage() {
             <dl className={styles.pairsWide}>
               {ONBOARD.map((o, i) => (
                 <div key={o.label}>
-                  <dt data-edit={`onboard.dt.${i}`} data-edit-max="28">{o.label}</dt>
-                  <dd data-edit={`onboard.dd.${i}`} data-edit-max="200" data-edit-multiline>{o.value}</dd>
+                  <dt data-edit={`onboard.term.${i}`} data-edit-max="28">{o.label}</dt>
+                  <dd data-edit={`onboard.body.${i}`} data-edit-max="200" data-edit-multiline>{o.value}</dd>
                 </div>
               ))}
             </dl>
@@ -888,13 +888,13 @@ export default function LinieNordPage() {
             </div>
 
             <div className={styles.staffText}>
-              <p data-edit="staff.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="staff.body" data-edit-max="240" data-edit-multiline>
                 The authority employs 612 people. 214 drive, 96 maintain the
                 fleet at Kaltenmoor, 71 work on track and structures, 84 staff
                 the windows and the control room, and the remainder plan,
                 account and answer the telephone.
               </p>
-              <p data-edit="staff.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="staff.body2" data-edit-max="240" data-edit-multiline>
                 Recruitment for the 2027 driver intake opens 02 Nov 2026.
                 Training runs 14 months, is paid from the first day, and
                 requires no previous rail experience.
@@ -926,7 +926,7 @@ export default function LinieNordPage() {
                   <span data-edit={`updates.updateDate.${i}`} data-edit-max="60" className={styles.updateDate}>{u.date}</span>
                   <div className={styles.updateBody}>
                     <h3 data-edit={`updates.updateTitle.${i}`} data-edit-max="40" className={styles.updateTitle}>{u.title}</h3>
-                    <p data-edit={`updates.p.${i}`} data-edit-max="240" data-edit-multiline>{u.body}</p>
+                    <p data-edit={`updates.body.${i}`} data-edit-max="240" data-edit-multiline>{u.body}</p>
                   </div>
                   <span data-edit={`updates.chip.${i}`} data-edit-max="60"
                     className={
@@ -992,27 +992,27 @@ export default function LinieNordPage() {
             <h2 data-edit="footer.footHead3" data-edit-max="60" className={styles.footHead}>Elsewhere</h2>
             <ul className={styles.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#lines">Line listing</a>
+                <a data-edit="footer.lines" data-edit-max="28" href="#lines">Line listing</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#fares">Zone map and fares</a>
+                <a data-edit="footer.fares" data-edit-max="28" href="#fares">Zone map and fares</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#access">Assistance booking</a>
+                <a data-edit="footer.access" data-edit-max="28" href="#access">Assistance booking</a>
               </li>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#updates">Current disruptions</a>
+                <a data-edit="footer.updates" data-edit-max="28" href="#updates">Current disruptions</a>
               </li>
             </ul>
           </div>
           <div className={styles.footBase}>
-            <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>
               Published by Verkehrsbetrieb Steinhafen. Timetable data correct at
               01 Aug 2026.
             </p>
             <p>
               Patterns by{' '}
-              <a data-edit="footer.a5" data-edit-max="28"
+              <a data-edit="footer.link" data-edit-max="28"
                 href="https://tabbied.com"
                 target="_blank"
                 rel="noreferrer noopener"

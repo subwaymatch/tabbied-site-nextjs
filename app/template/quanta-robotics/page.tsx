@@ -312,10 +312,10 @@ export default function QuantaRoboticsPage() {
           SYS.OK
         </p>
         <nav aria-label="Sections" className={styles.statusNav}>
-          <a data-edit="statusBar.a" data-edit-max="28" href="#platforms">platforms</a>
-          <a data-edit="statusBar.a2" data-edit-max="28" href="#research">research</a>
-          <a data-edit="statusBar.a3" data-edit-max="28" href="#pubs">pubs</a>
-          <a data-edit="statusBar.a4" data-edit-max="28" href="#careers">careers</a>
+          <a data-edit="statusBar.platforms" data-edit-max="28" href="#platforms">platforms</a>
+          <a data-edit="statusBar.research" data-edit-max="28" href="#research">research</a>
+          <a data-edit="statusBar.pubs" data-edit-max="28" href="#pubs">pubs</a>
+          <a data-edit="statusBar.careers" data-edit-max="28" href="#careers">careers</a>
         </nav>
         <p data-edit="statusBar.statusClock" data-edit-max="240" data-edit-multiline className={styles.statusClock}>T+2412d</p>
       </header>
@@ -350,16 +350,16 @@ export default function QuantaRoboticsPage() {
               </p>
               <dl className={styles.heroReadout}>
                 <div>
-                  <dt data-edit="hero.dt" data-edit-max="28">FLEET</dt>
-                  <dd data-edit="hero.dd" data-edit-max="200" data-edit-multiline>31 units / 4 platforms</dd>
+                  <dt data-edit="hero.term" data-edit-max="28">FLEET</dt>
+                  <dd data-edit="hero.body" data-edit-max="200" data-edit-multiline>31 units / 4 platforms</dd>
                 </div>
                 <div>
-                  <dt data-edit="hero.dt2" data-edit-max="28">MODE</dt>
-                  <dd data-edit="hero.dd2" data-edit-max="200" data-edit-multiline>continuous field trials</dd>
+                  <dt data-edit="hero.term2" data-edit-max="28">MODE</dt>
+                  <dd data-edit="hero.body2" data-edit-max="200" data-edit-multiline>continuous field trials</dd>
                 </div>
                 <div>
-                  <dt data-edit="hero.dt3" data-edit-max="28">FUNDING</dt>
-                  <dd data-edit="hero.dd3" data-edit-max="200" data-edit-multiline>independent, partner-backed</dd>
+                  <dt data-edit="hero.term3" data-edit-max="28">FUNDING</dt>
+                  <dd data-edit="hero.body3" data-edit-max="200" data-edit-multiline>independent, partner-backed</dd>
                 </div>
               </dl>
               <div className={styles.heroActions}>
@@ -429,8 +429,8 @@ export default function QuantaRoboticsPage() {
                   <tbody>
                     {p.specs.map(([k, v], i2) => (
                       <tr key={k}>
-                        <th data-edit={`platformCard.th.${i}.${i2}`} scope="row">{k}</th>
-                        <td data-edit={`platformCard.td.${i}.${i2}`}>{v}</td>
+                        <th data-edit={`platformCard.heading.${i}.${i2}`} scope="row">{k}</th>
+                        <td data-edit={`platformCard.cell.${i}.${i2}`}>{v}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -516,22 +516,22 @@ export default function QuantaRoboticsPage() {
               </figcaption>
             </figure>
             <div className={styles.facilityCopy}>
-              <p data-edit="facility.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="facility.body" data-edit-max="240" data-edit-multiline>
                 We build in batches of eight. Small enough that every unit gets
                 torqued by a person who cares, large enough that the fixtures
                 pay for themselves. Machining, harness, and calibration happen
                 within forty meters of the researchers who will file the bug
                 reports.
               </p>
-              <p data-edit="facility.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="facility.body2" data-edit-max="240" data-edit-multiline>
                 The line runs two weeks per quarter. The rest of the time it is
                 a repair bay, which tells you most of what field robotics is.
               </p>
               <ul className={styles.facilityList}>
-                <li data-edit="facility.li" data-edit-max="80">CNC + wire EDM in-house</li>
-                <li data-edit="facility.li2" data-edit-max="80">Harnesses hand-built, continuity-tested twice</li>
-                <li data-edit="facility.li3" data-edit-max="80">Every joint serialized and torque-logged</li>
-                <li data-edit="facility.li4" data-edit-max="80">Calibration rig shared with RA-01</li>
+                <li data-edit="facility.item" data-edit-max="80">CNC + wire EDM in-house</li>
+                <li data-edit="facility.item2" data-edit-max="80">Harnesses hand-built, continuity-tested twice</li>
+                <li data-edit="facility.item3" data-edit-max="80">Every joint serialized and torque-logged</li>
+                <li data-edit="facility.item4" data-edit-max="80">Calibration rig shared with RA-01</li>
               </ul>
             </div>
           </div>
@@ -547,7 +547,7 @@ export default function QuantaRoboticsPage() {
                 <div className={styles.pubBody}>
                   <h3 data-edit={`pubs.pubTitle.${i}`} data-edit-max="40" className={styles.pubTitle}>{pub.title}</h3>
                   <p className={styles.pubMeta}>
-                    {pub.authors} · <cite data-edit={`pubs.cite.${i}`} data-edit-max="48">{pub.venue}</cite>
+                    {pub.authors} · <cite data-edit={`pubs.attribution.${i}`} data-edit-max="48">{pub.venue}</cite>
                   </p>
                 </div>
                 <span className={styles.pubLinks} aria-hidden="true">
@@ -590,19 +590,19 @@ export default function QuantaRoboticsPage() {
             <table className={styles.rolesTable}>
               <thead>
                 <tr>
-                  <th data-edit="careers.th" scope="col">ROLE</th>
-                  <th data-edit="careers.th2" scope="col">TEAM</th>
-                  <th data-edit="careers.th3" scope="col">TYPE</th>
-                  <th data-edit="careers.th4" scope="col">LOCATION</th>
+                  <th data-edit="careers.heading" scope="col">ROLE</th>
+                  <th data-edit="careers.heading2" scope="col">TEAM</th>
+                  <th data-edit="careers.heading3" scope="col">TYPE</th>
+                  <th data-edit="careers.heading4" scope="col">LOCATION</th>
                 </tr>
               </thead>
               <tbody>
                 {ROLES.map((r, i) => (
                   <tr key={r.role}>
-                    <th data-edit={`careers.th5.${i}`} scope="row">{r.role}</th>
-                    <td data-edit={`careers.td.${i}`}>{r.team}</td>
-                    <td data-edit={`careers.td2.${i}`}>{r.type}</td>
-                    <td data-edit={`careers.td3.${i}`}>{r.loc}</td>
+                    <th data-edit={`careers.heading5.${i}`} scope="row">{r.role}</th>
+                    <td data-edit={`careers.cell.${i}`}>{r.team}</td>
+                    <td data-edit={`careers.cell2.${i}`}>{r.type}</td>
+                    <td data-edit={`careers.cell3.${i}`}>{r.loc}</td>
                   </tr>
                 ))}
               </tbody>
@@ -610,7 +610,7 @@ export default function QuantaRoboticsPage() {
           </div>
           <p className={styles.careersApply}>
             Apply with something you have built:{' '}
-            <a data-edit="careers.a" data-edit-max="28" href="mailto:join@quanta.example">join@quanta.example</a>
+            <a data-edit="careers.link" data-edit-max="28" href="mailto:join@quanta.example">join@quanta.example</a>
             <span className={styles.cursor} aria-hidden="true" />
           </p>
         </section>
@@ -640,20 +640,20 @@ export default function QuantaRoboticsPage() {
           </div>
           <dl className={styles.footerMeta}>
             <div>
-              <dt data-edit="footer.dt" data-edit-max="28">GENERAL</dt>
+              <dt data-edit="footer.term" data-edit-max="28">GENERAL</dt>
               <dd>
-                <a data-edit="footer.a" data-edit-max="28" href="mailto:hello@quanta.example">hello@quanta.example</a>
+                <a data-edit="footer.link" data-edit-max="28" href="mailto:hello@quanta.example">hello@quanta.example</a>
               </dd>
             </div>
             <div>
-              <dt data-edit="footer.dt2" data-edit-max="28">PARTNERSHIPS</dt>
+              <dt data-edit="footer.term2" data-edit-max="28">PARTNERSHIPS</dt>
               <dd>
-                <a data-edit="footer.a2" data-edit-max="28" href="mailto:deploy@quanta.example">deploy@quanta.example</a>
+                <a data-edit="footer.link2" data-edit-max="28" href="mailto:deploy@quanta.example">deploy@quanta.example</a>
               </dd>
             </div>
             <div>
-              <dt data-edit="footer.dt3" data-edit-max="28">VISITS</dt>
-              <dd data-edit="footer.dd" data-edit-max="200" data-edit-multiline>By appointment. Closed during batch weeks.</dd>
+              <dt data-edit="footer.term3" data-edit-max="28">VISITS</dt>
+              <dd data-edit="footer.body" data-edit-max="200" data-edit-multiline>By appointment. Closed during batch weeks.</dd>
             </div>
           </dl>
           <p className={styles.footerLog}>

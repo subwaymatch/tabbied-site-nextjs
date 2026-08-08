@@ -80,10 +80,10 @@ export default function SilbersalzPage() {
           <i>Fotolabor, Leipzig</i>
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#develop">Developing</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#print">Printing</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#house">House rules</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#counter">Counter</a>
+          <a data-edit="bar.develop" data-edit-max="28" href="#develop">Developing</a>
+          <a data-edit="bar.print" data-edit-max="28" href="#print">Printing</a>
+          <a data-edit="bar.house" data-edit-max="28" href="#house">House rules</a>
+          <a data-edit="bar.counter" data-edit-max="28" href="#counter">Counter</a>
         </nav>
       </header>
 
@@ -107,7 +107,7 @@ export default function SilbersalzPage() {
               <br />
               time, in a tank,
               <br />
-              <span data-edit="hero.span" data-edit-max="60">by somebody.</span>
+              <span data-edit="hero.text" data-edit-max="60">by somebody.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Black and white, colour negative and transparency. Silver gelatin
@@ -124,7 +124,7 @@ export default function SilbersalzPage() {
             alt="A darkroom under a red safelight with developing trays in a row and an enlarger"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Darkroom 1. Three trays, one clock, no windows.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Darkroom 1. Three trays, one clock, no windows.</figcaption>
         </figure>
 
         {/* -------------------------------------------------------- DEVELOP */}
@@ -134,11 +134,11 @@ export default function SilbersalzPage() {
           </h2>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span data-edit="develop.span" data-edit-max="60">Format</span>
-              <span data-edit="develop.span2" data-edit-max="60">Process</span>
-              <span data-edit="develop.span3" data-edit-max="60">Developer</span>
-              <span data-edit="develop.span4" data-edit-max="60">Turnaround</span>
-              <span data-edit="develop.span5" data-edit-max="60">Price</span>
+              <span data-edit="develop.text" data-edit-max="60">Format</span>
+              <span data-edit="develop.text2" data-edit-max="60">Process</span>
+              <span data-edit="develop.text3" data-edit-max="60">Developer</span>
+              <span data-edit="develop.text4" data-edit-max="60">Turnaround</span>
+              <span data-edit="develop.text5" data-edit-max="60">Price</span>
             </li>
             {DEVELOP.map((d, i) => (
               <li key={`${d.fmt}-${d.proc}`}>
@@ -198,12 +198,12 @@ export default function SilbersalzPage() {
                   standing under the inspection light deciding whether it is
                   finished.
                 </p>
-                <p data-edit="print.p" data-edit-max="240" data-edit-multiline>
+                <p data-edit="print.body" data-edit-max="240" data-edit-multiline>
                   Prices are for a straight print with normal dodging and
                   burning. Anything that needs more than four operations on one
                   sheet is quoted, and we will tell you before we start.
                 </p>
-                <p data-edit="print.p2" data-edit-max="240" data-edit-multiline>
+                <p data-edit="print.body2" data-edit-max="240" data-edit-multiline>
                   Fibre paper only. We stopped stocking resin coated in 2014 and
                   have not been asked for it since 2017.
                 </p>
@@ -215,14 +215,14 @@ export default function SilbersalzPage() {
                   slug="silbersalz-contacts"
                   alt="Contact sheets spread on a glowing light table with a loupe"
                 />
-                <figcaption data-edit="print.figcaption" data-edit-max="120" data-edit-multiline>Contacts come with every roll, whether you asked or not.</figcaption>
+                <figcaption data-edit="print.caption" data-edit-max="120" data-edit-multiline>Contacts come with every roll, whether you asked or not.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.silbersalz-enlarger"
                   slug="silbersalz-enlarger"
                   alt="A large format enlarger standing on a bench with lens and bellows"
                 />
-                <figcaption data-edit="print.figcaption2" data-edit-max="120" data-edit-multiline>Enlarger 2, 5×7, condenser head. Aligned in March.</figcaption>
+                <figcaption data-edit="print.caption2" data-edit-max="120" data-edit-multiline>Enlarger 2, 5×7, condenser head. Aligned in March.</figcaption>
               </figure>
             </div>
           </div>
@@ -237,8 +237,8 @@ export default function SilbersalzPage() {
             {HOUSE.map((h, i) => (
               <li key={h.n}>
                 <span data-edit={`house.hN.${i}`} data-edit-max="60" className={s.hN}>{h.n}</span>
-                <h3 data-edit={`house.h3.${i}`} data-edit-max="40">{h.t}</h3>
-                <p data-edit={`house.p.${i}`} data-edit-max="240" data-edit-multiline>{h.d}</p>
+                <h3 data-edit={`house.title.${i}`} data-edit-max="40">{h.t}</h3>
+                <p data-edit={`house.body.${i}`} data-edit-max="240" data-edit-multiline>{h.d}</p>
               </li>
             ))}
           </ol>
@@ -247,7 +247,7 @@ export default function SilbersalzPage() {
               slug="silbersalz-drying"
               alt="Strips of developed film hanging to dry from a line with weighted clips"
             />
-            <figcaption data-edit="house.figcaption" data-edit-max="120" data-edit-multiline>Drying cabinet. Two hours, no heat, no hurry.</figcaption>
+            <figcaption data-edit="house.caption" data-edit-max="120" data-edit-multiline>Drying cabinet. Two hours, no heat, no hurry.</figcaption>
           </figure>
         </section>
 
@@ -269,7 +269,7 @@ export default function SilbersalzPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="counter.dt" data-edit-max="28">Lab</dt>
+                <dt data-edit="counter.term" data-edit-max="28">Lab</dt>
                 <dd>
                   Karl-Liebknecht-Str. 62
                   <br />
@@ -277,29 +277,29 @@ export default function SilbersalzPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="counter.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="counter.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="counter.a" data-edit-max="28" href="mailto:labor@silbersalz.example">labor@silbersalz.example</a>
+                  <a data-edit="counter.link" data-edit-max="28" href="mailto:labor@silbersalz.example">labor@silbersalz.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="counter.dt3" data-edit-max="28">Open</dt>
-                <dd data-edit="counter.dd" data-edit-max="200" data-edit-multiline>Tue to Fri 11.00 to 18.00, Sat 11.00 to 15.00</dd>
+                <dt data-edit="counter.term3" data-edit-max="28">Open</dt>
+                <dd data-edit="counter.body" data-edit-max="200" data-edit-multiline>Tue to Fri 11.00 to 18.00, Sat 11.00 to 15.00</dd>
               </div>
               <div>
-                <dt data-edit="counter.dt4" data-edit-max="28">Post</dt>
-                <dd data-edit="counter.dd2" data-edit-max="200" data-edit-multiline>Send film in a padded envelope. We return it the same way.</dd>
+                <dt data-edit="counter.term4" data-edit-max="28">Post</dt>
+                <dd data-edit="counter.body2" data-edit-max="200" data-edit-multiline>Send film in a padded envelope. We return it the same way.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three things that ruin a negative</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three things that ruin a negative</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>None of them happens in the camera, and all of them are avoidable.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={peppering}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -318,11 +318,11 @@ export default function SilbersalzPage() {
                   <Figure editId="photo.silbersalz-tile-film-cutout" slug="silbersalz-tile-film-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Heat in transit</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Heat in transit</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>A film left in a car in July shifts before it is ever developed. Post it, or bring it; do not leave it on the parcel shelf for a fortnight.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dustfall}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -341,11 +341,11 @@ export default function SilbersalzPage() {
                   <Figure editId="photo.silbersalz-tile-tank-cutout" slug="silbersalz-tile-tank-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Time in the tank</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Time in the tank</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Thirty seconds either way at twenty degrees is nothing. Three minutes is a different film. This is why we do one at a time.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={halftone}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -364,7 +364,7 @@ export default function SilbersalzPage() {
                   <Figure editId="photo.silbersalz-tile-reel-cutout" slug="silbersalz-tile-reel-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Water</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Water</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Drying marks are the single most common fault we see on home-developed film, and they are permanent. Final rinse, wetting agent, hang, leave it.</p>
               </article>
           </div>
@@ -372,73 +372,73 @@ export default function SilbersalzPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">What we stock at the counter</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">What we stock at the counter</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Small quantities, at roughly what we pay, because a lab with no film in it is a strange place.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Stock</span>
-                <span data-edit="index.span2" data-edit-max="60">Format</span>
-                <span data-edit="index.span3" data-edit-max="60">Speed</span>
-                <span data-edit="index.span4" data-edit-max="60">Price</span>
+                <span data-edit="index.text" data-edit-max="60">Stock</span>
+                <span data-edit="index.text2" data-edit-max="60">Format</span>
+                <span data-edit="index.text3" data-edit-max="60">Speed</span>
+                <span data-edit="index.text4" data-edit-max="60">Price</span>
             </li>
               <li key="HP5 Plus">
-                <span data-edit="index.span5" data-edit-max="60">HP5 Plus</span>
-                <span data-edit="index.span6" data-edit-max="60">135-36, 120</span>
-                <span data-edit="index.span7" data-edit-max="60">400</span>
-                <span data-edit="index.span8" data-edit-max="60">€7.50</span>
+                <span data-edit="index.text5" data-edit-max="60">HP5 Plus</span>
+                <span data-edit="index.text6" data-edit-max="60">135-36, 120</span>
+                <span data-edit="index.text7" data-edit-max="60">400</span>
+                <span data-edit="index.text8" data-edit-max="60">€7.50</span>
               </li>
               <li key="FP4 Plus">
-                <span data-edit="index.span9" data-edit-max="60">FP4 Plus</span>
-                <span data-edit="index.span10" data-edit-max="60">135-36, 120</span>
-                <span data-edit="index.span11" data-edit-max="60">125</span>
-                <span data-edit="index.span12" data-edit-max="60">€7.20</span>
+                <span data-edit="index.text9" data-edit-max="60">FP4 Plus</span>
+                <span data-edit="index.text10" data-edit-max="60">135-36, 120</span>
+                <span data-edit="index.text11" data-edit-max="60">125</span>
+                <span data-edit="index.text12" data-edit-max="60">€7.20</span>
               </li>
               <li key="Delta 3200">
-                <span data-edit="index.span13" data-edit-max="60">Delta 3200</span>
-                <span data-edit="index.span14" data-edit-max="60">135-36</span>
-                <span data-edit="index.span15" data-edit-max="60">3200</span>
-                <span data-edit="index.span16" data-edit-max="60">€10.90</span>
+                <span data-edit="index.text13" data-edit-max="60">Delta 3200</span>
+                <span data-edit="index.text14" data-edit-max="60">135-36</span>
+                <span data-edit="index.text15" data-edit-max="60">3200</span>
+                <span data-edit="index.text16" data-edit-max="60">€10.90</span>
               </li>
               <li key="Portra 400">
-                <span data-edit="index.span17" data-edit-max="60">Portra 400</span>
-                <span data-edit="index.span18" data-edit-max="60">135-36, 120</span>
-                <span data-edit="index.span19" data-edit-max="60">400</span>
-                <span data-edit="index.span20" data-edit-max="60">€14.80</span>
+                <span data-edit="index.text17" data-edit-max="60">Portra 400</span>
+                <span data-edit="index.text18" data-edit-max="60">135-36, 120</span>
+                <span data-edit="index.text19" data-edit-max="60">400</span>
+                <span data-edit="index.text20" data-edit-max="60">€14.80</span>
               </li>
               <li key="Ektachrome E100">
-                <span data-edit="index.span21" data-edit-max="60">Ektachrome E100</span>
-                <span data-edit="index.span22" data-edit-max="60">135-36</span>
-                <span data-edit="index.span23" data-edit-max="60">100</span>
-                <span data-edit="index.span24" data-edit-max="60">€18.40</span>
+                <span data-edit="index.text21" data-edit-max="60">Ektachrome E100</span>
+                <span data-edit="index.text22" data-edit-max="60">135-36</span>
+                <span data-edit="index.text23" data-edit-max="60">100</span>
+                <span data-edit="index.text24" data-edit-max="60">€18.40</span>
               </li>
               <li key="Ilford MG fibre">
-                <span data-edit="index.span25" data-edit-max="60">Ilford MG fibre</span>
-                <span data-edit="index.span26" data-edit-max="60">24 × 30, 50 sheets</span>
-                <span data-edit="index.span27" data-edit-max="60">n/a</span>
-                <span data-edit="index.span28" data-edit-max="60">€96</span>
+                <span data-edit="index.text25" data-edit-max="60">Ilford MG fibre</span>
+                <span data-edit="index.text26" data-edit-max="60">24 × 30, 50 sheets</span>
+                <span data-edit="index.text27" data-edit-max="60">n/a</span>
+                <span data-edit="index.text28" data-edit-max="60">€96</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Sending film in</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Sending film in</h2>
           <dl className={s.faqList}>
               <div key="How should I post it?">
-                <dt data-edit="faq.dt" data-edit-max="28">How should I post it?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>A padded envelope, canisters in a freezer bag, and a note with your name in the bag rather than only on the outside.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">How should I post it?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>A padded envelope, canisters in a freezer bag, and a note with your name in the bag rather than only on the outside.</dd>
               </div>
               <div key="Do you push and pull?">
-                <dt data-edit="faq.dt2" data-edit-max="28">Do you push and pull?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Two stops either way on black and white, one on colour negative. Tell us on the note; we cannot tell by looking.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Do you push and pull?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Two stops either way on black and white, one on colour negative. Tell us on the note; we cannot tell by looking.</dd>
               </div>
               <div key="Will you scan as well?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Will you scan as well?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Yes, at two sizes, but we would rather make you a print. A scan is a proposal; a print is a decision.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Will you scan as well?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Yes, at two sizes, but we would rather make you a print. A scan is a proposal; a print is a decision.</dd>
               </div>
               <div key="What happens to a blank ">
-                <dt data-edit="faq.dt4" data-edit-max="28">What happens to a blank roll?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>We tell you, we do not charge you, and we say what we think went wrong. It is nearly always the film not catching on the take-up spool.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">What happens to a blank roll?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>We tell you, we do not charge you, and we say what we think went wrong. It is nearly always the film not catching on the take-up spool.</dd>
               </div>
           </dl>
         </section>
@@ -471,13 +471,13 @@ export default function SilbersalzPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Services</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#develop">Developing</a>
+                <a data-edit="footer.develop" data-edit-max="28" href="#develop">Developing</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#print">Silver gelatin prints</a>
+                <a data-edit="footer.print" data-edit-max="28" href="#print">Silver gelatin prints</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#house">House rules</a>
+                <a data-edit="footer.house" data-edit-max="28" href="#house">House rules</a>
               </li>
             </ul>
           </div>
@@ -485,13 +485,13 @@ export default function SilbersalzPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Counter</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#counter">The counter</a>
+                <a data-edit="footer.counter" data-edit-max="28" href="#counter">The counter</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#counter">Send film by post</a>
+                <a data-edit="footer.counter2" data-edit-max="28" href="#counter">Send film by post</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#develop">Turnarounds</a>
+                <a data-edit="footer.develop2" data-edit-max="28" href="#develop">Turnarounds</a>
               </li>
             </ul>
           </div>
@@ -509,10 +509,10 @@ export default function SilbersalzPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional photographic lab. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional photographic lab. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

@@ -193,13 +193,13 @@ export default function CeruleanSwimPage() {
       <header className={styles.masthead}>
         <nav className={styles.navRow} aria-label="Site">
           <div className={styles.navSide}>
-            <a data-edit="masthead.a" data-edit-max="28" href="#lookbook">Lookbook</a>
-            <a data-edit="masthead.a2" data-edit-max="28" href="#shop">Shop</a>
+            <a data-edit="masthead.lookbook" data-edit-max="28" href="#lookbook">Lookbook</a>
+            <a data-edit="masthead.shop" data-edit-max="28" href="#shop">Shop</a>
           </div>
           <p data-edit="masthead.logo" data-edit-max="240" data-edit-multiline className={styles.logo}>Cerulean</p>
           <div className={`${styles.navSide} ${styles.navSideRight}`}>
-            <a data-edit="masthead.a3" data-edit-max="28" href="#fabric">Fabric</a>
-            <a data-edit="masthead.a4" data-edit-max="28" href="#swims">Swims</a>
+            <a data-edit="masthead.fabric" data-edit-max="28" href="#fabric">Fabric</a>
+            <a data-edit="masthead.swims" data-edit-max="28" href="#swims">Swims</a>
             <a data-edit="masthead.navPill" data-edit-max="28" href="#club" className={styles.navPill}>
               The Water Club
             </a>
@@ -241,9 +241,9 @@ export default function CeruleanSwimPage() {
                 className={styles.coverImg}
               />
               <p className={styles.heroBadge} aria-hidden="true">
-                <span data-edit="hero.span" data-edit-max="60">UPF</span>
-                <strong data-edit="hero.strong">50+</strong>
-                <span data-edit="hero.span2" data-edit-max="60">salt-tested</span>
+                <span data-edit="hero.text" data-edit-max="60">UPF</span>
+                <strong data-edit="hero.emphasis">50+</strong>
+                <span data-edit="hero.text2" data-edit-max="60">salt-tested</span>
               </p>
             </div>
           </div>
@@ -277,7 +277,7 @@ export default function CeruleanSwimPage() {
                     className={styles.coverImg}
                   />
                 </div>
-                <figcaption data-edit={`lookbook.figcaption.${i}`} data-edit-max="120" data-edit-multiline>{look.caption}</figcaption>
+                <figcaption data-edit={`lookbook.caption.${i}`} data-edit-max="120" data-edit-multiline>{look.caption}</figcaption>
               </figure>
             ))}
           </div>
@@ -355,9 +355,9 @@ export default function CeruleanSwimPage() {
                 chlorine testing, roughly three summers of daily lengths.
               </p>
               <p className={styles.fabricBody}>
-                We cut two ways. <strong data-edit="fabric.strong">Low tide</strong> sits lighter: higher
+                We cut two ways. <strong data-edit="fabric.emphasis">Low tide</strong> sits lighter: higher
                 leg, open back, for floating and warm bays.{' '}
-                <strong data-edit="fabric.strong2">High tide</strong> is our training cut: locked seams,
+                <strong data-edit="fabric.emphasis2">High tide</strong> is our training cut: locked seams,
                 full back, straps that stay crossed at the flip turn. Both are
                 sewn flat so nothing chafes at kilometre three.
               </p>
@@ -368,8 +368,8 @@ export default function CeruleanSwimPage() {
             <dl className={styles.fabricFacts}>
               {FABRIC_FACTS.map((f, i) => (
                 <div key={f.label} className={styles.fact}>
-                  <dt data-edit={`fabric.dt.${i}`} data-edit-max="28">{f.label}</dt>
-                  <dd data-edit={`fabric.dd.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
+                  <dt data-edit={`fabric.term.${i}`} data-edit-max="28">{f.label}</dt>
+                  <dd data-edit={`fabric.body.${i}`} data-edit-max="200" data-edit-multiline>{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -406,8 +406,8 @@ export default function CeruleanSwimPage() {
                       {i + 1}
                     </span>
                     <div>
-                      <h3 data-edit={`care.h3.${i}`} data-edit-max="40">{step.title}</h3>
-                      <p data-edit={`care.p.${i}`} data-edit-max="240" data-edit-multiline>{step.body}</p>
+                      <h3 data-edit={`care.title.${i}`} data-edit-max="40">{step.title}</h3>
+                      <p data-edit={`care.body.${i}`} data-edit-max="240" data-edit-multiline>{step.body}</p>
                     </div>
                   </li>
                 ))}
@@ -434,10 +434,10 @@ export default function CeruleanSwimPage() {
           </header>
           <div className={styles.swimTable}>
             <div className={`${styles.swimRow} ${styles.swimHead}`} aria-hidden="true">
-              <span data-edit="swims.span" data-edit-max="60">Water</span>
-              <span data-edit="swims.span2" data-edit-max="60">Where</span>
-              <span data-edit="swims.span3" data-edit-max="60">Temperature</span>
-              <span data-edit="swims.span4" data-edit-max="60">Season</span>
+              <span data-edit="swims.text" data-edit-max="60">Water</span>
+              <span data-edit="swims.text2" data-edit-max="60">Where</span>
+              <span data-edit="swims.text3" data-edit-max="60">Temperature</span>
+              <span data-edit="swims.text4" data-edit-max="60">Season</span>
             </div>
             {SWIMS.map((w, i) => (
               <article key={w.place} className={styles.swimRow}>
@@ -455,7 +455,7 @@ export default function CeruleanSwimPage() {
               alt="A stone jetty running into flat clear sea at first light, a marker buoy offshore"
               className={styles.coverImg}
             />
-            <figcaption data-edit="swims.figcaption" data-edit-max="120" data-edit-multiline>Lido di Sestri, 06.40. The near buoy is two hundred metres.</figcaption>
+            <figcaption data-edit="swims.caption" data-edit-max="120" data-edit-multiline>Lido di Sestri, 06.40. The near buoy is two hundred metres.</figcaption>
           </figure>
         </section>
 
@@ -514,19 +514,19 @@ export default function CeruleanSwimPage() {
           </header>
           <div className={styles.sizeTable} role="table" aria-label="Size chart in centimetres">
             <div className={`${styles.sizeRow} ${styles.sizeHead}`} role="row">
-              <span data-edit="sizing.span" data-edit-max="60" role="columnheader">Size</span>
-              <span data-edit="sizing.span2" data-edit-max="60" role="columnheader">Bust</span>
-              <span data-edit="sizing.span3" data-edit-max="60" role="columnheader">Waist</span>
-              <span data-edit="sizing.span4" data-edit-max="60" role="columnheader">Hip</span>
-              <span data-edit="sizing.span5" data-edit-max="60" role="columnheader">Torso</span>
+              <span data-edit="sizing.text" data-edit-max="60" role="columnheader">Size</span>
+              <span data-edit="sizing.text2" data-edit-max="60" role="columnheader">Bust</span>
+              <span data-edit="sizing.text3" data-edit-max="60" role="columnheader">Waist</span>
+              <span data-edit="sizing.text4" data-edit-max="60" role="columnheader">Hip</span>
+              <span data-edit="sizing.text5" data-edit-max="60" role="columnheader">Torso</span>
             </div>
             {SIZES.map((r, i) => (
               <div key={r.size} className={styles.sizeRow} role="row">
                 <span data-edit={`sizing.sizeName.${i}`} data-edit-max="60" className={styles.sizeName} role="cell">{r.size}</span>
-                <span data-edit={`sizing.span6.${i}`} data-edit-max="60" role="cell">{r.bust}</span>
-                <span data-edit={`sizing.span7.${i}`} data-edit-max="60" role="cell">{r.waist}</span>
-                <span data-edit={`sizing.span8.${i}`} data-edit-max="60" role="cell">{r.hip}</span>
-                <span data-edit={`sizing.span9.${i}`} data-edit-max="60" role="cell">{r.torso}</span>
+                <span data-edit={`sizing.text6.${i}`} data-edit-max="60" role="cell">{r.bust}</span>
+                <span data-edit={`sizing.text7.${i}`} data-edit-max="60" role="cell">{r.waist}</span>
+                <span data-edit={`sizing.text8.${i}`} data-edit-max="60" role="cell">{r.hip}</span>
+                <span data-edit={`sizing.text9.${i}`} data-edit-max="60" role="cell">{r.torso}</span>
               </div>
             ))}
           </div>
@@ -653,16 +653,16 @@ export default function CeruleanSwimPage() {
               <h2 data-edit="footer.footerHead2" data-edit-max="60" className={styles.footerHead}>Paddle over</h2>
               <ul className={styles.footerList}>
                 <li>
-                  <a data-edit="footer.a" data-edit-max="28" href="#lookbook">Lookbook № 04</a>
+                  <a data-edit="footer.lookbook" data-edit-max="28" href="#lookbook">Lookbook № 04</a>
                 </li>
                 <li>
-                  <a data-edit="footer.a2" data-edit-max="28" href="#shop">Shop the edition</a>
+                  <a data-edit="footer.shop" data-edit-max="28" href="#shop">Shop the edition</a>
                 </li>
                 <li>
-                  <a data-edit="footer.a3" data-edit-max="28" href="#fabric">Aqualith™ fabric</a>
+                  <a data-edit="footer.fabric" data-edit-max="28" href="#fabric">Aqualith™ fabric</a>
                 </li>
                 <li>
-                  <a data-edit="footer.a4" data-edit-max="28" href="#club">The Water Club</a>
+                  <a data-edit="footer.club" data-edit-max="28" href="#club">The Water Club</a>
                 </li>
               </ul>
             </div>
@@ -676,10 +676,10 @@ export default function CeruleanSwimPage() {
             </div>
           </div>
           <div className={styles.footerBase}>
-            <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>© 2026 Cerulean Swim S.r.l. · sewn by six people and the sea.</p>
+            <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>© 2026 Cerulean Swim S.r.l. · sewn by six people and the sea.</p>
             <p className={styles.tabbiedCredit}>
               “Wavelet” and “Tidering” patterns by{' '}
-              <a data-edit="footer.a5" data-edit-max="28"
+              <a data-edit="footer.link" data-edit-max="28"
                 href="https://tabbied.com"
                 target="_blank"
                 rel="noreferrer noopener"

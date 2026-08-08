@@ -141,10 +141,10 @@ export default function IsobarPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Isobar</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#forecast">Forecast</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#warnings">Warnings</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#stations">Stations</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#climate">Climate</a>
+          <a data-edit="bar.forecast" data-edit-max="28" href="#forecast">Forecast</a>
+          <a data-edit="bar.warnings" data-edit-max="28" href="#warnings">Warnings</a>
+          <a data-edit="bar.stations" data-edit-max="28" href="#stations">Stations</a>
+          <a data-edit="bar.climate" data-edit-max="28" href="#climate">Climate</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Meteorologisk / Bergen</span>
       </header>
@@ -164,11 +164,11 @@ export default function IsobarPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Meteorological service / the west coast / since 1867</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">988</span>
+            <span data-edit="hero.text" data-edit-max="60">988</span>
             <span data-edit="hero.violet" data-edit-max="60" className={s.violet}>hPa</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               Falling. A deep low crossing on Saturday, sixty-two stations
               watching it, and a forecast that will tell you how sure it is.
             </p>
@@ -188,7 +188,7 @@ export default function IsobarPage() {
               <p data-edit={`forecast.dName.${i}`} data-edit-max="240" data-edit-multiline className={s.dName}>{d.d}</p>
               <p className={s.dTemp}>
                 {d.t}
-                <span data-edit={`forecast.span.${i}`} data-edit-max="60">°</span>
+                <span data-edit={`forecast.text.${i}`} data-edit-max="60">°</span>
               </p>
               <p className={s.dLo}>{d.lo}° overnight</p>
               <p data-edit={`forecast.dW.${i}`} data-edit-max="240" data-edit-multiline className={s.dW}>{d.w}</p>
@@ -209,12 +209,12 @@ export default function IsobarPage() {
             published that on the front page since 1994.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Isobar is the regional meteorological service for the western
               seaboard. It keeps sixty-two stations, eleven of them still read
               by hand at six in the morning, and an archive going back to 1867.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               Everything the service produces is free to use, including the
               observations, the model output and the mistakes, which are
               catalogued in the same archive as everything else.
@@ -225,8 +225,8 @@ export default function IsobarPage() {
         {/* ---------------------------------------------------------- METHOD */}
         <section id="method" className={s.method} aria-labelledby="method-h">
           <div className={s.secHead}>
-            <h2 data-edit="method.h2" data-edit-max="60" id="method-h">How a forecast is made</h2>
-            <p data-edit="method.p" data-edit-max="240" data-edit-multiline>Three steps, and the third is the one that took a reorganisation to get right.</p>
+            <h2 data-edit="method.title" data-edit-max="60" id="method-h">How a forecast is made</h2>
+            <p data-edit="method.body" data-edit-max="240" data-edit-multiline>Three steps, and the third is the one that took a reorganisation to get right.</p>
           </div>
           <div className={s.mGrid}>
             {METHOD.map((m, i) => (
@@ -242,7 +242,7 @@ export default function IsobarPage() {
                   />
                 </div>
                 <p data-edit={`method.mN.${i}`} data-edit-max="240" data-edit-multiline className={s.mN}>{m.n}</p>
-                <h3 data-edit={`method.h3.${i}`} data-edit-max="40">{m.t}</h3>
+                <h3 data-edit={`method.title2.${i}`} data-edit-max="40">{m.t}</h3>
                 <p data-edit={`method.mBody.${i}`} data-edit-max="240" data-edit-multiline className={s.mBody}>{m.d}</p>
               </article>
             ))}
@@ -264,8 +264,8 @@ export default function IsobarPage() {
         {/* -------------------------------------------------------- WARNINGS */}
         <section id="warnings" className={s.listing} aria-labelledby="warn-h">
           <div className={s.secHead}>
-            <h2 data-edit="warnings.h2" data-edit-max="60" id="warn-h">In force this week</h2>
-            <p data-edit="warnings.p" data-edit-max="240" data-edit-multiline>Colour is severity. The percentage is how likely the event is, not how bad it will be.</p>
+            <h2 data-edit="warnings.title" data-edit-max="60" id="warn-h">In force this week</h2>
+            <p data-edit="warnings.body" data-edit-max="240" data-edit-multiline>Colour is severity. The percentage is how likely the event is, not how bad it will be.</p>
           </div>
           <ol className={s.table}>
             {WARNINGS.map((r, i) => (
@@ -285,8 +285,8 @@ export default function IsobarPage() {
             axis, which is all a normal needs. */}
         <section id="climate" className={s.climate} aria-labelledby="climate-h">
           <div className={s.secHead}>
-            <h2 data-edit="climate.h2" data-edit-max="60" id="climate-h">The 1991–2020 normal</h2>
-            <p data-edit="climate.p" data-edit-max="240" data-edit-multiline>Mean temperature by month at the city station, in degrees. The tint is the number.</p>
+            <h2 data-edit="climate.title" data-edit-max="60" id="climate-h">The 1991–2020 normal</h2>
+            <p data-edit="climate.body" data-edit-max="240" data-edit-multiline>Mean temperature by month at the city station, in degrees. The tint is the number.</p>
           </div>
           <div className={s.strip}>
             {NORMALS.map(([m, v], i) => {
@@ -316,8 +316,8 @@ export default function IsobarPage() {
           <dl className={s.records}>
             {RECORDS.map(([v, k], i) => (
               <div key={k}>
-                <dt data-edit={`climate.dt.${i}`} data-edit-max="28">{v}</dt>
-                <dd data-edit={`climate.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+                <dt data-edit={`climate.term.${i}`} data-edit-max="28">{v}</dt>
+                <dd data-edit={`climate.body2.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
               </div>
             ))}
           </dl>
@@ -336,16 +336,16 @@ export default function IsobarPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A forecast that is right and was lucky is worth less than one that was wrong and said so.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Ingrid Hovden, chief forecaster</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>A forecast that is right and was lucky is worth less than one that was wrong and said so.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Ingrid Hovden, chief forecaster</cite>
           </blockquote>
         </section>
 
         {/* -------------------------------------------------------- STATIONS */}
         <section id="stations" className={s.listing} aria-labelledby="st-h">
           <div className={s.secHead}>
-            <h2 data-edit="stations.h2" data-edit-max="60" id="st-h">Sixty-two stations</h2>
-            <p data-edit="stations.p" data-edit-max="240" data-edit-multiline>Fourteen of the long-running ones. Every reading any of them has ever made is downloadable.</p>
+            <h2 data-edit="stations.title" data-edit-max="60" id="st-h">Sixty-two stations</h2>
+            <p data-edit="stations.body" data-edit-max="240" data-edit-multiline>Fourteen of the long-running ones. Every reading any of them has ever made is downloadable.</p>
           </div>
           <ol className={s.table}>
             {STATIONS.map((r, i) => (
@@ -373,12 +373,12 @@ export default function IsobarPage() {
             />
           </div>
           <div className={s.serviceInner}>
-            <h2 data-edit="service.h2" data-edit-max="60" id="service-h">What we publish</h2>
+            <h2 data-edit="service.title" data-edit-max="60" id="service-h">What we publish</h2>
             <dl className={s.serviceList}>
               {SERVICE.map(([k, v], i) => (
                 <div key={k}>
-                  <dt data-edit={`service.dt.${i}`} data-edit-max="28">{k}</dt>
-                  <dd data-edit={`service.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                  <dt data-edit={`service.term.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`service.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -418,7 +418,7 @@ export default function IsobarPage() {
                   style={{ left: `${o.x}%`, top: `${o.y}%` }}
                 >
                   <span className={s.pinDot} />
-                  <span data-edit={`contact.span.${i}`} data-edit-max="60">{o.city}</span>
+                  <span data-edit={`contact.text.${i}`} data-edit-max="60">{o.city}</span>
                 </span>
               ))}
             </div>
@@ -453,23 +453,23 @@ export default function IsobarPage() {
         </ol>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">Forecast</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">Forecast</h2>
             <ul>
-              <li><a data-edit="footer.a" data-edit-max="28" href="#forecast">Seven days</a></li>
-              <li><a data-edit="footer.a2" data-edit-max="28" href="#warnings">Warnings</a></li>
-              <li><a data-edit="footer.a3" data-edit-max="28" href="#climate">Normals</a></li>
+              <li><a data-edit="footer.forecast" data-edit-max="28" href="#forecast">Seven days</a></li>
+              <li><a data-edit="footer.warnings" data-edit-max="28" href="#warnings">Warnings</a></li>
+              <li><a data-edit="footer.climate" data-edit-max="28" href="#climate">Normals</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Network</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Network</h2>
             <ul>
-              <li><a data-edit="footer.a4" data-edit-max="28" href="#stations">Stations</a></li>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#service">Data and API</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#method">Method</a></li>
+              <li><a data-edit="footer.stations" data-edit-max="28" href="#stations">Stations</a></li>
+              <li><a data-edit="footer.service" data-edit-max="28" href="#service">Data and API</a></li>
+              <li><a data-edit="footer.method" data-edit-max="28" href="#method">Method</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Allégaten 70
               <br />
@@ -480,10 +480,10 @@ export default function IsobarPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional weather service. Every observation on this page is invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional weather service. Every observation on this page is invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

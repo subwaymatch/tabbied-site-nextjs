@@ -131,10 +131,10 @@ export default function FalzbogenPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Falzbogen</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#work">Work</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#folds">Folding</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#structures">Structures</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#recent">Recent</a>
+          <a data-edit="bar.work" data-edit-max="28" href="#work">Work</a>
+          <a data-edit="bar.folds" data-edit-max="28" href="#folds">Folding</a>
+          <a data-edit="bar.structures" data-edit-max="28" href="#structures">Structures</a>
+          <a data-edit="bar.recent" data-edit-max="28" href="#recent">Recent</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Buchbinderei / Leipzig</span>
       </header>
@@ -154,12 +154,12 @@ export default function FalzbogenPage() {
           </div>
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Bookbindery / Leipzig / since 1902</p>
           <h1 className={s.heroType}>
-            <span data-edit="hero.span" data-edit-max="60">Sixteen</span>
-            <span data-edit="hero.span2" data-edit-max="60">pages,</span>
+            <span data-edit="hero.text" data-edit-max="60">Sixteen</span>
+            <span data-edit="hero.text2" data-edit-max="60">pages,</span>
             <span data-edit="hero.red" data-edit-max="60" className={s.red}>three folds.</span>
           </h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               A trade bindery that still folds with a bone, sews on tapes and
               leaves a book in the press overnight because there is no faster
               way to do it properly.
@@ -176,8 +176,8 @@ export default function FalzbogenPage() {
             web page gets to being a printed one. */}
         <section id="imposition" className={s.imposition} aria-labelledby="imp-h">
           <div className={s.secHead}>
-            <h2 data-edit="imposition.h2" data-edit-max="60" id="imp-h">One sheet, imposed</h2>
-            <p data-edit="imposition.p" data-edit-max="240" data-edit-multiline>
+            <h2 data-edit="imposition.title" data-edit-max="60" id="imp-h">One sheet, imposed</h2>
+            <p data-edit="imposition.body" data-edit-max="240" data-edit-multiline>
               Sixteen pages on one sheet, half of them upside down. Fold it
               three times, trim the head, and the numbers run in order. This
               is the whole trade in one diagram.
@@ -188,7 +188,7 @@ export default function FalzbogenPage() {
               <div className={s.sheetRow} key={ri}>
                 {row.map((n, i) => (
                   <div className={s.pageCell} key={n} data-flip={ri === 0 ? 'yes' : 'no'}>
-                    <span data-edit={`imposition.span.${ri}.${i}`} data-edit-max="60">{n}</span>
+                    <span data-edit={`imposition.text.${ri}.${i}`} data-edit-max="60">{n}</span>
                   </div>
                 ))}
               </div>
@@ -209,12 +209,12 @@ export default function FalzbogenPage() {
             was easy.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Falzbogen has bound in Leipzig since 1902, in three buildings, the
               last of them since 1961. Fourteen binders, two apprentices, four
               standing presses and a guillotine older than any of us.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               We bind for publishers, for libraries and for people who have one
               book that matters. The last of those pays the same rate as the
               first and waits the same length of time.
@@ -225,8 +225,8 @@ export default function FalzbogenPage() {
         {/* ------------------------------------------------------------ WORK */}
         <section id="work" className={s.work} aria-labelledby="work-h">
           <div className={s.secHead}>
-            <h2 data-edit="work.h2" data-edit-max="60" id="work-h">What we bind</h2>
-            <p data-edit="work.p" data-edit-max="240" data-edit-multiline>Lead times start when the sheets arrive, not when the order does.</p>
+            <h2 data-edit="work.title" data-edit-max="60" id="work-h">What we bind</h2>
+            <p data-edit="work.body" data-edit-max="240" data-edit-multiline>Lead times start when the sheets arrive, not when the order does.</p>
           </div>
           <ol className={s.rows}>
             {WORK.map((w, i) => (
@@ -256,8 +256,8 @@ export default function FalzbogenPage() {
         {/* ----------------------------------------------------------- FOLDS */}
         <section id="folds" className={s.folds} aria-labelledby="folds-h">
           <div className={s.secHead}>
-            <h2 data-edit="folds.h2" data-edit-max="60" id="folds-h">Fold, gather, sew, case</h2>
-            <p data-edit="folds.p" data-edit-max="240" data-edit-multiline>Four operations, in this order, and no shortcut through any of them.</p>
+            <h2 data-edit="folds.title" data-edit-max="60" id="folds-h">Fold, gather, sew, case</h2>
+            <p data-edit="folds.body" data-edit-max="240" data-edit-multiline>Four operations, in this order, and no shortcut through any of them.</p>
           </div>
           <div className={s.fGrid}>
             {FOLDS.map((f, i) => (
@@ -273,7 +273,7 @@ export default function FalzbogenPage() {
                   />
                 </div>
                 <p data-edit={`folds.fN.${i}`} data-edit-max="240" data-edit-multiline className={s.fN}>{f.n}</p>
-                <h3 data-edit={`folds.h3.${i}`} data-edit-max="40">{f.t}</h3>
+                <h3 data-edit={`folds.title2.${i}`} data-edit-max="40">{f.t}</h3>
                 <p data-edit={`folds.fBody.${i}`} data-edit-max="240" data-edit-multiline className={s.fBody}>{f.d}</p>
               </article>
             ))}
@@ -283,8 +283,8 @@ export default function FalzbogenPage() {
         {/* ------------------------------------------------------ STRUCTURES */}
         <section id="structures" className={s.listing} aria-labelledby="str-h">
           <div className={s.secHead}>
-            <h2 data-edit="structures.h2" data-edit-max="60" id="str-h">Structures and what they cost</h2>
-            <p data-edit="structures.p" data-edit-max="240" data-edit-multiline>Per copy, in a run of a hundred, sheets supplied. The opening angle is measured, not claimed.</p>
+            <h2 data-edit="structures.title" data-edit-max="60" id="str-h">Structures and what they cost</h2>
+            <p data-edit="structures.body" data-edit-max="240" data-edit-multiline>Per copy, in a run of a hundred, sheets supplied. The opening angle is measured, not claimed.</p>
           </div>
           <ol className={s.table}>
             {STRUCTURES.map((r, i) => (
@@ -312,16 +312,16 @@ export default function FalzbogenPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>A book that will not stay open is a book nobody finishes. Everything we do is in service of that one hinge.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Dorothea Klemm, workshop</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>A book that will not stay open is a book nobody finishes. Everything we do is in service of that one hinge.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Dorothea Klemm, workshop</cite>
           </blockquote>
         </section>
 
         {/* ------------------------------------------------------- MATERIALS */}
         <section className={s.listing} aria-labelledby="mat-h">
           <div className={s.secHead}>
-            <h2 data-edit="mat.h2" data-edit-max="60" id="mat-h">In the store room</h2>
-            <p data-edit="mat.p" data-edit-max="240" data-edit-multiline>Held means it is upstairs. To order means it comes by the skin and you choose it yourself.</p>
+            <h2 data-edit="mat.title" data-edit-max="60" id="mat-h">In the store room</h2>
+            <p data-edit="mat.body" data-edit-max="240" data-edit-multiline>Held means it is upstairs. To order means it comes by the skin and you choose it yourself.</p>
           </div>
           <ol className={s.table}>
             {MATERIALS.map((r, i) => (
@@ -339,8 +339,8 @@ export default function FalzbogenPage() {
         {/* ---------------------------------------------------------- RECENT */}
         <section id="recent" className={s.listing} aria-labelledby="recent-h">
           <div className={s.secHead}>
-            <h2 data-edit="recent.h2" data-edit-max="60" id="recent-h">Off the bench</h2>
-            <p data-edit="recent.p" data-edit-max="240" data-edit-multiline>Work finished in the last three years, with the client&rsquo;s permission to say so.</p>
+            <h2 data-edit="recent.title" data-edit-max="60" id="recent-h">Off the bench</h2>
+            <p data-edit="recent.body" data-edit-max="240" data-edit-multiline>Work finished in the last three years, with the client&rsquo;s permission to say so.</p>
           </div>
           <ol className={s.table}>
             {RECENT.map((r, i) => (
@@ -368,12 +368,12 @@ export default function FalzbogenPage() {
             />
           </div>
           <div className={s.shopInner}>
-            <h2 data-edit="shop.h2" data-edit-max="60" id="shop-h">Working with us</h2>
+            <h2 data-edit="shop.title" data-edit-max="60" id="shop-h">Working with us</h2>
             <dl className={s.shopList}>
               {SHOP.map(([k, v], i) => (
                 <div key={k}>
-                  <dt data-edit={`shop.dt.${i}`} data-edit-max="28">{k}</dt>
-                  <dd data-edit={`shop.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                  <dt data-edit={`shop.term.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`shop.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -441,14 +441,14 @@ export default function FalzbogenPage() {
 
       <footer className={s.footer}>
         <nav className={s.footIndex} aria-label="Sections">
-          <a data-edit="footer.a" data-edit-max="28" href="#work">What we bind</a>
-          <a data-edit="footer.a2" data-edit-max="28" href="#structures">Structures</a>
-          <a data-edit="footer.a3" data-edit-max="28" href="#folds">Four folds</a>
-          <a data-edit="footer.a4" data-edit-max="28" href="#shop">Working with us</a>
+          <a data-edit="footer.work" data-edit-max="28" href="#work">What we bind</a>
+          <a data-edit="footer.structures" data-edit-max="28" href="#structures">Structures</a>
+          <a data-edit="footer.folds" data-edit-max="28" href="#folds">Four folds</a>
+          <a data-edit="footer.shop" data-edit-max="28" href="#shop">Working with us</a>
         </nav>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">On the bench</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">On the bench</h2>
             <p>
               Six benches, three of them older than the firm
               <br />
@@ -458,15 +458,15 @@ export default function FalzbogenPage() {
             </p>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Craft</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Craft</h2>
             <ul>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#imposition">Imposition</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#folds">Four operations</a></li>
-              <li><a data-edit="footer.a7" data-edit-max="28" href="#shop">Working with us</a></li>
+              <li><a data-edit="footer.imposition" data-edit-max="28" href="#imposition">Imposition</a></li>
+              <li><a data-edit="footer.folds2" data-edit-max="28" href="#folds">Four operations</a></li>
+              <li><a data-edit="footer.shop2" data-edit-max="28" href="#shop">Working with us</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Nonnenstrasse 17
               <br />
@@ -477,10 +477,10 @@ export default function FalzbogenPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional bookbindery. Clients, prices and materials are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional bookbindery. Clients, prices and materials are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a8" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

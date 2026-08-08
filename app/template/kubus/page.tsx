@@ -154,10 +154,10 @@ export default function KubusPage() {
       <header className={s.bar}>
         <a data-edit="bar.mark" data-edit-max="28" className={s.mark} href="#top">Kubus</a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#shows">Exhibitions</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#rooms">Rooms</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#programme">Programme</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#visit">Visit</a>
+          <a data-edit="bar.shows" data-edit-max="28" href="#shows">Exhibitions</a>
+          <a data-edit="bar.rooms" data-edit-max="28" href="#rooms">Rooms</a>
+          <a data-edit="bar.programme" data-edit-max="28" href="#programme">Programme</a>
+          <a data-edit="bar.visit" data-edit-max="28" href="#visit">Visit</a>
         </nav>
         <span data-edit="bar.now" data-edit-max="60" className={s.now}>Kunsthalle</span>
       </header>
@@ -180,7 +180,7 @@ export default function KubusPage() {
           <p data-edit="hero.heroKicker" data-edit-max="240" data-edit-multiline className={s.heroKicker}>Kunsthalle / no collection / since 1978</p>
           <h1 data-edit="hero.heroType" data-edit-max="70" className={s.heroType}>Kubus</h1>
           <div className={s.heroFoot}>
-            <p data-edit="hero.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="hero.body" data-edit-max="240" data-edit-multiline>
               One room, twelve metres by twenty-two, four times a year. We own
               nothing and we show everything in it.
             </p>
@@ -195,8 +195,8 @@ export default function KubusPage() {
             title needs. The whole year, in the order it happens. */}
         <section id="shows" className={s.shows} aria-labelledby="shows-h">
           <div className={s.secHead}>
-            <h2 data-edit="shows.h2" data-edit-max="60" id="shows-h">Four this year</h2>
-            <p data-edit="shows.p" data-edit-max="240" data-edit-multiline>Each one has the whole building. The fourth is the building itself.</p>
+            <h2 data-edit="shows.title" data-edit-max="60" id="shows-h">Four this year</h2>
+            <p data-edit="shows.body" data-edit-max="240" data-edit-multiline>Each one has the whole building. The fourth is the building itself.</p>
           </div>
           <ol className={s.showList}>
             {SHOWS.map((x, i) => (
@@ -220,12 +220,12 @@ export default function KubusPage() {
             times a year and it is the most expensive decision we make.
           </p>
           <div className={s.statementMeta}>
-            <p data-edit="statement.p" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body" data-edit-max="240" data-edit-multiline>
               Kubus opened in 1978 in a former tram depot. The hall is the depot
               floor, the roof lights are the original ones, and the wall between
               the hall and the yard was removed in 2011 and never replaced.
             </p>
-            <p data-edit="statement.p2" data-edit-max="240" data-edit-multiline>
+            <p data-edit="statement.body2" data-edit-max="240" data-edit-multiline>
               Eleven people work here. Every exhibiting artist is paid a fee,
               which is set once a year by the board and printed in the annual
               report next to everybody&rsquo;s salary band.
@@ -256,8 +256,8 @@ export default function KubusPage() {
         {/* ------------------------------------------------------ PRINCIPLES */}
         <section className={s.principles} aria-labelledby="pr-h">
           <div className={s.secHead}>
-            <h2 data-edit="pr.h2" data-edit-max="60" id="pr-h">Three refusals</h2>
-            <p data-edit="pr.p" data-edit-max="240" data-edit-multiline>Written into the constitution in 1978 and never amended.</p>
+            <h2 data-edit="pr.title" data-edit-max="60" id="pr-h">Three refusals</h2>
+            <p data-edit="pr.body" data-edit-max="240" data-edit-multiline>Written into the constitution in 1978 and never amended.</p>
           </div>
           <div className={s.pGrid}>
             {PRINCIPLES.map((p, i) => (
@@ -273,7 +273,7 @@ export default function KubusPage() {
                   />
                 </div>
                 <p data-edit={`pr.pN.${i}`} data-edit-max="240" data-edit-multiline className={s.pN}>{p.n}</p>
-                <h3 data-edit={`pr.h3.${i}`} data-edit-max="40">{p.t}</h3>
+                <h3 data-edit={`pr.title2.${i}`} data-edit-max="40">{p.t}</h3>
                 <p data-edit={`pr.pBody.${i}`} data-edit-max="240" data-edit-multiline className={s.pBody}>{p.d}</p>
               </article>
             ))}
@@ -295,8 +295,8 @@ export default function KubusPage() {
         {/* ----------------------------------------------------------- ROOMS */}
         <section id="rooms" className={s.listing} aria-labelledby="rooms-h">
           <div className={s.secHead}>
-            <h2 data-edit="rooms.h2" data-edit-max="60" id="rooms-h">Five rooms</h2>
-            <p data-edit="rooms.p" data-edit-max="240" data-edit-multiline>Published so an artist can plan a show before visiting. Lux figures are measured at the wall.</p>
+            <h2 data-edit="rooms.title" data-edit-max="60" id="rooms-h">Five rooms</h2>
+            <p data-edit="rooms.body" data-edit-max="240" data-edit-multiline>Published so an artist can plan a show before visiting. Lux figures are measured at the wall.</p>
           </div>
           <ol className={s.table}>
             {ROOMS.map((r, i) => (
@@ -324,16 +324,16 @@ export default function KubusPage() {
             />
           </div>
           <blockquote>
-            <p data-edit="quote.p" data-edit-max="240" data-edit-multiline>An empty room is not a problem to be solved. It is the offer.</p>
-            <cite data-edit="quote.cite" data-edit-max="48">Hanne Ravn, director</cite>
+            <p data-edit="quote.body" data-edit-max="240" data-edit-multiline>An empty room is not a problem to be solved. It is the offer.</p>
+            <cite data-edit="quote.attribution" data-edit-max="48">Hanne Ravn, director</cite>
           </blockquote>
         </section>
 
         {/* ------------------------------------------------------- PROGRAMME */}
         <section id="programme" className={s.listing} aria-labelledby="prog-h">
           <div className={s.secHead}>
-            <h2 data-edit="programme.h2" data-edit-max="60" id="prog-h">Autumn programme</h2>
-            <p data-edit="programme.p" data-edit-max="240" data-edit-multiline>Talks, tours and two late openings. Everything free unless it says otherwise.</p>
+            <h2 data-edit="programme.title" data-edit-max="60" id="prog-h">Autumn programme</h2>
+            <p data-edit="programme.body" data-edit-max="240" data-edit-multiline>Talks, tours and two late openings. Everything free unless it says otherwise.</p>
           </div>
           <ol className={s.table}>
             {PROGRAMME.map((r, i) => (
@@ -361,12 +361,12 @@ export default function KubusPage() {
             />
           </div>
           <div className={s.supportInner}>
-            <h2 data-edit="support.h2" data-edit-max="60" id="support-h">How it is paid for</h2>
+            <h2 data-edit="support.title" data-edit-max="60" id="support-h">How it is paid for</h2>
             <dl className={s.supportList}>
               {SUPPORT.map(([k, v], i) => (
                 <div key={k}>
-                  <dt data-edit={`support.dt.${i}`} data-edit-max="28">{k}</dt>
-                  <dd data-edit={`support.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                  <dt data-edit={`support.term.${i}`} data-edit-max="28">{k}</dt>
+                  <dd data-edit={`support.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
                 </div>
               ))}
             </dl>
@@ -375,12 +375,12 @@ export default function KubusPage() {
 
         {/* ----------------------------------------------------------- VISIT */}
         <section id="visit" className={s.visit} aria-labelledby="visit-h">
-          <h2 data-edit="visit.h2" data-edit-max="60" id="visit-h">Coming in</h2>
+          <h2 data-edit="visit.title" data-edit-max="60" id="visit-h">Coming in</h2>
           <dl className={s.visitList}>
             {VISIT.map(([k, v], i) => (
               <div key={k}>
-                <dt data-edit={`visit.dt.${i}`} data-edit-max="28">{k}</dt>
-                <dd data-edit={`visit.dd.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
+                <dt data-edit={`visit.term.${i}`} data-edit-max="28">{k}</dt>
+                <dd data-edit={`visit.body.${i}`} data-edit-max="200" data-edit-multiline>{v}</dd>
               </div>
             ))}
           </dl>
@@ -403,8 +403,8 @@ export default function KubusPage() {
             <dl className={s.hours}>
               {HOURS.map(([d, h, shut], i) => (
                 <div key={d} className={shut ? s.hoursShut : undefined}>
-                  <dt data-edit={`contact.dt.${i}`} data-edit-max="28">{d}</dt>
-                  <dd data-edit={`contact.dd.${i}`} data-edit-max="200" data-edit-multiline>{h}</dd>
+                  <dt data-edit={`contact.term.${i}`} data-edit-max="28">{d}</dt>
+                  <dd data-edit={`contact.body.${i}`} data-edit-max="200" data-edit-multiline>{h}</dd>
                 </div>
               ))}
             </dl>
@@ -429,14 +429,14 @@ export default function KubusPage() {
 
       <footer className={s.footer}>
         <nav className={s.footIndex} aria-label="Sections">
-          <a data-edit="footer.a" data-edit-max="28" href="#shows">Exhibitions</a>
-          <a data-edit="footer.a2" data-edit-max="28" href="#rooms">The rooms</a>
-          <a data-edit="footer.a3" data-edit-max="28" href="#support">Funding</a>
-          <a data-edit="footer.a4" data-edit-max="28" href="#visit">Hours</a>
+          <a data-edit="footer.shows" data-edit-max="28" href="#shows">Exhibitions</a>
+          <a data-edit="footer.rooms" data-edit-max="28" href="#rooms">The rooms</a>
+          <a data-edit="footer.support" data-edit-max="28" href="#support">Funding</a>
+          <a data-edit="footer.visit" data-edit-max="28" href="#visit">Hours</a>
         </nav>
         <div className={s.footGrid}>
           <div>
-            <h2 data-edit="footer.h2" data-edit-max="60">The building</h2>
+            <h2 data-edit="footer.title" data-edit-max="60">The building</h2>
             <p>
               A goods depot of 1908, four rooms, no wall moved
               <br />
@@ -446,15 +446,15 @@ export default function KubusPage() {
             </p>
           </div>
           <div>
-            <h2 data-edit="footer.h22" data-edit-max="60">Kunsthalle</h2>
+            <h2 data-edit="footer.title2" data-edit-max="60">Kunsthalle</h2>
             <ul>
-              <li><a data-edit="footer.a5" data-edit-max="28" href="#support">Funding</a></li>
-              <li><a data-edit="footer.a6" data-edit-max="28" href="#visit">Opening hours</a></li>
-              <li><a data-edit="footer.a7" data-edit-max="28" href="#visit">Access</a></li>
+              <li><a data-edit="footer.support2" data-edit-max="28" href="#support">Funding</a></li>
+              <li><a data-edit="footer.visit2" data-edit-max="28" href="#visit">Opening hours</a></li>
+              <li><a data-edit="footer.visit3" data-edit-max="28" href="#visit">Access</a></li>
             </ul>
           </div>
           <div>
-            <h2 data-edit="footer.h23" data-edit-max="60">Here</h2>
+            <h2 data-edit="footer.title3" data-edit-max="60">Here</h2>
             <p>
               Depotstrasse 4
               <br />
@@ -465,10 +465,10 @@ export default function KubusPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional kunsthalle. Artists, exhibitions and dimensions are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional kunsthalle. Artists, exhibitions and dimensions are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a8" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

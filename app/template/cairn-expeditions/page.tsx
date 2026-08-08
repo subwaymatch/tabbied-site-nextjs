@@ -203,11 +203,11 @@ export default function CairnExpeditionsPage() {
           Cairn
         </a>
         <nav className={styles.nav} aria-label="Site">
-          <a data-edit="topbar.a" data-edit-max="28" href="#expeditions">Expeditions</a>
-          <a data-edit="topbar.a2" data-edit-max="28" href="#approach">Approach</a>
-          <a data-edit="topbar.a3" data-edit-max="28" href="#gear">Gear</a>
-          <a data-edit="topbar.a4" data-edit-max="28" href="#guides">Guides</a>
-          <a data-edit="topbar.a5" data-edit-max="28" href="#safety">Safety</a>
+          <a data-edit="topbar.expeditions" data-edit-max="28" href="#expeditions">Expeditions</a>
+          <a data-edit="topbar.approach" data-edit-max="28" href="#approach">Approach</a>
+          <a data-edit="topbar.gear" data-edit-max="28" href="#gear">Gear</a>
+          <a data-edit="topbar.guides" data-edit-max="28" href="#guides">Guides</a>
+          <a data-edit="topbar.safety" data-edit-max="28" href="#safety">Safety</a>
         </nav>
         <a data-edit="topbar.navCta" data-edit-max="28" className={styles.navCta} href="#enquire">
           Enquire
@@ -248,9 +248,9 @@ export default function CairnExpeditionsPage() {
             </div>
           </div>
           <p className={styles.heroMeta}>
-            <span data-edit="hero.span" data-edit-max="60">46.02° N · 7.41° E</span>
-            <span data-edit="hero.span2" data-edit-max="60">EST. 2009</span>
-            <span data-edit="hero.span3" data-edit-max="60">BUREAU: 14 ROUTE DES SÉRACS</span>
+            <span data-edit="hero.text" data-edit-max="60">46.02° N · 7.41° E</span>
+            <span data-edit="hero.text2" data-edit-max="60">EST. 2009</span>
+            <span data-edit="hero.text3" data-edit-max="60">BUREAU: 14 ROUTE DES SÉRACS</span>
           </p>
         </section>
 
@@ -293,16 +293,16 @@ export default function CairnExpeditionsPage() {
                   </p>
                   <dl className={styles.tripSpecs}>
                     <div>
-                      <dt data-edit={`tripCard.dt.${i}`} data-edit-max="28">Duration</dt>
-                      <dd data-edit={`tripCard.dd.${i}`} data-edit-max="200" data-edit-multiline>{trip.days}</dd>
+                      <dt data-edit={`tripCard.term.${i}`} data-edit-max="28">Duration</dt>
+                      <dd data-edit={`tripCard.body.${i}`} data-edit-max="200" data-edit-multiline>{trip.days}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`tripCard.dt2.${i}`} data-edit-max="28">Ratio</dt>
-                      <dd data-edit={`tripCard.dd2.${i}`} data-edit-max="200" data-edit-multiline>{trip.ratio}</dd>
+                      <dt data-edit={`tripCard.term2.${i}`} data-edit-max="28">Ratio</dt>
+                      <dd data-edit={`tripCard.body2.${i}`} data-edit-max="200" data-edit-multiline>{trip.ratio}</dd>
                     </div>
                     <div>
-                      <dt data-edit={`tripCard.dt3.${i}`} data-edit-max="28">Season</dt>
-                      <dd data-edit={`tripCard.dd3.${i}`} data-edit-max="200" data-edit-multiline>{trip.season}</dd>
+                      <dt data-edit={`tripCard.term3.${i}`} data-edit-max="28">Season</dt>
+                      <dd data-edit={`tripCard.body3.${i}`} data-edit-max="200" data-edit-multiline>{trip.season}</dd>
                     </div>
                   </dl>
                   <p data-edit={`tripCard.tripBlurb.${i}`} data-edit-max="240" data-edit-multiline className={styles.tripBlurb}>{trip.blurb}</p>
@@ -341,17 +341,17 @@ export default function CairnExpeditionsPage() {
               {principles.map((p, i) => (
                 <article key={p.n} className={styles.principle}>
                   <span data-edit={`principle.principleNum.${i}`} data-edit-max="60" className={styles.principleNum}>{p.n}</span>
-                  <h3 data-edit={`principle.h3.${i}`} data-edit-max="40">{p.title}</h3>
-                  <p data-edit={`principle.p.${i}`} data-edit-max="240" data-edit-multiline>{p.body}</p>
+                  <h3 data-edit={`principle.title.${i}`} data-edit-max="40">{p.title}</h3>
+                  <p data-edit={`principle.body.${i}`} data-edit-max="240" data-edit-multiline>{p.body}</p>
                 </article>
               ))}
             </div>
             <blockquote className={styles.quote}>
-              <p data-edit="approach.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="approach.body" data-edit-max="240" data-edit-multiline>
                 “Nobody remembers a fast ascent. Everybody remembers feeling looked after at
                 4,000 metres.”
               </p>
-              <cite data-edit="approach.cite" data-edit-max="48">The line we hire guides by</cite>
+              <cite data-edit="approach.attribution" data-edit-max="48">The line we hire guides by</cite>
             </blockquote>
           </div>
         </section>
@@ -404,7 +404,7 @@ export default function CairnExpeditionsPage() {
           <div className={styles.gearLayout}>
             <ul className={styles.gearChecklist}>
               {gearList.map((item, i) => (
-                <li data-edit={`gear.li.${i}`} data-edit-max="80" key={item}>{item}</li>
+                <li data-edit={`gear.item.${i}`} data-edit-max="80" key={item}>{item}</li>
               ))}
             </ul>
             <div className={styles.gearTemplate}>
@@ -432,8 +432,8 @@ export default function CairnExpeditionsPage() {
                   >
                     <Figure editId={`gear.photo.${i}`} slug={r.slug} cutout alt={r.alt} className={styles.rentalImg} />
                     <figcaption>
-                      <strong data-edit={`gear.strong.${i}`}>{r.name}</strong>
-                      <span data-edit={`gear.span.${i}`} data-edit-max="60">{r.spec}</span>
+                      <strong data-edit={`gear.emphasis.${i}`}>{r.name}</strong>
+                      <span data-edit={`gear.text.${i}`} data-edit-max="60">{r.spec}</span>
                       <span data-edit={`gear.rentalPrice.${i}`} data-edit-max="60" className={styles.rentalPrice}>{r.price}</span>
                     </figcaption>
                   </figure>
@@ -462,11 +462,11 @@ export default function CairnExpeditionsPage() {
                   <Figure editId={`guideCard.photo.${i}`} slug={g.slug} alt={g.alt} />
                 </div>
                 <div className={styles.guideBody}>
-                  <h3 data-edit={`guideCard.h3.${i}`} data-edit-max="40">{g.name}</h3>
+                  <h3 data-edit={`guideCard.title.${i}`} data-edit-max="40">{g.name}</h3>
                   <p className={styles.guideCert}>
                     {g.cert} · {g.home}
                   </p>
-                  <p data-edit={`guideCard.p.${i}`} data-edit-max="240" data-edit-multiline>{g.line}</p>
+                  <p data-edit={`guideCard.body.${i}`} data-edit-max="240" data-edit-multiline>{g.line}</p>
                 </div>
               </article>
             ))}
@@ -492,8 +492,8 @@ export default function CairnExpeditionsPage() {
           <div className={styles.credGrid}>
             {credentials.map((c, i) => (
               <article key={c.title} className={styles.credCard}>
-                <h3 data-edit={`credCard.h3.${i}`} data-edit-max="40">{c.title}</h3>
-                <p data-edit={`credCard.p.${i}`} data-edit-max="240" data-edit-multiline>{c.body}</p>
+                <h3 data-edit={`credCard.title.${i}`} data-edit-max="40">{c.title}</h3>
+                <p data-edit={`credCard.body.${i}`} data-edit-max="240" data-edit-multiline>{c.body}</p>
               </article>
             ))}
           </div>
@@ -526,8 +526,8 @@ export default function CairnExpeditionsPage() {
               {bookingSteps.map((s, i) => (
                 <article key={s.n} className={styles.bookingStep}>
                   <span data-edit={`bookingStep.bookingNum.${i}`} data-edit-max="60" className={styles.bookingNum}>{s.n}</span>
-                  <h3 data-edit={`bookingStep.h3.${i}`} data-edit-max="40">{s.title}</h3>
-                  <p data-edit={`bookingStep.p.${i}`} data-edit-max="240" data-edit-multiline>{s.body}</p>
+                  <h3 data-edit={`bookingStep.title.${i}`} data-edit-max="40">{s.title}</h3>
+                  <p data-edit={`bookingStep.body.${i}`} data-edit-max="240" data-edit-multiline>{s.body}</p>
                 </article>
               ))}
             </div>
@@ -542,16 +542,16 @@ export default function CairnExpeditionsPage() {
               </div>
               <dl className={styles.enquireMeta}>
                 <div>
-                  <dt data-edit="enquire.dt" data-edit-max="28">Bureau hours</dt>
-                  <dd data-edit="enquire.dd" data-edit-max="200" data-edit-multiline>Tue to Sat · 09:00 to 17:00</dd>
+                  <dt data-edit="enquire.term" data-edit-max="28">Bureau hours</dt>
+                  <dd data-edit="enquire.body" data-edit-max="200" data-edit-multiline>Tue to Sat · 09:00 to 17:00</dd>
                 </div>
                 <div>
-                  <dt data-edit="enquire.dt2" data-edit-max="28">Telephone</dt>
-                  <dd data-edit="enquire.dd2" data-edit-max="200" data-edit-multiline>+41 (0)27 555 08 14</dd>
+                  <dt data-edit="enquire.term2" data-edit-max="28">Telephone</dt>
+                  <dd data-edit="enquire.body2" data-edit-max="200" data-edit-multiline>+41 (0)27 555 08 14</dd>
                 </div>
                 <div>
-                  <dt data-edit="enquire.dt3" data-edit-max="28">In person</dt>
-                  <dd data-edit="enquire.dd3" data-edit-max="200" data-edit-multiline>14 Route des Séracs, 1974 Valsorde</dd>
+                  <dt data-edit="enquire.term3" data-edit-max="28">In person</dt>
+                  <dd data-edit="enquire.body3" data-edit-max="200" data-edit-multiline>14 Route des Séracs, 1974 Valsorde</dd>
                 </div>
               </dl>
             </div>
@@ -574,15 +574,15 @@ export default function CairnExpeditionsPage() {
             <span className={styles.brandMark} aria-hidden="true">
               ▲▲
             </span>
-            <span data-edit="footer.span" data-edit-max="60">Cairn Expeditions</span>
+            <span data-edit="footer.text" data-edit-max="60">Cairn Expeditions</span>
           </div>
           <nav className={styles.footerNav} aria-label="Footer">
-            <a data-edit="footer.a" data-edit-max="28" href="#expeditions">Expeditions</a>
-            <a data-edit="footer.a2" data-edit-max="28" href="#approach">Approach</a>
-            <a data-edit="footer.a3" data-edit-max="28" href="#gear">Gear</a>
-            <a data-edit="footer.a4" data-edit-max="28" href="#guides">Guides</a>
-            <a data-edit="footer.a5" data-edit-max="28" href="#safety">Safety</a>
-            <a data-edit="footer.a6" data-edit-max="28" href="#enquire">Enquire</a>
+            <a data-edit="footer.expeditions" data-edit-max="28" href="#expeditions">Expeditions</a>
+            <a data-edit="footer.approach" data-edit-max="28" href="#approach">Approach</a>
+            <a data-edit="footer.gear" data-edit-max="28" href="#gear">Gear</a>
+            <a data-edit="footer.guides" data-edit-max="28" href="#guides">Guides</a>
+            <a data-edit="footer.safety" data-edit-max="28" href="#safety">Safety</a>
+            <a data-edit="footer.enquire" data-edit-max="28" href="#enquire">Enquire</a>
           </nav>
           <p data-edit="footer.footerFine" data-edit-max="240" data-edit-multiline className={styles.footerFine}>
             Cairn Expeditions Sàrl · 14 Route des Séracs, 1974 Valsorde · Guiding under IFMGA
@@ -591,7 +591,7 @@ export default function CairnExpeditionsPage() {
           </p>
           <p className={styles.credit}>
             Ridgelines and map fields drawn by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
           </p>

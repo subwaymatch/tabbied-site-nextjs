@@ -306,6 +306,13 @@ never overwritten. It refuses to annotate a component rendered more than once,
 two nested maps sharing an index name, or a pattern wrapped in a fragment, and
 says so; those need a wrapper or an id by hand.
 
+When resolving a pattern's palette into a role map it chases **aliased
+constants** (`const TILE_A = STEEL`) and **array constants** (`palette={FULL}`);
+not doing so left 109 of 434 fields unable to re-colour. The 31 that remain
+take a per-item palette from a data array or a conditional, so no static map
+can describe them — they re-colour only through an explicit `palette` in the
+edits document.
+
 **Two palette derivations, and the bespoke one is not `--brand-N`.** Those 52
 pages each declare their own property names on their root rule (`--paper`,
 `--ink`, …) with the stylesheet reading `var(--…)`, so they use

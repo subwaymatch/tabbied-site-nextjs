@@ -90,7 +90,18 @@ and 3. A numeric role wraps if the palette is short.
 
 `transparent` in colour 0 is the one that matters: it is what leaves real
 negative space so a field reads *over* a photograph. It is a literal precisely
-so that re-colouring can never fill it in.
+so that re-colouring can never fill it in. An off-palette accent stays literal
+for the same reason — it is not part of the brand, so it must not move when the
+brand does.
+
+**31 of the 434 pattern fields carry no role map, and cannot.** They take a
+per-item palette from a data array (`palette={p.palette}`) or a conditional
+(``palette={[..., i % 4 === 0 ? ACID : GREY, ...]}``), so one static map could
+not describe what a single JSX node renders differently on each pass. Those
+fields are still slots — swappable, re-seedable, and re-colourable by an
+explicit `palette` in the edits document, which `PatternEdit` supports for
+exactly this case. They just do not follow a brand re-colour on their own. The
+codemod names each one rather than leaving it to be discovered.
 
 ## The `{em}` accent
 
@@ -226,3 +237,22 @@ Three things it refuses to annotate rather than get wrong, each reported:
 Its correctness claim is that it changes nothing a visitor sees. That was
 checked the only way worth checking: building the export before and after and
 diffing the rendered text of all 57 pages, which came back identical.
+
+Two things it resolves that are easy to miss, because both hide a colour one
+indirection away from the pattern that uses it:
+
+- **Aliased constants** — `const TILE_A = STEEL`. About twenty pages name their
+  tile colours that way, and not chasing the alias left those fields with no
+  role map at all.
+- **Array constants** — `palette={FULL}` where `const FULL = [PARCHMENT, NAVY,
+  …]`, rather than an array written inline.
+
+Missing those two left 109 of 434 fields unable to re-colour. Resolving them
+brings it to 31, all of which are genuinely dynamic.
+
+Slot ids come from the element's own class name where it has one — those are
+already descriptive (`heroKicker`, `rowTitle`) and cover about 79% of text
+slots. Failing that, a link's own in-page anchor names it far better than its
+position does (`bar.making`, not `bar.link2`), and otherwise a semantic word
+for the tag (`faq.0.answer`, not `faq.0.p`). That leaves 40 of 9,797 ids
+falling back to a bare tag name.

@@ -211,11 +211,11 @@ export default function PiquantProvisionsPage() {
           Piquant<span data-edit="topbar.brandDot" data-edit-max="60" className={styles.brandDot}>*</span>
         </a>
         <nav aria-label="Page sections" className={styles.nav}>
-          <a data-edit="topbar.a" data-edit-max="28" href="#lineup">The Lineup</a>
-          <a data-edit="topbar.a2" data-edit-max="28" href="#heat">Heat Scale</a>
-          <a data-edit="topbar.a3" data-edit-max="28" href="#process">How It&rsquo;s Made</a>
-          <a data-edit="topbar.a4" data-edit-max="28" href="#recipe">Recipe</a>
-          <a data-edit="topbar.a5" data-edit-max="28" href="#stockists">Stockists</a>
+          <a data-edit="topbar.lineup" data-edit-max="28" href="#lineup">The Lineup</a>
+          <a data-edit="topbar.heat" data-edit-max="28" href="#heat">Heat Scale</a>
+          <a data-edit="topbar.process" data-edit-max="28" href="#process">How It&rsquo;s Made</a>
+          <a data-edit="topbar.recipe" data-edit-max="28" href="#recipe">Recipe</a>
+          <a data-edit="topbar.stockists" data-edit-max="28" href="#stockists">Stockists</a>
         </nav>
         <a data-edit="topbar.topbarCta" data-edit-max="28" href="#wholesale" className={styles.topbarCta}>
           Wholesale
@@ -267,7 +267,7 @@ export default function PiquantProvisionsPage() {
                 className={styles.heroBottleImg}
               />
               <p className={`${styles.sticker} ${styles.stickerBatch}`} aria-hidden="true">
-                Small batch <strong data-edit="hero.strong">№ 7</strong>
+                Small batch <strong data-edit="hero.emphasis">№ 7</strong>
               </p>
               <p className={`${styles.sticker} ${styles.stickerFerment}`} aria-hidden="true">
                 21-day ferment
@@ -323,14 +323,14 @@ export default function PiquantProvisionsPage() {
                   </div>
                   <dl className={styles.sauceMeta}>
                     <div>
-                      <dt data-edit={`lineup.dt.${i}`} data-edit-max="28">Bottle</dt>
+                      <dt data-edit={`lineup.term.${i}`} data-edit-max="28">Bottle</dt>
                       <dd>
                         {sauce.size} &middot; {sauce.price}
                       </dd>
                     </div>
                     <div>
-                      <dt data-edit={`lineup.dt2.${i}`} data-edit-max="28">Put it on</dt>
-                      <dd data-edit={`lineup.dd.${i}`} data-edit-max="200" data-edit-multiline>{sauce.pairs}</dd>
+                      <dt data-edit={`lineup.term2.${i}`} data-edit-max="28">Put it on</dt>
+                      <dd data-edit={`lineup.body.${i}`} data-edit-max="200" data-edit-multiline>{sauce.pairs}</dd>
                     </div>
                   </dl>
                 </div>
@@ -420,7 +420,7 @@ export default function PiquantProvisionsPage() {
                 alt="A market stall stacked with crates of red, orange and green chillies, printed in riso style"
                 className={styles.processImg}
               />
-              <figcaption data-edit="process.figcaption" data-edit-max="120" data-edit-multiline>Beckoner Street market, Thursday, before coffee.</figcaption>
+              <figcaption data-edit="process.caption" data-edit-max="120" data-edit-multiline>Beckoner Street market, Thursday, before coffee.</figcaption>
             </figure>
             <figure className={styles.processFigureB}>
               <Figure editId="photo.piquant-kitchen"
@@ -428,7 +428,7 @@ export default function PiquantProvisionsPage() {
                 alt="A big pot of red sauce bubbling on a kitchen range, steam rising"
                 className={styles.processImg}
               />
-              <figcaption data-edit="process.figcaption2" data-edit-max="120" data-edit-multiline>Kettle two, doing its loud little job.</figcaption>
+              <figcaption data-edit="process.caption2" data-edit-max="120" data-edit-multiline>Kettle two, doing its loud little job.</figcaption>
             </figure>
             <div className={styles.processCrate}>
               <span className={styles.processCrateVeil} aria-hidden="true" />
@@ -472,7 +472,7 @@ export default function PiquantProvisionsPage() {
                   <h3 data-edit="recipe.recipeSubhead" data-edit-max="40" className={styles.recipeSubhead}>You will need</h3>
                   <ul>
                     {RECIPE_INGREDIENTS.map((item, i) => (
-                      <li data-edit={`recipe.li.${i}`} data-edit-max="80" key={item}>{item}</li>
+                      <li data-edit={`recipe.item.${i}`} data-edit-max="80" key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -480,7 +480,7 @@ export default function PiquantProvisionsPage() {
                   <h3 data-edit="recipe.recipeSubhead2" data-edit-max="40" className={styles.recipeSubhead}>Then</h3>
                   <ol>
                     {RECIPE_STEPS.map((step, i) => (
-                      <li data-edit={`recipe.li2.${i}`} data-edit-max="80" key={step}>{step}</li>
+                      <li data-edit={`recipe.item2.${i}`} data-edit-max="80" key={step}>{step}</li>
                     ))}
                   </ol>
                 </div>
@@ -519,7 +519,7 @@ export default function PiquantProvisionsPage() {
           </ul>
           <p className={styles.stockistFoot}>
             Somewhere we should be? Tell your favourite shop to write to{' '}
-            <a data-edit="stockists.a" data-edit-max="28" href="mailto:shelves@piquant.example">shelves@piquant.example</a>.
+            <a data-edit="stockists.link" data-edit-max="28" href="mailto:shelves@piquant.example">shelves@piquant.example</a>.
           </p>
         </section>
 
@@ -571,18 +571,18 @@ export default function PiquantProvisionsPage() {
             the occasional free taco.
           </p>
           <nav aria-label="Footer" className={styles.footerNav}>
-            <a data-edit="footer.a" data-edit-max="28" href="#lineup">Lineup</a>
-            <a data-edit="footer.a2" data-edit-max="28" href="#heat">Heat scale</a>
-            <a data-edit="footer.a3" data-edit-max="28" href="#recipe">Recipe</a>
-            <a data-edit="footer.a4" data-edit-max="28" href="#stockists">Stockists</a>
-            <a data-edit="footer.a5" data-edit-max="28" href="#wholesale">Wholesale</a>
+            <a data-edit="footer.lineup" data-edit-max="28" href="#lineup">Lineup</a>
+            <a data-edit="footer.heat" data-edit-max="28" href="#heat">Heat scale</a>
+            <a data-edit="footer.recipe" data-edit-max="28" href="#recipe">Recipe</a>
+            <a data-edit="footer.stockists" data-edit-max="28" href="#stockists">Stockists</a>
+            <a data-edit="footer.wholesale" data-edit-max="28" href="#wholesale">Wholesale</a>
           </nav>
           <p className={styles.footerFine}>
             &copy; 2026 Piquant Provisions. A fictional brand, sadly;
             the tacos were real.{' '}
             <span className={styles.credit}>
               Patterns by{' '}
-              <a data-edit="footer.a6" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+              <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
                 Tabbied
               </a>
             </span>

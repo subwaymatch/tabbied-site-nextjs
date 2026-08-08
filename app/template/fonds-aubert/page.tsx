@@ -16,7 +16,7 @@ export const metadata = {
 const INK = '#1A1C18';
 const OLIVE = '#4C6B2F';
 const GREY = '#8C8F84';
-const PALE = '#DEDED4';
+const PALE = '#DEDAD4';
 /* The two inks the decorative tiles draw with: always the quiet pair, so a
    tile reads as a sample rather than as another headline. */
 /* The tiles pin their doodle to a whole multiple of the cell (9 × 72px)
@@ -79,17 +79,17 @@ export default function FondsAubertPage() {
           <i>Archives privées, Lausanne</i>
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#holdings">Holdings</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#services">Services</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#reading">Reading room</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#deposit">Deposit</a>
+          <a data-edit="bar.holdings" data-edit-max="28" href="#holdings">Holdings</a>
+          <a data-edit="bar.services" data-edit-max="28" href="#services">Services</a>
+          <a data-edit="bar.reading" data-edit-max="28" href="#reading">Reading room</a>
+          <a data-edit="bar.deposit" data-edit-max="28" href="#deposit">Deposit</a>
         </nav>
       </header>
 
       <main id="top">
         {/* ---------------------------------------------------------- HERO */}
         <section className={s.hero}>
-          <div data-edit-pattern="hero.field" className={s.heroField} aria-hidden="true">
+          <div data-edit-pattern="hero.field" data-edit-roles="transparent,4,3" className={s.heroField} aria-hidden="true">
             <TabbiedPattern
               pattern={quire}
               palette={['transparent', PALE, GREY]}
@@ -106,7 +106,7 @@ export default function FondsAubertPage() {
               <br />
               kilometres of paper
               <br />
-              <span data-edit="hero.span" data-edit-max="60">somebody kept.</span>
+              <span data-edit="hero.text" data-edit-max="60">somebody kept.</span>
             </h1>
             <p data-edit="hero.lede" data-edit-max="240" data-edit-multiline className={s.lede}>
               Business ledgers, family correspondence, a photographer&rsquo;s
@@ -122,14 +122,14 @@ export default function FondsAubertPage() {
             alt="Long rows of grey archive boxes on steel shelving receding into the distance"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>Repository 2, aisle 14. 16 °C, 45 % RH, no daylight.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>Repository 2, aisle 14. 16 °C, 45 % RH, no daylight.</figcaption>
         </figure>
 
         <dl className={s.numbers}>
           {NUMBERS.map(([v, k], i) => (
             <div key={k}>
-              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
-              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+              <dt data-edit={`top.term.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
@@ -145,17 +145,17 @@ export default function FondsAubertPage() {
           </p>
           <ol className={s.table}>
             <li className={s.thead} aria-hidden="true">
-              <span data-edit="holdings.span" data-edit-max="60">Reference</span>
-              <span data-edit="holdings.span2" data-edit-max="60">Fonds</span>
-              <span data-edit="holdings.span3" data-edit-max="60">Dates</span>
-              <span data-edit="holdings.span4" data-edit-max="60">Extent</span>
-              <span data-edit="holdings.span5" data-edit-max="60">State</span>
+              <span data-edit="holdings.text" data-edit-max="60">Reference</span>
+              <span data-edit="holdings.text2" data-edit-max="60">Fonds</span>
+              <span data-edit="holdings.text3" data-edit-max="60">Dates</span>
+              <span data-edit="holdings.text4" data-edit-max="60">Extent</span>
+              <span data-edit="holdings.text5" data-edit-max="60">State</span>
             </li>
             {FONDS.map((f, i) => (
               <li key={f.ref}>
                 <span data-edit={`holdings.ref.${i}`} data-edit-max="60" className={s.ref}>{f.ref}</span>
                 <span data-edit={`holdings.fname.${i}`} data-edit-max="60" className={s.fname}>{f.name}</span>
-                <span data-edit={`holdings.span6.${i}`} data-edit-max="60" className={s.span}>{f.span}</span>
+                <span data-edit={`holdings.span.${i}`} data-edit-max="60" className={s.span}>{f.span}</span>
                 <span data-edit={`holdings.extent.${i}`} data-edit-max="60" className={s.extent}>{f.extent}</span>
                 <span data-edit={`holdings.done.${i}`} data-edit-max="60"
                   className={
@@ -189,7 +189,7 @@ export default function FondsAubertPage() {
 
         {/* -------------------------------------------------------- SERVICES */}
         <section id="services" className={s.services} aria-labelledby="services-h">
-          <div data-edit-pattern="services.field" className={s.svcField} aria-hidden="true">
+          <div data-edit-pattern="services.field" data-edit-roles="transparent,4,3" className={s.svcField} aria-hidden="true">
             <TabbiedPattern
               pattern={subdivide}
               palette={['transparent', PALE, GREY]}
@@ -208,8 +208,8 @@ export default function FondsAubertPage() {
                 <li key={x.n}>
                   <span data-edit={`services.svcN.${i}`} data-edit-max="60" className={s.svcN}>{x.n}</span>
                   <div>
-                    <h3 data-edit={`services.h3.${i}`} data-edit-max="40">{x.t}</h3>
-                    <p data-edit={`services.p.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
+                    <h3 data-edit={`services.title.${i}`} data-edit-max="40">{x.t}</h3>
+                    <p data-edit={`services.body.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
                   </div>
                 </li>
               ))}
@@ -220,14 +220,14 @@ export default function FondsAubertPage() {
                   slug="aubert-bench"
                   alt="A paper conservation bench with tools and a sheet under repair"
                 />
-                <figcaption data-edit="services.figcaption" data-edit-max="120" data-edit-multiline>Conservation. Two days a week, one pair of hands.</figcaption>
+                <figcaption data-edit="services.caption" data-edit-max="120" data-edit-multiline>Conservation. Two days a week, one pair of hands.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.aubert-door"
                   slug="aubert-door"
                   alt="A heavy steel strongroom door standing ajar in a plain corridor"
                 />
-                <figcaption data-edit="services.figcaption2" data-edit-max="120" data-edit-multiline>Repository 1. Closed at 16.00, checked twice.</figcaption>
+                <figcaption data-edit="services.caption2" data-edit-max="120" data-edit-multiline>Repository 1. Closed at 16.00, checked twice.</figcaption>
               </figure>
             </div>
           </div>
@@ -245,11 +245,11 @@ export default function FondsAubertPage() {
               you one than have the conversation.
             </p>
             <ul className={s.rules}>
-              <li data-edit="reading.li" data-edit-max="80">Order by 11.00 for the same afternoon</li>
-              <li data-edit="reading.li2" data-edit-max="80">Five boxes on the desk at a time</li>
-              <li data-edit="reading.li3" data-edit-max="80">Photography without flash, for private study</li>
-              <li data-edit="reading.li4" data-edit-max="80">Foam supports and weights on every desk</li>
-              <li data-edit="reading.li5" data-edit-max="80">No appointment needed for catalogued material</li>
+              <li data-edit="reading.item" data-edit-max="80">Order by 11.00 for the same afternoon</li>
+              <li data-edit="reading.item2" data-edit-max="80">Five boxes on the desk at a time</li>
+              <li data-edit="reading.item3" data-edit-max="80">Photography without flash, for private study</li>
+              <li data-edit="reading.item4" data-edit-max="80">Foam supports and weights on every desk</li>
+              <li data-edit="reading.item5" data-edit-max="80">No appointment needed for catalogued material</li>
             </ul>
           </div>
           <figure className={s.wide}>
@@ -257,7 +257,7 @@ export default function FondsAubertPage() {
               slug="aubert-reading"
               alt="An empty reading room desk with a single open document, foam supports and weights"
             />
-            <figcaption data-edit="reading.figcaption" data-edit-max="120" data-edit-multiline>Desk 3. North light, which is the only kind we trust.</figcaption>
+            <figcaption data-edit="reading.caption" data-edit-max="120" data-edit-multiline>Desk 3. North light, which is the only kind we trust.</figcaption>
           </figure>
         </section>
 
@@ -279,7 +279,7 @@ export default function FondsAubertPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="deposit.dt" data-edit-max="28">Foundation</dt>
+                <dt data-edit="deposit.term" data-edit-max="28">Foundation</dt>
                 <dd>
                   Chemin des Croix-Rouges 14
                   <br />
@@ -287,29 +287,29 @@ export default function FondsAubertPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="deposit.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="deposit.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="deposit.a" data-edit-max="28" href="mailto:depot@fonds-aubert.example">depot@fonds-aubert.example</a>
+                  <a data-edit="deposit.link" data-edit-max="28" href="mailto:depot@fonds-aubert.example">depot@fonds-aubert.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="deposit.dt3" data-edit-max="28">Appraisal</dt>
-                <dd data-edit="deposit.dd" data-edit-max="200" data-edit-multiline>Free, on site, usually within a month of asking</dd>
+                <dt data-edit="deposit.term3" data-edit-max="28">Appraisal</dt>
+                <dd data-edit="deposit.body" data-edit-max="200" data-edit-multiline>Free, on site, usually within a month of asking</dd>
               </div>
               <div>
-                <dt data-edit="deposit.dt4" data-edit-max="28">Terms</dt>
-                <dd data-edit="deposit.dd2" data-edit-max="200" data-edit-multiline>Deposit or gift. Closure periods up to fifty years, agreed in writing.</dd>
+                <dt data-edit="deposit.term4" data-edit-max="28">Terms</dt>
+                <dd data-edit="deposit.body2" data-edit-max="200" data-edit-multiline>Deposit or gift. Closure periods up to fifty years, agreed in writing.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three enemies of paper</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three enemies of paper</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>What the repository is actually built to keep out. None of them is dramatic and all of them are slow.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={quire}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -328,11 +328,11 @@ export default function FondsAubertPage() {
                   <Figure editId="photo.fonds-aubert-tile-box-cutout" slug="fonds-aubert-tile-box-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Water</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Water</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Not floods. Humidity above sixty per cent, held for a season, which is enough for mould to start and impossible to reverse afterwards.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={subdivide}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -351,11 +351,11 @@ export default function FondsAubertPage() {
                   <Figure editId="photo.fonds-aubert-tile-folders-cutout" slug="fonds-aubert-tile-folders-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Light</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Light</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Cumulative and irreversible. There is no daylight anywhere in the repository and the reading room lamps are metered.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={dotfield}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -374,7 +374,7 @@ export default function FondsAubertPage() {
                   <Figure editId="photo.fonds-aubert-tile-gloves-cutout" slug="fonds-aubert-tile-gloves-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Ourselves</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Ourselves</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>Handling causes more damage than any environmental factor. Foam, weights, pencils, and a limit of five boxes on a desk.</p>
               </article>
           </div>
@@ -382,73 +382,73 @@ export default function FondsAubertPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Reading room equipment</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Reading room equipment</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>On every desk, provided, because asking people to bring their own guarantees they will not.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Item</span>
-                <span data-edit="index.span2" data-edit-max="60">Per desk</span>
-                <span data-edit="index.span3" data-edit-max="60">Detail</span>
-                <span data-edit="index.span4" data-edit-max="60">Note</span>
+                <span data-edit="index.text" data-edit-max="60">Item</span>
+                <span data-edit="index.text2" data-edit-max="60">Per desk</span>
+                <span data-edit="index.text3" data-edit-max="60">Detail</span>
+                <span data-edit="index.text4" data-edit-max="60">Note</span>
             </li>
               <li key="Foam supports">
-                <span data-edit="index.span5" data-edit-max="60">Foam supports</span>
-                <span data-edit="index.span6" data-edit-max="60">2</span>
-                <span data-edit="index.span7" data-edit-max="60">Adjustable wedge</span>
-                <span data-edit="index.span8" data-edit-max="60">For bound volumes</span>
+                <span data-edit="index.text5" data-edit-max="60">Foam supports</span>
+                <span data-edit="index.text6" data-edit-max="60">2</span>
+                <span data-edit="index.text7" data-edit-max="60">Adjustable wedge</span>
+                <span data-edit="index.text8" data-edit-max="60">For bound volumes</span>
               </li>
               <li key="Snake weights">
-                <span data-edit="index.span9" data-edit-max="60">Snake weights</span>
-                <span data-edit="index.span10" data-edit-max="60">4</span>
-                <span data-edit="index.span11" data-edit-max="60">Cotton covered</span>
-                <span data-edit="index.span12" data-edit-max="60">Never on ink</span>
+                <span data-edit="index.text9" data-edit-max="60">Snake weights</span>
+                <span data-edit="index.text10" data-edit-max="60">4</span>
+                <span data-edit="index.text11" data-edit-max="60">Cotton covered</span>
+                <span data-edit="index.text12" data-edit-max="60">Never on ink</span>
               </li>
               <li key="Pencils">
-                <span data-edit="index.span13" data-edit-max="60">Pencils</span>
-                <span data-edit="index.span14" data-edit-max="60">Supplied</span>
-                <span data-edit="index.span15" data-edit-max="60">HB, unsharpened tips</span>
-                <span data-edit="index.span16" data-edit-max="60">Pens are not permitted</span>
+                <span data-edit="index.text13" data-edit-max="60">Pencils</span>
+                <span data-edit="index.text14" data-edit-max="60">Supplied</span>
+                <span data-edit="index.text15" data-edit-max="60">HB, unsharpened tips</span>
+                <span data-edit="index.text16" data-edit-max="60">Pens are not permitted</span>
               </li>
               <li key="Book cushion">
-                <span data-edit="index.span17" data-edit-max="60">Book cushion</span>
-                <span data-edit="index.span18" data-edit-max="60">1</span>
-                <span data-edit="index.span19" data-edit-max="60">Beanbag</span>
-                <span data-edit="index.span20" data-edit-max="60">On request</span>
+                <span data-edit="index.text17" data-edit-max="60">Book cushion</span>
+                <span data-edit="index.text18" data-edit-max="60">1</span>
+                <span data-edit="index.text19" data-edit-max="60">Beanbag</span>
+                <span data-edit="index.text20" data-edit-max="60">On request</span>
               </li>
               <li key="Copy stand">
-                <span data-edit="index.span21" data-edit-max="60">Copy stand</span>
-                <span data-edit="index.span22" data-edit-max="60">Shared</span>
-                <span data-edit="index.span23" data-edit-max="60">Overhead, no flash</span>
-                <span data-edit="index.span24" data-edit-max="60">For private study</span>
+                <span data-edit="index.text21" data-edit-max="60">Copy stand</span>
+                <span data-edit="index.text22" data-edit-max="60">Shared</span>
+                <span data-edit="index.text23" data-edit-max="60">Overhead, no flash</span>
+                <span data-edit="index.text24" data-edit-max="60">For private study</span>
               </li>
               <li key="Gloves">
-                <span data-edit="index.span25" data-edit-max="60">Gloves</span>
-                <span data-edit="index.span26" data-edit-max="60">On request</span>
-                <span data-edit="index.span27" data-edit-max="60">Nitrile</span>
-                <span data-edit="index.span28" data-edit-max="60">For photographs only</span>
+                <span data-edit="index.text25" data-edit-max="60">Gloves</span>
+                <span data-edit="index.text26" data-edit-max="60">On request</span>
+                <span data-edit="index.text27" data-edit-max="60">Nitrile</span>
+                <span data-edit="index.text28" data-edit-max="60">For photographs only</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Depositing and access</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Depositing and access</h2>
           <dl className={s.faqList}>
               <div key="What will you not accept">
-                <dt data-edit="faq.dt" data-edit-max="28">What will you not accept?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Anything already in a public archive, anything with no connection to the canton, and most of what people bring us, which we say kindly and in person.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">What will you not accept?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Anything already in a public archive, anything with no connection to the canton, and most of what people bring us, which we say kindly and in person.</dd>
               </div>
               <div key="Can I close my records f">
-                <dt data-edit="faq.dt2" data-edit-max="28">Can I close my records for a period?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Yes, up to fifty years, agreed in writing at deposit. We have never broken a closure and would not be able to explain ourselves if we did.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can I close my records for a period?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Yes, up to fifty years, agreed in writing at deposit. We have never broken a closure and would not be able to explain ourselves if we did.</dd>
               </div>
               <div key="How long until my deposi">
-                <dt data-edit="faq.dt3" data-edit-max="28">How long until my deposit is usable?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>Catalogued in eighteen months to four years depending on extent. Uncatalogued material is accessible in principle and unfindable in practice.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">How long until my deposit is usable?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>Catalogued in eighteen months to four years depending on extent. Uncatalogued material is accessible in principle and unfindable in practice.</dd>
               </div>
               <div key="Do you digitise on reque">
-                <dt data-edit="faq.dt4" data-edit-max="28">Do you digitise on request?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Up to two hundred images a year, free, for research. Beyond that we quote, and we would rather you came and sat at a desk.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Do you digitise on request?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Up to two hundred images a year, free, for research. Beyond that we quote, and we would rather you came and sat at a desk.</dd>
               </div>
           </dl>
         </section>
@@ -459,7 +459,7 @@ export default function FondsAubertPage() {
         {/* A coda: the last thing before the footer is the pattern itself, at
             working size and with nothing to read. Purely decorative. */}
         <section className={s.coda} aria-hidden="true">
-          <div data-edit-pattern="coda.field" className={s.codaField}>
+          <div data-edit-pattern="coda.field" data-edit-roles="transparent,4,3" className={s.codaField}>
             <TabbiedPattern
               pattern={matryoshka}
               palette={['transparent', PALE, GREY]}
@@ -481,13 +481,13 @@ export default function FondsAubertPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Holdings</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#holdings">Selected fonds</a>
+                <a data-edit="footer.holdings" data-edit-max="28" href="#holdings">Selected fonds</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#services">What we do</a>
+                <a data-edit="footer.services" data-edit-max="28" href="#services">What we do</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#reading">Reading room</a>
+                <a data-edit="footer.reading" data-edit-max="28" href="#reading">Reading room</a>
               </li>
             </ul>
           </div>
@@ -495,13 +495,13 @@ export default function FondsAubertPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Depositing</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#deposit">Depositing records</a>
+                <a data-edit="footer.deposit" data-edit-max="28" href="#deposit">Depositing records</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#deposit">Appraisal</a>
+                <a data-edit="footer.deposit2" data-edit-max="28" href="#deposit">Appraisal</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#deposit">Terms and closure</a>
+                <a data-edit="footer.deposit3" data-edit-max="28" href="#deposit">Terms and closure</a>
               </li>
             </ul>
           </div>
@@ -519,10 +519,10 @@ export default function FondsAubertPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional archive. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional archive. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.

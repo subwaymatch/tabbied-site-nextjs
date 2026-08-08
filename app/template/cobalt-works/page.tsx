@@ -81,10 +81,10 @@ export default function CobaltWorksPage() {
           <i>Dry pigment, Sheffield</i>
         </a>
         <nav aria-label="Sections">
-          <a data-edit="bar.a" data-edit-max="28" href="#stock">Stock</a>
-          <a data-edit="bar.a2" data-edit-max="28" href="#making">Making</a>
-          <a data-edit="bar.a3" data-edit-max="28" href="#matching">Matching</a>
-          <a data-edit="bar.a4" data-edit-max="28" href="#order">Order</a>
+          <a data-edit="bar.stock" data-edit-max="28" href="#stock">Stock</a>
+          <a data-edit="bar.making" data-edit-max="28" href="#making">Making</a>
+          <a data-edit="bar.matching" data-edit-max="28" href="#matching">Matching</a>
+          <a data-edit="bar.order" data-edit-max="28" href="#order">Order</a>
         </nav>
       </header>
 
@@ -106,7 +106,7 @@ export default function CobaltWorksPage() {
             <h1>
               Colour is a
               <br />
-              <span data-edit="hero.span" data-edit-max="60">material</span> before
+              <span data-edit="hero.text" data-edit-max="60">material</span> before
               <br />
               it is an effect.
             </h1>
@@ -125,14 +125,14 @@ export default function CobaltWorksPage() {
             alt="Heaps of intense dry blue pigment powder on a pale worktop"
             priority
           />
-          <figcaption data-edit="top.figcaption" data-edit-max="120" data-edit-multiline>PB 28, batch 26-114. Ground to 4 µm on Tuesday.</figcaption>
+          <figcaption data-edit="top.caption" data-edit-max="120" data-edit-multiline>PB 28, batch 26-114. Ground to 4 µm on Tuesday.</figcaption>
         </figure>
 
         <dl className={s.facts}>
           {FACTS.map(([v, k], i) => (
             <div key={k}>
-              <dt data-edit={`top.dt.${i}`} data-edit-max="28">{v}</dt>
-              <dd data-edit={`top.dd.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
+              <dt data-edit={`top.term.${i}`} data-edit-max="28">{v}</dt>
+              <dd data-edit={`top.body.${i}`} data-edit-max="200" data-edit-multiline>{k}</dd>
             </div>
           ))}
         </dl>
@@ -144,19 +144,19 @@ export default function CobaltWorksPage() {
           </h2>
           <ol className={s.list}>
             <li className={s.listHead} aria-hidden="true">
-              <span data-edit="stock.span" data-edit-max="60">Index</span>
-              <span data-edit="stock.span2" data-edit-max="60">Pigment</span>
-              <span data-edit="stock.span3" data-edit-max="60">Family</span>
-              <span data-edit="stock.span4" data-edit-max="60">Origin</span>
-              <span data-edit="stock.span5" data-edit-max="60">Grind</span>
-              <span data-edit="stock.span6" data-edit-max="60">Price</span>
+              <span data-edit="stock.text" data-edit-max="60">Index</span>
+              <span data-edit="stock.text2" data-edit-max="60">Pigment</span>
+              <span data-edit="stock.text3" data-edit-max="60">Family</span>
+              <span data-edit="stock.text4" data-edit-max="60">Origin</span>
+              <span data-edit="stock.text5" data-edit-max="60">Grind</span>
+              <span data-edit="stock.text6" data-edit-max="60">Price</span>
             </li>
             {PIGMENTS.map((p, i) => (
               <li key={p.ref}>
                 <span data-edit={`stock.ref.${i}`} data-edit-max="60" className={s.ref}>{p.ref}</span>
                 <span data-edit={`stock.pname.${i}`} data-edit-max="60" className={s.pname}>{p.name}</span>
                 <span data-edit={`stock.fam.${i}`} data-edit-max="60" className={p.family === 'Blue' ? s.fam : undefined}>{p.family}</span>
-                <span data-edit={`stock.span7.${i}`} data-edit-max="60">{p.origin}</span>
+                <span data-edit={`stock.text7.${i}`} data-edit-max="60">{p.origin}</span>
                 <span data-edit={`stock.num.${i}`} data-edit-max="60" className={s.num}>{p.grind}</span>
                 <span data-edit={`stock.num2.${i}`} data-edit-max="60" className={s.num}>{p.price}</span>
               </li>
@@ -198,8 +198,8 @@ export default function CobaltWorksPage() {
               {STEPS.map((x, i) => (
                 <li key={x.n}>
                   <span data-edit={`making.stepN.${i}`} data-edit-max="60" className={s.stepN}>{x.n}</span>
-                  <h3 data-edit={`making.h3.${i}`} data-edit-max="40">{x.t}</h3>
-                  <p data-edit={`making.p.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
+                  <h3 data-edit={`making.title.${i}`} data-edit-max="40">{x.t}</h3>
+                  <p data-edit={`making.body.${i}`} data-edit-max="240" data-edit-multiline>{x.d}</p>
                 </li>
               ))}
             </ol>
@@ -209,14 +209,14 @@ export default function CobaltWorksPage() {
                   slug="cobalt-mill"
                   alt="An industrial roller mill grinding blue pigment in a workshop"
                 />
-                <figcaption data-edit="making.figcaption" data-edit-max="120" data-edit-multiline>Number 3 roller mill, in service since 1957.</figcaption>
+                <figcaption data-edit="making.caption" data-edit-max="120" data-edit-multiline>Number 3 roller mill, in service since 1957.</figcaption>
               </figure>
               <figure>
                 <Figure editId="photo.cobalt-drums"
                   slug="cobalt-drums"
                   alt="Rows of sealed steel drums on pallets in a bright warehouse"
                 />
-                <figcaption data-edit="making.figcaption2" data-edit-max="120" data-edit-multiline>Bay 2. Everything here is sold by weight, not by story.</figcaption>
+                <figcaption data-edit="making.caption2" data-edit-max="120" data-edit-multiline>Bay 2. Everything here is sold by weight, not by story.</figcaption>
               </figure>
             </div>
           </div>
@@ -234,12 +234,12 @@ export default function CobaltWorksPage() {
               you commit to a kilo.
             </p>
             <div className={s.matchCol}>
-              <p data-edit="matching.p" data-edit-max="240" data-edit-multiline>
+              <p data-edit="matching.body" data-edit-max="240" data-edit-multiline>
                 Conservation work is quoted separately and always includes the
                 analysis: what we think the original was, how confident we are,
                 and what we would use instead if the original is now illegal.
               </p>
-              <p data-edit="matching.p2" data-edit-max="240" data-edit-multiline>
+              <p data-edit="matching.body2" data-edit-max="240" data-edit-multiline>
                 We do not tint to a screen value. If your reference is a hex
                 code, we will ask you for something physical first.
               </p>
@@ -250,7 +250,7 @@ export default function CobaltWorksPage() {
               slug="cobalt-chips"
               alt="A fan of painted colour chip cards ranging from pale to deep blue"
             />
-            <figcaption data-edit="matching.figcaption" data-edit-max="120" data-edit-multiline>Standards for PB 28, drawn down in daylight, kept for forty years.</figcaption>
+            <figcaption data-edit="matching.caption" data-edit-max="120" data-edit-multiline>Standards for PB 28, drawn down in daylight, kept for forty years.</figcaption>
           </figure>
         </section>
 
@@ -272,7 +272,7 @@ export default function CobaltWorksPage() {
             </h2>
             <dl className={s.contact}>
               <div>
-                <dt data-edit="order.dt" data-edit-max="28">Works</dt>
+                <dt data-edit="order.term" data-edit-max="28">Works</dt>
                 <dd>
                   Effingham Lane, Attercliffe
                   <br />
@@ -280,29 +280,29 @@ export default function CobaltWorksPage() {
                 </dd>
               </div>
               <div>
-                <dt data-edit="order.dt2" data-edit-max="28">Write</dt>
+                <dt data-edit="order.term2" data-edit-max="28">Write</dt>
                 <dd>
-                  <a data-edit="order.a" data-edit-max="28" href="mailto:mill@cobaltworks.example">mill@cobaltworks.example</a>
+                  <a data-edit="order.link" data-edit-max="28" href="mailto:mill@cobaltworks.example">mill@cobaltworks.example</a>
                 </dd>
               </div>
               <div>
-                <dt data-edit="order.dt3" data-edit-max="28">Counter</dt>
-                <dd data-edit="order.dd" data-edit-max="200" data-edit-multiline>Mon to Thu, 08.00 to 16.00. Bring a container.</dd>
+                <dt data-edit="order.term3" data-edit-max="28">Counter</dt>
+                <dd data-edit="order.body" data-edit-max="200" data-edit-multiline>Mon to Thu, 08.00 to 16.00. Bring a container.</dd>
               </div>
               <div>
-                <dt data-edit="order.dt4" data-edit-max="28">Post</dt>
-                <dd data-edit="order.dd2" data-edit-max="200" data-edit-multiline>1 kg minimum, 25 kg maximum per parcel.</dd>
+                <dt data-edit="order.term4" data-edit-max="28">Post</dt>
+                <dd data-edit="order.body2" data-edit-max="200" data-edit-multiline>1 kg minimum, 25 kg maximum per parcel.</dd>
               </div>
             </dl>
           </div>
         </section>
         {/* ---------------------------------------------------------- TILES */}
         <section id="tiles" className={s.tiles} aria-labelledby="tiles-h">
-          <h2 data-edit="tiles.h2" data-edit-max="60" id="tiles-h">Three ways a pigment goes wrong</h2>
+          <h2 data-edit="tiles.title" data-edit-max="60" id="tiles-h">Three ways a pigment goes wrong</h2>
           <p data-edit="tiles.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Not adulteration, which is rare. These are the everyday faults that make a batch unusable.</p>
           <div className={s.tileGrid}>
               <article key="01">
-                <div data-edit-pattern="tiles.field" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={bokeh}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -321,11 +321,11 @@ export default function CobaltWorksPage() {
                   <Figure editId="photo.cobalt-works-tile-grind-cutout" slug="cobalt-works-tile-grind-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN" data-edit-max="240" data-edit-multiline className={s.tileN}>01</p>
-                <h3 data-edit="tiles.h3" data-edit-max="40">Grind drift</h3>
+                <h3 data-edit="tiles.title2" data-edit-max="40">Grind drift</h3>
                 <p data-edit="tiles.tileBody" data-edit-max="240" data-edit-multiline className={s.tileBody}>Two microns coarser and the same pigment reads paler and chalkier. Grind is measured on every batch and printed on the tin.</p>
               </article>
               <article key="02">
-                <div data-edit-pattern="tiles.field2" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field2" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={grainfield}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -344,11 +344,11 @@ export default function CobaltWorksPage() {
                   <Figure editId="photo.cobalt-works-tile-moisture-cutout" slug="cobalt-works-tile-moisture-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN2" data-edit-max="240" data-edit-multiline className={s.tileN}>02</p>
-                <h3 data-edit="tiles.h32" data-edit-max="40">Moisture</h3>
+                <h3 data-edit="tiles.title3" data-edit-max="40">Moisture</h3>
                 <p data-edit="tiles.tileBody2" data-edit-max="240" data-edit-multiline className={s.tileBody}>Earths take up water and cake. Warehouse bays are checked weekly and anything above six per cent goes back through the dryer.</p>
               </article>
               <article key="03">
-                <div data-edit-pattern="tiles.field3" className={s.tilePlate} aria-hidden="true">
+                <div data-edit-pattern="tiles.field3" data-edit-roles="transparent,3,4" className={s.tilePlate} aria-hidden="true">
                   <TabbiedPattern
                     pattern={glazing}
                     palette={['transparent', TILE_A, TILE_B]}
@@ -367,7 +367,7 @@ export default function CobaltWorksPage() {
                   <Figure editId="photo.cobalt-works-tile-settling-cutout" slug="cobalt-works-tile-settling-cutout" alt="" cutout className={s.tileObject} />
                 </div>
                 <p data-edit="tiles.tileN3" data-edit-max="240" data-edit-multiline className={s.tileN}>03</p>
-                <h3 data-edit="tiles.h33" data-edit-max="40">Settling</h3>
+                <h3 data-edit="tiles.title4" data-edit-max="40">Settling</h3>
                 <p data-edit="tiles.tileBody3" data-edit-max="240" data-edit-multiline className={s.tileBody}>A tinted mix separates in the tin. That is the pigment behaving, not failing, and it is why we sell dry and let you bind it.</p>
               </article>
           </div>
@@ -375,73 +375,73 @@ export default function CobaltWorksPage() {
 
         {/* ---------------------------------------------------------- INDEX */}
         <section id="index" className={s.idx} aria-labelledby="idx-h">
-          <h2 data-edit="index.h2" data-edit-max="60" id="idx-h">Binders we stock</h2>
+          <h2 data-edit="index.title" data-edit-max="60" id="idx-h">Binders we stock</h2>
           <p data-edit="index.secNote" data-edit-max="240" data-edit-multiline className={s.secNote}>Sold alongside the pigment because people ask, and because the wrong binder wastes good colour.</p>
           <ol className={s.idxList}>
             <li className={s.idxHead} aria-hidden="true">
-                <span data-edit="index.span" data-edit-max="60">Binder</span>
-                <span data-edit="index.span2" data-edit-max="60">For</span>
-                <span data-edit="index.span3" data-edit-max="60">Unit</span>
-                <span data-edit="index.span4" data-edit-max="60">Price</span>
+                <span data-edit="index.text" data-edit-max="60">Binder</span>
+                <span data-edit="index.text2" data-edit-max="60">For</span>
+                <span data-edit="index.text3" data-edit-max="60">Unit</span>
+                <span data-edit="index.text4" data-edit-max="60">Price</span>
             </li>
               <li key="Linseed, cold pressed">
-                <span data-edit="index.span5" data-edit-max="60">Linseed, cold pressed</span>
-                <span data-edit="index.span6" data-edit-max="60">Oil paint</span>
-                <span data-edit="index.span7" data-edit-max="60">1 L</span>
-                <span data-edit="index.span8" data-edit-max="60">£24</span>
+                <span data-edit="index.text5" data-edit-max="60">Linseed, cold pressed</span>
+                <span data-edit="index.text6" data-edit-max="60">Oil paint</span>
+                <span data-edit="index.text7" data-edit-max="60">1 L</span>
+                <span data-edit="index.text8" data-edit-max="60">£24</span>
               </li>
               <li key="Stand oil">
-                <span data-edit="index.span9" data-edit-max="60">Stand oil</span>
-                <span data-edit="index.span10" data-edit-max="60">Glazes</span>
-                <span data-edit="index.span11" data-edit-max="60">500 ml</span>
-                <span data-edit="index.span12" data-edit-max="60">£19</span>
+                <span data-edit="index.text9" data-edit-max="60">Stand oil</span>
+                <span data-edit="index.text10" data-edit-max="60">Glazes</span>
+                <span data-edit="index.text11" data-edit-max="60">500 ml</span>
+                <span data-edit="index.text12" data-edit-max="60">£19</span>
               </li>
               <li key="Gum arabic, solution">
-                <span data-edit="index.span13" data-edit-max="60">Gum arabic, solution</span>
-                <span data-edit="index.span14" data-edit-max="60">Watercolour</span>
-                <span data-edit="index.span15" data-edit-max="60">500 ml</span>
-                <span data-edit="index.span16" data-edit-max="60">£16</span>
+                <span data-edit="index.text13" data-edit-max="60">Gum arabic, solution</span>
+                <span data-edit="index.text14" data-edit-max="60">Watercolour</span>
+                <span data-edit="index.text15" data-edit-max="60">500 ml</span>
+                <span data-edit="index.text16" data-edit-max="60">£16</span>
               </li>
               <li key="Rabbit skin glue">
-                <span data-edit="index.span17" data-edit-max="60">Rabbit skin glue</span>
-                <span data-edit="index.span18" data-edit-max="60">Distemper, size</span>
-                <span data-edit="index.span19" data-edit-max="60">1 kg</span>
-                <span data-edit="index.span20" data-edit-max="60">£31</span>
+                <span data-edit="index.text17" data-edit-max="60">Rabbit skin glue</span>
+                <span data-edit="index.text18" data-edit-max="60">Distemper, size</span>
+                <span data-edit="index.text19" data-edit-max="60">1 kg</span>
+                <span data-edit="index.text20" data-edit-max="60">£31</span>
               </li>
               <li key="Casein powder">
-                <span data-edit="index.span21" data-edit-max="60">Casein powder</span>
-                <span data-edit="index.span22" data-edit-max="60">Limewash, secco</span>
-                <span data-edit="index.span23" data-edit-max="60">1 kg</span>
-                <span data-edit="index.span24" data-edit-max="60">£28</span>
+                <span data-edit="index.text21" data-edit-max="60">Casein powder</span>
+                <span data-edit="index.text22" data-edit-max="60">Limewash, secco</span>
+                <span data-edit="index.text23" data-edit-max="60">1 kg</span>
+                <span data-edit="index.text24" data-edit-max="60">£28</span>
               </li>
               <li key="Acrylic dispersion">
-                <span data-edit="index.span25" data-edit-max="60">Acrylic dispersion</span>
-                <span data-edit="index.span26" data-edit-max="60">Modern media</span>
-                <span data-edit="index.span27" data-edit-max="60">1 L</span>
-                <span data-edit="index.span28" data-edit-max="60">£22</span>
+                <span data-edit="index.text25" data-edit-max="60">Acrylic dispersion</span>
+                <span data-edit="index.text26" data-edit-max="60">Modern media</span>
+                <span data-edit="index.text27" data-edit-max="60">1 L</span>
+                <span data-edit="index.text28" data-edit-max="60">£22</span>
               </li>
           </ol>
         </section>
 
         {/* ------------------------------------------------------------ FAQ */}
         <section id="faq" className={s.faq} aria-labelledby="faq-h">
-          <h2 data-edit="faq.h2" data-edit-max="60" id="faq-h">Ordering questions</h2>
+          <h2 data-edit="faq.title" data-edit-max="60" id="faq-h">Ordering questions</h2>
           <dl className={s.faqList}>
               <div key="Is one kilo really the m">
-                <dt data-edit="faq.dt" data-edit-max="28">Is one kilo really the minimum?</dt>
-                <dd data-edit="faq.dd" data-edit-max="200" data-edit-multiline>Yes, and it always has been. A cutting quantity is how people find out whether they want twenty-five.</dd>
+                <dt data-edit="faq.term" data-edit-max="28">Is one kilo really the minimum?</dt>
+                <dd data-edit="faq.body" data-edit-max="200" data-edit-multiline>Yes, and it always has been. A cutting quantity is how people find out whether they want twenty-five.</dd>
               </div>
               <div key="Can you match a historic">
-                <dt data-edit="faq.dt2" data-edit-max="28">Can you match a historic colour?</dt>
-                <dd data-edit="faq.dd2" data-edit-max="200" data-edit-multiline>Send a chip or a fragment. We will mill against it and send three drawdowns, with a note on what we think the original was.</dd>
+                <dt data-edit="faq.term2" data-edit-max="28">Can you match a historic colour?</dt>
+                <dd data-edit="faq.body2" data-edit-max="200" data-edit-multiline>Send a chip or a fragment. We will mill against it and send three drawdowns, with a note on what we think the original was.</dd>
               </div>
               <div key="Are your earths natural?">
-                <dt data-edit="faq.dt3" data-edit-max="28">Are your earths natural?</dt>
-                <dd data-edit="faq.dd3" data-edit-max="200" data-edit-multiline>The ones marked natural are washed and levigated only. The synthetics say so on the label, with the maker named.</dd>
+                <dt data-edit="faq.term3" data-edit-max="28">Are your earths natural?</dt>
+                <dd data-edit="faq.body3" data-edit-max="200" data-edit-multiline>The ones marked natural are washed and levigated only. The synthetics say so on the label, with the maker named.</dd>
               </div>
               <div key="Do you ship abroad?">
-                <dt data-edit="faq.dt4" data-edit-max="28">Do you ship abroad?</dt>
-                <dd data-edit="faq.dd4" data-edit-max="200" data-edit-multiline>Within Europe, yes, up to 25 kg a parcel. Some pigments are restricted in some countries and we check before taking money.</dd>
+                <dt data-edit="faq.term4" data-edit-max="28">Do you ship abroad?</dt>
+                <dd data-edit="faq.body4" data-edit-max="200" data-edit-multiline>Within Europe, yes, up to 25 kg a parcel. Some pigments are restricted in some countries and we check before taking money.</dd>
               </div>
           </dl>
         </section>
@@ -474,13 +474,13 @@ export default function CobaltWorksPage() {
             <h2 data-edit="footer.footHead" data-edit-max="60" className={s.footHead}>Pigment</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a" data-edit-max="28" href="#stock">In stock</a>
+                <a data-edit="footer.stock" data-edit-max="28" href="#stock">In stock</a>
               </li>
               <li>
-                <a data-edit="footer.a2" data-edit-max="28" href="#making">How it is made</a>
+                <a data-edit="footer.making" data-edit-max="28" href="#making">How it is made</a>
               </li>
               <li>
-                <a data-edit="footer.a3" data-edit-max="28" href="#matching">Matching</a>
+                <a data-edit="footer.matching" data-edit-max="28" href="#matching">Matching</a>
               </li>
             </ul>
           </div>
@@ -488,13 +488,13 @@ export default function CobaltWorksPage() {
             <h2 data-edit="footer.footHead2" data-edit-max="60" className={s.footHead}>Trade</h2>
             <ul className={s.footLinks}>
               <li>
-                <a data-edit="footer.a4" data-edit-max="28" href="#order">Ordering</a>
+                <a data-edit="footer.order" data-edit-max="28" href="#order">Ordering</a>
               </li>
               <li>
-                <a data-edit="footer.a5" data-edit-max="28" href="#order">Counter hours</a>
+                <a data-edit="footer.order2" data-edit-max="28" href="#order">Counter hours</a>
               </li>
               <li>
-                <a data-edit="footer.a6" data-edit-max="28" href="#order">Post and carriage</a>
+                <a data-edit="footer.order3" data-edit-max="28" href="#order">Post and carriage</a>
               </li>
             </ul>
           </div>
@@ -512,10 +512,10 @@ export default function CobaltWorksPage() {
           </div>
         </div>
         <div className={s.footFine}>
-          <p data-edit="footer.p" data-edit-max="240" data-edit-multiline>A fictional pigment mill. Prices and times are invented.</p>
+          <p data-edit="footer.body" data-edit-max="240" data-edit-multiline>A fictional pigment mill. Prices and times are invented.</p>
           <p>
             Patterns by{' '}
-            <a data-edit="footer.a7" data-edit-max="28" href="https://tabbied.com" rel="noopener">
+            <a data-edit="footer.link" data-edit-max="28" href="https://tabbied.com" rel="noopener">
               Tabbied
             </a>
             , drawn live on a transparent ground and redrawn on a timer.
