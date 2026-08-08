@@ -1,5 +1,121 @@
 # tabbied
 
+## 0.5.0
+
+### Minor Changes
+
+- [#59](https://github.com/tabbied-design/tabbied/pull/59) [`f526357`](https://github.com/tabbied-design/tabbied/commit/f5263578e5b1993b6eaae2a29651e987888a6db5) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Make the catalog agent-usable: closed-vocabulary metadata, preview images, a
+  `tabbied` CLI, and agent docs in the tarball.
+
+  - **Every design now carries `tags`, `mood`, `density`, and `goodFor`** —
+    closed-vocabulary enums (see `scripts/catalog-vocabulary.mjs`) authored by
+    looking at each rendered design, validated by codegen at build time, and
+    published in `catalog.json`. The catalog is now queryable ("sparse designs
+    that suit a hero background") instead of merely readable. The fields are
+    catalog-only: the runtime bundle and `PatternDefinition` are unchanged.
+  - **Every design has a stable preview image** at
+    `https://tabbied.com/previews/<slug>.webp` (authored palette, default
+    options, fixed seed), listed as `preview` in its catalog entry — so a
+    multimodal tool can look at a shortlist before committing to a slug.
+  - **New `tabbied` CLI** (`npx tabbied …`): `render <slug>` to SVG or PNG at
+    any size/seed/palette, `--frames N --reseed-every M` for deterministic
+    video-ready PNG sequences, and `list`/`info` to query the catalog from a
+    shell. Rendering uses whatever Playwright the project already has; no
+    browser is downloaded on install.
+  - **The tarball now ships `llms.txt` and `AGENTS.md`** — the complete
+    agent-facing reference (entry points, sizing gotchas, recipes for hero
+    backgrounds / video frames / static HTML, the editor share-URL scheme, and
+    a one-line entry per design). Generation moved into the package build, so
+    a publish can't ship without them; the site serves the same texts at
+    /llms.txt and /llms-full.txt.
+
+- [#55](https://github.com/tabbied-design/tabbied/pull/55) [`772d747`](https://github.com/tabbied-design/tabbied/commit/772d74752534f8e1defa66f629e0f40fe0e0a620) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Remove the `contain` fit and the Symmetry design, and collapse the
+  per-pattern fit-capability model that only existed to serve them.
+
+  `contain` only ever made sense for a grid-less composition, and Symmetry was
+  the only one — 1 of 254 designs, and the sole pattern without a `grid` option.
+  For everything else, letterboxing drew the pattern's _authored_ grid on the
+  default square canvas: a `10x15` design came out with 80 × 53 cells, visibly
+  oblong next to the same design under `grid` or `cover`. Adapting the render
+  box the way `cover` does wouldn't have fixed it either, because `grid` already
+  fills the box exactly with square cells and no bars — there is no version of
+  `contain` that beats `grid` for a tiling design.
+
+  With both gone, every design is a cell-tiled grid supporting all three
+  remaining fits, so `fit` is a plain choice rather than a per-pattern
+  negotiation.
+
+  Breaking changes:
+
+  - `fit="contain"` is gone. Use `grid`, or `cover` with an `aspectRatio` on the
+    box. TypeScript rejects it; `data-fit="contain"` is ignored like any other
+    unrecognized value, and the config falls back to `grid`.
+  - The `symmetry` preset is gone from `tabbied/patterns` and the catalog, which
+    goes from 254 designs to 253.
+  - `resolveFitMode()`, `allowedFitModes()`, `defaultFitMode()` and
+    `hasGridOption()` are gone, replaced by the exported `DEFAULT_FIT_MODE`
+    constant (`'grid'`). Nothing negotiates capability anymore, so no fit
+    request falls back or warns.
+  - `PatternSizing` loses `allowed`, `default` and `coverRender`; no design
+    declared any of them once Symmetry was removed. `minCellPx`, `maxCellPx`
+    and `cellMultiple` are unchanged.
+  - `PatternDefinition.lockAspectRatio` is gone — no design set it, and every
+    design adapts to any ratio.
+  - `coverRender.cropTop` is gone (Symmetry's gallery card was its only user),
+    along with its `data-cover-render` wire form — `800x800+0.48` no longer
+    parses, `800x800` still does.
+  - `fitRenderToBox()` no longer takes a `mode` argument; it always covers.
+  - `catalog.json` designs no longer carry a `fit` object. The three modes are
+    the same for every design and are documented once under `usage.fit`.
+
+- [#55](https://github.com/tabbied-design/tabbied/pull/55) [`772d747`](https://github.com/tabbied-design/tabbied/commit/772d74752534f8e1defa66f629e0f40fe0e0a620) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Honour `prefers-reduced-motion` for the designs' own cell transitions, not
+  just the ambient redraw timer.
+
+  Every design carries a ~400ms `transition` — that is what makes a redraw morph
+  into the next arrangement instead of cutting. Only the `redrawInterval` timer
+  was gated, so the transitions still fired on every re-render, including ones
+  nobody asked for: `fit: "grid"` and `fit: "cover"` re-derive their grid on
+  resize, so turning a phone or dragging a window animated every cell on the
+  page. That is exactly the passive motion the preference exists for.
+
+  Under `prefers-reduced-motion: reduce` the controller now mutes those
+  transitions for its whole life, using the same shadow-root override that
+  already suppresses the first paint. Anything that re-renders — a resize, a
+  `redraw()`, an option or palette change — cuts to the new arrangement. Nothing
+  is lost: the pattern renders identically, it just stops easing between states.
+
+  The preference is also now **observed rather than read once**. Previously
+  `syncRedrawTimer` only re-checked it on a config change, so toggling the OS
+  setting mid-session left a running timer ticking. A `change` listener on the
+  media query now re-syncs the timer and toggles the override, and is removed in
+  `destroy()`.
+
+  No API change — this needs no configuration and no new props.
+
+- [#59](https://github.com/tabbied-design/tabbied/pull/59) [`f526357`](https://github.com/tabbied-design/tabbied/commit/f5263578e5b1993b6eaae2a29651e987888a6db5) Thanks [@subwaymatch](https://github.com/subwaymatch)! - Fix three silent-wrongness bugs in the core, and expose `controller.destroyed`.
+
+  - **SVG export of a `fit: "cover"` pattern was silently distorted.** The
+    measurement pass neutralizes transforms with a style injected into the
+    shadow root, which can never match the host `<css-doodle>` — where the
+    cover fit puts its `translate(...) scale(...)`. Measured geometry came back
+    scaled while computed px lengths (border widths, corner radii,
+    pseudo-element sizes, shadow offsets, transform origins) stayed unscaled,
+    and the export mixed the two without error. The host transform is now
+    neutralized during measurement and restored afterwards; cover-fit exports
+    come out at the render box's native resolution.
+  - **A config-driven grid change re-introduced sub-pixel seams.** `update()`
+    with a new `cellSize`/`density` re-rendered the grid but never re-snapped
+    the canvas to the new track count, leaving every cell boundary fractional
+    until the next container resize. `reconcile()` now re-snaps.
+  - **`hydratePatterns()` could never re-hydrate an element after
+    `controller.destroy()`** — it kept returning the dead controller, so the
+    documented teardown-and-rehydrate recipe left the page blank. Controllers
+    now expose a readonly `destroyed` flag (the new public API in this
+    release), and hydration replaces dead controllers.
+  - **A bare Slider entry in `data-options` (`frequency:`) parsed to `0`**
+    — usually below the option's minimum — instead of falling back to the
+    authored default as the attribute contract promises.
+
 ## 0.4.0
 
 ### Minor Changes
