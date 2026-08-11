@@ -307,7 +307,7 @@ export default function ReactDocsPage() {
                   </a>
                   <a
                     className={styles.metaLink}
-                    href="https://github.com/subwaymatch/tabbied/"
+                    href="https://github.com/tabbied-design/tabbied/"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -1032,7 +1032,7 @@ export default function ReactDocsPage() {
                     <p>
                       Found a problem or missing something? Open an issue on{' '}
                       <a
-                        href="https://github.com/subwaymatch/tabbied/issues"
+                        href="https://github.com/tabbied-design/tabbied/issues"
                         target="_blank"
                         rel="noreferrer"
                       >

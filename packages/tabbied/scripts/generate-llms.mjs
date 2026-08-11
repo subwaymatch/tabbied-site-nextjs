@@ -27,7 +27,7 @@ import { fileURLToPath } from 'node:url';
 import { TAGS, MOODS, DENSITIES, GOOD_FOR } from './catalog-vocabulary.mjs';
 
 const SITE = 'https://tabbied.com';
-const REPO = 'https://github.com/subwaymatch/tabbied';
+const REPO = 'https://github.com/tabbied-design/tabbied';
 
 export function buildLlmsTexts(catalog) {
   const { designs, count, version } = catalog;

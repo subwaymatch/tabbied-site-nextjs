@@ -1,7 +1,8 @@
 # Changesets
 
 This folder is managed by [Changesets](https://github.com/changesets/changesets).
-It drives versioning, changelogs, and npm publishing for the `tabbied` package.
+It drives versioning, changelogs, and npm publishing for the `tabbied`,
+`tabbied-mcp` and `tabbied-templates` packages.
 
 ## Adding a changeset
 

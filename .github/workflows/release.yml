@@ -35,13 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Changesets needs full history to detect changes
           fetch-tags: true # the weekly run reads the last release tag
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
@@ -55,8 +55,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build the package
-        run: npm run build --workspace tabbied
+      # `changeset publish` ships every publishable workspace, so every one of
+      # them has to be built first. Only `tabbied` has a `prepublishOnly`, and
+      # the other two deliberately don't: changesets publishes packages
+      # concurrently, so a build at publish time would race `tabbied`'s own
+      # `rm -rf dist` — which `tabbied-mcp` compiles against. Build here, once,
+      # in dependency order, and let publish be publish.
+      - name: Build the packages
+        run: npm run build:packages
 
       # Scheduled/manual runs decide for themselves what (if anything) to ship.
       # Push runs skip this and hand straight to changesets/action, which knows
@@ -70,13 +76,40 @@ jobs:
         run: |
           set -euo pipefail
 
+          # `changeset publish` is workspace-wide, so every question below is
+          # asked per package rather than about `tabbied` alone. One
+          # "<name> <version> <dir>" line per publishable workspace.
+          packages=$(node -e '
+            const fs = require("node:fs");
+            for (const dir of fs.readdirSync("packages")) {
+              const file = `packages/${dir}/package.json`;
+              if (!fs.existsSync(file)) continue;
+              const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+              if (pkg.private) continue;
+              console.log([pkg.name, pkg.version, `packages/${dir}`].join(" "));
+            }
+          ')
+
           # .changeset/README.md is documentation, not a pending changeset.
           pending=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l)
-          local_version=$(node -p "require('./packages/tabbied/package.json').version")
-          published=$(npm view tabbied version 2>/dev/null || echo '')
-
           echo "pending changesets: $pending"
-          echo "local: $local_version, npm: ${published:-<none>}"
+
+          ahead_of_npm=''
+          while read -r name version dir; do
+            [ -n "$name" ] || continue
+            published=$(npm view "$name" version 2>/dev/null || echo '')
+            echo "$name: local $version, npm ${published:-<none>}"
+
+            if [ -z "$published" ]; then
+              # Trusted publishing cannot create a name that isn't on npm yet:
+              # the trusted publisher is configured on the package's settings
+              # page, which doesn't exist until something has been published.
+              # See "Bootstrapping a new package" in RELEASING.md.
+              echo "::warning::$name has never been published, and OIDC cannot create it. Publish $name@$version by hand once, then add its trusted publisher."
+            elif [ "$version" != "$published" ]; then
+              ahead_of_npm="$ahead_of_npm $name"
+            fi
+          done <<< "$packages"
 
           if [ "$pending" -gt 0 ]; then
             echo 'mode=version' >> "$GITHUB_OUTPUT"
@@ -87,9 +120,9 @@ jobs:
           # A version commit that landed but never published (a failed publish,
           # or a version PR merged while the schedule was idle) still needs
           # shipping — `changeset publish` is a no-op when it doesn't.
-          if [ -n "$published" ] && [ "$local_version" != "$published" ]; then
+          if [ -n "$ahead_of_npm" ]; then
             echo 'mode=publish' >> "$GITHUB_OUTPUT"
-            echo "-> publish ($local_version is not on npm yet)"
+            echo "-> publish (not on npm yet:$ahead_of_npm)"
             exit 0
           fi
 
@@ -99,35 +132,48 @@ jobs:
             exit 0
           fi
 
-          # Nothing declared a bump, so fall back to "did the package change at
-          # all since the last release?" and cut a patch if it did. Anything
-          # bigger than a patch should carry its own changeset.
-          last_tag=$(git describe --tags --match 'tabbied@*' --abbrev=0 2>/dev/null || true)
+          # Nothing declared a bump, so fall back to "did this package change at
+          # all since its own last release?" and cut a patch for each one that
+          # did. Anything bigger than a patch should carry its own changeset.
+          # `tabbied@*` doesn't glob onto `tabbied-mcp@0.2.0`, so each package
+          # reads only its own tags.
+          bumped=''
+          while read -r name version dir; do
+            [ -n "$name" ] || continue
+            last_tag=$(git describe --tags --match "$name@*" --abbrev=0 2>/dev/null || true)
 
-          if [ -z "$last_tag" ]; then
+            if [ -z "$last_tag" ]; then
+              echo "$name: no $name@* tag to diff against yet"
+              continue
+            fi
+
+            if git diff --quiet "$last_tag"..HEAD -- "$dir"; then
+              echo "$name: no changes since $last_tag"
+              continue
+            fi
+
+            {
+              echo '---'
+              echo "'$name': patch"
+              echo '---'
+              echo
+              echo "Changes since ${last_tag} that landed without a changeset:"
+              echo
+              git log --format='- %s' "$last_tag"..HEAD -- "$dir"
+            } > ".changeset/auto-weekly-${name//[^a-zA-Z0-9._-]/-}.md"
+
+            bumped="$bumped $name"
+            echo "$name: auto patch (changed since $last_tag)"
+          done <<< "$packages"
+
+          if [ -z "$bumped" ]; then
             echo 'mode=skip' >> "$GITHUB_OUTPUT"
-            echo '-> nothing to do (no tabbied@* tag to diff against yet)'
+            echo '-> nothing to do (no package changes since the last release tags)'
             exit 0
           fi
-
-          if git diff --quiet "$last_tag"..HEAD -- packages/tabbied; then
-            echo 'mode=skip' >> "$GITHUB_OUTPUT"
-            echo "-> nothing to do (no package changes since $last_tag)"
-            exit 0
-          fi
-
-          {
-            echo '---'
-            echo "'tabbied': patch"
-            echo '---'
-            echo
-            echo "Package changes since ${last_tag} that landed without a changeset:"
-            echo
-            git log --format='- %s' "$last_tag"..HEAD -- packages/tabbied
-          } > .changeset/auto-weekly-release.md
 
           echo 'mode=version' >> "$GITHUB_OUTPUT"
-          echo "-> version + publish (auto patch: package changed since $last_tag)"
+          echo "-> version + publish (auto patch:$bumped)"
 
       # The weekly release does its own versioning and lands it on main, so it
       # can publish in this same run. Pushing with GITHUB_TOKEN deliberately
