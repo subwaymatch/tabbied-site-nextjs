@@ -98,7 +98,7 @@ export default function MainHeader() {
               {/* Desktop keeps the GitHub icon in the header; below 992px it
                   moves into the drawer (see Dialog below). */}
               <a
-                href="https://github.com/subwaymatch/tabbied/"
+                href="https://github.com/tabbied-design/tabbied/"
                 className={`${styles.githubLink} ${styles.headerGithub}`}
                 target="_blank"
                 rel="noreferrer"
@@ -168,7 +168,7 @@ export default function MainHeader() {
                       className={styles.drawerGithub}
                       render={
                         <a
-                          href="https://github.com/subwaymatch/tabbied/"
+                          href="https://github.com/tabbied-design/tabbied/"
                           target="_blank"
                           rel="noreferrer"
                         />

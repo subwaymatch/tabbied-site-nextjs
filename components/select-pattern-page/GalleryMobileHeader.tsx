@@ -51,7 +51,7 @@ export default function GalleryMobileHeader({
         </Link>
         <span className={styles.spacer} />
         <a
-          href="https://github.com/subwaymatch/tabbied/"
+          href="https://github.com/tabbied-design/tabbied/"
           target="_blank"
           rel="noreferrer"
           aria-label="Tabbied on GitHub"

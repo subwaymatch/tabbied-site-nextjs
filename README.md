@@ -4,7 +4,7 @@
 <h1 align="center">Tabbied</h1>
 <p align="center">
   <a href="https://deepscan.io/dashboard#view=project&tid=10181&pid=14972&bid=290677"><img src="https://deepscan.io/api/teams/10181/projects/14972/branches/290677/badge/grade.svg" alt="DeepScan grade"></a>
-  <a href="https://www.codacy.com/gh/subwaymatch/tabbied/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=subwaymatch/tabbied&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/40c0ce7aab95429aa5660d0db16fe353"/></a>
+  <a href="https://www.codacy.com/gh/tabbied-design/tabbied/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tabbied-design/tabbied&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/40c0ce7aab95429aa5660d0db16fe353"/></a>
 </p>
 
 ⚠️ **Note:** The Tabbied project is undergoing modernization and redesign. The API may change over the next few months.
@@ -84,7 +84,7 @@ To develop locally, clone the repository, run `npm install`, and start the dev s
 
 ```bash
 # Clone repository
-git clone https://github.com/subwaymatch/tabbied.git
+git clone https://github.com/tabbied-design/tabbied.git
 
 # CD into tabbied
 cd tabbied

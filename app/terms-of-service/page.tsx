@@ -42,7 +42,7 @@ export default function TermsOfServicePage() {
               <h3 style={{ marginTop: '2rem' }}>Contact</h3>
               <p style={{ marginTop: '1rem' }}>
                 Questions about these terms can be raised via our{' '}
-                <a href="https://github.com/subwaymatch/tabbied/">
+                <a href="https://github.com/tabbied-design/tabbied/">
                   GitHub repository
                 </a>
                 .
