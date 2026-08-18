@@ -1,0 +1,166 @@
+.section {
+  position: relative;
+  padding: 100px 0;
+  color: var(--h-ink);
+  background-color: var(--h-paper);
+  border-top: 1px solid var(--h-paper-rule);
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  max-width: var(--h-max);
+  margin: 0 auto;
+  padding-right: var(--h-pad);
+  padding-left: var(--h-pad);
+}
+
+/* ── Backdrop ────────────────────────────────────────────────────────────── */
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.square {
+  position: absolute;
+  transform: rotate(45deg);
+  transition: opacity 1300ms ease;
+}
+
+/* A zero-size anchor at the centre; the ring hangs off it, so one rotation
+   here carries all fourteen squares round. */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: orbitSpin 200s linear infinite;
+}
+
+.orbitSquare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  transform-origin: 0 0;
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Copy ────────────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  font: 600 11px var(--h-mono);
+  color: var(--h-ink);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background-color: var(--h-mint);
+}
+
+.title {
+  max-width: 640px;
+  margin: 0 0 24px;
+  font: 700 64px / 1.15 var(--h-sans);
+  letter-spacing: -0.01em;
+}
+
+.body {
+  max-width: 768px;
+  margin: 0 0 64px;
+  font: 400 16px / 1.7 var(--h-sans);
+  color: var(--h-ink-muted);
+}
+
+/* ── Stats ───────────────────────────────────────────────────────────────── */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.stat {
+  display: block;
+  color: var(--h-ink);
+}
+
+.statNumber {
+  display: block;
+  margin-bottom: 8px;
+  font: 700 64px var(--h-sans);
+}
+
+.statLabel {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font: 400 12px var(--h-mono);
+  color: var(--h-ink-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.statArrow {
+  color: #0d9488;
+  transition: transform 200ms ease;
+}
+
+a.stat:hover {
+  color: var(--h-ink);
+}
+
+a.stat:hover .statArrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 1023.98px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .title {
+    font-size: 40px;
+  }
+
+  .body {
+    margin-bottom: 32px;
+  }
+
+  .stats {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .statNumber {
+    font-size: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit {
+    animation: none;
+  }
+
+  .square,
+  .statArrow {
+    transition: none;
+  }
+}

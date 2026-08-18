@@ -327,6 +327,43 @@ download's dependencies automatically — `EXTERNAL_DEPENDENCIES` in
 `scripts/package-templates.mjs` is derived from the shipped source, not
 maintained by hand.
 
+## The homepage — its own shell, and a hydration rule
+
+`app/page.tsx` is the only route in the dark editorial treatment. It brings its
+own masthead and footer (`HomeNav`, `HomeFooter`) and its own token set
+(`components/main-page/home.module.css`, inherited by every `Home*` section as
+`var(--h-…)`); every other route still renders the shared light `MainHeader` and
+`components/Footer`. Nothing here is global — the tokens sit on the page wrapper,
+not on `:root` — so restyling the homepage cannot reach `/patterns` or `/docs`.
+
+Three things worth not re-litigating:
+
+- **The animated grids are seeded, then random.** The hero skyline, its margin
+  columns, the pattern demo, and the story backdrop are all grids of randomly
+  shaped cells that reshuffle on a timer. A `Math.random()` call during render
+  makes the prerendered HTML disagree with the first client render and hydration
+  blows up, so the *initial* grid comes from `seededRandom()` in `homeMotion.ts`
+  — the same one on the server and in the browser — and only the timers, which
+  start after mount, use real randomness. The same trap catches module-scope
+  constants: a `Math.random()` at the top level of a module runs once per
+  process, which is not once per page.
+- **Every figure is derived.** `lib/siteCounts.ts` counts the presets, the
+  template sites, and the palette library; the hero sentence, both stat rows and
+  the two "view all" links read it. It is server-only on purpose — counting the
+  keys of `patterns` in a client component would ship the whole catalog to the
+  browser to learn one number. `e2e/smoke.spec.ts` asserts the same count
+  appears in all three places rather than pinning the value.
+- **Reduced motion stops all of it.** Six independent clocks run on this page
+  plus three CSS animations (the two marquees and the orbiting squares). Every
+  timer is gated on `useMediaQuery('(prefers-reduced-motion: reduce)')` and every
+  animation and transition has a `@media (prefers-reduced-motion: reduce)`
+  override; a marquee that merely slows down is the failure this guards against.
+
+The mono is loaded by `next/font` **in the page**, not the root layout, so only
+this route preloads it. IBM Plex Sans is deliberately not loaded — proxima-nova
+from the layout's typekit link is the sans, and the design only ever named Plex
+Sans as its fallback.
+
 ## Agent-facing docs — all generated, never hand-edited
 
 Five build artifacts describe the catalog to tools that can't see the

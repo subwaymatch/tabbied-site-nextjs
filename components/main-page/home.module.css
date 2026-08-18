@@ -1,0 +1,93 @@
+/*
+ * Homepage design tokens.
+ *
+ * The homepage is the one route with its own chrome and its own palette: a dark
+ * editorial shell with two inset light sections. Rather than leak those colors
+ * into globals.css (where every other route would inherit them), they are
+ * declared once on the page wrapper and inherit down to the section modules,
+ * which reference them as `var(--h-…)`.
+ *
+ * Everything else on the site still renders in the shared light theme via
+ * MainHeader/Footer; nothing here is global.
+ */
+
+.home {
+  /* Dark shell */
+  --h-bg: #0e0e13;
+  --h-fg: #eef0f6;
+  --h-mint: #3fffb2;
+  --h-cyan: #3eecff;
+  --h-rule: oklch(1 0 0 / 0.08);
+  --h-muted: oklch(0.6 0.01 260);
+  --h-dim: oklch(0.5 0.01 260);
+  --h-nav: oklch(0.75 0.01 260);
+  --h-card: #15151b;
+
+  /* Light sections */
+  --h-paper: #ffffff;
+  --h-ink: #0e0e13;
+  --h-ink-muted: oklch(0.45 0.01 260);
+  --h-ink-dim: oklch(0.5 0.01 260);
+  --h-paper-rule: oklch(0 0 0 / 0.08);
+  --h-paper-well: oklch(0.98 0.002 260);
+  --h-teal: oklch(0.4 0.13 175);
+
+  /* Measure. `--h-edge` is the full-bleed margin beside the 1280px column —
+     the strip the hero fills with pattern cells. It is only ever used on
+     full-width children, so its 50% always resolves against the viewport. */
+  --h-max: 1280px;
+  --h-pad: 128px;
+  --h-edge: max(48px, calc(50% - 640px));
+
+  /* proxima-nova comes from the typekit link in the root layout. The mono is
+     self-hosted by next/font and reaches this element as a class, which is why
+     it is a variable rather than a family name — the class only exists on the
+     homepage, so no other route pays for the download. */
+  --h-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --h-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  position: relative;
+  background-color: var(--h-bg);
+  color: var(--h-fg);
+  font-family: var(--h-sans);
+}
+
+@media (max-width: 1023.98px) {
+  .home {
+    --h-pad: 64px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .home {
+    --h-pad: 24px;
+  }
+}
+
+/* The two hairlines that run the full height of the page at the edges of the
+   1280px column, tying the sections together. Decorative and non-interactive,
+   so they sit above the content but never take a click. Dropped on mobile,
+   where they would land inside the text measure. */
+.columnRule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  width: 1px;
+  background-color: oklch(0.6 0 0 / 0.35);
+  pointer-events: none;
+}
+
+.columnRuleLeft {
+  left: max(24px, calc(50% - 640px));
+}
+
+.columnRuleRight {
+  right: max(24px, calc(50% - 640px));
+}
+
+@media (max-width: 767.98px) {
+  .columnRule {
+    display: none;
+  }
+}
