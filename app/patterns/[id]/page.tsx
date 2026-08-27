@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import { ebGaramond } from 'lib/fonts';
 import { getAllPatternIds, getPattern } from 'lib/pattern';
 import EditPattern from 'components/edit-pattern-page/EditPattern';
 
@@ -34,9 +35,13 @@ export default async function PatternPage({
   const { id } = await params;
   const pattern = await getPattern(id);
 
+  // The serif is used only by the stage caption, and EditPattern is a client
+  // component, so the variable reaches it from here.
   return (
     <Suspense>
-      <EditPattern pattern={pattern} />
+      <div className={ebGaramond.variable}>
+        <EditPattern pattern={pattern} />
+      </div>
     </Suspense>
   );
 }

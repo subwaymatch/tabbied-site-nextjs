@@ -93,57 +93,6 @@ const fitToBox = (ratio: AspectRatioId, maxW: number, maxH: number) => {
   return { width: Math.round(rw * scale), height: Math.round(rh * scale) };
 };
 
-// Parse a #rgb / #rrggbb / #rrggbbaa color into 0-255 channels (alpha ignored).
-const hexToRgb = (
-  hex: string
-): { r: number; g: number; b: number } | null => {
-  let value = hex.trim().replace(/^#/, '');
-
-  if (value.length === 3) {
-    value = value
-      .split('')
-      .map((char) => char + char)
-      .join('');
-  }
-
-  if (value.length !== 6 && value.length !== 8) {
-    return null;
-  }
-
-  const int = parseInt(value.slice(0, 6), 16);
-
-  if (Number.isNaN(int)) {
-    return null;
-  }
-
-  return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 };
-};
-
-// Pick an expand-icon color that stays legible on any preview background:
-// white on dark backgrounds, and a blend of near-black with the background
-// (so it reads as a tinted dark) on light backgrounds.
-const getExpandIconColor = (background: string): string => {
-  const rgb = hexToRgb(background);
-
-  if (!rgb) {
-    return 'var(--gray-dark)';
-  }
-
-  const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
-
-  if (luminance < 0.5) {
-    return '#ffffff';
-  }
-
-  const dark = { r: 0x23, g: 0x25, b: 0x29 };
-  const blend = (from: number, to: number) => Math.round(from + (to - from) * 0.3);
-
-  return `rgb(${blend(dark.r, rgb.r)}, ${blend(dark.g, rgb.g)}, ${blend(
-    dark.b,
-    rgb.b
-  )})`;
-};
-
 const arraysEqual = (a: string[], b: string[]) =>
   a.length === b.length && a.every((value, index) => value === b[index]);
 
@@ -776,7 +725,6 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
 
   const previewBackground =
     displayPalette.length > 0 ? displayPalette[0] : 'transparent';
-  const expandIconColor = getExpandIconColor(previewBackground);
 
   const previewIsTransparent =
     previewBackground === 'transparent' || isTransparentHex(previewBackground);
@@ -1111,26 +1059,35 @@ export default function EditPattern({ pattern }: { pattern: Pattern }) {
                 ? `${styles.previewWrapper} ${styles.previewTransparent}`
                 : styles.previewWrapper
             }
-            style={{ backgroundColor: previewBackground }}
           >
             <Dialog.Trigger
               className={styles.expandButton}
-              style={{ color: expandIconColor }}
               aria-label="Expand pattern"
             >
               <Expand size={18} />
             </Dialog.Trigger>
 
-            <div className={styles.doodleFrame}>
-              <TabbiedPattern
-                ref={doodleRef}
-                {...patternProps}
-                fit="fixed"
-                width={width}
-                height={height}
-                decorative={false}
-              />
-            </div>
+            <figure className={styles.stage}>
+              <div className={styles.doodleFrame}>
+                <TabbiedPattern
+                  ref={doodleRef}
+                  {...patternProps}
+                  fit="fixed"
+                  width={width}
+                  height={height}
+                  decorative={false}
+                />
+              </div>
+
+              {/* The pattern is named under it rather than in a header bar, so
+                  the stage reads as a plate with its caption. */}
+              <figcaption className={styles.stageCaption}>
+                <span className={styles.stageName}>{pattern.name}</span>
+                <span className={styles.stageMeta}>
+                  {width} &times; {height}
+                </span>
+              </figcaption>
+            </figure>
           </div>
 
           <Dialog.Portal>

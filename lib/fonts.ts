@@ -1,4 +1,4 @@
-import { IBM_Plex_Mono } from 'next/font/google';
+import { EB_Garamond, IBM_Plex_Mono } from 'next/font/google';
 
 /**
  * The mono that carries every label, eyebrow and figure in the 2026 design.
@@ -12,5 +12,18 @@ export const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '600'],
   variable: '--font-plex-mono',
+  display: 'swap',
+});
+
+/**
+ * The editor's plate caption, and only that — a serif is what makes the stage
+ * read as a print of the pattern rather than a preview of it. Loaded on the
+ * editor route alone.
+ */
+export const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-garamond',
   display: 'swap',
 });
