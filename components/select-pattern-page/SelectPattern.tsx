@@ -17,6 +17,7 @@ import {
 } from 'lib/paletteLibrary';
 import { usePaletteEditor } from 'components/palette/usePaletteEditor';
 import PaletteEditorDialog from 'components/palette/PaletteEditorDialog';
+import GalleryTopBar from './GalleryTopBar';
 import GalleryRail from './GalleryRail';
 import GalleryMobileHeader from './GalleryMobileHeader';
 import GalleryChipShelf from './GalleryChipShelf';
@@ -25,6 +26,22 @@ import GalleryScrollRestorer from './GalleryScrollRestorer';
 import styles from './SelectPattern.module.css';
 
 const PER_PAGE = 20;
+
+/**
+ * Tile spans for the mosaic grid, as [columns, rows] against four columns and
+ * 104px rows. The six bands each tile the four columns exactly and together
+ * come to PER_PAGE, so a full page never ends on a ragged row — and because the
+ * list repeats per page, the rhythm is the same wherever you are in the
+ * catalog. A short last page (or a search) just falls back to dense packing.
+ */
+const TILE_SPANS: readonly (readonly [number, number])[] = [
+  [2, 4], [1, 4], [1, 2], [1, 2],
+  [2, 2], [1, 2], [1, 2],
+  [1, 2], [1, 2], [2, 4], [1, 2], [1, 2],
+  [4, 2],
+  [1, 4], [2, 4], [1, 2], [1, 2],
+  [2, 2], [1, 2], [1, 2],
+];
 
 // Wait after the last palette pick before recoloring the grid, so rapidly
 // clicking through palettes recolors the thumbnails once, not once per click.
@@ -192,6 +209,8 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
     <main className={styles.gallery}>
       <GalleryScrollRestorer />
 
+      <GalleryTopBar label="Pattern library" />
+
       {!isMobile && (
       <GalleryRail
         search={search}
@@ -244,20 +263,32 @@ export default function SelectPattern({ gallery }: { gallery: GalleryItem[] }) {
 
       <div className={styles.mainColumn}>
         <div className={styles.mainHeader}>
-          <div className={styles.mainHeading}>
-            <h1 className={styles.title}>Pick a design</h1>
-            <span className={styles.count}>
-              {filtered.length} {filtered.length === 1 ? 'design' : 'designs'}
-            </span>
-          </div>
+          <h1 className={styles.title}>Pick a design</h1>
+          <p className={styles.intro}>
+            <strong>
+              {filtered.length}{' '}
+              {filtered.length === 1 ? 'pattern' : 'patterns'}
+            </strong>
+            , each drawn live in your browser. Pick a color palette to recolor
+            the library &mdash; edit its colors if you want your own &mdash;
+            then choose a pattern to customize.
+          </p>
         </div>
 
         {hasResults ? (
           <>
             <div className={styles.grid}>
-              {visible.map((item) => (
-                <GalleryCard key={item.slug} item={item} />
-              ))}
+              {visible.map((item, index) => {
+                const [columns, rows] = TILE_SPANS[index % TILE_SPANS.length];
+
+                return (
+                  <GalleryCard
+                    key={item.slug}
+                    item={item}
+                    className={styles[`s${columns}x${rows}`]}
+                  />
+                );
+              })}
             </div>
 
             {pageCount > 1 && (

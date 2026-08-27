@@ -1,8 +1,14 @@
 /* Gallery (3a): a two-column layout — the white palette rail and the design
    grid — both plain white, with no divider or tint between them. */
 .gallery {
+  /* Height of GalleryTopBar: the fixed rail starts below it, and the main
+     column is inset by it. One number, two consumers. */
+  --gallery-bar-h: 75px;
+
   position: relative;
-  background: #ffffff;
+  /* Warm grey behind the page; the design column sits on near-white above it,
+     which is what makes the column read as a sheet rather than the page. */
+  background: #efeeea;
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -11,34 +17,45 @@
    column is offset by its width and scrolls with the document. */
 .mainColumn {
   min-width: 0;
+  min-height: 100vh;
   margin-left: 300px;
-  padding: 26px 32px 40px 28px;
+  padding: 40px 48px 72px clamp(28px, 3vw, 48px);
+  background: #fdfdfc;
+  border-left: 1px solid oklch(0 0 0 / 0.09);
 }
 
 .mainHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px 24px;
-  flex-wrap: wrap;
-}
-
-.mainHeading {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #232529;
+  margin: 0;
+  font: 400 clamp(30px, 3.2vw, 46px) / 1.1 var(--font-sans-serif);
+  color: #0e0e13;
+  letter-spacing: -0.015em;
 }
 
-.count {
+.intro {
+  margin: 6px 0 0;
   font-size: 15px;
-  font-weight: 400;
-  color: #98a0af;
+  line-height: 1.6;
+  color: oklch(0.42 0.01 260);
+}
+
+.intro strong {
+  font-weight: 700;
+  color: #0e0e13;
+}
+
+@media (max-width: 860px) {
+  .mainHeader {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* ---- Design grid ---- */
@@ -53,19 +70,58 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 18px;
+  /* Fixed rows plus dense flow are what make the mosaic tile: every span is a
+     whole number of these, so bands close cleanly and a gap left by a wide tile
+     is backfilled by the next narrow one. */
+  grid-auto-rows: 104px;
+  grid-auto-flow: dense;
+  gap: 20px;
 }
 
-@media (min-width: 560px) {
+/* Tile spans, assigned per card in SelectPattern.tsx. */
+.s1x2 {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.s1x4 {
+  grid-column: span 1;
+  grid-row: span 4;
+}
+
+.s2x2 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.s2x4 {
+  grid-column: span 2;
+  grid-row: span 4;
+}
+
+.s4x2 {
+  grid-column: span 4;
+  grid-row: span 2;
+}
+
+@media (min-width: 861px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1041px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Below four columns the bands can no longer tile, so every tile narrows to one
+   column and only its height still varies. Row spans are deliberately left
+   alone — that is what keeps the grid from flattening into a plain list. */
+@media (max-width: 1040.98px) {
+  .grid > * {
+    grid-column: span 1 !important;
   }
 }
 
@@ -189,25 +245,30 @@
 
   .mainColumn {
     margin-left: 0;
-    padding: 12px 20px 40px;
+    min-height: 0;
+    padding: 24px 20px 56px;
+    border-left: none;
   }
 }
 
 /* ---- Gallery card ---- */
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   color: #232529;
   cursor: pointer;
 }
 
-/* The square tile that clips the pattern; lifts subtly on hover. */
+/* The tile fills whatever the mosaic gave the card and clips the pattern to it;
+   the name sits underneath at its natural height. */
 .tile {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 3px;
   transition: transform 150ms ease, box-shadow 150ms ease;
 }
 
@@ -226,11 +287,11 @@
 }
 
 .cardName {
-  margin-top: 9px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: #232529;
+  margin-top: 12px;
+  font: 500 11px var(--font-plex-mono, ui-monospace), ui-monospace, monospace;
+  color: #0e0e13;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ---- Live css-doodle thumbnail (shared with GalleryDoodle/Inner) ---- */
@@ -241,7 +302,10 @@
 .doodleThumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  /* Fills the tile the mosaic sized, rather than forcing a square. The height
+     resolves because the grid row is a fixed 104px multiple, which is also what
+     keeps content-visibility safe here. */
+  height: 100%;
   overflow: hidden;
   line-height: 0;
   content-visibility: auto;

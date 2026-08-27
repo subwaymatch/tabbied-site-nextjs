@@ -673,11 +673,13 @@ test.describe('Shared site header', () => {
   }) => {
     await page.goto('/patterns');
 
-    // The rail carries the Tabbied logo and its palette chrome — but not the
-    // shared site nav or its hamburger.
+    // The page carries its own slim bar with the way home, and the rail beside
+    // it carries the palette chrome — but neither is the shared site nav.
     await expect(
-      page.locator('aside').getByRole('link', { name: 'Tabbied', exact: true })
+      page.getByRole('link', { name: 'Tabbied', exact: true })
     ).toBeVisible();
+    await expect(page.getByText('Pattern library')).toBeVisible();
+    await expect(page.locator('aside')).toBeVisible();
     await expect(
       page.getByRole('button', { name: 'Open navigation menu' })
     ).toHaveCount(0);
