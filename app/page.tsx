@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono } from 'next/font/google';
+import { plexMono } from 'lib/fonts';
 import { PALETTE_COUNT, PATTERN_COUNT, TEMPLATE_COUNT } from 'lib/siteCounts';
 import HomeNav from 'components/main-page/HomeNav';
 import HomeHero from 'components/main-page/HomeHero';
@@ -9,16 +9,6 @@ import HomeTemplates from 'components/main-page/HomeTemplates';
 import HomeStory from 'components/main-page/HomeStory';
 import HomeFooter from 'components/main-page/HomeFooter';
 import styles from 'components/main-page/home.module.css';
-
-// The mono that carries every label and eyebrow in this design. Declared on the
-// page rather than the root layout so only this route preloads it — the rest of
-// the site is still the shared light theme and never uses it.
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '600'],
-  variable: '--font-plex-mono',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'Tabbied — Free generative patterns and website templates',

@@ -181,11 +181,13 @@ export default function HomeHero({
             <span className={styles.statLabel}>Free website templates</span>
           </Link>
 
-          {/* No destination yet — the generator is the "Soon" item in the nav. */}
-          <div className={styles.stat}>
+          <Link href="/studio" prefetch={false} className={styles.stat}>
+            <span className={styles.statArrow} aria-hidden="true">
+              &rarr;
+            </span>
             <span className={styles.statNumber}>1</span>
             <span className={styles.statLabel}>Pattern engine</span>
-          </div>
+          </Link>
         </div>
       </div>
     </>

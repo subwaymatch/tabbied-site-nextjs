@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import StudioSpark from './StudioSpark';
 import styles from './HomeNav.module.css';
 
 // The homepage's own masthead. The rest of the site still uses the shared light
@@ -19,13 +20,23 @@ const LINKS: NavLink[] = [
 
 const GITHUB_URL = 'https://github.com/tabbied-design/tabbied/';
 
-// The pattern-to-website generator is announced here but has no route yet, so
-// it renders as plain text with its badge rather than a link to nowhere.
-function GeneratorItem({ className }: { className?: string }) {
+function StudioItem({
+  className,
+  onClick,
+}: {
+  className?: string;
+  onClick?: () => void;
+}) {
   return (
-    <span className={className}>
-      Generator<span className={styles.badge}>Soon</span>
-    </span>
+    <Link
+      href="/studio"
+      prefetch={false}
+      className={className}
+      onClick={onClick}
+    >
+      <StudioSpark />
+      Studio
+    </Link>
   );
 }
 
@@ -56,7 +67,7 @@ export default function HomeNav() {
             {item.label}
           </Link>
         ))}
-        <GeneratorItem className={styles.generator} />
+        <StudioItem className={styles.studio} />
         <Link href={LINKS[2].href} prefetch={false}>
           {LINKS[2].label}
         </Link>
@@ -102,7 +113,7 @@ export default function HomeNav() {
             {item.label}
           </Link>
         ))}
-        <GeneratorItem className={styles.panelGenerator} />
+        <StudioItem className={styles.panelStudio} onClick={close} />
         <Link href={LINKS[2].href} prefetch={false} onClick={close}>
           {LINKS[2].label}
         </Link>

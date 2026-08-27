@@ -364,6 +364,41 @@ this route preloads it. IBM Plex Sans is deliberately not loaded — proxima-nov
 from the layout's typekit link is the sans, and the design only ever named Plex
 Sans as its fallback.
 
+## Studio — matching, not generating
+
+`/studio` takes a description of a business and `/studio/results` answers with
+three template sites. The design it was built from describes an AI feature; the
+Worker has no AI binding, no D1 and no auth (see
+`agent-outputs/platform-auth-ai-plan.md` — that tier is a plan, not code), so
+Studio answers with what the repo actually has: 57 finished template sites, each
+on one of the 295 patterns and one of the 437 palettes, each with a real page
+and a real zip.
+
+- **`lib/studioMatch.ts` is pure and isomorphic; `lib/studioDirections.ts` is
+  server-only.** The index — 57 entries of names, palettes and vocabulary — is
+  built at build time and passed to the client as plain data. Importing the
+  catalog (384 KB) or the template data into the browser to match against it is
+  the thing this split exists to prevent.
+- **Everyday words are mapped onto the closed catalog vocabulary**
+  (`packages/tabbied/scripts/catalog-vocabulary.mjs`), and moods are scored by
+  *votes*: "warm, earthy, friendly" is three words asking for `organic` and
+  outranks one word asking for `technical`. Scoring presence rather than votes
+  put a deep-sea research site at the top of a warm-and-earthy query.
+- **The description travels in the query string**, so a result is refreshable
+  and shareable, and the match is a pure function of it. Ties break on a hash of
+  the text, which is what makes an empty or unmatched description still return a
+  stable spread rather than the same three every time.
+- **Every card leads somewhere that exists**: Preview to `/template/<slug>/`,
+  Download to `/downloads/<slug>-html.zip`. `e2e/smoke.spec.ts` fetches each
+  preview href and asserts a 200 — that guard is the whole difference between
+  this and the mockup it came from.
+
+Two things the artboard has that are deliberately not built: the photo upload
+(there is nowhere to put the files, and a picker that discards them is worse
+than no picker) and the 1.4-second spinner before results (matching 57 entries
+is synchronous). When the AI gateway lands it replaces `matchDirections` and
+nothing above it changes.
+
 ## Agent-facing docs — all generated, never hand-edited
 
 Five build artifacts describe the catalog to tools that can't see the

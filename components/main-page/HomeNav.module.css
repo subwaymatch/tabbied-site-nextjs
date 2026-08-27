@@ -46,8 +46,7 @@
   text-transform: uppercase;
 }
 
-.links a,
-.generator {
+.links a {
   color: var(--h-nav);
 }
 
@@ -55,22 +54,11 @@
   color: var(--h-fg);
 }
 
-.generator,
-.panelGenerator {
+.studio,
+.panelStudio {
   display: flex;
-  align-items: center;
   gap: 6px;
-  /* Announced, not navigable: there is no generator route yet. */
-  cursor: default;
-}
-
-.badge {
-  padding: 2px 6px;
-  font: 400 9px var(--h-mono);
-  color: var(--h-mint);
-  letter-spacing: 0.05em;
-  border: 1px solid rgba(63, 255, 178, 0.4);
-  border-radius: 5px;
+  align-items: center;
 }
 
 .github {
@@ -156,8 +144,7 @@
     border-bottom: 1px solid var(--h-rule);
   }
 
-  .panel a,
-  .panelGenerator {
+  .panel a {
     padding: 14px 0;
     color: inherit;
     border-bottom: 1px solid oklch(1 0 0 / 0.06);

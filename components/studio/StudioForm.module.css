@@ -1,0 +1,100 @@
+.form {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px var(--s-pad) 100px;
+}
+
+.title {
+  margin: 0 0 16px;
+  font: 700 52px / 1.08 var(--s-sans);
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  max-width: 520px;
+  margin: 0 0 48px;
+  font: 400 17px / 1.6 var(--s-sans);
+  color: var(--s-muted);
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+  font: 600 13px var(--s-sans);
+  color: var(--s-ink);
+}
+
+.textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220px;
+  padding: 20px;
+  font: 400 15px / 1.7 var(--s-sans);
+  color: var(--s-ink);
+  background: none;
+  border: 1px solid var(--s-line);
+  border-radius: 10px;
+  outline: none;
+  resize: vertical;
+  transition: border-color 200ms ease;
+}
+
+.textarea:focus {
+  border-color: var(--s-ink);
+}
+
+.submit {
+  display: block;
+  width: 100%;
+  margin-top: 40px;
+  padding: 18px;
+  font: 600 16px var(--s-sans);
+  color: #eef0f6;
+  background-color: var(--s-ink);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.submit:hover:enabled {
+  background-color: oklch(0.22 0 0);
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.note {
+  margin: 16px 0 0;
+  font: 400 13px / 1.6 var(--s-sans);
+  color: var(--s-dim);
+}
+
+@media (max-width: 767.98px) {
+  .form {
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 1.15;
+  }
+
+  .lede {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textarea,
+  .submit {
+    transition: none;
+  }
+}

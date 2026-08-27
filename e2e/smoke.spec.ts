@@ -530,10 +530,12 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await expect(menu.getByRole('link', { name: 'Templates' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'GitHub' })).toBeVisible();
 
-    // The generator is announced but has no route yet, so it is text and not a
-    // link in either the bar or the panel.
-    await expect(menu.getByText('Generator')).toBeVisible();
-    await expect(menu.getByRole('link', { name: 'Generator' })).toHaveCount(0);
+    // Studio replaced the "Soon" generator item and is now a real destination.
+    // The export uses trailing slashes, so the rendered href is "/studio/".
+    await expect(menu.getByRole('link', { name: 'Studio' })).toHaveAttribute(
+      'href',
+      /^\/studio\/?$/
+    );
 
     await menu.getByRole('link', { name: 'Docs' }).click();
     await expect(page).toHaveURL(/\/docs\/react/);
@@ -564,6 +566,70 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await drawer.getByRole('link', { name: 'Docs' }).click();
     await expect(page).toHaveURL(/\/docs\/react/);
     await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
+});
+
+test.describe('Studio', () => {
+  const BICYCLES = 'Handbuilt bicycle frames for road cyclists, bold and industrial.';
+
+  test('matches a description to three real template sites', async ({
+    page,
+  }) => {
+    await page.goto('/studio');
+
+    // Nothing to match on yet.
+    const submit = page.getByRole('button', { name: 'Get three websites' });
+    await expect(submit).toBeDisabled();
+
+    await page.getByLabel('Your business').fill(BICYCLES);
+    await expect(submit).toBeEnabled();
+    await submit.click();
+
+    await page.waitForURL(/\/studio\/results/, { timeout: 15000 });
+
+    const cards = page.locator('article');
+    await expect(cards).toHaveCount(3);
+
+    // The whole point of matching against the library rather than generating:
+    // every card has to lead somewhere that already exists.
+    const previews = await page
+      .getByRole('link', { name: 'Preview' })
+      .evaluateAll((links) => links.map((l) => l.getAttribute('href')));
+
+    expect(previews).toHaveLength(3);
+
+    for (const href of previews) {
+      expect(href).toMatch(/^\/template\/[a-z0-9-]+\/$/);
+      const response = await page.request.get(href);
+      expect(response.status(), `${href} should be a real page`).toBe(200);
+    }
+
+    // Download points at the zip the packaging step writes for that same site.
+    const downloads = await page
+      .getByRole('link', { name: 'Download' })
+      .evaluateAll((links) => links.map((l) => l.getAttribute('href')));
+
+    expect(downloads).toEqual(
+      previews.map((href) => `/downloads/${href.split('/')[2]}-html.zip`)
+    );
+  });
+
+  test('the same description always gives the same three', async ({ page }) => {
+    // The match is a pure function of the query string, which is what makes a
+    // results link worth sharing.
+    const names = async (description: string) => {
+      await page.goto(`/studio/results/?q=${encodeURIComponent(description)}`);
+      return page.locator('article h2').allTextContents();
+    };
+
+    const first = await names(BICYCLES);
+    const again = await names(BICYCLES);
+    expect(again).toEqual(first);
+
+    const other = await names(
+      'A quiet, elegant perfume house. Monochrome and restrained.'
+    );
+    expect(other).not.toEqual(first);
   });
 });
 

@@ -53,9 +53,10 @@
   color: var(--h-fg);
 }
 
-/* Announced but not yet navigable. */
-.pending {
-  color: var(--h-dim);
+.studio {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .contact {

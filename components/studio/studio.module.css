@@ -1,0 +1,68 @@
+/*
+ * Studio's shell. Light, narrow, and quieter than the homepage: the two Studio
+ * screens are a working surface rather than a pitch, so they carry their own
+ * tokens instead of the dark `--h-…` set.
+ */
+.page {
+  --s-paper: #ffffff;
+  --s-ink: #0e0e13;
+  --s-muted: oklch(0.4 0.01 260);
+  --s-dim: oklch(0.5 0.01 260);
+  --s-rule: oklch(0 0 0 / 0.08);
+  --s-line: oklch(0 0 0 / 0.12);
+  --s-teal: oklch(0.4 0.13 175);
+
+  --s-pad: 128px;
+
+  --s-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --s-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Studio's mark is teal on white rather than mint on near-black. */
+  --spark-from: #0d9488;
+  --spark-to: #0e7490;
+
+  position: relative;
+  min-height: 100vh;
+  color: var(--s-ink);
+  background-color: var(--s-paper);
+  font-family: var(--s-sans);
+}
+
+@media (max-width: 1023.98px) {
+  .page {
+    --s-pad: 64px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .page {
+    --s-pad: 24px;
+  }
+}
+
+/* The pair of hairlines that mark the working column, as on the homepage but
+   drawn to Studio's narrower measure. Decorative, and dropped on mobile where
+   they would fall inside the text. */
+.rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 1px;
+  background-color: oklch(0.6 0 0 / 0.14);
+  pointer-events: none;
+}
+
+.ruleLeft {
+  left: max(24px, calc(50% - 296px));
+}
+
+.ruleRight {
+  right: max(24px, calc(50% - 296px));
+}
+
+@media (max-width: 767.98px) {
+  .rule {
+    display: none;
+  }
+}

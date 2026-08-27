@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import StudioSpark from './StudioSpark';
 import styles from './HomeFooter.module.css';
 
 // The homepage's own footer, matching its dark shell. Every other route keeps
@@ -31,8 +32,12 @@ export default function HomeFooter() {
                 Templates
               </Link>
             </li>
-            {/* Not linked: the generator has no route yet (see HomeNav). */}
-            <li className={styles.pending}>Generator</li>
+            <li>
+              <Link href="/studio" prefetch={false} className={styles.studio}>
+                <StudioSpark size={10} />
+                Studio
+              </Link>
+            </li>
           </ul>
         </div>
 
