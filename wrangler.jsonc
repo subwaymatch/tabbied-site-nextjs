@@ -40,21 +40,29 @@
   // ---- the platform tier -------------------------------------------------
   // Identity, generations and media. All three are simulated locally by
   // `wrangler dev` / the vitest pool, so the whole stack runs and is tested
-  // without provisioning anything; the ids below are the only thing a real
-  // deploy needs filled in.
+  // without provisioning anything.
   //
-  //   wrangler d1 create tabbied      → paste database_id
-  //   wrangler kv namespace create SESSIONS → paste id
-  //   wrangler r2 bucket create tabbied-media
+  // **None of these declares an id, deliberately.** Wrangler provisions a
+  // binding whose id is absent — creating the resource on first deploy and
+  // wiring it up — and looks one up whose id is present. A placeholder id is
+  // therefore strictly worse than none: it converts "create this for me" into
+  // "find 0000…000f", which fails the deploy with a 10041 rather than
+  // provisioning. (That is exactly what happened on the first deploy: R2 has
+  // no id field, so MEDIA provisioned cleanly while KV's fake id killed it.)
   //
-  // Then apply migrations before the first deploy that uses them:
-  //   wrangler d1 migrations apply tabbied --remote
+  // The one step provisioning cannot do for us is the schema. After the first
+  // deploy that creates DB:
+  //
+  //   npm run db:migrate:remote     # wrangler d1 migrations apply tabbied --remote
+  //
+  // and set the secrets the tier needs (`wrangler secret put BETTER_AUTH_SECRET`
+  // at minimum — see .dev.vars.example). Until that secret exists, /api/auth/*
+  // answers 503 and the site is otherwise unaffected, which is the intended
+  // degradation rather than an outage.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "tabbied",
-      // PLACEHOLDER: local dev and tests ignore this; `wrangler deploy` does not.
-      "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "worker/migrations"
     }
   ],
@@ -64,9 +72,7 @@
   // hot, tiny, and expendable, which is exactly what KV is for.
   "kv_namespaces": [
     {
-      "binding": "KV",
-      // PLACEHOLDER, as above.
-      "id": "0000000000000000000000000000000f"
+      "binding": "KV"
     }
   ],
 

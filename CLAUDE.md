@@ -386,11 +386,18 @@ npm run stub:ai        # a local OpenAI-shaped upstream on :8788
 npm run test:worker    # 30 tests in workerd, over local D1/KV/R2
 ```
 
-Bindings are declared with **placeholder ids**: local dev and the tests
-simulate D1, KV and R2, so the whole stack runs unprovisioned and a real deploy
-fills in three values (`wrangler d1 create`, `kv namespace create`,
-`r2 bucket create`, then `d1 migrations apply --remote`). `.dev.vars` is
-gitignored; `.dev.vars.example` documents the shape.
+**No binding declares an id, deliberately.** Wrangler provisions a binding
+whose id is absent and looks one up whose id is present, so a placeholder is
+strictly worse than nothing: it turns "create this for me" into "find
+0000…000f", which fails the deploy with a `10041`. The first deploy proved it
+— R2 has no id field and provisioned cleanly while KV's placeholder killed the
+upload. Local dev and the tests simulate all three either way.
+
+Provisioning cannot do the schema, so after the first deploy that creates `DB`:
+`npm run db:migrate:remote`, then `wrangler secret put BETTER_AUTH_SECRET`.
+Until that secret exists `/api/auth/*` answers 503 and nothing else changes —
+the intended degradation, not an outage. `.dev.vars` is gitignored;
+`.dev.vars.example` documents the shape.
 
 Things worth not re-litigating:
 

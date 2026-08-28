@@ -6,7 +6,13 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
-    "types": ["@cloudflare/workers-types"],
+    // workerd's globals, plus the `cloudflare:test` module the tests under
+    // worker/test/ import — they live inside this project, so its types have
+    // to be declared here or `npm run typecheck:worker` fails on them.
+    "types": [
+      "@cloudflare/workers-types",
+      "@cloudflare/vitest-pool-workers/types"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
