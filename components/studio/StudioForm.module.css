@@ -46,10 +46,15 @@
   border-color: var(--s-ink);
 }
 
-.submit {
-  display: block;
-  width: 100%;
+.actions {
+  display: flex;
+  gap: 12px;
   margin-top: 40px;
+}
+
+.submit,
+.secondary {
+  flex: 1;
   padding: 18px;
   font: 600 16px var(--s-sans);
   color: #eef0f6;
@@ -57,16 +62,41 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+/* The free path is a peer, not a footnote: it is what everyone gets, and the
+   only difference is who writes the colours and the copy. */
+.secondary {
+  font: 600 16px var(--s-sans);
+  color: var(--s-ink);
+  background: none;
+  border: 1px solid var(--s-line);
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .submit:hover:enabled {
   background-color: oklch(0.22 0 0);
 }
 
-.submit:disabled {
+.secondary:hover:enabled {
+  border-color: var(--s-ink);
+}
+
+.submit:disabled,
+.secondary:disabled {
   cursor: not-allowed;
   opacity: 0.35;
+}
+
+.error {
+  margin: 20px 0 0;
+  padding: 12px 14px;
+  font: 400 14px / 1.5 var(--s-sans);
+  color: oklch(0.45 0.17 25);
+  background-color: oklch(0.45 0.17 25 / 0.07);
+  border-radius: 10px;
 }
 
 .note {
@@ -92,9 +122,22 @@
   }
 }
 
+@media (max-width: 559.98px) {
+  /* Two full-width buttons rather than two cramped ones. */
+  .actions {
+    flex-direction: column;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .textarea,
-  .submit {
+  .submit,
+  .secondary {
     transition: none;
   }
+}
+
+.note strong {
+  font-weight: 600;
+  color: var(--s-ink);
 }

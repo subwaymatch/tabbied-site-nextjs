@@ -577,13 +577,21 @@ test.describe('Studio', () => {
   }) => {
     await page.goto('/studio');
 
-    // Nothing to match on yet.
-    const submit = page.getByRole('button', { name: 'Get three websites' });
-    await expect(submit).toBeDisabled();
+    // Signed out, the library match is the path — it needs no account and no
+    // Worker, which is what this spec runs against (`serve out`).
+    const match = page.getByRole('button', { name: 'Match from the library' });
+    await expect(match).toBeDisabled();
 
     await page.getByLabel('Your business').fill(BICYCLES);
-    await expect(submit).toBeEnabled();
-    await submit.click();
+    await expect(match).toBeEnabled();
+
+    // Generating is the other button, and it is a session away — signed out it
+    // sends you to sign in rather than spending anything.
+    await expect(
+      page.getByRole('button', { name: 'Generate with AI' })
+    ).toBeEnabled();
+
+    await match.click();
 
     await page.waitForURL(/\/studio\/results/, { timeout: 15000 });
 

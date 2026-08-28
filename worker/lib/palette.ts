@@ -23,7 +23,23 @@ export type PaletteVerdict = {
   status: 'clean' | 'repaired' | 'rejected';
 };
 
-const normalise = (hex: string) => hex.trim().toLowerCase();
+/**
+ * Lowercase, and expand `#abc` to `#aabbcc`. Shorthand is a perfectly valid
+ * colour — `isHexColor` accepts it and `toRgb` reads it — but everything
+ * downstream stores and renders the six-digit form, so it is expanded here
+ * rather than left for each consumer to handle differently.
+ */
+function normalise(hex: string): string {
+  const value = hex.trim().toLowerCase();
+
+  return value.length === 4
+    ? `#${value
+        .slice(1)
+        .split('')
+        .map((char) => char + char)
+        .join('')}`
+    : value;
+}
 
 /**
  * Push `ink` away from `background` until it clears MIN_CONTRAST, by mixing it

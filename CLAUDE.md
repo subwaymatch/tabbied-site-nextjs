@@ -370,7 +370,62 @@ this route preloads it. IBM Plex Sans is deliberately not loaded — proxima-nov
 from the layout's typekit link is the sans, and the design only ever named Plex
 Sans as its fallback.
 
-## Studio — matching, not generating
+## The platform tier — auth, generation, media
+
+`worker/` is no longer two routes. `/api` now carries better-auth over **D1**,
+Studio's generation endpoints, and **R2** media, and the site gained
+`/sign-in`, `/sign-up`, `/account`. Everything is still a static export;
+everything stateful is a `fetch` to `/api/*` on the same origin, which is the
+property that makes the session cookie work with no CORS surface at all.
+
+```bash
+npm run dev            # site on :3000, with NEXT_PUBLIC_API_BASE set
+npm run dev:api        # the Worker on :8787 — run both
+npm run db:migrate     # apply worker/migrations to the local D1
+npm run stub:ai        # a local OpenAI-shaped upstream on :8788
+npm run test:worker    # 30 tests in workerd, over local D1/KV/R2
+```
+
+Bindings are declared with **placeholder ids**: local dev and the tests
+simulate D1, KV and R2, so the whole stack runs unprovisioned and a real deploy
+fills in three values (`wrangler d1 create`, `kv namespace create`,
+`r2 bucket create`, then `d1 migrations apply --remote`). `.dev.vars` is
+gitignored; `.dev.vars.example` documents the shape.
+
+Things worth not re-litigating:
+
+- **`worker/db/schema.ts` is the source of truth and `worker/migrations` is
+  emitted from it** (`npm run db:generate`). better-auth's four tables are
+  transcribed from its own `getAuthTables()` output rather than guessed — run
+  it after an upgrade, because a field added upstream is a migration here
+  (that is how `account.issuer` was caught).
+- **`buildAuth` is a factory**, for the same reason `buildServer` is on the
+  MCP side: an isolate is shared across requests, so capturing bindings in a
+  module-scope singleton works locally and breaks under concurrency.
+- **KV cannot compare-and-set**, so the `increment` better-auth's
+  `SecondaryStorage` asks to be atomic is not. It under-counts under exactly
+  the burst it catches. That is an accepted trade because nothing that costs
+  money leans on it: the exact ceiling is the D1 usage ledger (`lib/quota.ts`),
+  summed per user, per endpoint, per UTC day. Text and images are capped
+  separately, because they cost differently by an order of magnitude.
+- **Secrets are typed optional and each feature degrades on its own.** No
+  `AI_API_KEY` and the endpoints answer from the matcher; no `RESEND_API_KEY`
+  *in dev* and the verification mail is written to KV instead of sent (which
+  is how the e2e flow reads a link back). In production that same branch
+  throws — a silently swallowed verification strands the account.
+- **A miss under `/api` is `api.all('*')`, not `api.notFound()`.** A sub-app's
+  notFound handler is not used once it is mounted with `route()`, so the
+  request falls through to the asset handler and answers an API client with
+  the marketing 404 page.
+- **`createAuthClient` gets no `baseURL` in production.** A relative
+  `/api/auth` looks equivalent and is not: the client validates the URL at
+  construction, at module scope, during the export — where there is no origin
+  to resolve it against. That threw the prerender of every page importing it.
+- **The session type is narrowed once**, in `lib/authClient.ts`. better-auth
+  infers it from the *server* config, which lives in `worker/` and is outside
+  the site's tsconfig on purpose, so the client types `data` as `never`.
+
+## Studio — matching, then generating
 
 `/studio` takes a description of a business and `/studio/results` answers with
 three template sites. The design it was built from describes an AI feature; the
@@ -399,11 +454,30 @@ and a real zip.
   preview href and asserts a 200 — that guard is the whole difference between
   this and the mockup it came from.
 
-Two things the artboard has that are deliberately not built: the photo upload
-(there is nowhere to put the files, and a picker that discards them is worse
-than no picker) and the 1.4-second spinner before results (matching 57 entries
-is synchronous). When the AI gateway lands it replaces `matchDirections` and
-nothing above it changes.
+**The AI tier landed, and the matcher was not replaced by it — it became
+candidate assembly.** `POST /api/studio/directions` runs the same scorer
+server-side, puts the top dozen in the prompt, and builds the response schema's
+slug enum from exactly that dozen, so an invented template cannot survive
+validation. The answer is validated against the same zod schema, then once more
+after a repair retry carrying the validation errors; a second failure falls
+back to the matcher's own three (`source: 'matched-fallback'`, which the page
+says out loud) rather than erroring.
+
+- **The matcher remains the signed-out path**, unchanged and Worker-free:
+  `?q=` still means matched and is still a pure function of the text. `?g=<id>`
+  means generated, because an LLM answer is not reproducible — so shareability
+  moved into storage. The id is the capability; reads need no session, writes
+  check ownership, and there is no listing endpoint to enumerate.
+- **Palettes are the one field the model authors freely**, so they are checked
+  against the palette library's two rules and repaired deterministically with
+  `tabbied-templates`' own colour maths. Shorthand hex is expanded first —
+  `#fff` and `#ffffff` are one colour, and comparing them as strings let an
+  invisible ink get "repaired" into a colour nobody chose.
+- **Imagery is lazy, idempotent and separately capped**: one image per
+  direction, on request, never three up front. `gpt-image-2` emits real alpha,
+  which is why this reaches one vendor and not two (`docs/image-pipeline.md`).
+- The artboard's **photo upload** waits on `/api/uploads`; the **spinner** it
+  drew for a synchronous match is now real, because generating is a real call.
 
 ## Agent-facing docs — all generated, never hand-edited
 

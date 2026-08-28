@@ -19,7 +19,7 @@
     "db:migrate": "wrangler d1 migrations apply tabbied --local",
     "db:migrate:remote": "wrangler d1 migrations apply tabbied --remote",
     "stub:ai": "node worker/test/stub-upstream.mjs",
-    "test:worker": "vitest run --config worker/vitest.config.ts",
+    "test:worker": "vitest run --config worker/vitest.config.mts",
     "llms": "node scripts/generate-llms.mjs",
     "editable": "node scripts/generate-editable.mjs",
     "annotate:templates": "node scripts/annotate-templates.mjs",

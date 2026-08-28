@@ -1,12 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { apiFetch, ApiError } from 'lib/apiFetch';
+import { useSessionUser } from 'lib/authClient';
 import styles from './StudioForm.module.css';
 
-// The description travels to the results screen in the query string rather than
-// in memory, so a result is refreshable, shareable, and back-navigable — which
-// matters because the match is a pure function of this text.
+// Two ways out of this form, and the difference is honest on its face.
+//
+// "Match from the library" is the shipped behaviour: instant, free, offline,
+// a pure function of the text, and available to everybody. "Generate with AI"
+// costs money and therefore needs an account — so it is the button that asks
+// you to sign in, and declining costs you nothing but the AI copy.
 const MAX_LENGTH = 600;
 
 /** Short enough to be a slip rather than a description. */
@@ -17,21 +23,51 @@ const PLACEHOLDER =
 
 export default function StudioForm({ templateCount }: { templateCount: number }) {
   const [text, setText] = useState('');
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { user, isPending: sessionPending } = useSessionUser();
 
-  const trimmed = text.trim();
+  const trimmed = text.trim().slice(0, MAX_LENGTH);
   const ready = trimmed.length >= MIN_LENGTH;
+
+  // The matcher path needs no server at all: the description travels in the
+  // query string and the results page scores it in the browser.
+  const match = () => router.push(`/studio/results/?q=${encodeURIComponent(trimmed)}`);
+
+  async function generate() {
+    if (!user) {
+      router.push(`/sign-in?next=${encodeURIComponent('/studio')}`);
+      return;
+    }
+
+    setPending(true);
+    setError(null);
+
+    try {
+      const { id } = await apiFetch<{ id: string }>('/api/studio/directions', {
+        method: 'POST',
+        body: JSON.stringify({ description: trimmed }),
+      });
+
+      router.push(`/studio/results/?g=${id}`);
+    } catch (cause) {
+      // The API writes its errors to be read — a quota notice, a rate-limit
+      // notice — so they are shown as-is rather than flattened to "failed".
+      setError(
+        cause instanceof ApiError ? cause.message : 'Something went wrong. Try again.'
+      );
+      setPending(false);
+    }
+  }
 
   return (
     <form
       className={styles.form}
       onSubmit={(event) => {
         event.preventDefault();
-
         if (ready) {
-          router.push(
-            `/studio/results/?q=${encodeURIComponent(trimmed.slice(0, MAX_LENGTH))}`
-          );
+          void generate();
         }
       }}
     >
@@ -54,16 +90,42 @@ export default function StudioForm({ templateCount }: { templateCount: number })
         onChange={(event) => setText(event.target.value)}
       />
 
-      <button type="submit" className={styles.submit} disabled={!ready}>
-        Get three websites
-      </button>
+      {error ? (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
+      ) : null}
 
-      {/* Says plainly where the three come from. Studio matches the library it
-          has rather than drawing something new, and the page should not imply
-          otherwise. */}
+      <div className={styles.actions}>
+        <button type="submit" className={styles.submit} disabled={!ready || pending}>
+          {pending ? 'Generating…' : 'Generate with AI'}
+        </button>
+
+        <button
+          type="button"
+          className={styles.secondary}
+          disabled={!ready || pending}
+          onClick={match}
+        >
+          Match from the library
+        </button>
+      </div>
+
       <p className={styles.note}>
-        Matched against the {templateCount} template sites in the library, on
-        what you describe and the colors you ask for. Nothing is uploaded.
+        {/* Says plainly what each button does and what it costs you. Studio
+            matches a library rather than drawing something new, and the page
+            should not imply otherwise. */}
+        Both search the {templateCount} template sites in the library.{' '}
+        <strong>Match</strong> is instant and needs no account.{' '}
+        <strong>Generate</strong> asks a model to pick three and write the
+        colours and copy, so it needs one
+        {sessionPending || user ? null : (
+          <>
+            {' '}
+            &mdash; <Link href="/sign-up">create one</Link>
+          </>
+        )}
+        . Nothing is uploaded.
       </p>
     </form>
   );
