@@ -41,7 +41,11 @@ const requestSchema = z.object({
   description: z.string().trim().min(10).max(600),
 });
 
-/** Burst gates. The exact ceiling is the D1 ledger; these only smooth spikes. */
+/**
+ * Burst gates: a short window on top of the daily ledger, so a script cannot
+ * spend a whole day's budget in ten seconds. Both are exact — the counter is
+ * one atomic statement (lib/ratelimit.ts).
+ */
 const BURST = {
   directions: { max: 6, windowSeconds: 60 },
   image: { max: 4, windowSeconds: 60 },
@@ -104,16 +108,16 @@ studio.post('/directions', async (c) => {
 
   const { description } = parsed.data;
 
-  const burst = await consume(c.env, {
-    key: `dir:${userId}`,
-    ...BURST.directions,
-  });
+  const db = drizzle(c.env.DB, { schema });
+
+  const burst = await consume(db, { key: `dir:${userId}`, ...BURST.directions });
 
   if (!burst.ok) {
-    return c.json({ error: 'Too fast. Try again in a minute.' }, 429);
+    return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
+      'retry-after': String(burst.retryAfter),
+    });
   }
 
-  const db = drizzle(c.env.DB, { schema });
   const quota = await checkQuota(db, userId, 'directions');
 
   if (!quota.ok) {
@@ -339,10 +343,12 @@ studio.post('/direction-image', async (c) => {
     return c.json({ error: 'Image generation is not configured.' }, 503);
   }
 
-  const burst = await consume(c.env, { key: `img:${userId}`, ...BURST.image });
+  const burst = await consume(db, { key: `img:${userId}`, ...BURST.image });
 
   if (!burst.ok) {
-    return c.json({ error: 'Too fast. Try again in a minute.' }, 429);
+    return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
+      'retry-after': String(burst.retryAfter),
+    });
   }
 
   const quota = await checkQuota(db, userId, 'direction-image');

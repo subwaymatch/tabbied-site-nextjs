@@ -2,15 +2,24 @@
 #
 # Only BETTER_AUTH_SECRET is needed to sign in locally. Everything else has a
 # working local fallback: with no RESEND_API_KEY the verification mail is
-# written to KV instead of sent (read it back with the key printed in the log),
-# and with no AI_API_KEY the Studio endpoints answer from the matcher.
+# written to D1 instead of sent, and with no AI_API_KEY the Studio endpoints
+# answer from the matcher.
+#
+#   npx wrangler d1 execute tabbied --local \
+#     --command "SELECT url FROM dev_mail WHERE email = 'you@example.com'"
+
 
 # openssl rand -base64 32
 BETTER_AUTH_SECRET=dev-secret-change-me-0000000000000000000000
 
-# Marks the environment as local: relaxes the cookie's Secure flag and enables
-# CORS-with-credentials for http://localhost:3000. Never set in production.
+# Marks the environment as local: relaxes the cookie's Secure flag, trusts any
+# loopback origin, and enables CORS-with-credentials for localhost. Never set
+# in production.
 DEV=1
+
+# The origin auth cookies and verification links are issued for. It must match
+# the port you actually browse — a link minted for :8787 and followed on :8790
+# signs you in on the wrong server, and the session you come back with is empty.
 PUBLIC_ORIGIN=http://localhost:8787
 
 # Point at a local OpenAI-shaped stub to exercise generation offline.

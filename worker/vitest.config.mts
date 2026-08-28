@@ -3,7 +3,7 @@ import { cloudflareTest, readD1Migrations } from '@cloudflare/vitest-pool-worker
 import { defineConfig } from 'vitest/config';
 
 // Worker tests run in workerd, against the same bindings production uses — a
-// real (local) D1 with the committed migrations applied, real KV, real R2.
+// real (local) D1 with the committed migrations applied, and a real R2.
 // The AI upstream is the only thing faked, and it is faked per test at the
 // fetch boundary: nothing here ever reaches a paid API.
 const root = path.resolve(import.meta.dirname, '..');

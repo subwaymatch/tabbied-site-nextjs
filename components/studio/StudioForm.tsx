@@ -97,7 +97,15 @@ export default function StudioForm({ templateCount }: { templateCount: number })
       ) : null}
 
       <div className={styles.actions}>
-        <button type="submit" className={styles.submit} disabled={!ready || pending}>
+        {/* Disabled until the session resolves, not merely while generating:
+            `useSession` reports no user while it is still checking, and acting
+            on that sends a signed-in person to the sign-in page for clicking
+            too soon after load. */}
+        <button
+          type="submit"
+          className={styles.submit}
+          disabled={!ready || pending || sessionPending}
+        >
           {pending ? 'Generating…' : 'Generate with AI'}
         </button>
 

@@ -12,7 +12,6 @@ export type Env = {
   ASSETS: { fetch(request: Request | string): Promise<Response> };
 
   DB: D1Database;
-  KV: KVNamespace;
   MEDIA: R2Bucket;
 
   PUBLIC_ORIGIN: string;

@@ -374,7 +374,8 @@ Sans as its fallback.
 
 `worker/` is no longer two routes. `/api` now carries better-auth over **D1**,
 Studio's generation endpoints, and **R2** media, and the site gained
-`/sign-in`, `/sign-up`, `/account`. Everything is still a static export;
+`/sign-in`, `/sign-up`, `/account`. Two datastores, deliberately: D1 for
+everything stateful, R2 for bytes. Everything is still a static export;
 everything stateful is a `fetch` to `/api/*` on the same origin, which is the
 property that makes the session cookie work with no CORS surface at all.
 
@@ -383,15 +384,26 @@ npm run dev            # site on :3000, with NEXT_PUBLIC_API_BASE set
 npm run dev:api        # the Worker on :8787 — run both
 npm run db:migrate     # apply worker/migrations to the local D1
 npm run stub:ai        # a local OpenAI-shaped upstream on :8788
-npm run test:worker    # 30 tests in workerd, over local D1/KV/R2
+npm run test:worker    # 36 tests in workerd, over local D1 and R2
 ```
 
 **No binding declares an id, deliberately.** Wrangler provisions a binding
 whose id is absent and looks one up whose id is present, so a placeholder is
 strictly worse than nothing: it turns "create this for me" into "find
-0000…000f", which fails the deploy with a `10041`. The first deploy proved it
-— R2 has no id field and provisioned cleanly while KV's placeholder killed the
-upload. Local dev and the tests simulate all three either way.
+0000…000f", which fails the deploy with a `10041`. Local dev and the tests
+simulate both bindings either way.
+
+**There is no KV, and that is the second lesson from the same deploy.** It
+briefly held three things — the session cache, the burst counters, and dev
+mail — and none of them needed it. The counters in particular were *wrong*
+there: Workers KV permits one write per second to a key and throws on the
+second, so a client sending two requests in a second (exactly the burst the
+limiter catches) turned the intended 429 into a 500, and with no
+compare-and-set the count could only ever be approximate. In D1 the rollover
+and the increment are one atomic statement, the count is exact, and the table
+cannot grow past one row per user per endpoint. Sessions moved to
+better-auth's `cookieCache`, which beats a second store by removing the lookup
+rather than relocating it.
 
 Provisioning cannot do the schema, so after the first deploy that creates `DB`:
 `npm run db:migrate:remote`, then `wrangler secret put BETTER_AUTH_SECRET`.
@@ -409,12 +421,14 @@ Things worth not re-litigating:
 - **`buildAuth` is a factory**, for the same reason `buildServer` is on the
   MCP side: an isolate is shared across requests, so capturing bindings in a
   module-scope singleton works locally and breaks under concurrency.
-- **KV cannot compare-and-set**, so the `increment` better-auth's
-  `SecondaryStorage` asks to be atomic is not. It under-counts under exactly
-  the burst it catches. That is an accepted trade because nothing that costs
-  money leans on it: the exact ceiling is the D1 usage ledger (`lib/quota.ts`),
-  summed per user, per endpoint, per UTC day. Text and images are capped
+- **Two ceilings, both exact.** `lib/ratelimit.ts` is a short window that stops
+  a script spending a day's budget in ten seconds; `lib/quota.ts` is the daily
+  ledger, summed per user per endpoint per UTC day. Text and images are capped
   separately, because they cost differently by an order of magnitude.
+- **`trustedOrigins` trusts any loopback origin in dev, not a list of ports.**
+  The site is :3000, the Worker :8787, `npm run preview` picks its own and a
+  test harness another again; a hardcoded pair rejects every port it does not
+  name as "Invalid origin", which reads like a bug in the sign-in form.
 - **Secrets are typed optional and each feature degrades on its own.** No
   `AI_API_KEY` and the endpoints answer from the matcher; no `RESEND_API_KEY`
   *in dev* and the verification mail is written to KV instead of sent (which

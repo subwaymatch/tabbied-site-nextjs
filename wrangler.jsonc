@@ -38,9 +38,14 @@
   },
 
   // ---- the platform tier -------------------------------------------------
-  // Identity, generations and media. All three are simulated locally by
+  // Identity, generations and media. Both are simulated locally by
   // `wrangler dev` / the vitest pool, so the whole stack runs and is tested
   // without provisioning anything.
+  //
+  // There is deliberately no KV. Sessions, rate-limit counters and dev mail
+  // were on it; D1 does all three, the counter is atomic there where on KV it
+  // could not be, and one datastore is one less thing a deploy has to
+  // provision. See the "platform tier" section of CLAUDE.md.
   //
   // **None of these declares an id, deliberately.** Wrangler provisions a
   // binding whose id is absent — creating the resource on first deploy and
@@ -67,14 +72,6 @@
     }
   ],
 
-  // Session lookups are a KV read rather than a D1 query (better-auth's
-  // secondaryStorage), and the rate-limit counters live here too — both are
-  // hot, tiny, and expendable, which is exactly what KV is for.
-  "kv_namespaces": [
-    {
-      "binding": "KV"
-    }
-  ],
 
   // Generated images (gen/<generationId>/) and user uploads (up/<userId>/).
   "r2_buckets": [

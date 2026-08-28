@@ -1,5 +1,4 @@
 import { betterAuth } from 'better-auth';
-import type { SecondaryStorage } from '@better-auth/core/db';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { drizzle } from 'drizzle-orm/d1';
 import * as schema from './db/schema';
@@ -14,66 +13,6 @@ import { sendMail } from './lib/mail';
 // local dev, so capturing bindings in a module-scope singleton is a bug that
 // only shows up under concurrency. Construction is cheap — no I/O — and the
 // expensive part (session lookup) is a KV read, not a rebuild.
-
-const SESSION_PREFIX = 'session:';
-
-/**
- * Sessions are read from KV rather than D1 on every authenticated request; D1
- * stays the source of truth and KV is the cache better-auth invalidates for us.
- */
-function kvSecondaryStorage(env: Env): SecondaryStorage {
-  const k = (key: string) => `${SESSION_PREFIX}${key}`;
-
-  return {
-    get: (key) => env.KV.get(k(key)),
-
-    set: async (key, value, ttl) => {
-      await env.KV.put(k(key), value, {
-        // KV rejects a TTL under 60s; better-auth can ask for less on a
-        // short-lived record, and flooring it is harmless (D1 still governs).
-        expirationTtl: ttl ? Math.max(60, ttl) : undefined,
-      });
-    },
-
-    delete: (key) => env.KV.delete(k(key)),
-
-    getAndDelete: async (key) => {
-      const value = await env.KV.get(k(key));
-      if (value !== null) {
-        await env.KV.delete(k(key));
-      }
-      return value;
-    },
-
-    /**
-     * Read-modify-write, and therefore **not** the atomic operation the
-     * interface asks for — Workers KV has no compare-and-set. Two requests
-     * landing in the same instant can read the same count and both write
-     * n+1, so the counter under-counts under exactly the burst it is meant
-     * to catch.
-     *
-     * That is an accepted trade here rather than a bug, because nothing that
-     * costs money relies on it: better-auth's own rate limiting is
-     * defence-in-depth over credential endpoints, and Studio's spend ceiling
-     * is the D1 usage ledger (see lib/quota.ts), which is summed
-     * transactionally and cannot drift. Moving these counters to D1 would buy
-     * exactness for a write on every authenticated request; if that trade
-     * ever flips, this is the one function to move.
-     */
-    increment: async (key, ttl) => {
-      const current = Number((await env.KV.get(k(key))) ?? 0);
-      const next = Number.isFinite(current) ? current + 1 : 1;
-
-      await env.KV.put(k(key), String(next), {
-        // Applied on creation only, per the interface: a window that slid
-        // forward on every hit would never expire under sustained load.
-        expirationTtl: next === 1 ? Math.max(60, ttl) : undefined,
-      });
-
-      return next;
-    },
-  };
-}
 
 function socialProviders(env: Env) {
   const providers: Record<string, { clientId: string; clientSecret: string }> = {};
@@ -108,7 +47,23 @@ export function buildAuth(env: Env) {
     basePath: '/api/auth',
 
     database: drizzleAdapter(db, { provider: 'sqlite', schema }),
-    secondaryStorage: kvSecondaryStorage(env),
+
+    session: {
+      // A signed, short-lived copy of the session in the cookie itself, so the
+      // common case — an authenticated request — costs no database read at
+      // all. Five minutes is the upstream default and the right trade here:
+      // revoking a session takes at most that long to be felt, and the
+      // endpoints that spend money re-check nothing more sensitive than
+      // identity.
+      cookieCache: { enabled: true, maxAge: 5 * 60 },
+    },
+
+    rateLimit: {
+      // The default is an in-memory map, which is per-isolate — a distributed
+      // brute force against the credential endpoints would be counted as a
+      // handful of unrelated attempts. D1 is shared, so it is one count.
+      storage: 'database',
+    },
 
     emailAndPassword: {
       enabled: true,
@@ -149,11 +104,29 @@ export function buildAuth(env: Env) {
       useSecureCookies: !isDev(env),
     },
 
-    // Dev only. In production this list is empty and the origin check falls
-    // back to baseURL, which is the whole point of being same-origin.
-    trustedOrigins: isDev(env)
-      ? ['http://localhost:3000', 'http://localhost:8787']
-      : [],
+    // Dev only, and any loopback origin rather than a list of ports. The site
+    // runs on :3000 while the Worker runs on :8787, `npm run preview` picks its
+    // own, and a test harness picks another again — a hardcoded pair silently
+    // rejects every one it does not name, as "Invalid origin", which reads like
+    // a bug in the form rather than a missing entry here.
+    //
+    // In production this returns nothing and the origin check falls back to
+    // baseURL, which is the whole point of being same-origin.
+    trustedOrigins: (request) => {
+      if (!isDev(env) || !request) {
+        return [];
+      }
+
+      const origin = request.headers.get('origin');
+
+      if (!origin) {
+        return [];
+      }
+
+      const { hostname } = new URL(origin);
+
+      return hostname === 'localhost' || hostname === '127.0.0.1' ? [origin] : [];
+    },
   });
 }
 

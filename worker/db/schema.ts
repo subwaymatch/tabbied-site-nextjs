@@ -76,6 +76,18 @@ export const account = sqliteTable(
   (table) => [index('account_user_id_idx').on(table.userId)]
 );
 
+/**
+ * better-auth's own rate limiting, over its credential endpoints. Storage is
+ * set to 'database' rather than the default in-memory map, which is per-isolate
+ * and so counts a distributed brute force as a handful of separate attempts.
+ */
+export const rateLimit = sqliteTable('rateLimit', {
+  id: text('id').primaryKey(),
+  key: text('key').notNull(),
+  count: integer('count').notNull(),
+  lastRequest: integer('last_request').notNull(),
+});
+
 export const verification = sqliteTable(
   'verification',
   {
@@ -141,6 +153,43 @@ export const aiUsage = sqliteTable(
   },
   (table) => [index('ai_usage_user_created_idx').on(table.userId, table.createdAt)]
 );
+
+/**
+ * Studio's own burst counters, one row per (user, endpoint).
+ *
+ * These were on KV, which was wrong in a way worth recording: KV allows one
+ * write per second to a key and *throws* on the second, so a client sending
+ * two requests in a second — precisely the burst this exists to catch — turned
+ * the intended 429 into a 500. It also has no compare-and-set, so the count
+ * could only ever be approximate.
+ *
+ * In D1 the increment is a single atomic statement (see lib/ratelimit.ts) and
+ * the count is exact. The row set does not grow without bound either: a window
+ * rollover resets the existing row rather than inserting a new one, so this
+ * table holds at most one row per user per endpoint.
+ */
+export const rateWindow = sqliteTable('rate_window', {
+  /** "<endpoint>:<userId>" — the caller composes it. */
+  key: text('key').primaryKey(),
+  count: integer('count').notNull(),
+  /** When the current window ends, as unix seconds. */
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+});
+
+/**
+ * Verification and reset mail in development, where no provider is configured.
+ * Was KV; moved here so the Worker needs one datastore rather than two. Rows
+ * are overwritten per address and are never written in production — the mailer
+ * throws there instead, because a silently swallowed verification strands the
+ * account.
+ */
+export const devMail = sqliteTable('dev_mail', {
+  email: text('email').primaryKey(),
+  subject: text('subject').notNull(),
+  url: text('url').notNull(),
+  body: text('body').notNull(),
+  createdAt: createdAt(),
+});
 
 /** A file in R2 under up/<userId>/<uuid>. The bytes never touch D1. */
 export const upload = sqliteTable(

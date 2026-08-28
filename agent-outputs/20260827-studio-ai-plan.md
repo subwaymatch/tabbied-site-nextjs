@@ -55,8 +55,7 @@ New bindings in `wrangler.jsonc`:
 
 | Binding | Service | Used for |
 |---|---|---|
-| `DB` | D1 | better-auth tables, generations, the AI usage ledger |
-| `KV` | Workers KV | session lookup cache, rate-limit counters |
+| `DB` | D1 | better-auth tables, generations, the usage ledger, rate windows |
 | `MEDIA` | R2 | user uploads and generated images (§7) |
 | vars/secrets | — | `AI_BASE_URL`, `AI_API_KEY`, `AI_MODEL`, `AI_IMAGE_MODEL` |
 
@@ -89,9 +88,13 @@ Playwright API specs run against.
 - **Email/password** with verification required; **social** starts with
   GitHub and Google (least review friction). Providers are
   clientId/secret + callback URL — adding one later is configuration.
-- **`secondaryStorage` on KV** so the per-request session check is a KV
-  read; D1 stays the source of truth. If KV reads ever dominate cost,
-  better-auth's `cookieCache` is the one-line mitigation.
+- **No KV, and no secondary storage.** This originally specified a KV session
+  cache; implementing it showed the binding earning nothing. Sessions use
+  better-auth's `cookieCache` instead — a signed, short-lived copy in the
+  cookie, which removes the lookup rather than moving it to a store the deploy
+  then has to provision. better-auth's own credential rate limiting is set to
+  `storage: 'database'`, because its default in-memory map is per-isolate and
+  would count a distributed brute force as unrelated attempts.
 - Transactional email (verification, reset) via an HTTP email API — Resend
   as default candidate, one `fetch`, swappable behind better-auth's hooks.
   SPF/DKIM on the sending domain is calendar time, not code time — start it
@@ -144,7 +147,7 @@ for "three more" re-rolls.
 
 **Pipeline:**
 
-1. Session → burst limiter (KV) → daily ledger check (§8).
+1. Session → burst limiter → daily ledger check (§8). Both counters are D1.
 2. **Candidate assembly**: run the shared scorer over the studio index and
    take the top 12. The Worker reads the index as a build artifact through
    `env.ASSETS` (`/studio-index.json`, emitted by the same generator pass
@@ -266,9 +269,17 @@ Beyond better-auth's tables, three app tables (Drizzle-defined):
 - **`upload`** — `id`, `userId`, `key`, `contentType`, `bytes`, `note`,
   `createdAt`.
 
-Burst limiting per user and per IP via KV counters, as Hono middleware on
-`/api/studio/*`, `/api/uploads`, and auth's credential endpoints (login
-brute-force).
+Burst limiting per user on `/api/studio/*`, as a `rate_window` row per (user,
+endpoint) incremented by a single atomic statement.
+
+**This was specified as KV counters and that was wrong.** Workers KV permits
+one write per second to a given key and *throws* on the second, so a client
+sending two requests in a second — precisely the burst being limited — made
+the counter throw and the intended 429 surfaced as a 500. KV also has no
+compare-and-set, so the count could only ever be approximate. In D1 the window
+rollover and the increment are one `INSERT … ON CONFLICT DO UPDATE …
+RETURNING`, the count is exact under concurrency, and a rollover updates the
+row in place so the table holds at most one row per user per endpoint.
 
 ## 9. What v1 deliberately does not do
 
@@ -298,7 +309,7 @@ brute-force).
   round-trip through `/api/media/<key>`.
 - **e2e** against `npm run preview` with `AI_BASE_URL` pointed at the stub
   (a `.dev.vars` concern, never a production code path): sign-up → verify
-  (stub mail captured to KV) → generate → three cards render → every
+  (stub mail captured to `dev_mail`) → generate → three cards render → every
   Preview href answers 200 → "Generate imagery" produces an `<img>` served
   from `/api/media/` → the `?g=` link renders identically in a fresh
   context. The existing matcher specs keep running unchanged against
@@ -310,11 +321,13 @@ brute-force).
 
 ## 11. Sequencing
 
-1. **Substrate** — bindings (`DB`, `KV`, `MEDIA`), Drizzle + migrations,
+1. **Substrate** — bindings (`DB`, `MEDIA`), Drizzle + migrations,
    better-auth email/password with verification, sign-in/up/account pages,
    the dev loop, the vitest harness. Paid-plan decision recorded here.
-2. **Ledger + limits** — `aiUsage`, KV burst middleware. Small; everything
-   after assumes it.
+   *(Done. The one surprise: bindings must declare no id, or wrangler looks
+   the placeholder up instead of provisioning the resource.)*
+2. **Ledger + limits** — `aiUsage`, the `rate_window` counter. Small;
+   everything after assumes it.
 3. **Directions end to end** — index asset, candidate assembly, upstream
    client, double validation, palette repair, fallback, `generation`
    storage, `?g=` results path, skeleton loading UI, the e2e loop. *Ship
