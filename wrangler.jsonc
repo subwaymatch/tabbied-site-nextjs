@@ -35,7 +35,66 @@
 
   "observability": {
     "enabled": true
+  },
+
+  // ---- the platform tier -------------------------------------------------
+  // Identity, generations and media. All three are simulated locally by
+  // `wrangler dev` / the vitest pool, so the whole stack runs and is tested
+  // without provisioning anything; the ids below are the only thing a real
+  // deploy needs filled in.
+  //
+  //   wrangler d1 create tabbied      → paste database_id
+  //   wrangler kv namespace create SESSIONS → paste id
+  //   wrangler r2 bucket create tabbied-media
+  //
+  // Then apply migrations before the first deploy that uses them:
+  //   wrangler d1 migrations apply tabbied --remote
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tabbied",
+      // PLACEHOLDER: local dev and tests ignore this; `wrangler deploy` does not.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+
+  // Session lookups are a KV read rather than a D1 query (better-auth's
+  // secondaryStorage), and the rate-limit counters live here too — both are
+  // hot, tiny, and expendable, which is exactly what KV is for.
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      // PLACEHOLDER, as above.
+      "id": "0000000000000000000000000000000f"
+    }
+  ],
+
+  // Generated images (gen/<generationId>/) and user uploads (up/<userId>/).
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "tabbied-media"
+    }
+  ],
+
+  "vars": {
+    // The public origin the auth cookies and OAuth callbacks are issued for.
+    // Overridden per environment; the workers.dev host until the zone moves.
+    "PUBLIC_ORIGIN": "https://tabbied.com",
+    // An OpenAI-compatible base. Cloudflare AI Gateway in front of it is a
+    // change to this value and nothing else.
+    "AI_BASE_URL": "https://api.openai.com/v1",
+    "AI_MODEL": "gpt-5",
+    // gpt-image-2 emits real alpha (background: "transparent"), which is why
+    // there is no second vendor here; see docs/image-pipeline.md.
+    "AI_IMAGE_MODEL": "gpt-image-2"
   }
+
+  // Secrets (never in this file): AI_API_KEY, BETTER_AUTH_SECRET, RESEND_API_KEY,
+  // TURNSTILE_SECRET_KEY, GITHUB_CLIENT_ID/SECRET, GOOGLE_CLIENT_ID/SECRET.
+  // Locally they live in .dev.vars (gitignored); in production,
+  // `wrangler secret put <NAME>`.
 
   // Custom domain, deliberately not declared here yet. Until tabbied.com is a
   // zone in this Cloudflare account, a `routes` entry makes `wrangler deploy`

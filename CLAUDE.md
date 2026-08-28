@@ -22,6 +22,11 @@ npm run build && npm run test:e2e    # static export + Playwright suite
 npm run preview                      # run the real Worker over out/ (wrangler dev)
 npm run deploy                       # build, then wrangler deploy
 npm run typecheck:worker             # worker/ is excluded from the site tsconfig
+npm run dev:api                      # the Worker on :8787 (the API half of `npm run dev`)
+npm run db:migrate                   # apply worker/migrations to the local D1
+npm run db:generate                  # re-emit them from worker/db/schema.ts
+npm run stub:ai                      # a local OpenAI-shaped upstream on :8788
+npm run test:worker                  # Worker unit tests (local D1/KV/R2, stub upstream)
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run editable [slug]              # derive editable specs from out/ (also the gate)

@@ -32,7 +32,13 @@
 // it from the SDK avoids pulling partyserver, esbuild, and babel into a Worker
 // that wants none of them.
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 import { createMcpHandler } from '@modelcontextprotocol/server';
+import { buildAuth } from './auth';
+import type { Env } from './env';
+import { isDev } from './env';
+import media from './routes/media';
+import studio from './routes/studio';
 import {
   buildServer,
   catalogTools,
@@ -42,9 +48,7 @@ import {
   type TemplateSpec,
 } from 'tabbied-mcp';
 
-export type Env = {
-  ASSETS: { fetch(request: Request | string): Promise<Response> };
-};
+export type { Env } from './env';
 
 // Isolates are reused across requests, so a cold read of the catalog is paid
 // once per isolate rather than once per request. Cached as the promise so
@@ -187,17 +191,54 @@ app.onError((error, c) => {
 app.get('/health', (c) => c.text('ok'));
 
 // ---- the platform tier ----------------------------------------------------
-// Scaffolding only: the routes that need identity and an AI upstream land with
-// the bindings they depend on (D1, KV, R2, secrets). What exists now is the
-// seam — a mounted sub-app, reachable through `run_worker_first`, with a probe
-// that proves the wiring end to end.
+// Identity, Studio's generation endpoints, and R2 media. Everything here is
+// same-origin with the site in production, which is the property that makes the
+// session cookie work with no CORS surface at all.
 const api = new Hono<{ Bindings: Env }>();
+
+// Dev only, and narrowly: `next dev` serves the site from :3000 while the
+// Worker runs on :8787, so the daily loop is cross-origin even though
+// production never is. Production ships no CORS headers — the absence is the
+// security property, so this must stay behind the flag.
+api.use('*', async (c, next) => {
+  if (!isDev(c.env)) {
+    return next();
+  }
+
+  return cors({
+    origin: ['http://localhost:3000', 'http://localhost:8787'],
+    credentials: true,
+    allowHeaders: ['content-type'],
+  })(c, next);
+});
 
 api.get('/health', (c) =>
   c.json({ status: 'ok', service: 'tabbied-api', version: 1 })
 );
 
-api.notFound((c) => c.json({ error: 'Not found' }, 404));
+// better-auth owns everything under this prefix: sign-up, sign-in, callbacks,
+// verification, session. Handing it the raw Request keeps us out of the way of
+// its cookie and redirect handling.
+// `all` rather than an explicit method list: better-auth answers GET, POST and
+// the OPTIONS preflight the dev-only CORS layer above generates, and it returns
+// its own 404 for anything it does not own.
+api.all('/auth/*', async (c) => {
+  if (!c.env.BETTER_AUTH_SECRET) {
+    // Unconfigured is a 503, not a 500: the site is fine, this tier is not up.
+    return c.json({ error: 'Authentication is not configured.' }, 503);
+  }
+
+  return buildAuth(c.env).handler(c.req.raw);
+});
+
+api.route('/studio', studio);
+api.route('/media', media);
+
+// A miss under /api is JSON, never the site's 404 page. This is `all('*')`
+// rather than `notFound()` because a sub-app's notFound handler is not used
+// once it is mounted with `route()` — the request would fall through to the
+// asset handler below and answer an API client with HTML.
+api.all('*', (c) => c.json({ error: 'Not found' }, 404));
 
 app.route('/api', api);
 

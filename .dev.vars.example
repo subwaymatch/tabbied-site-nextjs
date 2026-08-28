@@ -1,0 +1,25 @@
+# Copy to .dev.vars (gitignored) for `npm run dev` / `npm run preview`.
+#
+# Only BETTER_AUTH_SECRET is needed to sign in locally. Everything else has a
+# working local fallback: with no RESEND_API_KEY the verification mail is
+# written to KV instead of sent (read it back with the key printed in the log),
+# and with no AI_API_KEY the Studio endpoints answer from the matcher.
+
+# openssl rand -base64 32
+BETTER_AUTH_SECRET=dev-secret-change-me-0000000000000000000000
+
+# Marks the environment as local: relaxes the cookie's Secure flag and enables
+# CORS-with-credentials for http://localhost:3000. Never set in production.
+DEV=1
+PUBLIC_ORIGIN=http://localhost:8787
+
+# Point at a local OpenAI-shaped stub to exercise generation offline.
+# AI_BASE_URL=http://localhost:8788/v1
+# AI_API_KEY=stub
+
+# RESEND_API_KEY=
+# TURNSTILE_SECRET_KEY=
+# GITHUB_CLIENT_ID=
+# GITHUB_CLIENT_SECRET=
+# GOOGLE_CLIENT_ID=
+# GOOGLE_CLIENT_SECRET=
