@@ -3,8 +3,9 @@
 // The static export is the source of truth: `next build` already renders every
 // template page to complete HTML, so a template is derived from that rather
 // than hand-ported. A hand-port is four artefacts per site to keep in step,
-// and within two edits the download and the live site disagree — see
-// agent-outputs/template-packaging-plan.md §1.
+// and within two edits the download and the live site disagree — which is why
+// this whole file reads out/ instead of any source tree (see the
+// "Downloadable templates" section of CLAUDE.md).
 //
 // What comes out is a folder somebody can open from the filesystem and edit:
 //
@@ -57,7 +58,7 @@ const KNOWN_UNSUPPORTED = new Map();
 // step is the one part of the build whose output nothing else validates.
 //
 // Deriving the download from the export is supposed to assume nothing about
-// the host (see agent-outputs/template-packaging-plan.md), and a binary on
+// the host, and a binary on
 // PATH is an assumption. fflate is a zero-dependency deflate/zip
 // implementation, so the archive is written by the same Node that walked the
 // tree and there is no host tool left to be missing.

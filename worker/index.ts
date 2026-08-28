@@ -13,7 +13,7 @@
 //
 // Routing is Hono's rather than a chain of `if (pathname === …)`. That was the
 // right shape for two routes and the wrong one for twenty: the platform work
-// (see agent-outputs/platform-auth-ai-plan.md) adds an authenticated API whose
+// (see agent-outputs/20260827-studio-ai-plan.md) adds an authenticated API whose
 // session extraction, rate limiting, and error shaping all want one place to
 // live. Nothing about the two existing endpoints changes — same handlers, same
 // statelessness, same fallthrough.

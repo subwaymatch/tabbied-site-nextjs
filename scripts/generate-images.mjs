@@ -121,6 +121,11 @@ const outputExt = (opts) => (opts.outputFormat === "jpeg" ? "jpg" : opts.outputF
 
 function requestBody(e, opts, model) {
   const body = { model, prompt: e.prompt, size: sizeOf(e, opts), quality: qualityOf(e, opts), n: 1 };
+  // Cut-outs are generated with a real alpha channel: gpt-image-2 honors
+  // background:"transparent" now (it used to 400 on it), which is what retired
+  // the separate background-removal vendor. Transparency needs an alpha-capable
+  // output format — png (the default) or webp. See docs/image-pipeline.md.
+  if (e.cutout) body.background = "transparent";
   if (opts.outputFormat !== "png") body.output_format = opts.outputFormat;
   return body;
 }

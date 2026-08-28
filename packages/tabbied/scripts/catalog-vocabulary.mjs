@@ -1,8 +1,8 @@
 // The controlled vocabulary for the catalog's design metadata.
 //
 // Agents filter reliably on enums and unreliably on prose — that is the whole
-// reason these fields exist (see agent-outputs/audit-2026-08.md). So the
-// vocabulary is closed: codegen fails on a value not listed here, and
+// reason these fields exist. So the vocabulary is closed: codegen fails on a
+// value not listed here, and
 // test/catalog.test.mjs pins every published entry against these sets. Add a
 // term only when several designs genuinely need it, and never rename one
 // casually — published catalogs are queried by these exact strings.

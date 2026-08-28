@@ -6,10 +6,17 @@
  * Promotion follows the `cutout` flag:
  *   cutout: false → commits <id>.webp            (a scene, served full-bleed)
  *   cutout: true  → commits <id>-cutout.webp     (an object, placed on a pattern)
- * Pass --keep-original to also commit the opaque original of a cut-out image.
  *
- * A cutout:true prompt with no cut-out on disk is an ERROR, not a silent skip: that
- * combination is what leaves a page serving a stale image after a regeneration.
+ * Cut-outs come straight from generation now — gpt-image-2 emits a real alpha
+ * channel (background:"transparent"), so <id>.png IS the cut-out and is promoted
+ * under the -cutout name (the committed filename contract does not move). A
+ * legacy <id>-cutout.png from the retired background-removal pass wins when
+ * present, so re-promoting an old project can't regress to its opaque original;
+ * --keep-original only means anything in that legacy layout.
+ *
+ * A cutout:true prompt with no candidate on disk is an ERROR, not a silent skip:
+ * that combination is what leaves a page serving a stale image after a
+ * regeneration. So is a native cut-out source with no transparent pixels.
  *
  * Why WebP, and why this writes the served file directly: a 1536x1024 image is ~1.4 MB
  * as PNG and ~130 kB as WebP. And routing it through a second encoder later is a double
@@ -26,7 +33,7 @@
  *   --only <id[,id..]> Only these prompt ids
  *   --from <dir>      Candidate directory (default: ./generated-images)
  *   --quality <n>     WebP quality of the served image (default: 92)
- *   --keep-original   Also promote the opaque original of a cut-out image
+ *   --keep-original   Legacy layouts only: also promote the opaque original beside a cut-out
  *   --no-build        Skip the manifest rebuild afterwards
  *   --dry-run         Report what would be promoted; write nothing
  *   -h, --help        Show this help
@@ -82,29 +89,38 @@ export async function toWebp(buf, quality) {
   return sharp(buf).webp({ quality, alphaQuality: 100, effort: 6 }).toBuffer();
 }
 
-/** The candidate files to promote for one resolved prompt, or null with a reason. */
+/** The promote jobs for one resolved prompt ({src, out} stems), or an error. */
 function plan(r, opts) {
   const src = (stem) => join(opts.from, `${stem}.png`);
   if (!r.cutout) {
     return existsSync(src(r.id))
-      ? { stems: [r.id] }
+      ? { jobs: [{ src: r.id, out: r.id }] }
       : { error: `no ${r.id}.png in ${opts.from}` };
   }
   const cutStem = `${r.id}${CUTOUT_SUFFIX}`;
-  if (!existsSync(src(cutStem))) {
+  // Generation returns the cut-out directly (background:"transparent"), so the
+  // original IS the cut-out. A legacy <id>-cutout.png beside it is output from
+  // the retired removal pass and takes precedence — its sibling <id>.png is the
+  // OPAQUE original in that layout, and promoting it as the cut-out would ship
+  // an un-cut image under the -cutout name.
+  const legacy = existsSync(src(cutStem));
+  const native = existsSync(src(r.id));
+  if (!legacy && !native) {
     const stale = existsSync(join(OUT_DIR, `${cutStem}.webp`));
     return {
       error:
-        `cutout:true but no ${cutStem}.png in ${opts.from}.` +
+        `cutout:true but neither ${cutStem}.png nor ${r.id}.png in ${opts.from}.` +
         (stale
           ? `\n    public/images/sites/${cutStem}.webp already exists, so the site will KEEP SERVING THE OLD IMAGE.`
           : "") +
-        `\n    Run: node scripts/remove-background.mjs --only ${r.id}`,
+        `\n    Regenerate: node scripts/generate-images.mjs submit --only ${r.id} --force`,
     };
   }
-  const stems = [cutStem];
-  if (opts.keepOriginal && existsSync(src(r.id))) stems.push(r.id);
-  return { stems };
+  // requireAlpha guards the native path: an opaque PNG promoted under the
+  // -cutout name is exactly the silent failure this script exists to refuse.
+  const jobs = [{ src: legacy ? cutStem : r.id, out: cutStem, requireAlpha: !legacy }];
+  if (opts.keepOriginal && legacy && native) jobs.push({ src: r.id, out: r.id });
+  return { jobs };
 }
 
 async function main() {
@@ -116,29 +132,41 @@ async function main() {
   const selected = selectPrompts(data, { only: opts.only, project: opts.project });
   if (!selected.length) { console.error("No prompts matched the filters."); process.exit(1); }
 
-  const stems = [];
+  const jobs = [];
   let errors = 0;
   for (const r of selected) {
     const p = plan(r, opts);
     if (p.error) { errors++; console.error(`  ✗ ${r.id}: ${p.error}`); continue; }
-    stems.push(...p.stems);
+    jobs.push(...p.jobs);
   }
-  if (!stems.length) { console.error("\nNothing to promote."); process.exit(1); }
+  if (!jobs.length) { console.error("\nNothing to promote."); process.exit(1); }
 
   console.log(
-    `\nPromoting ${stems.length} image(s) from ${opts.from} → public/images/sites ` +
+    `\nPromoting ${jobs.length} image(s) from ${opts.from} → public/images/sites ` +
       `(webp q${opts.quality})${opts.dryRun ? " [dry-run]" : ""}\n`,
   );
   if (!opts.dryRun) mkdirSync(OUT_DIR, { recursive: true });
 
   let promoted = 0, before = 0, after = 0;
-  for (const stem of stems) {
-    const raw = readFileSync(join(opts.from, `${stem}.png`));
+  for (const job of jobs) {
+    const raw = readFileSync(join(opts.from, `${job.src}.png`));
+    if (job.requireAlpha) {
+      const alpha = (await sharp(raw).stats()).channels[3];
+      if (!alpha || alpha.min === 255) {
+        errors++;
+        console.error(
+          `  ✗ ${job.out}: ${job.src}.png has no transparent pixels — a cut-out generated ` +
+            `before native alpha, or a failed transparency request. Regenerate it ` +
+            `(cutout prompts send background:"transparent").`,
+        );
+        continue;
+      }
+    }
     const webp = await toWebp(raw, opts.quality);
     before += raw.length; after += webp.length;
-    if (!opts.dryRun) writeFileSync(join(OUT_DIR, `${stem}.webp`), webp);
+    if (!opts.dryRun) writeFileSync(join(OUT_DIR, `${job.out}.webp`), webp);
     promoted++;
-    console.log(`  ✓ ${stem}.webp  ${(raw.length / 1e6).toFixed(2)}MB → ${(webp.length / 1e6).toFixed(2)}MB`);
+    console.log(`  ✓ ${job.out}.webp  ${(raw.length / 1e6).toFixed(2)}MB → ${(webp.length / 1e6).toFixed(2)}MB`);
   }
   console.log(
     `\n${promoted} promoted · ${(before / 1e6).toFixed(1)}MB → ${(after / 1e6).toFixed(1)}MB ` +

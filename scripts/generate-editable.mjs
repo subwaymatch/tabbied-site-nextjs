@@ -3,8 +3,8 @@
 //
 // Everything here is read out of out/template/<slug>/index.html — the current
 // text, the image sources, the pattern configuration, the brand palette. That
-// is the same doctrine as the download packager (see
-// agent-outputs/template-packaging-plan.md): the spec is generated from the
+// is the same doctrine as the download packager (see the "Downloadable
+// templates" section of CLAUDE.md): the spec is generated from the
 // bytes that shipped, so it cannot describe a page that no longer exists.
 // Hand-writing any of it would reintroduce exactly the drift the packager was
 // built to avoid.

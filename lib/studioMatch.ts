@@ -11,7 +11,7 @@
 // lib/studioDirections.ts) instead of importing the catalog: the vocabulary for
 // 57 sites is a few kilobytes, the catalog is 384 KB.
 //
-// When the AI gateway in agent-outputs/platform-auth-ai-plan.md lands, it
+// When the AI gateway in agent-outputs/20260827-studio-ai-plan.md lands, it
 // replaces `matchDirections` and nothing above it has to change.
 
 /** One template site, reduced to what matching and the result card need. */

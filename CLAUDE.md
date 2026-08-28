@@ -68,8 +68,8 @@ The Worker routes with Hono (`worker/index.ts`). That was added for the
 platform tier — the right shape for two routes was the wrong one for twenty —
 and it changed no behaviour: same MCP handler, same statelessness, same
 `env.ASSETS` fallthrough. `/api` is scaffolding today (`/api/health` and a
-JSON 404); auth, projects, and the AI gateway land with the bindings they need.
-See `agent-outputs/platform-auth-ai-plan.md`.
+JSON 404); auth, generations, media, and the AI gateway land with the bindings
+they need. See `agent-outputs/20260827-studio-ai-plan.md`.
 
 The export is comfortably inside the platform limits — roughly 4,300 files
 against a 20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but
@@ -145,7 +145,8 @@ and that shape is forced by both ends of the problem:
 
 - The packager *reads* the export, so it can only run after a build. It has no
   framework-free source to copy from — deriving from the export is the whole
-  strategy (see `agent-outputs/template-packaging-plan.md`).
+  strategy: a hand-port is four artefacts per site to keep in step, and within
+  two edits the download and the live site disagree.
 - The deploy has to *ship* what it writes, and the host decides when it stops
   looking. This shape was forced by Vercel, where writing into `out/` after the
   build was too late: the Next.js builder patched the config ("Applying
@@ -191,8 +192,8 @@ naming a slug repackages just that one in place.
 The two formats are built in opposite directions, and that is the point:
 
 - **HTML is derived from the export**, because there is no framework-free
-  source to copy — hand-porting is the trap the strategy doc rejects (see
-  `agent-outputs/template-packaging-plan.md`).
+  source to copy — hand-porting is the trap the derive-don't-port strategy
+  above exists to avoid.
 - **React is a copy of the page**, because a template page already *is* a plain
   React component. The only Next.js API any of the 57 uses is `export const
   metadata`; there is no next/image, next/link, `'use client'` or
@@ -369,7 +370,7 @@ Sans as its fallback.
 `/studio` takes a description of a business and `/studio/results` answers with
 three template sites. The design it was built from describes an AI feature; the
 Worker has no AI binding, no D1 and no auth (see
-`agent-outputs/platform-auth-ai-plan.md` — that tier is a plan, not code), so
+`agent-outputs/20260827-studio-ai-plan.md` — that tier is a plan, not code), so
 Studio answers with what the repo actually has: 57 finished template sites, each
 on one of the 295 patterns and one of the 437 palettes, each with a real page
 and a real zip.

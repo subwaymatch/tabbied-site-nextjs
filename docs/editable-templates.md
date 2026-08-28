@@ -5,9 +5,10 @@ that lets somebody change the *brand* in one — the words, the photographs, the
 colours, the pattern fields — without understanding the page, and without
 being able to break its layout.
 
-Three parties use the same contract: a person in the site builder, a coding
-agent holding a downloaded zip, and the branding service. Strategy and
-roadmap: `agent-outputs/editable-templates-plan.md`.
+Three parties use the same contract: a person in a template editor, a coding
+agent holding a downloaded zip, and Studio's generation tier
+(`agent-outputs/20260827-studio-ai-plan.md`, which is also where the roadmap
+for consuming this machinery now lives).
 
 ## The three pieces
 
