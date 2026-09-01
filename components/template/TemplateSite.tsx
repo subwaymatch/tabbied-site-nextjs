@@ -180,7 +180,7 @@ function Section({ k, site, patterns, content, sec }: Ctx & { k: SectionKey }) {
 function Nav({ site }: { site: Site }) {
   return (
     <nav className={s.nav}>
-      <a className={s.logo} href="#" data-edit="brand.name" data-edit-max="24">{site.brand}</a>
+      <a className={s.logo} href="#" data-edit="brand.name" data-edit-copy="brandName" data-edit-max="24">{site.brand}</a>
       <ul className={s.navLinks}>
         {site.nav.map((n, i) => (
           <li key={n}><a href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a></li>
@@ -561,11 +561,11 @@ function Footer({ site }: { site: Site }) {
   return (
     <footer className={s.footer}>
       <div className={s.footTop}>
-        <span className={s.logo} data-edit="brand.name" data-edit-max="24">{site.brand}</span>
+        <span className={s.logo} data-edit="brand.name" data-edit-copy="brandName" data-edit-max="24">{site.brand}</span>
         <nav className={s.footNav}>{site.nav.map((n, i) => <a key={n} href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a>)}</nav>
       </div>
       <div className={s.footBottom}>
-        <span>© 2026 <span data-edit="brand.name" data-edit-max="24">{site.brand}</span>. All rights reserved.</span>
+        <span>© 2026 <span data-edit="brand.name" data-edit-copy="brandName" data-edit-max="24">{site.brand}</span>. All rights reserved.</span>
         <span>{site.patterns.length} Tabbied patterns ({site.patterns.join(' · ')}) via the React component, {site.paletteName} palette.</span>
       </div>
     </footer>
@@ -580,8 +580,8 @@ function SplitHero({ site, patterns, heroImage, overlay }: HeroProps) {
       <header className={`${s.splitHero}${site.reverse ? ` ${s.reverse}` : ''}`}>
         <div className={s.splitCopy}>
           <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
-          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
-          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
+          <h1 data-edit="hero.title" data-edit-copy="headline" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-copy="tagline" data-edit-multiline data-edit-max="200">{site.lede}</p>
           <CtaRow site={site} />
         </div>
         <div className={s.splitArt} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
@@ -634,8 +634,8 @@ function SpotlightHero({ site, patterns, heroImage, overlay }: HeroProps) {
         <div className={s.spotScrim} />
         <div className={s.spotInner}>
           <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
-          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
-          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
+          <h1 data-edit="hero.title" data-edit-copy="headline" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-copy="tagline" data-edit-multiline data-edit-max="200">{site.lede}</p>
           <CtaRow site={site} center />
         </div>
       </header>
@@ -656,7 +656,7 @@ function EditorialHero({ site, patterns, heroImage, overlay }: HeroProps) {
   return (
     <>
       <div className={s.edMast}><span>Vol. IV · No. 12</span><a className={s.navCta} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a></div>
-      <div className={s.edTitleRow}><h1 data-edit="brand.name" data-edit-max="24">{site.brand}</h1><p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p></div>
+      <div className={s.edTitleRow}><h1 data-edit="brand.name" data-edit-copy="brandName" data-edit-max="24">{site.brand}</h1><p className={s.lede} data-edit="hero.lede" data-edit-copy="tagline" data-edit-multiline data-edit-max="200">{site.lede}</p></div>
       <nav className={s.edNav}>{site.nav.map((n, i) => <a key={n} href="#" data-edit={`nav.${i}`} data-edit-max="18">{n}</a>)}</nav>
       <div className={s.edCover} data-edit-pattern="hero.field" data-edit-roles={heroImage ? overlayRoles(site) : fullRoles(site)}>
         <HeroArt site={site} patterns={patterns} heroImage={heroImage} overlay={overlay} />
@@ -679,8 +679,8 @@ function BoutiqueHero({ site, patterns, heroImage, overlay }: HeroProps) {
         <div className={s.boutScrim} />
         <div className={s.boutInner}>
           <div className={s.eyebrow} data-edit="hero.eyebrow" data-edit-max="28">{site.eyebrow}</div>
-          <h1 data-edit="hero.title" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
-          <p className={s.lede} data-edit="hero.lede" data-edit-multiline data-edit-max="200">{site.lede}</p>
+          <h1 data-edit="hero.title" data-edit-copy="headline" data-edit-format="emphasis" data-edit-max="70">{renderTitle(site.title)}</h1>
+          <p className={s.lede} data-edit="hero.lede" data-edit-copy="tagline" data-edit-multiline data-edit-max="200">{site.lede}</p>
           <a className={s.boutBtn} href="#" data-edit="cta.primary" data-edit-max="20">{site.primaryCta}</a>
         </div>
       </header>

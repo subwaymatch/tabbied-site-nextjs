@@ -67,6 +67,15 @@ export type SlotKind = 'text' | 'image' | 'pattern';
  */
 export type TextFormat = 'plain' | 'emphasis';
 
+/**
+ * The piece of standard brand copy a text slot holds.
+ *
+ * Slot ids are local to the page that declares them, so they are no use to a
+ * caller holding three strings and no knowledge of which template it is
+ * addressing. A role is the stable name across all of them. See brand.ts.
+ */
+export type CopyRole = 'brandName' | 'headline' | 'tagline';
+
 export type TextSlot = {
   id: string;
   kind: 'text';
@@ -83,6 +92,12 @@ export type TextSlot = {
   maxChars?: number;
   /** Renders as a textarea rather than an input. */
   multiline?: boolean;
+  /**
+   * Which piece of standard brand copy this slot holds, when it holds one.
+   * Set from `data-edit-copy` in the markup; absent on the great majority of
+   * slots, which are page-specific prose rather than brand copy.
+   */
+  role?: CopyRole;
   /**
    * The class the `<em>` accent carries on this page, captured at generate
    * time. Class names are hashed in the export and rewritten in the download
