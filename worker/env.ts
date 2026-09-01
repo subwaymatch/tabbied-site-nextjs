@@ -22,10 +22,11 @@ export type Env = {
   /**
    * Sent as `reasoning.effort` on every Responses call, and omitted entirely
    * when unset — a non-reasoning model, and some OpenAI-compatible servers,
-   * reject the field. `minimal` keeps the thinking budget small enough that
-   * `max_output_tokens` is spent on the document rather than on reasoning.
+   * reject the field. The rungs are the GPT-5.6 family's: `none` is what
+   * GPT-5 spelled `minimal`, and either way the bottom of the ladder is what
+   * keeps `max_output_tokens` spent on the document rather than on reasoning.
    */
-  AI_REASONING_EFFORT?: 'minimal' | 'low' | 'medium' | 'high';
+  AI_REASONING_EFFORT?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
 
   BETTER_AUTH_SECRET?: string;
   AI_API_KEY?: string;

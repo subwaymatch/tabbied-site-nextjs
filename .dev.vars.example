@@ -30,7 +30,8 @@ PUBLIC_ORIGIN=http://localhost:8787
 
 # Sent as reasoning.effort on every Responses call, and omitted when unset.
 # The stub ignores it; against a real reasoning model it decides how much of
-# max_output_tokens is spent thinking rather than answering.
+# max_output_tokens is spent thinking rather than answering. gpt-5.6-luna
+# takes none | low | medium | high | xhigh | max.
 # AI_REASONING_EFFORT=low
 
 # RESEND_API_KEY=

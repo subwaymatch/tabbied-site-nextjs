@@ -90,11 +90,18 @@
     // retry and for revisions. Cloudflare AI Gateway in front of it is a
     // change to this value and nothing else.
     "AI_BASE_URL": "https://api.openai.com/v1",
-    "AI_MODEL": "gpt-5",
+    // GPT-5.6's budget tier. Studio's one text call is a small structured
+    // answer chosen from a candidate list the Worker assembles and scores, so
+    // what it needs is a model that follows a strict schema cheaply, not a
+    // frontier one; the slug enum, the repair retry and the matcher fallback
+    // all sit behind it either way.
+    "AI_MODEL": "gpt-5.6-luna",
     // Reasoning tokens are billed and capped as *output* tokens, so effort and
     // max_output_tokens trade against each other: at high effort the budget can
-    // be spent thinking before any document is emitted. Omit this var entirely
-    // for a non-reasoning model — some upstreams reject the field.
+    // be spent thinking before any document is emitted. The 5.6 ladder is
+    // none | low | medium | high | xhigh | max — "minimal" was the GPT-5
+    // spelling of the bottom rung and this family rejects it. Omit this var
+    // entirely for a non-reasoning model — some upstreams reject the field.
     "AI_REASONING_EFFORT": "low",
     // gpt-image-2 emits real alpha (background: "transparent"), which is why
     // there is no second vendor here; see docs/image-pipeline.md.
