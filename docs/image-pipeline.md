@@ -1,28 +1,27 @@
-# Template imagery: GPT Image 2 (low) → Kie/Recraft cut-outs → committed WebP
+# Template imagery: GPT Image 2 (native alpha) → committed WebP
 
 How the imagery on the `/template/…` sites is produced, reviewed, and
 committed. This documents the pipeline as implemented in this repo; the
-scripts live at the repo root under `scripts/`, and are independent of the
-older `scripts/images/` pipeline that feeds the `/samples` sites.
+scripts live at the repo root under `scripts/`. (The older `scripts/images/`
+pipeline is retired — see its README — and **image generation uses the GPT
+Image 2 API exclusively**, including transparency: `gpt-image-2` now honors
+`background: "transparent"`, which removed the separate Kie.ai
+background-removal vendor this pipeline used to need.)
 
 ```
   data/image-prompts.json        ← 1. author the PROJECT (palette + style), then its prompts
             │
-            ▼  scripts/generate-images.mjs      (OpenAI Batch API, gpt-image-2, quality: low)
-  generated-images/<id>.png      ← 2. candidates, gitignored, local scratch
-            │
-            ├──────────────── cutout: false ───────────────┐   (a scene: hero photo,
-            │                                              │    interior, landscape)
-            ▼  scripts/remove-background.mjs               │
-  generated-images/<id>-cutout.png  ← 3. only for cutout: true
-            │    (an object: product, portrait, prop)      │
-            ▼                                              ▼
-            └──────────► scripts/promote-images.mjs  (sharp → WebP q92)
-  public/images/sites/<id>[-cutout].webp ← 4. COMMITTED. This file IS what browsers download.
+            ▼  scripts/generate-images.mjs      (OpenAI Batch API, gpt-image-2, quality: low;
+            │                                    cutout: true adds background: "transparent")
+  generated-images/<id>.png      ← 2. candidates, gitignored, local scratch —
+            │                         cut-outs arrive with a real alpha channel
+            ▼  scripts/promote-images.mjs       (sharp → WebP q92; verifies a cut-out
+            │                                    actually has transparent pixels)
+  public/images/sites/<id>[-cutout].webp ← 3. COMMITTED. This file IS what browsers download.
   lib/generated/images.js                ←    manifest: slug → {hash, width, height}
             │
             ▼
-  <Figure slug="…" />               ← 5. components/Figure.tsx, composited over a Tabbied pattern
+  <Figure slug="…" />               ← 4. components/Figure.tsx, composited over a Tabbied pattern
 ```
 
 Two properties define the pipeline:
@@ -30,17 +29,19 @@ Two properties define the pipeline:
 - **An image is encoded exactly once and exists in git exactly once.** The
   promoted WebP is the served byte stream — no build-time re-encode, no source
   copy, no second lossy pass.
-- **Background removal is per-image, not global.** Whether an image gets a
-  cut-out is a property of the *prompt*, declared in the JSON, and it drives
-  every downstream step: selection for removal, which variant gets promoted,
-  and the error when a cut-out is missing.
+- **Transparency is per-image, not global.** Whether an image is a cut-out is
+  a property of the *prompt*, declared in the JSON, and it drives every
+  downstream step: the `background: "transparent"` request parameter, the
+  alpha check at promotion, which filename gets committed, and the error when
+  a cut-out candidate is missing or opaque.
 
 ## Prerequisites
 
 | Variable | Used by | Where to get it |
 |---|---|---|
 | `OPENAI_API_KEY` | generation | platform.openai.com |
-| `KIE_API_KEY` | background removal | kie.ai |
+
+That is the whole list — one vendor, one key.
 
 `generated-images/` is gitignored — only the promoted
 `public/images/sites/*.webp` and the manifest are committed.
@@ -77,12 +78,12 @@ Rules that keep the results usable:
 - `cutout: true` for an **object** (product, portrait, prop) — something with
   a silhouette that will sit *on* a Tabbied pattern. `cutout: false` for a
   **scene** — cut out a scene and you get ragged edges or a ghost.
-- Every cut-out prompt inherits a `backdrop` sentence: plain, **neutral**
-  light-grey seamless, evenly lit, nothing else in frame. Never a palette
-  colour (matting leaves a fringe of backdrop in the edge pixels — neutral
-  grey reads as a soft edge, a saturated colour reads as an outline), and
-  **never a drop shadow** (it gets stripped or survives as a grey blob — the
-  shadow is CSS at composite time).
+- A cut-out prompt describes **the subject alone** — nothing else in frame.
+  The `background: "transparent"` parameter does the isolation; do not ask
+  for transparency in the prose (that paints a fake checkerboard) and do not
+  describe a backdrop for it to sit on. **Never a drop shadow**: it survives
+  as baked semi-transparent smudge in the alpha edge — the shadow is CSS at
+  composite time.
 - `"No text, letters, numbers, or logos."` is appended to every prompt by
   default (`noText`). The model bakes garbled lettering otherwise; brand
   names, labels and headlines belong in the DOM, over the image.
@@ -114,45 +115,47 @@ node scripts/generate-images.mjs submit --project neve-gelato
 node scripts/generate-images.mjs status          # repeat until "completed"
 node scripts/generate-images.mjs download
 
-# 3. background removal — reads the JSON, processes ONLY resolved cutout:true
-node scripts/remove-background.mjs --project neve-gelato --concurrency 8
-
-# 4. REVIEW cut-outs over a real pattern at full size (fringing and value
-#    collapse are invisible at thumbnail size), then promote:
+# 3. REVIEW cut-outs over a real pattern at full size (alpha-edge artifacts and
+#    value collapse are invisible at thumbnail size), then promote:
 node scripts/promote-images.mjs --project neve-gelato
 
-# 5. verify + commit images and manifest TOGETHER
+# 4. verify + commit images and manifest TOGETHER
 npm run build:images        # must be a true no-op on a clean tree
 git add public/images/sites lib/generated/images.js data/image-prompts.json
 ```
 
 Regenerating one image reuses its slug — edit the prompt's `subject`, then
-`submit/status/download --only <id> --force`, re-run removal (if a cut-out)
-and promote `--only <id>`. The commit is one WebP plus one manifest line, and
+`submit/status/download --only <id> --force` and promote `--only <id>`. The
+commit is one WebP plus one manifest line, and
 the manifest hash doubles as the cache-buster (`?v=<hash8>`), so returning
 visitors get the new bytes despite immutable caching.
 
-## Background removal specifics (Kie.ai → `recraft/remove-background`)
+## Transparency: native alpha, one vendor
 
-Selection is data-driven: the script reads `data/image-prompts.json` and
-processes only prompts whose resolved `cutout` is `true` and whose original
-PNG is on disk. Four API details the script encapsulates (each learned the
-hard way):
+`gpt-image-2` accepts `background: "transparent"` and returns the subject on
+a real alpha channel, so a cut-out is finished the moment the batch downloads
+— generation and isolation are one call to one API. (Historically the
+parameter was a 400 on this model, and cut-outs took a second pass through
+Kie.ai's hosted `recraft/remove-background`; that whole leg — its API key,
+its upload hop, its rate limiter, and `scripts/remove-background.mjs` — is
+retired. **Future image generation uses the GPT Image 2 API only.**)
 
-1. The model accepts a **public URL only** — each PNG is first pushed through
-   Kie's own upload endpoint (free, auto-deleted after 24 h).
-2. Both Kie hosts sit behind Cloudflare and reject any request without a
-   browser `User-Agent` — a bare `403 error code: 1010` that reads exactly
-   like an auth failure and is not.
-3. The account rate limit is **20 new generation requests per 10 s**, and the
-   excess is rejected with 429 *without being queued*. A shared
-   sliding-window limiter admits `createTask` at 18/10 s, so `--concurrency`
-   can be raised freely; a 429 waits out a full window.
-4. `resultJson` in the status response is a JSON **string**, not an object.
+What holds the contract together now:
 
-Each removal costs ~1 Kie credit and ~3 s. Every download/status GET is
-wrapped in transient-failure retries; the POSTs that create work are never
-blanket-retried (a silent re-send doubles the bill).
+- `cutout: true` in `data/image-prompts.json` is what adds the parameter to
+  the request (`requestBody` in `scripts/generate-images.mjs`) — transparency
+  stays a property of the prompt, not a flag someone must remember.
+- Transparency needs an alpha-capable `output_format`: `png` (the default) or
+  `webp`, never `jpeg`.
+- **Promotion verifies the alpha is real.** A `cutout: true` PNG with no
+  transparent pixels fails promotion loudly — that is the shape a
+  pre-native-alpha candidate (or a silently ignored parameter) would take,
+  and an opaque image committed under the `-cutout` name is exactly the
+  regression the check exists to refuse.
+- The committed filename contract is unchanged: cut-outs still promote to
+  `<id>-cutout.webp`, so served URLs, the manifest, and `Figure` move not at
+  all. A legacy `<id>-cutout.png` on disk (old removal output) still wins
+  over its sibling `<id>.png`, which in that layout is the *opaque* original.
 
 ## Promotion and serving
 
@@ -161,10 +164,11 @@ blanket-retried (a silent re-send doubles the bill).
   cut-out lands on a busy pattern where a lossy alpha edge shows. PNG→WebP
   runs ~14× smaller (~130 kB for a 1536×1024).
 - Promotion follows the flag: `cutout: false` → `<id>.webp`; `cutout: true` →
-  `<id>-cutout.webp` only (`--keep-original` opts the opaque original in).
-  A `cutout: true` prompt with no cut-out on disk is an **error**, not a
-  skip — that combination is what silently leaves a stale committed image
-  after a regeneration.
+  `<id>-cutout.webp`, sourced from the native-alpha original (or a legacy
+  `-cutout.png` when one exists; `--keep-original` is only meaningful in that
+  legacy layout). A `cutout: true` prompt with no candidate on disk — or an
+  opaque one — is an **error**, not a skip; both are what silently leave a
+  stale or broken committed image after a regeneration.
 - `scripts/build-image-manifest.mjs` writes `lib/generated/images.js`
   (committed): slug → `{hash, width, height, formats}`. It is incremental and
   a true no-op on a clean tree, so it is safe in `prebuild`/`predev`
@@ -185,9 +189,10 @@ tiles are the strongest use of the pipeline; keep every portrait in one `set`.
 
 ## Gotcha checklist
 
-1. `gpt-image-2` **cannot emit transparency** — `background: "transparent"`
-   is a 400, and asking in the prompt paints a fake checkerboard. Removal is
-   always a separate model call.
+1. Transparency is the **parameter**, never the prompt — `background:
+   "transparent"` (sent automatically for `cutout: true`) returns real alpha;
+   *asking* for transparency in the prose paints a fake checkerboard into the
+   pixels. And it requires `png`/`webp` output, never `jpeg`.
 2. Batch output files embed base64 images and run to gigabytes — the scripts
    stream them line by line; don't "simplify" that away.
 3. Expensive failures happen on the **retrieval** side, after the paid work.

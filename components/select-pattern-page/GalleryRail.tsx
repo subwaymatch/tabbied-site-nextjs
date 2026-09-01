@@ -1,9 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import Link from 'next/link';
 import { Search } from 'lucide-react';
-import LogoDoodle from 'components/main-page/LogoDoodle';
 import PaletteRow from 'components/palette/PaletteRow';
 import { usePaletteReveal } from 'components/palette/usePaletteReveal';
 import type { BrandPalette } from 'lib/brandPalettes';
@@ -17,11 +15,13 @@ import styles from './GalleryRail.module.css';
 const PAGE = 24;
 
 /**
- * The gallery's desktop palette rail: the Tabbied logo, one search that filters
- * both the palette list and the design grid, the full merged palette list
+ * The gallery's desktop palette rail: one search that filters both the palette
+ * list and the design grid, a labelled count, the full merged palette list
  * (custom first, then the read-only library) in a single scrolling column, and
  * a pinned "+ New Palette". The list is the whole point of the rail, so it's
  * shown from the start — no "Preview colors" step and no separate browser.
+ *
+ * The way home lives in GalleryTopBar above it, not here.
  */
 export default function GalleryRail({
   search,
@@ -58,12 +58,7 @@ export default function GalleryRail({
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
-        <Link href="/" aria-label="Tabbied" className={styles.logo} prefetch={false}>
-          <LogoDoodle size={32} />
-        </Link>
-
         <label className={styles.search}>
-          <Search size={14} aria-hidden="true" />
           <input
             type="text"
             placeholder="Search palettes & designs"
@@ -74,7 +69,15 @@ export default function GalleryRail({
             }}
             aria-label="Search palettes and designs"
           />
+          <Search size={15} aria-hidden="true" />
         </label>
+
+        <div className={styles.listHeader}>
+          <span className={styles.listTitle}>Palettes</span>
+          <span className={styles.listCount}>
+            {merged.length} {merged.length === 1 ? 'palette' : 'palettes'}
+          </span>
+        </div>
       </div>
 
       <div ref={listRef} className={styles.list} onScroll={onScroll}>

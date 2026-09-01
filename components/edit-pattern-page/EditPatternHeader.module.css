@@ -2,8 +2,8 @@
   flex: none;
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  border-bottom: 1px solid #eceef1;
+  padding: 14px 22px;
+  border-bottom: 1px solid oklch(0 0 0 / 0.1);
 }
 
 /* "← Gallery" back link. */
@@ -18,7 +18,7 @@
 }
 
 .back:hover {
-  color: #ff3d8b;
+  color: #0e0e13;
 }
 
 .titleWrap {
@@ -31,9 +31,9 @@
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #232529;
+  font-size: 15px;
+  font-weight: 400;
+  color: oklch(0.4 0.01 260);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,19 +47,28 @@
   gap: 8px;
 }
 
+/* Shuffle is the quiet one of the pair — it is reached often and reversible,
+   so it reads as a control rather than a call to action. */
 .btn {
   display: inline-flex;
   align-items: center;
-  height: 40px;
-  padding: 0 12px 0 16px;
+  height: 36px;
+  padding: 0 12px 0 14px;
   border: none;
-  border-radius: 3px;
-  color: #ffffff;
-  background-color: var(--gray-dark);
-  font-size: 14.5px;
-  font-weight: 300;
+  border-radius: 999px;
+  color: oklch(0.28 0.01 260);
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.14);
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
-  transition: background-color 120ms ease;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:hover,
+.btn[data-popup-open] {
+  background-color: oklch(0 0 0 / 0.04);
+  box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.28);
 }
 
 .chevronIcon {
@@ -76,15 +85,20 @@
   margin-right: 0.4rem;
 }
 
+/* Export is the one thing the page exists to get you to, so it carries the
+   brand gradient and a hairline that keeps it legible on a light stage. */
 .btnExport {
-  color: #ffffff;
-  background-color: var(--red-high-contrast);
-  font-weight: 600;
+  color: #0e0e13;
+  background: linear-gradient(135deg, #3ff0b2, #2ee6f0);
+  box-shadow: inset 0 0 0 1px #0e0e13;
+  font-weight: 400;
 }
 
 .btnExport:hover,
 .btnExport[data-popup-open] {
-  background-color: #fd0066;
+  background: linear-gradient(135deg, #3ff0b2, #2ee6f0);
+  box-shadow: inset 0 0 0 1px #0e0e13;
+  filter: brightness(1.05);
 }
 
 /* ---- Export dropdown menu ---- */

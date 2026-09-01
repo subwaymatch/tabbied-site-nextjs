@@ -22,6 +22,11 @@ npm run build && npm run test:e2e    # static export + Playwright suite
 npm run preview                      # run the real Worker over out/ (wrangler dev)
 npm run deploy                       # build, then wrangler deploy
 npm run typecheck:worker             # worker/ is excluded from the site tsconfig
+npm run dev:api                      # the Worker on :8787 (the API half of `npm run dev`)
+npm run db:migrate                   # apply worker/migrations to the local D1
+npm run db:generate                  # re-emit them from worker/db/schema.ts
+npm run stub:ai                      # a local OpenAI-shaped upstream on :8788
+npm run test:worker                  # Worker unit tests (local D1/KV/R2, stub upstream)
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run editable [slug]              # derive editable specs from out/ (also the gate)
@@ -68,8 +73,8 @@ The Worker routes with Hono (`worker/index.ts`). That was added for the
 platform tier — the right shape for two routes was the wrong one for twenty —
 and it changed no behaviour: same MCP handler, same statelessness, same
 `env.ASSETS` fallthrough. `/api` is scaffolding today (`/api/health` and a
-JSON 404); auth, projects, and the AI gateway land with the bindings they need.
-See `agent-outputs/platform-auth-ai-plan.md`.
+JSON 404); auth, generations, media, and the AI gateway land with the bindings
+they need. See `agent-outputs/20260827-studio-ai-plan.md`.
 
 The export is comfortably inside the platform limits — roughly 4,300 files
 against a 20,000 free-plan ceiling, largest file 2.8 MB against 25 MiB — but
@@ -145,7 +150,8 @@ and that shape is forced by both ends of the problem:
 
 - The packager *reads* the export, so it can only run after a build. It has no
   framework-free source to copy from — deriving from the export is the whole
-  strategy (see `agent-outputs/template-packaging-plan.md`).
+  strategy: a hand-port is four artefacts per site to keep in step, and within
+  two edits the download and the live site disagree.
 - The deploy has to *ship* what it writes, and the host decides when it stops
   looking. This shape was forced by Vercel, where writing into `out/` after the
   build was too late: the Next.js builder patched the config ("Applying
@@ -191,8 +197,8 @@ naming a slug repackages just that one in place.
 The two formats are built in opposite directions, and that is the point:
 
 - **HTML is derived from the export**, because there is no framework-free
-  source to copy — hand-porting is the trap the strategy doc rejects (see
-  `agent-outputs/template-packaging-plan.md`).
+  source to copy — hand-porting is the trap the derive-don't-port strategy
+  above exists to avoid.
 - **React is a copy of the page**, because a template page already *is* a plain
   React component. The only Next.js API any of the 57 uses is `export const
   metadata`; there is no next/image, next/link, `'use client'` or
@@ -326,6 +332,201 @@ JS is baked at render time and a re-colour cannot reach it — write those as
 download's dependencies automatically — `EXTERNAL_DEPENDENCIES` in
 `scripts/package-templates.mjs` is derived from the shipped source, not
 maintained by hand.
+
+## The homepage — its own shell, and a hydration rule
+
+`app/page.tsx` is the only route in the dark editorial treatment. It brings its
+own masthead and footer (`HomeNav`, `HomeFooter`) and its own token set
+(`components/main-page/home.module.css`, inherited by every `Home*` section as
+`var(--h-…)`); every other route still renders the shared light `MainHeader` and
+`components/Footer`. Nothing here is global — the tokens sit on the page wrapper,
+not on `:root` — so restyling the homepage cannot reach `/patterns` or `/docs`.
+
+Three things worth not re-litigating:
+
+- **The animated grids are seeded, then random.** The hero skyline, its margin
+  columns, the pattern demo, and the story backdrop are all grids of randomly
+  shaped cells that reshuffle on a timer. A `Math.random()` call during render
+  makes the prerendered HTML disagree with the first client render and hydration
+  blows up, so the *initial* grid comes from `seededRandom()` in `homeMotion.ts`
+  — the same one on the server and in the browser — and only the timers, which
+  start after mount, use real randomness. The same trap catches module-scope
+  constants: a `Math.random()` at the top level of a module runs once per
+  process, which is not once per page.
+- **Every figure is derived.** `lib/siteCounts.ts` counts the presets, the
+  template sites, and the palette library; the hero sentence, both stat rows and
+  the two "view all" links read it. It is server-only on purpose — counting the
+  keys of `patterns` in a client component would ship the whole catalog to the
+  browser to learn one number. `e2e/smoke.spec.ts` asserts the same count
+  appears in all three places rather than pinning the value.
+- **Reduced motion stops all of it.** Six independent clocks run on this page
+  plus three CSS animations (the two marquees and the orbiting squares). Every
+  timer is gated on `useMediaQuery('(prefers-reduced-motion: reduce)')` and every
+  animation and transition has a `@media (prefers-reduced-motion: reduce)`
+  override; a marquee that merely slows down is the failure this guards against.
+
+The mono is loaded by `next/font` **in the page**, not the root layout, so only
+this route preloads it. IBM Plex Sans is deliberately not loaded — proxima-nova
+from the layout's typekit link is the sans, and the design only ever named Plex
+Sans as its fallback.
+
+## The platform tier — auth, generation, media
+
+`worker/` is no longer two routes. `/api` now carries better-auth over **D1**,
+Studio's generation endpoints, and **R2** media, and the site gained
+`/sign-in`, `/sign-up`, `/account`. Two datastores, deliberately: D1 for
+everything stateful, R2 for bytes. Everything is still a static export;
+everything stateful is a `fetch` to `/api/*` on the same origin, which is the
+property that makes the session cookie work with no CORS surface at all.
+
+```bash
+npm run dev            # site on :3000, with NEXT_PUBLIC_API_BASE set
+npm run dev:api        # the Worker on :8787 — run both
+npm run db:migrate     # apply worker/migrations to the local D1
+npm run stub:ai        # a local OpenAI-shaped upstream on :8788
+npm run test:worker    # 36 tests in workerd, over local D1 and R2
+```
+
+**No binding declares an id, deliberately.** Wrangler provisions a binding
+whose id is absent and looks one up whose id is present, so a placeholder is
+strictly worse than nothing: it turns "create this for me" into "find
+0000…000f", which fails the deploy with a `10041`. Local dev and the tests
+simulate both bindings either way.
+
+**There is no KV, and that is the second lesson from the same deploy.** It
+briefly held three things — the session cache, the burst counters, and dev
+mail — and none of them needed it. The counters in particular were *wrong*
+there: Workers KV permits one write per second to a key and throws on the
+second, so a client sending two requests in a second (exactly the burst the
+limiter catches) turned the intended 429 into a 500, and with no
+compare-and-set the count could only ever be approximate. In D1 the rollover
+and the increment are one atomic statement, the count is exact, and the table
+cannot grow past one row per user per endpoint. Sessions moved to
+better-auth's `cookieCache`, which beats a second store by removing the lookup
+rather than relocating it.
+
+Provisioning cannot do the schema, so after the first deploy that creates `DB`:
+`npm run db:migrate:remote`, then `wrangler secret put BETTER_AUTH_SECRET`.
+Until that secret exists `/api/auth/*` answers 503 and nothing else changes —
+the intended degradation, not an outage. `.dev.vars` is gitignored;
+`.dev.vars.example` documents the shape.
+
+Things worth not re-litigating:
+
+- **`worker/db/schema.ts` is the source of truth and `worker/migrations` is
+  emitted from it** (`npm run db:generate`). better-auth's four tables are
+  transcribed from its own `getAuthTables()` output rather than guessed — run
+  it after an upgrade, because a field added upstream is a migration here
+  (that is how `account.issuer` was caught).
+- **`buildAuth` is a factory**, for the same reason `buildServer` is on the
+  MCP side: an isolate is shared across requests, so capturing bindings in a
+  module-scope singleton works locally and breaks under concurrency.
+- **Two ceilings, both exact.** `lib/ratelimit.ts` is a short window that stops
+  a script spending a day's budget in ten seconds; `lib/quota.ts` is the daily
+  ledger, summed per user per endpoint per UTC day. Text and images are capped
+  separately, because they cost differently by an order of magnitude.
+- **`trustedOrigins` trusts any loopback origin in dev, not a list of ports.**
+  The site is :3000, the Worker :8787, `npm run preview` picks its own and a
+  test harness another again; a hardcoded pair rejects every port it does not
+  name as "Invalid origin", which reads like a bug in the sign-in form.
+- **Secrets are typed optional and each feature degrades on its own.** No
+  `AI_API_KEY` and the endpoints answer from the matcher; no `RESEND_API_KEY`
+  *in dev* and the verification mail is written to KV instead of sent (which
+  is how the e2e flow reads a link back). In production that same branch
+  throws — a silently swallowed verification strands the account.
+- **A miss under `/api` is `api.all('*')`, not `api.notFound()`.** A sub-app's
+  notFound handler is not used once it is mounted with `route()`, so the
+  request falls through to the asset handler and answers an API client with
+  the marketing 404 page.
+- **`createAuthClient` gets no `baseURL` in production.** A relative
+  `/api/auth` looks equivalent and is not: the client validates the URL at
+  construction, at module scope, during the export — where there is no origin
+  to resolve it against. That threw the prerender of every page importing it.
+- **The session type is narrowed once**, in `lib/authClient.ts`. better-auth
+  infers it from the *server* config, which lives in `worker/` and is outside
+  the site's tsconfig on purpose, so the client types `data` as `never`.
+
+## Studio — matching, then generating
+
+`/studio` takes a description of a business and `/studio/results` answers with
+three template sites. The design it was built from describes an AI feature; the
+Worker has no AI binding, no D1 and no auth (see
+`agent-outputs/20260827-studio-ai-plan.md` — that tier is a plan, not code), so
+Studio answers with what the repo actually has: 57 finished template sites, each
+on one of the 295 patterns and one of the 437 palettes, each with a real page
+and a real zip.
+
+- **`lib/studioMatch.ts` is pure and isomorphic; `lib/studioDirections.ts` is
+  server-only.** The index — 57 entries of names, palettes and vocabulary — is
+  built at build time and passed to the client as plain data. Importing the
+  catalog (384 KB) or the template data into the browser to match against it is
+  the thing this split exists to prevent.
+- **Everyday words are mapped onto the closed catalog vocabulary**
+  (`packages/tabbied/scripts/catalog-vocabulary.mjs`), and moods are scored by
+  *votes*: "warm, earthy, friendly" is three words asking for `organic` and
+  outranks one word asking for `technical`. Scoring presence rather than votes
+  put a deep-sea research site at the top of a warm-and-earthy query.
+- **The description travels in the query string**, so a result is refreshable
+  and shareable, and the match is a pure function of it. Ties break on a hash of
+  the text, which is what makes an empty or unmatched description still return a
+  stable spread rather than the same three every time.
+- **Every card leads somewhere that exists**: Preview to `/template/<slug>/`,
+  Download to `/downloads/<slug>-html.zip`. `e2e/smoke.spec.ts` fetches each
+  preview href and asserts a 200 — that guard is the whole difference between
+  this and the mockup it came from.
+
+**The AI tier landed, and the matcher was not replaced by it — it became
+candidate assembly.** `POST /api/studio/directions` runs the same scorer
+server-side, puts the top dozen in the prompt, and builds the response schema's
+slug enum from exactly that dozen, so an invented template cannot survive
+validation. The answer is validated against the same zod schema, then once more
+after a repair retry carrying the validation errors; a second failure falls
+back to the matcher's own three (`source: 'matched-fallback'`, which the page
+says out loud) rather than erroring.
+
+**Text goes to `${AI_BASE_URL}/responses`, not `/chat/completions`.** The
+Responses API is what OpenAI recommends for new work, and it is the only one of
+the two that carries a turn forward: the repair retry quotes the rejected
+response as `previous_response_id`, so it sends the correction alone against a
+context that still holds what the model just wrote, and the id is stored on the
+`generation` row so a revision can continue the document a user kept. Four
+things that shape follows from:
+
+- **Reasoning tokens are output tokens.** `max_output_tokens` is spent thinking
+  *before* any message is emitted, so a cap sized for the old
+  `max_completion_tokens` comes back `status: "incomplete"` with no content —
+  which reads exactly like a broken upstream. `respondJson` names that case;
+  `AI_REASONING_EFFORT` (omitted entirely when unset, because a non-reasoning
+  model rejects the field) and the cap trade against each other.
+- **There is no `choices[0].message.content`.** The answer is an item in an
+  `output` array that also carries reasoning items, so it is walked, and a
+  `refusal` part is reported as a refusal rather than as absence.
+- **Continuity is an optimisation, never a dependency.** `store: true` is what
+  makes an id resolvable — and means prompts and answers are retained upstream,
+  which is a deliberate trade. An upstream that stores nothing returns no id and
+  both callers restate in full, so `responseId` is nullable and a stale one is a
+  cache miss. The document in `generation` stays the source of truth: a shared
+  `?g=` link is read by someone with no session and no upstream context.
+- **Images stay on `/images/generations`.** The Responses API's
+  `image_generation` tool would put a reasoning model in front of every image
+  whose job is to rewrite a prompt `docs/image-pipeline.md` tunes deliberately,
+  and bill the rewrite. Two endpoints, two failure modes, one metered call each.
+
+- **The matcher remains the signed-out path**, unchanged and Worker-free:
+  `?q=` still means matched and is still a pure function of the text. `?g=<id>`
+  means generated, because an LLM answer is not reproducible — so shareability
+  moved into storage. The id is the capability; reads need no session, writes
+  check ownership, and there is no listing endpoint to enumerate.
+- **Palettes are the one field the model authors freely**, so they are checked
+  against the palette library's two rules and repaired deterministically with
+  `tabbied-templates`' own colour maths. Shorthand hex is expanded first —
+  `#fff` and `#ffffff` are one colour, and comparing them as strings let an
+  invisible ink get "repaired" into a colour nobody chose.
+- **Imagery is lazy, idempotent and separately capped**: one image per
+  direction, on request, never three up front. `gpt-image-2` emits real alpha,
+  which is why this reaches one vendor and not two (`docs/image-pipeline.md`).
+- The artboard's **photo upload** waits on `/api/uploads`; the **spinner** it
+  drew for a synchronous match is now real, because generating is a real call.
 
 ## Agent-facing docs — all generated, never hand-edited
 

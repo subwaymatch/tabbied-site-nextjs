@@ -1,0 +1,1 @@
+ALTER TABLE `generation` ADD `response_id` text;

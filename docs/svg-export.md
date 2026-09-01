@@ -3,8 +3,8 @@
 The single source of truth for how Tabbied's SVG export works, which patterns
 it supports (and why), and the rules to follow when touching patterns, the
 converter, or export UI. Written for future maintainers and coding agents.
-Historical background lives in `agent-outputs/native-svg-export-handoff.md`
-(the original research + implementation addendum, kept as a dated record).
+This document is the reference; the original research handoff it grew from
+was retired and lives in git history.
 
 Batches 11 (gallery orders 1200-1254, 55 designs) and 12 (1400-1431, 32
 designs) were authored against this document: every design in them is tier 4,

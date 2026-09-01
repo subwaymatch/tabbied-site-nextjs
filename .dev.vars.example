@@ -1,0 +1,41 @@
+# Copy to .dev.vars (gitignored) for `npm run dev` / `npm run preview`.
+#
+# Only BETTER_AUTH_SECRET is needed to sign in locally. Everything else has a
+# working local fallback: with no RESEND_API_KEY the verification mail is
+# written to D1 instead of sent, and with no AI_API_KEY the Studio endpoints
+# answer from the matcher.
+#
+#   npx wrangler d1 execute tabbied --local \
+#     --command "SELECT url FROM dev_mail WHERE email = 'you@example.com'"
+
+
+# openssl rand -base64 32
+BETTER_AUTH_SECRET=dev-secret-change-me-0000000000000000000000
+
+# Marks the environment as local: relaxes the cookie's Secure flag, trusts any
+# loopback origin, and enables CORS-with-credentials for localhost. Never set
+# in production.
+DEV=1
+
+# The origin auth cookies and verification links are issued for. It must match
+# the port you actually browse — a link minted for :8787 and followed on :8790
+# signs you in on the wrong server, and the session you come back with is empty.
+PUBLIC_ORIGIN=http://localhost:8787
+
+# Point at a local OpenAI-shaped stub to exercise generation offline
+# (`npm run stub:ai`). It speaks the Responses API and honours
+# previous_response_id, so the chained repair turn runs locally too.
+# AI_BASE_URL=http://localhost:8788/v1
+# AI_API_KEY=stub
+
+# Sent as reasoning.effort on every Responses call, and omitted when unset.
+# The stub ignores it; against a real reasoning model it decides how much of
+# max_output_tokens is spent thinking rather than answering.
+# AI_REASONING_EFFORT=low
+
+# RESEND_API_KEY=
+# TURNSTILE_SECRET_KEY=
+# GITHUB_CLIENT_ID=
+# GITHUB_CLIENT_SECRET=
+# GOOGLE_CLIENT_ID=
+# GOOGLE_CLIENT_SECRET=

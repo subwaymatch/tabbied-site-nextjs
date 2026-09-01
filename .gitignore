@@ -82,3 +82,6 @@ playwright.local.config.ts
 
 # The package's agent-facing reference, written by its build (generate-llms.mjs)
 /packages/tabbied/llms.txt
+
+# Worker secrets for local dev (wrangler reads this; never commit it).
+.dev.vars

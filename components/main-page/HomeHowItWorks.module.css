@@ -1,0 +1,316 @@
+/* Runs straight on from the pattern-library section above it — same paper, no
+   heading of its own — so the three steps read as that section's detail. */
+.section {
+  padding: 48px 0 100px;
+  color: var(--h-ink);
+  background-color: var(--h-paper);
+}
+
+.inner {
+  max-width: var(--h-max);
+  margin: 0 auto;
+  padding-right: var(--h-pad);
+  padding-left: var(--h-pad);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+}
+
+/* Copy and panel swap sides down the column. */
+.row[data-flipped] {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.text {
+  flex: 1;
+}
+
+.stepNumber {
+  display: block;
+  margin-bottom: 14px;
+  font: 300 12px var(--h-mono);
+  color: var(--h-teal);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.stepTitle {
+  margin-bottom: 12px;
+  font: 700 32px var(--h-sans);
+  color: var(--h-ink);
+  letter-spacing: -0.01em;
+}
+
+.stepBody {
+  max-width: 400px;
+  margin: 0;
+  font: 400 16px / 1.6 var(--h-sans);
+  color: var(--h-ink-muted);
+}
+
+/* ── The panels ──────────────────────────────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex: 0 0 476px;
+  flex-direction: column;
+  height: 220px;
+  overflow: hidden;
+  background-color: var(--h-paper-well);
+  border-radius: 12px;
+}
+
+.panelChrome {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+.panelChrome span {
+  width: 6px;
+  height: 6px;
+  background-color: oklch(0 0 0 / 0.14);
+  border-radius: 50%;
+}
+
+.panelBody {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 6px 0 24px;
+}
+
+/* ── 01 · palette picker ─────────────────────────────────────────────────── */
+
+.pillGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+/* Sized and stepped to match the grid exactly: each cell is half the box less
+   half the gap, and one move is a full cell plus the gap. */
+.pillHighlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(50% - 5px);
+  height: calc(50% - 5px);
+  background-color: var(--h-ink);
+  border-radius: 999px;
+  transition: transform 500ms cubic-bezier(0.4, 1, 0.5, 1);
+}
+
+.pill {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 12px 9px 16px;
+  border-radius: 999px;
+}
+
+.pill > span:last-child {
+  font: 400 13px var(--h-sans);
+  color: var(--h-ink);
+  transition: color 300ms ease;
+}
+
+.pill > span:last-child[data-active] {
+  color: var(--h-fg);
+}
+
+.swatches {
+  display: flex;
+  gap: 2px;
+}
+
+.swatches span {
+  width: 9px;
+  height: 16px;
+  border: 1px solid oklch(1 0 0 / 0.18);
+}
+
+/* ── 02 · frequency ──────────────────────────────────────────────────────── */
+
+.frequencyBody {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: auto;
+  padding: 0 56px 0 48px;
+}
+
+.frequencyLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font: 400 13px var(--h-mono);
+  color: var(--h-ink-dim);
+}
+
+.track {
+  position: relative;
+  height: 2px;
+  margin-bottom: 20px;
+  background-color: oklch(0 0 0 / 0.1);
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background-color: var(--h-ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 2000ms cubic-bezier(0.4, 1, 0.5, 1);
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+}
+
+.chips span {
+  padding: 6px 12px;
+  font: 400 12px var(--h-mono);
+  color: var(--h-ink-dim);
+  border: 1px solid oklch(0 0 0 / 0.12);
+  border-radius: 999px;
+}
+
+.chips span[data-active] {
+  color: var(--h-fg);
+  background-color: var(--h-ink);
+  border-color: var(--h-ink);
+}
+
+/* ── 03 · download ───────────────────────────────────────────────────────── */
+
+.downloadBody {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: 0 24px 24px;
+  text-align: center;
+}
+
+.formats {
+  margin-bottom: 16px;
+  font: 400 12px var(--h-mono);
+  color: var(--h-ink-dim);
+  white-space: nowrap;
+}
+
+.downloadButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 36px;
+  font: 400 13px var(--h-sans);
+  color: var(--h-ink);
+  white-space: nowrap;
+  border: 1px solid var(--h-ink);
+  border-radius: 999px;
+  /* Keeps the sweep clipped to the pill rather than to the nearest ancestor
+     that happens to have a stacking context. */
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.downloadButton > span:last-child {
+  position: relative;
+}
+
+.gauge {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--h-mint), var(--h-cyan));
+  animation: gaugeFill 5s ease-in-out infinite;
+}
+
+@keyframes gaugeFill {
+  0%,
+  4% {
+    width: 0%;
+  }
+
+  40%,
+  96% {
+    width: 100%;
+  }
+
+  97%,
+  100% {
+    width: 0%;
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023.98px) {
+  .panel {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .row,
+  .row[data-flipped] {
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  /* Copy first on a narrow screen: the panel illustrates a step you have
+     already read. */
+  .text {
+    order: 1;
+    width: 100%;
+  }
+
+  .panel {
+    order: 2;
+    flex: none;
+    width: 100%;
+  }
+
+  .stepBody {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillHighlight,
+  .pill > span:last-child,
+  .knob {
+    transition: none;
+  }
+
+  .gauge {
+    animation: none;
+    width: 100%;
+  }
+}

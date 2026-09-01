@@ -14,7 +14,13 @@ import styles from './SelectPattern.module.css';
 // One gallery card: a live thumbnail with its name below it (no overlay).
 // Client-side because the preview follows the selected palette (localStorage),
 // applied to every design in the grid.
-export default function GalleryCard({ item }: { item: GalleryItem }) {
+export default function GalleryCard({
+  item,
+  className,
+}: {
+  item: GalleryItem;
+  className?: string;
+}) {
   const brandState = useBrandPalettes();
   // While a palette is being edited, every card recolors live to the draft;
   // otherwise it follows the active saved or library palette.
@@ -26,7 +32,7 @@ export default function GalleryCard({ item }: { item: GalleryItem }) {
       href={`/patterns/${item.slug}?seed=0000`}
       prefetch={false}
       onClick={markGalleryNavigation}
-      className={styles.card}
+      className={className ? `${styles.card} ${className}` : styles.card}
     >
       <div className={styles.tile}>
         <GalleryDoodle item={item} palette={palette} />

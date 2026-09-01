@@ -1,35 +1,68 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Tabbied site', () => {
-  test('home page renders hero and navigation works', async ({ page }) => {
+  test('home page renders the hero and links into the gallery', async ({
+    page,
+  }) => {
     await page.goto('/');
 
     await expect(page).toHaveTitle(/Tabbied/);
-    // The hero is loaded client-side via dynamic(ssr:false) and pulls in the
-    // css-doodle library, so give it a little longer to appear. Match the full
-    // hero copy so it is not confused with the footer's marketing blurb.
-    await expect(page.getByText(/Doodle with\s+generated patterns/)).toBeVisible(
-      { timeout: 15000 }
+    await expect(
+      page.getByRole('heading', { level: 1, name: /Free patterns and websites/ })
+    ).toBeVisible();
+
+    // Every figure on the page is derived from the catalog at build time
+    // (lib/siteCounts), so this asserts the shape rather than the value — a
+    // literal typed into the copy is exactly what it is there to prevent.
+    const patternsStat = page.getByRole('link', { name: /^\d+ Patterns$/ });
+    await expect(patternsStat).toBeVisible();
+    const patternCount = Number(
+      (await patternsStat.textContent())?.match(/\d+/)?.[0]
     );
+    expect(patternCount).toBeGreaterThan(1);
 
-    // Regression guard for the Bootstrap 4 -> 5 `media-breakpoint-down()`
-    // semantics change: the xs/mobile overrides must not leak onto desktop
-    // widths (which had collapsed the hero padding from ~160px to 64px).
-    const heroPadTop = await page.evaluate(() => {
-      const p = [...document.querySelectorAll('p')].find((e) =>
-        /^Doodle with/.test((e.textContent || '').trim())
-      );
-      return p ? parseInt(getComputedStyle(p.parentElement).paddingTop, 10) : 0;
-    });
-    expect(heroPadTop).toBeGreaterThan(100);
+    // The same number has to appear in the hero sentence and on the library
+    // section's "View all" link, because all three read the one source.
+    await expect(
+      page.getByText(
+        new RegExp(`growing library of ${patternCount} customizable patterns`)
+      )
+    ).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: `View all ${patternCount}` })
+    ).toBeVisible();
 
-    // "Make your art" appears in the hero and the closing CTA.
-    await page.getByRole('link', { name: 'Make your art' }).first().click();
+    await page.getByRole('link', { name: 'Make your pattern' }).click();
 
     await expect(page).toHaveURL(/\/patterns/);
     await expect(
       page.getByRole('heading', { name: 'Pick a design' })
     ).toBeVisible();
+  });
+
+  test('the homepage animates only when motion is welcome', async ({
+    page,
+  }) => {
+    // The hero grid, the marquees and the orbiting squares all run on their own
+    // clocks; under `prefers-reduced-motion` every one of them has to stop, not
+    // merely slow down.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+
+    const rail = page.locator('[class*="HomeTemplates-module"][class*="track"]');
+    await expect(rail.first()).toHaveCSS('animation-name', 'none');
+
+    const before = await page
+      .locator('[class*="HomeHero-module"][class*="skylineCell"]')
+      .first()
+      .getAttribute('style');
+    await page.waitForTimeout(3000);
+    const after = await page
+      .locator('[class*="HomeHero-module"][class*="skylineCell"]')
+      .first()
+      .getAttribute('style');
+
+    expect(after).toBe(before);
   });
 
   test('patterns gallery links into a pattern editor', async ({
@@ -385,17 +418,18 @@ test.describe('Tabbied site', () => {
     await expect(page.getByText('1.0', { exact: true })).toBeVisible();
   });
 
-  test('homepage gallery cards link with a seed so edits sync to the URL', async ({
+  test('gallery cards link with a seed so edits sync to the URL', async ({
     page,
   }) => {
-    await page.goto('/');
+    // This used to enter from the homepage, which carried its own strip of
+    // gallery cards; the redesigned homepage sends people to /patterns instead,
+    // so the guard belongs on the cards that are actually clicked now.
+    await page.goto('/patterns');
 
     // Without a query param on the link, the editor never mirrors state into
-    // the URL, so customizations made after entering from the homepage would
+    // the URL, so customizations made after entering from the gallery would
     // not survive a refresh or be shareable.
-    await page
-      .locator('#section-browse-pattern a[href*="/patterns/radius"]')
-      .click();
+    await page.locator('a[href*="/patterns/radius"]').first().click();
 
     // The static export uses trailing slashes, so match /patterns/radius/?seed=…
     await page.waitForURL(/\/patterns\/radius\/?\?/, { timeout: 15000 });
@@ -479,10 +513,40 @@ test.describe('Tabbied site (mobile viewport)', () => {
     ).toBeVisible();
   });
 
-  test('hamburger drawer exposes the nav and GitHub on mobile', async ({
+  test('the homepage menu exposes the nav and GitHub on mobile', async ({
     page,
   }) => {
     await page.goto('/');
+
+    // The homepage has its own dark masthead rather than the shared header, and
+    // below 768px its inline nav is display:none — the panel is the only way to
+    // reach the rest of the site from here.
+    const trigger = page.getByRole('button', { name: 'Open menu' });
+    await expect(trigger).toBeVisible();
+
+    await trigger.click();
+
+    const menu = page.locator('#home-nav-menu');
+    await expect(menu.getByRole('link', { name: 'Templates' })).toBeVisible();
+    await expect(menu.getByRole('link', { name: 'GitHub' })).toBeVisible();
+
+    // Studio replaced the "Soon" generator item and is now a real destination.
+    // The export uses trailing slashes, so the rendered href is "/studio/".
+    await expect(menu.getByRole('link', { name: 'Studio' })).toHaveAttribute(
+      'href',
+      /^\/studio\/?$/
+    );
+
+    await menu.getByRole('link', { name: 'Docs' }).click();
+    await expect(page).toHaveURL(/\/docs\/react/);
+  });
+
+  test('hamburger drawer exposes the nav and GitHub on mobile', async ({
+    page,
+  }) => {
+    // The shared header is no longer on the homepage, so the drawer is
+    // exercised on a page that still uses it.
+    await page.goto('/privacy-policy');
 
     // The inline nav is display:none below 992px, so the hamburger drawer is the
     // only way to reach the site navigation (and GitHub) here.
@@ -502,6 +566,78 @@ test.describe('Tabbied site (mobile viewport)', () => {
     await drawer.getByRole('link', { name: 'Docs' }).click();
     await expect(page).toHaveURL(/\/docs\/react/);
     await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
+});
+
+test.describe('Studio', () => {
+  const BICYCLES = 'Handbuilt bicycle frames for road cyclists, bold and industrial.';
+
+  test('matches a description to three real template sites', async ({
+    page,
+  }) => {
+    await page.goto('/studio');
+
+    // Signed out, the library match is the path — it needs no account and no
+    // Worker, which is what this spec runs against (`serve out`).
+    const match = page.getByRole('button', { name: 'Match from the library' });
+    await expect(match).toBeDisabled();
+
+    await page.getByLabel('Your business').fill(BICYCLES);
+    await expect(match).toBeEnabled();
+
+    // Generating is the other button, and it is a session away — signed out it
+    // sends you to sign in rather than spending anything.
+    await expect(
+      page.getByRole('button', { name: 'Generate with AI' })
+    ).toBeEnabled();
+
+    await match.click();
+
+    await page.waitForURL(/\/studio\/results/, { timeout: 15000 });
+
+    const cards = page.locator('article');
+    await expect(cards).toHaveCount(3);
+
+    // The whole point of matching against the library rather than generating:
+    // every card has to lead somewhere that already exists.
+    const previews = await page
+      .getByRole('link', { name: 'Preview' })
+      .evaluateAll((links) => links.map((l) => l.getAttribute('href')));
+
+    expect(previews).toHaveLength(3);
+
+    for (const href of previews) {
+      expect(href).toMatch(/^\/template\/[a-z0-9-]+\/$/);
+      const response = await page.request.get(href);
+      expect(response.status(), `${href} should be a real page`).toBe(200);
+    }
+
+    // Download points at the zip the packaging step writes for that same site.
+    const downloads = await page
+      .getByRole('link', { name: 'Download' })
+      .evaluateAll((links) => links.map((l) => l.getAttribute('href')));
+
+    expect(downloads).toEqual(
+      previews.map((href) => `/downloads/${href.split('/')[2]}-html.zip`)
+    );
+  });
+
+  test('the same description always gives the same three', async ({ page }) => {
+    // The match is a pure function of the query string, which is what makes a
+    // results link worth sharing.
+    const names = async (description: string) => {
+      await page.goto(`/studio/results/?q=${encodeURIComponent(description)}`);
+      return page.locator('article h2').allTextContents();
+    };
+
+    const first = await names(BICYCLES);
+    const again = await names(BICYCLES);
+    expect(again).toEqual(first);
+
+    const other = await names(
+      'A quiet, elegant perfume house. Monochrome and restrained.'
+    );
+    expect(other).not.toEqual(first);
   });
 });
 
@@ -545,11 +681,13 @@ test.describe('Shared site header', () => {
   }) => {
     await page.goto('/patterns');
 
-    // The rail carries the Tabbied logo and its palette chrome — but not the
-    // shared site nav or its hamburger.
+    // The page carries its own slim bar with the way home, and the rail beside
+    // it carries the palette chrome — but neither is the shared site nav.
     await expect(
-      page.locator('aside').getByRole('link', { name: 'Tabbied', exact: true })
+      page.getByRole('link', { name: 'Tabbied', exact: true })
     ).toBeVisible();
+    await expect(page.getByText('Pattern library')).toBeVisible();
+    await expect(page.locator('aside')).toBeVisible();
     await expect(
       page.getByRole('button', { name: 'Open navigation menu' })
     ).toHaveCount(0);

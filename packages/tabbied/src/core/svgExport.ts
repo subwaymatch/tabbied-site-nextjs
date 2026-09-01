@@ -3,8 +3,8 @@
 // gradients, clips, masks and filters. No <foreignObject>: the output renders
 // in design tools and non-browser rasterizers, not just HTML engines.
 //
-// Design notes (see agent-outputs/native-svg-export-handoff.md for the full
-// rationale):
+// Design notes (see docs/svg-export.md for the full rationale and the
+// support-tier rules):
 // - Geometry comes from layout offsets (offsetLeft/offsetTop/offsetWidth/
 //   offsetHeight), which are untransformed; computed `transform` matrices are
 //   emitted separately with their origins baked in, so nested transforms

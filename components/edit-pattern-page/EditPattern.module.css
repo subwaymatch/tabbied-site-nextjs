@@ -15,20 +15,67 @@
 
 /* ---- Preview pane ---- */
 
+/* A neutral ground the pattern sits on as a plate, rather than a full bleed of
+   the pattern's own background: the light gradient is what lets a dark design
+   and a pale one read the same way, and gives the caption something to sit on.
+   The expanded dialog still bleeds, which is the point of expanding. */
 .previewWrapper {
   position: relative;
   flex: 1;
   min-width: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  padding: 32px 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(46% 34% at 50% 2%, oklch(1 0 0 / 0.95) 0%, oklch(1 0 0 / 0) 72%),
+    linear-gradient(180deg, oklch(0 0 0 / 0) 88%, oklch(0 0 0 / 0.06) 100%),
+    linear-gradient(180deg, #fcfbf9 0%, #f7f6f3 52%, #eeece7 100%);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 1.5rem;
+  gap: 30px;
+  min-height: 0;
+  max-height: 100%;
+  margin: 0;
 }
 
 .doodleFrame {
   display: inline-block;
+  min-height: 0;
   line-height: 0;
-  box-shadow: 16px 16px 32px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 1px 1px oklch(0 0 0 / 0.08),
+    0 22px 30px -22px oklch(0 0 0 / 0.42);
+}
+
+.stageCaption {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  gap: 3px;
+  align-items: center;
+  text-align: center;
+}
+
+.stageName {
+  font: 400 19px var(--font-garamond), 'EB Garamond', Georgia, serif;
+  color: #0e0e13;
+  letter-spacing: 0.24em;
+  /* Tracking adds space after the last letter too; the indent puts the word
+     back on its own centre. */
+  text-indent: 0.24em;
+  text-transform: uppercase;
+}
+
+.stageMeta {
+  font: italic 400 14px var(--font-garamond), 'EB Garamond', Georgia, serif;
+  color: oklch(0.5 0.01 260);
+  letter-spacing: 0.02em;
 }
 
 /* Checkerboard behind zero-alpha (transparent-background) previews. */
@@ -63,9 +110,9 @@
 
 .panel {
   flex: none;
-  width: 400px;
-  border-left: 1px solid #eceef1;
-  background: #fafbfc;
+  width: clamp(300px, 25vw, 380px);
+  border-left: 1px solid oklch(0 0 0 / 0.1);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -80,18 +127,19 @@
 }
 
 .group {
-  padding: 18px 28px 20px;
+  padding: 26px 22px;
 }
 
 .group + .group {
-  border-top: 1px solid #eceef1;
+  border-top: 1px solid oklch(0 0 0 / 0.1);
 }
 
 .groupTitle {
   margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #646d7b;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0e0e13;
+  letter-spacing: 0.01em;
 }
 
 /* ---- Colors group ---- */
@@ -555,7 +603,20 @@
   }
 
   .doodleFrame {
-    box-shadow: 10px 10px 24px rgba(0, 0, 0, 0.1);
+    box-shadow:
+      0 1px 1px oklch(0 0 0 / 0.08),
+      0 14px 20px -16px oklch(0 0 0 / 0.42);
+  }
+
+  /* The preview band is a fixed height here, so the caption has to fit inside
+     it. The header above already names the pattern, which makes the name the
+     line to drop — the size is the part that is not shown anywhere else. */
+  .stage {
+    gap: 12px;
+  }
+
+  .stageName {
+    display: none;
   }
 
   .panel {

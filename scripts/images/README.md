@@ -1,4 +1,11 @@
-# Template image pipeline (KIE AI)
+# Template image pipeline (KIE AI) — RETIRED
+
+> **This pipeline is retired. Future image generation uses the GPT Image 2
+> API exclusively** — see `docs/image-pipeline.md`. `gpt-image-2` now emits
+> real alpha channels (`background: "transparent"`), so neither KIE's
+> generation API nor Kie.ai's background-removal API has a place in any
+> current workflow. These scripts and this README are kept as the record of
+> how the earlier imagery was produced; don't point new work at them.
 
 The template sites render every card, alternating row and lookbook cell as a
 labelled placeholder holding a ready made image prompt. These four scripts take

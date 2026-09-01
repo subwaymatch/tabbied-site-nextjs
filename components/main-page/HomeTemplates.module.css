@@ -1,0 +1,236 @@
+.section {
+  padding: 100px 0;
+  background-color: var(--h-bg);
+  /* The rails are wider than the viewport by design. */
+  overflow: hidden;
+}
+
+.inner {
+  max-width: var(--h-max);
+  margin: 0 auto;
+  padding-right: var(--h-pad);
+  padding-bottom: 48px;
+  padding-left: var(--h-pad);
+}
+
+.rowHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  font: 300 12px var(--h-mono);
+  color: var(--h-cyan);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.browseAll {
+  font: 400 13px var(--h-sans);
+  color: var(--h-fg);
+}
+
+.browseAll:hover {
+  color: var(--h-cyan);
+}
+
+.title {
+  margin: 0 0 24px;
+  font: 700 64px / 1.05 var(--h-sans);
+  letter-spacing: -0.01em;
+}
+
+.body {
+  max-width: 520px;
+  margin: 0;
+  font: 400 16px / 1.6 var(--h-sans);
+  color: oklch(0.55 0.01 260);
+}
+
+/* ── Rails ───────────────────────────────────────────────────────────────── */
+
+.rails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rail {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+}
+
+.track[data-direction='left'] {
+  animation: marqueeLeft 110s linear infinite;
+}
+
+.track[data-direction='right'] {
+  animation: marqueeRight 130s linear infinite;
+}
+
+/* Pausing on hover is what makes the cards clickable rather than a moving
+   target. */
+.track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* Half the track is the second copy of the list, so this lands exactly
+       where it started. The 24px gap before the second copy is accounted for
+       by the trailing gap the flex row leaves after the first. */
+    transform: translateX(calc(-50% - 12px));
+  }
+}
+
+@keyframes marqueeRight {
+  from {
+    transform: translateX(calc(-50% - 12px));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.card {
+  flex-shrink: 0;
+  width: 340px;
+  overflow: hidden;
+  background-color: var(--h-card);
+  border: 1px solid var(--h-rule);
+  border-radius: 12px;
+  transition: border-color 200ms ease;
+}
+
+.card:hover {
+  border-color: oklch(1 0 0 / 0.24);
+}
+
+.chrome {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+.chrome span {
+  width: 6px;
+  height: 6px;
+  background-color: oklch(1 0 0 / 0.18);
+  border-radius: 50%;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+}
+
+.thumbImage {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 10px 12px;
+}
+
+.bars span {
+  height: 4px;
+}
+
+.bars span:first-child {
+  width: 60%;
+  background-color: oklch(1 0 0 / 0.16);
+}
+
+.bars span:last-child {
+  width: 38%;
+  background-color: oklch(1 0 0 / 0.08);
+}
+
+/* ── Closing CTA ─────────────────────────────────────────────────────────── */
+
+.ctaRow {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.cta {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  font: 500 16px var(--h-sans);
+  color: var(--h-fg);
+}
+
+.cta:hover {
+  color: var(--h-fg);
+}
+
+.ctaDisc {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: var(--h-ink);
+  background-color: var(--h-fg);
+  border-radius: 50%;
+  transition: transform 200ms ease;
+}
+
+.cta:hover .ctaDisc {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1023.98px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .rowHeader {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 1.15;
+  }
+}
+
+/* A continuously moving strip is exactly what this preference is for. */
+@media (prefers-reduced-motion: reduce) {
+  .track[data-direction='left'],
+  .track[data-direction='right'] {
+    animation: none;
+  }
+
+  .rail {
+    overflow-x: auto;
+  }
+
+  .ctaDisc {
+    transition: none;
+  }
+}
