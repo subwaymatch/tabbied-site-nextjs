@@ -125,6 +125,15 @@ export const generation = sqliteTable(
     /** 'ai' | 'matched-fallback' — how the three were actually chosen. */
     source: text('source').notNull(),
     model: text('model').notNull(),
+    /**
+     * The Responses API turn this document came from, to be quoted as
+     * `previous_response_id` when a revision continues it. Nullable and must
+     * stay so: a matched answer has no turn, and an upstream that does not
+     * store responses returns no id — a revision then restates the document
+     * instead of chaining, which is a cost difference and not a failure.
+     * Upstream retention is finite, so treat a stale id as a cache miss.
+     */
+    responseId: text('response_id'),
     createdAt: createdAt(),
   },
   (table) => [index('generation_user_created_idx').on(table.userId, table.createdAt)]

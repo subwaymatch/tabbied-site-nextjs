@@ -120,19 +120,46 @@ tier without schema changes), organizations, passkeys.
 ## 4. The gateway rules
 
 "OpenAI-compatible" is a *wire format*, not a vendor: text is
-`${AI_BASE_URL}/chat/completions`, images are `${AI_BASE_URL}/images/*`,
-both with a bearer key — OpenAI, an aggregator, or a self-hosted server are
-one env-var change. Cloudflare AI Gateway in front is recommended and is
-also just an `AI_BASE_URL` change; it buys logging, caching, retries, and a
-spend dashboard without code.
+`${AI_BASE_URL}/responses`, images are `${AI_BASE_URL}/images/*`, both with
+a bearer key — OpenAI, an aggregator, or a self-hosted server are one
+env-var change. Cloudflare AI Gateway in front is recommended and is also
+just an `AI_BASE_URL` change; it buys logging, caching, retries, and a spend
+dashboard without code.
+
+**Text speaks the Responses API**, which OpenAI recommends for new work and
+which is the only one of the two endpoints that can carry a turn forward: a
+response has an id, and quoting it as `previous_response_id` continues that
+context server-side. Studio spends that twice — the repair retry in §5 is a
+real second turn rather than a re-ask, and the id is stored on the
+generation row so a revision can continue the document a user kept.
+
+Three consequences are load-bearing:
+
+- **Reasoning tokens are output tokens.** `max_output_tokens` is spent on
+  thinking *before* any message is emitted, so a cap sized for the old
+  `max_completion_tokens` returns `status: "incomplete"` with no content at
+  all. That is a distinct failure from a refusal or a malformed answer and
+  the client reports it as one; `AI_REASONING_EFFORT` and the cap trade
+  against each other and are both configuration.
+- **There is no `choices[0].message.content`.** The answer is an item in an
+  `output` array that also carries reasoning items, so it is walked rather
+  than indexed, and a `refusal` part is distinguished from an empty one.
+- **`store: true` is what makes an id resolvable**, and it means prompts and
+  answers are retained upstream. That is a deliberate trade for continuity,
+  not an incidental default. Everything sent is already the user's own
+  description plus catalog facts; nothing is added to it here.
+
+Continuity is an optimisation and never a dependency: an upstream that
+stores nothing returns no id, and both callers fall back to restating the
+document in full.
 
 - **Task endpoints, never a raw proxy.** No `/api/ai/chat` passthrough —
   that is a free LLM faucet and hands prompt construction to the client.
   Every endpoint is task-shaped: session-checked, zod-validated input in,
   validated JSON out, prompts assembled server-side.
-- **Structured output, validated twice.** Text calls use
-  `response_format: {type:'json_schema'}` and the Worker validates the
-  response against the same zod schema — an upstream that ignores
+- **Structured output, validated twice.** Text calls send the schema as
+  `text.format: {type:'json_schema', strict:true}` and the Worker validates
+  the response against the same zod schema — an upstream that ignores
   `json_schema` (some "compatible" servers do) fails loudly, not with
   garbage reaching the UI. Schema enums that reference catalog facts are
   built from the deployed bytes (§5.2).
@@ -157,17 +184,23 @@ for "three more" re-rolls.
    Assembly must *relax* filters rather than AND itself into zero results,
    and the shipped diversity penalties (mood, hue, motif) run here so the
    dozen spans directions rather than clustering.
-3. One `chat/completions` call, `json_schema` response format, slug enum
-   from step 2 baked in. System prompt carries the candidate summaries
-   (name, topic, moods, tags, palette, density) and the contract.
+3. One `/responses` call, `text.format` strict JSON schema, slug enum from
+   step 2 baked in. `instructions` carries the candidate summaries (name,
+   topic, moods, tags, palette, density) and the contract; the description
+   is the `input`.
 4. Validate (zod, same schema). Palettes get the deterministic repair pass
-   (§6). On failure: one repair retry with the validation errors appended;
-   on the second failure, **fall back to the matcher's own top 3** with
-   `source: 'matched-fallback'` — the user gets results, never an error
-   page, and the ledger records the attempt.
-5. Write the `aiUsage` row from the upstream `usage` field (conservative
-   estimate when absent, so the ledger never under-counts), store the
-   generation (§7), return `{ id }`.
+   (§6). On failure: one repair retry carrying the validation errors —
+   **chained on `previous_response_id`**, so the input is the correction
+   alone against a context that still holds what the model just wrote, which
+   is what it needs to see to fix it. On the second failure, **fall back to
+   the matcher's own top 3** with `source: 'matched-fallback'` — the user
+   gets results, never an error page, and the ledger records the attempt.
+5. Write the `aiUsage` row from the upstream `usage` field —
+   `input_tokens`/`output_tokens`, **summed across both turns**, because a
+   rejected first turn spent real tokens and a chained retry is billed for
+   the context it re-reads on top of them. A conservative estimate stands in
+   when `usage` is absent, so the ledger never under-counts. Store the
+   generation with its response id (§7), return `{ id }`.
 
 **Output** — three directions, each:
 
@@ -253,7 +286,14 @@ Beyond better-auth's tables, three app tables (Drizzle-defined):
 
 - **`generation`** — `id` (128-bit random: the capability), `userId`,
   `description`, `result` (validated JSON, a few KB),
-  `source` (`'ai' | 'matched-fallback'`), `model`, `createdAt`. A
+  `source` (`'ai' | 'matched-fallback'`), `model`, `responseId`,
+  `createdAt`. `responseId` is the Responses turn the document came from, to
+  be quoted as `previous_response_id` when a revision continues it; it is
+  nullable and must stay so — a matched answer has no turn, an upstream that
+  does not store returns no id, and upstream retention is finite, so a
+  revision treats a stale id as a cache miss and restates the document. It
+  is never returned by the read endpoint: that read is unauthenticated, and
+  a stranger holding a share link has no business with the turn handle. A
   generation is an **immutable receipt** (the §7 image patch fills a
   declared-null field; nothing else ever mutates). `POST` returns `{id}`;
   the client navigates to `/studio/results?g=<id>`; the page fetches
@@ -293,8 +333,17 @@ row in place so the table holds at most one row per user per endpoint.
   §5 budgets already fit). Building a second, Studio-only apply path would
   fork the one contract that keeps person, agent, and service compatible.
 - **No anonymous LLM calls, ever**, and no client-visible prompt assembly.
-- **No image generation inside `chat/completions`** — text and image are
-  separate metered endpoints with separate failure modes.
+- **No image generation inside the text call** — not as a
+  `chat/completions` side effect and not as the Responses API's
+  `image_generation` tool. That tool puts a reasoning model in front of
+  every image whose job is to rewrite a prompt this repo tunes deliberately
+  (§7), and bills the rewrite; images stay on `/images/generations` as a
+  separate metered endpoint with its own failure mode.
+- **No conversation state as the source of truth.** `previous_response_id`
+  is a cost and quality optimisation on a turn; the document in `generation`
+  is what is authoritative, shareable and re-renderable. A shared `?g=` link
+  is read by someone with no session and no upstream context, so anything
+  that only exists in a stored turn cannot be part of the contract.
 - **No hosted sites.** The zip is the product; hosting is a different
   product with a different abuse surface.
 
@@ -306,7 +355,11 @@ row in place so the table holds at most one row per user per endpoint.
   response, the repair-retry and matcher-fallback paths, palette repair
   pinned against `contrastRatio`, image-endpoint idempotency, quota
   exhaustion (text and image separately), the unauthenticated 401, and R2
-  round-trip through `/api/media/<key>`.
+  round-trip through `/api/media/<key>`. The Responses client is pinned
+  separately at the fetch boundary: the `output` walker stepping past a
+  reasoning item, a refusal read as a refusal, an exhausted reasoning budget
+  named as `incomplete` rather than as empty output, `store`/`text.format`
+  on the wire, and `previous_response_id` on a chained turn.
 - **e2e** against `npm run preview` with `AI_BASE_URL` pointed at the stub
   (a `.dev.vars` concern, never a production code path): sign-up → verify
   (stub mail captured to `dev_mail`) → generate → three cards render → every

@@ -1,9 +1,28 @@
 import type { Env } from '../env';
 
-// The OpenAI-compatible upstream, reached as a wire format rather than a
-// vendor: chat completions and images are both `${AI_BASE_URL}/…` with a bearer
-// key, so OpenAI, an aggregator, a self-hosted server, or Cloudflare AI Gateway
-// in front of any of them are one environment variable apart.
+// The upstream, reached as a wire format rather than a vendor: text is
+// `${AI_BASE_URL}/responses`, images are `${AI_BASE_URL}/images/generations`,
+// both with a bearer key — OpenAI, an aggregator, a self-hosted server, or
+// Cloudflare AI Gateway in front of any of them are one environment variable
+// apart.
+//
+// The text half speaks the **Responses API**, which OpenAI recommends for new
+// work and which is the only one of the two that can carry a turn forward: a
+// response has an id, and quoting it as `previous_response_id` continues that
+// context server-side. Studio uses it twice — for the repair retry here, and
+// by storing the id on the generation row so a later revision can chain from
+// the answer a user actually kept.
+//
+// Two consequences of that choice are load-bearing and easy to lose:
+//
+//   - **Reasoning tokens are output tokens.** On a reasoning model the budget
+//     in `max_output_tokens` is spent on thinking *before* any message is
+//     emitted, so a cap sized for the old `max_completion_tokens` returns
+//     `status: "incomplete"` and no content at all. That is a distinct failure
+//     from a refusal or a malformed answer and is reported as one.
+//   - **There is no `choices[0].message.content`.** The answer is an item in
+//     an `output` array that also carries reasoning items, so it is walked
+//     rather than indexed.
 //
 // There is deliberately no general `chat()` export beyond this file: every
 // caller is a task endpoint that assembles its own prompt server-side. A
@@ -29,7 +48,7 @@ async function call(
   env: Env,
   path: string,
   body: unknown,
-  { retries = 2, timeoutMs = 60_000 }: { retries?: number; timeoutMs?: number } = {}
+  { retries = 2, timeoutMs = 90_000 }: { retries?: number; timeoutMs?: number } = {}
 ): Promise<Response> {
   const url = `${env.AI_BASE_URL.replace(/\/$/, '')}${path}`;
 
@@ -76,54 +95,162 @@ async function call(
   }
 }
 
-export type ChatUsage = { promptTokens: number; completionTokens: number };
+export type ChatUsage = {
+  promptTokens: number;
+  completionTokens: number;
+  /** Billed inside `completionTokens`; carried separately for diagnosis. */
+  reasoningTokens: number;
+  /** Billed inside `promptTokens` at the cached rate; diagnosis only. */
+  cachedTokens: number;
+};
 
-export type ChatResult = { content: string; usage: ChatUsage; model: string };
+export type ChatResult = {
+  content: string;
+  usage: ChatUsage;
+  model: string;
+  /**
+   * The id to quote as `previous_response_id` to continue this turn. Absent
+   * when the upstream did not store the response — every caller therefore
+   * treats chaining as an optimisation and keeps a full-context path.
+   */
+  responseId?: string;
+};
 
-export async function chatJson(
+/** The subset of the Responses payload this file reads. */
+type ResponsePayload = {
+  id?: string;
+  model?: string;
+  status?: string;
+  error?: { message?: string } | null;
+  incomplete_details?: { reason?: string } | null;
+  output?: {
+    type?: string;
+    content?: { type?: string; text?: string; refusal?: string }[];
+  }[];
+  usage?: {
+    input_tokens?: number;
+    output_tokens?: number;
+    input_tokens_details?: { cached_tokens?: number };
+    output_tokens_details?: { reasoning_tokens?: number };
+  };
+};
+
+/**
+ * The assistant text out of an `output` array.
+ *
+ * A reasoning model emits at least two items — a `reasoning` item with no
+ * content this code may read, then the `message` — and a model that declines
+ * emits a `refusal` part in place of `output_text`. Both are distinguished
+ * here so the caller's error is attributable rather than "no content".
+ */
+function readOutputText(payload: ResponsePayload): string {
+  const parts: string[] = [];
+  const refusals: string[] = [];
+
+  for (const item of payload.output ?? []) {
+    if (item.type !== 'message') {
+      continue;
+    }
+
+    for (const part of item.content ?? []) {
+      if (part.type === 'output_text' && typeof part.text === 'string') {
+        parts.push(part.text);
+      } else if (part.type === 'refusal' && typeof part.refusal === 'string') {
+        refusals.push(part.refusal);
+      }
+    }
+  }
+
+  if (parts.length === 0 && refusals.length > 0) {
+    throw new UpstreamError(`model refused: ${refusals.join(' ').slice(0, 200)}`);
+  }
+
+  return parts.join('');
+}
+
+/**
+ * One structured-output turn.
+ *
+ * `schema` is sent as `text.format` (the Responses spelling of what chat
+ * completions called `response_format`) and the caller validates the parsed
+ * answer against the same zod schema — an upstream that ignores strict
+ * formatting therefore fails at the validate step with an attributable error
+ * rather than leaking a half-shape into the UI.
+ *
+ * Pass `previousResponseId` to continue a stored turn: `input` is then the new
+ * message only, and the upstream reassembles the rest. `instructions` are sent
+ * every time regardless — the Responses API does not carry them forward.
+ */
+export async function respondJson(
   env: Env,
   options: {
-    system: string;
-    user: string;
+    instructions: string;
+    input: string;
     schemaName: string;
     schema: unknown;
-    maxTokens?: number;
+    maxOutputTokens?: number;
+    previousResponseId?: string;
   }
 ): Promise<ChatResult> {
-  const response = await call(env, '/chat/completions', {
+  const response = await call(env, '/responses', {
     model: env.AI_MODEL,
-    messages: [
-      { role: 'system', content: options.system },
-      { role: 'user', content: options.user },
-    ],
-    response_format: {
-      type: 'json_schema',
-      json_schema: { name: options.schemaName, strict: true, schema: options.schema },
+    instructions: options.instructions,
+    input: [{ role: 'user', content: options.input }],
+    text: {
+      format: {
+        type: 'json_schema',
+        name: options.schemaName,
+        strict: true,
+        schema: options.schema,
+      },
     },
-    max_completion_tokens: options.maxTokens ?? 2_000,
+    // Sized for reasoning + the document, not the document alone.
+    max_output_tokens: options.maxOutputTokens ?? 6_000,
+    // Storing is what makes `previous_response_id` resolvable, which is the
+    // whole reason this endpoint was chosen over chat completions. It also
+    // means prompts and answers are retained upstream — see §4 of
+    // agent-outputs/20260827-studio-ai-plan.md.
+    store: true,
+    ...(options.previousResponseId
+      ? { previous_response_id: options.previousResponseId }
+      : {}),
+    // Omitted unless configured: a non-reasoning model, and some compatible
+    // servers, reject the field outright.
+    ...(env.AI_REASONING_EFFORT ? { reasoning: { effort: env.AI_REASONING_EFFORT } } : {}),
   });
 
-  const payload = (await response.json()) as {
-    model?: string;
-    choices?: { message?: { content?: string } }[];
-    usage?: { prompt_tokens?: number; completion_tokens?: number };
-  };
+  const payload = (await response.json()) as ResponsePayload;
 
-  const content = payload.choices?.[0]?.message?.content;
+  if (payload.status === 'failed') {
+    throw new UpstreamError(payload.error?.message ?? 'upstream reported a failed response');
+  }
 
-  if (typeof content !== 'string' || content.length === 0) {
-    throw new UpstreamError('upstream returned no message content');
+  const content = readOutputText(payload);
+
+  if (content.length === 0) {
+    // The reasoning-budget case, named explicitly: it looks like an empty
+    // answer and is really a cap that needs raising.
+    if (payload.status === 'incomplete') {
+      throw new UpstreamError(
+        `response incomplete (${payload.incomplete_details?.reason ?? 'unknown reason'})`
+      );
+    }
+
+    throw new UpstreamError('upstream returned no output text');
   }
 
   return {
     content,
     model: payload.model ?? env.AI_MODEL,
+    responseId: payload.id,
     // An upstream that omits `usage` is not licence to record zero: the caller
     // substitutes a conservative estimate, so the ledger over-counts rather
     // than silently letting a budget run free.
     usage: {
-      promptTokens: payload.usage?.prompt_tokens ?? 0,
-      completionTokens: payload.usage?.completion_tokens ?? 0,
+      promptTokens: payload.usage?.input_tokens ?? 0,
+      completionTokens: payload.usage?.output_tokens ?? 0,
+      reasoningTokens: payload.usage?.output_tokens_details?.reasoning_tokens ?? 0,
+      cachedTokens: payload.usage?.input_tokens_details?.cached_tokens ?? 0,
     },
   };
 }
@@ -135,6 +262,12 @@ export type ImageResult = { bytes: ArrayBuffer; contentType: string; model: stri
  * prose, which paints a fake checkerboard into the pixels — and gpt-image-2
  * honours it natively, which is why this reaches one vendor and not two (see
  * docs/image-pipeline.md).
+ *
+ * This stays on the images endpoint rather than moving to the Responses API's
+ * `image_generation` tool. That tool puts a reasoning model in front of every
+ * image whose job would be to rewrite a prompt this repo tunes deliberately,
+ * and it bills the rewrite; here the prompt reaches the image model as
+ * written, for one metered call with one failure mode.
  */
 export async function generateImage(
   env: Env,

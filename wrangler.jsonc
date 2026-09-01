@@ -85,10 +85,17 @@
     // The public origin the auth cookies and OAuth callbacks are issued for.
     // Overridden per environment; the workers.dev host until the zone moves.
     "PUBLIC_ORIGIN": "https://tabbied.com",
-    // An OpenAI-compatible base. Cloudflare AI Gateway in front of it is a
+    // An OpenAI-compatible base. Text goes to `${AI_BASE_URL}/responses` —
+    // the Responses API, which is what carries a turn forward for the repair
+    // retry and for revisions. Cloudflare AI Gateway in front of it is a
     // change to this value and nothing else.
     "AI_BASE_URL": "https://api.openai.com/v1",
     "AI_MODEL": "gpt-5",
+    // Reasoning tokens are billed and capped as *output* tokens, so effort and
+    // max_output_tokens trade against each other: at high effort the budget can
+    // be spent thinking before any document is emitted. Omit this var entirely
+    // for a non-reasoning model — some upstreams reject the field.
+    "AI_REASONING_EFFORT": "low",
     // gpt-image-2 emits real alpha (background: "transparent"), which is why
     // there is no second vendor here; see docs/image-pipeline.md.
     "AI_IMAGE_MODEL": "gpt-image-2"

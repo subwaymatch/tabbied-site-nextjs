@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // One schema, used three ways: it is sent upstream as JSON Schema
-// (`response_format`), it validates what comes back, and its inferred type is
+// (`text.format`), it validates what comes back, and its inferred type is
 // what the rest of the Worker holds. An upstream that ignores `json_schema` —
 // some "compatible" servers do — therefore fails at the validate step with an
 // attributable error rather than leaking a half-shape into the UI.
@@ -41,7 +41,7 @@ export type DirectionsPayload = z.infer<ReturnType<typeof buildDirectionsSchema>
 
 /**
  * The same shape as JSON Schema for the upstream. Written by hand rather than
- * derived, because `response_format` wants a strict, closed schema (every
+ * derived, because strict `text.format` wants a closed schema (every
  * property required, `additionalProperties: false`) and a generic converter
  * emits optionals that models then omit.
  */

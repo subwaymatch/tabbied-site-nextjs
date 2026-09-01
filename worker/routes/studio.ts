@@ -7,7 +7,7 @@ import * as schema from '../db/schema';
 import { generation } from '../db/schema';
 import type { Env } from '../env';
 import { buildAuth } from '../auth';
-import { chatJson, generateImage, hasUpstream, UpstreamError } from '../ai/client';
+import { respondJson, generateImage, hasUpstream, UpstreamError } from '../ai/client';
 import {
   directionImagePrompt,
   directionsSystemPrompt,
@@ -139,6 +139,10 @@ studio.post('/directions', async (c) => {
 
   let result: StoredResult;
   let model = 'matcher';
+  // The turn the stored document came from, so a later revision can continue
+  // it rather than restating it. Null for a matched answer, and null whenever
+  // the upstream declined to store the response.
+  let responseId: string | undefined;
 
   if (!hasUpstream(c.env)) {
     // No key configured: the endpoint still answers, with the matcher's own
@@ -147,30 +151,51 @@ studio.post('/directions', async (c) => {
   } else {
     const slugs = candidates.map((entry) => entry.slug) as [string, ...string[]];
     const validator = buildDirectionsSchema(slugs);
-    const system = directionsSystemPrompt(candidates);
+    const instructions = directionsSystemPrompt(candidates);
     const user = directionsUserPrompt(description);
 
     let payload: z.infer<typeof validator> | null = null;
     let usage = { promptTokens: 0, completionTokens: 0 };
     let repairNote = '';
 
-    // One repair retry, with the validation errors appended. A second failure
-    // is an upstream that cannot hold the contract, and the user gets the
-    // matcher rather than an error page.
+    // One repair retry, carrying the validation errors. A second failure is an
+    // upstream that cannot hold the contract, and the user gets the matcher
+    // rather than an error page.
+    //
+    // On the Responses API that retry is a genuine second *turn*: quoting the
+    // rejected response as `previous_response_id` makes the input the
+    // correction alone, against a context that still holds what the model just
+    // wrote — which is what it needs to see to fix it. An upstream that stored
+    // nothing returns no id and the retry re-sends the whole thing instead, so
+    // chaining is an improvement here and never a dependency.
+    let previousResponseId: string | undefined;
+
     for (let attempt = 0; attempt < 2 && !payload; attempt++) {
+      const chained = attempt > 0 && previousResponseId !== undefined;
+
       try {
-        const completion = await chatJson(c.env, {
-          system: attempt === 0 ? system : `${system}\n\n${repairNote}`,
-          user,
+        const completion = await respondJson(c.env, {
+          instructions,
+          input: attempt === 0 ? user : chained ? repairNote : `${user}\n\n${repairNote}`,
           schemaName: 'studio_directions',
           schema: directionsJsonSchema(slugs),
+          previousResponseId: chained ? previousResponseId : undefined,
         });
 
         model = completion.model;
+        responseId = completion.responseId ?? responseId;
+        previousResponseId = completion.responseId;
+
+        // Accumulated, not replaced: a rejected first turn spent real tokens,
+        // and a chained retry is billed for the context it re-reads on top of
+        // them. Summing both turns is what the invoice will say.
         usage = {
-          promptTokens: completion.usage.promptTokens || ESTIMATED_TOKENS.prompt,
+          promptTokens:
+            usage.promptTokens +
+            (completion.usage.promptTokens || ESTIMATED_TOKENS.prompt),
           completionTokens:
-            completion.usage.completionTokens || ESTIMATED_TOKENS.completion,
+            usage.completionTokens +
+            (completion.usage.completionTokens || ESTIMATED_TOKENS.completion),
         };
 
         const candidateJson = JSON.parse(completion.content) as unknown;
@@ -253,6 +278,7 @@ studio.post('/directions', async (c) => {
     result: JSON.stringify(result),
     source: result.source,
     model,
+    responseId: result.source === 'ai' ? (responseId ?? null) : null,
     createdAt: new Date(),
   });
 

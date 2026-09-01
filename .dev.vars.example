@@ -22,9 +22,16 @@ DEV=1
 # signs you in on the wrong server, and the session you come back with is empty.
 PUBLIC_ORIGIN=http://localhost:8787
 
-# Point at a local OpenAI-shaped stub to exercise generation offline.
+# Point at a local OpenAI-shaped stub to exercise generation offline
+# (`npm run stub:ai`). It speaks the Responses API and honours
+# previous_response_id, so the chained repair turn runs locally too.
 # AI_BASE_URL=http://localhost:8788/v1
 # AI_API_KEY=stub
+
+# Sent as reasoning.effort on every Responses call, and omitted when unset.
+# The stub ignores it; against a real reasoning model it decides how much of
+# max_output_tokens is spent thinking rather than answering.
+# AI_REASONING_EFFORT=low
 
 # RESEND_API_KEY=
 # TURNSTILE_SECRET_KEY=

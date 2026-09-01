@@ -21,7 +21,8 @@ export type Endpoint = 'directions' | 'direction-image';
  * not scattered through the routes.
  */
 const DAILY_CAPS: Record<Endpoint, { calls: number; label: string }> = {
-  // Each is one chat completion over a dozen candidates.
+  // Each is one Responses turn over a dozen candidates — two when the answer
+  // needed repairing, which the ledger sums rather than replaces.
   directions: { calls: 40, label: 'generations' },
   // Each is a real image; an order of magnitude more expensive.
   'direction-image': { calls: 12, label: 'images' },

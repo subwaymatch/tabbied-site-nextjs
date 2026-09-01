@@ -484,6 +484,34 @@ after a repair retry carrying the validation errors; a second failure falls
 back to the matcher's own three (`source: 'matched-fallback'`, which the page
 says out loud) rather than erroring.
 
+**Text goes to `${AI_BASE_URL}/responses`, not `/chat/completions`.** The
+Responses API is what OpenAI recommends for new work, and it is the only one of
+the two that carries a turn forward: the repair retry quotes the rejected
+response as `previous_response_id`, so it sends the correction alone against a
+context that still holds what the model just wrote, and the id is stored on the
+`generation` row so a revision can continue the document a user kept. Four
+things that shape follows from:
+
+- **Reasoning tokens are output tokens.** `max_output_tokens` is spent thinking
+  *before* any message is emitted, so a cap sized for the old
+  `max_completion_tokens` comes back `status: "incomplete"` with no content —
+  which reads exactly like a broken upstream. `respondJson` names that case;
+  `AI_REASONING_EFFORT` (omitted entirely when unset, because a non-reasoning
+  model rejects the field) and the cap trade against each other.
+- **There is no `choices[0].message.content`.** The answer is an item in an
+  `output` array that also carries reasoning items, so it is walked, and a
+  `refusal` part is reported as a refusal rather than as absence.
+- **Continuity is an optimisation, never a dependency.** `store: true` is what
+  makes an id resolvable — and means prompts and answers are retained upstream,
+  which is a deliberate trade. An upstream that stores nothing returns no id and
+  both callers restate in full, so `responseId` is nullable and a stale one is a
+  cache miss. The document in `generation` stays the source of truth: a shared
+  `?g=` link is read by someone with no session and no upstream context.
+- **Images stay on `/images/generations`.** The Responses API's
+  `image_generation` tool would put a reasoning model in front of every image
+  whose job is to rewrite a prompt `docs/image-pipeline.md` tunes deliberately,
+  and bill the rewrite. Two endpoints, two failure modes, one metered call each.
+
 - **The matcher remains the signed-out path**, unchanged and Worker-free:
   `?q=` still means matched and is still a pure function of the text. `?g=<id>`
   means generated, because an LLM answer is not reproducible — so shareability
