@@ -25,8 +25,21 @@ import {
   UpstreamError,
   type ReferenceImage,
 } from '../ai/client';
-import { siteImagePrompt, siteSystemPrompt, siteUserPrompt } from '../ai/prompt';
-import { buildSiteValidator, siteJsonSchema, siteSlots } from '../ai/siteSchema';
+import {
+  reviseSystemPrompt,
+  reviseUserPrompt,
+  siteImagePrompt,
+  siteSystemPrompt,
+  siteUserPrompt,
+} from '../ai/prompt';
+import {
+  buildReviseValidator,
+  buildSiteValidator,
+  reviseJsonSchema,
+  siteJsonSchema,
+  siteSlots,
+} from '../ai/siteSchema';
+import { ensurePalette } from '../lib/palette';
 import { checkQuota, recordUsage } from '../lib/quota';
 import { consume } from '../lib/ratelimit';
 import { requireUser } from '../lib/session';
@@ -452,7 +465,12 @@ sites.get('/:id', async (c) => {
     createdAt: latest.createdAt,
   };
 
+  // Reads are by capability; whether the reader may *write* is a session
+  // question, answered here so the workspace knows to show its editor.
+  const viewer = await requireUser(c.env, c.req.raw.headers);
+
   const body: SiteDocument = {
+    mine: viewer !== null && viewer === row.site.userId,
     id: row.site.id,
     slug: row.site.slug,
     templateName: direction?.name ?? row.site.slug,
@@ -607,6 +625,351 @@ sites.post('/:id/images', async (c) => {
   await recordUsage(db, { userId, endpoint: 'site-image', model: image.model, imageCount: 1 });
 
   return c.json({ key, slot: slot.id, revision: written.n });
+});
+
+const revisionRequestSchema = z.object({
+  edits: z.object({
+    specVersion: z.number().int(),
+    slug: z.string().min(1),
+    edits: z.object({
+      text: z.record(z.string(), z.string()).optional(),
+      images: z.record(z.string(), z.object({ src: z.string().min(1), alt: z.string().optional() })).optional(),
+      patterns: z
+        .record(
+          z.string(),
+          z.object({
+            slug: z.string().optional(),
+            palette: z.array(z.string()).optional(),
+            options: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
+            seed: z.string().optional(),
+          })
+        )
+        .optional(),
+      palette: z.array(z.string()).optional(),
+    }),
+  }),
+});
+
+/**
+ * A manual revision: the editor's document, whole. Validated by the same
+ * planner the page applies it with, so what is stored is what will render —
+ * a document the engine would reject is refused here with its reasons rather
+ * than saved and discovered as a blank slot.
+ */
+sites.post('/:id/revisions', async (c) => {
+  const userId = await requireUser(c.env, c.req.raw.headers);
+
+  if (!userId) {
+    return c.json({ error: 'Sign in to save.' }, 401);
+  }
+
+  const parsed = revisionRequestSchema.safeParse(await c.req.json().catch(() => null));
+
+  if (!parsed.success) {
+    return c.json({ error: 'That is not an edits document.' }, 400);
+  }
+
+  const db = drizzle(c.env.DB, { schema });
+  const row = await loadSite(db, c.req.param('id'));
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  if (row.site.userId !== userId) {
+    return c.json({ error: 'Not yours to change.' }, 403);
+  }
+
+  const latest = await latestRevision(db, row.site.id);
+
+  if (!latest) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  const spec = await loadTemplateSpec(c.env, c.req.raw, row.site.slug);
+  const edits = parsed.data.edits as EditsDocument;
+
+  if (edits.slug !== row.site.slug) {
+    return c.json({ error: 'That document is for a different template.' }, 400);
+  }
+
+  // An image src may only point at this site's own media or the template's
+  // own files: the document is applied into a page, and a src is a fetch.
+  const foreign = Object.values(edits.edits.images ?? {}).find(
+    (image) => !(image.src.startsWith('/api/media/gen/site/') || image.src.startsWith('./'))
+  );
+
+  if (foreign) {
+    return c.json({ error: 'Images must come from this site or its template.' }, 400);
+  }
+
+  const plan = planEdits(spec, edits);
+
+  if (hasErrors(plan.problems)) {
+    return c.json(
+      {
+        error: 'Some of that could not be placed on the template.',
+        problems: plan.problems.filter((problem) => problem.level === 'error'),
+      },
+      422
+    );
+  }
+
+  const written = await appendRevision(db, {
+    siteId: row.site.id,
+    n: latest.n + 1,
+    edits,
+    instruction: null,
+    source: 'manual',
+    model: 'none',
+    responseId: null,
+  });
+
+  return c.json({ revision: written.n });
+});
+
+/** Every revision, newest first — the history the workspace shows. */
+sites.get('/:id/revisions', async (c) => {
+  const db = drizzle(c.env.DB, { schema });
+  const row = await loadSite(db, c.req.param('id'));
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  const rows = await db
+    .select({
+      n: revision.n,
+      instruction: revision.instruction,
+      source: revision.source,
+      model: revision.model,
+      createdAt: revision.createdAt,
+    })
+    .from(revision)
+    .where(eq(revision.siteId, row.site.id))
+    .orderBy(desc(revision.n))
+    .limit(200);
+
+  return c.json({ revisions: rows });
+});
+
+/** One revision's document — what "go back" reads. */
+sites.get('/:id/revisions/:n', async (c) => {
+  const db = drizzle(c.env.DB, { schema });
+  const n = Number(c.req.param('n'));
+
+  if (!Number.isInteger(n) || n < 1) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  const [row] = await db
+    .select()
+    .from(revision)
+    .where(and(eq(revision.siteId, c.req.param('id')), eq(revision.n, n)))
+    .limit(1);
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  const stored: StoredRevision = {
+    n: row.n,
+    edits: JSON.parse(row.edits) as EditsDocument,
+    instruction: row.instruction,
+    source: row.source as StoredRevision['source'],
+    model: row.model,
+    createdAt: row.createdAt,
+  };
+
+  return c.json(stored);
+});
+
+const reviseRequestSchema = z.object({
+  instruction: z.string().trim().min(3).max(600),
+});
+
+/**
+ * "Make the headline warmer." A revision by request: the model sees the page
+ * as it currently reads — the person's document, not the template's — and
+ * answers with a diff, which is merged, planned and stored as the next
+ * revision with the request beside it.
+ *
+ * Continuity is used when it is there: the latest AI revision's turn is
+ * quoted as `previous_response_id`, so the call carries the request alone
+ * against a context that still holds the page. An upstream that stored
+ * nothing gets the whole page restated, which costs more and changes nothing.
+ */
+sites.post('/:id/revise', async (c) => {
+  const userId = await requireUser(c.env, c.req.raw.headers);
+
+  if (!userId) {
+    return c.json({ error: 'Sign in to make changes.' }, 401);
+  }
+
+  const parsed = reviseRequestSchema.safeParse(await c.req.json().catch(() => null));
+
+  if (!parsed.success) {
+    return c.json({ error: 'Say what to change, in 3–600 characters.' }, 400);
+  }
+
+  const db = drizzle(c.env.DB, { schema });
+  const row = await loadSite(db, c.req.param('id'));
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  if (row.site.userId !== userId) {
+    return c.json({ error: 'Not yours to change.' }, 403);
+  }
+
+  const latest = await latestRevision(db, row.site.id);
+
+  if (!latest) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  if (!hasUpstream(c.env)) {
+    return c.json({ error: 'Conversational editing is not configured.' }, 503);
+  }
+
+  const burst = await consume(db, { key: `rev:${userId}`, ...BURST.revise });
+
+  if (!burst.ok) {
+    return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
+      'retry-after': String(burst.retryAfter),
+    });
+  }
+
+  const quota = await checkQuota(db, userId, 'site');
+
+  if (!quota.ok) {
+    return c.json({ error: quota.message }, 429);
+  }
+
+  const spec = await loadTemplateSpec(c.env, c.req.raw, row.site.slug);
+  const current = JSON.parse(latest.edits) as EditsDocument;
+  const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+
+  // The page as it reads now: the document's value where there is one, the
+  // template's where there is not.
+  const slots = siteSlots(spec).map((slot) => ({
+    ...slot,
+    value: current.edits.text?.[slot.id] ?? slot.value,
+  }));
+  const validator = buildReviseValidator(slots);
+  const instructions = reviseSystemPrompt(direction ?? ({ stance: '', why: '' } as never), spec.site.name);
+  const user = reviseUserPrompt(row.description, slots, parsed.data.instruction);
+  const chainFrom = latest.source === 'ai' ? (latest.responseId ?? undefined) : undefined;
+
+  let usage = { promptTokens: 0, completionTokens: 0 };
+  let model = c.env.AI_MODEL;
+  let responseId: string | undefined;
+  let previousResponseId = chainFrom;
+  let repairNote = '';
+  let next: EditsDocument | null = null;
+  let note = '';
+
+  for (let attempt = 0; attempt < 2 && !next; attempt++) {
+    // First turn: the request alone when a context exists, the whole page
+    // otherwise. Repair turn: the correction alone when the rejected answer
+    // stored, the whole thing again when it did not.
+    const chained = previousResponseId !== undefined;
+    const input =
+      attempt === 0
+        ? chained
+          ? `The request:\n"""\n${parsed.data.instruction}\n"""`
+          : user
+        : chained
+          ? repairNote
+          : `${user}\n\n${repairNote}`;
+
+    try {
+      const completion = await respondJson(c.env, {
+        instructions,
+        input,
+        schemaName: 'studio_revise',
+        schema: reviseJsonSchema(slots),
+        maxOutputTokens: 6_000,
+        previousResponseId,
+      });
+
+      model = completion.model;
+      responseId = completion.responseId ?? responseId;
+      previousResponseId = completion.responseId ?? previousResponseId;
+      usage = {
+        promptTokens: usage.promptTokens + (completion.usage.promptTokens || ESTIMATED_TOKENS.prompt),
+        completionTokens:
+          usage.completionTokens + (completion.usage.completionTokens || ESTIMATED_TOKENS.completion),
+      };
+
+      const checked = validator.safeParse(JSON.parse(completion.content) as unknown);
+
+      if (!checked.success) {
+        repairNote =
+          'Your previous answer was rejected. Fix exactly these problems:\n' +
+          checked.error.issues.slice(0, 40).map((issue) => `- ${issue.path.join('.')}: ${issue.message}`).join('\n');
+        continue;
+      }
+
+      const text = { ...current.edits.text };
+      for (const change of checked.data.changes) text[change.id] = change.value;
+
+      const palette = checked.data.palette
+        ? ensurePalette(checked.data.palette, current.edits.palette ?? spec.palette.colors).colors
+        : current.edits.palette;
+
+      const candidate: EditsDocument = {
+        ...current,
+        edits: { ...current.edits, text, ...(palette ? { palette } : {}) },
+      };
+      const plan = planEdits(spec, candidate);
+
+      if (hasErrors(plan.problems)) {
+        repairNote =
+          'Your previous answer was rejected. Fix exactly these problems:\n' +
+          plan.problems
+            .filter((problem) => problem.level === 'error')
+            .slice(0, 40)
+            .map((problem) => `- ${problem.path}: ${problem.message}`)
+            .join('\n');
+        continue;
+      }
+
+      next = candidate;
+      note = checked.data.note;
+    } catch (error) {
+      if (error instanceof UpstreamError || error instanceof SyntaxError) {
+        console.error(`studio/sites/revise: ${String(error)}`);
+        break;
+      }
+      throw error;
+    }
+  }
+
+  await recordUsage(db, {
+    userId,
+    endpoint: 'site',
+    model,
+    promptTokens: usage.promptTokens,
+    completionTokens: usage.completionTokens,
+  });
+
+  if (!next) {
+    return c.json({ error: 'The model could not make that change. Try saying it differently.' }, 502);
+  }
+
+  const written = await appendRevision(db, {
+    siteId: row.site.id,
+    n: latest.n + 1,
+    edits: next,
+    instruction: parsed.data.instruction,
+    source: 'ai',
+    model,
+    responseId: responseId ?? null,
+  });
+
+  return c.json({ revision: written.n, note });
 });
 
 export default sites;

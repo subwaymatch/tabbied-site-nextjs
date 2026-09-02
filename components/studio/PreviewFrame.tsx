@@ -1,5 +1,6 @@
 'use client';
 
+import type { RefObject } from 'react';
 import type { Problem } from 'tabbied-templates';
 import styles from './StudioPreview.module.css';
 
@@ -12,10 +13,13 @@ export default function PreviewFrame({
   html,
   problems,
   title,
+  frameRef,
 }: {
   html: string;
   problems: Problem[];
   title: string;
+  /** The editor reaches into the document through this. */
+  frameRef?: RefObject<HTMLIFrameElement | null>;
 }) {
   const shell = problems.filter((problem) => problem.path === 'runtime');
   const engine = problems.filter(
@@ -45,6 +49,7 @@ export default function PreviewFrame({
 
       <div className={styles.frame}>
         <iframe
+          ref={frameRef}
           className={styles.iframe}
           title={title}
           srcDoc={html}

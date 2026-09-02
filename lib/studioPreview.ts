@@ -49,7 +49,12 @@ export type PreviewDocument = {
  * template mounts and `hydrate()` closes over the map, so this is the same one
  * line for all 57 sites and cannot drift from the page it revives.
  */
-const bootstrap = `import { hydrate } from '${PREVIEW_RUNTIME}';\nhydrate();\n`;
+const bootstrap =
+  `import { hydrate, rehydrate } from '${PREVIEW_RUNTIME}';\n` +
+  'hydrate();\n' +
+  // Handed to the parent so the editor can re-draw the patterns after it has
+  // rewritten their attributes. Same origin, so the parent can reach it.
+  'window.__tabbied = { rehydrate };\n';
 
 /**
  * Rewrite the packaged bootstrap to load the same-origin runtime.

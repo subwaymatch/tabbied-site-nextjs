@@ -68,6 +68,15 @@ describe('sites need a session', () => {
     expect(response.status).toBe(404);
   });
 
+  it('refuses an anonymous revise', async () => {
+    const response = await SELF.fetch(`${ORIGIN}/api/studio/sites/nope/revise`, {
+      method: 'POST',
+      headers: json,
+      body: JSON.stringify({ instruction: 'Make the headline warmer.' }),
+    });
+    expect(response.status).toBe(401);
+  });
+
   it('refuses anonymous imagery on a site', async () => {
     const response = await SELF.fetch(`${ORIGIN}/api/studio/sites/nope/images`, {
       method: 'POST',
@@ -176,6 +185,21 @@ describe('making a site', () => {
     };
     expect(after.revisions).toBe(1);
 
+    // A request with no upstream says so; nothing is written.
+    const off = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revise`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ instruction: 'Make the headline warmer.' }),
+    });
+    expect(off.status).toBe(503);
+
+    const tooShort = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revise`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ instruction: 'x' }),
+    });
+    expect(tooShort.status).toBe(400);
+
     // Not yours: another person's session cannot add to it.
     const other = await signIn('intruder@example.com');
     const forbidden = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/images`, {
@@ -184,6 +208,69 @@ describe('making a site', () => {
       body: JSON.stringify({ slot: 'hero.photo' }),
     });
     expect(forbidden.status).toBe(403);
+  });
+
+  it('saves a manual revision, refuses one the engine would reject, and reads history', async () => {
+    const list = await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } });
+    const { sites } = (await list.json()) as { sites: { id: string; slug: string }[] };
+    const { id, slug } = sites[0];
+
+    const read = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`).then((r) => r.json())) as {
+      latest: { edits: { specVersion: number; slug: string; edits: Record<string, unknown> } };
+    };
+    const spec = (await SELF.fetch(`${ORIGIN}/editable/${slug}.json`).then((r) => r.json())) as {
+      slots: { id: string; kind: string }[];
+    };
+    const textSlot = spec.slots.find((slot) => slot.kind === 'text')!;
+
+    const saved = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({
+        edits: {
+          ...read.latest.edits,
+          edits: { ...read.latest.edits.edits, text: { [textSlot.id]: 'Hand-written' } },
+        },
+      }),
+    });
+    expect(saved.status, await saved.clone().text()).toBe(200);
+    expect(((await saved.json()) as { revision: number }).revision).toBe(2);
+
+    const rejected = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({
+        edits: { ...read.latest.edits, edits: { text: { 'no.such.slot': 'x' } } },
+      }),
+    });
+    expect(rejected.status).toBe(422);
+    expect(((await rejected.json()) as { problems: unknown[] }).problems.length).toBeGreaterThan(0);
+
+    const wrongTemplate = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ edits: { ...read.latest.edits, slug: 'not-this-one' } }),
+    });
+    expect(wrongTemplate.status).toBe(400);
+
+    const history = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions`).then((r) =>
+      r.json()
+    )) as { revisions: { n: number; source: string }[] };
+    expect(history.revisions.map((r) => r.n)).toEqual([2, 1]);
+    expect(history.revisions[0].source).toBe('manual');
+
+    const first = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/revisions/1`).then((r) =>
+      r.json()
+    )) as { n: number; source: string };
+    expect(first.n).toBe(1);
+    expect(first.source).toBe('fallback');
+
+    const latest = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`).then((r) => r.json())) as {
+      revisions: number;
+      latest: { n: number; edits: { edits: { text: Record<string, string> } } };
+    };
+    expect(latest.revisions).toBe(2);
+    expect(latest.latest.edits.edits.text[textSlot.id]).toBe('Hand-written');
   });
 
   it('is idempotent per direction, and lists under the person who made it', async () => {
@@ -199,7 +286,7 @@ describe('making a site', () => {
     expect(list.status).toBe(200);
     const { sites } = (await list.json()) as { sites: { id: string; revisions: number }[] };
     expect(sites).toHaveLength(2);
-    expect(sites.every((site) => site.revisions === 1)).toBe(true);
+    expect(sites.map((site) => site.revisions).sort()).toEqual([1, 2]);
 
     // Someone else sees nothing — the listing is by session, never by id.
     const other = await signIn('other@example.com');

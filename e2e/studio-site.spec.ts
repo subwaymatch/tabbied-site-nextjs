@@ -20,6 +20,7 @@ const REQUIRED = [
 
 const siteDocument = (overrides: Record<string, unknown> = {}) => ({
   id: 'e2esite',
+  mine: false,
   slug: SLUG,
   templateName: 'Verdant',
   title: 'Ye Joo Park',
@@ -107,6 +108,73 @@ test.describe('studio site', () => {
       timeout: 15_000,
     });
     await expect(page.getByText('has been updated since this site was made')).toBeVisible();
+  });
+
+  test('the owner gets the editor, and typing reaches the page live', async ({ page }) => {
+    await page.route('**/api/studio/sites/**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(siteDocument({ mine: true })),
+      })
+    );
+    // Registered after, so it is tried first: the history the chat panel lists.
+    await page.route('**/api/studio/sites/e2esite/revisions', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          revisions: [
+            { n: 2, source: 'ai', instruction: 'Warmer headline', createdAt: '2026-09-02T01:00:00Z' },
+            { n: 1, source: 'ai', instruction: null, createdAt: '2026-09-02T00:00:00Z' },
+          ],
+        }),
+      })
+    );
+
+    await page.goto('/studio/site/?id=e2esite');
+
+    const frame = page.frameLocator('iframe');
+    await expect(frame.locator('[data-edit="brand.name"]').first()).toHaveText('Ye Joo Park', {
+      timeout: 15_000,
+    });
+
+    const editor = page.getByRole('complementary', { name: 'Edit this site' });
+    await expect(editor).toBeVisible();
+
+    // The brand-name field is prefilled from the document, and a keystroke
+    // lands on every element sharing the id before anything is saved.
+    const field = editor.getByLabel(/^Name/).first();
+    await expect(field).toHaveValue('Ye Joo Park');
+    await field.fill('Park & Co.');
+
+    const names = frame.locator('[data-edit="brand.name"]');
+    await expect(names).toHaveCount(3);
+    for (let i = 0; i < 3; i += 1) {
+      await expect(names.nth(i)).toHaveText('Park & Co.');
+    }
+
+    await expect(editor.getByRole('button', { name: 'Save as a new revision' })).toBeEnabled();
+
+    // The chat panel and the history beside it, current head marked.
+    const chat = page.getByRole('region', { name: 'Ask for changes' });
+    await expect(chat.getByText('Warmer headline')).toBeVisible();
+    await expect(chat.getByText('First draft')).toBeVisible();
+    await expect(chat.getByRole('button', { name: 'Restore' })).toHaveCount(1);
+  });
+
+  test('a visitor by link gets the page and no editor', async ({ page }) => {
+    await page.route('**/api/studio/sites/**', (route) =>
+      route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(siteDocument()) })
+    );
+
+    await page.goto('/studio/site/?id=e2esite');
+
+    await expect(page.frameLocator('iframe').locator('[data-edit="brand.name"]').first()).toHaveText(
+      'Ye Joo Park',
+      { timeout: 15_000 }
+    );
+    await expect(page.getByRole('complementary', { name: 'Edit this site' })).toHaveCount(0);
   });
 
   test('404 reads as a missing site, with a way back', async ({ page }) => {

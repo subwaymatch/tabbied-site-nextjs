@@ -83,6 +83,8 @@ export type SiteSummary = {
 
 /** What GET /api/studio/sites/:id returns — a site with its latest revision. */
 export type SiteDocument = SiteSummary & {
+  /** The viewer is the person who made it — the editor shows only then. */
+  mine: boolean;
   generationId: string;
   directionIndex: number;
   description: string;

@@ -87,7 +87,17 @@ const entry = [
   '',
   '// The shell calls this; keeping the call here means the injected script tag',
   '// is one line and carries no pattern names of its own.',
-  'export const hydrate = (options = {}) => hydratePatterns({ patterns, ...options });',
+  'let mounted = [];',
+  'export const hydrate = (options = {}) => (mounted = hydratePatterns({ patterns, ...options }));',
+  '',
+  '// The editor rewrites data-* on a pattern host and needs it drawn again.',
+  '// hydratePatterns skips an element it already mounted, so this tears the',
+  '// controllers down first — the same teardown/re-hydrate cycle the README',
+  '// documents — and mounts from the attributes as they now are.',
+  'export const rehydrate = () => {',
+  '  for (const { controller } of mounted) controller.destroy();',
+  '  return hydrate();',
+  '};',
   '',
 ].join('\n');
 

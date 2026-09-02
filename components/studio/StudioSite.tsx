@@ -5,7 +5,7 @@
 // The same shell as the direction preview, loading a different document. What
 // this page is *for* — editing, revising, exporting — lands on it in turn; the
 // canvas is the part everything else needs first.
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { Problem, TemplateSpec } from 'tabbied-templates';
@@ -17,18 +17,24 @@ import {
   templateSpecUrl,
 } from 'lib/studioPreview';
 import PreviewFrame from './PreviewFrame';
+import SiteChat from './SiteChat';
+import SiteEditor from './SiteEditor';
 import styles from './StudioPreview.module.css';
 
 type State =
   | { status: 'loading' }
   | { status: 'error'; message: string }
-  | { status: 'ready'; site: SiteDocument; html: string; problems: Problem[] };
+  | { status: 'ready'; site: SiteDocument; spec: TemplateSpec; html: string; problems: Problem[] };
 
 export default function StudioSite() {
   const searchParams = useSearchParams();
   const siteId = searchParams.get('id');
 
   const [state, setState] = useState<State>({ status: 'loading' });
+  // Bumped after any write that produced a revision, so the canvas reloads
+  // from what the server now holds rather than from what the editor thinks.
+  const [generation, setGeneration] = useState(0);
+  const frameRef = useRef<HTMLIFrameElement | null>(null);
 
   const load = useCallback(async (): Promise<State> => {
     if (!siteId) {
@@ -54,8 +60,9 @@ export default function StudioSite() {
       slug: site.slug,
     });
 
-    return { status: 'ready', site, html, problems };
-  }, [siteId]);
+    return { status: 'ready', site, spec, html, problems };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `generation` is the reload signal
+  }, [siteId, generation]);
 
   useEffect(() => {
     let live = true;
@@ -104,7 +111,7 @@ export default function StudioSite() {
     );
   }
 
-  const { site, html, problems } = state;
+  const { site, spec, html, problems } = state;
 
   return (
     <>
@@ -153,11 +160,29 @@ export default function StudioSite() {
         </p>
       ) : null}
 
-      <PreviewFrame
-        html={html}
-        problems={problems}
-        title={`${site.title} — built on the ${site.templateName} template`}
-      />
+      <div className={site.mine ? styles.workspace : undefined}>
+        {site.mine ? (
+          <div className={styles.side}>
+            <SiteEditor
+              site={site}
+              spec={spec}
+              frameRef={frameRef}
+              onRevision={() => setGeneration((n) => n + 1)}
+            />
+            <SiteChat
+              siteId={site.id}
+              head={site.latest.n}
+              onRevision={() => setGeneration((n) => n + 1)}
+            />
+          </div>
+        ) : null}
+        <PreviewFrame
+          html={html}
+          problems={problems}
+          title={`${site.title} — built on the ${site.templateName} template`}
+          frameRef={frameRef}
+        />
+      </div>
     </>
   );
 }

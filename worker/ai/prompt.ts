@@ -154,3 +154,49 @@ export function siteImagePrompt(options: {
     .filter((line) => line !== '')
     .join(' ');
 }
+
+/**
+ * A conversational change to a site that already exists. The current text of
+ * every slot is what the model is editing — not the template's, the person's —
+ * and the instruction is fenced as data, like the description.
+ */
+export function reviseSystemPrompt(direction: StoredDirection, templateName: string): string {
+  return [
+    'You are editing the text of a finished small-business website at the',
+    "owner's request. You will be given every piece of text on the page as it",
+    'currently reads, and one request. Change only what the request asks for.',
+    '',
+    'Rules:',
+    '- Return a change for each slot you alter, and no others. Untouched slots',
+    '  must not appear in your answer.',
+    '- Keep each value the kind of thing it was and within its length budget.',
+    '- Only a slot marked as allowing it may contain {em}…{/em}.',
+    '- Set palette only if the request is about colours; otherwise null.',
+    '- Do not invent facts about the business.',
+    '- In "note", tell the owner in one sentence what you changed.',
+    '',
+    `The site is built on the ${templateName} template, in the direction`,
+    `"${direction.stance}" — ${direction.why}`,
+  ].join('\n');
+}
+
+export function reviseUserPrompt(
+  description: string,
+  slots: SiteSlot[],
+  instruction: string
+): string {
+  return [
+    'The business, in their own words:',
+    '"""',
+    description,
+    '"""',
+    '',
+    'The page as it currently reads, one line per slot:',
+    ...slots.map(slotLine),
+    '',
+    'The request:',
+    '"""',
+    instruction,
+    '"""',
+  ].join('\n');
+}

@@ -76,3 +76,60 @@ export const slotLine = (slot: SiteSlot): string => {
 
   return `- ${slot.id} · ${describe(slot)} · now: "${preview}"`;
 };
+
+// A revision is a *diff*. Asking for the whole document again to change one
+// sentence would spend the whole document's tokens and, worse, invite the
+// model to quietly rewrite what the person had kept. So the answer is a list
+// of (slot, new value) pairs against the same closed set of ids, plus an
+// optional palette and a one-line note saying what was done.
+
+export const reviseJsonSchema = (slots: SiteSlot[]) => ({
+  type: 'object',
+  additionalProperties: false,
+  required: ['changes', 'palette', 'note'],
+  properties: {
+    changes: {
+      type: 'array',
+      maxItems: Math.max(1, slots.length),
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['id', 'value'],
+        properties: {
+          id: { type: 'string', enum: slots.map((slot) => slot.id) },
+          value: { type: 'string' },
+        },
+      },
+    },
+    palette: {
+      // Null when the colours are not what was asked about.
+      anyOf: [
+        { type: 'null' },
+        {
+          type: 'array',
+          minItems: 2,
+          maxItems: 6,
+          items: { type: 'string', pattern: '^#[0-9a-fA-F]{6}$' },
+        },
+      ],
+      description: 'Background first, then inks; null unless the request was about colours.',
+    },
+    note: {
+      type: 'string',
+      maxLength: 200,
+      description: 'One sentence to the person: what you changed.',
+    },
+  },
+});
+
+export const buildReviseValidator = (slots: SiteSlot[]) => {
+  const ids = slots.map((slot) => slot.id) as [string, ...string[]];
+
+  return z.object({
+    changes: z.array(z.object({ id: z.enum(ids), value: z.string() })),
+    palette: z.array(z.string()).min(2).max(6).nullable(),
+    note: z.string().max(200),
+  });
+};
+
+export type RevisePayload = z.infer<ReturnType<typeof buildReviseValidator>>;

@@ -111,3 +111,28 @@
 }
 
 .back { color: inherit; }
+
+/* The workspace: editor beside the canvas on a wide screen, stacked on a
+   narrow one. Inside it the frame fills its column rather than centring
+   itself the way the standalone preview does. */
+.workspace {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+
+.side { min-width: 0; }
+
+.workspace .frame {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 960px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+}
