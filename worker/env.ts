@@ -31,6 +31,13 @@ export type Env = {
   BETTER_AUTH_SECRET?: string;
   AI_API_KEY?: string;
   RESEND_API_KEY?: string;
+  /**
+   * Comma-separated emails that are admins by configuration: granted the role
+   * when the account is created and, for an account that already exists,
+   * the next time it signs in. The alternative is the grant script against
+   * D1; this is for the deploy that has no one to run it yet.
+   */
+  ADMIN_EMAILS?: string;
   TURNSTILE_SECRET_KEY?: string;
   GITHUB_CLIENT_ID?: string;
   GITHUB_CLIENT_SECRET?: string;

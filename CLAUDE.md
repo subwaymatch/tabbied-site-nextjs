@@ -644,7 +644,9 @@ three things sit beside the canvas; a visitor by link gets the page alone.
   and impersonation; its columns are transcribed into `schema.ts` and are
   migration 0004. `/api/admin/*` answers **404** to anyone without
   `role = 'admin'` — the pages hiding themselves is cosmetic. The first admin
-  is `npm run admin:grant -- you@example.com` (a D1 UPDATE; `--remote` for
+  is either `ADMIN_EMAILS` (a comma-separated var or secret; the role is set
+  on sign-up, or on the next sign-in for an account that already exists) or
+  `npm run admin:grant -- you@example.com` (a D1 UPDATE; `--remote` for
   production); after that `/admin/users` does it through the client plugin.
   The caps page is read-only because the caps are constants.
 

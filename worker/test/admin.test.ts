@@ -10,7 +10,7 @@ async function signIn(email: string): Promise<string> {
     headers: json,
     body: JSON.stringify({ email, password: 'correct horse battery staple', name: 'Test' }),
   });
-  const mail = await env.DB.prepare('SELECT url FROM dev_mail WHERE email = ?').bind(email).first<{ url: string }>();
+  const mail = await env.DB.prepare('SELECT url FROM dev_mail WHERE email = ?').bind(email.toLowerCase()).first<{ url: string }>();
   const verify = await SELF.fetch(mail!.url, { redirect: 'manual' });
   return verify.headers.getSetCookie().map((cookie) => cookie.split(';')[0]).join('; ');
 }
@@ -59,5 +59,33 @@ describe('the admin tier', () => {
 
     const quotas = (await SELF.fetch(`${ORIGIN}/api/admin/quotas`, { headers: { cookie } }).then((r) => r.json())) as { editable: boolean };
     expect(quotas.editable).toBe(false);
+  });
+});
+
+describe('admins by configuration', () => {
+  it('grants the role on sign-up to an address in ADMIN_EMAILS, case-insensitively', async () => {
+    const cookie = await signIn('SECOND@example.com');
+    const response = await SELF.fetch(`${ORIGIN}/api/admin/overview`, { headers: { cookie } });
+    expect(response.status).toBe(200);
+  });
+
+  it('promotes an existing account the next time it signs in', async () => {
+    // Created as a plain member, then named in the setting — simulated by
+    // clearing the role the hook just set and signing in again. The old
+    // cookie stops working at once: the gate reads past the cookie cache.
+    const first = await signIn('root@example.com');
+    await env.DB.prepare("UPDATE user SET role = NULL WHERE email = ?").bind('root@example.com').run();
+    expect((await SELF.fetch(`${ORIGIN}/api/admin/overview`, { headers: { cookie: first } })).status).toBe(404);
+
+    const again = await SELF.fetch(`${ORIGIN}/api/auth/sign-in/email`, {
+      method: 'POST',
+      headers: json,
+      body: JSON.stringify({ email: 'root@example.com', password: 'correct horse battery staple' }),
+    });
+    const cookie = again.headers.getSetCookie().map((c) => c.split(';')[0]).join('; ');
+    expect((await SELF.fetch(`${ORIGIN}/api/admin/overview`, { headers: { cookie } })).status).toBe(200);
+
+    const row = await env.DB.prepare('SELECT role FROM user WHERE email = ?').bind('root@example.com').first<{ role: string | null }>();
+    expect(row?.role).toBe('admin');
   });
 });

@@ -19,7 +19,13 @@ import { loadEditableCatalog } from '../lib/templateAssets';
 type AdminUser = { id: string; role?: string | null };
 
 async function requireAdmin(env: Env, headers: Headers): Promise<AdminUser | null> {
-  const session = await buildAuth(env).api.getSession({ headers });
+  // Past the cookie cache, on purpose: a role revoked a minute ago must not
+  // keep answering here for the cache's remaining minutes. One D1 read per
+  // admin request is the right price for that.
+  const session = await buildAuth(env).api.getSession({
+    headers,
+    query: { disableCookieCache: true },
+  });
   const current = session?.user as AdminUser | undefined;
 
   return current && current.role === 'admin' ? current : null;

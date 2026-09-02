@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { admin } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import * as schema from './db/schema';
 import type { Env } from './env';
@@ -36,6 +37,16 @@ function socialProviders(env: Env) {
   return providers;
 }
 
+/** Is this address in ADMIN_EMAILS? Empty or unset means nobody is. */
+export function isConfiguredAdmin(env: Env, email: string): boolean {
+  const configured = (env.ADMIN_EMAILS ?? '')
+    .split(',')
+    .map((entry) => entry.trim().toLowerCase())
+    .filter((entry) => entry.length > 0);
+
+  return configured.includes(email.trim().toLowerCase());
+}
+
 export function buildAuth(env: Env) {
   const db = drizzle(env.DB, { schema });
 
@@ -52,6 +63,39 @@ export function buildAuth(env: Env) {
     // it. Every /api/admin/* route reads the role server-side — the pages
     // hiding themselves is cosmetic.
     plugins: [admin()],
+
+    // Admins by configuration. `ADMIN_EMAILS` names accounts that get the role
+    // without anyone running the grant script: set on the row as it is
+    // created, and — for an account that predates the setting — set the next
+    // time that person signs in. Compared case-insensitively, since an email
+    // is.
+    databaseHooks: {
+      user: {
+        create: {
+          before: async (data) => ({
+            data: isConfiguredAdmin(env, data.email) ? { ...data, role: 'admin' } : data,
+          }),
+        },
+      },
+      session: {
+        create: {
+          after: async (created) => {
+            const [row] = await db
+              .select({ email: schema.user.email, role: schema.user.role })
+              .from(schema.user)
+              .where(eq(schema.user.id, created.userId))
+              .limit(1);
+
+            if (row && row.role !== 'admin' && isConfiguredAdmin(env, row.email)) {
+              await db
+                .update(schema.user)
+                .set({ role: 'admin' })
+                .where(eq(schema.user.id, created.userId));
+            }
+          },
+        },
+      },
+    },
 
     database: drizzleAdapter(db, { provider: 'sqlite', schema }),
 
