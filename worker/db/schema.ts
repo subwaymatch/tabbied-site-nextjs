@@ -33,6 +33,13 @@ export const user = sqliteTable('user', {
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
+  // The admin plugin's four, transcribed from getAuthTables({ plugins:
+  // [admin()] }). `role` is what the /api/admin gate reads; the ban fields are
+  // what better-auth's own ban-user endpoint writes and its sign-in reads.
+  role: text('role'),
+  banned: integer('banned', { mode: 'boolean' }),
+  banReason: text('ban_reason'),
+  banExpires: integer('ban_expires', { mode: 'timestamp' }),
 });
 
 export const session = sqliteTable(
@@ -48,6 +55,8 @@ export const session = sqliteTable(
     userId: text('user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
+    /** Admin plugin: set while an admin is signed in as someone else. */
+    impersonatedBy: text('impersonated_by'),
   },
   (table) => [index('session_user_id_idx').on(table.userId)]
 );

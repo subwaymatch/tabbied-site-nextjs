@@ -50,7 +50,6 @@ export default function YourSites({ limit }: { limit?: number } = {}) {
 
   return (
     <ul className={styles.list}>
-      {/* eslint-disable-next-line react/jsx-key -- keyed below */}
       {(limit ? state.sites.slice(0, limit) : state.sites).map((site) => (
         <li key={site.id} className={styles.row}>
           <Link href={`/studio/site/?id=${site.id}`} prefetch={false} className={styles.link}>

@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { admin } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { drizzle } from 'drizzle-orm/d1';
 import * as schema from './db/schema';
@@ -45,6 +46,12 @@ export function buildAuth(env: Env) {
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.PUBLIC_ORIGIN,
     basePath: '/api/auth',
+
+    // Roles, bans and impersonation. The first admin is granted by hand
+    // (`npm run admin:grant -- you@example.com`); after that /admin/users does
+    // it. Every /api/admin/* route reads the role server-side — the pages
+    // hiding themselves is cosmetic.
+    plugins: [admin()],
 
     database: drizzleAdapter(db, { provider: 'sqlite', schema }),
 
