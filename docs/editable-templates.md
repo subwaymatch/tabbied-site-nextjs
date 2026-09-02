@@ -61,6 +61,48 @@ and the footer, the primary call to action is in the nav and the hero. The
 generator enforces the other half of the bargain — elements sharing an id must
 currently say the same thing, or it fails the build.
 
+## Brand copy: roles, because ids are local
+
+A slot id is chosen by whoever annotated the page. The five shared
+`TemplateSite` pages say `brand.name` and `hero.title`; the 52 bespoke ones say
+`bar.mark`, `colophon.colophonMark`, `index.text12` — whatever the component
+happened to be called when `annotate-templates.mjs` walked it. That is fine for
+an editor, which shows a human the whole list and lets them pick. It is useless
+to a caller that holds three strings and does not know which template it is
+addressing, which is exactly Studio's position: the model picks a slug from a
+shortlist, then has to put a business name *somewhere*.
+
+So a text slot may additionally declare a **role**:
+
+```jsx
+<a data-edit="bar.mark" data-edit-copy="brandName" ...>Ateliers Beaufort</a>
+<h1 data-edit="hero.title" data-edit-copy="headline" ...>...</h1>
+<p data-edit="hero.lede" data-edit-copy="tagline" ...>...</p>
+```
+
+`data-edit-copy` takes one of `brandName`, `headline`, `tagline` — the three a
+generated direction actually authors (`worker/ai/schema.ts`), and the three
+that are unambiguous on every template. A fourth for body copy or section
+headings would have to choose between a dozen candidates per page and would be
+guessing, so there isn't one.
+
+The generator carries the role into the spec as `slot.role`, and
+`directionToEdits(spec, direction)` turns three strings and a palette into an
+edits document addressed to *that* template's ids. It is deliberately total and
+lossy: a role the template doesn't declare is dropped rather than reported, and
+a palette that `planEdits` would reject is dropped so the page keeps its own.
+The caller's alternative to a partial rebrand is no rebrand, which is worse.
+What a caller *can* act on ahead of time is `declaredCopyRoles(spec)` and
+`supportsBrandCopy(spec)` — the latter asks only whether the page names the
+business anywhere, because a rebrand that leaves the template's own name in the
+masthead is the failure worth refusing up front.
+
+Roles are additive and optional. A page with none still edits exactly as it did
+before; it just can't be handed a brand direction. Today the five `TemplateSite`
+pages carry them (one component, so one edit covered all five) and the 52
+bespoke pages do not — the same batching the annotations themselves went
+through.
+
 ## Colour: one edit point, not three copies
 
 Colour enters a page **once**, as custom properties on the `data-edit-root`

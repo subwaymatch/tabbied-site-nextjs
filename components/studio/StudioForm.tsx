@@ -23,7 +23,7 @@ const PLACEHOLDER =
 
 export default function StudioForm({ templateCount }: { templateCount: number }) {
   const [text, setText] = useState('');
-  const [pending, setPending] = useState(false);
+  const [pending, setPending] = useState<'make' | 'directions' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { user, isPending: sessionPending } = useSessionUser();
@@ -35,13 +35,39 @@ export default function StudioForm({ templateCount }: { templateCount: number })
   // query string and the results page scores it in the browser.
   const match = () => router.push(`/studio/results/?q=${encodeURIComponent(trimmed)}`);
 
+  /**
+   * The short way: no choosing. The model picks the three, names the one it
+   * would lead with, and that one is written in full — one request, one site.
+   */
+  async function makeSite() {
+    if (!user) {
+      router.push(`/sign-in?next=${encodeURIComponent('/studio')}`);
+      return;
+    }
+
+    setPending('make');
+    setError(null);
+
+    try {
+      const { siteId } = await apiFetch<{ siteId: string }>('/api/studio/make', {
+        method: 'POST',
+        body: JSON.stringify({ description: trimmed }),
+      });
+
+      router.push(`/studio/site/?id=${siteId}`);
+    } catch (cause) {
+      setError(cause instanceof ApiError ? cause.message : 'Something went wrong. Try again.');
+      setPending(null);
+    }
+  }
+
   async function generate() {
     if (!user) {
       router.push(`/sign-in?next=${encodeURIComponent('/studio')}`);
       return;
     }
 
-    setPending(true);
+    setPending('directions');
     setError(null);
 
     try {
@@ -57,7 +83,7 @@ export default function StudioForm({ templateCount }: { templateCount: number })
       setError(
         cause instanceof ApiError ? cause.message : 'Something went wrong. Try again.'
       );
-      setPending(false);
+      setPending(null);
     }
   }
 
@@ -67,11 +93,11 @@ export default function StudioForm({ templateCount }: { templateCount: number })
       onSubmit={(event) => {
         event.preventDefault();
         if (ready) {
-          void generate();
+          void makeSite();
         }
       }}
     >
-      <h1 className={styles.title}>Describe your business, get three websites</h1>
+      <h1 className={styles.title}>Describe your business, get a website</h1>
       <p className={styles.lede}>
         Each one is a complete, ready-to-use site in its own brand direction
         &mdash; built with tabbied&rsquo;s generative patterns in place of stock
@@ -104,15 +130,24 @@ export default function StudioForm({ templateCount }: { templateCount: number })
         <button
           type="submit"
           className={styles.submit}
-          disabled={!ready || pending || sessionPending}
+          disabled={!ready || pending !== null || sessionPending}
         >
-          {pending ? 'Generating…' : 'Generate with AI'}
+          {pending === 'make' ? 'Making your website…' : 'Make my website'}
         </button>
 
         <button
           type="button"
           className={styles.secondary}
-          disabled={!ready || pending}
+          disabled={!ready || pending !== null || sessionPending}
+          onClick={() => void generate()}
+        >
+          {pending === 'directions' ? 'Generating…' : 'Show me three directions'}
+        </button>
+
+        <button
+          type="button"
+          className={styles.secondary}
+          disabled={!ready || pending !== null}
           onClick={match}
         >
           Match from the library
@@ -120,13 +155,13 @@ export default function StudioForm({ templateCount }: { templateCount: number })
       </div>
 
       <p className={styles.note}>
-        {/* Says plainly what each button does and what it costs you. Studio
-            matches a library rather than drawing something new, and the page
-            should not imply otherwise. */}
-        Both search the {templateCount} template sites in the library.{' '}
-        <strong>Match</strong> is instant and needs no account.{' '}
-        <strong>Generate</strong> asks a model to pick three and write the
-        colours and copy, so it needs one
+        {/* Says plainly what each button does and what it costs you. */}
+        All three draw on the {templateCount} template sites in the library.{' '}
+        <strong>Make my website</strong> has a model pick the best fit and
+        write every word of it for you.{' '}
+        <strong>Three directions</strong> shows you the choice first.{' '}
+        <strong>Match</strong> is instant and needs no account; the other two
+        need one
         {sessionPending || user ? null : (
           <>
             {' '}

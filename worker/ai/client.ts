@@ -61,13 +61,17 @@ async function call(
     let networkError: unknown;
 
     try {
+      // A FormData body is sent as-is: fetch writes the multipart boundary into
+      // the content-type itself, and setting one by hand breaks the upload.
+      const multipart = body instanceof FormData;
+
       response = await fetch(url, {
         method: 'POST',
         headers: {
           authorization: `Bearer ${env.AI_API_KEY}`,
-          'content-type': 'application/json',
+          ...(multipart ? {} : { 'content-type': 'application/json' }),
         },
-        body: JSON.stringify(body),
+        body: multipart ? body : JSON.stringify(body),
         signal: abort,
       });
     } catch (error) {
@@ -269,31 +273,61 @@ export type ImageResult = { bytes: ArrayBuffer; contentType: string; model: stri
  * and it bills the rewrite; here the prompt reaches the image model as
  * written, for one metered call with one failure mode.
  */
+export type ReferenceImage = { bytes: ArrayBuffer; contentType: string };
+
 export async function generateImage(
   env: Env,
-  options: { prompt: string; size?: string; transparent?: boolean }
+  options: {
+    prompt: string;
+    size?: string;
+    transparent?: boolean;
+    /**
+     * Pictures to draw from — a product, a place, a look. With any given the
+     * call goes to `/images/edits`, which is the endpoint that takes reference
+     * images and is multipart rather than JSON; without, `/images/generations`
+     * as before. The rest of the request is the same on both.
+     */
+    references?: ReferenceImage[];
+  }
 ): Promise<ImageResult> {
-  const response = await call(
-    env,
-    '/images/generations',
-    {
-      model: env.AI_IMAGE_MODEL,
-      prompt: options.prompt,
-      size: options.size ?? '1536x1024',
-      quality: 'low',
-      n: 1,
-      output_format: 'webp',
-      ...(options.transparent ? { background: 'transparent' } : {}),
-    },
-    // Image generation is slower than a completion by a wide margin.
-    { timeoutMs: 120_000, retries: 1 }
-  );
+  const fields: Record<string, string> = {
+    model: env.AI_IMAGE_MODEL,
+    prompt: options.prompt,
+    size: options.size ?? '1536x1024',
+    quality: 'low',
+    n: '1',
+    output_format: 'webp',
+    ...(options.transparent ? { background: 'transparent' } : {}),
+  };
+
+  let response: Response;
+
+  if (options.references && options.references.length > 0) {
+    const form = new FormData();
+
+    for (const [key, value] of Object.entries(fields)) form.append(key, value);
+    options.references.forEach((reference, index) => {
+      form.append(
+        'image[]',
+        new Blob([reference.bytes], { type: reference.contentType }),
+        `reference-${index}.${reference.contentType.split('/')[1] ?? 'png'}`
+      );
+    });
+
+    response = await call(env, '/images/edits', form, { timeoutMs: 120_000, retries: 1 });
+  } else {
+    response = await call(
+      env,
+      '/images/generations',
+      { ...fields, n: 1 },
+      { timeoutMs: 120_000, retries: 1 }
+    );
+  }
 
   const payload = (await response.json()) as {
     model?: string;
     data?: { b64_json?: string }[];
   };
-
   const b64 = payload.data?.[0]?.b64_json;
 
   if (!b64) {
@@ -302,6 +336,7 @@ export async function generateImage(
 
   const binary = atob(b64);
   const bytes = new Uint8Array(binary.length);
+
   for (let i = 0; i < binary.length; i++) {
     bytes[i] = binary.charCodeAt(i);
   }

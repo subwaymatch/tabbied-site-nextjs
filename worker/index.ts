@@ -38,7 +38,12 @@ import { buildAuth } from './auth';
 import type { Env } from './env';
 import { isDev } from './env';
 import media from './routes/media';
+import account from './routes/account';
+import admin from './routes/admin';
+import make from './routes/make';
+import sites from './routes/sites';
 import studio from './routes/studio';
+import uploads from './routes/uploads';
 import {
   buildServer,
   catalogTools,
@@ -231,8 +236,15 @@ api.all('/auth/*', async (c) => {
   return buildAuth(c.env).handler(c.req.raw);
 });
 
+// Before the wider /studio prefix only for legibility — the two do not
+// overlap, since studio.ts registers nothing under /sites.
+api.route('/studio/make', make);
+api.route('/studio/sites', sites);
 api.route('/studio', studio);
 api.route('/media', media);
+api.route('/uploads', uploads);
+api.route('/account', account);
+api.route('/admin', admin);
 
 // A miss under /api is JSON, never the site's 404 page. This is `all('*')`
 // rather than `notFound()` because a sub-app's notFound handler is not used

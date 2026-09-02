@@ -12,7 +12,7 @@ import * as schema from '../db/schema';
 // stopped by the limiter before it reaches here, and the day's real total is
 // what decides whether money gets spent.
 
-export type Endpoint = 'directions' | 'direction-image';
+export type Endpoint = 'directions' | 'direction-image' | 'site' | 'site-image';
 
 /**
  * Per-endpoint daily caps for the unpriced tier: generous enough that ordinary
@@ -20,12 +20,16 @@ export type Endpoint = 'directions' | 'direction-image';
  * changes these numbers and nothing else — which is why they are a table and
  * not scattered through the routes.
  */
-const DAILY_CAPS: Record<Endpoint, { calls: number; label: string }> = {
+export const DAILY_CAPS: Record<Endpoint, { calls: number; label: string }> = {
   // Each is one Responses turn over a dozen candidates — two when the answer
   // needed repairing, which the ledger sums rather than replaces.
   directions: { calls: 40, label: 'generations' },
   // Each is a real image; an order of magnitude more expensive.
   'direction-image': { calls: 12, label: 'images' },
+  // A full document is a long answer — every text slot on the page — so it is
+  // the dearest text call and gets the tightest cap.
+  site: { calls: 10, label: 'sites' },
+  'site-image': { calls: 12, label: 'site images' },
 };
 
 export type Db = DrizzleD1Database<typeof schema>;

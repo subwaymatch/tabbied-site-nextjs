@@ -1,6 +1,7 @@
 'use client';
 
 import { createAuthClient } from 'better-auth/react';
+import { adminClient } from 'better-auth/client/plugins';
 import { API_BASE } from './apiFetch';
 
 // The browser half of better-auth.
@@ -14,9 +15,12 @@ import { API_BASE } from './apiFetch';
 // client validates the URL at construction, and construction happens at module
 // scope — during the static export, where there is no origin to resolve it
 // against. That threw the whole prerender of every page importing this.
-export const authClient = createAuthClient(
-  API_BASE ? { baseURL: `${API_BASE}/api/auth` } : {}
-);
+export const authClient = createAuthClient({
+  ...(API_BASE ? { baseURL: `${API_BASE}/api/auth` } : {}),
+  // Roles, bans, impersonation — the admin pages call these directly; the
+  // server's own role gate is what actually decides.
+  plugins: [adminClient()],
+});
 
 export const { signIn, signUp } = authClient;
 
@@ -26,6 +30,8 @@ export type SessionUser = {
   email: string;
   name: string;
   emailVerified: boolean;
+  /** Set by the admin plugin; 'admin' opens /admin. */
+  role?: string | null;
 };
 
 /**

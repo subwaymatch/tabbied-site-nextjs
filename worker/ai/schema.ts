@@ -103,26 +103,10 @@ export const directionsJsonSchema = (slugs: string[]) => ({
   },
 });
 
-/** What a stored generation holds, and what /studio/results renders. */
-export type StoredDirection = {
-  slug: string;
-  name: string;
-  topic: string;
-  patternSlug: string;
-  patternName: string;
-  paletteName: string;
-  palette: string[];
-  descriptors: string[];
-  stance: string;
-  why: string;
-  copy: DirectionCopy | null;
-  /** R2 key, once someone has asked for imagery. */
-  image: string | null;
-};
-
-export type StoredResult = {
-  specVersion: 1;
-  source: 'ai' | 'matched-fallback';
-  recommended: number;
-  directions: StoredDirection[];
-};
+// The stored document's shape lives in lib/studioDocument.ts, shared with the
+// pages that read it; re-exported here so the Worker's callers keep one import.
+export type {
+  DirectionCopy as StoredCopy,
+  StoredDirection,
+  StoredResult,
+} from '../../lib/studioDocument';

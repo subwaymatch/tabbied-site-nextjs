@@ -588,7 +588,7 @@ test.describe('Studio', () => {
     // Generating is the other button, and it is a session away — signed out it
     // sends you to sign in rather than spending anything.
     await expect(
-      page.getByRole('button', { name: 'Generate with AI' })
+      page.getByRole('button', { name: 'Show me three directions' })
     ).toBeEnabled();
 
     await match.click();

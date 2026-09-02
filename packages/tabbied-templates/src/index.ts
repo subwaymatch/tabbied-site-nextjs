@@ -26,6 +26,7 @@ export type {
   SlotKind,
   TextFormat,
   TextSlot,
+  CopyRole,
   ImageSlot,
   PatternSlot,
   PatternSlotConfig,
@@ -54,6 +55,17 @@ export {
 } from './plan.js';
 
 export type { EditOperation, EditPlan } from './plan.js';
+
+export {
+  COPY_ROLES,
+  copySlots,
+  declaredCopyRoles,
+  directionToEdits,
+  parseCopyRole,
+  supportsBrandCopy,
+} from './brand.js';
+
+export type { BrandCopy, BrandDirection } from './brand.js';
 
 export { applyEdits, applyPlan } from './apply.js';
 export type { ApplyResult } from './apply.js';
@@ -102,6 +114,7 @@ export {
   MAX_ATTRIBUTE,
   MULTILINE_ATTRIBUTE,
   LABEL_ATTRIBUTE,
+  COPY_ATTRIBUTE,
   ROLES_ATTRIBUTE,
   FLAT_ATTRIBUTE,
   VARS_ATTRIBUTE,

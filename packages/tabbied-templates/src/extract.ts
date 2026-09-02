@@ -12,6 +12,7 @@
 
 import { scanElements, parseAttributes, stripCacheBuster } from './html.js';
 import { hasEmphasis, htmlToTextValue } from './text.js';
+import { parseCopyRole } from './brand.js';
 import {
   EDIT_IMAGE_ATTRIBUTE,
   EDIT_PATTERN_ATTRIBUTE,
@@ -35,6 +36,8 @@ export const FORMAT_ATTRIBUTE = 'data-edit-format';
 export const MAX_ATTRIBUTE = 'data-edit-max';
 export const MULTILINE_ATTRIBUTE = 'data-edit-multiline';
 export const LABEL_ATTRIBUTE = 'data-edit-label';
+/** Names the brand-copy role a text slot holds. See brand.ts. */
+export const COPY_ATTRIBUTE = 'data-edit-copy';
 export const ROLES_ATTRIBUTE = 'data-edit-roles';
 export const FLAT_ATTRIBUTE = 'data-edit-flat';
 /** `vars` roots only: the page's own custom-property names, in role order. */
@@ -190,6 +193,9 @@ function textSlotFrom(
 
   const label = attributes[LABEL_ATTRIBUTE];
   if (label) slot.label = label;
+
+  const role = parseCopyRole(attributes[COPY_ATTRIBUTE]);
+  if (role) slot.role = role;
 
   const maxChars = numberOr(attributes[MAX_ATTRIBUTE]);
   if (maxChars != null) slot.maxChars = maxChars;

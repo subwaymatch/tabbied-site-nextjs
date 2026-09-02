@@ -30,6 +30,8 @@ npm run test:worker                  # Worker unit tests (local D1/KV/R2, stub u
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run editable [slug]              # derive editable specs from out/ (also the gate)
+npm run preview:runtime              # bundle Studio's same-origin pattern runtime
+npm run admin:grant -- <email>       # make the first admin (--remote for production)
 npm run check:thumbnails             # gallery configs all name a real design
 ```
 
@@ -449,12 +451,11 @@ Things worth not re-litigating:
 ## Studio — matching, then generating
 
 `/studio` takes a description of a business and `/studio/results` answers with
-three template sites. The design it was built from describes an AI feature; the
-Worker has no AI binding, no D1 and no auth (see
-`agent-outputs/20260827-studio-ai-plan.md` — that tier is a plan, not code), so
-Studio answers with what the repo actually has: 57 finished template sites, each
-on one of the 295 patterns and one of the 437 palettes, each with a real page
-and a real zip.
+three template sites. Studio answers with what the repo actually has: 57
+finished template sites, each on one of the 295 patterns and one of the 437
+palettes, each with a real page and a real zip. (The AI tier this was designed
+against — `agent-outputs/20260827-studio-ai-plan.md` — has since landed; see
+below. The matcher was not replaced by it.)
 
 - **`lib/studioMatch.ts` is pure and isomorphic; `lib/studioDirections.ts` is
   server-only.** The index — 57 entries of names, palettes and vocabulary — is
@@ -527,6 +528,136 @@ things that shape follows from:
   which is why this reaches one vendor and not two (`docs/image-pipeline.md`).
 - The artboard's **photo upload** waits on `/api/uploads`; the **spinner** it
   drew for a synchronous match is now real, because generating is a real call.
+
+**A generated direction now reaches the template**, which is what makes
+Preview more than a link to somebody else's website. The model authors a brand
+name, a headline, a tagline and a palette; `/studio/preview/` applies them to
+the template and shows the result.
+
+- **Slot ids are local; roles are not.** An edits document is keyed by slot id,
+  and those ids are whatever the annotator called them — `brand.name` on the
+  five shared `TemplateSite` pages, `bar.mark` or `index.text12` on the bespoke
+  ones. A caller holding three strings cannot address that, so a text slot may
+  declare `data-edit-copy="brandName|headline|tagline"` and `directionToEdits`
+  maps a direction onto whatever ids that particular page uses. Three roles,
+  because they are the three the model authors and the three that are
+  unambiguous on every page. Only the five `TemplateSite` pages carry them so
+  far; `/editable-catalog.json` publishes `copyRoles` per site and the results
+  page reads it to decide whether a card's Preview can promise a rebrand.
+- **The artefact previewed is the download, not the live page.** `/template/
+  <slug>/` mounts its patterns through React, which ignores a `data-*` write
+  from outside — `applyPlan` deliberately does not re-mount anything, because
+  re-mounting is `hydratePatterns()`'s job. The packaged `out/downloads/<slug>/`
+  has no framework left in it, so the engine's attribute rewrites are exactly
+  what a plain `hydratePatterns()` then reads. Previewing what is actually
+  downloaded is also the difference between a preview and a mockup.
+- **The bootstrap is repointed at a same-origin bundle, and must be.** The
+  package imports `tabbied` from esm.sh, pinned, which is right for a stranger
+  who unzipped it years later and wrong for this site drawing its own preview.
+  `scripts/build-preview-runtime.mjs` bundles `hydratePatterns` plus every
+  design any packaged template mounts (231 of them, 88 KB gzipped, cached
+  across previews) into `public/studio/preview-runtime.js`, and the shell
+  rewrites that one script tag. Serving `tabbied/dist` raw instead does not
+  work: `register.js` does a bare `import 'css-doodle'` that no browser
+  resolves. The step runs between the two `next build` passes, after the
+  packager it reads from — **it is derived from the packaged HTML**, so a
+  template added in the same commit cannot be missing a design it needs.
+- **The iframe needs `allow-same-origin`, and that is not laziness.** With
+  `allow-scripts` alone the document gets an opaque origin and the same-origin
+  runtime import is blocked as cross-origin — the page renders with every
+  pattern silently missing. What stays denied is what the packaged page
+  actually contains: its `<form action="#">` and `<a href="#">` cannot navigate
+  the top frame, submit, or open a popup. Model-authored strings reach the
+  document as text nodes (`writeText` builds them with `createTextNode`
+  precisely so there is no markup path), and everything else is first-party.
+- **The three strings are the floor; a *site* is the whole page.** "Make this
+  one" on a generated card is `POST /api/studio/sites`: every text slot on the
+  chosen template rewritten for the business, against a strict JSON schema
+  built from that template's spec (`worker/ai/siteSchema.ts`) — the same
+  closed-vocabulary move as the slug enum, one level up, so an invented slot
+  cannot survive and a forgotten one is a schema failure rather than a headline
+  that silently stays the plant shop's. The answer is checked by zod and then by
+  `planEdits`, which is pure and so runs in the Worker with no DOM; one repair
+  retry; a second failure writes the three-string `directionToEdits` floor as
+  revision 1 with `source: 'fallback'`, and the workspace says so. Because the
+  document is keyed by slot id, **this reaches all 57 templates today** —
+  `data-edit-copy` roles matter only for the cheap card-stage preview.
+- **Sites are pinned and versioned.** `site` records `specVersion` and a
+  SHA-256 of the packaged `index.html` it was authored against; `GET
+  /api/studio/sites/:id` re-hashes the served package and reports
+  `templateChanged`, so a re-packaged template is announced on the page rather
+  than discovered as a missing headline. `revision` is append-only (`n`,
+  `edits`, `instruction`, `source`, `responseId`) — a conversational or manual
+  edit writes n+1, which is what makes "go back" possible. The listing is
+  session-scoped (`GET /api/studio/sites`, on the `(userId, updatedAt)` index)
+  and the read is by capability id, the same split as generations: the
+  no-listing rule is about anonymous *enumeration*, not a person's own rows.
+- **The output budget scales with the page.** A 300-slot bespoke page is a long
+  answer and reasoning is spent from the same cap first, so `outputBudget`
+  grows with the slot count; the 6,000 default that fits three strings comes
+  back `incomplete` with nothing on a full page.
+- **`worker/test/sites.test.ts` runs a real session.** Sign up, read the
+  verification link out of `dev_mail` (DEV=1 writes it to D1), follow it, keep
+  the cookie — then make, list and read through the real routes against the
+  packaged assets the binding serves. With no `AI_API_KEY` it exercises every
+  row the tier writes via the fallback path, which is the point.
+
+**The workspace, and what surrounds it.** `/studio/site/?id=` is where a
+site is worked on. For its owner (the read says `mine`, decided by session)
+three things sit beside the canvas; a visitor by link gets the page alone.
+
+- **The editor edits through the engine, live.** A keystroke plans one
+  operation and runs it against the iframe's document; a palette change also
+  calls `window.__tabbied.rehydrate()` inside the iframe, which the bundled
+  runtime exports — it tears down the controllers it mounted and mounts from
+  the attributes as they now are, because a rewritten `data-*` is not a
+  re-render. Saving is `POST /api/studio/sites/:id/revisions` with the whole
+  document, validated by `planEdits` server-side; a document the engine would
+  reject is a 422 with reasons, not a stored blank. Image `src`s are held to
+  the site's own media and the template's own files — a src is a fetch.
+- **Asking is a diff.** `POST …/revise` shows the model the page *as it
+  currently reads* — the person's document — and takes back `changes:
+  [{id, value}]` against the same closed slot set, an optional palette and a
+  one-line note. The latest AI revision's `responseId` is quoted when there is
+  one, so the request travels alone against a context that still holds the
+  page. History is append-only; Restore writes an older document as a new
+  head.
+- **Pictures are transparent and go into slots.** `POST …/images {slot,
+  referenceIds?}` makes one picture for one image slot, `background:
+  transparent`, keyed under `gen/site/<id>/<n>/<slot>.webp` so a re-generation
+  never overwrites bytes an earlier revision points at, and writes revision
+  n+1. References are the person's uploads — `POST /api/uploads`, judged by
+  bytes not label, 8 MB, 60 per person, R2 `up/<userId>/` — and with any given
+  the call goes to `/images/edits` as multipart, which `call()` sends as-is
+  because fetch writes the boundary itself.
+- **One prompt, one site.** `POST /api/studio/make` is the directions handler
+  and the sites handler run in sequence in-process (`app.request`), with the
+  caller's own headers, at the recommended index. Every gate and cap applies
+  as it would to the two clicks it replaces, and there stays one
+  implementation of each. "Make my website" on `/studio` is this.
+- **Pages.** `/account/{sites,uploads,usage,settings}` under one nav;
+  `/verify-email` is where the confirmation link lands (`callbackURL` on
+  sign-up), `/forgot-password` and `/reset-password` use better-auth 1.7's
+  `requestPasswordReset`; `/s/?id=&n=` is a site at one revision, read-only.
+  Every per-item page takes `?id=` — the export cannot enumerate ids.
+- **Admin.** better-auth's `admin()` plugin supplies `role`, the ban fields
+  and impersonation; its columns are transcribed into `schema.ts` and are
+  migration 0004. `/api/admin/*` answers **404** to anyone without
+  `role = 'admin'` — the pages hiding themselves is cosmetic. The first admin
+  is either `ADMIN_EMAILS` (a comma-separated var or secret; the role is set
+  on sign-up, or on the next sign-in for an account that already exists) or
+  `npm run admin:grant -- you@example.com` (a D1 UPDATE; `--remote` for
+  production); after that `/admin/users` does it through the client plugin.
+  The caps page is read-only because the caps are constants.
+
+Two things about the tests. `worker/test/*.test.ts` sign up real users and
+follow the verification link out of `dev_mail`; run them **after** a build,
+not during one — `next build` empties `out/` and the assets binding reads
+from there, which reads as a random failure in `beforeAll`. And one smoke
+test (`the same description always gives the same three`) can time out on
+`page.goto` in a sandbox with no outbound network: the results page's
+typekit and Google Fonts stylesheets hang until the proxy resets them, and
+`load` waits for stylesheets. Not a regression; it passes with network.
 
 ## Agent-facing docs — all generated, never hand-edited
 
