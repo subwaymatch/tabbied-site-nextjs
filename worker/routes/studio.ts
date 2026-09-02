@@ -389,8 +389,12 @@ studio.post('/direction-image', async (c) => {
   let image;
 
   try {
+    // Transparent: gpt-image-2 returns the subject on a real alpha channel, so
+    // the still life sits on the card's own ground rather than in a box of
+    // its own — and later drops into a template's image slot the same way.
     image = await generateImage(c.env, {
       prompt: directionImagePrompt(direction, row.description),
+      transparent: true,
     });
   } catch (error) {
     if (error instanceof UpstreamError) {

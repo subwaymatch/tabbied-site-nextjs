@@ -1,13 +1,13 @@
 import { Hono } from 'hono';
-import { and, desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { z } from 'zod';
 import {
   directionToEdits,
   hasErrors,
+  isImageSlot,
   planEdits,
   type EditsDocument,
-  type TemplateSpec,
 } from 'tabbied-templates';
 import type {
   SiteDocument,
@@ -16,10 +16,16 @@ import type {
   StoredRevision,
 } from '../../lib/studioDocument';
 import * as schema from '../db/schema';
-import { generation, revision, site } from '../db/schema';
+import { generation, revision, site, upload } from '../db/schema';
 import type { Env } from '../env';
-import { respondJson, hasUpstream, UpstreamError } from '../ai/client';
-import { siteSystemPrompt, siteUserPrompt } from '../ai/prompt';
+import {
+  generateImage,
+  respondJson,
+  hasUpstream,
+  UpstreamError,
+  type ReferenceImage,
+} from '../ai/client';
+import { siteImagePrompt, siteSystemPrompt, siteUserPrompt } from '../ai/prompt';
 import { buildSiteValidator, siteJsonSchema, siteSlots } from '../ai/siteSchema';
 import { checkQuota, recordUsage } from '../lib/quota';
 import { consume } from '../lib/ratelimit';
@@ -36,7 +42,14 @@ import { hashText, loadPackagedHtml, loadTemplateSpec } from '../lib/templateAss
 // from the five annotated ones: the document is keyed by slot id, and every
 // template has those.
 
-const BURST = { max: 3, windowSeconds: 60 };
+const BURST = {
+  make: { max: 3, windowSeconds: 60 },
+  image: { max: 4, windowSeconds: 60 },
+  revise: { max: 6, windowSeconds: 60 },
+};
+
+/** How many reference pictures one image call may take. */
+const MAX_REFERENCES = 4;
 
 /** Over-estimate for an upstream that omitted `usage`, as in studio.ts. */
 const ESTIMATED_TOKENS = { prompt: 8_000, completion: 4_000 };
@@ -45,6 +58,99 @@ const requestSchema = z.object({
   generationId: z.string().min(8).max(64),
   index: z.number().int().min(0).max(2),
 });
+
+type Db = ReturnType<typeof drizzle<typeof schema>>;
+
+/** The site row, its generation's description and result, or null. */
+async function loadSite(db: Db, id: string) {
+  const [row] = await db
+    .select({ site, description: generation.description, result: generation.result })
+    .from(site)
+    .innerJoin(generation, eq(generation.id, site.generationId))
+    .where(eq(site.id, id))
+    .limit(1);
+
+  return row ?? null;
+}
+
+/** The newest revision, which every write builds on. */
+async function latestRevision(db: Db, siteId: string) {
+  const [row] = await db
+    .select()
+    .from(revision)
+    .where(eq(revision.siteId, siteId))
+    .orderBy(desc(revision.n))
+    .limit(1);
+
+  return row ?? null;
+}
+
+/**
+ * Append revision n+1 and touch the site, in that order — the site's
+ * updatedAt is what the listing sorts on, so a write that changed the
+ * document has to move it.
+ */
+async function appendRevision(
+  db: Db,
+  options: {
+    siteId: string;
+    n: number;
+    edits: EditsDocument;
+    instruction: string | null;
+    source: 'ai' | 'manual' | 'fallback';
+    model: string;
+    responseId: string | null;
+  }
+) {
+  const now = new Date();
+
+  await db.insert(revision).values({
+    id: newId(),
+    siteId: options.siteId,
+    n: options.n,
+    edits: JSON.stringify(options.edits),
+    instruction: options.instruction,
+    source: options.source,
+    model: options.model,
+    responseId: options.responseId,
+    createdAt: now,
+  });
+  await db.update(site).set({ updatedAt: now }).where(eq(site.id, options.siteId));
+
+  return { n: options.n, createdAt: now };
+}
+
+/**
+ * Reference pictures, by upload id, owned by this person. Someone else's
+ * upload id is treated as unknown rather than as forbidden — an id is not a
+ * thing to confirm the existence of.
+ */
+async function loadReferences(
+  env: Env,
+  db: Db,
+  userId: string,
+  ids: string[]
+): Promise<ReferenceImage[] | null> {
+  if (ids.length === 0) return [];
+
+  const rows = await db
+    .select({ id: upload.id, key: upload.key, contentType: upload.contentType })
+    .from(upload)
+    .where(and(eq(upload.userId, userId), inArray(upload.id, ids)));
+
+  if (rows.length !== ids.length) return null;
+
+  const objects = await Promise.all(rows.map((row) => env.MEDIA.get(row.key)));
+
+  if (objects.some((object) => object === null)) return null;
+
+  return Promise.all(
+    objects.map(async (object, index) => ({
+      bytes: await object!.arrayBuffer(),
+      contentType: rows[index].contentType,
+    }))
+  );
+}
 
 const sites = new Hono<{ Bindings: Env }>();
 
@@ -108,7 +214,7 @@ sites.post('/', async (c) => {
     return c.json({ id: existing.id, source: 'existing' });
   }
 
-  const burst = await consume(db, { key: `site:${userId}`, ...BURST });
+  const burst = await consume(db, { key: `site:${userId}`, ...BURST.make });
 
   if (!burst.ok) {
     return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
@@ -313,27 +419,13 @@ sites.get('/', async (c) => {
 sites.get('/:id', async (c) => {
   const db = drizzle(c.env.DB, { schema });
 
-  const [row] = await db
-    .select({
-      site,
-      description: generation.description,
-      result: generation.result,
-    })
-    .from(site)
-    .innerJoin(generation, eq(generation.id, site.generationId))
-    .where(eq(site.id, c.req.param('id')))
-    .limit(1);
+  const row = await loadSite(db, c.req.param('id'));
 
   if (!row) {
     return c.json({ error: 'Not found' }, 404);
   }
 
-  const [latest] = await db
-    .select()
-    .from(revision)
-    .where(eq(revision.siteId, row.site.id))
-    .orderBy(desc(revision.n))
-    .limit(1);
+  const latest = await latestRevision(db, row.site.id);
 
   if (!latest) {
     return c.json({ error: 'Not found' }, 404);
@@ -379,6 +471,142 @@ sites.get('/:id', async (c) => {
   };
 
   return c.json(body);
+});
+
+const imageRequestSchema = z.object({
+  slot: z.string().min(1).max(120),
+  referenceIds: z.array(z.string().min(8).max(64)).max(MAX_REFERENCES).optional(),
+});
+
+/**
+ * A picture for one of the site's image slots, on request, written as the
+ * next revision. Transparent, so it sits on the template's own ground the way
+ * the template's own cut-outs do. Not idempotent: asking again is asking for
+ * a different picture, and the old one stays in the previous revision.
+ */
+sites.post('/:id/images', async (c) => {
+  const userId = await requireUser(c.env, c.req.raw.headers);
+
+  if (!userId) {
+    return c.json({ error: 'Sign in to add imagery.' }, 401);
+  }
+
+  const parsed = imageRequestSchema.safeParse(await c.req.json().catch(() => null));
+
+  if (!parsed.success) {
+    return c.json({ error: 'Choose an image slot.' }, 400);
+  }
+
+  const db = drizzle(c.env.DB, { schema });
+  const row = await loadSite(db, c.req.param('id'));
+
+  if (!row) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  if (row.site.userId !== userId) {
+    return c.json({ error: 'Not yours to change.' }, 403);
+  }
+
+  const latest = await latestRevision(db, row.site.id);
+
+  if (!latest) {
+    return c.json({ error: 'Not found' }, 404);
+  }
+
+  const spec = await loadTemplateSpec(c.env, c.req.raw, row.site.slug);
+  const slot = spec.slots.find((candidate) => isImageSlot(candidate) && candidate.id === parsed.data.slot);
+
+  if (!slot || !isImageSlot(slot)) {
+    return c.json({ error: 'That template has no such image slot.' }, 404);
+  }
+
+  if (!hasUpstream(c.env)) {
+    return c.json({ error: 'Image generation is not configured.' }, 503);
+  }
+
+  const references = await loadReferences(c.env, db, userId, parsed.data.referenceIds ?? []);
+
+  if (!references) {
+    return c.json({ error: 'One of those reference pictures is not available.' }, 404);
+  }
+
+  const burst = await consume(db, { key: `simg:${userId}`, ...BURST.image });
+
+  if (!burst.ok) {
+    return c.json({ error: 'Too fast. Try again in a minute.' }, 429, {
+      'retry-after': String(burst.retryAfter),
+    });
+  }
+
+  const quota = await checkQuota(db, userId, 'site-image');
+
+  if (!quota.ok) {
+    return c.json({ error: quota.message }, 429);
+  }
+
+  const direction = (JSON.parse(row.result) as StoredResult).directions[row.site.directionIndex];
+  const current = JSON.parse(latest.edits) as EditsDocument;
+  const palette = current.edits.palette ?? direction?.palette ?? spec.palette.colors;
+
+  let image;
+
+  try {
+    image = await generateImage(c.env, {
+      prompt: siteImagePrompt({
+        description: row.description,
+        stance: direction?.stance ?? '',
+        why: direction?.why ?? '',
+        palette,
+        slotAlt: slot.alt,
+        references: references.length,
+      }),
+      transparent: true,
+      references,
+    });
+  } catch (error) {
+    if (error instanceof UpstreamError) {
+      // Still charged: the call was made.
+      await recordUsage(db, {
+        userId,
+        endpoint: 'site-image',
+        model: c.env.AI_IMAGE_MODEL,
+        imageCount: 1,
+      });
+      console.error(`studio/sites/images: ${String(error)}`);
+
+      return c.json({ error: 'Image generation failed. Try again.' }, 502);
+    }
+    throw error;
+  }
+
+  // Keyed by revision as well as slot, so a re-generation never overwrites the
+  // bytes an earlier revision still points at.
+  const key = `gen/site/${row.site.id}/${latest.n + 1}/${slot.id}.webp`;
+
+  await c.env.MEDIA.put(key, image.bytes, { httpMetadata: { contentType: image.contentType } });
+
+  const next: EditsDocument = {
+    ...current,
+    edits: {
+      ...current.edits,
+      images: { ...current.edits.images, [slot.id]: { src: `/api/media/${key}`, alt: slot.alt } },
+    },
+  };
+
+  const written = await appendRevision(db, {
+    siteId: row.site.id,
+    n: latest.n + 1,
+    edits: next,
+    instruction: null,
+    source: 'ai',
+    model: image.model,
+    responseId: null,
+  });
+
+  await recordUsage(db, { userId, endpoint: 'site-image', model: image.model, imageCount: 1 });
+
+  return c.json({ key, slot: slot.id, revision: written.n });
 });
 
 export default sites;

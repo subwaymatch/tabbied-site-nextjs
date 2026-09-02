@@ -121,3 +121,36 @@ export function siteUserPrompt(description: string, slots: SiteSlot[]): string {
     ...slots.map(slotLine),
   ].join('\n');
 }
+
+/**
+ * A picture for one image slot of a site. The slot's current alt text says
+ * what kind of picture the template put there (a storefront, a product, a
+ * portrait); the business and the direction say whose. The offline pipeline's
+ * craft again: one subject, no text, palette as materials, and — because the
+ * result is a cut-out on a real alpha channel — no cast shadow and nothing
+ * touching the edge.
+ */
+export function siteImagePrompt(options: {
+  description: string;
+  stance: string;
+  why: string;
+  palette: string[];
+  slotAlt: string;
+  references: number;
+}): string {
+  return [
+    `A single photographic image for the website of a business described as: ${options.description.slice(0, 240)}`,
+    options.slotAlt
+      ? `The template used this picture as: "${options.slotAlt.slice(0, 160)}". Make the equivalent for this business.`
+      : 'Make a picture that suits this business.',
+    `The brand direction is "${options.stance}" — ${options.why}`,
+    `Colour it from this palette, as real materials and surfaces rather than flat swatches: ${options.palette.join(', ')}.`,
+    options.references > 0
+      ? 'Draw the subject, materials and setting from the reference pictures provided.'
+      : '',
+    'One subject, centred, three-quarter view, soft even studio light, nothing touching the edge of the frame.',
+    'No cast shadow. No text, letters, numbers, or logos.',
+  ]
+    .filter((line) => line !== '')
+    .join(' ');
+}

@@ -67,6 +67,15 @@ describe('sites need a session', () => {
     const response = await SELF.fetch(`${ORIGIN}/api/studio/sites/nope`);
     expect(response.status).toBe(404);
   });
+
+  it('refuses anonymous imagery on a site', async () => {
+    const response = await SELF.fetch(`${ORIGIN}/api/studio/sites/nope/images`, {
+      method: 'POST',
+      headers: json,
+      body: JSON.stringify({ slot: 'hero.photo' }),
+    });
+    expect(response.status).toBe(401);
+  });
 });
 
 describe('making a site', () => {
@@ -129,6 +138,54 @@ describe('making a site', () => {
     expect(site.specVersion).toBeGreaterThan(0);
   });
 
+  it('places imagery only in a slot the template has, and only with an upstream', async () => {
+    const made = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ generationId, index: 1 }),
+    });
+    const { id } = (await made.json()) as { id: string };
+
+    const noSlot = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/images`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ slot: 'not.a.slot' }),
+    });
+    expect(noSlot.status).toBe(404);
+
+    // A real slot, no AI key: the route says the feature is off rather than
+    // pretending, and nothing is written.
+    const read = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`);
+    const { slug } = (await read.json()) as { slug: string };
+    const spec = (await SELF.fetch(`${ORIGIN}/editable/${slug}.json`).then((r) => r.json())) as {
+      slots: { id: string; kind: string }[];
+    };
+    const imageSlot = spec.slots.find((slot) => slot.kind === 'image');
+
+    if (imageSlot) {
+      const off = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/images`, {
+        method: 'POST',
+        headers: { ...json, cookie },
+        body: JSON.stringify({ slot: imageSlot.id }),
+      });
+      expect(off.status).toBe(503);
+    }
+
+    const after = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}`).then((r) => r.json())) as {
+      revisions: number;
+    };
+    expect(after.revisions).toBe(1);
+
+    // Not yours: another person's session cannot add to it.
+    const other = await signIn('intruder@example.com');
+    const forbidden = await SELF.fetch(`${ORIGIN}/api/studio/sites/${id}/images`, {
+      method: 'POST',
+      headers: { ...json, cookie: other },
+      body: JSON.stringify({ slot: 'hero.photo' }),
+    });
+    expect(forbidden.status).toBe(403);
+  });
+
   it('is idempotent per direction, and lists under the person who made it', async () => {
     const again = await SELF.fetch(`${ORIGIN}/api/studio/sites`, {
       method: 'POST',
@@ -141,8 +198,8 @@ describe('making a site', () => {
     const list = await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } });
     expect(list.status).toBe(200);
     const { sites } = (await list.json()) as { sites: { id: string; revisions: number }[] };
-    expect(sites).toHaveLength(1);
-    expect(sites[0].revisions).toBe(1);
+    expect(sites).toHaveLength(2);
+    expect(sites.every((site) => site.revisions === 1)).toBe(true);
 
     // Someone else sees nothing — the listing is by session, never by id.
     const other = await signIn('other@example.com');
