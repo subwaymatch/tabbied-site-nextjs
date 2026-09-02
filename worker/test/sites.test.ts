@@ -87,6 +87,45 @@ describe('sites need a session', () => {
   });
 });
 
+describe('one prompt, one site', () => {
+  it('refuses an anonymous make', async () => {
+    const response = await SELF.fetch(`${ORIGIN}/api/studio/make`, {
+      method: 'POST',
+      headers: json,
+      body: JSON.stringify({ description: 'A bakery in a small coastal town, sourdough and coffee.' }),
+    });
+    expect(response.status).toBe(401);
+  });
+
+  it('makes the recommended direction without a template being chosen', async () => {
+    const cookie = await signIn('oneshot@example.com');
+
+    const response = await SELF.fetch(`${ORIGIN}/api/studio/make`, {
+      method: 'POST',
+      headers: { ...json, cookie },
+      body: JSON.stringify({ description: 'A bakery in a small coastal town, sourdough and coffee.' }),
+    });
+    expect(response.status, await response.clone().text()).toBe(200);
+
+    const body = (await response.json()) as { siteId: string; generationId: string; index: number; source: string };
+    expect(body.source).toBe('fallback');
+    expect(body.index).toBeGreaterThanOrEqual(0);
+
+    const site = (await SELF.fetch(`${ORIGIN}/api/studio/sites/${body.siteId}`).then((r) => r.json())) as {
+      generationId: string;
+      directionIndex: number;
+      revisions: number;
+    };
+    expect(site.generationId).toBe(body.generationId);
+    expect(site.directionIndex).toBe(body.index);
+    expect(site.revisions).toBe(1);
+
+    // Both ledgers were written: the caps that apply to two clicks apply to one.
+    const list = (await SELF.fetch(`${ORIGIN}/api/studio/sites`, { headers: { cookie } }).then((r) => r.json())) as { sites: unknown[] };
+    expect(list.sites).toHaveLength(1);
+  });
+});
+
 describe('making a site', () => {
   let cookie: string;
   let generationId: string;

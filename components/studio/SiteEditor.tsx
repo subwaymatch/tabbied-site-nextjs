@@ -25,6 +25,8 @@ import type { SiteDocument } from 'lib/studioDocument';
 import { apiFetch, ApiError, apiUrl } from 'lib/apiFetch';
 import styles from './SiteEditor.module.css';
 
+type Upload = { id: string; src: string; note: string | null };
+
 type Frame = HTMLIFrameElement & {
   contentWindow: (Window & { __tabbied?: { rehydrate: () => void } }) | null;
 };
@@ -53,6 +55,49 @@ export default function SiteEditor({
   const [generating, setGenerating] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState<'words' | 'colours' | 'pictures'>('words');
+  // The person's reference pictures, loaded when the Pictures tab opens, and
+  // which of them the next picture should draw from.
+  const [library, setLibrary] = useState<Upload[] | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(() => new Set());
+  const [uploading, setUploading] = useState(false);
+  const fileInput = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (open !== 'pictures' || library !== null) return;
+
+    apiFetch<{ uploads: Upload[] }>('/api/uploads')
+      .then(({ uploads }) => setLibrary(uploads))
+      .catch(() => setLibrary([]));
+  }, [open, library]);
+
+  const addReference = async (file: File) => {
+    setUploading(true);
+    setError(null);
+
+    try {
+      const form = new FormData();
+      form.append('file', file);
+
+      // Raw fetch: apiFetch fixes a JSON content-type, and multipart needs the
+      // boundary fetch writes for itself.
+      const response = await fetch(apiUrl('/api/uploads'), {
+        method: 'POST',
+        credentials: 'include',
+        body: form,
+      });
+      const body = (await response.json()) as Upload & { error?: string };
+
+      if (!response.ok) throw new ApiError(body.error ?? 'Upload failed.', response.status);
+
+      setLibrary((previous) => [body, ...(previous ?? [])]);
+      setSelected((previous) => new Set(previous).add(body.id));
+    } catch (cause) {
+      setError(cause instanceof ApiError ? cause.message : 'Could not add that picture.');
+    } finally {
+      setUploading(false);
+      if (fileInput.current) fileInput.current.value = '';
+    }
+  };
 
   // A new revision from the server resets the draft to what it holds.
   useEffect(() => {
@@ -144,7 +189,7 @@ export default function SiteEditor({
 
       await apiFetch<{ key: string }>(`/api/studio/sites/${site.id}/images`, {
         method: 'POST',
-        body: JSON.stringify({ slot: slot.id }),
+        body: JSON.stringify({ slot: slot.id, referenceIds: [...selected].slice(0, 4) }),
       });
       setDirty(false);
       onRevision();
@@ -239,6 +284,46 @@ export default function SiteEditor({
 
         {open === 'pictures' ? (
           <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Draw from</h3>
+            <p className={styles.hint}>
+              Your own pictures — a product, the shopfront, a look. Tick up to
+              four and the next picture is made from them.
+            </p>
+            <div className={styles.library}>
+              {(library ?? []).map((item) => (
+                <label key={item.id} className={`${styles.ref} ${selected.has(item.id) ? styles.refOn : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={selected.has(item.id)}
+                    onChange={(event) =>
+                      setSelected((previous) => {
+                        const next = new Set(previous);
+                        if (event.target.checked) next.add(item.id);
+                        else next.delete(item.id);
+                        return next;
+                      })
+                    }
+                  />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={apiUrl(item.src)} alt={item.note ?? ''} />
+                </label>
+              ))}
+              <label className={styles.add}>
+                <input
+                  ref={fileInput}
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  disabled={uploading}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) void addReference(file);
+                  }}
+                />
+                <span>{uploading ? 'Adding…' : '+ Add'}</span>
+              </label>
+            </div>
+
+            <h3 className={styles.sectionTitle}>On the page</h3>
             {imageSlots.length === 0 ? (
               <p className={styles.hint}>This template has no picture slots.</p>
             ) : (
