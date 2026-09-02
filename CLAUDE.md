@@ -31,6 +31,7 @@ npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run editable [slug]              # derive editable specs from out/ (also the gate)
 npm run preview:runtime              # bundle Studio's same-origin pattern runtime
+npm run admin:grant -- <email>       # make the first admin (--remote for production)
 npm run check:thumbnails             # gallery configs all name a real design
 ```
 
@@ -600,6 +601,61 @@ the template and shows the result.
   the cookie — then make, list and read through the real routes against the
   packaged assets the binding serves. With no `AI_API_KEY` it exercises every
   row the tier writes via the fallback path, which is the point.
+
+**The workspace, and what surrounds it.** `/studio/site/?id=` is where a
+site is worked on. For its owner (the read says `mine`, decided by session)
+three things sit beside the canvas; a visitor by link gets the page alone.
+
+- **The editor edits through the engine, live.** A keystroke plans one
+  operation and runs it against the iframe's document; a palette change also
+  calls `window.__tabbied.rehydrate()` inside the iframe, which the bundled
+  runtime exports — it tears down the controllers it mounted and mounts from
+  the attributes as they now are, because a rewritten `data-*` is not a
+  re-render. Saving is `POST /api/studio/sites/:id/revisions` with the whole
+  document, validated by `planEdits` server-side; a document the engine would
+  reject is a 422 with reasons, not a stored blank. Image `src`s are held to
+  the site's own media and the template's own files — a src is a fetch.
+- **Asking is a diff.** `POST …/revise` shows the model the page *as it
+  currently reads* — the person's document — and takes back `changes:
+  [{id, value}]` against the same closed slot set, an optional palette and a
+  one-line note. The latest AI revision's `responseId` is quoted when there is
+  one, so the request travels alone against a context that still holds the
+  page. History is append-only; Restore writes an older document as a new
+  head.
+- **Pictures are transparent and go into slots.** `POST …/images {slot,
+  referenceIds?}` makes one picture for one image slot, `background:
+  transparent`, keyed under `gen/site/<id>/<n>/<slot>.webp` so a re-generation
+  never overwrites bytes an earlier revision points at, and writes revision
+  n+1. References are the person's uploads — `POST /api/uploads`, judged by
+  bytes not label, 8 MB, 60 per person, R2 `up/<userId>/` — and with any given
+  the call goes to `/images/edits` as multipart, which `call()` sends as-is
+  because fetch writes the boundary itself.
+- **One prompt, one site.** `POST /api/studio/make` is the directions handler
+  and the sites handler run in sequence in-process (`app.request`), with the
+  caller's own headers, at the recommended index. Every gate and cap applies
+  as it would to the two clicks it replaces, and there stays one
+  implementation of each. "Make my website" on `/studio` is this.
+- **Pages.** `/account/{sites,uploads,usage,settings}` under one nav;
+  `/verify-email` is where the confirmation link lands (`callbackURL` on
+  sign-up), `/forgot-password` and `/reset-password` use better-auth 1.7's
+  `requestPasswordReset`; `/s/?id=&n=` is a site at one revision, read-only.
+  Every per-item page takes `?id=` — the export cannot enumerate ids.
+- **Admin.** better-auth's `admin()` plugin supplies `role`, the ban fields
+  and impersonation; its columns are transcribed into `schema.ts` and are
+  migration 0004. `/api/admin/*` answers **404** to anyone without
+  `role = 'admin'` — the pages hiding themselves is cosmetic. The first admin
+  is `npm run admin:grant -- you@example.com` (a D1 UPDATE; `--remote` for
+  production); after that `/admin/users` does it through the client plugin.
+  The caps page is read-only because the caps are constants.
+
+Two things about the tests. `worker/test/*.test.ts` sign up real users and
+follow the verification link out of `dev_mail`; run them **after** a build,
+not during one — `next build` empties `out/` and the assets binding reads
+from there, which reads as a random failure in `beforeAll`. And one smoke
+test (`the same description always gives the same three`) can time out on
+`page.goto` in a sandbox with no outbound network: the results page's
+typekit and Google Fonts stylesheets hang until the proxy resets them, and
+`load` waits for stylesheets. Not a regression; it passes with network.
 
 ## Agent-facing docs — all generated, never hand-edited
 
