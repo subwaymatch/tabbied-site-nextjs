@@ -30,6 +30,7 @@ npm run test:worker                  # Worker unit tests (local D1/KV/R2, stub u
 npm run llms                         # regenerate public/llms*.txt + catalog
 npm run templates [slug]             # repackage template site(s) by hand
 npm run editable [slug]              # derive editable specs from out/ (also the gate)
+npm run preview:runtime              # bundle Studio's same-origin pattern runtime
 npm run check:thumbnails             # gallery configs all name a real design
 ```
 
@@ -449,12 +450,11 @@ Things worth not re-litigating:
 ## Studio — matching, then generating
 
 `/studio` takes a description of a business and `/studio/results` answers with
-three template sites. The design it was built from describes an AI feature; the
-Worker has no AI binding, no D1 and no auth (see
-`agent-outputs/20260827-studio-ai-plan.md` — that tier is a plan, not code), so
-Studio answers with what the repo actually has: 57 finished template sites, each
-on one of the 295 patterns and one of the 437 palettes, each with a real page
-and a real zip.
+three template sites. Studio answers with what the repo actually has: 57
+finished template sites, each on one of the 295 patterns and one of the 437
+palettes, each with a real page and a real zip. (The AI tier this was designed
+against — `agent-outputs/20260827-studio-ai-plan.md` — has since landed; see
+below. The matcher was not replaced by it.)
 
 - **`lib/studioMatch.ts` is pure and isomorphic; `lib/studioDirections.ts` is
   server-only.** The index — 57 entries of names, palettes and vocabulary — is
@@ -527,6 +527,53 @@ things that shape follows from:
   which is why this reaches one vendor and not two (`docs/image-pipeline.md`).
 - The artboard's **photo upload** waits on `/api/uploads`; the **spinner** it
   drew for a synchronous match is now real, because generating is a real call.
+
+**A generated direction now reaches the template**, which is what makes
+Preview more than a link to somebody else's website. The model authors a brand
+name, a headline, a tagline and a palette; `/studio/preview/` applies them to
+the template and shows the result.
+
+- **Slot ids are local; roles are not.** An edits document is keyed by slot id,
+  and those ids are whatever the annotator called them — `brand.name` on the
+  five shared `TemplateSite` pages, `bar.mark` or `index.text12` on the bespoke
+  ones. A caller holding three strings cannot address that, so a text slot may
+  declare `data-edit-copy="brandName|headline|tagline"` and `directionToEdits`
+  maps a direction onto whatever ids that particular page uses. Three roles,
+  because they are the three the model authors and the three that are
+  unambiguous on every page. Only the five `TemplateSite` pages carry them so
+  far; `/editable-catalog.json` publishes `copyRoles` per site and the results
+  page reads it to decide whether a card's Preview can promise a rebrand.
+- **The artefact previewed is the download, not the live page.** `/template/
+  <slug>/` mounts its patterns through React, which ignores a `data-*` write
+  from outside — `applyPlan` deliberately does not re-mount anything, because
+  re-mounting is `hydratePatterns()`'s job. The packaged `out/downloads/<slug>/`
+  has no framework left in it, so the engine's attribute rewrites are exactly
+  what a plain `hydratePatterns()` then reads. Previewing what is actually
+  downloaded is also the difference between a preview and a mockup.
+- **The bootstrap is repointed at a same-origin bundle, and must be.** The
+  package imports `tabbied` from esm.sh, pinned, which is right for a stranger
+  who unzipped it years later and wrong for this site drawing its own preview.
+  `scripts/build-preview-runtime.mjs` bundles `hydratePatterns` plus every
+  design any packaged template mounts (231 of them, 88 KB gzipped, cached
+  across previews) into `public/studio/preview-runtime.js`, and the shell
+  rewrites that one script tag. Serving `tabbied/dist` raw instead does not
+  work: `register.js` does a bare `import 'css-doodle'` that no browser
+  resolves. The step runs between the two `next build` passes, after the
+  packager it reads from — **it is derived from the packaged HTML**, so a
+  template added in the same commit cannot be missing a design it needs.
+- **The iframe needs `allow-same-origin`, and that is not laziness.** With
+  `allow-scripts` alone the document gets an opaque origin and the same-origin
+  runtime import is blocked as cross-origin — the page renders with every
+  pattern silently missing. What stays denied is what the packaged page
+  actually contains: its `<form action="#">` and `<a href="#">` cannot navigate
+  the top frame, submit, or open a popup. Model-authored strings reach the
+  document as text nodes (`writeText` builds them with `createTextNode`
+  precisely so there is no markup path), and everything else is first-party.
+- **What it does not rebrand yet.** The model authors three strings, so the nav
+  labels, the calls to action, the section headings and the body copy are still
+  the template's. A branded masthead over a plant shop's "Find your plant"
+  button is the current honest state, and closing it means more roles and a
+  larger document from the model, not a different mechanism.
 
 ## Agent-facing docs — all generated, never hand-edited
 

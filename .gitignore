@@ -50,6 +50,10 @@ next-env.d.ts
 /public/editable/
 /public/editable-catalog.json
 
+# Studio's same-origin pattern runtime, bundled from the packaged templates
+# by scripts/build-preview-runtime.mjs during the build.
+/public/studio/
+
 # misc
 .DS_Store
 *.pem

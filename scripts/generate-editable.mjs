@@ -31,6 +31,7 @@ import {
   validateSpec,
   hasErrors,
   formatProblems,
+  declaredCopyRoles,
 } from 'tabbied-templates';
 
 const repoRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -207,6 +208,10 @@ const catalog = {
           .map((slot) => slot.config.slug)
       ),
     ],
+    // Which pieces of brand copy this template can be handed. Studio reads
+    // this to decide whether a generated direction can be previewed *as* the
+    // business, or only as the template in its colours — see brand.ts.
+    copyRoles: declaredCopyRoles(spec),
     slots: {
       text: counts(spec, 'text'),
       image: counts(spec, 'image'),

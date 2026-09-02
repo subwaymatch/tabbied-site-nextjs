@@ -83,9 +83,46 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
   const { user } = useSessionUser();
 
   const [stored, setStored] = useState<Stored | null>(null);
+  // Which templates can be previewed *as* the business rather than merely in
+  // its colours. One small catalog fetch decides it for all three cards; asking
+  // per card would be three requests for a link's href. Empty until it lands,
+  // so a card falls back to the plain template page rather than promising a
+  // branded preview it might not be able to build.
+  const [brandable, setBrandable] = useState<ReadonlySet<string>>(
+    () => new Set()
+  );
   const [loadError, setLoadError] = useState<string | null>(null);
   const [imaging, setImaging] = useState<number | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Only generated results can be rebranded — a matched result has no copy to
+    // apply — so nothing is fetched on the ?q= path.
+    if (!generationId) return;
+
+    let live = true;
+
+    fetch('/editable-catalog.json')
+      .then((response) => (response.ok ? response.json() : null))
+      .then((body: { templates?: { slug: string; copyRoles?: string[] }[] } | null) => {
+        if (!live || !body?.templates) return;
+
+        setBrandable(
+          new Set(
+            body.templates
+              .filter((template) => template.copyRoles?.includes('brandName'))
+              .map((template) => template.slug)
+          )
+        );
+      })
+      // A preview link is not worth an error state: without the catalog every
+      // card simply keeps pointing at the template page, which still works.
+      .catch(() => {});
+
+    return () => {
+      live = false;
+    };
+  }, [generationId]);
 
   useEffect(() => {
     if (!generationId) {
@@ -284,7 +321,11 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
 
                   <div className={styles.actions}>
                     <Link
-                      href={`/template/${direction.slug}/`}
+                      href={
+                        generationId && brandable.has(direction.slug)
+                          ? `/studio/preview/?g=${generationId}&i=${index}`
+                          : `/template/${direction.slug}/`
+                      }
                       prefetch={false}
                       className={styles.action}
                     >
