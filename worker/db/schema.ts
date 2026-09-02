@@ -140,6 +140,79 @@ export const generation = sqliteTable(
 );
 
 /**
+ * A site: one direction a person chose to make, and the thing "Your sites"
+ * lists. Distinct from a generation because a generation holds three
+ * directions and a person may make more than one of them.
+ *
+ * The template is *pinned* here, not looked up. `specVersion` and
+ * `templateHash` record the editable spec and the packaged HTML the site was
+ * authored against, so that when a template is later re-packaged with different
+ * slots the difference is detected and said, rather than an old document being
+ * silently misapplied to a page it no longer describes.
+ */
+export const site = sqliteTable(
+  'site',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    generationId: text('generation_id')
+      .notNull()
+      .references(() => generation.id, { onDelete: 'cascade' }),
+    /** Which of the generation's three directions this is. */
+    directionIndex: integer('direction_index').notNull(),
+    /** The template slug, denormalised so a listing needs no join. */
+    slug: text('slug').notNull(),
+    /** The brand name at creation — the listing's title. */
+    title: text('title').notNull(),
+    specVersion: integer('spec_version').notNull(),
+    /** SHA-256 of the packaged index.html the first revision was authored for. */
+    templateHash: text('template_hash').notNull(),
+    createdAt: createdAt(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (table) => [
+    index('site_user_updated_idx').on(table.userId, table.updatedAt),
+    index('site_generation_idx').on(table.generationId),
+  ]
+);
+
+/**
+ * One version of a site's edits document. Append-only: a conversational edit
+ * or a manual one writes revision n+1 rather than overwriting, which is what
+ * makes "go back" possible and what lets a revision quote the turn it came from.
+ */
+export const revision = sqliteTable(
+  'revision',
+  {
+    id: text('id').primaryKey(),
+    siteId: text('site_id')
+      .notNull()
+      .references(() => site.id, { onDelete: 'cascade' }),
+    /** 1-based, unique per site. */
+    n: integer('n').notNull(),
+    /** The edits document (tabbied-templates `EditsDocument`), as JSON. */
+    edits: text('edits').notNull(),
+    /** What the person asked for, when this revision came from a request. */
+    instruction: text('instruction'),
+    /**
+     * 'ai' | 'manual' | 'fallback' — how the document changed. A fallback is
+     * the three-string rebrand, written when the model could not hold the
+     * full-document contract; the page says so.
+     */
+    source: text('source').notNull(),
+    model: text('model').notNull(),
+    /** Same contract as generation.responseId: nullable, and stale is a miss. */
+    responseId: text('response_id'),
+    createdAt: createdAt(),
+  },
+  (table) => [index('revision_site_n_idx').on(table.siteId, table.n)]
+);
+
+/**
  * The spend ledger. Read before every upstream call (today's totals against
  * the cap) and written after, from the response's own usage numbers — so the
  * index that matters is (user, createdAt), which is exactly the daily query.

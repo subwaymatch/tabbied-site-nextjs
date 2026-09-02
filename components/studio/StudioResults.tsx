@@ -2,12 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { TabbiedPattern } from 'tabbied/react';
 import { isPatternSlug, patterns } from 'tabbied/patterns';
 import { apiFetch, ApiError, apiUrl } from 'lib/apiFetch';
 import { useSessionUser } from 'lib/authClient';
 import { matchDirections, type StudioEntry } from 'lib/studioMatch';
+import type { StoredDirection, StoredGeneration } from 'lib/studioDocument';
 import styles from './StudioResults.module.css';
 
 // One page, two sources.
@@ -25,30 +26,18 @@ import styles from './StudioResults.module.css';
 const SWATCHES = 4;
 
 /** The card fields, however they were produced. */
-type Direction = {
-  slug: string;
-  name: string;
-  patternSlug: string;
-  patternName: string;
-  paletteName: string;
-  palette: string[];
-  descriptors: string[];
-  stance?: string;
-  why?: string;
-  copy?: { brandName: string; headline: string; tagline: string } | null;
-  image?: string | null;
-  reasons?: string[];
-};
-
-type Stored = {
-  id: string;
-  description: string;
-  result: {
-    source: 'ai' | 'matched-fallback';
-    recommended: number;
-    directions: Direction[];
+/**
+ * A card's direction, from either source. Matched directions carry `reasons`
+ * and no copy; stored ones carry copy and no reasons. Everything else is the
+ * shared stored shape.
+ */
+type Direction = Pick<
+  StoredDirection,
+  'slug' | 'name' | 'patternSlug' | 'patternName' | 'paletteName' | 'palette' | 'descriptors'
+> &
+  Partial<Pick<StoredDirection, 'stance' | 'why' | 'copy' | 'image' | 'copyRoles'>> & {
+    reasons?: string[];
   };
-};
 
 function DirectionPreview({
   patternSlug,
@@ -77,53 +66,18 @@ function DirectionPreview({
 
 export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const query = searchParams.get('q') ?? '';
   const generationId = searchParams.get('g');
 
   const { user } = useSessionUser();
 
-  const [stored, setStored] = useState<Stored | null>(null);
-  // Which templates can be previewed *as* the business rather than merely in
-  // its colours. One small catalog fetch decides it for all three cards; asking
-  // per card would be three requests for a link's href. Empty until it lands,
-  // so a card falls back to the plain template page rather than promising a
-  // branded preview it might not be able to build.
-  const [brandable, setBrandable] = useState<ReadonlySet<string>>(
-    () => new Set()
-  );
+  const [stored, setStored] = useState<StoredGeneration | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [imaging, setImaging] = useState<number | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Only generated results can be rebranded — a matched result has no copy to
-    // apply — so nothing is fetched on the ?q= path.
-    if (!generationId) return;
-
-    let live = true;
-
-    fetch('/editable-catalog.json')
-      .then((response) => (response.ok ? response.json() : null))
-      .then((body: { templates?: { slug: string; copyRoles?: string[] }[] } | null) => {
-        if (!live || !body?.templates) return;
-
-        setBrandable(
-          new Set(
-            body.templates
-              .filter((template) => template.copyRoles?.includes('brandName'))
-              .map((template) => template.slug)
-          )
-        );
-      })
-      // A preview link is not worth an error state: without the catalog every
-      // card simply keeps pointing at the template page, which still works.
-      .catch(() => {});
-
-    return () => {
-      live = false;
-    };
-  }, [generationId]);
-
+  const [making, setMaking] = useState<number | null>(null);
+  const [makeError, setMakeError] = useState<string | null>(null);
   useEffect(() => {
     if (!generationId) {
       setStored(null);
@@ -134,7 +88,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
     setStored(null);
     setLoadError(null);
 
-    apiFetch<Stored>(`/api/studio/generations/${generationId}`)
+    apiFetch<StoredGeneration>(`/api/studio/generations/${generationId}`)
       .then((body) => {
         if (live) {
           setStored(body);
@@ -166,6 +120,33 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
 
   const description = generationId ? (stored?.description ?? '') : query;
   const loading = Boolean(generationId) && !stored && !loadError;
+
+  /**
+   * The second, dearer stage: every text slot on the chosen template written
+   * for this business. Behind a click for that reason, and idempotent on the
+   * API side so a double-click lands on the same site.
+   */
+  const makeSite = useCallback(
+    async (index: number) => {
+      if (!generationId) return;
+
+      setMaking(index);
+      setMakeError(null);
+
+      try {
+        const { id } = await apiFetch<{ id: string }>('/api/studio/sites', {
+          method: 'POST',
+          body: JSON.stringify({ generationId, index }),
+        });
+
+        router.push(`/studio/site/?id=${id}`);
+      } catch (cause) {
+        setMakeError(cause instanceof ApiError ? cause.message : 'Could not make this site.');
+        setMaking(null);
+      }
+    },
+    [generationId, router]
+  );
 
   /** Imagery is per direction and on request — never three up front. */
   const generateImage = useCallback(
@@ -322,7 +303,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                   <div className={styles.actions}>
                     <Link
                       href={
-                        generationId && brandable.has(direction.slug)
+                        generationId && direction.copyRoles?.includes('brandName')
                           ? `/studio/preview/?g=${generationId}&i=${index}`
                           : `/template/${direction.slug}/`
                       }
@@ -346,8 +327,19 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                       <span>Download</span>
                     </a>
 
-                    {/* Only on your own generation: an image costs money, and
-                        the capability link is a read grant, not a spend one. */}
+                    {/* Spending actions need a session: the capability link
+                        is a read grant, not a spend one. Making a site is the
+                        full document on this template; imagery is one picture. */}
+                    {generationId && stored && user ? (
+                      <button
+                        type="button"
+                        className={styles.imageButton}
+                        disabled={making !== null}
+                        onClick={() => void makeSite(index)}
+                      >
+                        {making === index ? 'Writing the page…' : 'Make this one'}
+                      </button>
+                    ) : null}
                     {generationId && stored && user && !direction.image ? (
                       <button
                         type="button"
@@ -364,9 +356,9 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
             ))}
       </div>
 
-      {imageError ? (
+      {makeError ?? imageError ? (
         <p className={styles.notice} role="alert">
-          {imageError}
+          {makeError ?? imageError}
         </p>
       ) : null}
     </div>

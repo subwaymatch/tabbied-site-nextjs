@@ -1,6 +1,6 @@
 'use client';
 
-// The generated direction, on the actual template.
+// One direction, on the actual template — the three-string rebrand.
 //
 // Everything here happens in the browser and it has to: the edits engine works
 // against a DOM, the packaged template is a static asset, and the generation is
@@ -10,38 +10,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import type { Problem, TemplateSpec } from 'tabbied-templates';
+import { directionToEdits, type Problem, type TemplateSpec } from 'tabbied-templates';
+import type { StoredDirection, StoredGeneration } from 'lib/studioDocument';
 import { apiFetch, ApiError } from 'lib/apiFetch';
 import {
   buildPreviewDocument,
   packagedTemplateUrl,
   templateSpecUrl,
 } from 'lib/studioPreview';
+import PreviewFrame from './PreviewFrame';
 import styles from './StudioPreview.module.css';
-
-type StoredDirection = {
-  slug: string;
-  name: string;
-  stance: string;
-  palette: string[];
-  copy: { brandName: string; headline: string; tagline: string } | null;
-};
-
-type Stored = {
-  id: string;
-  description: string;
-  result: { directions: StoredDirection[] };
-};
 
 type State =
   | { status: 'loading' }
   | { status: 'error'; message: string }
-  | {
-      status: 'ready';
-      direction: StoredDirection;
-      html: string;
-      problems: Problem[];
-    };
+  | { status: 'ready'; direction: StoredDirection; html: string; problems: Problem[] };
 
 export default function StudioPreview() {
   const searchParams = useSearchParams();
@@ -55,9 +38,7 @@ export default function StudioPreview() {
       return { status: 'error', message: 'That preview link is incomplete.' };
     }
 
-    const stored = await apiFetch<Stored>(
-      `/api/studio/generations/${generationId}`
-    );
+    const stored = await apiFetch<StoredGeneration>(`/api/studio/generations/${generationId}`);
     const direction = stored.result.directions[index];
 
     if (!direction) {
@@ -73,17 +54,14 @@ export default function StudioPreview() {
     ]);
 
     if (!specResponse.ok || !htmlResponse.ok) {
-      return {
-        status: 'error',
-        message: `The ${direction.name} template is not available to preview.`,
-      };
+      return { status: 'error', message: `The ${direction.name} template is not available to preview.` };
     }
 
     const spec = (await specResponse.json()) as TemplateSpec;
     const { html, problems } = buildPreviewDocument({
       html: await htmlResponse.text(),
       spec,
-      direction: { copy: direction.copy, palette: direction.palette },
+      edits: directionToEdits(spec, { copy: direction.copy, palette: direction.palette }),
       slug: direction.slug,
     });
 
@@ -138,7 +116,6 @@ export default function StudioPreview() {
   }
 
   const { direction, html, problems } = state;
-  const errors = problems.filter((problem) => problem.level === 'error');
 
   return (
     <>
@@ -146,14 +123,13 @@ export default function StudioPreview() {
         <div className={styles.meta}>
           <h1 className={styles.stance}>{direction.stance}</h1>
           <p className={styles.built}>
-            {direction.copy?.brandName ?? direction.name} · built on{' '}
-            {direction.name}
+            {direction.copy?.brandName ?? direction.name} · built on {direction.name}
           </p>
         </div>
 
         <div className={styles.actions}>
           <Link
-            href={`/studio/results/?g=${searchParams.get('g')}`}
+            href={`/studio/results/?g=${generationId}`}
             prefetch={false}
             className={styles.action}
           >
@@ -169,36 +145,11 @@ export default function StudioPreview() {
         </div>
       </div>
 
-      {/* Reported rather than swallowed: a slot the engine could not find is a
-          template whose annotations have drifted, and the whole point of the
-          generator's build gate is that this never becomes invisible. */}
-      {errors.length > 0 ? (
-        <p className={styles.notice} role="status">
-          {errors.length === 1
-            ? 'One part of this direction could not be applied: '
-            : `${errors.length} parts of this direction could not be applied: `}
-          {errors.map((problem) => problem.path).join(', ')}.
-        </p>
-      ) : null}
-
-      <div className={styles.frame}>
-        <iframe
-          className={styles.iframe}
-          title={`${direction.stance} — a preview built on the ${direction.name} template`}
-          srcDoc={html}
-          // `allow-same-origin` is required, not lazy: without it the document
-          // gets an opaque origin and the same-origin runtime import is blocked
-          // as cross-origin, so the page renders with every pattern missing.
-          // What stays denied is what this page actually has: the packaged
-          // template's `<form action="#">` and its `<a href="#">` links cannot
-          // navigate the top frame, submit, or open a popup. The content is
-          // first-party throughout — our template, our runtime — and the only
-          // model-authored strings reach it as text nodes (`writeText` builds
-          // them with createTextNode precisely so there is no markup path).
-          sandbox="allow-scripts allow-same-origin"
-          loading="lazy"
-        />
-      </div>
+      <PreviewFrame
+        html={html}
+        problems={problems}
+        title={`${direction.stance} — a preview built on the ${direction.name} template`}
+      />
     </>
   );
 }

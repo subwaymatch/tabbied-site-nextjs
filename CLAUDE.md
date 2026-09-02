@@ -569,11 +569,37 @@ the template and shows the result.
   the top frame, submit, or open a popup. Model-authored strings reach the
   document as text nodes (`writeText` builds them with `createTextNode`
   precisely so there is no markup path), and everything else is first-party.
-- **What it does not rebrand yet.** The model authors three strings, so the nav
-  labels, the calls to action, the section headings and the body copy are still
-  the template's. A branded masthead over a plant shop's "Find your plant"
-  button is the current honest state, and closing it means more roles and a
-  larger document from the model, not a different mechanism.
+- **The three strings are the floor; a *site* is the whole page.** "Make this
+  one" on a generated card is `POST /api/studio/sites`: every text slot on the
+  chosen template rewritten for the business, against a strict JSON schema
+  built from that template's spec (`worker/ai/siteSchema.ts`) — the same
+  closed-vocabulary move as the slug enum, one level up, so an invented slot
+  cannot survive and a forgotten one is a schema failure rather than a headline
+  that silently stays the plant shop's. The answer is checked by zod and then by
+  `planEdits`, which is pure and so runs in the Worker with no DOM; one repair
+  retry; a second failure writes the three-string `directionToEdits` floor as
+  revision 1 with `source: 'fallback'`, and the workspace says so. Because the
+  document is keyed by slot id, **this reaches all 57 templates today** —
+  `data-edit-copy` roles matter only for the cheap card-stage preview.
+- **Sites are pinned and versioned.** `site` records `specVersion` and a
+  SHA-256 of the packaged `index.html` it was authored against; `GET
+  /api/studio/sites/:id` re-hashes the served package and reports
+  `templateChanged`, so a re-packaged template is announced on the page rather
+  than discovered as a missing headline. `revision` is append-only (`n`,
+  `edits`, `instruction`, `source`, `responseId`) — a conversational or manual
+  edit writes n+1, which is what makes "go back" possible. The listing is
+  session-scoped (`GET /api/studio/sites`, on the `(userId, updatedAt)` index)
+  and the read is by capability id, the same split as generations: the
+  no-listing rule is about anonymous *enumeration*, not a person's own rows.
+- **The output budget scales with the page.** A 300-slot bespoke page is a long
+  answer and reasoning is spent from the same cap first, so `outputBudget`
+  grows with the slot count; the 6,000 default that fits three strings comes
+  back `incomplete` with nothing on a full page.
+- **`worker/test/sites.test.ts` runs a real session.** Sign up, read the
+  verification link out of `dev_mail` (DEV=1 writes it to D1), follow it, keep
+  the cookie — then make, list and read through the real routes against the
+  packaged assets the binding serves. With no `AI_API_KEY` it exercises every
+  row the tier writes via the fallback path, which is the point.
 
 ## Agent-facing docs — all generated, never hand-edited
 

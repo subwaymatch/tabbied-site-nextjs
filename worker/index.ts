@@ -38,6 +38,7 @@ import { buildAuth } from './auth';
 import type { Env } from './env';
 import { isDev } from './env';
 import media from './routes/media';
+import sites from './routes/sites';
 import studio from './routes/studio';
 import {
   buildServer,
@@ -231,6 +232,9 @@ api.all('/auth/*', async (c) => {
   return buildAuth(c.env).handler(c.req.raw);
 });
 
+// Before the wider /studio prefix only for legibility — the two do not
+// overlap, since studio.ts registers nothing under /sites.
+api.route('/studio/sites', sites);
 api.route('/studio', studio);
 api.route('/media', media);
 

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut, useSessionUser } from 'lib/authClient';
+import YourSites from './YourSites';
 import styles from './AuthForm.module.css';
 
 // A static export has no server-side route protection and needs none: the page
@@ -42,6 +43,10 @@ export default function AccountPanel() {
       <p className={styles.lede}>
         Signed in as <strong>{user.email}</strong>.
       </p>
+
+      <h2 className={styles.sectionTitle}>Your sites</h2>
+      <YourSites />
+
       <button
         type="button"
         className={styles.submit}

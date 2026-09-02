@@ -16,15 +16,14 @@
 //   2. The bootstrap's esm.sh import is pointed at a same-origin bundle. The
 //      pinned CDN import is right for a stranger who unzipped the download
 //      years from now and wrong for this site drawing its own preview.
-//   3. The edits document — the generated brand copy and palette — applied by
-//      the engine, exactly as an editor would apply it.
+//   3. The edits document — a direction's three strings, or a site's full
+//      revision — applied by the engine, exactly as an editor would apply it.
 //
 // The rest of the page is untouched, which is what makes this honest: every
 // section, image and word the download contains is what shows up here.
 import {
   applyEdits,
-  directionToEdits,
-  type BrandDirection,
+  type EditsDocument,
   type Problem,
   type TemplateSpec,
 } from 'tabbied-templates';
@@ -94,10 +93,11 @@ function rewriteBootstrap(documentEl: Document): Problem[] {
 export function buildPreviewDocument(options: {
   html: string;
   spec: TemplateSpec;
-  direction: BrandDirection;
+  /** Any edits document — a three-string rebrand or a full revision. */
+  edits: EditsDocument;
   slug: string;
 }): PreviewDocument {
-  const { html, spec, direction, slug } = options;
+  const { html, spec, edits, slug } = options;
   const parsed = new DOMParser().parseFromString(html, 'text/html');
   const head = parsed.head;
 
@@ -109,7 +109,7 @@ export function buildPreviewDocument(options: {
 
   const problems = [
     ...rewriteBootstrap(parsed),
-    ...applyEdits(parsed, spec, directionToEdits(spec, direction)).problems,
+    ...applyEdits(parsed, spec, edits).problems,
   ];
 
   return {

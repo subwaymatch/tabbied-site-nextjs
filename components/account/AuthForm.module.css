@@ -18,6 +18,12 @@
   color: var(--s-muted);
 }
 
+.sectionTitle {
+  margin: 0 0 14px;
+  font: 700 20px / 1.2 var(--s-sans);
+  letter-spacing: -0.01em;
+}
+
 .field {
   display: block;
   margin-bottom: 20px;

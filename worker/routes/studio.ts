@@ -6,7 +6,8 @@ import { matchDirections, type StudioDirection } from '../../lib/studioMatch';
 import * as schema from '../db/schema';
 import { generation } from '../db/schema';
 import type { Env } from '../env';
-import { buildAuth } from '../auth';
+import { requireUser } from '../lib/session';
+import { loadEditableCatalog } from '../lib/templateAssets';
 import { respondJson, generateImage, hasUpstream, UpstreamError } from '../ai/client';
 import {
   directionImagePrompt,
@@ -58,18 +59,6 @@ const BURST = {
 const ESTIMATED_TOKENS = { prompt: 3_000, completion: 900 };
 
 const studio = new Hono<{ Bindings: Env }>();
-
-/**
- * Every route that spends money resolves the caller first. Takes the bindings
- * and the headers rather than the context, so it stays independent of Hono's
- * generics and is trivially callable from a test.
- */
-async function requireUser(env: Env, headers: Headers): Promise<string | null> {
-  const auth = buildAuth(env);
-  const session = await auth.api.getSession({ headers });
-
-  return session?.user?.id ?? null;
-}
 
 /** One scored candidate, reduced to what the stored result needs. */
 const toStored = (
@@ -130,11 +119,24 @@ studio.post('/directions', async (c) => {
   const entries = await loadStudioIndex(c.env, c.req.raw);
   const candidates = matchDirections(entries, description, CANDIDATE_COUNT);
 
+  // Which templates can take brand copy, recorded on each direction now rather
+  // than looked up by the page later: the stored document then stands on its
+  // own, and a generation read a year from now still knows what its own
+  // preview can promise.
+  const copyRoles = new Map(
+    (await loadEditableCatalog(c.env, c.req.raw)).templates.map((template) => [
+      template.slug,
+      (template.copyRoles ?? []) as StoredDirection['copyRoles'],
+    ])
+  );
+
   const fallback = (): StoredResult => ({
     specVersion: 1,
     source: 'matched-fallback',
     recommended: 0,
-    directions: candidates.slice(0, 3).map((entry) => toStored(entry)),
+    directions: candidates.slice(0, 3).map((entry) =>
+      toStored(entry, { copyRoles: copyRoles.get(entry.slug) ?? [] })
+    ),
   });
 
   let result: StoredResult;
@@ -256,6 +258,7 @@ studio.post('/directions', async (c) => {
               why: direction.why,
               copy: direction.copy,
               palette: palette.colors,
+              copyRoles: copyRoles.get(entry.slug) ?? [],
             }),
           ];
         }),
