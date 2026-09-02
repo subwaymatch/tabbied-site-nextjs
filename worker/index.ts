@@ -40,6 +40,7 @@ import { isDev } from './env';
 import media from './routes/media';
 import sites from './routes/sites';
 import studio from './routes/studio';
+import uploads from './routes/uploads';
 import {
   buildServer,
   catalogTools,
@@ -237,6 +238,7 @@ api.all('/auth/*', async (c) => {
 api.route('/studio/sites', sites);
 api.route('/studio', studio);
 api.route('/media', media);
+api.route('/uploads', uploads);
 
 // A miss under /api is JSON, never the site's 404 page. This is `all('*')`
 // rather than `notFound()` because a sub-app's notFound handler is not used
