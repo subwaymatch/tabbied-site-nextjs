@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut, useSessionUser } from 'lib/authClient';
+import AccountNav from './AccountNav';
 import YourSites from './YourSites';
 import styles from './AuthForm.module.css';
 
@@ -39,13 +40,14 @@ export default function AccountPanel() {
 
   return (
     <div className={styles.form}>
+      <AccountNav />
       <h1 className={styles.title}>Your account</h1>
       <p className={styles.lede}>
         Signed in as <strong>{user.email}</strong>.
       </p>
 
-      <h2 className={styles.sectionTitle}>Your sites</h2>
-      <YourSites />
+      <h2 className={styles.sectionTitle}>Recent sites</h2>
+      <YourSites limit={5} />
 
       <button
         type="button"

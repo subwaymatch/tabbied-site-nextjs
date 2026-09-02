@@ -12,7 +12,7 @@ type State =
   | { status: 'ready'; sites: SiteSummary[] };
 
 /** The sites this person has made, newest first. Session-scoped on the API side. */
-export default function YourSites() {
+export default function YourSites({ limit }: { limit?: number } = {}) {
   const [state, setState] = useState<State>({ status: 'loading' });
 
   useEffect(() => {
@@ -50,7 +50,8 @@ export default function YourSites() {
 
   return (
     <ul className={styles.list}>
-      {state.sites.map((site) => (
+      {/* eslint-disable-next-line react/jsx-key -- keyed below */}
+      {(limit ? state.sites.slice(0, limit) : state.sites).map((site) => (
         <li key={site.id} className={styles.row}>
           <Link href={`/studio/site/?id=${site.id}`} prefetch={false} className={styles.link}>
             <span className={styles.swatches} aria-hidden="true">

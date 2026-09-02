@@ -81,6 +81,12 @@ export function buildAuth(env: Env) {
       },
     },
 
+    user: {
+      // Deleting an account is the person's to do; with no verification mail
+      // configured better-auth asks for the password instead, which is the
+      // right friction for the only irreversible thing on the settings page.
+      deleteUser: { enabled: true },
+    },
     emailVerification: {
       sendOnSignUp: true,
       autoSignInAfterVerification: true,

@@ -57,7 +57,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
 
     const result =
       mode === 'sign-up'
-        ? await signUp.email({ name, email, password })
+        ? await signUp.email({ name, email, password, callbackURL: '/verify-email/' })
         : await signIn.email({ email, password });
 
     setPending(false);
@@ -133,6 +133,11 @@ export default function AuthForm({ mode }: { mode: Mode }) {
           onChange={(event) => setPassword(event.target.value)}
         />
       </label>
+      {mode === 'sign-in' ? (
+        <p className={styles.swap}>
+          <Link href="/forgot-password">Forgot your password?</Link>
+        </p>
+      ) : null}
 
       {error ? (
         <p className={styles.error} role="alert">

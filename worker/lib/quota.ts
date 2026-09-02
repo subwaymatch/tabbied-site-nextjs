@@ -20,7 +20,7 @@ export type Endpoint = 'directions' | 'direction-image' | 'site' | 'site-image';
  * changes these numbers and nothing else — which is why they are a table and
  * not scattered through the routes.
  */
-const DAILY_CAPS: Record<Endpoint, { calls: number; label: string }> = {
+export const DAILY_CAPS: Record<Endpoint, { calls: number; label: string }> = {
   // Each is one Responses turn over a dozen candidates — two when the answer
   // needed repairing, which the ledger sums rather than replaces.
   directions: { calls: 40, label: 'generations' },
