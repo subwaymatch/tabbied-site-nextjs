@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: 'Users — Admin', robots: { index: f
 
 export default function Page() {
   return (
-    <AdminPage title="Users">
+    <AdminPage eyebrow="Directory" title="Users" lede="Every account, with what each has made and whether it may still sign in.">
       {/* ?id= selects one; the export cannot enumerate ids, so it is a query. */}
       <Suspense>
         <UsersRoute />

@@ -53,6 +53,17 @@ export type StoredGeneration = {
   createdAt: string | Date;
 };
 
+/** A row in the account's history — what GET /api/studio/generations lists. */
+export type GenerationSummary = {
+  id: string;
+  description: string;
+  source: 'ai' | 'matched-fallback';
+  createdAt: string | Date;
+  /** How many sites were made from it. */
+  sites: number;
+  directions: Pick<StoredDirection, 'name' | 'stance' | 'palette'>[];
+};
+
 // ---- sites ----------------------------------------------------------------
 
 /** 'fallback' is the three-string rebrand, written when the model could not hold the full contract. */

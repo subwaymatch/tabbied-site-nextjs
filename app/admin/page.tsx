@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Admin — Tabbied', robots: { index:
 
 export default function Page() {
   return (
-    <AdminPage title="Overview">
+    <AdminPage eyebrow="Users" title="User overview" lede="Track audience growth and how people use Studio.">
       <OverviewPanel />
     </AdminPage>
   );

@@ -1,21 +1,33 @@
+/* The account forms — sign in, sign up, the three password pages — and the
+   frame the account pages borrow for their signed-out and waiting states.
+   Tokens come from studio.module.css (`--s-…`), which every page that shows
+   one of these wraps itself in. */
+
 .form {
   position: relative;
   z-index: 2;
-  max-width: 480px;
+  box-sizing: border-box;
+  max-width: 592px;
   margin: 0 auto;
-  padding: 72px var(--s-pad) 100px;
+  padding: 80px 24px 120px;
 }
 
 .title {
-  margin: 0 0 12px;
-  font: 700 40px / 1.1 var(--s-sans);
-  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+  font: 700 52px / 1.05 var(--s-sans);
+  letter-spacing: -0.02em;
 }
 
 .lede {
-  margin: 0 0 36px;
+  max-width: 420px;
+  margin: 0 0 40px;
   font: 400 16px / 1.6 var(--s-sans);
-  color: var(--s-muted);
+  color: var(--s-ink-muted, oklch(0.45 0.01 260));
+}
+
+.lede strong {
+  font-weight: 600;
+  color: var(--s-ink);
 }
 
 .sectionTitle {
@@ -24,14 +36,79 @@
   letter-spacing: -0.01em;
 }
 
+/* ── Providers ───────────────────────────────────────────────────────────── */
+
+.providers {
+  display: grid;
+  gap: 12px;
+}
+
+.provider {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  font: 500 15px var(--s-sans);
+  color: var(--s-ink);
+  background: none;
+  border: 1px solid oklch(0 0 0 / 0.16);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.provider:hover:enabled {
+  background-color: oklch(0 0 0 / 0.035);
+}
+
+.provider:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.provider svg {
+  display: block;
+  flex: none;
+}
+
+.divider {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 28px 0;
+}
+
+.divider::before,
+.divider::after {
+  flex: 1;
+  height: 1px;
+  background-color: oklch(0 0 0 / 0.12);
+  content: '';
+}
+
+.dividerLabel {
+  font: 400 11px var(--s-mono);
+  color: oklch(0.55 0.01 260);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── Fields ──────────────────────────────────────────────────────────────── */
+
+.fields {
+  display: grid;
+  gap: 22px;
+}
+
 .field {
   display: block;
-  margin-bottom: 20px;
 }
 
 .field span {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 9px;
   font: 600 13px var(--s-sans);
   color: var(--s-ink);
 }
@@ -39,34 +116,58 @@
 .field input {
   box-sizing: border-box;
   width: 100%;
-  padding: 13px 14px;
+  padding: 14px 16px;
   font: 400 15px var(--s-sans);
   color: var(--s-ink);
-  background: none;
-  border: 1px solid var(--s-line);
+  background-color: #fff;
+  border: 1px solid oklch(0 0 0 / 0.16);
   border-radius: 10px;
   outline: none;
   transition: border-color 200ms ease;
+}
+
+.field input::placeholder {
+  color: oklch(0.62 0.01 260);
 }
 
 .field input:focus {
   border-color: var(--s-ink);
 }
 
+/* "Forgot your password?" — sits between the fields and the button. */
+.aside {
+  display: inline-block;
+  margin: 20px 0 18px;
+  font: 400 14px var(--s-sans);
+  color: oklch(0.42 0.01 260);
+  text-decoration: underline;
+}
+
+.aside:hover {
+  color: var(--s-ink);
+}
+
 .error {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   padding: 12px 14px;
-  font: 400 14px / 1.5 var(--s-sans);
+  font: 400 13px / 1.5 var(--s-sans);
   color: oklch(0.45 0.17 25);
   background-color: oklch(0.45 0.17 25 / 0.07);
   border-radius: 10px;
 }
 
+/* The single-field password pages have no aside, so the button carries the
+   gap itself. */
+.fields + .error,
+.fields + .submit {
+  margin-top: 28px;
+}
+
 .submit {
   width: 100%;
-  padding: 16px;
+  padding: 17px;
   font: 600 16px var(--s-sans);
-  color: #eef0f6;
+  color: #fff;
   background-color: var(--s-ink);
   border: none;
   border-radius: 10px;
@@ -75,7 +176,7 @@
 }
 
 .submit:hover:enabled {
-  background-color: oklch(0.22 0 0);
+  background-color: #25252e;
 }
 
 .submit:disabled {
@@ -84,9 +185,9 @@
 }
 
 .swap {
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   font: 400 14px var(--s-sans);
-  color: var(--s-muted);
+  color: oklch(0.42 0.01 260);
 }
 
 .swap a {
@@ -94,17 +195,27 @@
   text-decoration: underline;
 }
 
+.notice {
+  margin: 24px 0 0;
+  padding: 12px 14px;
+  font: 400 13px / 1.5 var(--s-sans);
+  color: oklch(0.35 0.09 175);
+  background-color: oklch(0.95 0.03 175);
+  border-radius: 10px;
+}
+
 @media (max-width: 767.98px) {
   .form {
-    padding-top: 40px;
+    padding: 56px 24px 80px;
   }
 
   .title {
-    font-size: 32px;
+    font-size: 38px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .provider,
   .field input,
   .submit {
     transition: none;

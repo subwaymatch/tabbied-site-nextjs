@@ -11,7 +11,7 @@ export default function UsersRoute() {
   if (id) {
     return (
       <>
-        <p className={styles.quiet}>
+        <p className={styles.quiet} style={{ marginBottom: 20 }}>
           <Link href="/admin/users/" prefetch={false}>&larr; All users</Link>
         </p>
         <UserDetailPanel id={id} />

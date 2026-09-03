@@ -33,8 +33,25 @@ function socialProviders(env: Env) {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     };
   }
+  if (env.APPLE_CLIENT_ID && env.APPLE_CLIENT_SECRET) {
+    providers.apple = {
+      clientId: env.APPLE_CLIENT_ID,
+      clientSecret: env.APPLE_CLIENT_SECRET,
+    };
+  }
 
   return providers;
+}
+
+/**
+ * The providers the sign-in form may offer, in the order it shows them. The
+ * form asks `/api/auth-providers` rather than guessing, so the only buttons
+ * it draws are for providers this deployment can actually complete.
+ */
+export function configuredProviders(env: Env): string[] {
+  const configured = socialProviders(env);
+
+  return ['google', 'apple', 'github'].filter((name) => name in configured);
 }
 
 /** Is this address in ADMIN_EMAILS? Empty or unset means nobody is. */

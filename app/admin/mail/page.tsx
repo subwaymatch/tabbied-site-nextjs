@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Mail — Admin', robots: { index: fa
 
 export default function Page() {
   return (
-    <AdminPage title="Mail">
+    <AdminPage eyebrow="Development" title="Mail" lede="Verification and reset links written to D1 instead of sent. Development only.">
       <MailPanel />
     </AdminPage>
   );

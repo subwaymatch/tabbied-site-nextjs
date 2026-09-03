@@ -1,59 +1,324 @@
-/* The account area's own pieces: its nav, lists, meters, table. Typography
-   and the form frame come from AuthForm.module.css. */
+/* The account area: its shell (masthead below, then a 1180px column), the
+   sub-navigation, and the pieces its pages are made of — cards, tables,
+   meters, fields. Tokens are Studio's (`--s-…`, studio.module.css), which
+   every account page wraps itself in. */
 
+/* ── Shell ───────────────────────────────────────────────────────────────── */
+
+.shell {
+  box-sizing: border-box;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 48px 120px;
+}
+
+/* The area's own pages, as a quiet row under the masthead. */
 .nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin: 0 0 24px;
+  gap: 4px 28px;
+  padding: 18px 0;
+  font: 400 12px var(--s-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--s-rule);
 }
 
 .navLink {
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: #6b6b6b;
-  text-decoration: none;
+  padding: 4px 0;
+  color: oklch(0.5 0.01 260);
+  border-bottom: 1px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
 }
 
-.navLink:hover { background: #f4f4f4; color: #101010; }
+.navLink:hover {
+  color: var(--s-ink);
+}
 
 .navOn {
-  background: #101010;
-  color: #fff;
+  color: var(--s-ink);
+  border-bottom-color: var(--s-ink);
 }
+
+.head {
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 56px 0 44px;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  font: 400 12px var(--s-mono);
+  color: var(--s-teal);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 12px;
+  font: 700 52px / 1.05 var(--s-sans);
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  max-width: 640px;
+  margin: 0;
+  font: 400 16px / 1.6 var(--s-sans);
+  color: oklch(0.45 0.01 260);
+}
+
+.lede a,
+.lede strong {
+  color: var(--s-ink);
+}
+
+.lede a {
+  text-decoration: underline;
+}
+
+.cta {
+  flex: none;
+  padding: 16px 26px;
+  font: 600 15px var(--s-sans);
+  color: #fff;
+  white-space: nowrap;
+  background-color: var(--s-ink);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.cta:hover {
+  color: #fff;
+  background-color: #25252e;
+}
+
+/* The signed-out and still-checking states, in the same measure as a form. */
+.gate {
+  max-width: 592px;
+  padding: 80px 0 40px;
+}
+
+/* ── Text ────────────────────────────────────────────────────────────────── */
 
 .quiet {
   margin: 0 0 12px;
-  font-size: 13.5px;
-  color: #6b6b6b;
+  font: 400 14px / 1.6 var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+.quiet a {
+  color: var(--s-ink);
+  text-decoration: underline;
 }
 
 .error {
   margin: 0 0 12px;
-  font-size: 13px;
-  color: #b3261e;
+  padding: 12px 14px;
+  font: 400 13px / 1.5 var(--s-sans);
+  color: oklch(0.45 0.17 25);
+  background-color: oklch(0.45 0.17 25 / 0.07);
+  border-radius: 10px;
+}
+
+.ok {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  font: 400 13px / 1.5 var(--s-sans);
+  color: oklch(0.35 0.09 175);
+  background-color: oklch(0.95 0.03 175);
+  border-radius: 10px;
 }
 
 .h2 {
-  margin: 28px 0 10px;
-  font-size: 18px;
+  margin: 0 0 18px;
+  font: 700 26px var(--s-sans);
   letter-spacing: -0.01em;
 }
 
+.h3 {
+  margin: 0 0 14px;
+  font: 700 18px var(--s-sans);
+  letter-spacing: -0.01em;
+}
+
+.section {
+  margin-top: 48px;
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+/* ── Cards and tables ────────────────────────────────────────────────────── */
+
+.card {
+  box-sizing: border-box;
+  padding: 30px 32px;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-radius: 14px;
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+
+.panel {
+  overflow: hidden;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-radius: 14px;
+}
+
+.tableHead {
+  display: grid;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 26px;
+  font: 400 11px var(--s-mono);
+  color: oklch(0.45 0.01 260);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background-color: oklch(0 0 0 / 0.028);
+}
+
+.row {
+  display: grid;
+  gap: 16px;
+  align-items: center;
+  padding: 22px 26px;
+  border-top: 1px solid oklch(0 0 0 / 0.08);
+}
+
+.rowTitle {
+  margin: 0 0 5px;
+  font: 600 16px / 1.3 var(--s-sans);
+  color: var(--s-ink);
+}
+
+.rowMeta {
+  margin: 0;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+.rowValue {
+  font: 400 15px var(--s-sans);
+  color: var(--s-ink);
+}
+
+.rowAction {
+  font: 500 14px var(--s-sans);
+  color: var(--s-ink);
+  text-align: right;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rowAction:hover {
+  color: var(--s-teal);
+}
+
+.empty {
+  padding: 34px 26px;
+  font: 400 14px var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+.empty a {
+  color: var(--s-ink);
+  text-decoration: underline;
+}
+
+.footnote {
+  margin: 18px 0 0;
+  font: 400 13px / 1.6 var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+/* Plain data tables (the usage ledger). */
+.table {
+  width: 100%;
+  font: 400 14px var(--s-sans);
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 14px 26px;
+  text-align: left;
+  border-top: 1px solid oklch(0 0 0 / 0.08);
+}
+
+.table th {
+  padding: 14px 26px;
+  font: 400 11px var(--s-mono);
+  color: oklch(0.45 0.01 260);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background-color: oklch(0 0 0 / 0.028);
+  border-top: none;
+}
+
+.table td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Meters ──────────────────────────────────────────────────────────────── */
+
+.meters {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.meterHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 8px;
+  font: 400 14px var(--s-sans);
+}
+
+.meterHead .quiet {
+  margin: 0;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  height: 6px;
+  overflow: hidden;
+  background-color: oklch(0 0 0 / 0.08);
+  border-radius: 999px;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #0d9488, #0e7490);
+  border-radius: inherit;
+}
+
+/* ── Pictures ────────────────────────────────────────────────────────────── */
+
 .addButton {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  height: 36px;
-  padding: 0 16px;
-  margin: 0 0 8px;
-  border-radius: 999px;
-  background: #101010;
-  color: #fff;
-  font-size: 13px;
-  cursor: pointer;
-  position: relative;
+  height: 44px;
+  padding: 0 22px;
+  margin: 0 0 10px;
   overflow: hidden;
+  font: 600 14px var(--s-sans);
+  color: #fff;
+  background-color: var(--s-ink);
+  border-radius: 999px;
+  cursor: pointer;
 }
 
 .addButton input {
@@ -64,21 +329,21 @@
 }
 
 .grid {
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .cell {
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
   overflow: hidden;
   background:
     linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%) 0 0 / 12px 12px,
     linear-gradient(45deg, #eee 25%, #fff 25%, #fff 75%, #eee 75%) 6px 6px / 12px 12px;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-radius: 12px;
 }
 
 .cell img {
@@ -90,128 +355,170 @@
 
 .cellFoot {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 8px;
-  background: #fff;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background-color: #fff;
 }
 
-.cellFoot .quiet { margin: 0; font-size: 12px; }
+.cellFoot .quiet {
+  margin: 0;
+  font-size: 12px;
+}
 
 .small {
-  height: 26px;
-  padding: 0 10px;
-  border: 1px solid #d8d8d8;
+  height: 28px;
+  padding: 0 12px;
+  font: 500 12px / 1 var(--s-sans);
+  color: var(--s-ink);
+  background-color: #fff;
+  border: 1px solid oklch(0 0 0 / 0.14);
   border-radius: 999px;
-  background: #fff;
-  font: 500 12px / 1 inherit;
-  font-family: inherit;
   cursor: pointer;
 }
 
-.small:hover:not(:disabled) { border-color: #101010; }
-.small:disabled { opacity: 0.5; cursor: default; }
+.small:hover:not(:disabled) {
+  border-color: var(--s-ink);
+}
 
-.meters {
-  list-style: none;
-  margin: 0 0 8px;
-  padding: 0;
+.small:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* ── Settings ────────────────────────────────────────────────────────────── */
+
+.settings {
   display: grid;
-  gap: 12px;
-}
-
-.meterHead {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13.5px;
-  margin: 0 0 4px;
-}
-
-.meterHead .quiet { margin: 0; }
-
-.bar {
-  height: 6px;
-  border-radius: 999px;
-  background: #ededed;
-  overflow: hidden;
-}
-
-.bar span {
-  display: block;
-  height: 100%;
-  background: #101010;
-  border-radius: inherit;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.table th,
-.table td {
-  text-align: left;
-  padding: 8px 6px;
-  border-bottom: 1px solid #ececec;
-}
-
-.table th {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #8a8a8a;
+  gap: 20px;
+  max-width: 720px;
 }
 
 .fieldRow {
   display: grid;
-  gap: 6px;
-  margin: 0 0 14px;
+  gap: 9px;
+  margin: 0 0 18px;
 }
 
-.fieldRow span { font-size: 13px; color: #3c3c3c; }
+.fieldRow span {
+  font: 600 13px var(--s-sans);
+  color: var(--s-ink);
+}
 
 .fieldRow input {
-  height: 40px;
-  padding: 0 12px;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-  font: 400 15px / 1 inherit;
-  font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px 16px;
+  font: 400 15px var(--s-sans);
+  color: var(--s-ink);
+  background-color: #fff;
+  border: 1px solid oklch(0 0 0 / 0.16);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 150ms ease;
 }
 
 .fieldRow input:focus {
-  outline: 2px solid #101010;
-  outline-offset: 1px;
-  border-color: #101010;
+  border-color: var(--s-ink);
 }
 
 .button {
-  height: 38px;
-  padding: 0 18px;
+  height: 42px;
+  padding: 0 22px;
+  font: 600 14px / 1 var(--s-sans);
+  color: #fff;
+  background-color: var(--s-ink);
   border: 0;
   border-radius: 999px;
-  background: #101010;
-  color: #fff;
-  font: 500 13px / 1 inherit;
-  font-family: inherit;
   cursor: pointer;
+  transition: background-color 150ms ease;
 }
 
-.button:disabled { background: #ededed; color: #8a8a8a; cursor: default; }
+.button:hover:enabled {
+  background-color: #25252e;
+}
 
-.ok {
-  margin: 8px 0 0;
-  font-size: 13px;
-  color: #1e7a45;
+.button:disabled {
+  color: oklch(0.55 0.01 260);
+  cursor: default;
+  background-color: oklch(0 0 0 / 0.06);
+}
+
+.danger {
+  color: oklch(0.45 0.17 25);
+  background-color: #fff;
+  border: 1px solid oklch(0.45 0.17 25 / 0.4);
+}
+
+.danger:hover:enabled {
+  color: #fff;
+  background-color: oklch(0.45 0.17 25);
+  border-color: oklch(0.45 0.17 25);
 }
 
 .providers {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: grid;
   gap: 6px;
-  font-size: 13.5px;
+  margin: 0;
+  padding: 0;
+  font: 400 14px var(--s-sans);
+  list-style: none;
+}
+
+/* ── Narrow screens ──────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .shell {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .nav {
+    gap: 0 22px;
+    padding: 10px 0;
+  }
+
+  .navLink {
+    padding: 10px 0;
+  }
+
+  .head {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 40px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .tableHead {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .rowAction {
+    text-align: left;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink,
+  .cta,
+  .fieldRow input,
+  .button {
+    transition: none;
+  }
 }

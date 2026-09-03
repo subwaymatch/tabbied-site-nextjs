@@ -113,8 +113,10 @@
 }
 
 .imageButton {
+  height: 40px;
   padding: 0 16px;
   font: 500 14px var(--s-sans);
+  white-space: nowrap;
   color: var(--s-ink);
   background: none;
   border: 1px solid var(--s-line);
@@ -205,7 +207,9 @@
 
 .actions {
   display: flex;
-  gap: 32px;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -276,9 +280,8 @@
     height: 180px;
   }
 
-  /* Room for three taps rather than three crowded onto one line. */
+  /* Room for four taps rather than four crowded onto one line. */
   .actions {
-    flex-wrap: wrap;
     gap: 16px;
   }
 }

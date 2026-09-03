@@ -1,10 +1,10 @@
 import { Hono } from 'hono';
-import { eq } from 'drizzle-orm';
+import { desc, eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { z } from 'zod';
 import { matchDirections, type StudioDirection } from '../../lib/studioMatch';
 import * as schema from '../db/schema';
-import { generation } from '../db/schema';
+import { generation, site } from '../db/schema';
 import type { Env } from '../env';
 import { requireUser } from '../lib/session';
 import { loadEditableCatalog } from '../lib/templateAssets';
@@ -293,6 +293,56 @@ studio.post('/directions', async (c) => {
  * way an unlisted link is. There is deliberately no listing endpoint, so there
  * is nothing to enumerate.
  */
+/**
+ * The signed-in person's own generations, newest first. Session-scoped and
+ * never by id — the same split as sites: the no-listing rule is about
+ * anonymous *enumeration*, not a person's own rows. Each row carries the
+ * three directions' names and palettes, which is what a history list shows,
+ * and not the copy, which is what makes 100 rows a small answer.
+ */
+studio.get('/generations', async (c) => {
+  const userId = await requireUser(c.env, c.req.raw.headers);
+
+  if (!userId) {
+    return c.json({ error: 'Sign in to see your generations.' }, 401);
+  }
+
+  const db = drizzle(c.env.DB, { schema });
+
+  const rows = await db
+    .select({
+      id: generation.id,
+      description: generation.description,
+      source: generation.source,
+      createdAt: generation.createdAt,
+      result: generation.result,
+      sites: sql<number>`(select count(*) from ${site} where ${site.generationId} = ${generation.id})`,
+    })
+    .from(generation)
+    .where(eq(generation.userId, userId))
+    .orderBy(desc(generation.createdAt))
+    .limit(100);
+
+  return c.json({
+    generations: rows.map((row) => {
+      const result = JSON.parse(row.result) as StoredResult;
+
+      return {
+        id: row.id,
+        description: row.description,
+        source: row.source,
+        createdAt: row.createdAt,
+        sites: Number(row.sites),
+        directions: result.directions.map((direction) => ({
+          name: direction.name,
+          stance: direction.stance,
+          palette: direction.palette,
+        })),
+      };
+    }),
+  });
+});
+
 studio.get('/generations/:id', async (c) => {
   const db = drizzle(c.env.DB, { schema });
 

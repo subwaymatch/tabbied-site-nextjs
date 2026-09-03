@@ -1,0 +1,219 @@
+/* The preview a results card opens: the packaged template, with the card's
+   direction applied, in a dialog over the page. Portaled to <body>, so it
+   carries its own type and colour rather than reading Studio's tokens. */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1190;
+  background-color: rgba(14, 14, 19, 0.65);
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+.backdrop[data-starting-style],
+.backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.popup {
+  --pd-sans: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(1200px, calc(100vw - 32px));
+  height: min(calc(100vh - 48px), 940px);
+  margin: auto;
+  overflow: hidden;
+  font-family: var(--pd-sans);
+  color: #0e0e13;
+  background-color: #fff;
+  border-radius: 16px;
+  outline: none;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.bar {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 14px 24px;
+  border-bottom: 1px solid oklch(0 0 0 / 0.08);
+}
+
+.meta {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  overflow: hidden;
+  font: 700 16px / 1.3 var(--pd-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.built {
+  margin: 2px 0 0;
+  overflow: hidden;
+  font: 400 13px var(--pd-sans);
+  color: oklch(0.5 0.01 260);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  align-items: center;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  font: 500 13px var(--pd-sans);
+  color: #0e0e13;
+  white-space: nowrap;
+  border: 1px solid oklch(0 0 0 / 0.14);
+  border-radius: 999px;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.action:hover {
+  color: #0e0e13;
+  border-color: #0e0e13;
+}
+
+.download {
+  color: #fff;
+  background-color: #0e0e13;
+  border-color: #0e0e13;
+}
+
+.download:hover {
+  color: #fff;
+  background-color: #25252e;
+  border-color: #25252e;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 4px;
+  font-size: 22px;
+  line-height: 1;
+  color: oklch(0.5 0.01 260);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #0e0e13;
+  background-color: oklch(0 0 0 / 0.05);
+}
+
+.body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background-color: oklch(0 0 0 / 0.03);
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 0;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #f6f6f6 30%, #efefef 50%, #f6f6f6 70%);
+  background-size: 220% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -120% 0;
+  }
+}
+
+.status {
+  position: absolute;
+  inset: auto 0 24px;
+  margin: 0;
+  font: 400 13px var(--pd-sans);
+  color: oklch(0.5 0.01 260);
+  text-align: center;
+}
+
+.status a {
+  color: #0e0e13;
+  text-decoration: underline;
+}
+
+/* What the engine could not place, said above the frame rather than hidden. */
+.notice {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 10px 24px;
+  font: 400 13px / 1.5 var(--pd-sans);
+  color: oklch(0.45 0.01 260);
+  background-color: oklch(0 0 0 / 0.03);
+  border-bottom: 1px solid oklch(0 0 0 / 0.08);
+}
+
+@media (max-width: 767.98px) {
+  .popup {
+    width: calc(100vw - 16px);
+    height: calc(100vh - 16px);
+    border-radius: 12px;
+  }
+
+  .bar {
+    padding: 12px 8px 12px 16px;
+  }
+
+  /* Room for the title: the full-page link is the one that can go, since
+     the download is the reason the preview exists. */
+  .open {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .popup,
+  .action {
+    transition: none;
+  }
+
+  .skeleton {
+    animation: none;
+  }
+}

@@ -44,3 +44,36 @@ describe('account usage', () => {
     expect(after.usage.find((row) => row.endpoint === 'directions')?.used).toBe(0);
   });
 });
+
+describe('account history', () => {
+  it('lists only the signed-in person\'s own generations, newest first', async () => {
+    expect((await SELF.fetch(`${ORIGIN}/api/studio/generations`)).status).toBe(401);
+
+    const cookie = await signIn('historian@example.com');
+    const other = await signIn('bystander@example.com');
+
+    for (const description of ['A bakery in a small coastal town, sourdough and coffee.', 'A modern design studio in Berlin, minimal and precise.']) {
+      const made = await SELF.fetch(`${ORIGIN}/api/studio/directions`, {
+        method: 'POST',
+        headers: { ...json, cookie },
+        body: JSON.stringify({ description }),
+      });
+      expect(made.status).toBe(200);
+    }
+
+    const mine = (await SELF.fetch(`${ORIGIN}/api/studio/generations`, { headers: { cookie } }).then((r) => r.json())) as {
+      generations: { description: string; sites: number; directions: { name: string; palette: string[] }[] }[];
+    };
+    expect(mine.generations.map((row) => row.description)).toEqual([
+      'A modern design studio in Berlin, minimal and precise.',
+      'A bakery in a small coastal town, sourdough and coffee.',
+    ]);
+    expect(mine.generations[0].sites).toBe(0);
+    expect(mine.generations[0].directions).toHaveLength(3);
+    expect(mine.generations[0].directions[0].palette.length).toBeGreaterThan(0);
+
+    // Somebody else's list is empty: the rows are scoped by session, not by id.
+    const theirs = (await SELF.fetch(`${ORIGIN}/api/studio/generations`, { headers: { cookie: other } }).then((r) => r.json())) as { generations: unknown[] };
+    expect(theirs.generations).toHaveLength(0);
+  });
+});

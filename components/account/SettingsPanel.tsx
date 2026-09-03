@@ -33,8 +33,15 @@ export default function SettingsPanel() {
   const say = (kind: 'ok' | 'error', text: string) => setMessage({ kind, text });
 
   return (
-    <>
+    <div className={styles.settings}>
+      {message ? (
+        <p className={message.kind === 'ok' ? styles.ok : styles.error} role={message.kind === 'ok' ? 'status' : 'alert'}>
+          {message.text}
+        </p>
+      ) : null}
+
       <form
+        className={styles.card}
         onSubmit={async (event) => {
           event.preventDefault();
           setBusy('name');
@@ -45,7 +52,7 @@ export default function SettingsPanel() {
           else say('ok', 'Name saved.');
         }}
       >
-        <h2 className={styles.h2}>Name</h2>
+        <h2 className={styles.h3}>Name</h2>
         <label className={styles.fieldRow}>
           <span>What to call you</span>
           <input type="text" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} />
@@ -56,6 +63,7 @@ export default function SettingsPanel() {
       </form>
 
       <form
+        className={styles.card}
         onSubmit={async (event) => {
           event.preventDefault();
           if (next !== confirm) {
@@ -79,7 +87,7 @@ export default function SettingsPanel() {
           }
         }}
       >
-        <h2 className={styles.h2}>Password</h2>
+        <h2 className={styles.h3}>Password</h2>
         <label className={styles.fieldRow}>
           <span>Current password</span>
           <input type="password" autoComplete="current-password" required value={current} onChange={(e) => setCurrent(e.target.value)} />
@@ -97,27 +105,32 @@ export default function SettingsPanel() {
         </button>
       </form>
 
-      <h2 className={styles.h2}>Signed in with</h2>
-      {linked === null ? (
-        <p className={styles.quiet}>Loading…</p>
-      ) : (
-        <ul className={styles.providers}>
-          {linked.map((account) => (
-            <li key={account.providerId}>
-              {account.providerId === 'credential' ? 'Email and password' : account.providerId}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className={styles.card}>
+        <h2 className={styles.h3}>Signed in with</h2>
+        {linked === null ? (
+          <p className={styles.quiet}>Loading…</p>
+        ) : (
+          <ul className={styles.providers}>
+            {linked.map((account) => (
+              <li key={account.providerId}>
+                {account.providerId === 'credential'
+                  ? 'Email and password'
+                  : account.providerId.charAt(0).toUpperCase() + account.providerId.slice(1)}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-      <h2 className={styles.h2}>Delete this account</h2>
+      <div className={styles.card}>
+      <h2 className={styles.h3}>Delete this account</h2>
       <p className={styles.quiet}>
         Removes your account, your sites and their revisions, your pictures and your usage
         history. There is no undo.
       </p>
       <button
         type="button"
-        className={styles.button}
+        className={`${styles.button} ${styles.danger}`}
         disabled={busy !== null}
         onClick={async () => {
           const password = window.prompt('Type your password to delete your account. This cannot be undone.');
@@ -132,12 +145,7 @@ export default function SettingsPanel() {
       >
         {busy === 'delete' ? 'Deleting…' : 'Delete my account'}
       </button>
-
-      {message ? (
-        <p className={message.kind === 'ok' ? styles.ok : styles.error} role={message.kind === 'ok' ? 'status' : 'alert'}>
-          {message.text}
-        </p>
-      ) : null}
-    </>
+      </div>
+    </div>
   );
 }

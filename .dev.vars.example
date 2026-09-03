@@ -40,6 +40,8 @@ PUBLIC_ORIGIN=http://localhost:8787
 # GITHUB_CLIENT_SECRET=
 # GOOGLE_CLIENT_ID=
 # GOOGLE_CLIENT_SECRET=
+# APPLE_CLIENT_ID=
+# APPLE_CLIENT_SECRET=
 
 # Admins by configuration, comma-separated. Granted the role on sign-up, or on
 # the next sign-in for an account that already exists. Optional: the grant

@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Uploads — Admin', robots: { index:
 
 export default function Page() {
   return (
-    <AdminPage title="Uploads">
+    <AdminPage eyebrow="Media" title="Uploads" lede="Reference pictures people have added, newest first.">
       <UploadsPanel />
     </AdminPage>
   );

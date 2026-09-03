@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'AI usage — Admin', robots: { index
 
 export default function Page() {
   return (
-    <AdminPage title="AI usage">
+    <AdminPage eyebrow="Spending" title="AI usage" lede="Calls, tokens and estimated cost by day, and who is making them.">
       <UsagePanel />
     </AdminPage>
   );
