@@ -20,6 +20,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Plain punctuation, everywhere: see "Plain punctuation" in CLAUDE.md.
+      - name: Check typography
+        run: npm run check:typography
       - name: Typecheck tabbied
         run: npm run typecheck --workspace tabbied
       # tabbied-mcp imports tabbied/catalog.json, so tabbied has to be built

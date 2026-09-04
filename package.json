@@ -30,6 +30,7 @@
     "check:thumbnails": "node scripts/check-gallery-thumbnails.mjs",
     "previews": "node scripts/generate-previews.mjs",
     "check:previews": "node scripts/check-previews.mjs",
+    "check:typography": "node scripts/check-typography.mjs",
     "start": "serve out -l 3000 --no-clipboard",
     "test:e2e": "playwright test",
     "images:extract": "node scripts/images/extract-prompts.mjs",
