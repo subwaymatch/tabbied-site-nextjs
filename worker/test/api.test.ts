@@ -14,6 +14,15 @@ describe('the platform tier', () => {
     await expect(response.json()).resolves.toMatchObject({ status: 'ok' });
   });
 
+  it('lists the social providers it can complete — none, here', async () => {
+    // The test environment configures no client ids, so the honest answer is
+    // an empty list: the sign-in form then draws no provider buttons at all.
+    const response = await SELF.fetch('https://x/api/auth-providers');
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ providers: [] });
+  });
+
   it('answers a miss under /api with JSON, not the site 404 page', async () => {
     // A sub-app's notFound handler is not used once it is mounted with
     // route(), so this would otherwise fall through and hand an API client

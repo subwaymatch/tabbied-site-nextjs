@@ -34,7 +34,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { createMcpHandler } from '@modelcontextprotocol/server';
-import { buildAuth } from './auth';
+import { buildAuth, configuredProviders } from './auth';
 import type { Env } from './env';
 import { isDev } from './env';
 import media from './routes/media';
@@ -220,6 +220,12 @@ api.use('*', async (c, next) => {
 api.get('/health', (c) =>
   c.json({ status: 'ok', service: 'tabbied-api', version: 1 })
 );
+
+// Which social providers the sign-in form may offer. Public and cheap: it
+// reads the environment and touches nothing. Deliberately outside better-auth's
+// own prefix, which has no equivalent — a button for an unconfigured provider
+// would otherwise be one that 500s on click.
+api.get('/auth-providers', (c) => c.json({ providers: configuredProviders(c.env) }));
 
 // better-auth owns everything under this prefix: sign-up, sign-in, callbacks,
 // verification, session. Handing it the raw Request keeps us out of the way of

@@ -43,6 +43,13 @@ export type Env = {
   GITHUB_CLIENT_SECRET?: string;
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
+  /**
+   * Sign in with Apple. The "secret" is the signed JWT Apple has you mint
+   * from your key, which expires every six months — rotate it like any
+   * other secret.
+   */
+  APPLE_CLIENT_ID?: string;
+  APPLE_CLIENT_SECRET?: string;
 
   /** Set only in .dev.vars. Relaxes cookie flags and opens CORS to :3000. */
   DEV?: string;

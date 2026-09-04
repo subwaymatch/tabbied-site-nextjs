@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Quotas — Admin', robots: { index: 
 
 export default function Page() {
   return (
-    <AdminPage title="Quotas">
+    <AdminPage eyebrow="Caps" title="Quotas" lede="The daily ceilings on each paid endpoint.">
       <QuotasPanel />
     </AdminPage>
   );

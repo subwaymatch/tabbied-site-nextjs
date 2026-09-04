@@ -11,7 +11,7 @@ export default function GenerationsRoute() {
   if (id) {
     return (
       <>
-        <p className={styles.quiet}>
+        <p className={styles.quiet} style={{ marginBottom: 20 }}>
           <Link href="/admin/generations/" prefetch={false}>&larr; All generations</Link>
         </p>
         <GenerationDetailPanel id={id} />

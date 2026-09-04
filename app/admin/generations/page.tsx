@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: 'Generations — Admin', robots: { in
 
 export default function Page() {
   return (
-    <AdminPage title="Generations">
+    <AdminPage eyebrow="Studio" title="Generations" lede="Every set of directions the model — or the matcher, when it fell back — has answered with.">
       {/* ?id= selects one; the export cannot enumerate ids, so it is a query. */}
       <Suspense>
         <GenerationsRoute />

@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Templates — Admin', robots: { inde
 
 export default function Page() {
   return (
-    <AdminPage title="Templates">
+    <AdminPage eyebrow="Library" title="Templates" lede="The 57 packaged sites, what each can take, and how many sites were built on it.">
       <TemplatesPanel />
     </AdminPage>
   );

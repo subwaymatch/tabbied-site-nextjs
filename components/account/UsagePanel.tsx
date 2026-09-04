@@ -35,7 +35,9 @@ export default function UsagePanel() {
 
   return (
     <>
-      <ul className={styles.meters}>
+      <div className={styles.card}>
+        <h2 className={styles.h3}>Today, against the caps</h2>
+        <ul className={styles.meters}>
         {data.usage.map((row) => (
           <li key={row.endpoint} className={styles.meter}>
             <div className={styles.meterHead}>
@@ -49,13 +51,21 @@ export default function UsagePanel() {
             </div>
           </li>
         ))}
-      </ul>
-      <p className={styles.quiet}>Caps reset at {when(data.resetsAt)}.</p>
+        </ul>
+        <p className={styles.quiet} style={{ marginTop: 18 }}>
+          Caps reset at {when(data.resetsAt)}.
+        </p>
+      </div>
 
-      <h2 className={styles.h2}>Recent</h2>
+      <div className={styles.section}>
+        <h2 className={styles.h2}>Recent</h2>
+      </div>
       {data.recent.length === 0 ? (
-        <p className={styles.quiet}>Nothing yet.</p>
+        <div className={styles.panel}>
+          <p className={styles.empty}>Nothing yet. AI calls will be listed here as they happen.</p>
+        </div>
       ) : (
+        <div className={styles.panel}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -80,6 +90,7 @@ export default function UsagePanel() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </>
   );

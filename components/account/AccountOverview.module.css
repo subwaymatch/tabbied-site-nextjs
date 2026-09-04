@@ -1,0 +1,283 @@
+/* The overview's own pieces: the two summary cards, the counts under them,
+   and the history rows. */
+
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  overflow: hidden;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-radius: 14px;
+}
+
+.card {
+  padding: 30px 32px;
+}
+
+.cardLabel {
+  margin: 0 0 22px;
+  font: 400 14px var(--s-sans);
+  color: oklch(0.45 0.01 260);
+}
+
+.figure {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.figureValue {
+  font: 700 46px / 1 var(--s-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.figureNote {
+  font: 400 14px var(--s-sans);
+  color: oklch(0.5 0.01 260);
+}
+
+/* Today's AI usage, in ink: the one card on the page that is about spending. */
+.dark {
+  color: #eef0f6;
+  background-color: #0e0e13;
+}
+
+.darkHead {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 20px;
+}
+
+.darkHead .cardLabel {
+  margin: 0;
+  color: oklch(0.78 0.01 260);
+}
+
+.resets {
+  font: 400 13px var(--s-sans);
+  color: oklch(0.7 0.01 260);
+  white-space: nowrap;
+}
+
+.meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.meterHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 8px;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.78 0.01 260);
+}
+
+.meterHead strong {
+  font: 600 14px var(--s-sans);
+  font-variant-numeric: tabular-nums;
+  color: #eef0f6;
+}
+
+.meterBar {
+  height: 6px;
+  overflow: hidden;
+  background-color: oklch(1 0 0 / 0.14);
+  border-radius: 999px;
+}
+
+.meterBar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #3fffb2, #3eecff);
+  border-radius: inherit;
+}
+
+.darkQuiet {
+  margin: 0;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.7 0.01 260);
+}
+
+/* ── Counts ──────────────────────────────────────────────────────────────── */
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+  justify-content: flex-end;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.count {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font: 400 14px var(--s-sans);
+  color: oklch(0.42 0.01 260);
+}
+
+.countValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  font: 600 12px var(--s-mono);
+  color: var(--s-ink);
+  background-color: oklch(0 0 0 / 0.05);
+  border-radius: 999px;
+}
+
+/* ── Recents ─────────────────────────────────────────────────────────────── */
+
+.recentsHead {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 64px 0 20px;
+}
+
+.recentsHead h2 {
+  margin: 0;
+}
+
+.sort {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 18px;
+  font: 400 14px var(--s-sans);
+  color: var(--s-ink);
+  background: none;
+  border: 1px solid oklch(0 0 0 / 0.14);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.sort:hover {
+  background-color: oklch(0 0 0 / 0.035);
+}
+
+.sortGlyph {
+  font-size: 9px;
+  opacity: 0.55;
+}
+
+.columns {
+  grid-template-columns: minmax(0, 2fr) 180px minmax(0, 1.2fr) 130px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 13px;
+  font: 600 13px var(--s-sans);
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.tagSite {
+  color: oklch(0.38 0.11 168);
+  background-color: oklch(0.94 0.05 168);
+}
+
+.tagDirections {
+  color: oklch(0.42 0.14 285);
+  background-color: oklch(0.94 0.04 285);
+}
+
+.tagMatched {
+  color: oklch(0.5 0.16 15);
+  background-color: oklch(0.95 0.03 15);
+}
+
+.detail {
+  margin: 0;
+  overflow: hidden;
+  font: 400 14px / 1.5 var(--s-sans);
+  color: oklch(0.42 0.01 260);
+  text-overflow: ellipsis;
+}
+
+.swatches {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 3px;
+  margin-right: 10px;
+  vertical-align: -2px;
+}
+
+.swatches span {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.1);
+}
+
+/* Shown while the three requests are in flight. Two rows' worth, so the page
+   does not reflow when the real ones land. */
+.skeleton {
+  height: 18px;
+  background-color: oklch(0 0 0 / 0.06);
+  border-radius: 6px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card + .card {
+    border-top: 1px solid oklch(0 0 0 / 0.1);
+  }
+
+  .meters {
+    grid-template-columns: 1fr;
+  }
+
+  .counts {
+    justify-content: flex-start;
+  }
+
+  .recentsHead {
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sort {
+    transition: none;
+  }
+
+  .skeleton {
+    animation: none;
+  }
+}

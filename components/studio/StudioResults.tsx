@@ -9,6 +9,7 @@ import { apiFetch, ApiError, apiUrl } from 'lib/apiFetch';
 import { useSessionUser } from 'lib/authClient';
 import { matchDirections, type StudioEntry } from 'lib/studioMatch';
 import type { StoredDirection, StoredGeneration } from 'lib/studioDocument';
+import PreviewDialog, { type PreviewTarget } from './PreviewDialog';
 import styles from './StudioResults.module.css';
 
 // One page, two sources.
@@ -64,6 +65,18 @@ function DirectionPreview({
   );
 }
 
+/**
+ * Where a card's Preview leads. A generated direction whose template can take
+ * the brand copy gets the rebrand preview; everything else is the template's
+ * own page, which is at least real.
+ */
+const previewHref = (generationId: string | null, direction: Direction, index: number) =>
+  generationId && direction.copyRoles?.includes('brandName')
+    ? `/studio/preview/?g=${generationId}&i=${index}`
+    : `/template/${direction.slug}/`;
+
+const downloadHref = (direction: Direction) => `/downloads/${direction.slug}-html.zip`;
+
 export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -78,6 +91,8 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
   const [imageError, setImageError] = useState<string | null>(null);
   const [making, setMaking] = useState<number | null>(null);
   const [makeError, setMakeError] = useState<string | null>(null);
+  /** Which card's Preview is open in the dialog, if any. */
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   useEffect(() => {
     if (!generationId) {
       setStored(null);
@@ -120,6 +135,22 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
 
   const description = generationId ? (stored?.description ?? '') : query;
   const loading = Boolean(generationId) && !stored && !loadError;
+
+  const previewTarget = useMemo<PreviewTarget | null>(() => {
+    const direction = previewIndex === null ? undefined : directions[previewIndex];
+
+    if (previewIndex === null || !direction) return null;
+
+    return {
+      slug: direction.slug,
+      name: direction.name,
+      stance: direction.stance,
+      palette: direction.palette,
+      copy: direction.copy ?? null,
+      href: previewHref(generationId, direction, previewIndex),
+      downloadHref: downloadHref(direction),
+    };
+  }, [directions, previewIndex, generationId]);
 
   /**
    * The second, dearer stage: every text slot on the chosen template written
@@ -301,14 +332,18 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                   </div>
 
                   <div className={styles.actions}>
+                    {/* A real link — middle-click, copy, no-script all land on
+                        the full page — that a plain click turns into the
+                        dialog instead. */}
                     <Link
-                      href={
-                        generationId && direction.copyRoles?.includes('brandName')
-                          ? `/studio/preview/?g=${generationId}&i=${index}`
-                          : `/template/${direction.slug}/`
-                      }
+                      href={previewHref(generationId, direction, index)}
                       prefetch={false}
                       className={styles.action}
+                      onClick={(event) => {
+                        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                        event.preventDefault();
+                        setPreviewIndex(index);
+                      }}
                     >
                       <span className={styles.disc} aria-hidden="true">
                         <span className={styles.eye} />
@@ -316,11 +351,7 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
                       <span>Preview</span>
                     </Link>
 
-                    <a
-                      href={`/downloads/${direction.slug}-html.zip`}
-                      className={styles.action}
-                      download
-                    >
+                    <a href={downloadHref(direction)} className={styles.action} download>
                       <span className={styles.disc} aria-hidden="true">
                         &darr;
                       </span>
@@ -361,6 +392,8 @@ export default function StudioResults({ entries }: { entries: StudioEntry[] }) {
           {makeError ?? imageError}
         </p>
       ) : null}
+
+      <PreviewDialog target={previewTarget} onClose={() => setPreviewIndex(null)} />
     </div>
   );
 }

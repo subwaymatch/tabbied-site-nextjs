@@ -51,11 +51,31 @@ describe('the admin tier', () => {
       expect(response.status, `${route}: ${await response.clone().text()}`).toBe(200);
     }
 
-    const overview = (await SELF.fetch(`${ORIGIN}/api/admin/overview`, { headers: { cookie } }).then((r) => r.json())) as { users: number };
+    const overview = (await SELF.fetch(`${ORIGIN}/api/admin/overview`, { headers: { cookie } }).then((r) => r.json())) as {
+      users: number;
+      signupsByDay: { day: string; n: number }[];
+    };
     expect(overview.users).toBeGreaterThanOrEqual(2);
+    // Both accounts were created moments ago, so today is a day with sign-ups.
+    expect(overview.signupsByDay.reduce((sum, row) => sum + row.n, 0)).toBeGreaterThanOrEqual(2);
+    expect(overview.signupsByDay.every((row) => /^\d{4}-\d{2}-\d{2}$/.test(row.day))).toBe(true);
 
-    const users = (await SELF.fetch(`${ORIGIN}/api/admin/users?q=member`, { headers: { cookie } }).then((r) => r.json())) as { users: { email: string; role: string | null }[] };
+    // The member has asked Studio for one set of directions, and the row
+    // says so: the per-user counts are correlated subqueries that once
+    // compared a column to itself and answered zero for everyone.
+    const asked = await SELF.fetch(`${ORIGIN}/api/studio/directions`, {
+      method: 'POST',
+      headers: { ...json, cookie: member },
+      body: JSON.stringify({ description: 'A bakery in a small coastal town, sourdough and coffee.' }),
+    });
+    expect(asked.status).toBe(200);
+
+    const users = (await SELF.fetch(`${ORIGIN}/api/admin/users?q=member`, { headers: { cookie } }).then((r) => r.json())) as {
+      users: { email: string; role: string | null; sites: number; generations: number }[];
+    };
     expect(users.users.map((u) => u.email)).toEqual(['member@example.com']);
+    expect(users.users[0].generations).toBe(1);
+    expect(users.users[0].sites).toBe(0);
 
     const quotas = (await SELF.fetch(`${ORIGIN}/api/admin/quotas`, { headers: { cookie } }).then((r) => r.json())) as { editable: boolean };
     expect(quotas.editable).toBe(false);

@@ -56,7 +56,9 @@ admin.get('/overview', async (c) => {
   const today = startOfUtcDay();
   const week = daysAgo(7);
 
-  const [[users], [newUsers], [generations], [sites], [fallbacks], [spend], [images]] = await Promise.all([
+  const fortnight = daysAgo(14);
+
+  const [[users], [newUsers], [generations], [sites], [fallbacks], [spend], [images], signups] = await Promise.all([
     db.select({ n: sql<number>`count(*)` }).from(user),
     db.select({ n: sql<number>`count(*)` }).from(user).where(gte(user.createdAt, week)),
     db.select({ n: sql<number>`count(*)` }).from(generation).where(gte(generation.createdAt, week)),
@@ -73,6 +75,15 @@ admin.get('/overview', async (c) => {
       .select({ n: sql<number>`coalesce(sum(${aiUsage.imageCount}), 0)` })
       .from(aiUsage)
       .where(gte(aiUsage.createdAt, week)),
+    // The growth chart: accounts created per UTC day over the last fortnight.
+    // Days with none are absent here and filled in by the page, so the
+    // answer stays small and the chart stays honest about quiet days.
+    db
+      .select({ day: sql<string>`date(${user.createdAt}, 'unixepoch')`, n: sql<number>`count(*)` })
+      .from(user)
+      .where(gte(user.createdAt, fortnight))
+      .groupBy(sql`date(${user.createdAt}, 'unixepoch')`)
+      .orderBy(sql`date(${user.createdAt}, 'unixepoch')`),
   ]);
 
   return c.json({
@@ -84,6 +95,7 @@ admin.get('/overview', async (c) => {
     aiCallsToday: Number(spend.calls),
     aiCostToday: Number(spend.cost),
     imagesThisWeek: Number(images.n),
+    signupsByDay: signups.map((row) => ({ day: row.day, n: Number(row.n) })),
   });
 });
 
@@ -105,8 +117,11 @@ admin.get('/users', async (c) => {
       role: user.role,
       banned: user.banned,
       createdAt: user.createdAt,
-      sites: sql<number>`(select count(*) from ${site} where ${site.userId} = ${user.id})`,
-      generations: sql<number>`(select count(*) from ${generation} where ${generation.userId} = ${user.id})`,
+      // Qualified by hand: with no join in the outer query drizzle renders
+      // `${user.id}` as a bare "id", which inside the subquery resolves to
+      // *site*.id and counts nothing. `${site}` alone is the table name.
+      sites: sql<number>`(select count(*) from ${site} where ${site}.user_id = ${user}.id)`,
+      generations: sql<number>`(select count(*) from ${generation} where ${generation}.user_id = ${user}.id)`,
     })
     .from(user)
     .where(q ? or(like(user.email, `%${q}%`), like(user.name, `%${q}%`)) : undefined)

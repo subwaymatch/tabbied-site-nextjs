@@ -46,15 +46,154 @@
   border-color: var(--s-ink);
 }
 
-.actions {
+/* ── Photos ──────────────────────────────────────────────────────────────── */
+
+.drop {
   display: flex;
-  gap: 12px;
-  margin-top: 40px;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  margin-top: 24px;
+  padding: 20px 24px;
+  font-family: var(--s-sans);
+  color: var(--s-ink);
+  text-align: left;
+  background: none;
+  border: 1px dashed oklch(0 0 0 / 0.18);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 200ms ease, background-color 200ms ease;
 }
 
-.submit,
-.secondary {
+.drop:hover,
+.drop[data-over] {
+  border-color: oklch(0 0 0 / 0.35);
+}
+
+.drop[data-over] {
+  background-color: oklch(0 0 0 / 0.02);
+}
+
+.dropIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font: 400 16px var(--s-sans);
+  color: var(--s-muted);
+  border: 1px solid oklch(0 0 0 / 0.18);
+  border-radius: 8px;
+}
+
+.dropTitle {
+  display: block;
+  margin-bottom: 2px;
+  font: 600 15px var(--s-sans);
+}
+
+.dropSub {
+  display: block;
+  font: 400 13px var(--s-sans);
+  color: var(--s-dim);
+}
+
+.fileInput {
+  display: none;
+}
+
+.photos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photosHint {
+  margin: 16px 0 0;
+  font: 400 13px var(--s-sans);
+  color: var(--s-dim);
+}
+
+.photosHint + .photos {
+  margin-top: 10px;
+}
+
+.photo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px 10px 16px;
+  background-color: oklch(0 0 0 / 0.04);
+  border-radius: 10px;
+}
+
+.photoName {
+  flex: none;
+  max-width: 180px;
+  overflow: hidden;
+  font: 400 13px var(--s-sans);
+  color: var(--s-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photoNote {
   flex: 1;
+  min-width: 0;
+  padding: 6px 0;
+  font: 400 13px var(--s-sans);
+  color: var(--s-ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid oklch(0 0 0 / 0.16);
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.photoNote::placeholder {
+  color: oklch(0.62 0.01 260);
+}
+
+.photoNote:focus {
+  border-color: var(--s-ink);
+}
+
+/* A file the API would refuse, said before it is sent. */
+.photoProblem {
+  flex: 1;
+  min-width: 0;
+  font: 400 13px var(--s-sans);
+  color: oklch(0.45 0.17 25);
+}
+
+.photoRemove {
+  flex: none;
+  padding: 0 2px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--s-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.photoRemove:hover {
+  color: var(--s-ink);
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────────── */
+
+.submit {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
   padding: 18px;
   font: 600 16px var(--s-sans);
   color: #eef0f6;
@@ -62,32 +201,60 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 200ms ease, border-color 200ms ease;
-}
-
-/* The free path is a peer, not a footnote: it is what everyone gets, and the
-   only difference is who writes the colours and the copy. */
-.secondary {
-  font: 600 16px var(--s-sans);
-  color: var(--s-ink);
-  background: none;
-  border: 1px solid var(--s-line);
-  border-radius: 10px;
-  cursor: pointer;
+  transition: background-color 200ms ease;
 }
 
 .submit:hover:enabled {
   background-color: oklch(0.22 0 0);
 }
 
-.secondary:hover:enabled {
-  border-color: var(--s-ink);
-}
-
-.submit:disabled,
-.secondary:disabled {
+.submit:disabled {
   cursor: not-allowed;
   opacity: 0.35;
+}
+
+.spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid oklch(1 0 0 / 0.25);
+  border-top-color: #eef0f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* The two other ways out: the same paths as before, as quieter text actions
+   under the one button the page leads with. */
+.alternatives {
+  margin: 18px 0 0;
+  font: 400 14px / 1.7 var(--s-sans);
+  color: var(--s-muted);
+}
+
+.textAction {
+  padding: 0;
+  font: 500 14px var(--s-sans);
+  color: var(--s-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.textAction:hover:enabled {
+  color: var(--s-teal);
+}
+
+.textAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .error {
@@ -100,9 +267,19 @@
 }
 
 .note {
-  margin: 16px 0 0;
+  margin: 20px 0 0;
   font: 400 13px / 1.6 var(--s-sans);
   color: var(--s-dim);
+}
+
+.note strong {
+  font-weight: 600;
+  color: var(--s-ink);
+}
+
+.note a {
+  color: var(--s-ink);
+  text-decoration: underline;
 }
 
 @media (max-width: 767.98px) {
@@ -117,27 +294,26 @@
   }
 
   .lede {
-    font-size: 16px;
     margin-bottom: 32px;
+    font-size: 16px;
   }
-}
 
-@media (max-width: 559.98px) {
-  /* Two full-width buttons rather than two cramped ones. */
-  .actions {
-    flex-direction: column;
+  .photoName {
+    max-width: 120px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .textarea,
-  .submit,
-  .secondary {
+  .drop,
+  .photoNote,
+  .submit {
     transition: none;
   }
-}
 
-.note strong {
-  font-weight: 600;
-  color: var(--s-ink);
+  /* A still ring still reads as "busy" beside the label; a turning one is
+     exactly the motion the preference is asking to stop. */
+  .spinner {
+    animation: none;
+  }
 }

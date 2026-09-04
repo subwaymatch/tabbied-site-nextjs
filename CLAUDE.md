@@ -436,6 +436,24 @@ Things worth not re-litigating:
   *in dev* and the verification mail is written to KV instead of sent (which
   is how the e2e flow reads a link back). In production that same branch
   throws — a silently swallowed verification strands the account.
+- **Provider buttons come from `/api/auth-providers`, not from the form.**
+  `configuredProviders()` lists the social providers the Worker actually
+  holds ids for (Google, Apple, GitHub), and the sign-in form draws a button
+  per answer. With no Worker behind the export the request fails quietly and
+  the form is email and password. A button for an unconfigured provider is
+  one that 500s on click, which is the thing this exists to prevent.
+- **A person's own generations are listable, like their sites.** `GET
+  /api/studio/generations` is session-scoped and carries the three directions'
+  names and palettes (never the copy); the account overview merges it with
+  `/api/studio/sites` into one history. The no-listing rule is about anonymous
+  enumeration by id, not about a person's own rows.
+- **A correlated subquery in a single-table select must qualify its columns
+  by hand.** drizzle renders `${user.id}` as a bare `"id"` when the outer
+  query has no join, and inside `(select count(*) from site where …)` that
+  resolves to *site*.id — every count came back 0 and nothing errored.
+  `${site}.user_id = ${user}.id` spells the tables out; the same pattern with
+  a join in the outer query happens to work, which is why it looked fine on
+  the generations list and not on the users list.
 - **A miss under `/api` is `api.all('*')`, not `api.notFound()`.** A sub-app's
   notFound handler is not used once it is mounted with `route()`, so the
   request falls through to the asset handler and answers an API client with
@@ -635,6 +653,23 @@ three things sit beside the canvas; a visitor by link gets the page alone.
   caller's own headers, at the recommended index. Every gate and cap applies
   as it would to the two clicks it replaces, and there stays one
   implementation of each. "Make my website" on `/studio` is this.
+- **The 2026 designs for the new pages** (agent-outputs has none; the source
+  was a Claude Design export). Sign-in, sign-up and the password pages share
+  `AuthForm.module.css` (592px measure, provider buttons above an "or"
+  rule). `/studio` leads with one button — "Generate websites", the three
+  directions — and keeps "Make my website" and "Match from the library" as
+  text actions under it; the photo dropzone uploads to `/api/uploads` with
+  each file's note before the generate call, and a description typed before
+  signing in survives the round trip in `sessionStorage`. On
+  `/studio/results` Preview is still a real link to the full page, and a
+  plain click opens `PreviewDialog` instead: the packaged download with the
+  direction applied, in an iframe, built by the same `buildPreviewDocument`
+  the preview route uses. The account pages sit under `AccountHeader` (the
+  homepage nav in ink on paper, initials on the right, a menu with the
+  destinations and Sign out) and the admin pages under a sidebar shell whose
+  "Export users" writes the directory as CSV in the browser. All of it is
+  responsive down to 390px; the account and admin tables collapse to stacked
+  rows, the admin rows labelling their cells once the header row is gone.
 - **Pages.** `/account/{sites,uploads,usage,settings}` under one nav;
   `/verify-email` is where the confirmation link lands (`callbackURL` on
   sign-up), `/forgot-password` and `/reset-password` use better-auth 1.7's
