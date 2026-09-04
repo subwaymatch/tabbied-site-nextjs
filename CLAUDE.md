@@ -580,6 +580,20 @@ the template and shows the result.
   resolves. The step runs between the two `next build` passes, after the
   packager it reads from — **it is derived from the packaged HTML**, so a
   template added in the same commit cannot be missing a design it needs.
+- **The preview document spells its resource paths out, and handles its own
+  `#` links.** The injected `<base>` is correct and complete, and two things
+  still go wrong in an `about:srcdoc` document without help. Chromium's
+  preload scanner ignores the `<base>` and fetches every relative stylesheet
+  and preloaded image against the *page's* URL first — a 404 at
+  `/studio/results/styles/base.css`, then `ERR_ABORTED` once the parser
+  catches up and fetches the right one; the preview drew fine and the console
+  said otherwise. So `buildPreviewDocument` also rewrites `link`/`img`/
+  `script` references to absolute paths under the package. And a `#work` link
+  resolves against the `<base>` to the package's URL, which is never the
+  document's own `about:srcdoc`, so the browser *navigates* the frame there —
+  the raw page, rebrand gone, esm.sh bootstrap back; a sandbox does not stop
+  a frame navigating itself. The injected bootstrap turns fragment links into
+  the scroll the template meant. `e2e/studio-preview.spec.ts` pins both.
 - **The iframe needs `allow-same-origin`, and that is not laziness.** With
   `allow-scripts` alone the document gets an opaque origin and the same-origin
   runtime import is blocked as cross-origin — the page renders with every
