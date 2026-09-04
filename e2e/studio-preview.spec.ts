@@ -167,4 +167,96 @@ test.describe('studio preview', () => {
       .poll(() => nav.evaluate((el) => getComputedStyle(el).display))
       .not.toBe('block');
   });
+
+  test('asks for nothing relative to the route', async ({ page }) => {
+    // Chromium's preload scanner does not honour the injected <base> in a
+    // srcdoc document: with relative hrefs it fetched every stylesheet and
+    // preloaded image against this route first — `/studio/preview/styles/…`,
+    // a 404 and a console full of errors for a preview that then drew fine.
+    // The builder now spells those references out as absolute paths under the
+    // package, so nothing the frame asks for lives under the route.
+    const underRoute: string[] = [];
+    page.on('request', (request) => {
+      const { pathname } = new URL(request.url());
+      if (pathname.startsWith('/studio/preview/') && pathname !== '/studio/preview/') {
+        underRoute.push(pathname);
+      }
+    });
+
+    await page.goto('/studio/preview/?g=e2epreview&i=0');
+
+    const frame = page.frameLocator('iframe');
+    await expect(frame.locator('css-doodle').first()).toHaveCount(1, { timeout: 15_000 });
+
+    expect(underRoute).toEqual([]);
+  });
+
+  test('keeps an in-page link in the page', async ({ page }) => {
+    await page.goto('/studio/preview/?g=e2epreview&i=0');
+
+    const frame = page.frameLocator('iframe');
+    await expect(frame.locator('[data-edit="brand.name"]').first()).toHaveText(
+      'Ye Joo Park',
+      { timeout: 15_000 }
+    );
+
+    // A `#…` link resolves against the <base> to the package's own URL, which
+    // is never the srcdoc document's URL — so without the bootstrap's handler
+    // the browser *navigates* the frame to the raw package: the rebrand gone,
+    // the esm.sh bootstrap back. The template's nav links are `href="#"`;
+    // pointing one at a real section id proves the scroll too.
+    await frame
+      .locator('a[href="#"]')
+      .first()
+      .evaluate((el) => el.setAttribute('href', '#items'));
+    await frame.locator('a[href="#items"]').click();
+
+    await expect
+      .poll(() => frame.locator('body').evaluate(() => window.scrollY))
+      .toBeGreaterThan(0);
+    expect(await frame.locator('body').evaluate(() => location.href)).toBe('about:srcdoc');
+    await expect(frame.locator('[data-edit="brand.name"]').first()).toHaveText('Ye Joo Park');
+    await expect(frame.locator('css-doodle').first()).toHaveCount(1);
+  });
+});
+
+test.describe('results preview dialog', () => {
+  test.skip(
+    REQUIRED.some((file) => !fs.existsSync(file)),
+    'run `npm run build` first — needs the packaged templates and the preview runtime'
+  );
+
+  test('opens the packaged template in place, asking for nothing relative to the route', async ({
+    page,
+  }) => {
+    // The library match needs no Worker, so this runs against `serve out`
+    // like the rest of the suite. Which three it picks does not matter here;
+    // that the dialog builds the same document as the preview route does.
+    const underRoute: string[] = [];
+    page.on('request', (request) => {
+      const { pathname } = new URL(request.url());
+      if (pathname.startsWith('/studio/results/') && pathname !== '/studio/results/') {
+        underRoute.push(pathname);
+      }
+    });
+
+    await page.goto('/studio/results/?q=A%20neighbourhood%20plant%20shop');
+
+    const preview = page.getByRole('link', { name: 'Preview' }).first();
+    const href = await preview.getAttribute('href');
+    expect(href).toMatch(/^\/template\/[a-z0-9-]+\/$/);
+
+    // A plain click opens the dialog rather than following the link.
+    await preview.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    expect(page.url()).toContain('/studio/results/');
+
+    const frame = dialog.frameLocator('iframe');
+    await expect(frame.locator('css-doodle').first()).toHaveCount(1, { timeout: 15_000 });
+    await expect(frame.locator('link[rel="stylesheet"][href^="/downloads/"]').first()).toBeAttached();
+
+    expect(underRoute).toEqual([]);
+  });
 });
