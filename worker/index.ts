@@ -37,6 +37,7 @@ import { createMcpHandler } from '@modelcontextprotocol/server';
 import { buildAuth, configuredProviders } from './auth';
 import type { Env } from './env';
 import { isDev } from './env';
+import journal from './migrations/meta/_journal.json';
 import media from './routes/media';
 import account from './routes/account';
 import admin from './routes/admin';
@@ -168,8 +169,64 @@ const app = new Hono<{ Bindings: Env }>();
 app.all('/mcp', (c) => handleMcp(c.req.raw, c.env));
 app.all('/mcp/', (c) => handleMcp(c.req.raw, c.env));
 
+/** Every message down the cause chain, so a wrapped D1 error still reads as one. */
+function describeError(error: unknown): string {
+  const parts: string[] = [];
+  let current: unknown = error;
+
+  for (let depth = 0; current !== undefined && current !== null && depth < 5; depth++) {
+    parts.push(current instanceof Error ? current.message : String(current));
+    current = current instanceof Error ? current.cause : undefined;
+  }
+
+  return parts.join(' <- ');
+}
+
+/**
+ * SQLite's wording when the code is ahead of the database: a table or column
+ * that a migration would have created. Drizzle wraps the D1 error, so the
+ * cause chain is what gets matched, not the outer message.
+ */
+const SCHEMA_BEHIND = /no such (table|column)/i;
+
+/** The newest migration this build ships, from drizzle's own journal. */
+const EXPECTED_MIGRATION = journal.entries.at(-1)?.tag ?? null;
+
+/**
+ * What the database has actually had applied, against what this build
+ * expects. `d1_migrations` is wrangler's ledger (one row per applied file);
+ * a database that has never been migrated has no such table, which reads
+ * as "nothing applied" rather than as an error.
+ */
+async function schemaStatus(env: Env) {
+  let applied: string | null = null;
+
+  try {
+    const row = await env.DB.prepare(
+      'SELECT name FROM d1_migrations ORDER BY id DESC LIMIT 1'
+    ).first<{ name: string }>();
+    applied = row?.name.replace(/\.sql$/, '') ?? null;
+  } catch {
+    applied = null;
+  }
+
+  return { expected: EXPECTED_MIGRATION, applied, current: applied === EXPECTED_MIGRATION };
+}
+
 app.onError((error, c) => {
   const { pathname } = new URL(c.req.url);
+  const detail = describeError(error);
+  const ray = c.req.header('cf-ray') ?? null;
+
+  // Say what failed, in the log. Cloudflare's observability keeps console
+  // output, and a 500 that names nothing gets diagnosed by reading every
+  // handler on the path instead of one line. The ray id is echoed in the
+  // body so a report from a browser console can be matched to that line.
+  console.error(
+    `${c.req.method} ${pathname}${ray ? ` [${ray}]` : ''}: ${
+      error instanceof Error && error.stack ? error.stack : detail
+    }`
+  );
 
   // The catalog is an asset; if it can't be read, the deployment is broken
   // rather than the request. Say so in JSON-RPC terms so an MCP client
@@ -190,7 +247,25 @@ app.onError((error, c) => {
     );
   }
 
-  return c.json({ error: 'Internal error' }, 500);
+  // A table or column the code expects and the database lacks is a deploy
+  // that shipped without its migration, not a fault in the request. It is
+  // answered as a 503 that says so: the fix is `npm run db:migrate:remote`,
+  // and until it runs this route is down rather than mysteriously broken.
+  // (This is what "Make this one" looked like from the outside when
+  // migration 0003 had never been applied to production: every route that
+  // touched `site` answered "Internal error", and the working routes around
+  // it made the failure look like the model call.)
+  if (SCHEMA_BEHIND.test(detail)) {
+    return c.json(
+      {
+        error: 'The database schema is behind this deployment. Apply the pending migrations.',
+        ray,
+      },
+      503
+    );
+  }
+
+  return c.json({ error: 'Internal error', ray }, 500);
 });
 
 app.get('/health', (c) => c.text('ok'));
@@ -217,9 +292,20 @@ api.use('*', async (c, next) => {
   })(c, next);
 });
 
-api.get('/health', (c) =>
-  c.json({ status: 'ok', service: 'tabbied-api', version: 1 })
-);
+// Liveness for the API tier, plus the one deploy-time fact nothing else
+// reports: whether the database has had this build's migrations applied.
+// `degraded` here, with `schema.applied` behind `schema.expected`, is the
+// whole diagnosis of a Studio that answers 503 on every site route.
+api.get('/health', async (c) => {
+  const schema = await schemaStatus(c.env);
+
+  return c.json({
+    status: schema.current ? 'ok' : 'degraded',
+    service: 'tabbied-api',
+    version: 1,
+    schema,
+  });
+});
 
 // Which social providers the sign-in form may offer. Public and cheap: it
 // reads the environment and touches nothing. Deliberately outside better-auth's

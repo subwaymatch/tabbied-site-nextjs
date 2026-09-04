@@ -407,10 +407,21 @@ cannot grow past one row per user per endpoint. Sessions moved to
 better-auth's `cookieCache`, which beats a second store by removing the lookup
 rather than relocating it.
 
-Provisioning cannot do the schema, so after the first deploy that creates `DB`:
-`npm run db:migrate:remote`, then `wrangler secret put BETTER_AUTH_SECRET`.
-Until that secret exists `/api/auth/*` answers 503 and nothing else changes —
-the intended degradation, not an outage. `.dev.vars` is gitignored;
+Provisioning cannot do the schema, and neither does a deploy: **every
+migration under `worker/migrations` has to be applied to production by
+hand or by the deploy command**, not only the first. `npm run deploy` runs
+`db:migrate:remote` before `wrangler deploy` for that reason; a Workers
+Builds project that deploys with its own command needs
+`npx wrangler d1 migrations apply tabbied --remote` in it too. The failure
+when this is skipped is exact and misleading: the routes that touch a new
+table answer 503 ("The database schema is behind this deployment") while
+everything around them works, which is how "Make this one" read as a
+broken model call when 0003 had never reached production. `GET /api/health`
+reports `schema.expected` against `schema.applied` (read from wrangler's
+`d1_migrations` ledger), and `status: "degraded"` there is the whole
+diagnosis. Then `wrangler secret put BETTER_AUTH_SECRET`. Until that secret
+exists `/api/auth/*` answers 503 and nothing else changes, the intended
+degradation, not an outage. `.dev.vars` is gitignored;
 `.dev.vars.example` documents the shape.
 
 Things worth not re-litigating:

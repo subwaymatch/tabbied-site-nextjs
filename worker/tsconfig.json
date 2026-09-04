@@ -15,6 +15,9 @@
     ],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    // The migrations journal is imported so /api/health can say which
+    // migration this build expects. Wrangler bundles JSON on its own.
+    "resolveJsonModule": true,
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
