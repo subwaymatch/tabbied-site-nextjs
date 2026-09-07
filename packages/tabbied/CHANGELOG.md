@@ -1,5 +1,13 @@
 # tabbied
 
+## 0.5.1
+
+### Patch Changes
+
+- Changes since tabbied@0.5.0 that landed without a changeset:
+
+  - The 2026 design, and Studio's AI tier: auth on D1, generation, images, R2 ([#64](https://github.com/tabbied-design/tabbied/issues/64))
+
 ## 0.5.0
 
 ### Minor Changes
